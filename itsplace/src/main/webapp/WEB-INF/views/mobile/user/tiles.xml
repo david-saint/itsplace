@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+<definition name="user/m_loginpage" extends="mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/user/m_loginpage.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    	        		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">
+  			<add-attribute value="place/1.0/m_place.css" />
+  			<add-attribute value="stamp/1.0/m_stamp.css" />		      		  			
+  		</put-list-attribute>
+	</definition>
+
+    
+</tiles-definitions>

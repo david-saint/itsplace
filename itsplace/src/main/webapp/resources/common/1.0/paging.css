@@ -1,0 +1,8 @@
+.pageNumber{
+	margin-left:5px;
+	border:1px solid black;
+}
+.currentPage{
+	font-weight: bold;
+	border:1px solid blue;
+}

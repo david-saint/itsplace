@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- 컨트롤러의 리턴값이랑 definition name="openapi" 의 값이 일치하거나 매칭되면 해당 타일즈로 타도록 되어있어 컨트롤러 리턴값이 아스트리크와 매핑된다. 
+	<definition name="openapi/*" extends="base_layout">
+		<put-attribute name="body"	expression="/WEB-INF/views/${currentDevice.mobile ? 'mobile/' : 'standard/'}openapi/{1}.jsp" />
+	</definition>	
+	-->
+	<definition name="openapi/daummap" extends="empty_layout">
+		<put-attribute name="body"	expression="/WEB-INF/views/standard/openapi/daummap.jsp" />
+	</definition>
+	<definition name="openapi/address" extends="empty_layout">
+		<put-attribute name="body"	expression="/WEB-INF/views/standard/openapi/address.jsp" />
+	</definition>
+    
+</tiles-definitions>

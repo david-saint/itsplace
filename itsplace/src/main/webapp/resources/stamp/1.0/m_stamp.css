@@ -1,0 +1,50 @@
+
+.stamp_box{
+	border:0px solid green;
+	margin-top:25px;	
+	clear: both;
+}
+.stamp_column{
+	border:1px solid black;
+	width:32px;
+	height:32px;
+	
+	margin:0px;
+	margin-bottom:5px;
+	list-style: none;
+	display: inline-block;
+	border-radius: 4px;
+	text-align: center;
+	font-size: 10px;
+	text-align: center;
+}
+.stamp_column p{
+	border:0px solid blue;
+	margin:0px;
+	padding:0px;
+	height: 30px;
+}
+.stamp_blox ul{
+	border:1px solid blue;
+	
+}
+.eventday{/*당첨*/
+	border:1px solid orange;
+	background-image: url("http://itsplace.net/resources/stamp/1.0/heart_balloons.png");
+}
+.stampped{/*스탬프등록*/
+	border:1px solid red;
+	background-image: url("http://itsplace.net/resources/stamp/1.0/kiss.png");
+}
+.stamppedEvent{/*스탬프등록 및 사용*/
+	border:1px solid green;
+	
+}
+.stamp_box .remark{
+	border:0px solid blue;
+	padding:0px;
+}
+.remark pre{
+	border:0px solid black;
+	margin:0px;
+}

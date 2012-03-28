@@ -1,0 +1,39 @@
+
+.stamp_box{
+	width:370px;
+	border:0px solid green;
+	margin-top:25px;	
+	clear: both;
+}
+.stamp_column{
+	border:1px solid black;
+	width:50px;
+	height:30px;
+	margin:0px;
+	margin-bottom:5px;
+	list-style: none;
+	display: inline-block;
+	border-radius: 2px;
+}
+.stamp_blox ul{
+	border:1px solid blue;
+	
+}
+.eventday{/*당첨*/
+	border:1px solid orange;
+}
+.stampped{/*스탬프등록*/
+	border:1px solid red;
+}
+.stamppedEvent{/*스탬프등록 및 사용*/
+	border:1px solid green;
+	
+}
+.stamp_box .remark{
+	border:0px solid blue;
+	padding:0px;
+}
+.remark pre{
+	border:0px solid black;
+	margin:0px;
+}

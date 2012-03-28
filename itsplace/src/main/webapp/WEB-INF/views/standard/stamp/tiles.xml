@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="stamp/*" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}stamp/{1}.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />  
+    		<add-attribute value="common/1.0/json-1.0.0.js" />          		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		  			
+  			<add-attribute value="jquery/jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css" />
+  			<add-attribute value="jquery/cluetip/jquery.cluetip.css" />
+  		</put-list-attribute>
+	</definition>
+	
+	<definition name="stamp/myStampList" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}stamp/myStampList.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />  
+    		<add-attribute value="common/1.0/json-1.0.0.js" />          		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="stamp/1.0/myStampList.css" />
+  			<add-attribute value="jquery/jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css" />
+  			<add-attribute value="jquery/cluetip/jquery.cluetip.css" />
+  		</put-list-attribute>
+	</definition>
+	
+	<definition name="stamp/myStamp" extends="empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}stamp/myStamp.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />  
+    		<add-attribute value="common/1.0/json-1.0.0.js" />          		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="stamp/1.0/myStampList.css" />
+  			<add-attribute value="stamp/1.0/stamp.css" />
+  			<add-attribute value="franchiser/1.0/fid.css" />
+  			<add-attribute value="jquery/jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css" />
+  			<add-attribute value="jquery/cluetip/jquery.cluetip.css" />
+  		</put-list-attribute>
+	</definition>
+	
+
+        
+</tiles-definitions>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="bbs_layout" template="/WEB-INF/views/standard/layout/bbs_layout.jsp">		
+		<put-attribute name="bbs_header" expression="/WEB-INF/views/standard/layout/bbs_header.jsp" />	
+		<put-attribute name="bbs_footer" expression="/WEB-INF/views/standard/layout/bbs_footer.jsp" />
+		<put-attribute name="bbs_left" expression="/WEB-INF/views/standard/layout/bbs_left.jsp" />
+	</definition>
+	
+	
+	<definition name="bbs/*" extends="bbs_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/standard/bbs/{1}.jsp" />
+	</definition>
+
+</tiles-definitions>

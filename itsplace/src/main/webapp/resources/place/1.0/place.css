@@ -1,0 +1,109 @@
+
+body { 
+	color: #333;
+	font-family: "돋움",dotum,sans-serif;
+    font-size: 12px;	
+	/* CSS3 gradient background pattern @credits http://leaverou.me/demos/css3-patterns.html */
+	background-color: #eee; /* Change this to change both stribe colors */
+	
+	background-image: -webkit-gradient(linear, 0 100%, 100% 0,
+							color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent),
+							color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)),
+							color-stop(.75, rgba(255, 255, 255, .2)), color-stop(.75, transparent),
+							to(transparent)); /* Old webkit syntax */
+	background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+							transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+							transparent 75%, transparent); /* New webkit syntax */					
+	background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+							transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+							transparent 75%, transparent); /* Firefox */
+	background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+							transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+							transparent 75%, transparent); /* Opera */
+	background-image: linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%,
+							transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%,
+							transparent 75%, transparent); /* WC3 */
+	background-size: 16px 16px;
+}
+
+
+/* Post thumbnail and images */
+figure { 
+	background: #f4f4f4;
+	border: 2px solid #cecdcd;
+	border-radius: 3px 5px 5px 5px;
+	float: left;
+	padding: 10px;
+	text-align: center;
+	-webkit-transition: border 200ms ease;
+	/*-moz-transition: border 200ms ease;*/
+	transition: border 200ms ease;
+}
+
+figure:hover {
+	border: 2px solid #F83D87;
+}
+
+figure,
+figure.alignleft  {
+	margin: 0 20px 20px 0;
+}
+
+figure.alignright {
+	margin: 0 0 20px 20px;
+}
+
+figure {
+	margin-left: -40px;	
+}
+ul{
+	margin:0;
+	padding:0;
+}
+li{
+	list-style: none outside none;
+	outline: 0 none;
+	margin:0;
+	padding:0;
+}
+dt{
+	margin-right:10px;	
+	float: left;
+}
+
+#content article{
+	border:1px solid red;
+	height:300px;
+}
+#content ul{
+	border:1px solid orange;
+	
+}
+#commentWriteBox{
+	border:1px solid blue ;	
+}
+.commentList{
+	border:1px solid black;
+	clear: both;
+}
+.commentList img{
+	float: left;
+	border: 1px solid #CCC;
+	background: white;
+	margin: 0 10px;
+	padding: 3px;
+}
+#commentWriteBox{
+	border: 1px solid black;
+}
+#commentWriteBox textarea{
+	width:526px;
+	height:100px;
+}
+#commentWriteBox input{
+	float:rigtht;
+}
+#map{
+	width:300px;height:300px;border:1px solid blue;
+	float: right;
+}

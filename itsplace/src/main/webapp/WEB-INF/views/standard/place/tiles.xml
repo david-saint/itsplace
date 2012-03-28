@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="place/*" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/standard/place/{1}.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		   
+    		<add-attribute value="franchiser/1.0/franchiser-1.0.0.js" />    
+    		<add-attribute value="common/1.0/json-1.0.0.js" />   
+    		<add-attribute value="jquery/code.photoswipe/lib/klass.min.js" />      
+    		<add-attribute value="jquery/code.photoswipe/code.photoswipe-2.1.6.min.js" />       		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="place/1.0/place.css" />
+  			<add-attribute value="stamp/1.0/stamp.css" />
+  			<add-attribute value="jquery/code.photoswipe/photoswipe.css" />
+  		</put-list-attribute>
+	</definition>
+	
+
+        
+</tiles-definitions>

@@ -1,0 +1,99 @@
+
+#infoAddress{
+	cursor: pointer;
+    display: inline;
+    float: left;
+    margin: 5px 0 0 8px;
+    padding: 0 12px 0 0;
+    position: relative;
+}
+
+.mapitem0{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/A.png")	}
+.mapitem1{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/B.png")	}
+.mapitem2{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/C.png")	}
+.mapitem3{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/D.png")	}
+.mapitem4{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/E.png")	}
+.mapitem5{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/F.png")	}
+.mapitem6{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/G.png")	}
+.mapitem7{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/H.png")	}
+.mapitem8{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/I.png")	}
+.mapitem9{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/J.png")	}
+.mapitem10{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/K.png")	}
+.mapitem11{ background-image: url("http://localhost:8090/MyPlace/resources/openapi/marker/L.png")	}
+
+
+/*.mapitem0{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_1_s.gif")	}
+.mapitem1{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_2_s.gif")  }
+.mapitem2{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_3_s.gif")	}
+.mapitem3{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_4_s.gif")	}
+.mapitem4{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_5_s.gif")	}
+.mapitem5{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_6_s.gif")	}
+.mapitem6{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_7_s.gif")	}
+.mapitem7{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_8_s.gif")	}
+.mapitem8{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_9_s.gif")	}
+.mapitem9{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_10_s.gif")	}
+.mapitem10{ background-image: url("http://i1.daumcdn.net/localimg/localimages/07/2009/map/icon/ico_mn_11_s.gif")}
+*/
+
+
+/*
+*
+*/
+
+
+.polaroid{        /* 테두리 생성 */
+      
+    padding:5px 5px 5px 5px;
+    border: 1px solid #bfbfbf;
+    background-color:#fff;
+    -webkit-box-shadow: 2px 2px 3px rgba(135,139,144,0.4);
+    -moz-box-shadow: 2px 2px 3px rgba(135.139.144,0.4);
+    box-shadow: 2px 2px 3px rgba(135.139.133.0.4);
+}
+
+.caption {   /* 이미지 캡션 지정 */
+    text-align:center;
+    font-family:"바탕";
+    font-weight:600;
+    font-size:16px;
+    color:#060;	
+}
+
+
+/*infoWindow 마커 상세정보*/
+.infoWindow{
+	border:2px solid red;
+	height:10px;
+	padding: 20px 13px 10px 20px;
+}
+.infoWindow img{
+	float:left;border: 1px solid #E2E2E2;width:84px; heigth:76px;
+}
+.infoWindow .title{
+	min-width: 100px;margin: 0 0 7px 98px;
+}	
+.infoWindow p{
+	font: 12px/1.5 AppleGothic,'굴림',Gulim,sans-serif;margin: 0 0 0 98px;overflow: hidden;color: #0F7833;line-height: 1.4em;	
+}
+	
+.infoWindow .close{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 15px;
+	height: 15px;
+	background: no-repeat 0 -33px url(http://static.ak.fbcdn.net/rsrc.php/v1/yA/r/4WSewcWboV8.png);
+}
+
+
+.franchiser .fname{
+	color: orange;
+	font-weight: bold;
+	
+}
+.franchiser .mapview{
+	cursor: pointer;
+}
+	
+	
+	

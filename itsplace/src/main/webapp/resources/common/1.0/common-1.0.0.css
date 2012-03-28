@@ -1,0 +1,252 @@
+/* Reset.css */
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+    color: #333333;
+    /*font-family: "�뗭�",dotum,sans-serif;*/
+    font: normal 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content: ""; content: none; }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+a{
+	color:white;
+	cursor:pointer;	
+	text-decoration: none;
+}
+a:active{
+	color:white;
+}
+i, cite, em, var, address {
+font-style: none;
+}
+fieldset{
+	border:none;
+}
+
+li{
+		list-style: none outside none;		
+}
+/* End reset */
+
+
+/* ��씠��*/
+h1{
+	line-height: 30px;
+	padding: 0;
+	margin: 0;
+	clear: none;
+	font-weight:bold;
+	font-size: 20px;
+}
+.list li{
+	border: 1px solid #CCCCCC;
+	border-bottom: 0px;
+	height: 22px;
+	opacity: 0.5;    
+	list-style: none outside none;
+    outline: 0 none;
+    padding: 18px 6px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px 0 inset, rgba(255, 255, 255, 0.2) 0 1px 0 0;
+	font-size: 14px;
+}
+.list li:HOVER {
+    background: -moz-linear-gradient(center top , #EDEDED, #DADADA) repeat scroll 0 0 #DADADA;
+    background-image: -webkit-gradient(linear, left top, left bottom,color-stop(0.00, #DADADA), color-stop(1.00, #DADADA));    
+    border: 1px solid #BBBBBB;
+    color: #101010;    
+    
+    cursor: pointer;
+    
+    
+}
+
+.text-input{
+	border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;  
+    outline: 0 none;
+    padding: 8px 6px;
+    width: 382px;
+    height: 24PX;
+    opacity: 0.5;
+    font-size: 14px;    
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px 0 inset, rgba(255, 255, 255, 0.2) 0 1px 0 0
+}
+
+input:focus{
+	border-color: rgba(82, 168, 236, 0.75);
+    box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+}
+input[type="password"]{
+	border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;  
+    outline: 0 none;
+    padding: 8px 6px;
+    width: 382px;
+    height: 24PX;
+    opacity: 0.5;
+    font-size: 14px;    
+    box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px 0 inset, rgba(255, 255, 255, 0.2) 0 1px 0 0
+}
+
+/**
+*   �낅젰��CSS 怨듯넻 �ㅽ���
+* 
+*
+**/
+
+
+.error{
+	color:red;	
+}
+
+#top-bar{
+	position: relative;
+	width: 1000px;
+	margin: 0 auto;
+	margin-bottom:10px;
+	padding:0px;	
+	
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#EAEAEA');
+	background: -webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EAEAEA));
+	background: -moz-linear-gradient(top,#333,#111);
+	background: transparent	9;
+
+	box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/*
+**
+** �덉씠�꾩썐
+*/
+
+/* 而щ읆 */
+.column li{
+	
+		list-style: none outside none;
+		display: inline-block;		
+}
+/**
+ * Content
+ */
+#wrapper {
+	width: 1000px;
+	margin: 0 auto;
+}
+#main { 
+	background: rgba(204, 204, 204, .4);
+	border-radius: 5px 5px 10px 10px;
+	width: 960px;
+	padding: 10px 20px 10px 20px;
+	-webkit-box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.4), 0px 0px 15px rgba(204, 204, 204, 0.5);
+	-moz-box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.4), 0px 0px 15px rgba(204, 204, 204, 0.5);
+	box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.4), 0px 0px 15px rgba(204, 204, 204, 0.5);
+}
+/*
+* �ㅻ뜑 遺�텇
+*/
+.field{
+	border:0px solid blue;
+	margin-top: 10px;	
+	z-index: 9999;
+	border-color: black;		
+}
+#top-inner{
+	clear:none;
+	border:0px solid green;
+	margin: 0 auto;
+	padding:5px 5px 5px 5px;
+		
+}
+
+.logoBox{
+	float:left;
+	width:200px;
+	font-size: 20px;
+	font-weight: bold;height:30px;
+}
+.menuBox{
+	float:left;width:500px;height:30px;
+}
+.menuBox form{float:left;}
+.menuBox ul{
+	float:left;
+
+line-height: 26px;
+border: 1px solid red;
+margin: 0 0 0 30px;
+	}
+ .loginBox{	
+	width:170px;
+	height:30px;
+	float:right;
+}
+#top_profileImage{
+	
+}
+#top_profileImage img{
+	
+	width:30px;
+	height:30px;
+	margin:0px;
+	float: left;
+}
+
+#dropdownLogin{
+	display:none;
+	position: absolute;
+	left:800px;
+	top:38px;
+	width:240px;
+	z-index: 0;
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	background: #D45500;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	zoom: 1;
+
+}
+#dropdownLogin .textbox input{
+	width:200px;
+	height:12px;
+}
+#dropdownLogin button{
+	margin-left: 50px;
+}
+#dropdownLogin form{
+	margin-left:10px;
+}
+
+#search{
+}
+}

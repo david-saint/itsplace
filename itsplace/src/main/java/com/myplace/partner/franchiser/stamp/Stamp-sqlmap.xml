@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="stamp">
+	<typeAlias type="com.myplace.partner.franchiser.stamp.Stamp" alias="Stamp"/>	    
+	
+    <select id="getStamptypeList" resultClass="Stamp" >
+    	 SELECT  STAMPNAME, STAMPTYPE, STAMPCOUNT, EVENTDAY, REMARK
+    	 FROM PSTAMPTYPE  
+    	 ORDER BY DISPSEQ  
+    </select>
+    
+    <select id="getStamptypeRegister" resultClass="Stamp" parameterClass="String">    	 
+    	 SELECT  A.STAMPTYPE, A.FID, B.STAMPNAME, B.STAMPCOUNT, B.EVENTDAY, A.REMARK 
+    	 FROM PSTAMPREGISTER A
+    	 INNER JOIN  PSTAMPTYPE B
+    	 	ON A.STAMPTYPE = B.STAMPTYPE
+    	 WHERE FID = #fid#
+    	 AND USEYN='Y'  
+    </select>
+    
+   
+    
+    <insert id="saveStampRegister" parameterClass="Stamp">
+         INSERT INTO PSTAMPREGISTER(STAMPTYPE, FID, USEYN, REMARK)
+         VALUES (#stamptype#, #fid#, 'Y', #remark#)
+    </insert>
+    <update id="updateStampRegister" parameterClass="Stamp">
+   		UPDATE   PSTAMPREGISTER
+   			SET USEYN = #useyn#,
+   			REMARK = #remark#
+   		WHERE STAMPTYPE = #stamptype#
+        AND FID =  #fid#   		
+    </update>
+     
+    <select id="getStampRegister" parameterClass="Stamp" resultClass="Stamp">
+         SELECT STAMPTYPE, FID, USEYN, REMARK  FROM PSTAMPREGISTER
+         WHERE STAMPTYPE = #stamptype#
+         AND FID =  #fid#
+    </select>
+ 
+    
+    <insert id="saveStamp" parameterClass="Stamp">
+         INSERT INTO PSTAMP(SID, EMAIL, STATUS, REMARK, MOBILE)
+         VALUES (#sid#, #email#,  'P', #remark#, #mobile#)
+    </insert>
+    <update id="updateStamp" parameterClass="Stamp">
+         UPDATE PSTAMP
+         SET STATUS = 'U',
+         	 USEDATE =  CURRENT_TIMESTAMP()
+         WHERE STATUS = 'P'
+         AND PID = #pid#
+         
+    </update>
+    
+    <update id="deleteStamp" parameterClass="String">
+         UPDATE PSTAMP SET STATUS ='C'
+         WHERE PID = #pid#         
+    </update>
+    
+    <select id="getUserStampListByMobile" parameterClass="Stamp" resultClass="Stamp">
+         SELECT A.PID, A.STAMPTYPE, E.FID, A.EMAIL, A.STATUS, A.REMARK, A.MOBILE, A.INPDATE, D.EVENTDAY,
+	         B.NAME, B.PROFILEIMAGEURL         
+	         FROM PSTAMP A
+	         LEFT OUTER JOIN PUSER B
+	         	ON A.EMAIL = B.EMAIL    
+	         INNER JOIN PSTAMPREGISTER C
+					ON A.SID = C.sid
+			INNER JOIN PSTAMPTYPE D
+					ON C.stamptype = D.stamptype
+			INNER JOIN PFRANCHISER E
+	         		ON E.FID = C.FID       
+		         WHERE C.STAMPTYPE = #stamptype#
+			         AND E.FID =  #fid#
+			         AND A.MOBILE = #mobile#
+			         AND A.STATUS = 'Y'        
+			     ORDER BY A.INPDATE ASC 
+          <isNotEqual property="startRow" compareValue="0">
+         LIMIT $startRow$ , $endRow$ 
+         </isNotEqual> 
+    </select>
+    <select id="getUserStampListByEmail" parameterClass="Stamp" resultClass="Stamp">
+         SELECT  B.FID, A.EMAIL,  D.FNAME, C.stampcount, C.EVENTDAY , B.remark FROM PSTAMP A
+			INNER JOIN PSTAMPREGISTER B
+				ON A.SID = B.sid
+			INNER JOIN PSTAMPTYPE C
+				ON C.stamptype = B.stamptype
+			INNER JOIN PFRANCHISER D
+         		ON B.FID = D.FID  
+				WHERE A.EMAIL = #email#
+	  <![CDATA[ AND A.STATUS <> 'C']]>
+				GROUP BY  B.FID, A.EMAIL, D.FNAME, C.stampcount, C.EVENTDAY , B.remark
+    </select>
+    
+     <select id="getUserStampListByFcode" parameterClass="Stamp" resultClass="Stamp">
+         SELECT  A.PID, B.FID, A.EMAIL,  D.FNAME, C.STAMPCOUNT, C.EVENTDAY , B.remark FROM PSTAMP A
+			INNER JOIN PSTAMPREGISTER B
+				ON A.SID = B.SID
+			INNER JOIN PSTAMPTYPE C
+				ON C.stamptype = B.stamptype
+			INNER JOIN PFRANCHISER D
+         		ON B.FID = D.FID  
+				WHERE A.EMAIL = #email#
+				AND D.FOCDE = #fcode#
+	  <![CDATA[ AND A.STATUS <> 'C']]>
+				GROUP BY  B.FID, A.EMAIL, D.FNAME, C.stampcount, C.EVENTDAY , B.remark
+    </select>
+     <select id="getUserStampListByFid" parameterClass="Stamp" resultClass="Stamp">
+         SELECT
+	        B.FID,
+	        A.EMAIL,
+	        D.FNAME,
+	        D.FCODE,
+	        C.stampcount,
+	        C.EVENTDAY ,
+	        B.remark,
+	        A.INPDATE,
+	        A.STATUS,
+	        A.USEDATE
+	    FROM
+	        PSTAMP A    
+	    INNER JOIN
+	        PSTAMPREGISTER B     
+	            ON A.SID = B.sid    
+	    INNER JOIN
+	        PSTAMPTYPE C     
+	            ON C.stamptype = B.stamptype    
+	    INNER JOIN
+	        PFRANCHISER D            
+	            ON B.FID = D.FID       
+	    WHERE
+	        A.EMAIL = #email# 
+	       <![CDATA[ AND A.STATUS = 'P'
+	        AND B.ENDDATE >= CURRENT_TIMESTAMP()    
+	        ]]> 
+	        AND B.FID = #fid#	       
+	        ORDER BY A.PID DESC
+  
+    </select>
+    <select id="getUserStampListByMain"  resultClass="Stamp">
+        SELECT    C.STAMPTYPE, A.EMAIL, A.STATUS, A.MOBILE,C.FID, E.FNAME, E.FILENAME, A.INPDATE, B.NAME, B.PROFILEIMAGEURL
+		 FROM PSTAMP A
+		 	LEFT OUTER JOIN PUSER B
+		   	ON A.EMAIL = B.EMAIL    
+		   INNER JOIN PSTAMPREGISTER C
+				ON A.SID = C.sid
+			INNER JOIN PSTAMPTYPE D
+				ON C.stamptype = D.stamptype
+			INNER JOIN PFRANCHISER E
+		   	ON E.FID = C.FID  
+         WHERE 	      	         
+	          A.STATUS = 'Y'
+         GROUP BY     C.STAMPTYPE, A.EMAIL, A.STATUS, A.MOBILE,C.FID, E.FNAME, E.FILENAME, A.INPDATE, B.NAME, B.PROFILEIMAGEURL
+         ORDER BY A.INPDATE DESC
+         LIMIT 0,7   
+    </select>
+    
+</sqlMap>

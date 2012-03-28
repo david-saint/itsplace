@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="franchiser/*" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}franchiser/{1}.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		   
+    		<add-attribute value="franchiser/1.0/franchiser-1.0.0.js" />    
+    		<add-attribute value="common/1.0/json-1.0.0.js" />      
+    		<add-attribute value="clearbox/clearbox.js" />      
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/franchiser.css" />
+  		</put-list-attribute>
+  		
+	</definition>
+	<definition name="franchiser/franchiserList" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/standard/franchiser/franchiserList.jsp" />		
+		<put-attribute name="footer"	 expression="/WEB-INF/views/standard/franchiser/footer.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		   
+    		<add-attribute value="franchiser/1.0/franchiser-1.0.0.js" />    
+    		<add-attribute value="common/1.0/json-1.0.0.js" />      
+    		<add-attribute value="clearbox/clearbox.js" />      
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/franchiser.css" />
+  		</put-list-attribute>
+	</definition>
+	
+	<definition name="franchiser/newFranchiser" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}franchiser/newFranchiser.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		   
+    		<add-attribute value="franchiser/1.0/newFranchiser-1.0.0.js" />    
+    		<add-attribute value="common/1.0/json-1.0.0.js" />      
+    		<add-attribute value="jquery/maskedinput/jquery.maskedinput-1.3.min.js" />      
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/newFranchiser.css" />
+  		</put-list-attribute>
+	</definition>
+
+
+	
+	<definition name="franchiser/fid" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}franchiser/fid.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		       		
+    		<add-attribute value="common/1.0/json-1.0.0.js" />      
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />      
+    		<add-attribute value="jquery/rightclick/jquery.rightClick.js" />      
+    		<add-attribute value="jquery/jquery-ui-1.8.16.custom/js/jquery-ui-1.8.16.custom.min.js" />
+    		    
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/fid.css" />
+  					<add-attribute value="jquery/jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css" />
+  			<add-attribute value="jquery/cluetip/jquery.cluetip.css" />
+  			
+  		</put-list-attribute>
+	</definition>
+	
+	
+	
+	<definition name="franchiser/main" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}franchiser/main.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		       		
+    		<add-attribute value="common/1.0/json-1.0.0.js" />      
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/fid.css" />
+  			<add-attribute value="franchiser/1.0/franchiserDetail.css" />
+  		</put-list-attribute>
+	</definition>
+
+
+	<definition name="franchiser/franchiserDetail" extends="base_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/' : 'standard/'}franchiser/franchiserDetail.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="franchiser/1.0/newFranchiser-1.0.0.js" />    
+    		<add-attribute value="jquery/formValidator.2.2.1/jquery.validationEngine-kr.js" />    
+    		<add-attribute value="jquery/formValidator.2.2.1/jquery.validationEngine.js" />   
+    		<add-attribute value="common/1.0/json-1.0.0.js" />      
+    		<add-attribute value="jquery/maskedinput/jquery.maskedinput-1.3.min.js" />       
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/franchiserDetail.css" />
+  			<add-attribute value="jquery/formValidator.2.2.1/validationEngine.jquery.css" />
+  		</put-list-attribute>
+	</definition>
+
+</tiles-definitions>

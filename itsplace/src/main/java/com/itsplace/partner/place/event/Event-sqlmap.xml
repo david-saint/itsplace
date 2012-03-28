@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Event">
+
+	<typeAlias type="com.itsplace.partner.place.event.Event" alias="Event"/>
+	
+	<insert id="saveEvent" parameterClass="Event">
+         INSERT INTO PFEVENT(FID, TITLE, CONTENT, STARTDATE, ENDDATE, USEYN)
+         VALUES (#fid#, #title#, #content#, #startDate#, #endDate#, #useyn#)
+         
+	    <selectKey keyProperty="eid" resultClass="java.lang.Integer">
+	    	 SELECT last_insert_id()
+	    </selectKey>
+	    
+    </insert>
+	<update id="updateEvent" parameterClass="Event">
+         UPDATE PFEVENT SET TITLE = #title#,
+         CONTENT = #content#,
+         STARTDATE = #startDate#,
+         ENDDATE =  #endDate#,
+         USEYN =  #useyn#
+         WHERE EID = #eid# 
+    </update>
+
+    <select id="getEventList" resultClass="Event" parameterClass="java.util.Map">
+    	 SELECT EID, FID, TITLE, CONTENT, STARTDATE, ENDDATE, USEYN, INPDATE
+    	 FROM PFEVENT
+    	 WHERE FID = #fid#
+    	 ORDER BY STARTDATE		    	
+    </select>
+    <select id="getEvent" resultClass="Event" parameterClass="String">
+    	 SELECT EID, FID, TITLE, CONTENT, STARTDATE, ENDDATE, USEYN, INPDATE
+    	 FROM PFEVENT
+    	 WHERE EID = #eid#    	 		    	
+    </select>
+   
+    
+</sqlMap>    

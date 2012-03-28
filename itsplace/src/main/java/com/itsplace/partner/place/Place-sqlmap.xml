@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Franchiser">
+
+	<typeAlias type="com.myplace.partner.franchiser.FranchiserMember" alias="FranchiserMember"/>
+	<typeAlias type="com.myplace.partner.franchiser.Category" alias="Category"/>
+	<typeAlias type="com.itsplace.partner.place.PlaceComment" alias="PlaceComment"/>
+	  <insert id="savePlaceComment" parameterClass="PlaceComment">
+         INSERT INTO PLACECOMMENT(COMMENT, EMAIL, FID)
+         VALUES (#comment#, #email#, #fid#)
+    </insert>
+
+    <select id="getPlaceCommentList" resultClass="PlaceComment" parameterClass="Integer">
+    	 SELECT A.FID, C.COMMENT, E.NAME, E.PROFILEIMAGEURL, C.EMAIL, C.INPDATE, C.CID 
+		 FROM PFRANCHISER A		 	
+		 LEFT OUTER JOIN PLACECOMMENT C
+        	ON A.FID = C.FID        	
+         INNER JOIN PUSER E
+         	ON E.EMAIL = C.EMAIL	
+         WHERE A.FID = #fid#		    	
+    </select>
+    <delete id="deletePlaceComment" parameterClass="PlaceComment">
+    	DELETE FROM PLACECOMMENT WHERE CID=#cid# 
+    </delete>
+    
+    <select id="getPlaceCommentRecentList" resultClass="PlaceComment" parameterClass="java.util.Map">
+    	 SELECT A.FID, A.FNAME, C.COMMENT, E.NAME, E.PROFILEIMAGEURL, C.EMAIL, C.INPDATE, C.CID 
+		 FROM PFRANCHISER A		 	
+		 LEFT OUTER JOIN PLACECOMMENT C
+        	ON A.FID = C.FID        	
+         INNER JOIN PUSER E
+         	ON E.EMAIL = C.EMAIL	
+ 		    	
+    </select>
+     <select id="getPlaceListByDong" resultMap="FranchiserMemberJoinAddress" parameterClass="java.util.Map" >
+    	 SELECT COUNT(D.COMMENT) AS COMMENTCOUNT, A.AUTHYN, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1, A.FILENAME, C.CNAME, A.STYPE,
+		   	 	B.SIDO, B.GUGUN, B.BUPNAME, B.HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN, S.REMARK , S.STAMPTYPE
+		 FROM PFRANCHISER A
+		 LEFT OUTER JOIN PADDRESS B
+			ON A.NLDNO = B.NLDNO
+		 LEFT OUTER JOIN PCATEGORY C
+		 	ON A.CATEGORY = C.CATEGORY						
+		 LEFT OUTER JOIN PLACECOMMENT D 
+        	ON A.FID = D.FID
+         LEFT OUTER JOIN PSTAMPREGISTER S
+         	ON S.FID = A.FID
+         	AND S.USEYN='Y'	
+			WHERE B.BUPNAME LIKE CONCAT('%',#searchWord#,'%')  
+			OR B.HDONGNAME LIKE CONCAT('%',#searchWord#,'%')  
+			AND A.AUTHYN = 'Y'
+		 GROUP BY
+		  A.AUTHYN,
+        A.FID,
+        A.FNAME,
+        A.LATITUDE,
+        A.LONGITUDE,
+        A.NLDNO,
+        A.MOBILE,
+        A.PHONE1,
+        A.FILENAME,
+        C.CNAME,
+        A.STYPE,
+        B.SIDO,
+        B.GUGUN,
+        B.BUPNAME,
+        B.HDONGNAME,
+        B.JIMAIN,
+        B.JISUBMAIN,
+        B.DORONAME,
+        B.BLDMAIN,
+        B.BLDSUBMAIN,
+        S.REMARK ,
+        S.STAMPTYPE      
+	</select>	
+</sqlMap>    

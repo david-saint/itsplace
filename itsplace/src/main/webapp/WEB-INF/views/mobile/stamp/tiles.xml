@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	
+	
+	<definition name="stamp/m_stampByUser" extends="empty_mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/stamp/m_stampByUser.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />  
+    		<add-attribute value="common/1.0/json-1.0.0.js" />          		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		  			
+  		</put-list-attribute>
+	</definition>
+	<definition name="stamp/m_stampByUserResult" extends="empty_mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/stamp/m_stampByUserResult.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />  
+    		<add-attribute value="common/1.0/json-1.0.0.js" />          		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		  			
+  		</put-list-attribute>
+	</definition>
+	<definition name="stamp/m_myStampList" extends="mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/stamp/m_myStampList.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    		<add-attribute value="jquery/cluetip/jquery.cluetip.js" />  
+    		<add-attribute value="common/1.0/json-1.0.0.js" />          		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      
+  			<add-attribute value="place/1.0/m_place.css" />
+  			<add-attribute value="stamp/1.0/m_stamp.css" />		  			
+  		</put-list-attribute>
+	</definition>
+	<definition name="stamp/m_myStamp" extends="empty_mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/stamp/m_myStamp.jsp" />		
+		<put-list-attribute name="scripts">    		        		   
+    	        		     
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">
+  			<add-attribute value="place/1.0/m_place.css" />
+  			<add-attribute value="stamp/1.0/m_stamp.css" />		      		  			
+  		</put-list-attribute>
+	</definition>
+
+        
+</tiles-definitions>

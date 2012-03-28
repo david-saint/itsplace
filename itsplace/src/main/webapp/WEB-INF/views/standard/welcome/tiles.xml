@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="welcome/*" extends="base_layout">
+			<put-attribute name="body"	 expression="/WEB-INF/views/standard/welcome/{1}.jsp" />			
+		<put-list-attribute name="scripts">
+    		<add-attribute value="user/1.0/user-1.0.0.js" />    
+    		<add-attribute value="common/1.0/json-1.0.0.js" />    
+    		<add-attribute value="common/1.0/customInput.jquery.js" />
+    		<add-attribute value="clearbox/clearbox.js" />      
+    		<add-attribute value="jquery/maskedinput/jquery.maskedinput-1.3.min.js" />
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">
+  			<add-attribute value="user/1.0/user-1.0.0.css" />    
+  		</put-list-attribute>
+	</definition>
+	
+    
+</tiles-definitions>

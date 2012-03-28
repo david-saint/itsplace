@@ -1,0 +1,29 @@
+body, a { color: #444340; }
+h1, h2, h3, h4 { padding-bottom: 15px; color: #000; text-decoration: none; }
+h1 { font-size: 1.3em; padding-top: 15px; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.1em; }
+h3 { font-size: 1em; }
+ul { padding-bottom: 15px; }
+p { padding: 0 0 0 0; margin:0;}
+img { border: none; }
+/*배경색*/
+.ui-page{background: #fff;}
+
+#top_header{
+	border:0px solid  red;
+	float:left;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	height: 50px;
+}
+#profile{
+	color:white;
+	border:0px solid  blue;
+	margin:0 0 0 0;
+	float: right
+}
+
+#mFooter{background: #DFDCD1;border:0px solid blue;color: #444340;font-weight: normal;text-shadow: none;}
+#mFooter p{padding: 0 0 5px 0;}
+#mFooter a:ACTIVE{color: #444340;}

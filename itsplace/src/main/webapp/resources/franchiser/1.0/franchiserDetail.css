@@ -1,0 +1,60 @@
+textarea{
+	border: 1px solid #CCC;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 8px;
+	-webkit-box-shadow: 0 1px #fff;
+	-moz-box-shadow: 0 1px #fff;
+	box-shadow: 0 1px #fff;
+	width: 482px;
+	height: 56px;
+	color: #222;
+	font: 14px/18px "Helvetica Neue",Arial,sans-serif;
+	outline: none;
+	width: 442px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.field label{
+	float:left;
+	width:130px;
+	text-align:right;
+	padding-top:15px;
+	margin-right:15px;
+	
+}
+
+#stamp_box{
+	
+}
+#stamp_box table{
+	border-collapse: collapse;	
+}
+#stamp_box td, #stamp_box th{
+	border:1px solid #33904E;padding:10px
+}
+#stamp_box .count{
+	text-align: right;
+}
+#stamp_box .stamptype{
+	width:100px;
+}
+#stamp_box .sample{
+	width:370px;
+}
+.eventday{
+	border:1px solid red;
+}
+.stamp_column{
+	border:1px solid black;
+	width:30px;
+	height:30px;
+	margin:0px;
+	margin-bottom:5px;
+	list-style: none;
+	display: inline-block;
+}

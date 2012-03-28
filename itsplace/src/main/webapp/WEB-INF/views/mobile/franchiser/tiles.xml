@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="franchiser/m_franchiserList" extends="mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/franchiser/m_franchiserList.jsp" />		
+		<put-attribute name="footer"	 expression="/WEB-INF/views/mobile/franchiser/footer.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		   
+    		<add-attribute value="franchiser/1.0/m_franchiser-1.0.0.js" />    
+    		<add-attribute value="common/1.0/json-1.0.0.js" />
+    		      
+    		<add-attribute value="jquery/scrollview/jquery.mobile.scrollview.js" />      
+    		<add-attribute value="jquery/scrollview/scrollview.js" />      
+    		<add-attribute value="jquery/scrollview/jquery.easing.1.3.js" />      
+ 
+  		</put-list-attribute>
+  		<put-list-attribute name="styles">      		
+  			<add-attribute value="franchiser/1.0/m_franchiser.css" />
+  			<add-attribute value="jquery/scrollview/jquery.mobile.scrollview.css" />
+  		</put-list-attribute>
+	</definition>
+	
+	<definition name="franchiser/m_location" extends="mobile_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/mobile/franchiser/m_location.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="openapi/daummap.js" />        		   
+  		</put-list-attribute>  		
+	</definition>
+	
+	
+	
+
+</tiles-definitions>

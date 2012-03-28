@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Franchiser">
+
+	<typeAlias type="com.myplace.partner.franchiser.image.FranchiserImage" alias="FranchiserImage"/>
+	
+	
+    <select id="getFranchiserImage" resultClass="FranchiserImage" parameterClass="FranchiserImage">
+    	 SELECT * 
+		 FROM PFIMAGE
+		 WHERE FID=#fid#
+		 AND USEYN='Y'
+		 ORDER BY DISPSEQ
+    </select>
+   
+    
+    <insert id="saveFranchiserImage" parameterClass="FranchiserImage">
+         INSERT INTO PFIMAGE(FID, FILENAME, DISPSEQ)
+         VALUES (#fid#,#fileName#,#dispseq#)
+    </insert>
+    <update id="updateFranchiserImage" parameterClass="FranchiserImage">
+         UPDATE PFIMAGE 
+         SET FILENAME 	= #fileName#,          	  	 
+         WHERE FID = #fid#
+    </update>
+    
+     	
+</sqlMap>    

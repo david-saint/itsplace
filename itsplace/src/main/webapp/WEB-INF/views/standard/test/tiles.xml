@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <definition name="test" extends="empty_layout">
+		<put-attribute name="body" expression="/WEB-INF/views/standard/test/test.jsp" />
+	</definition>
+	
+    <definition name="test2" extends="empty_layout">
+		<put-attribute name="body" expression="/WEB-INF/views/standard/test/test2.jsp" />
+	</definition>
+	
+</tiles-definitions>
+	

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Admin">
+
+	<typeAlias type="com.myplace.partner.franchiser.FranchiserMember" alias="FranchiserMember"/>
+	<typeAlias type="com.myplace.partner.franchiser.Category" alias="Category"/>
+
+	<resultMap id="address" class="com.myplace.common.Address" >
+		<result property="sido" column="SIDO"></result>						
+	</resultMap>
+	<resultMap id="FranchiserMemberJoinAddress" class="FranchiserMember" >
+		<result property="fid" column="FID"></result>
+		<result property="fname" column="FNAME"></result>
+		<result property="latitude" column="LATITUDE"></result>
+		<result property="longitude" column="LONGITUDE"></result>
+		<result property="nldno" column="NLDNO"></result>
+		<result property="phone1" column="PHONE1"></result>
+		<result property="fileName" column="FILENAME"></result>
+		<result property="commentCount" column="COMMENTCOUNT"></result>
+		
+		<result property="address.sido" column="SIDO"></result>
+		<result property="address.gugun" column="GUGUN"></result>
+		<result property="address.bupname" column="BUPNAME"></result>
+		<result property="address.doroname" column="DORONAME"></result>
+		<result property="address.bldmain" column="BLDMAIN"></result>
+		<result property="address.bldsubmain" column="BLDSUBMAIN"></result>
+		<result property="address.jimain" column="JIMAIN"></result>
+		<result property="address.jisubmain" column="JISUBMAIN"></result>
+		
+		
+		
+		<!-- <result property="address" resultMap="address"/> -->					
+	</resultMap>
+	<update id="updateFranchiserAuth" parameterClass="FranchiserMember">
+		UPDATE PFRANCHISER SET AUTHYN = #authyn#
+		WHERE FID = #fid#
+	</update>
+</sqlMap>    
