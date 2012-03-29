@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="itsplace.net"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" />
+	<uses-permission android:name="android.permission.INTERNET"/>   
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <application
+        android:name=".MainApplication"     	
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar"
+        >
+        <activity
+            android:name=".ItsplaceActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+          <!-- 스플래시(로딩) 액티비티 -->
+		<activity android:name=".SplashActivity"/>
+		<activity android:name=".map.DaumMapActivity"/>
+		<activity android:name=".user.LoginActivity"/>
+		<activity android:name=".user.LoginAsyncActivity"/>
+		<activity android:name=".user.SignUpActivity"/>
+		<activity android:name=".franchiser.FranchiserViewActivity"/>
+		<activity android:name=".StampActivity"/>
+		<activity android:name=".stamp.StampSaveActivity" 
+		     android:theme="@android:style/Theme.Dialog"     
+		/>
+		<activity android:name=".Stamp.SampUseActivity"/>
+		
+         <activity android:name=".MainActivity"
+                  android:label="MainActivity"
+                  >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+         <activity android:name="com.mobyfactory.uiwidgets.DemoActivity1"
+                  android:label="Demo Activity 1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="com.mobyfactory.uiwidgets.DemoActivity2"
+                  android:label="Demo Activity 2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+         <activity android:name=".SpringTestActivity"
+                  android:label="SpringTestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        
+          <activity android:name=".FranchiserActivity"
+                  android:label="FranchiserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

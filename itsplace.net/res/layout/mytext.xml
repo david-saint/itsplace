@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+android:id/testlayout1"
+    android:gravity="center_vertical|center_horizontal"
+    >
+    <ProgressBar 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+android:id/testtext1"
+       android:layout_width="30dip"
+       android:layout_height="30dip" />
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/testtext"
+	android:layout_width="80dip"
+	android:layout_height="30dip"
+	android:paddingLeft="3dip"
+	android:text="로드 중 ..."
+	/>
+</LinearLayout>

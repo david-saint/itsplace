@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/stamplinear"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="4dip" >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="name"
+        android:textSize="10dp" 
+        />
+ <TextView
+        android:id="@+id/fcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="fcode"
+        android:textSize="10dp" 
+        />
+    <LinearLayout       
+        android:id="@+id/stampLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@layout/shape_round"
+        android:padding="5dp"
+        android:orientation="vertical" >
+
+    </LinearLayout>
+   
+    <LinearLayout       
+        android:id="@+id/stampLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@layout/shape_round"
+        android:orientation="vertical" >
+	<Button android:id="@+id/btnStampSaveActivity"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"                  
+                  android:text="적립"   android:background="@layout/shape_button" />
+	<Button android:id="@+id/btnStamUseActivity"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"                  
+                  android:text="사용"   android:background="@layout/shape_button" />
+	</LinearLayout>
+	 
+    
+	<LinearLayout                    
+        android:id="@+id/eventLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@layout/shape_round"
+        android:orientation="horizontal" >
+ 	<TextView
+        android:id="@+id/event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="이벤트 정보"
+        android:textSize="10dp" 
+        />
+ 
+    </LinearLayout>
+            
+  <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="43" />
+
+</LinearLayout>

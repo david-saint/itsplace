@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@layout/header_gradient" 
+    android:orientation="horizontal" 
+    android:padding="5dp">
+    
+   <!--  android:background="#a0000000"  android:background="@layout/header_gradient" -->
+  
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Itsplace"
+        android:textSize="11dp"
+        android:textStyle="bold" />
+
+    <ImageButton 
+        android:id="@+id/btn_Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"   
+        android:src="@drawable/ic_search"      
+        android:background="@drawable/button_status" />
+
+    <ImageButton
+        android:id="@+id/btn_Option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/btn_Search"
+        android:src="@drawable/ic_refresh"
+        android:background="@drawable/button_status" 
+        android:layout_marginRight="5dp" />
+
+</RelativeLayout>

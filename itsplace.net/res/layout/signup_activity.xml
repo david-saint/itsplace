@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" android:background="#000000">
+ 
+ <!--  Header Starts-->
+	<LinearLayout android:id="@+id/header"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:background="@layout/header_gradient"
+	      android:paddingTop="5dip"
+	      android:paddingBottom="5dip">
+	
+	          <!-- Logo Start-
+	          <ImageView android:src="@drawable/logo"
+	              android:layout_width="wrap_content"
+	              android:layout_height="wrap_content"
+	              android:layout_marginLeft="10dip"/>
+	           Logo Ends -->
+   </LinearLayout>	           
+<!--  Header Ends-->
+<!-- Footer Start -->
+          <LinearLayout android:id="@+id/footer"
+                  android:layout_width="fill_parent"
+                  android:layout_height="90dip"
+                 
+                  android:layout_alignParentBottom="true">
+          </LinearLayout>
+<!-- Footer Ends -->
+ 
+<!-- SingnUp Form -->
+        <LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dip"
+          android:layout_below="@id/header">
+          <!--  Email Label -->
+          <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="#372c24"
+                  android:text="Email"/>
+          
+          <EditText android:id="@+id/email"  
+              	  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dip"
+                  android:inputType="textEmailAddress"
+                  android:hint="Email 인증에 사용!"                  
+                  android:singleLine="true" android:padding="5dip"  android:background="@layout/shape_edittext"/>
+          
+          <!--  Password Label -->
+          <TextView 
+              	  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="#372c24"
+                  android:text="Password"/>
+          <EditText android:id="@+id/password"
+              	android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" 
+                  android:layout_marginTop="5dip"
+                  android:singleLine="true"
+                  android:password="true"
+                  android:hint="6자 이상! 복잡하게!" 
+                  android:padding="5dip"   android:background="@layout/shape_edittext"
+                />
+          <!--  Name Label -->
+          <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="#372c24"
+                  android:text="Name"/>          
+          <EditText android:id="@+id/name"  
+              	  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dip"            
+                  android:singleLine="true" android:padding="5dip"  android:background="@layout/shape_edittext"/>
+          <!--  Phone number Label -->
+          <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="#372c24"
+                  android:text="Phone Number"/>          
+          <EditText android:id="@+id/mobile"  
+              	  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dip"
+                  android:layout_marginBottom="20dip"                  
+                  android:singleLine="true" android:padding="5dip"  android:background="@layout/shape_edittext"/>
+          
+          <!-- Login button -->
+          <Button android:id="@+id/btnSignUp"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dip"  
+                  android:padding="10dp" 
+                  android:text="SignUp"   android:background="@layout/shape_button"
+                 />
+          <!-- Login button -->
+          <Button android:id="@+id/btnLogin"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dip"  
+                  android:padding="10dp" 
+                  android:text="Login"   android:background="@layout/shape_button"
+                 />
+          
+          <!-- Link to Registration Screen -->
+          <TextView android:id="@+id/link_to_password"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="40dip"
+                  android:layout_marginBottom="40dip"
+                  android:text="password?"
+                  android:gravity="center"
+                  android:textSize="20dip"
+                  android:textColor="#0b84aa"/>
+ 
+     
+          <!-- Login Form Ends -->		           
+	</LinearLayout>
+
+  </RelativeLayout>
+
+   
+
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:orientation="horizontal" >
+
+	
+	<ImageView
+        android:id="@+id/fImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+    	android:layout_alignParentLeft="true"
+        android:src="@drawable/stub"
+        android:background="@layout/shape_round"
+         />
+   
+	<TextView
+	    android:id="@+id/fName"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignTop="@+id/fImage"
+	    android:layout_marginLeft="16dp"
+	    android:layout_toRightOf="@+id/fImage"
+	    android:text="itsplace 커피숍" />
+
+	<TextView
+	    android:id="@+id/TextView01"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/fName"
+	    android:layout_below="@+id/fName"
+	    android:text="대구솽역시 달서구 진천동 230-5" />
+         
+<WebView
+		android:id="@+id/webView" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		 android:layout_below="@+id/fImage"
+		android:focusable="true"
+		android:focusableInTouchMode="true"
+		android:scrollbars="none"
+		/>
+
+
+
+</RelativeLayout>
+ 

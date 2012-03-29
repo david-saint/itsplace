@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+<!-- <include layout="@layout/itsplace_header" />
+ 
+ <itsplace.net.common.TestMenu android:id="@+id/header"
+     android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"  
+     />-->
+     <Button android:id="@+id/btnCustomTab" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:layout_gravity="center_horizontal" 
+		android:layout_margin="10dip" 
+		android:text="custom tab" />
+    <ListView  
+        android:id="@android:id/list"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:drawSelectorOnTop="false"/>  
+</LinearLayout>
