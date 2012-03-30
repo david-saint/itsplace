@@ -1,0 +1,149 @@
+2012-03-24 00:31:58,987 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 00:31:59,108 INFO  [liquibase][pool-2-thread-1] - Creating database history table with name: DATABASECHANGELOG
+2012-03-24 00:31:59,121 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 00:31:59,123 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 00:31:59,198 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createConfigsTable::insightdb ran successfully in 10ms
+2012-03-24 00:31:59,235 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createTraceTagRulesTable::insightdb ran successfully in 21ms
+2012-03-24 00:31:59,258 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createTraceSummariesTable::insightdb ran successfully in 11ms
+2012-03-24 00:31:59,270 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createTraceSummariesEndPointIndex::insightdb ran successfully in 2ms
+2012-03-24 00:31:59,282 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createTagsTable::insightdb ran successfully in 6ms
+2012-03-24 00:31:59,293 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createTraceTagsTable::insightdb ran successfully in 4ms
+2012-03-24 00:31:59,305 INFO  [liquibase][pool-2-thread-1] - ChangeSet classpath:com/springsource/insight/repo/liquibase-db.xml::createTraceSummaryIndexes::insightdb ran successfully in 5ms
+2012-03-24 00:31:59,315 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 00:31:59,336 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 00:32:00,588 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 00:32:00,920 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 00:32:05,527 INFO  [com.springsource.insight.repo.purge.IncrementalPurgerImpl][purgeThread] - Completed incremental purge of 1 resources
+2012-03-24 00:35:43,229 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 00:35:43,375 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 00:35:43,380 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 00:35:43,476 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 00:35:43,495 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 00:35:44,338 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 00:35:44,553 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 07:48:20,873 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 07:48:21,000 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 07:48:21,003 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 07:48:21,083 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 07:48:21,101 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 07:48:22,083 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 07:48:22,341 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 07:54:05,315 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 07:54:05,441 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 07:54:05,447 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 07:54:05,549 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 07:54:05,569 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 07:54:06,416 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 07:54:06,635 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 07:59:46,349 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 07:59:46,478 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 07:59:46,482 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 07:59:46,584 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 07:59:46,601 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 07:59:47,449 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 07:59:47,660 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:04:49,700 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:04:49,840 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:04:49,845 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:04:49,950 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:04:49,968 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:04:50,864 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:04:51,113 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:05:59,422 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:05:59,606 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:05:59,611 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:05:59,693 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:05:59,710 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:06:00,620 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:06:00,832 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:07:50,131 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:07:50,269 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:07:50,274 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:07:50,355 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:07:50,370 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:07:51,231 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:07:51,440 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:14:18,223 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:14:18,372 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:14:18,378 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:14:18,462 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:14:18,479 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:14:19,337 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:14:19,551 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:14:53,707 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:14:53,846 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:14:53,851 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:14:53,923 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:14:53,942 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:14:54,813 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:14:55,030 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:16:18,856 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:16:18,974 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:16:18,977 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:16:19,046 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:16:19,063 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:16:19,963 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:16:20,172 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:18:49,139 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:18:49,245 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:18:49,249 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:18:49,316 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:18:49,335 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:18:50,199 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:18:50,410 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:20:13,279 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:20:13,419 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:20:13,424 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:20:13,505 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:20:13,518 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:20:14,410 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:20:14,622 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:21:49,243 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:21:49,376 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:21:49,381 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:21:49,463 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:21:49,480 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:21:50,352 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:21:50,575 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:51:41,604 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:51:41,722 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:51:41,725 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:51:41,794 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:51:41,808 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:51:42,749 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:51:42,974 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 08:52:54,198 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 08:52:54,340 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:52:54,345 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 08:52:54,436 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:52:54,456 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 08:52:55,328 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 08:52:55,519 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 11:24:15,403 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 11:24:15,520 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 11:24:15,524 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 11:24:15,595 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 11:24:15,611 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 11:24:16,526 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 11:24:16,757 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-24 11:28:41,044 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-24 11:28:41,179 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 11:28:41,184 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-24 11:28:41,255 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 11:28:41,273 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-24 11:28:41,975 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-24 11:28:42,134 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-25 21:51:12,105 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-25 21:51:12,213 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-25 21:51:12,218 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-25 21:51:12,302 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-25 21:51:12,320 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-25 21:51:13,328 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-25 21:51:13,612 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]
+2012-03-25 23:37:15,713 INFO  [liquibase][pool-2-thread-1] - Successfully acquired change log lock
+2012-03-25 23:37:15,834 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-25 23:37:15,839 INFO  [liquibase][pool-2-thread-1] - Reading from DATABASECHANGELOG
+2012-03-25 23:37:15,916 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-25 23:37:15,933 INFO  [liquibase][pool-2-thread-1] - Successfully released change log lock
+2012-03-25 23:37:16,776 WARN  [net.sf.ehcache.hibernate.AbstractEhcacheProvider][pool-2-thread-1] - A configurationResourceName was set to /META-INF/ehcache.xml but the resource could not be loaded from the classpath.Ehcache will configure itself using defaults.
+2012-03-25 23:37:16,980 WARN  [org.hibernate.cache.impl.bridge.EntityRegionAdapter][pool-2-thread-1] - read-only cache configured for mutable entity [com.springsource.insight.repo.tag.persist.PersistedTag]

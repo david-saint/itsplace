@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Page Fragment Definitions -->
+
+    <definition name="resources/list" template="/WEB-INF/controllers/resources/list.jsp" />
+    
+    <definition name="resources/resource" template="/WEB-INF/controllers/resources/resource.jsp">
+        <put-attribute name="vitals" value="/WEB-INF/controllers/resources/resource-vitals.jsp" />
+    	<put-attribute name="responsetime" value="/WEB-INF/controllers/resources/resource-responsetime.jsp" />
+    	<put-attribute name="healthlegend" value="/WEB-INF/controllers/resources/resource-healthlegend.jsp" />
+    	<put-attribute name="combochart" value="/WEB-INF/controllers/resources/resource-combochart.jsp" />
+        <put-attribute name="histogram" value="/WEB-INF/controllers/resources/resource-histogram.jsp" />
+        <put-attribute name="properties" value="/WEB-INF/controllers/resources/resource-properties.jsp" />
+        <put-attribute name="stackchart" value="/WEB-INF/controllers/resources/resource-stackchart.jsp" />
+        <put-attribute name="throughputtrend" value="/WEB-INF/controllers/resources/resource-throughputtrend.jsp" />
+        <put-attribute name="healthtrend" value="/WEB-INF/controllers/resources/resource-healthtrend.jsp" />
+    </definition>
+    
+    <definition name="resources/traces" template="/WEB-INF/controllers/resources/traces.jsp" />
+    
+    <definition name="resources/tree" template="/WEB-INF/controllers/resources/tree.jsp" />
+   
+</tiles-definitions>

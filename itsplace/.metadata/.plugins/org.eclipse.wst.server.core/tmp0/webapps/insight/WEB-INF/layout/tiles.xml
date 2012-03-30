@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Layout Definition -->
+
+    <definition name="layout" template="/WEB-INF/layout/layout.jsp">
+        <put-attribute name="title" value="Spring Insight Dashboard" />
+        <put-attribute name="content" value="/WEB-INF/layout/null.jsp" type="template" />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" type="template" />
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" type="template" />
+    </definition>
+    
+    <definition name="noscript" template="/WEB-INF/layout/noscript.jsp" />
+    <definition name="errors" template="/WEB-INF/layout/errors.jsp" />
+
+</tiles-definitions>

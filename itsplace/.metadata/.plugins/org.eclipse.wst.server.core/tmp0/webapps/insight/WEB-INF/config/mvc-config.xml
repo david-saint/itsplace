@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!-- HANDLER MAPPING RULES -->
+	
+	<context:component-scan base-package="com.springsource.insight" use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan>
+	
+	<mvc:annotation-driven conversion-service="conversionService" />
+	
+	<mvc:interceptors>
+		<bean class="com.springsource.insight.dashboard.util.NoCacheInterceptor" />
+		<bean class="com.springsource.insight.dashboard.util.TimeZoneInterceptor" />
+		<bean class="com.springsource.insight.dashboard.config.InsightDevEditionInterceptor" />
+	</mvc:interceptors>
+	
+	<mvc:resources mapping="/static/**" location="/" cache-period="60" />
+	<mvc:resources mapping="/static-#{insightDashboardVersion.versionString}/**" location="/" cache-period="604800" />
+
+	<mvc:view-controller path="/login" view-name="home/login"/>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+
+    <!--  VIEW RESOLUTION AND RENDERING -->
+    
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+    
+    <!-- Handle NotFoundExceptions as 404, but don't log -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="order" value="1" />
+        <property name="exceptionMappings">
+            <value>
+                com.springsource.insight.dashboard.util.NotFoundException=404
+            </value>
+        </property>
+        <property name="statusCodes">
+            <value>404=404</value>
+        </property>
+    </bean>
+    <!-- Catch-all error handler, with logging -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="order" value="2" />
+        <property name="defaultErrorView" value="error" />
+        <property name="defaultStatusCode" value="500" />
+        <property name="warnLogCategory" value="com.springsource.insight.dashboard" />
+    </bean>
+
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1" />
+	</bean>
+
+    <!-- Resolves view names to tiles definitions in /WEB-INF/tiles.xml -->
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.js.ajax.tiles2.AjaxTilesView" />
+    </bean>
+
+    <!-- Initializes the Apache Tiles CompositeView system -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+    	<property name="tilesProperties">
+    		<value>
+    			org.apache.tiles.definition.dao.LocaleUrlDefinitionDAO.CHECK_REFRESH=false
+    		</value>
+    	</property>
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/**/tiles*.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- JSON views -->
+    <bean id="jsonView" class="com.springsource.insight.dashboard.util.MappingJacksonJsonViewFactory" />
+    
+    <bean name="traces/window/json" class="com.springsource.insight.dashboard.traces.TraceWindowsDojoChartsDataView">
+        <constructor-arg ref="jsonView" />
+    </bean>
+    
+    <bean name="traces/trace/json" class="com.springsource.insight.dashboard.traces.TraceDataView">
+        <constructor-arg ref="jsonView" />
+    </bean>
+    
+    <bean name="traces/traces/json" class="com.springsource.insight.dashboard.traces.TracesDataView">
+        <constructor-arg ref="jsonView" />
+    </bean>
+    
+    <bean name="traces/operation/json" class="com.springsource.insight.dashboard.traces.TraceOperationDataView">
+        <constructor-arg ref="jsonView" />
+    </bean>
+    
+    <bean name="resources/resource/boxPlot/png" class="com.springsource.insight.dashboard.resources.BoxPlotSparkPngView">
+        <constructor-arg ref="colorIndexor" />
+    </bean>
+    <bean name="resources/resource/boxPlot/json" class="com.springsource.insight.dashboard.resources.BoxPlotDojoChartsDataView">
+        <constructor-arg ref="jsonView" />
+        <constructor-arg ref="colorIndexor" />
+    </bean>
+    
+    <bean name="resources/resource/boxPlots/json" class="com.springsource.insight.dashboard.resources.BoxPlotsDojoChartsDataView">
+        <constructor-arg ref="jsonView" />
+        <constructor-arg ref="colorIndexor" />
+    </bean>
+    
+    <bean name="resources/resource/histogram/json" class="com.springsource.insight.dashboard.resources.ResponseTimeHistogramDojoChartsDataView">
+        <constructor-arg ref="jsonView" />
+    </bean>
+    
+    <bean name="resources/resource/json" class="com.springsource.insight.dashboard.resources.ResourceSummaryDataView">
+        <constructor-arg ref="jsonView" />
+        <constructor-arg ref="colorIndexor" />
+    </bean>
+    
+    <bean name="resources/resources/json" class="com.springsource.insight.dashboard.resources.ResourceSummaryListDataView">
+        <constructor-arg ref="jsonView" />
+        <constructor-arg ref="colorIndexor" />
+    </bean>
+    
+    <!-- XStream views -->
+    <bean name="traces/trace/xstream" class="com.springsource.insight.dashboard.traces.XStreamView" autowire="constructor" />
+    <bean name="traces/trace/export" class="com.springsource.insight.dashboard.traces.BinaryExportView"/>
+
+</beans>

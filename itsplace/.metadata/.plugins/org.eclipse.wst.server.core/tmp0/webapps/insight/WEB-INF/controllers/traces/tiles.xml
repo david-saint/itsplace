@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Page Fragment Definitions -->
+
+    <definition name="traces/traces" template="/WEB-INF/controllers/traces/traces.jsp" />
+    
+    <definition name="traces/window" template="/WEB-INF/controllers/traces/window.jsp" />
+
+    <definition name="traces/trace" template="/WEB-INF/controllers/traces/trace.jsp" />
+
+    <definition name="traces/operation" template="/WEB-INF/controllers/traces/operation.jsp" />
+
+
+    <!-- Page Component Definitions -->
+
+    <definition name="operation.simple" template="/WEB-INF/controllers/traces/operation.simple.jsp" />
+    <definition name="operation.method" template="/WEB-INF/controllers/traces/operation.method.jsp" />
+    <definition name="operation.controller_method" template="/WEB-INF/controllers/traces/operation.method.jsp" />
+    
+</tiles-definitions>

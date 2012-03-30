@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Page Fragment Definitions -->
+
+    <definition name="config/maintenance" template="/WEB-INF/controllers/config/maintenance.jsp" />
+
+    <definition name="config/stats" template="/WEB-INF/controllers/config/stats.jsp" />
+    <definition name="config/agents" template="/WEB-INF/controllers/config/agents.jsp" />
+
+    <definition name="config/plugins/dev" template="/WEB-INF/controllers/config/plugins-dev.jsp" />
+    <definition name="config/plugins/prod" template="/WEB-INF/controllers/config/plugins-prod.jsp" />
+
+	<definition name="config/import-traces" template="/WEB-INF/controllers/config/import-traces.jsp" />
+    
+    <definition name="config/thresholds" template="/WEB-INF/controllers/config/thresholds.jsp" />
+    
+</tiles-definitions>

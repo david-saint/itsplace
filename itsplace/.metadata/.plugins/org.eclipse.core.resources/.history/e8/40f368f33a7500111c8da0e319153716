@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="common">
+	<typeAlias type="com.myplace.common.Address" alias="Address" />	    
+	<typeAlias type="com.myplace.common.Notice" alias="Notice" />	    
+   
+    <select id="getAddressListByDong" resultClass="Address" parameterClass="java.util.Map">
+		SELECT  sql_calc_found_rows NLDNO,SIDO, GUGUN, DORONAME, BLDMAIN, BLDSUBMAIN, BUPNAME,HDONGNAME, JIMAIN, JISUBMAIN
+		FROM PADDRESS 
+		<!-- WHERE DORONAME LIKE CONCAT('%',#searchWord#,'%') LIMIT #startRow#,#endRow# -->
+		WHERE BUPNAME LIKE CONCAT('%',#bupname#,'%')  
+		<isNotEmpty property="jimain">
+		AND JIMAIN  LIKE CONCAT('%',#jimain#,'%')  
+		</isNotEmpty> 		
+		<isNotEmpty property="jisubmain">
+		AND JISUBMAIN LIKE CONCAT('%', #jisubmain#,'%')  
+		</isNotEmpty> 
+		ORDER BY BUPNAME, JIMAIN, JISUBMAIN
+		 LIMIT #startRow#,#endRow#  
+		
+    </select>
+    
+    <select id="getAddressListByDoroname" resultClass="Address" parameterClass="java.util.Map">
+		SELECT  sql_calc_found_rows NLDNO,SIDO, GUGUN, DORONAME, BLDMAIN, BLDSUBMAIN, BUPNAME,HDONGNAME, JIMAIN, JISUBMAIN
+		FROM PADDRESS 		
+		WHERE DORONAME LIKE CONCAT('%',#bupname#,'%')  
+		<isNotEmpty property="jimain">
+		AND BLDMAIN  LIKE CONCAT('%',#jimain#,'%')  
+		</isNotEmpty> 		
+		<isNotEmpty property="jisubmain">
+		AND BLDSUBMAIN LIKE CONCAT('%', #jisubmain#,'%')  
+		</isNotEmpty> 	
+		ORDER BY DORONAME, BLDMAIN, BLDSUBMAIN
+		LIMIT #startRow#,#endRow#  
+    </select>
+    <select id="getFoundRows" resultClass="Integer">
+		SELECT  FOUND_ROWS()
+    </select>
+  
+    <select id="getNoticeList" resultClass="Notice" parameterClass="java.util.Map">
+		SELECT NID, TITLE, CONTENT, INPDATE, HIT, USEYN FROM PNOTICE
+		ORDER BY INPDATE
+		LIMIT #startRow#,#endRow#
+    </select>
+    <select id="getNotice" resultClass="Notice" parameterClass="String">
+		SELECT NID, TITLE, CONTENT, INPDATE, HIT, USEYN FROM PNOTICE
+    </select>
+    <update id="updateNotice" parameterClass="Notice">
+    	UPDATE PNOTICE SET TITLE = #title#,
+    					  CONTENT = #content#
+    					  UESYN = #useyn#
+		QHWEW NID = #nid#
+    </update>
+    <update id="hitNotice" parameterClass="String">
+    	UPDATE PNOTICE SET HIT = HIT+1    	
+		WHERE NID = #nid#
+    </update>
+
+   
+</sqlMap>
