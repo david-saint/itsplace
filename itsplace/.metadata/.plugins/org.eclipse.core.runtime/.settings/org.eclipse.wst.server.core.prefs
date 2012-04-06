@@ -1,3 +1,0 @@
-eclipse.preferences.version=1
-module-start-timeout=300000
-runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<runtimes>\n  <runtime id\="VMware vFabric tc Server Developer Edition (Runtime) v2.6" id-set\="true" location\="/Users/faye12005/springsource/vfabric-tc-server-developer-2.6.4.RELEASE" name\="VMware vFabric tc Server Developer Edition (Runtime) v2.6" runtime-type-id\="com.vmware.server.tc.runtime.70" timestamp\="0"/>\n  <runtime id\="Apache Tomcat v6.0" location\="/Users/faye12005/Downloads/apache-tomcat-6.0.35" name\="Apache Tomcat v6.0" runtime-type-id\="org.eclipse.jst.server.tomcat.runtime.60" timestamp\="0" vm-install-id\="Contents" vm-install-type-id\="org.eclipse.jdt.internal.launching.macosx.MacOSXType"/>\n</runtimes>\n

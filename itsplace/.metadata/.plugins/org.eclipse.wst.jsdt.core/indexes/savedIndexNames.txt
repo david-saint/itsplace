@@ -1,1 +1,0 @@
-INDEX VERSION 1.122+/Users/faye12005/Documents/workspace-sts-2.9.1.RELEASE/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
