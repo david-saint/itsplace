@@ -7,6 +7,12 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/java/net/itsplace/config/root-context.xml</config>
+		<config>src/main/java/net/itsplace/config/security-context.xml</config>
+		<config>src/main/java/net/itsplace/config/servlet-context.xml</config>
+		<config>src/main/java/net/itsplace/config/social-context.xml</config>
+		<config>src/main/java/net/itsplace/config/tiles-context.xml</config>
+		<config>src/main/java/net/itsplace/config/view-context.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
