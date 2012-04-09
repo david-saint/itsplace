@@ -69,6 +69,7 @@
 		<property name="classesToBeBound">
 		  <list>
 		    <value>net.itsplace.web.user.User</value>
+		    
 		   <!--  <value>com.myplace.User</value> --> 
 		  </list>
 	    </property>	

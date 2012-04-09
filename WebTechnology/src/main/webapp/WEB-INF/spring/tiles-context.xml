@@ -14,8 +14,8 @@
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		  <property name="definitions">
     		<list>
-          		 <value>classpath:net/itsplace/config/tiles2.xml</value>
-          	
+          		 <value>/WEB-INF/spring/tiles2.xml</value>
+          
         	</list>
     	  </property>
     </bean>
