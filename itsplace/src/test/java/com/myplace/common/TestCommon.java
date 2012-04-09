@@ -12,12 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import com.google.code.geocoder.Geocoder;
-import com.google.code.geocoder.GeocoderRequestBuilder;
-import com.google.code.geocoder.model.GeocodeResponse;
-import com.google.code.geocoder.model.GeocoderRequest;
-import com.google.code.geocoder.model.GeocoderResult;
-import com.google.code.geocoder.model.LatLng;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -85,7 +80,7 @@ public class TestCommon extends TestApplicationContext {
 	} 
 	@Test
 	public void test() throws Exception{
-		final Geocoder geocoder = new Geocoder();
+	/*	final Geocoder geocoder = new Geocoder();
 	    //GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress("Rijnsburgstraat 9-11, Amsterdam, The Netherlands").getGeocoderRequest();
 		LatLng location = new LatLng("35.8570479","128.5444278");
 		GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setLocation(location).getGeocoderRequest();
@@ -103,7 +98,7 @@ public class TestCommon extends TestApplicationContext {
         MatrixToImageWriter.writeToFile(bitMatrix, "png",
                 new File("c:/qrcode.png"));
 	   // assertEquals(52.347797f, latitude);
-	   // assertEquals(4.8507648f, longitude);
+	   // assertEquals(4.8507648f, longitude);*/
 	}
 	
 
