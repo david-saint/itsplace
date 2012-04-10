@@ -82,7 +82,8 @@
 		    <artifactId>spring-social-web</artifactId>
 	        <version>${org.springframework.social-version}</version>
 	    </dependency>
-	<!-- <dependency>
+  <!--<dependency>
+	
     <groupId>com.google.code.geocoder-java</groupId>
     <artifactId>geocoder-java</artifactId>
     <version>0.7</version>
