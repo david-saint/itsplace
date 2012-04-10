@@ -24,7 +24,7 @@
 		 socket.emit('SendMessage', { userid: toUserId, message: sendMsg });
 	 }
 </script>
-test
+test gg
 <input id="userid" type="text"  /><button onclick="join()">Join</button>
 <input id="toUserId" type="text"  />
 <input id="sendMsg" type="text"  /><button onclick="send()">send</button>
