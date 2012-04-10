@@ -10,15 +10,21 @@
     		<add-attribute value="common/1.0/json-1.0.0.js" />    
     		<add-attribute value="common/1.0/customInput.jquery.js" />
     		<add-attribute value="clearbox/clearbox.js" />
+    		<add-attribute value="admin/components/effect/jquery-jrumble.js" />
+    		<add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
+    		<add-attribute value="admin/components/checkboxes/iphone.check.js" />
+    		<add-attribute value="admin/js/login.js" />
     		<add-attribute value="jqgrid/grid.locale-en.js" />    
     		<add-attribute value="jqgrid/jquery.jqGrid.min.js" />           
     		<add-attribute value="jqgrid/jqgrid.js" />      
     		
   		</put-list-attribute>
   		<put-list-attribute name="styles">
-  			<add-attribute value="user/1.0/user-1.0.0.css" />
+  			<add-attribute value="admin/css/zice.style.css" />
+  				<add-attribute value="admin/css/icon.css" />
+  					<add-attribute value="admin/components/tipsy/tipsy.css" />
   			<add-attribute value="jqgrid/themes/ui.jqgrid.css" />
   		</put-list-attribute>
 	</definition>
-    
+        
 </tiles-definitions>
