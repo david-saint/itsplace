@@ -37,11 +37,11 @@
 	
 -->
 	
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">	 	
+	<bean id="dataSource" class="com.myplace.util.ItsplaceBasicDataSource">	 	
   		<property name="driverClassName" value="core.log.jdbc.driver.MysqlDriver"/> 		 	   	                  	
     	<property name="url" value="jdbc:mysql://db.jdpp.net:3306/faya"/>                	
-		<property name="username" value="faya"/>
-		<property name="password" value="qp2apdx"/>
+		<property name="username" value="username"/>
+		<property name="password" value="password"/>
 		<property name="maxActive" value="5"/>
 		<property name="maxIdle" value="50"/>
 		<property name="maxWait" value="2000"/>
