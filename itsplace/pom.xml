@@ -534,11 +534,9 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warName>www</warName>
-					<resources>
-						  <resource>  
-						    <directory>${basedir}/src/main/java/com/myplace/user</directory>
-						  </resource>
-						</resources>
+					<dependentWarExcludes>
+                        **/*.properties,**/*.xml,**/sql-map-config.xml,**/web.xml,WEB-INF/classes/META-INF/**
+                    </dependentWarExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
