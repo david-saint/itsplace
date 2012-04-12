@@ -536,7 +536,13 @@
 					<warName>www</warName>
 					 <webResources>
 				        <resource><directory>src/main/java/com/myplace/user/*.xml</directory></resource>
-				        <resource><directory>src/main/java/com/myplace/common/*.xml</directory></resource>				        
+				        <resource><directory>src/main/java/com/myplace/common/*.xml</directory></resource>
+				        <resource>
+					       <directory>src/main/java</directory> 
+					       <includes>
+					         <include>**/*.xml</include>
+					       </includes>
+					     </resource>				        
 				      </webResources>
 				</configuration>
 			</plugin>
