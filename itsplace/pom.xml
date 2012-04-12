@@ -534,9 +534,10 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warName>www</warName>
-					<dependentWarExcludes>
-                        **/*.properties,**/*.xml,**/sql-map-config.xml,**/web.xml,WEB-INF/classes/META-INF/**
-                    </dependentWarExcludes>
+					 <webResources>
+				        <resource><directory>/src/main/java/com/myplace/user</directory></resource>
+				        <resource><directory>src/main/java/com/myplca/common</directory></resource>				        
+				      </webResources>
 				</configuration>
 			</plugin>
 			<plugin>
