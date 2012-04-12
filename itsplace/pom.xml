@@ -537,10 +537,11 @@
 					 <webResources>
 				       
 				        <resource>
-					       <directory>src/main/java/messages</directory> 
+					       <directory>src/main/java</directory> 
 					       <includes>
-					          <include>src/main/java/messages/*.properties</include>
+					         <include>**/*</include>
 					       </includes>
+					       <targetPath>WEB-INF/classes</targetPath>
 					     </resource>				        
 				      </webResources>
 				</configuration>
