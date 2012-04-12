@@ -534,16 +534,11 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warName>www</warName>
-					<webResources>
-		            <resource>
-		              <!-- this is relative to the pom.xml directory -->
-		              <directory>resource2/</directory>
-		              <!-- the list has a default value of ** -->
-		              <includes>
-		                <include>com/myplace/user/.xml</include>
-		              </includes>		         
-		            </resource>
-		          </webResources>
+					<resources>
+						  <resource>  
+						    <directory>${basedir}/src/main/java/com/myplace/user</directory>
+						  </resource>
+						</resources>
 				</configuration>
 			</plugin>
 			<plugin>
