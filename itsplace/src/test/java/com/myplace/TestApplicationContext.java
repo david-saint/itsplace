@@ -27,14 +27,14 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-"classpath:/config/db-context.xml", 
-"classpath:/config/root-context.xml",
-"classpath:/config/servlet-context.xml", 
-"classpath:/config/view-context.xml",
-"classpath:/config/upload-context.xml",
-"classpath:/config/mail-context.xml",
-"classpath:/config/social-context.xml",
-"classpath:/config/security-context.xml"})
+"WEB-INF/spring/db-context.xml", 
+"WEB-INF/spring/root-context.xml",
+"WEB-INF/spring/servlet-context.xml", 
+"WEB-INF/spring/view-context.xml",
+"WEB-INF/spring/upload-context.xml",
+"WEB-INF/spring/mail-context.xml",
+"WEB-INF/spring/social-context.xml",
+"WEB-INF/spring/security-context.xml"})
 public abstract class TestApplicationContext {
 
 @Autowired protected ApplicationContext context;
