@@ -535,8 +535,8 @@
 				<configuration>
 					<warName>www</warName>
 					 <webResources>
-				        <resource><directory>/src/main/java/com/myplace/user</directory></resource>
-				        <resource><directory>src/main/java/com/myplca/common</directory></resource>				        
+				        <resource><directory>src/main/java/com/myplace/user</directory></resource>
+				        <resource><directory>src/main/java/com/myplace/common</directory></resource>				        
 				      </webResources>
 				</configuration>
 			</plugin>
