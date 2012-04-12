@@ -537,15 +537,11 @@
 					 <webResources>
 				       
 				        <resource>
-					       <directory>src/main/java/com/itsplace/admin</directory> 
+					       <directory>src/main/java</directory> 
 					       <includes>
 					         <include>**/*.xml</include>
-					       </includes>
-					     </resource>	
-					     <resource>
-					       <directory>src/main/java/com/itsplace/user/social</directory> 
-					       <includes>
-					         <include>**/*.properties</include>
+					          <include>**/*.class</include>
+					          <include>**/*.properties</include>
 					       </includes>
 					     </resource>				        
 				      </webResources>
