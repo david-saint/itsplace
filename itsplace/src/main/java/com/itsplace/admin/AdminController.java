@@ -94,7 +94,7 @@ public class AdminController {
 	@RequestMapping(value = "/administrator", method = RequestMethod.GET)
 	public String administrator() {
 
-		return "admin/main";
+		return "admin/index";
 	}
 
 }
