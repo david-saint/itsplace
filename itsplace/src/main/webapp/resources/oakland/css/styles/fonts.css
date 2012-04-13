@@ -1,0 +1,131 @@
+body, 
+input, 
+textarea, 
+.cmsms-form-builder .check_parent input[type="checkbox"]+label, 
+.cmsms-form-builder input[type="radio"]+label {font:13px/18px Arial, Helvetica, "Nimbus Sans L", sans-serif;}
+
+h1 {font:54px/54px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
+
+h2, .post .published {font:30px/36px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
+
+h3 {font:24px/36px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
+
+h4, 
+.format-quote .aside blockquote {font:30px/36px "Cookie", Helvetica, "Nimbus Sans L", sans-serif;}
+
+h5 {font:24px/18px "Cookie", Helvetica, "Nimbus Sans L", sans-serif;}
+
+h6, 
+.cmsms-form-builder label, 
+.button_large, 
+.togg .tog {font:18px/18px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
+
+small, abbr{font:10px/18px Arial, Helvetica, "Nimbus Sans L", sans-serif;}
+
+blockquote {font:24px/24px "Cookie", Helvetica, "Nimbus Sans L", sans-serif;}
+
+#navigation ul li a, 
+.widget .cmsms-form-builder label, 
+.blog.short .post .published, 
+.portfolio.short .post .published {font-family:Arial, Helvetica, "Nimbus Sans L", sans-serif;}
+
+body, 
+a:hover, 
+.color_1, 
+.tabs li a.current, 
+.related_posts ul li a.current, 
+.cmsms-form-builder .check_parent input[type="checkbox"]+label, 
+.cmsms-form-builder input[type="radio"]+label, 
+textarea, 
+input, 
+.tags li a, 
+.user_name, 
+.category_name, 
+.comments_number, 
+div.jp-playlist a.jp-playlist-current {color:#707070;}
+
+.color_2, 
+#navigation li > a, 
+small, 
+abbr, 
+.widget_custom_contact_form_entries .form_info label, 
+.tags li a:hover,
+.user_name:hover, 
+.category_name:hover, 
+.comments_number:hover, 
+.togg .tog.current, 
+.blog.short .post .published, 
+.portfolio.short .post .published, 
+.tour li.current a {color:#444444;}
+
+h1 {color:#444444;}
+
+h2, 
+.blog .post h2.entry-title a, 
+.portfolio_container .portfolio .entry-title a, 
+.blog.short .post .entry-title a {color:#444444;}
+
+h3 {color:#444444;}
+
+h4 {color:#444444;}
+
+h5 {color:#90cd67;}
+
+h6 {color:#444444;}
+
+a, 
+.color_3, 
+q:before, 
+blockquote:before, 
+.blog .post h2.entry-title a:hover,
+.portfolio_container .portfolio .entry-title a:hover,  
+ul.p_filter li.current a, 
+ul.p_filter li a:hover, 
+.blog.short .post .entry-title a:hover, 
+.widgetinfo {color:#90cd67;}
+
+code:before, 
+span.dropcap2, 
+.table thead th, 
+.colored_block, 
+#navigation li.current_page_item > a, 
+#navigation li:hover > a:hover, 
+#navigation ul li:hover > a, 
+.post .published, 
+.shortcode_slideshow ul.shortcode_slideshow_pager li.current a, 
+.shortcode_slideshow ul.shortcode_slideshow_pager li a:hover, 
+.wp-pagenavi a, 
+.cmsmsLike:hover, 
+.cmsmsLike.active, 
+.button, 
+.button_medium, 
+.button_large, 
+.cmsms_slider_parent a.cmsms_prev_slide:hover span, 
+.cmsms_slider_parent a.cmsms_next_slide:hover span, 
+.cmsms_slider_parent a.cmsms_close_video:hover, 
+.cmsms_slider_parent ul.cmsms_slides_nav li.active a, 
+.cmsms_slider_parent ul.cmsms_slides_nav li:hover a, 
+.cmsms_content_slider_parent ul.cmsms_slides_nav li.active a, 
+.cmsms_content_slider_parent ul.cmsms_slides_nav li:hover a, 
+.logo img {background-color:#90cd67;}
+
+#navigation > li.current_page_item:hover > a, 
+#navigation ul li a,
+#navigation li:hover > a {background-color:#444444;}
+
+#header, 
+#navigation > li > ul > li:first-child > a {border-top-color:#90cd67;}
+
+#navigation ul li.current_page_item:first-child > a:before, 
+#navigation ul li:first-child > a:hover:before, 
+#navigation ul li.current_page_item:first-child:hover > a:hover:before, 
+#navigation ul li:first-child > a:before {border-bottom-color:#90cd67;}
+
+#navigation ul li.current_page_item:first-child:hover > a:before {border-bottom-color:#444444;}
+
+#bottom .cmsms-form-builder input[type="text"]:focus, 
+#bottom .cmsms-form-builder textarea:focus, 
+input[type="text"]:focus, 
+textarea:focus, 
+.cmsmsLike:hover, 
+select.resp_navigation:focus {border-color:#90cd67;}

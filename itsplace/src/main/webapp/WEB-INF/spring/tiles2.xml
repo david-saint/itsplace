@@ -11,7 +11,10 @@
 		<put-attribute name="footer" expression="/WEB-INF/views/${currentDevice.mobile ? 'mobile/layout/' : 'standard/layout/'}footer.jsp" />
 	</definition>
 	-->
-	
+	<definition name="admin_layout" templateExpression="/WEB-INF/views/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/adminlayout/'}layout.jsp">		
+		<put-attribute name="header" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}header.jsp" />	
+		<put-attribute name="footer" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}footer.jsp" />
+	</definition>
 	<definition name="base_layout" templateExpression="/WEB-INF/views/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/layout/'}layout.jsp">		
 		<put-attribute name="header" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/layout/'}header.jsp" />	
 		<put-attribute name="footer" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/layout/'}footer.jsp" />
@@ -45,24 +48,7 @@
 	</definition>
 	 
 -->
-	<definition name="home" extends="home_layout">		
-		<put-attribute name="body" expression="/WEB-INF/views/standard/home.jsp" />
-		<put-list-attribute name="scripts">
-			<add-attribute value="jquery/Sliding_login/js/slide.js" />		
-		</put-list-attribute>
-		<put-list-attribute name="styles">
-  			<add-attribute value="home/1.0/home-1.0.0.css" />
-  			<add-attribute value="jquery/Sliding_login/css/slide.css" />    
-  		</put-list-attribute>
-	</definition>
-	
-	<definition name="mobile_home" extends="home_layout">		
-		<put-attribute name="body" expression="/WEB-INF/views/mobile/home.jsp" />
-		<put-list-attribute name="scripts">
-			<add-attribute value="home/1.0/home.js" />		
-		</put-list-attribute>
-	</definition>
-	
+
 
 	
 </tiles-definitions>

@@ -1,46 +1,41 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-<title>ziceinclude&trade; admin  version 1.0 online</title>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
+<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <style type="text/css">
-html {
-	background-image: none;
-}
-label.iPhoneCheckLabelOn span {
-	padding-left:0px
-}
-#versionBar {
-	background-color:#212121;
-	position:fixed;
-	width:100%;
-	height:35px;
-	bottom:0;
-	left:0;
-	text-align:center;
-	line-height:35px;
-	z-index:11;
-}
-.copyright{
-	text-align:center; font-size:10px; color:#CCC;
-}
-.copyright a{
-	color:#A31F1A; text-decoration:none
-}    
-</style>
-</head>
-<body >
-         
+		html {
+			background-image: none;
+		}
+		label.iPhoneCheckLabelOn span {
+			padding-left:0px
+		}
+		#versionBar {
+			background-color:#212121;
+			position:fixed;
+			width:100%;
+			height:35px;
+			bottom:0;
+			left:0;
+			text-align:center;
+			line-height:35px;
+			z-index:11;
+		}
+		.copyright{
+			text-align:center; font-size:10px; color:#CCC;
+		}
+		.copyright a{
+			color:#A31F1A; text-decoration:none
+		}    
+</style>     
 <div id="alertMessage" class="error"></div>
 <div id="successLogin"></div>
-<div class="text_success"><img src="images/loadder/loader_green.gif"  alt="ziceAdmin" /><span>Please wait</span></div>
+<div class="text_success"><img src="/resources/admin/images/loadder/loader_green.gif"  alt="ziceAdmin" /><span>Please wait</span></div>
 
 <div id="login" >
   <div class="ribbon"></div>
   <div class="inner">
-  <div class="logo" ><img src="images/logo/logo_login.png" alt="ziceAdmin" /></div>
+  <div class="logo" ><img src="/resources/admin/images/logo/logo_login.png" alt="ziceAdmin" /></div>
   <div class="formLogin">
    <form name="formLogin"  id="formLogin" action="">
 
@@ -81,6 +76,3 @@ label.iPhoneCheckLabelOn span {
   <div class="copyright" > &copy; Copyright 2012  All Rights Reserved <span class="tip"><a  href="#" title="Zice Admin" >Your company</a> </span> </div>
   <!-- // copyright-->
 </div>
-babobabo
-</body>
-</html>

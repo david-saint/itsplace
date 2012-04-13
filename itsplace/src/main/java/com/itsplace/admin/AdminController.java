@@ -96,5 +96,10 @@ public class AdminController {
 
 		return "admin/index";
 	}
+	@RequestMapping(value = "/admin/dashboard", method = RequestMethod.GET)
+	public String dashboard() {
+
+		return "admin/dashboard";
+	}
 
 }

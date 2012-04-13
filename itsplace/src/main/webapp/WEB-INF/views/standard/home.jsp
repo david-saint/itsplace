@@ -5,172 +5,311 @@
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	 var confirmEmail = '${confirmEmail}';
-	 var emailYn = '${USERSESSION.emailYn}';
-	// alert(confirmEmail+emailYn);
-	 if(confirmEmail=="true" && emailYn=="Y"){
-		 alert("메일인증이 되었습니다")
-	 }else if(confirmEmail=="true" && emailYn=="N"){
-		 alert("메일인증해주세요")
-	 }
-	 $('#storeBox').css('display','block');
-	 $('#stampBox').css('display','block');
-	 $('#placeTab').addClass('active');
-});
- 
-function tab_change(obj,index){
-	 $('.tab').each(function(i){
-		 $(this).removeClass('active');		 
-	 });
-	 $('.section').each(function(i){
-		 $(this).css('display','none');		 
-	 });
-	$(obj).addClass('active');
-	
-	if(index==1){
-		$('#storeBox').css('display','block');
-	}else if(index==2){
-		$('#commentBox').css('display','block');
-	}else{
-		$('#commentBox').css('display','block');
-	}
- }
-</script>	
-<div id="wrapper">
-	<header>
-		<div class="field">	
-				
-        	
-		</div>	
-	</header>
-	<div id="main">
-		<div class="content">	
-			<div id="tabs">
-				<ul>
-					
+<!--Start Middle -->
+<div class="container">
+	<section id="middle">
+		<div class="middle_inner">
+<!-- Start Top -->
+			<section id="top">
+				<ul id="slider" class="responsiveSlider">
 					<li>
-						<div id="placeTab" class="tab" onclick="tab_change(this,1);">Place</div>
+						<img src="/resources/oakland/images/img/slide_1.jpg" alt="" class="slide-image" />
+						<div class="slideCaption">
+							<div class="slideCaptionInner">
+								<h1>Be Smart!</h1>
+								<h2 class="fl">with&nbsp;</h2>
+								<h5 style="font-size:36px; line-height:36px;">Oakland</h5>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet mauris est. Ut scelerisque, massa et imperdiet ornare, enim ipsum molestie libero</p>
+								<a href="#" class="button"><span>Read more</span></a>
+							</div>
+						</div>
 					</li>
-					<li >
-						<div id="commentTab" class="tab" onclick="tab_change(this,2);">Comment</div>
+					<li data-video="http://www.youtube.com/watch?v=BCr7y4SLhck">
+						<img src="/resources/oakland/images/img/slide_2.jpg" alt="" class="slide-image" />
+						<div class="slideCaption">
+							<div class="slideCaptionInner">
+								<h1>Be Happy!</h1>
+								<h2 class="fl">with&nbsp;</h2>
+								<h5 style="font-size:36px; line-height:36px;">Oakland</h5>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet mauris est. Ut scelerisque, massa et imperdiet ornare, enim ipsum molestie libero</p>
+								<a href="#" class="button"><span>Read more</span></a>
+							</div>
+						</div>
+					</li>
+					<li data-video="http://vimeo.com/15949725">
+						<img src="/resources/oakland/images/img/slide_3.jpg" alt="" class="slide-image" />
+						<div class="slideCaption">
+							<div class="slideCaptionInner">
+								<h1>Be Wise!</h1>
+								<h2 class="fl">with&nbsp;</h2>
+								<h5 style="font-size:36px; line-height:36px;">Oakland</h5>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet mauris est. Ut scelerisque, massa et imperdiet ornare, enim ipsum molestie libero</p>
+								<a href="#" class="button"><span>Read more</span></a>
+							</div>
+						</div>
 					</li>
 				</ul>
-				<div class="clear"></div>
+			</section>
+<!-- Finish Top -->
+
+
+<!--Start Top Sidebar -->
+			<section id="top_sidebar">
+				<div class="one_first">
+					<h1 class="main_text">Hello, this is <span class="color_3">Oakland</span>, responsive corporate WordPress theme <br />that perfectly fits to represent your Business</h1>
+				</div>
+				<div class="one_fourth">
+					<figure class="preloader">
+						<img src="/resources/oakland/images/img/fimg_4_1.jpg" alt="" class="fullwidth" />
+					</figure>
+					<br />
+					<h6>Unlimited possibilities</h6>
+					<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum </p>
+				</div>
+				<div class="one_fourth">
+					<figure class="preloader">
+						<img src="/resources/oakland/images/img/fimg_4_2.jpg" alt="" class="fullwidth" />
+					</figure>
+					<br />
+					<h6>Easy to customize</h6>
+					<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum </p>
+				</div>
+				<div class="one_fourth">
+					<figure class="preloader">
+						<img src="/resources/oakland/images/img/fimg_4_3.jpg" alt="" class="fullwidth" />
+					</figure>
+					<br />
+					<h6>HTML5 & CSS3</h6>
+					<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum </p>
+				</div>
+				<div class="one_fourth">
+					<figure class="preloader">
+						<img src="/resources/oakland/images/img/fimg_4_4.jpg" alt="" class="fullwidth" />
+					</figure>
+					<br />
+					<h6>Clean & Corporate</h6>
+					<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum </p>
+				</div>
+			</section>
+			<div class="top_sidebar_divider"></div>
+<!--  Finish Top Sidebar -->
+
+
+<!-- Start Content -->
+			<section id="middle_content">
+				<div class="entry">
+					<div class="two_third">
+						<h3>Fantastic features</h3>
+						<div class="tab">
+							<ul class="tabs">
+								<li><a href="#">Feature One</a></li>
+								<li><a href="#">Feature Two</a></li>
+								<li><a href="#">Feature Three</a></li>
+							</ul>
+							<div class="tab_content">
+								<div class="tabs_tab">
+									<figure class="alignleft">
+										<img src="/resources/oakland/images/img/tab_1.jpg" alt="" />
+									</figure>
+									<h6>Unlimited possibilities</h6>
+									<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque, risus leo lacinia sapien, sed cursus massa risus eget arcu. Sed ac porta felis. Vivamus dignissim varius augue ut tempor. </p>
+									<a href="#" class="button"><span>Read More</span></a>
+								</div>
+								<div class="tabs_tab" style="display:none;">
+									<figure class="alignright">
+										<img src="/resources/oakland/images/img/tab_1.jpg" alt="" />
+									</figure>
+									<h6>Unlimited possibilities</h6>
+									<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque, risus leo lacinia sapien, sed cursus massa risus eget arcu. Sed ac porta felis. Vivamus dignissim varius augue ut tempor. </p>
+									<a href="#" class="button"><span>Read More</span></a>
+								</div>
+								<div class="tabs_tab" style="display:none;">
+									<figure class="alignleft">
+										<img src="/resources/oakland/images/img/tab_1.jpg" alt="" />
+									</figure>
+									<h6>Unlimited possibilities</h6>
+									<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque, risus leo lacinia sapien, sed cursus massa risus eget arcu. Sed ac porta felis. Vivamus dignissim varius augue ut tempor. </p>
+									<a href="#" class="button"><span>Read More</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="one_third last">
+						<h3>Latest news</h3>
+						<ul class="latest_news">
+							<li>
+								<a href="#" class="alignleft">
+									<figure>
+										<img src="/resources/oakland/images/img/news_1.jpg" alt="" />
+									</figure>
+								</a>
+								<abbr title="01-04-2012" class="published">01-04-2012</abbr>
+								<a href="#">Duis semper nunc metus</a>
+								<p>sagittis nec ullamcorper justo consequat urabitur pharetra</p>
+							</li>
+							<li>
+								<a href="#" class="alignleft">
+									<figure>
+										<img src="/resources/oakland/images/img/news_2.jpg" alt="" />
+									</figure>
+								</a>
+								<abbr title="01-04-2012" class="published">01-04-2012</abbr>
+								<a href="#">Duis semper nunc metus</a>
+								<p>sagittis nec ullamcorper justo consequat urabitur pharetra</p>
+							</li>
+							<li>
+								<a href="#" class="alignleft">
+									<figure>
+										<img src="/resources/oakland/images/img/news_3.jpg" alt="" />
+									</figure>
+								</a>
+								<abbr title="01-04-2012" class="published">01-04-2012</abbr>
+								<a href="#">Duis semper nunc metus</a>
+								<p>sagittis nec ullamcorper justo consequat urabitur pharetra</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+<!--Finish Content -->
+
+		</div>
+	</section>
+<!-- Finish Middle -->
+
+
+<!--  Start Bottom -->
+	<section id="bottom">
+		<div class="bottom_inner">
+			<div class="one_third">
+				<aside class="widget widget_custom_portfolio_entries">
+					<script type="text/javascript">
+						jQuery(document).ready(function () { 
+							jQuery('.widget_custom_portfolio_entries_slides').cmsmsResponsiveContentSlider( { 
+								sliderWidth : '100%', 
+								sliderHeight : 'auto', 
+								animationSpeed : 500, 
+								animationEffect : 'slide', 
+								animationEasing : 'easeInOutExpo', 
+								pauseTime : 5000, 
+								activeSlide : 1, 
+								touchControls : true, 
+								pauseOnHover : false, 
+								arrowNavigation : true, 
+								slidesNavigation : false 
+							} );
+						} );
+					</script>
+					<div class="widget_custom_portfolio_entries_container">
+						<h3 class="widgettitle">Sliding article</h3>
+						<ul class="widget_custom_portfolio_entries_slides responsiveContentSlider">
+							<li>
+								<figure>
+									<img src="/resources/oakland/images/img/sliding_1.jpg" alt="" class="fullwidth" />
+								</figure>
+								<h6 class="project_title">Successful team</h6>
+								<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque risus leo lacinia sapien, sed cursus massa risus eget</p>
+							</li>
+							<li>
+								<figure>
+									<img src="/resources/oakland/images/img/sliding_2.jpg" alt="" class="fullwidth" />
+								</figure>
+								<h6 class="project_title">Successful team</h6>
+								<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque risus leo lacinia sapien, sed cursus massa risus eget</p>
+							</li>
+							<li>
+								<figure>
+									<img src="/resources/oakland/images/img/sliding_3.jpg" alt="" class="fullwidth" />
+								</figure>
+								<h6 class="project_title">Successful team</h6>
+								<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque risus leo lacinia sapien, sed cursus massa risus eget</p>
+							</li>
+						</ul>
+					</div>
+				</aside>
 			</div>
-			<div id="contentWrapper" class="column">
-				<div id="innerWrapper">
-					
-			  		
-					  		
-				  	<section id="storeBox" class="section">
-					  	<h3>Latest Place</h3>
-					   	<p></p>
-						  	<c:forEach var="franchiserMember" items="${franchiserMemberList}" >
-							   	<article class="store">
-								   	<a class="photo"  href="<c:url value="/place/placeView/${franchiserMember.fid}" />">
-								   		<img src="<c:url value="/resources/images/" />${franchiserMember.fileName}" width="150" height="99" alt="picture1">
-								   	</a>
-								   	<a href="<c:url value="/place/placeView/${franchiserMember.fid}" /> ">
-								   		<h2>${franchiserMember.fname}</h2>
-								   	</a>
-								  	<p>${franchiserMember.address.sido} ${franchiserMember.address.gugun} ${franchiserMember.address.doroname} ${franchiserMember.address.bupname}${franchiserMember.address.jimain}-${franchiserMember.address.jisubmain}</p>
-					 				<p>${franchiserMember.phone1}</p>
-							   	</article>				   	
-						  	</c:forEach>					  				
-					</section><!-- PLACE BOX -->
-					
-					
-					<section id="commentBox" class="section">
-						<c:forEach var="placeComment" items="${placeCommentRecentList}" >
-							<article class="comment">								
-								<a class="userImage"><img  src="${placeComment.profileImageUrl}" width="40" height="40"></a>
-								<span>${placeComment.name}( ${placeComment.email} )</span>
+			<div class="one_third">
+				<aside class="widget widget_custom_tweets_entries">
+					<h3 class="widgettitle">Latest tweets</h3>
+					<ul>
+						<li>
+							<abbr class="published">about 6 hours ago</abbr>
+							<div class="tweet_content"><p>Duis semper nunc id metus sagittis nec ullamcorper furabitur pharetra condimentum mattis. </p></div>
+						</li>
+						<li>
+							<abbr class="published">about 15 hours ago</abbr>
+							<div class="tweet_content"><p>Duis semper nunc id metus sagittis nec ullamcorper <a href="#">toconsequat</a> curabitur pharetra condimentum mattis. </p></div>
+						</li>
+						<li>
+							<abbr class="published">about 15 hours ago</abbr>
+							<div class="tweet_content"><p>Duis <a href="#">onsequat</a> semper nunc id metus sagittis nec ullamcorper curabitur pharetra condimentum mattis.</p></div>
+						</li>
+					</ul>
+				</aside>
+			</div>
+			<div class="one_third">
+				<aside class="widget widget_custom_contact_form_entries">
+					<h3 class="widgettitle">Quick form</h3>
+					<div class="cmsms-form-builder">
+						<div class="widgetinfo">Thank you! <br />Your message has been sent successfully.</div>
+						<script type="text/javascript">
+							jQuery(document).ready(function () { 
+								jQuery('#form_contact_form_widget_001').validationEngine('init');
 								
-								<!--  <p><fmt:formatDate value="${placeComment.inpdate}" pattern="yyyy-MM-dd hh:mm:ss"/></p>-->
-								<p>${placeComment.writeDate}</p>
-								<p>${placeComment.comment}</p>
-							</article>
-					  	</c:forEach>	
-				  	</section><!-- commentBox -->  
-		  		</div><!-- innerWrapper -->
-			</div><!-- contentWrapper -->
-				
-			<div id="rightWrapper" class="column">
-				<a href="/join" rel="nofollow">
-				회원가입</a>
-				
-				<section id="stampBox">			 
-				  	<h3>Latest Stamp</h3>
-					<c:forEach var="stamp" items="${stapmList}">
-								 <article>								
-										<a class="photo">
-											<img  src="<c:url value="/resources/images/" />${stamp.filename}" width="40" height="40">
-										</a>
-										<p>${stamp.fname}</p>																		
-										<p>${stamp.name}님이 스탬프를 획득하셨어요${stamp.stampDate}</p>
-								</article>
-				  	</c:forEach>	
-			  	</section><!-- STAMPBOX -->
-			  	
-				<section id="noticeBox">			 
-				  	<h3>공지사항</h3>
-					<c:forEach var="notice" items="${noticeList}">
-								 <article>																		
-										<p>${notice.title}</p>																		
+								jQuery('#form_contact_form_widget_001 a#contact_form_widget_001_wformsend').click(function () { 
+									var form_builder_url = jQuery('#contact_form_widget_001_wurl').val();
+									
+									jQuery('#form_contact_form_widget_001 .loading').animate( {
+										opacity : 1
+									} , 250);
+									
+									if (jQuery('#form_contact_form_widget_001').validationEngine('validate')) { 
+										jQuery.post(form_builder_url, { 
+											field_002 : jQuery('#field_002').val(), 
+											field_003 : jQuery('#field_003').val(), 
+											field_004 : jQuery('#field_004').val(), 
+											formname : 'contact_form_widget_001', 
+											formtype : 'widget' 
+										}, function () { 
+											jQuery('#form_contact_form_widget_001 .loading').animate( { opacity : 0 }, 250);
+											document.getElementById('form_contact_form_widget_001').reset();
+											jQuery('#form_contact_form_widget_001').parent().find('.widgetinfo').hide();
+											jQuery('#form_contact_form_widget_001').parent().find('.widgetinfo').fadeIn('fast');
+											jQuery('html, body').animate( { scrollTop : (jQuery('#form_contact_form_widget_001').offset().top - 100) }, 'slow');
+											jQuery('#form_contact_form_widget_001').parent().find('.widgetinfo').delay(5000).fadeOut(1000);
+										} );
 										
-								</article>
-				  	</c:forEach>	
-			  	</section><!-- STAMPBOX -->
+										return false;
+									} else { 
+										jQuery('#form_contact_form_widget_001 .loading').animate( { opacity : 0 }, 250);
+										
+										return false;
+									}
+								} );
+							} );
+						</script>
+						<form action="#" method="post" id="form_contact_form_widget_001">
+							<div class="form_info cmsms_input">
+								<label for="field_002">Your Name<span class="color_3"> *</span></label>
+								<input type="text" name="wname" id="field_002" size="22" tabindex="11" class="validate[required,minSize[3],maxSize[100],custom[onlyLetterSp]]" />
+							</div>
+							<div class="form_info cmsms_input">
+								<label for="field_003">Email<span class="color_3"> *</span></label>
+								<input type="text" name="wemail" id="field_003" size="22" tabindex="12" class="validate[required,custom[email]]" />
+							</div>
+							<div class="form_info cmsms_textarea">
+								<label for="field_004">Message<span class="color_3"> *</span></label>
+								<textarea name="wmessage" id="field_004" cols="28" rows="6" tabindex="13" class="validate[required,minSize[3]]"></textarea>
+							</div>
+							<div class="loading"></div>
+							<div><input type="hidden" name="contact_form_widget_001_wurl" id="contact_form_widget_001_wurl" value="http://oakland-html.cmsmasters.net/php/sendmail.php" /></div><!-- Here you need to set the path to the sendmail file -->
+							<div><a href="#" id="contact_form_widget_001_wformsend" class="button" tabindex="14"><span>Send Message</span></a></div>
+						</form>
+					</div>
+				</aside>
 			</div>
-				
+		</div>
+	</section>
+<!-- Finish Bottom -->
 
-		
-		  	
-		</div><!-- content -->
-	</div>
-	
 </div>
-
-
-	<!-- 
-		<p><sec:authorize access="hasRole('ROLE_ADMIN')">나는 관리자입니다</sec:authorize></p>
-				<p><sec:authorize access="hasRole('ROLE_USER')">나는 사용자입니다</sec:authorize></p>
-				
-				<p><sec:authorize ifNotGranted="ROLE_USER">난 익명인이야
-					<a href="<c:url value="/user/login" />">로그인</a>
-				</sec:authorize>
-				</p>
-				
-				
-				<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN">
-				<p><sec:authentication property="name" /> 접속했어요
-				<a href='<c:url value="/logout" />'>로그아윳 </a>
-				</p>
-				</sec:authorize>
-				
-				 	
-					<form id="tw_signin" action="<c:url value="/connect/twitter"/>" method="POST">
-						<button type="submit">트위터연동</button>
-					</form>
-				
-					
-					<form name="fb_signin" id="fb_signin" action="<c:url value="/connect/facebook"/>" method="POST">
-				        <input type="hidden" name="scope" value="publish_stream,user_photos,offline_access" />
-						<button type="submit">페이스북연동</button>
-					</form>
-					
-					
-					<sec:authentication property="name" var="currentUserName"/>
-							<c:if test="${currentUserName == placeComment.email}">
-							 삭제버튼
-							</c:if>
-							
-							
-							<sec:authentication property="name" var="currentUserName"/>
-							<c:if test="${currentUserName == placeComment.email}">
-							 삭제버튼
-							</c:if>
-				 -->
-

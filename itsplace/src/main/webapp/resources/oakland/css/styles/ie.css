@@ -1,0 +1,54 @@
+/* Internet Explorer 8 Fixes */
+#middle {z-index:1;}
+
+.middle_inner {z-index:2;}
+
+.button, 
+.button_medium, 
+.button_large {
+	border:none;
+	background-image:none;
+	box-shadow:0 1px 2px #666666;
+}
+
+div.p_filter {height:1000px;}
+
+.search_line input[type="text"] {padding-top:3px;}
+
+a.p_cat_filter.button, 
+.p_sort a[name="p_date"], 
+.p_sort a[name="p_name"],
+#slider .button, 
+#slider .button_medium, 
+#slider .button_large {box-shadow:none;}
+
+ul.p_filter li:first-child {padding-top:0;}
+
+.p_filter_container ul.p_filter {top:28px;}
+
+div.jp-video div.jp-interface {display:none;}
+
+div.jp-video:hover div.jp-interface {display:block;}
+
+.p_filter_container ul.p_filter {width:155px;}
+
+.resizable_block.noIE {padding:0;}
+
+.resizable_block video.fullwidth {
+	position:relative;
+	height:auto;
+}
+
+html.ie8 .portfolio_container.one_block>.fl, 
+html.ie7 .portfolio_container.one_block>.fl, 
+html.ie8 .portfolio_container.one_block>.fl>.portfolio, 
+html.ie7 .portfolio_container.one_block>.fl>.portfolio {width:100%}
+
+
+/* Tablet Portrait (Note: Design for a width of 768px) */
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+	
+	.portfolio_container {margin-right:-1.9%;}
+	
+}

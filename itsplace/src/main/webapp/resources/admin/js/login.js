@@ -8,8 +8,8 @@
 					$('.formLogin').animate({   opacity: 1,left: '0' }, 300);
 					$('.userbox').animate({ opacity: 0 }, 200).hide();
 				 });		
-			})	
-		});	
+			});	
+		
 
 	    $('.userload').click(function(e){
 			$('.formLogin').animate({   opacity: 1,left: '0' }, 300);			    
@@ -18,7 +18,8 @@
 			   });
 	    });
 	    
-	$('#but_login').click(function(e){				
+	$('#but_login').click(function(e){		
+		 alert("");
 		  if(document.formLogin.username.value == "" || document.formLogin.password.value == "")
 		  {
 			  showError("Please Input Username / Password");
@@ -28,13 +29,14 @@
 			  setTimeout('hideTop()',5000);
 			  return false;
 		  }		
+		  console.log("hide");
 		 hideTop();
 		 loading('Checking',1);		
 		 setTimeout( "unloading()", 2000 );
 		 setTimeout( "Login()", 2500 );
 	});	
-																 
-function Login(){
+ });																	 
+function Login(){console.log("login");
 	$("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
 		 $('.userbox').show().animate({ opacity: 1 }, 500);
 			$("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
@@ -44,7 +46,7 @@ function Login(){
 				});							  
 			 })	
      })	
-	setTimeout( "window.location.href='dashboard.html'", 3000 );
+	setTimeout( "window.location.href='admin/dashboard'", 3000 );
 }
 	
 $('#alertMessage').click(function(){

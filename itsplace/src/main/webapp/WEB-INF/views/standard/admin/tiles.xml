@@ -3,28 +3,32 @@
 
 <tiles-definitions>
 
-	<definition name="admin/*" extends="base_layout">
+	<definition name="admin/index" extends="empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile  ? 'mobile/' : 'standard/'}admin/index.jsp" />		
+		<put-list-attribute name="scripts">  
+		      <add-attribute value="admin/js/jquery.min.js" />    
+		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
+		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
+		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
+		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
+		      <add-attribute value="admin/js/login.js" />
+  		</put-list-attribute>  		
+  		<put-list-attribute name="styles">  	
+  		 	<add-attribute value="admin/css/zice.style.css" />		
+  		 	<add-attribute value="admin/css/icon.css" />
+  		 	<add-attribute value="admin/components/tipsy/tipsy.css" />  		 
+  		</put-list-attribute>
+	</definition>
+   
+	<definition name="admin/*" extends="admin_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/${currentSitePreference.mobile  ? 'mobile/' : 'standard/'}admin/{1}.jsp" />		
 		<put-list-attribute name="scripts">
-    		<add-attribute value="user/1.0/user-1.0.0.js" />    
-    		<add-attribute value="common/1.0/json-1.0.0.js" />    
-    		<add-attribute value="common/1.0/customInput.jquery.js" />
-    		<add-attribute value="clearbox/clearbox.js" />
-    		<add-attribute value="admin/components/effect/jquery-jrumble.js" />
-    		<add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
-    		<add-attribute value="admin/components/checkboxes/iphone.check.js" />
-    		<add-attribute value="admin/js/login.js" />
     		<add-attribute value="jqgrid/grid.locale-en.js" />    
     		<add-attribute value="jqgrid/jquery.jqGrid.min.js" />           
     		<add-attribute value="jqgrid/jqgrid.js" />      
-    		
-  		</put-list-attribute>
-  		<put-list-attribute name="styles">
-  			<add-attribute value="admin/css/zice.style.css" />
-  				<add-attribute value="admin/css/icon.css" />
-  					<add-attribute value="admin/components/tipsy/tipsy.css" />
+  		</put-list-attribute>  		
+  		<put-list-attribute name="styles">  			
   			<add-attribute value="jqgrid/themes/ui.jqgrid.css" />
   		</put-list-attribute>
-	</definition>
-        
+	</definition>     
 </tiles-definitions>

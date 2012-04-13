@@ -738,23 +738,23 @@ $('.searchAutocomplete').click(function() {
 	$('.iconBox.gray').hover(function(){
 		  var name=$(this).find('img').attr('alt');
 		  $(this).find('img').animate({ opacity: 0.5 }, 0, function(){
-			    $(this).attr('src','images/icon/color_18/'+name+'.png').animate({ opacity: 1 }, 700);									 
+			    $(this).attr('src','/resources/admin/images/icon/color_18/'+name+'.png').animate({ opacity: 1 }, 700);									 
 		 });
 	},function(){
 		  var name=$(this).find('img').attr('alt');
-		  $(this).find('img').attr('src','images/icon/gray_18/'+name+'.png');
+		  $(this).find('img').attr('src','/resources/admin/images/icon/gray_18/'+name+'.png');
 	 })
 	
 	// Animation icon  Logout 
 	$('div.logout').hover(function(){
 		  var name=$(this).find('img').attr('alt');
 		  $(this).find('img').animate({ opacity: 0.4 }, 200, function(){
-			    $(this).attr('src','images/'+name+'.png').animate({ opacity: 1 }, 500);									 
+			    $(this).attr('src','/resources/admin/images/'+name+'.png').animate({ opacity: 1 }, 500);									 
 		 });
 	},function(){
 		  var name=$(this).find('img').attr('name');
 		  $(this).find('img').animate({ opacity: 0.5 }, 200, function(){
-			    $(this).attr('src','images/'+name+'.png').animate({ opacity: 1 }, 500);									 
+			    $(this).attr('src','/resources/admin/images/'+name+'.png').animate({ opacity: 1 }, 500);									 
 		 });
 	 })
 	
