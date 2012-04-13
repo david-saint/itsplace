@@ -19,7 +19,7 @@
 		<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/jquery.prettyPhoto.css" />" type="text/css" media="screen" />
 		<!--[if lt IE 9]>
 			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie.css" />" type="text/css" />
-			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie_css3.css" />" type="text/css" />" media="screen" />
+			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie_css3.css" />" type="text/css" media="screen" />
 		<![endif]-->
 		
 		<script src="<c:url value="/resources/oakland/js/modernizr.custom.all.js" />" type="text/javascript"></script>

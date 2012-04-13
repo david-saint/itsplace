@@ -12,6 +12,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+/**
+ * @author Administrator
+ *
+ */
 public class CustomUserDetails implements Serializable, UserDetails {
 	private static final long serialVersionUID = 1L;
 
@@ -30,11 +34,12 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	private Set<String> privileges;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public CustomUserDetails(User user, String email, String password,
+	public CustomUserDetails(User user,String username, String email, String password,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 
+		this.username = username;
 		this.user = user;
 		this.email = email;
 		this.password = password;
@@ -51,7 +56,7 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	}
 
 	public void setUSer(User user) {
-		user = user;
+		this.user = user;
 	}
 
 	public String getMobile() {
@@ -160,4 +165,6 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
 }

@@ -33,7 +33,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		String requestUrl;
 		User user = userService.getUser(authentication.getName());
 		request.getSession().setAttribute("USERSESSION",user);
-		
+		System.out.println("su--------------------"+request.getHeader("X-Ajax-call"));
+		 if (request.getHeader("X-Ajax-call").equals("true")) {
+	            response.getWriter().print("ok");
+	            response.getWriter().flush();
+	        } 
+		 
 	//	String ctoken = (String) request.getSession().getAttribute(WebConstants.CSRF_TOKEN);
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
         if(user.getRole().equals("ROLE_FID")){
