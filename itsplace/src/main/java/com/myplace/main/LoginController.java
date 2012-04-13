@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -51,7 +52,7 @@ public class LoginController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
-	public String loginForm(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model) {
+	public String loginForm(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request) {
 		
 	
 		
@@ -65,6 +66,8 @@ public class LoginController {
 		} else {
 			model.addAttribute("error", "");
 		}
+		System.out.println("/user/login 실패시--------------------"+request.getHeader("X-Ajax-call"));
+		logger.info("/user/login 실패시");
 		return StandardOrMobile.getPageName(device, sitePreference,  "user/m_loginpage",   "user/loginpage");		
 		
 		

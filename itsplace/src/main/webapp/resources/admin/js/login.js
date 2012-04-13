@@ -19,8 +19,8 @@
 	    });
 	    
 	$('#but_login').click(function(e){		
-		 alert("");
-		  if(document.formLogin.username.value == "" || document.formLogin.password.value == "")
+		 
+		  if(document.formLogin.j_username.value == "" || document.formLogin.j_password.value == "")
 		  {
 			  showError("Please Input Username / Password");
 			  $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
@@ -28,12 +28,10 @@
 			  setTimeout('$(".inner").trigger("stopRumble")',500);
 			  setTimeout('hideTop()',5000);
 			  return false;
-		  }		
-		  console.log("hide");
-		 hideTop();
-		 loading('Checking',1);		
-		 setTimeout( "unloading()", 2000 );
-		 setTimeout( "Login()", 2500 );
+		  }	else{
+			  securityLogin();
+		  }	
+		 
 	});	
  });																	 
 function Login(){console.log("login");
@@ -44,11 +42,39 @@ function Login(){console.log("login");
 				  $(".text_success").slideDown();
 				  $("#successLogin").animate({opacity: 1,height: "200px"},500);   			     
 				});							  
-			 })	
-     })	
-	setTimeout( "window.location.href='admin/dashboard'", 3000 );
+			 });	
+     });	
+   
+    setTimeout( "window.location.href='admin/dashboard'", 3000 );
 }
-	
+function securityLogin(){
+	$.ajax({
+	    url: "/MyPlace/signin/authenticate",
+	    type: "POST",
+	    data: $("#formLogin").serialize(),
+	    beforeSend: function (xhr) {
+	        xhr.setRequestHeader("X-Ajax-call", "true");
+	    },
+	    success: function(result) {
+	        if (result == "ok") {
+	        	//alert("ok");
+	        	 console.log("hide");
+	    		 hideTop();
+	    		 loading('Checking',1);		
+	    		 setTimeout( "unloading()", 2000 );
+	    		 setTimeout( "Login()", 2500 );
+	        	
+	        } else if (result == "error") {
+	        	 showError("인증에 실패해씁니다");
+	           $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
+				  $('.inner').trigger('startRumble');
+				  setTimeout('$(".inner").trigger("stopRumble")',500);
+				  setTimeout('hideTop()',5000);
+				 
+	        }
+	    }
+	}); 
+}	
 $('#alertMessage').click(function(){
 	hideTop();
 });

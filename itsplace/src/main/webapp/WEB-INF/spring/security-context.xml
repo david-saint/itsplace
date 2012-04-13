@@ -48,9 +48,9 @@
 		<intercept-url pattern="/stamp/*" access="permitAll"/>		
 		<form-login 
 				login-page="/user/login"
-				login-processing-url="/signin/authenticate" 
-				authentication-failure-url="/user/login?error=true"
-				authentication-success-handler-ref="loginSuccessHandler" 
+				login-processing-url="/signin/authenticate" 				
+				authentication-success-handler-ref="loginSuccessHandler"
+				authentication-failure-handler-ref="loginFailureHandler" 
 				default-target-url="/" />
 		
 		<logout 
@@ -77,7 +77,7 @@
 	<bean id="rememberAuthSuccesHandler" class="com.myplace.user.RememberAuthSuccessHandler" />
 	
 	<bean id="loginSuccessHandler" class="com.myplace.main.LoginSuccessHandler" />
-	
+	<bean id="loginFailureHandler" class="com.myplace.main.LoginFailureHandler" />
 	
 	
 	<!-- oauth2
