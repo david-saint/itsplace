@@ -38,8 +38,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 	/**
 	 * Retrieves a user record containing the user's credentials and access. 
 	 */
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException, DataAccessException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 		
 		// Declare a null Spring User
 		UserDetails user = null;
@@ -60,16 +59,15 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 			// Populate the Spring User object with details from the dbUser
 			// Here we just pass the username, password, and access level
 			// getAuthorities() will translate the access level to the correct role type
-
-			user =  new User(
-					dbUser.getEmail(), 
-					dbUser.getPassword().toLowerCase(),
-					true,
-					true,
-					true,
-					true,
-					getAuthorities(dbUser.getRole()) 
-					);
+			user = new CustomUserDetails(
+						(User) user, 
+						dbUser.getEmail(), 
+						dbUser.getPassword().toLowerCase(),
+						true,
+						true,
+						true,
+						true,
+						getAuthorities(dbUser.getRole()));
 
 		} catch (Exception e) {
 			logger.error(e.toString()+"사 용자가 없습니다.");
