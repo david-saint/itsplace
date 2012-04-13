@@ -40,10 +40,10 @@
    <form name="formLogin"  id="formLogin" action="">
 
           <div class="tip">
-				<input name="username" type="text"  id="username_id"  title="Username"   />
+				<input name="j_username" type="text"  id="username_id"  title="Username" value="faye12005@gmail.com"  />
           </div>
           <div class="tip">
-				<input name="password" type="password" id="password"   title="Password"  />
+				<input name="j_password" type="password" id="password"   title="Password" value="hoon1014"  />
           </div>
 
           <div class="loginButton">
