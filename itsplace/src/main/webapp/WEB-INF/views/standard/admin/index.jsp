@@ -81,6 +81,6 @@ label.iPhoneCheckLabelOn span {
   <div class="copyright" > &copy; Copyright 2012  All Rights Reserved <span class="tip"><a  href="#" title="Zice Admin" >Your company</a> </span> </div>
   <!-- // copyright-->
 </div>
-아하하ㅏ핳하
+babobabo
 </body>
 </html>
