@@ -48,14 +48,14 @@
 
           <div class="loginButton">
             <div style="float:left; margin-left:-9px;">
-				<input type="checkbox" id="on_off" name="remember" class="on_off_checkbox"  value="1"   />
-				<span class="f_help">Remember me</span>
+				<input type="checkbox" id="on_off" name="_spring_security_remember_me" class="on_off_checkbox"  value="1"   />
+				<span class="f_help">ID저장</span>
 			</div>
 			<div style="float:right; padding:3px 0; margin-right:-12px;">
               <div> 
                 <ul class="uibutton-group">
-                   <li><a class="uibutton normal" href="#" id="but_login" >Login</a></li>
-				   <li><a class="uibutton normal" href="#" id="forgetpass">forgetpass</a></li>
+                   <li><a class="uibutton normal" href="#" id="but_login" >로그인</a></li>
+				   <li><a class="uibutton normal" href="#" id="forgetpass">비밀번호찾기</a></li>
                </ul>
               </div>
 			  

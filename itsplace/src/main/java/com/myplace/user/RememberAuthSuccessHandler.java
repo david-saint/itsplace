@@ -22,7 +22,7 @@ public class RememberAuthSuccessHandler extends SavedRequestAwareAuthenticationS
 		System.out.println("리멤버미 성공");
 		System.out.println("리멤버미 성공");
 		System.out.println("리멤버미 성공");
-		request.getSession().setAttribute("USERSESSION",userService.getUser(authentication.getName()));
+		//request.getSession().setAttribute("USERSESSION",userService.getUser(authentication.getName()));
 		
 	//	String ctoken = (String) request.getSession().getAttribute(WebConstants.CSRF_TOKEN);
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
@@ -30,14 +30,16 @@ public class RememberAuthSuccessHandler extends SavedRequestAwareAuthenticationS
         
         if( defaultSavedRequest != null ) {
         	String requestUrl = defaultSavedRequest.getRequestURL();
-          //  System.out.println("리다이렉트:" + requestUrl  );
+            System.out.println("리다이렉트:" + requestUrl  );
           //  requestUrl = UrlTool.addParamToURL(requestUrl, WebConstants.CSRF_TOKEN, ctoken, true);
             getRedirectStrategy().sendRedirect(request, response, requestUrl);
         } else {
         	//SavedRequest savedRequest = new DefaultSavedRequest(request, new PortResolverImpl());
         	//String url=savedRequest.getRedirectUrl();
-       // System.out.println("디폴트로 리다이렉트:"+request.getRequestURI() );
-            super.onAuthenticationSuccess(request, response, authentication);
+        System.out.println("디폴트로 리다이렉트:"+request.getRequestURI() );
+        
+            //super.onAuthenticationSuccess(request, response, authentication);
+        getRedirectStrategy().sendRedirect(request, response, request.getRequestURI());
             
         }				
 	} 

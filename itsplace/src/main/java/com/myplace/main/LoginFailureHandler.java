@@ -18,11 +18,14 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         logger.info("LoginFailureHander was Execute ..." + e.getMessage());
         System.out.println("/user/login 실패시--------------------"+request.getHeader("X-Ajax-call"));
-        if (request.getHeader("X-Ajax-call").equals("true")) {
-            response.getWriter().print("error");
-            response.getWriter().flush();
-        } else{
-        	response.sendRedirect(request.getContextPath() + "/login");
+        if(request.getHeader("X-Ajax-call")!=null){
+        	 if (request.getHeader("X-Ajax-call").equals("true")) {
+                 response.getWriter().print("error");
+                 response.getWriter().flush();
+             }
+        }
+        else{
+        	response.sendRedirect(request.getContextPath() + "/user/login?error=true");
         }
         
         

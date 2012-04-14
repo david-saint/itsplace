@@ -1,15 +1,19 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <div id="content">
                 <div class="inner">
 					<div class="topcolumn">
 						<div class="logo"></div>
                             <ul  id="shortcut">
-                                <li> <a href="#" title="Back To home"> <img src="/resources/admin/images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
-                                <li> <a href="#" title="Website Graph"> <img src="/resources/admin/images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
-                                <li> <a href="#" title="Setting" > <img src="/resources/admin/images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
-                                <li> <a href="#" title="Messages"> <img src="/resources/admin/images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
+                                <li> <a href="#" title="Back To home"> <img  src="<c:url value="/resources/admin/images/icon/shortcut/home.png"/>" alt="home"/><strong>Home</strong> </a> </li>
+                                <li> <a href="#" title="Website Graph"> <img src="<c:url value="/resources/admin/images/icon/shortcut/graph.png"/>" alt="graph"/><strong>Graph</strong> </a> </li>
+                                <li> <a href="#" title="Setting" > <img src="<c:url value="/resources/admin/images/icon/shortcut/setting.png"/>" alt="setting" /><strong>Setting</strong></a> </li> 
+                                <li> <a href="#" title="Messages"> <img src="<c:url value="/resources/admin/images/icon/shortcut/mail.png"/>" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
                             </ul>
 							<div class="clear"></div>
-					</div>
+					</div>   
                     <div class="clear"></div>
                     
 					<!-- full width -->

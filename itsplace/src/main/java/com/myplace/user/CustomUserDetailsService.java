@@ -60,9 +60,8 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 			// Here we just pass the username, password, and access level
 			// getAuthorities() will translate the access level to the correct role type
 			user = new CustomUserDetails(
-						(User) user, 
-						dbUser.getEmail(),
-						dbUser.getEmail(), 
+						dbUser, 
+						dbUser.getEmail(),						
 						dbUser.getPassword().toLowerCase(),
 						true,
 						true,

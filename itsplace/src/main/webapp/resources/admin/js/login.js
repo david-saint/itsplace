@@ -72,6 +72,12 @@ function securityLogin(){
 				  setTimeout('hideTop()',5000);
 				 
 	        }
+	    },
+	    error: function(data, status, err){
+	    	alert("error:"+status+err);
+	    },
+	    complete:function(){
+	    	
 	    }
 	}); 
 }	

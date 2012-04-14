@@ -39,7 +39,7 @@
 						<input id="_spring_security_remember_me" name="_spring_security_remember_me" type="checkbox" checked="checked" />
 						<p>비밀번호가 기억안나요</p>
 					</div>
-					<button type="button" onclick="login()" class="large blue awesome">Login</button>								
+					<button type="submit" onclick="login()" class="large blue awesome">Login</button>								
 				</form>
 			</div>
 		</div><!-- content end -->

@@ -33,32 +33,34 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		String requestUrl;
 		User user = userService.getUser(authentication.getName());
 		request.getSession().setAttribute("USERSESSION",user);
-		System.out.println("su--------------------"+request.getHeader("X-Ajax-call"));
-		 if (request.getHeader("X-Ajax-call").equals("true")) {
-	            response.getWriter().print("ok");
-	            response.getWriter().flush();
-	        } 
-		 
+		 if(request.getHeader("X-Ajax-call")!=null){
+			 if (request.getHeader("X-Ajax-call").equals("true")) {
+		            response.getWriter().print("ok");
+		            response.getWriter().flush();
+		        } 
+		 }
 	//	String ctoken = (String) request.getSession().getAttribute(WebConstants.CSRF_TOKEN);
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
         if(user.getRole().equals("ROLE_FID")){
     		requestUrl="/partner/fid";     				
-    		getRedirectStrategy().sendRedirect(request, response, requestUrl);
+    	//	getRedirectStrategy().sendRedirect(request, response, requestUrl);
             
     	}else if(user.getRole().equals("ROLE_FRANCHISER")){
     		requestUrl="/partner/main";     				
-    		getRedirectStrategy().sendRedirect(request, response, requestUrl);
+    		//getRedirectStrategy().sendRedirect(request, response, requestUrl);
  
     	}
         
         if( defaultSavedRequest != null ) {
         	 requestUrl = defaultSavedRequest.getRequestURL();
+        	 logger.info("저장된값:"+requestUrl);
              logger.debug("DefaultSavedRequest:{0}", requestUrl);
           //  requestUrl = UrlTool.addParamToURL(requestUrl, WebConstants.CSRF_TOKEN, ctoken, true);
         	
         	getRedirectStrategy().sendRedirect(request, response, requestUrl);
             
         } else {
+        	 logger.info("그냥진행");
         	//SavedRequest savedRequest = new DefaultSavedRequest(request, new PortResolverImpl());
         	//String url=savedRequest.getRedirectUrl();
         	 logger.debug("Default Request Redirect: {0}",request.getRequestURI() );

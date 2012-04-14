@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -23,7 +23,6 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	private String username;
 
 	private String mobile;
-	private String email;
 	private String profileImageUrl;
 	private String password;
 	private boolean accountNonExpired;
@@ -34,14 +33,13 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	private Set<String> privileges;
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public CustomUserDetails(User user,String username, String email, String password,
+	public CustomUserDetails(User user, String username, String password,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 
 		this.username = username;
-		this.user = user;
-		this.email = email;
+		this.user = user;		
 		this.password = password;
 		this.enabled = enabled;
 		this.accountNonExpired = accountNonExpired;
@@ -152,14 +150,6 @@ public class CustomUserDetails implements Serializable, UserDetails {
 
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		this.authorities = authorities;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public void setUser(User user) {
