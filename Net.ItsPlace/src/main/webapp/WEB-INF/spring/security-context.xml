@@ -77,8 +77,8 @@
 
 	<bean id="rememberAuthSuccesHandler" class="net.itsplace.user.RememberAuthSuccessHandler" />
 	
-	<bean id="loginSuccessHandler" class="com.myplace.main.LoginSuccessHandler" />
-	<bean id="loginFailureHandler" class="com.myplace.main.LoginFailureHandler" />
+	<bean id="loginSuccessHandler" class="net.itsplace.user.LoginSuccessHandler" />
+	<bean id="loginFailureHandler" class="net.itsplace.user.LoginFailureHandler" />
 	
 	
 	<!-- oauth2

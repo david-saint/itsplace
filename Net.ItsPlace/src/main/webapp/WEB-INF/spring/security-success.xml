@@ -42,7 +42,7 @@
 	<!-- Use a Md5 encoder since the user's passwords are stored as Md5 in the database -->
 	<bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
 	
-    <bean id="clientDetailsUserService" class="com.myplace.user.CustomUserDetailsService"  >
+    <bean id="clientDetailsUserService" class="net.itsplace.user.CustomUserDetailsService"  >
     	<constructor-arg ref="clientDetails" />
     	<property name="sqlMapClient" ref="sqlMapClient"></property>
     </bean>			
@@ -51,14 +51,14 @@
 		<constructor-arg ref="clientDetails" />
 	</bean>
 	-->
-	<bean id="rememberAuthSuccesHandler" class="com.myplace.user.RememberAuthSuccessHandler" />
+	<bean id="rememberAuthSuccesHandler" class="net.itsplace.user.RememberAuthSuccessHandler" />
 	
-	<bean id="loginSuccessHandler" class="com.myplace.main.LoginSuccessHandler" />
+	<bean id="loginSuccessHandler" class="net.itsplace.user.LoginSuccessHandler" />
 	
 	
 	<bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
 	 
-	<bean id="clientCredentialsTokenEndpointFilter" class="com.itsplace.oauth2.ClientCredentialsTokenEndpointFilter">
+	<bean id="clientCredentialsTokenEndpointFilter" class="net.itsplace.oauth2.ClientCredentialsTokenEndpointFilter">
 		<property name="authenticationManager" ref="customAuthenticationManager" />
 	</bean>
 

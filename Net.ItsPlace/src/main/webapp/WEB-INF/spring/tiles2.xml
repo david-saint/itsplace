@@ -5,50 +5,8 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-	<!--
-	<definition name="base_layout" templateExpression="/WEB-INF/views/${currentDevice.mobile ? 'mobile/layout/' : 'standard/layout/'}layout.jsp">		
-			<put-attribute name="header" expression="/WEB-INF/views/${currentDevice.mobile ? 'mobile/layout/' : 'standard/layout/'}header.jsp" />	
-		<put-attribute name="footer" expression="/WEB-INF/views/${currentDevice.mobile ? 'mobile/layout/' : 'standard/layout/'}footer.jsp" />
+ 	<definition name="web_layout" templateExpression="/WEB-INF/views/web/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/adminlayout/'}layout.jsp">		
+		<put-attribute name="header" expression="/WEB-INF/views/web/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}header.jsp" />	
+		<put-attribute name="footer" expression="/WEB-INF/views/web/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}footer.jsp" />
 	</definition>
-	-->
-	<definition name="admin_layout" templateExpression="/WEB-INF/views/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/adminlayout/'}layout.jsp">		
-		<put-attribute name="header" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}header.jsp" />	
-		<put-attribute name="footer" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}footer.jsp" />
-	</definition>
-	<definition name="base_layout" templateExpression="/WEB-INF/views/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/layout/'}layout.jsp">		
-		<put-attribute name="header" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/layout/'}header.jsp" />	
-		<put-attribute name="footer" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/layout/'}footer.jsp" />
-	</definition>
-	<definition name="mobile_layout" templateExpression="/WEB-INF/views/mobile/layout/layout.jsp">		
-		<put-attribute name="header" expression="/WEB-INF/views/mobile/layout/header.jsp" />	
-		<put-attribute name="footer" expression="/WEB-INF/views/mobile/layout/footer.jsp" />
-	</definition>
-	<definition name="home_layout" templateExpression="/WEB-INF/views/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/layout/'}layout.jsp">		
-		<put-attribute name="header" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/layout/'}header.jsp" />	
-		<put-attribute name="footer" expression="/WEB-INF/views/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/layout/'}footer.jsp" />
-	</definition>
-
-	<definition name="empty_layout" templateExpression="/WEB-INF/views/empty/layout/layout.jsp">			
-	</definition>
-	<definition name="empty_mobile_layout" templateExpression="/WEB-INF/views/empty/layout/m_layout.jsp">			
-	</definition>
-	
-	<definition name="blankPage" extends="empty_layout">
-		<put-attribute name="body" expression="/WEB-INF/views/standard/blankPage.jsp" />
-	</definition>
-
-	
-	<definition name="exception/*" extends="base_layout">
-		<put-attribute name="body" expression="/WEB-INF/views/exception/{1}.jsp" />
-	</definition>
-<!-- 
-	<definition name="*/*" extends="base_layout">
-		<put-attribute name="body"
-			expression="/WEB-INF/views/${currentDevice.mobile ? 'mobile/' : 'standard/'}/{1}/{2}.jsp" />
-	</definition>
-	 
--->
-
-
-	
 </tiles-definitions>

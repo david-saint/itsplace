@@ -21,7 +21,7 @@
 
 	
 	<!-- Configures Spring Social -->
- 	<bean class="com.itsplace.user.social.SocialConfig" />
+ 	<bean class="net.itsplace.social.SocialConfig" />
  	
  	
 	
