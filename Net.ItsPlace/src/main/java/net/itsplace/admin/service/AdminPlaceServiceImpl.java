@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service("PlaceService")
-public class PlaceServiceImpl implements PlaceService{
-	private static final Logger logger = LoggerFactory.getLogger(PlaceServiceImpl.class);
+@Service("AdminPlaceService")
+public class AdminPlaceServiceImpl implements AdminPlaceService{
+	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceServiceImpl.class);
 }

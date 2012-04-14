@@ -5,6 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class PlaceController {
-	private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
+public class AdminUserController {
+	private static final Logger logger = LoggerFactory.getLogger(AdminUserController.class);
 }

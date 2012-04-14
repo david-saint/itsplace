@@ -1,5 +1,5 @@
 package net.itsplace.admin.dao;
 
-public interface BaseDao {
+public interface AdminUserDao {
 
 }

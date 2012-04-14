@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-@Repository("BaseDao")
-public class BaseDaoImpl extends SqlMapClientDaoSupport implements BaseDao {
-	private static final Logger logger = LoggerFactory.getLogger(BaseDaoImpl.class);
+@Repository("AdminSupportDao")
+public class AdminSupportDaoImpl extends SqlMapClientDaoSupport implements AdminSupportDao {
+	private static final Logger logger = LoggerFactory.getLogger(AdminSupportDaoImpl.class);
 	
 	@Resource(name="sqlMapClient")
 	protected void init(SqlMapClient sqlMapClient) {

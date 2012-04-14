@@ -1,5 +1,5 @@
 package net.itsplace.admin.service;
 
-public interface SupportService {
+public interface AdminStampService {
 
 }

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-@Service("SupportService")
-public class SupportServiceImpl implements SupportService{
-	private static final Logger logger = LoggerFactory.getLogger(SupportServiceImpl.class);
+@Service("AdminBaseService")
+public class AdminBaseServiceImpl implements AdminBaseService{
+	private static final Logger logger = LoggerFactory.getLogger(AdminBaseServiceImpl.class);
 }

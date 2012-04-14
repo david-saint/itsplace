@@ -1,5 +1,5 @@
 package net.itsplace.admin.dao;
 
-public interface StampDao {
+public interface AdminSupportDao {
 
 }
