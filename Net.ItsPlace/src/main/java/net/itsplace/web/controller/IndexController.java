@@ -1,4 +1,4 @@
-package net.itsplace.web;
+package net.itsplace.web.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

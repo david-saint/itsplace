@@ -1,4 +1,4 @@
-package net.itsplace.web;
+package net.itsplace.web.controller;
 
 public class SupportController {
 

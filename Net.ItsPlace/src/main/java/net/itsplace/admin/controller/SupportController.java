@@ -1,4 +1,4 @@
-package net.itsplace.admin;
+package net.itsplace.admin.controller;
 
 public class SupportController {
 
