@@ -1,5 +1,10 @@
 package net.itsplace.web.controller;
 
-public class FeatureController {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class FeatureController {
+	private static final Logger logger = LoggerFactory.getLogger(FeatureController.class);
 }

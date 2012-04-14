@@ -1,5 +1,10 @@
 package net.itsplace.admin.controller;
 
-public class SupportController {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class SupportController {
+	private static final Logger logger = LoggerFactory.getLogger(SupportController.class);
 }

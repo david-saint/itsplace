@@ -1,6 +1,6 @@
 package net.itsplace.user;
 
-import java.io. IOException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Map;
@@ -27,6 +27,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Autowired
 	private UserService userService;
+	
 	private static final Logger logger =  LoggerFactory.getLogger(LoginSuccessHandler.class);
 	public void onAuthenticationSuccess(HttpServletRequest request,HttpServletResponse response, Authentication authentication) throws IOException,ServletException {
 		String requestUrl;
