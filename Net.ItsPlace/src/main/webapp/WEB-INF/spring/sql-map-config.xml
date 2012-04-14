@@ -4,5 +4,22 @@
 	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-	<sqlMap resource="net/itsplace/user/user-sqlmap.xml" />	
+	<!-- 사용자로그인 -->
+	<sqlMap resource="net/itsplace/user/user-sqlmap.xml" />
+	
+	<!-- 웹페이지 관련 SQL -->
+	<sqlMap resource="net/itsplace/web/sql/feature-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/web/sql/index-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/web/sql/search-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/web/sql/stamp-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/web/sql/support-sqlmap.xml" />
+	<!--// 웹페이지 관련 SQL -->
+	
+	<!-- 관리자 관련 SQL -->
+	<sqlMap resource="net/itsplace/admin/sql/base-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/admin/sql/place-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/admin/sql/stamp-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/admin/sql/support-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/admin/sql/user-sqlmap.xml" />
+	<!--// 관리자 관련 SQL -->
 </sqlMapConfig>
