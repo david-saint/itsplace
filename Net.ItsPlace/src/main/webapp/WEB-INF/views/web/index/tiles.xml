@@ -4,10 +4,8 @@
 <tiles-definitions>
 
 	<definition name="web/index/index" extends="web_layout">		
-		<put-attribute name="body" expression="/WEB-INF/views/web/index/index.jsp" />
-		
-		<put-list-attribute name="scripts">
-				
+		<put-attribute name="body" expression="/WEB-INF/views/web/index/index.jsp" />		
+		<put-list-attribute name="scripts">				
 		      <add-attribute value="admin/js/jquery.min.js" />    
 		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
 		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />

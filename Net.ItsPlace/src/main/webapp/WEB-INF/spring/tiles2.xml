@@ -5,8 +5,14 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
- 	<definition name="web_layout" templateExpression="/WEB-INF/views/web/${currentSitePreference.mobile? 'mobile/layout/' : 'standard/adminlayout/'}layout.jsp">		
-		<put-attribute name="header" expression="/WEB-INF/views/web/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}header.jsp" />	
-		<put-attribute name="footer" expression="/WEB-INF/views/web/${currentSitePreference.mobile ? 'mobile/layout/' : 'standard/adminlayout/'}footer.jsp" />
+ 	<definition name="web_layout" templateExpression="/WEB-INF/views/web/layout/layout.jsp">		
+		<put-attribute name="header" expression="/WEB-INF/views/web/layout/header.jsp" />	
+		<put-attribute name="footer" expression="/WEB-INF/views/web/layout/footer.jsp" />
+	</definition>
+	<definition name="admin_layout" templateExpression="/WEB-INF/views/admin/layout/layout.jsp">		
+		<put-attribute name="header" expression="/WEB-INF/views/admin/layout/header.jsp" />	
+		<put-attribute name="footer" expression="/WEB-INF/views/admin/layout/footer.jsp" />
+	</definition>
+	<definition name="empty_layout" templateExpression="/WEB-INF/views/empty/layout/layout.jsp">			
 	</definition>
 </tiles-definitions>

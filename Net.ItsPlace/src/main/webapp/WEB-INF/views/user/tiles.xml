@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+
+	<definition name="user/login" extends="empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/user/login.jsp" />		
+		<put-list-attribute name="scripts">  
+		      <add-attribute value="admin/js/jquery.min.js" />    
+		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
+		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
+		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
+		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
+		      <add-attribute value="admin/js/login.js" />
+  		</put-list-attribute>  		
+  		<put-list-attribute name="styles">  	
+  		 	<add-attribute value="admin/css/zice.style.css" />		
+  		 	<add-attribute value="admin/css/icon.css" />
+  		 	<add-attribute value="admin/components/tipsy/tipsy.css" />  		 
+  		</put-list-attribute>
+	</definition>
+    
+	<definition name="user/me2dayUpdate" extends="empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/user/me2dayUpdate.jsp" />
+	</definition>
+	
+    <definition name="user/manager" extends="empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/user/manager.jsp" />
+		<put-list-attribute name="scripts">
+    		<add-attribute value="jqgrid/grid.locale-en.js" />    
+    		<add-attribute value="jqgrid/jquery.jqGrid.min.js" />           
+    		<add-attribute value="jqgrid/jqgrid.js" />      
+  		</put-list-attribute>  		
+  		<put-list-attribute name="styles">  			
+  			<add-attribute value="jqgrid/themes/ui.jqgrid.css" />
+  		<!-- <add-attribute value="jquery/jquery-ui-1.8.16.custom/css/ui-lightness/jquery-ui-1.8.16.custom.css" />
+  		 -->
+  		</put-list-attribute>
+	</definition>
+    
+</tiles-definitions>
