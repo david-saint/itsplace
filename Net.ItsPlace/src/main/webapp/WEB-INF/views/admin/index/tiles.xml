@@ -4,8 +4,8 @@
 <tiles-definitions>
 
 
-	<definition name="admin/**" extends="admin_layout">
-		<put-attribute name="body"	 expression="/WEB-INF/views/admin/{1}.jsp" />		
+	<definition name="admin/index" extends="admin_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/admin/index/index.jsp" />		
 		<put-list-attribute name="scripts">
     		<add-attribute value="jqgrid/grid.locale-en.js" />    
     		<add-attribute value="jqgrid/jquery.jqGrid.min.js" />           

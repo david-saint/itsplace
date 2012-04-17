@@ -34,7 +34,7 @@
 		 
 	});	
  });																	 
-function Login(){console.log("login");
+function AdminLogin(){console.log("login");
 	$("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
 		 $('.userbox').show().animate({ opacity: 1 }, 500);
 			$("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
@@ -43,9 +43,20 @@ function Login(){console.log("login");
 				  $("#successLogin").animate({opacity: 1,height: "200px"},500);   			     
 				});							  
 			 });	
-     });	
-   
-    setTimeout( "window.location.href='admin/dashboard'", 3000 );
+     });	   
+    setTimeout( "window.location.href='admin'", 3000 );
+}
+function UserLogin(){console.log("login");
+$("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
+	 $('.userbox').show().animate({ opacity: 1 }, 500);
+		$("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
+			$(this).fadeOut(200,function(){
+			  $(".text_success").slideDown();
+			  $("#successLogin").animate({opacity: 1,height: "200px"},500);   			     
+			});							  
+		 });	
+ });	   
+setTimeout( "window.location.href='/'", 3000 );
 }
 function securityLogin(){
 	$.ajax({
@@ -56,15 +67,15 @@ function securityLogin(){
 	        xhr.setRequestHeader("X-Ajax-call", "true");
 	    },
 	    success: function(result) {
-	        if (result == "ok") {
-	        	//alert("ok");
-	        	 console.log("hide");
-	    		 hideTop();
-	    		 loading('Checking',1);		
-	    		 setTimeout( "unloading()", 2000 );
-	    		 setTimeout( "Login()", 2500 );
-	        	
-	        } else if (result == "error") {
+	    	 console.log("hide");
+    		 hideTop();
+    		 loading('Checking',1);		
+    		 setTimeout( "unloading()", 2000 );    		
+	        if (result == "ROLE_ADMIN") {	        	
+	        	 setTimeout( "AdminLogin()", 2500 );	        	
+	        }else if(result == "ROLE_USER"){
+	        	 setTimeout( "UserLogin()", 2500 );	
+			} else if (result == "error") {
 	        	 showError("인증에 실패해씁니다");
 	           $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
 				  $('.inner').trigger('startRumble');
