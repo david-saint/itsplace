@@ -1,5 +1,6 @@
 package net.itsplace.user;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,5 +41,20 @@ public class UserInfo {
         return  customUserDetails.getUser();
 	}
 	
+	public static boolean autoLogin(String username,String password) {
+		try {
+			CustomUserDetailsService us = new CustomUserDetailsService();
+		 // UserDetails userDetails =  us.loadUserByUsername(username);
+		  UsernamePasswordAuthenticationToken authentication = new 
+		            UsernamePasswordAuthenticationToken(username, password);
 
+		  // Place the new Authentication object in the security context.
+		  SecurityContextHolder.getContext().setAuthentication(authentication);
+		 }
+		 catch (Exception e) {
+		  SecurityContextHolder.getContext().setAuthentication(null);		 
+		  return false;
+		 }
+		 return true;
+	}
 }

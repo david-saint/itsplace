@@ -2,7 +2,7 @@
 			onfocus();
 			$(".on_off_checkbox").iphoneStyle();
 			$('.tip a ').tipsy({gravity: 'sw'});
-			$('#login').show().animate({   opacity: 1 }, 2000);
+			$('#login').show().animate({   opacity: 1 }, 1000);
 			$('.logo').show().animate({   opacity: 1,top: '30%'}, 800,function(){			
 				$('.logo').show().delay(1200).animate({   opacity: 1,top: '0%' }, 300,function(){
 					$('.formLogin').animate({   opacity: 1,left: '0' }, 300);
@@ -26,7 +26,7 @@
 			  $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
 			  $('.inner').trigger('startRumble');
 			  setTimeout('$(".inner").trigger("stopRumble")',500);
-			  setTimeout('hideTop()',5000);
+			  setTimeout('hideTop()',4000);
 			  return false;
 		  }	else{
 			  securityLogin();
@@ -34,7 +34,7 @@
 		 
 	});	
  });																	 
-function AdminLogin(){console.log("login");
+function AdminLogin(){
 	$("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
 		 $('.userbox').show().animate({ opacity: 1 }, 500);
 			$("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
@@ -46,7 +46,7 @@ function AdminLogin(){console.log("login");
      });	   
     setTimeout( "window.location.href='admin'", 3000 );
 }
-function UserLogin(){console.log("login");
+function UserLogin(){
 $("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
 	 $('.userbox').show().animate({ opacity: 1 }, 500);
 		$("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
@@ -67,7 +67,6 @@ function securityLogin(){
 	        xhr.setRequestHeader("X-Ajax-call", "true");
 	    },
 	    success: function(result) {
-	    	 console.log("hide");
     		 hideTop();
     		 loading('Checking',1);		
     		 setTimeout( "unloading()", 2000 );    		

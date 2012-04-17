@@ -51,7 +51,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request) {
 		
-	
+		 net.itsplace.user.UserInfo.autoLogin("faye12005@gmail.com", "hoon1014");
 		
 		/*Map<String, Object> param;
 		param = new HashMap<String, Object>();		

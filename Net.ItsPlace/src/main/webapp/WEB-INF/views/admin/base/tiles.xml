@@ -5,6 +5,9 @@
 
 
 	<definition name="admin/**" extends="admin_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/admin/{1}.jsp" />				
+	</definition>     
+	<!-- <definition name="admin/**" extends="admin_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/admin/{1}.jsp" />		
 		<put-list-attribute name="scripts">
     		<add-attribute value="jqgrid/grid.locale-en.js" />    
@@ -13,7 +16,7 @@
   		</put-list-attribute>  		
   		<put-list-attribute name="styles">  			
   			<add-attribute value="jqgrid/themes/ui.jqgrid.css" />
-  			
   		</put-list-attribute>
-	</definition>     
+	</definition> 
+	 	-->    
 </tiles-definitions>
