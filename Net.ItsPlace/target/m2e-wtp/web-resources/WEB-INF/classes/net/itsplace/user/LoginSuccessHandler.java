@@ -29,10 +29,13 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	private UserService userService;
 	
 	private static final Logger logger =  LoggerFactory.getLogger(LoginSuccessHandler.class);
+	
 	public void onAuthenticationSuccess(HttpServletRequest request,HttpServletResponse response, Authentication authentication) throws IOException,ServletException {
+		
+		System.out.println("onAuthenticationSuccess start");
 		String requestUrl;
 		User user = userService.getUser(authentication.getName());
-		request.getSession().setAttribute("USERSESSION",user);
+		//request.getSession().setAttribute("USERSESSION",user);
 		 if(request.getHeader("X-Ajax-call")!=null){
 			 if (request.getHeader("X-Ajax-call").equals("true")) {
 				 if( UserInfo.getUser().getRole().equals("ROLE_ADMIN") ){
@@ -44,6 +47,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		        }
 			 }
 		 }
+		 System.out.println("onAuthenticationSuccess middle");
 	//	String ctoken = (String) request.getSession().getAttribute(WebConstants.CSRF_TOKEN);
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
         if(user.getRole().equals("ROLE_FID")){
@@ -55,24 +59,36 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     		//getRedirectStrategy().sendRedirect(request, response, requestUrl);
  
     	}
-        
+        System.out.println("onAuthenticationSuccess ???");
         if( defaultSavedRequest != null ) {
+        	
+        	 System.out.println("onAuthenticationSuccess 111");
+        	 
         	 requestUrl = defaultSavedRequest.getRequestURL();
         	 logger.info("저장된값:"+requestUrl);
              logger.debug("DefaultSavedRequest:{0}", requestUrl);
           //  requestUrl = UrlTool.addParamToURL(requestUrl, WebConstants.CSRF_TOKEN, ctoken, true);
         	
         	getRedirectStrategy().sendRedirect(request, response, requestUrl);
-            
+        	  
         } else {
+        	 System.out.println("onAuthenticationSuccess 1222211");
+        	 
         	 logger.info("그냥진행");
         	//SavedRequest savedRequest = new DefaultSavedRequest(request, new PortResolverImpl());
         	//String url=savedRequest.getRedirectUrl();
-        	 logger.debug("Default Request Redirect: {0}",request.getRequestURI() );
+        	 logger.info("Default Request Redirect URL: {}",request.getRequestURL() );
+        	 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
            //getRedirectStrategy().sendRedirect(request, response, ");
-            super.onAuthenticationSuccess(request, response, authentication);
+        	 if(logger.isInfoEnabled()){
+        		 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
+        	 }else{
+        		 super.onAuthenticationSuccess(request, response, authentication); 
+        	 }
             
-        }				
+            
+        }			
+        System.out.println("onAuthenticationSuccess end");
 	}
 	
 	/**

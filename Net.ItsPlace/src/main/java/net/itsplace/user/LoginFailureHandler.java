@@ -28,6 +28,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         	response.sendRedirect(request.getContextPath() + "/login?error=true");
         }
         
-        
+         
     }
 }

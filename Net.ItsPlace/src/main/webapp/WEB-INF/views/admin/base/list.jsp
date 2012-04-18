@@ -37,10 +37,10 @@ border-top-left-radius: 4px;
 				<script type="text/javascript">
 					 $(document).ready(function(){
 						 
-						$('#grpCd').change(function(){											
+						/*$('#grpCd').change(function(){											
 							c.movePage("/admin/base/list?grpCd="+$('#grpCd').val());
 							c.log("dddwwwwwwwwww");
-						});
+						});*/
 				  	 });
 				 </script>
 			</div>
@@ -54,8 +54,47 @@ border-top-left-radius: 4px;
 		 						{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }
 		 		  ]
 		 		});
+		 		
+		 		
+		 		var example = $('#example').dataTable( {
+		 			 "bFilter": true, //search
+		 			"bPaginate": true,
+		 			"bLengthChange": false,
+		 			"sPaginationType": "full_numbers",
+		 			"bProcessing": true,
+		 			"bServerSide": true,		 			
+		 			"sAjaxSource": "<c:url value="/admin/base/table"/>",
+		 			"sAjaxDataProp": "rows",
+		 			"aoColumns": [
+		 				  			{ "mDataProp": "grpCd" },
+		 				  			{ "mDataProp": "grpName" },
+		 				  			{ "mDataProp": "basName" }, 
+		 				  		],
+		 			"fnServerParams": function (aoData, fnCallback) {
+		 			               aoData.push( { "name": "grpCd", "value":  $('#grpCd').val() } );		 			               
+		 			        }
+		 			//"aaSorting": [[ 0, "desc" ]],
+		 		});
+		 		
+		 		$('#grpCd').change(function(){			
+		 			console.log($(this).val());
+		 			//example.fnFilter( $(this).val() );
+		 			example.fnDraw();
+				});
 			});
 		 </script>
+		 
+		 <table class="display" id="example">
+		<thead>
+			<tr>
+				<th width="">Group</th>
+					<th width="">GrpCode</th>
+					<th width="">CodeName</th>
+					
+			</tr>
+		</thead>
+	</table>
+	
 		<table class="display staticBase" id="static">
 			<thead>
 				<tr>

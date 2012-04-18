@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.site.SitePreference;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -50,8 +51,12 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request) {
-		
-		 net.itsplace.user.UserInfo.autoLogin("faye12005@gmail.com", "hoon1014");
+		 System.out.println("자동로그인");
+		 if(net.itsplace.user.UserInfo.autoLogin("faye12005@gmail.com", "hoon1014")){
+			 DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
+			 System.out.println("자동로그인"+request.getRequestURI()+defaultSavedRequest);
+			 //return request.getRequestURI();
+		 }
 		
 		/*Map<String, Object> param;
 		param = new HashMap<String, Object>();		
