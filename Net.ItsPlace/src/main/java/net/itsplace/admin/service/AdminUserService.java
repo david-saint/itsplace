@@ -1,5 +1,13 @@
 package net.itsplace.admin.service;
 
+import java.util.List;
+import java.util.Map;
+
+import net.itsplace.domain.User;
+
+
+
 public interface AdminUserService {
 
+	public List<User> getUserList(Map<String, Object> param);
 }

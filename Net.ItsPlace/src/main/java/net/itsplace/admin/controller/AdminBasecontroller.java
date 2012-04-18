@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.domain.BasCd;
+import net.itsplace.domain.DataTable;
 import net.itsplace.user.User;
 
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class AdminBasecontroller {
 	private static final Logger logger = LoggerFactory.getLogger(AdminBasecontroller.class);
 	@Autowired
 	private AdminBaseService adminBaseService;
-	ssssssssss
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String base_list(
 			@RequestParam (value = "grpCd", required = false, defaultValue = "") String grpCd,
@@ -36,7 +37,7 @@ public class AdminBasecontroller {
 	}
 	@RequestMapping(value="/table")
     @ResponseBody
-    public DataTable2<BasCd> table3(@RequestParam(required=false) String grpCd,@RequestParam(required=false) Integer iDisplayStart, @RequestParam(required=false) Integer iDisplayLength, /* Pagination */
+    public DataTable<BasCd> table3(@RequestParam(required=false) String grpCd,@RequestParam(required=false) Integer iDisplayStart, @RequestParam(required=false) Integer iDisplayLength, /* Pagination */
                     @RequestParam(required=false) Integer iSortCol_0, @RequestParam(required=false) String sSortDir_0, /* Sorting */
                     @RequestParam(required=false, defaultValue="") String sSearch /* Search */) {
 
@@ -54,9 +55,9 @@ public class AdminBasecontroller {
                     
                     String columns[] = new String[]{"grpCd", "grpName", "basName"};
                     List<BasCd> list = adminBaseService.getBascdList("");
-                    DataTable2<BasCd> table = iDisplayLength != null ?
-                                    new DataTable2<BasCd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                                    new DataTable2<BasCd>(columns, sSortDir_0, iDisplayStart);
+                    DataTable<BasCd> table = iDisplayLength != null ?
+                                    new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                                    new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart);
                     table.setRows(adminBaseService.getBascdList(grpCd)); // TODO add filter params to the service method, like in organizations.
                     table.setiTotalDisplayRecords((long) 100);
                     System.out.println("order:"+table.getOrdering(iSortCol_0));

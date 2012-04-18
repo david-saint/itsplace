@@ -56,6 +56,9 @@ public class LoginController {
 			 DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
 			 System.out.println("자동로그인"+request.getRequestURI()+defaultSavedRequest);
 			 //return request.getRequestURI();
+			// new CustomUserDetailsService().loadUserByUsername(username)
+			 model.addAttribute("back","back");
+			 
 		 }
 		
 		/*Map<String, Object> param;

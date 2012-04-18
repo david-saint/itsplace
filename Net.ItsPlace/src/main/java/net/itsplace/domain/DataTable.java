@@ -1,9 +1,9 @@
-package net.itsplace.admin.controller;
+package net.itsplace.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class DataTable2<T>{
+public class DataTable<T>{
         private String[] sortCols;
         private String sortDir;
         
@@ -13,7 +13,7 @@ public class DataTable2<T>{
         private Long iTotalRecords;
         private Collection<T> rows;
         
-        public DataTable2() {
+        public DataTable() {
                 this.rows = new ArrayList<T>();
                 this.start = 0;         
                 this.iDisplayLength = 10; // By default there will be 10 elements in each page.
@@ -23,14 +23,14 @@ public class DataTable2<T>{
                 this.sortDir = "";
         }
         
-        public DataTable2(String[] sortCols, String sortDir, Integer start) {
+        public DataTable(String[] sortCols, String sortDir, Integer start) {
                 this();
                 this.sortCols = sortCols;
                 this.sortDir = sortDir;
                 this.start = start;
         }
         
-        public DataTable2(String[] sortCols, String sortDir, Integer start, Integer iDisplayLength) {
+        public DataTable(String[] sortCols, String sortDir, Integer start, Integer iDisplayLength) {
                 this();
                 this.sortCols = sortCols;
                 this.sortDir = sortDir;

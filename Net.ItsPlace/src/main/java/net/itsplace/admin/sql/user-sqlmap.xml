@@ -3,5 +3,9 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="user">
-	
+    <typeAlias type="net.itsplace.domain.User" alias="User"/>	
+	<select id="getUserList" resultClass="User" parameterClass="java.util.Map" >
+    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE FROM PUSER  
+    	 LIMIT #startRow#,#endRow#  
+    </select>
 </sqlMap>
