@@ -24,7 +24,7 @@ public class AdminBasecontroller {
 	private static final Logger logger = LoggerFactory.getLogger(AdminBasecontroller.class);
 	@Autowired
 	private AdminBaseService adminBaseService;
-	
+	ssssssssss
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String base_list(
 			@RequestParam (value = "grpCd", required = false, defaultValue = "") String grpCd,
