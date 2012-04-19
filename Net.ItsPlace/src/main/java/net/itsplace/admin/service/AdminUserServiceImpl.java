@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.admin.dao.AdminUserDao;
-import net.itsplace.domain.User;
+import net.itsplace.user.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

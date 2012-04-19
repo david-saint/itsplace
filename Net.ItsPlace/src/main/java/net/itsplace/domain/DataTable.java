@@ -108,7 +108,13 @@ public class DataTable<T>{
                 }
                 return "";
         }
-        
+        public String getOrderColumn(int iSortCol_0) {
+            if(iSortCol_0 >= 0 && iSortCol_0 < this.sortCols.length) {
+                    
+                  return this.sortCols[iSortCol_0];
+            }
+            return "";
+    }
         public Integer getEnd() {
                 return this.getStart() + this.getiDisplayLength();
         }

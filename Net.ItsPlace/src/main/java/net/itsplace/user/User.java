@@ -17,7 +17,7 @@ public class User {
 	private String gender;
 	private String birthDay;
 	private String emailToken;
-	private String emailYn;
+	private String emailyn;
 	private String mobile;
 	
 	@NotEmpty(message="비밀번호를 입력하세요")
@@ -127,11 +127,12 @@ public class User {
 		this.emailToken = emailToken;
 	}
 	
-	public String getEmailYn() {
-		return emailYn;
+	
+	public String getEmailyn() {
+		return emailyn;
 	}
-	public void setEmailYn(String emailYn) {
-		this.emailYn = emailYn;
+	public void setEmailyn(String emailyn) {
+		this.emailyn = emailyn;
 	}
 	@Override
 	public String toString() {

@@ -22,8 +22,17 @@
     	 FROM PUSER WHERE MOBILE = #mobile# 
     </select>
     <select id="getUserList" resultClass="User" parameterClass="java.util.Map" >
-    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE FROM PUSER  
-    	 LIMIT #startRow#,#endRow#  
+    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGETYPE, USEYN, MOBILE, EMAILYN FROM PUSER
+    	 <dynamic>
+	    	 <isNotEmpty property="search">
+	    	 	WHERE NAME like CONCAT('%',#search#,'%')
+	    	 	or EMAIL like CONCAT('%',#search#,'%')
+	    	 	or MOBILE like CONCAT('%',#search#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	 ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow#,#endRow#
+    	   
     </select>
     
     <insert id="setUser" parameterClass="User">
@@ -34,7 +43,7 @@
     
     <update id="setUserEmailOn" parameterClass="User">
     	UPDATE PUSER SET 	    
-	    	EMAILYN = #emailYn#	    	
+	    	EMAILYN = #emailyn#	    	
     	WHERE
     		EMAIL = #email#     	
     </update>
