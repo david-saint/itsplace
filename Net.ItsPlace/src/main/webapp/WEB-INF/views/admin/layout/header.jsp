@@ -18,14 +18,14 @@
                       <li class="limenu0 select"><a href="<c:url value="/admin/dashboard" />"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
                       <li class="limenu1" ><a href="#" ><span class="ico gray shadow window"></span><b>기초코드</b></a>
                         <ul>
-                          <li ><a href="<c:url value="/admin/base/list?grpCd=" />"> 기초코드 </a></li>
-                          <li ><a href="vform.html"> validation </a></li>
+                          <li ><a href="<c:url value="/admin/base/list" />"> 기초코드 </a></li>
+                          <li ><a href="<c:url value="/admin/base/list" />"> validation </a></li>
                           <li ><a href="wizard.html"> wizard </a></li>
                         </ul>
                       </li>
-                      <li class="limenu" ><a href="#"><span class="ico gray  dimensions" ></span><b>Sample pages</b></a>
+                      <li class="limenu" ><a href="<c:url value="/admin/user/list" />"><span class="ico gray  dimensions" ></span><b>유저관리</b></a>
                         <ul>
-                          <li ><a href="profile.html"> Profile setting </a></li>
+                          <li ><a href="<c:url value="/admin/base/list" />">유저관리 </a></li>
                           <li ><a href="conversation.html"> conversation</a></li>
                           <li ><a href="imagesEditor.html"> Images Editor </a></li>
                           <li ><a href="barcode.html"> barcode </a></li>

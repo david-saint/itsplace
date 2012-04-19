@@ -20,6 +20,5 @@
 	
 </head>
 <body>
-empty
 <tiles:insertAttribute name="body" />
 </body>

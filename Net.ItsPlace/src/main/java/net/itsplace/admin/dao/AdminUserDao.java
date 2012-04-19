@@ -11,4 +11,5 @@ import org.springframework.dao.DataAccessException;
 
 public interface AdminUserDao {
 	public List<User>  getUserList(Map<String, Object> param) throws DataAccessException;
+	public User getUser(String email) throws DataAccessException;
 }

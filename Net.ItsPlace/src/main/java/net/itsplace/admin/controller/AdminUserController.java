@@ -28,20 +28,45 @@ public class AdminUserController {
 	@Autowired
 	private AdminUserService adminUserService;
 	
+	@Autowired
+	private PagingManager pagingManaer;
+	
 	/**
 	 * 회원리스트
 	 * @param locale
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/table")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model) {
+	
+		return "admin/user/list";
+	}
+	/**
+	 * 회원리스트
+	 * @param locale
+	 * @param model
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String edit(@RequestParam(required=true) String email, Model model)  {
+	
+		model.addAttribute("user",adminUserService.getUser(email));
+		User user = null;
+		//user.setEmail("dd");
+		//int i = 66666*10343434000;		
+		
+		return "admin/user/edit";
+	}
+	@RequestMapping(value="/getUserList")
     @ResponseBody
     public DataTable<User> getUserList(@RequestParam(required=false) String grpCd,
-    								@RequestParam(required=false) Integer iDisplayStart,
-    								@RequestParam(required=false) Integer iDisplayLength, /* Pagination */
+    								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
+    								@RequestParam(required=false) Integer iDisplayLength,
     								@RequestParam(required=false) Integer iSortCol_0, 
-    								@RequestParam(required=false) String sSortDir_0, /* Sorting */
-                                    @RequestParam(required=false, defaultValue="") String sSearch /* Search */) {
+    								@RequestParam(required=false) String sSortDir_0, 
+                                    @RequestParam(required=false, defaultValue="") String sSearch ) {
 
                     System.out.println("iDisplayStart:"+ iDisplayStart.toString());
                     System.out.println("sSortDir_0:"+ sSortDir_0.toString());
@@ -56,21 +81,19 @@ public class AdminUserController {
                     // End filter
                     
                     
-                	PagingManager pagingManaer = new net.itsplace.util.PagingManager();		
-            		Map<String, Object> param  = pagingManaer.createMysqlLimit(iDisplayStart.toString(), iDisplayLength.toString());
-            		
+                		
+            		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);            
             		List<User> userList= adminUserService.getUserList(param);
-            		pagingManaer.setTotalCount(commonService.getFoundRows());
+            		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
             		
             		
-                    String columns[] = new String[]{"grpCd", "grpName", "basName"};
-                    List<BasCd> list = adminUserService.;
-                    DataTable<BasCd> table = iDisplayLength != null ?
-                                    new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                                    new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart);
-                    table.setRows(adminBaseService.getBascdList(grpCd)); // TODO add filter params to the service method, like in organizations.
-                    table.setiTotalDisplayRecords((long) 100);
-                    System.out.println("order:"+table.getOrdering(iSortCol_0));
+                    String columns[] = new String[]{"profileImageUrl", "email", "mobile"};                
+                    DataTable<User> table = iDisplayLength != null ?
+                                    new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                                    new DataTable<User>(columns, sSortDir_0, iDisplayStart);
+                    table.setRows(userList); // TODO add filter params to the service method, like in organizations.
+                    table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+                   
                     return table;
            
                    

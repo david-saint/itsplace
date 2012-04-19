@@ -13,6 +13,10 @@
 		<put-attribute name="header" expression="/WEB-INF/views/admin/layout/header.jsp" />	
 		<put-attribute name="footer" expression="/WEB-INF/views/admin/layout/footer.jsp" />
 	</definition>
+	
+	<definition name="admin_empty_layout" templateExpression="/WEB-INF/views/admin/layout/empty_layout.jsp">			
+	</definition>
+	
 	<definition name="empty_layout" templateExpression="/WEB-INF/views/empty/layout/layout.jsp">			
 	</definition>
 </tiles-definitions>

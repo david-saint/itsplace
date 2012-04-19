@@ -5,10 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import org.springframework.stereotype.Service;
 
-public class PagingManager {
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+@Service("PagingManager")
+public class PagingManager  extends SqlMapClientDaoSupport  {
 	private static final Logger logger =  LoggerFactory.getLogger(PagingManager.class);
 	
 	private List<Integer> pageNo;	// 페이지 그룹의 페이지 번호를 담고 있는 Listg
@@ -22,7 +30,14 @@ public class PagingManager {
 	private int pageGroupSize;   //페이지 그룹의 페이지 갯수
 	private String pageHtml;
 
-	
+	@Resource(name="sqlMapClient")
+	protected void init(SqlMapClient sqlMapClient) {
+		super.setSqlMapClient(sqlMapClient);
+	}
+	public Integer getFoundRows()
+			throws DataAccessException {		
+		return (Integer) getSqlMapClientTemplate().queryForObject("getFoundRows");
+	}
 	/**
 	 * <pre>
 	 * Mysql Limit 조건 생성( 현재페이지, 페이지당 갯수)
@@ -33,12 +48,12 @@ public class PagingManager {
 	 * @param pageGroupSize
 	 */
 	
-	public  Map<String, Object>  createMysqlLimit(String currentPage, String pageSize){
+	public  Map<String, Object>  createMysqlLimit(int currentPage, int pageSize){
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		
-		int pageSizeTmp = Integer.parseInt(pageSize);
-		int currentPageTmp = Integer.parseInt(currentPage);
+		int pageSizeTmp = pageSize;
+		int currentPageTmp = currentPage+1;
 		
 		int startRow = pageSizeTmp * currentPageTmp - (pageSizeTmp -1);
 		int endRow =  pageSizeTmp;
@@ -46,6 +61,23 @@ public class PagingManager {
 		if(startRow==1){
 			startRow=0;
 		}
+		param.put("startRow",startRow);
+		param.put("endRow",endRow);
+		logger.info("페이징: startRow:" +startRow);
+		logger.info("페이징: endRow:" +endRow);
+		return param;
+	}
+	public  Map<String, Object>  createDataTableLimit(int iDisplayStart, int iDisplayLength){
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		int pageSizeTmp = iDisplayLength;
+		int currentPageTmp = iDisplayStart;
+		
+		int startRow = currentPageTmp;
+		int endRow =  pageSizeTmp;
+		//final int endRow = currentPage * pageSize;
+		
 		param.put("startRow",startRow);
 		param.put("endRow",endRow);
 		logger.info("페이징: startRow:" +startRow);

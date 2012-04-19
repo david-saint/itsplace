@@ -59,7 +59,7 @@ public class AdminBasecontroller {
                                     new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
                                     new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart);
                     table.setRows(adminBaseService.getBascdList(grpCd)); // TODO add filter params to the service method, like in organizations.
-                    table.setiTotalDisplayRecords((long) 100);
+                    table.setiTotalDisplayRecords( 100);
                     System.out.println("order:"+table.getOrdering(iSortCol_0));
                     return table;
            

@@ -50,6 +50,7 @@ public class UserInfo {
 
 		  // Place the new Authentication object in the security context.
 		  SecurityContextHolder.getContext().setAuthentication(authentication);
+		  
 		 }
 		 catch (Exception e) {
 		  SecurityContextHolder.getContext().setAuthentication(null);		 

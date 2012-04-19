@@ -24,5 +24,6 @@ public class SigninController {
 
 	@RequestMapping(value="/signin", method=RequestMethod.GET)
 	public void signin() {
+		System.out.println("sign in");
 	}
 }

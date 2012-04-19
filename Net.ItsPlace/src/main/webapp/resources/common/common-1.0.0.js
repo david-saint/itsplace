@@ -8,14 +8,11 @@
 
 
 $(document).ready(function() {
-	/*$('input[@type=text]').focus(function() {
-		  $(this).addClass("focused");
-	 });
+	$('.clear_form').live('click',function() {
+		c.log("clear");
+		c.clearForm();
+	});
 	
-	$('input[@type=text]').blur(function() {
-		  $(this).removeClass("focused");
-	 });
-	 */
 	
 });
 var c = {
@@ -23,12 +20,26 @@ var c = {
 		movePage : function(url) {
 		    document.location.href= url;
 		  
-		}
-		,log : function(message) {
+		},
+		log : function(message) {
 			if(window.console){
 				console.log(message);
 			}
 		    
-		}
-		
+		},
+		clearForm : function(){
+			$('form').each(function(index) {	  
+				var form_id=$('form:eq('+index+')').attr('id');
+					  if(form_id){ 
+						  $('#'+form_id).get(0).reset(); 
+						  $('#'+form_id).validationEngine('hideAll');
+								  var editor=$('#'+form_id).find('#editor').attr('id');
+								  if(editor){
+									   $('#editor').cleditor()[0].clear();
+								  }
+					  } 
+			  });	
+	
+		}		
 };//common		
+	

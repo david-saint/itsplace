@@ -77,8 +77,8 @@ $(document).ready(function(){
 	$("#editor,#editor2").cleditor();	
 	
 	// Form validationEngine
-	$('form#validation').validationEngine();		
-	$('form#validation_demo').validationEngine();	
+	//$('form#validation').validationEngine();		
+	//$('form#validation_demo').validationEngine();	
 	
 	// Input filter
 	$('.numericonly input').autotab_magic().autotab_filter('numeric');
@@ -270,10 +270,11 @@ $(function() {
 
 	//Button Click  Ajax Loading
 	$('.loading').live('click',function() { 
+		/*
 		  var str=$(this).attr('title'); 
 		  var overlay=$(this).attr('rel'); 
 		  loading(str,overlay);
-		  setTimeout("unloading()",1500); 
+		  setTimeout("unloading()",1500);*/ 
 	  });
 	$('#preloader').live('click',function(){
 			unloading();
@@ -287,9 +288,9 @@ $('.searchAutocomplete').click(function() {
 });
 	// Submit Form 
 	$('a.submit_form').live('click',function(){
-		  var form_id=$(this).parents('form').attr('id');
-		  $("#"+form_id).submit();
-	})	
+		//  var form_id=$(this).parents('form').attr('id');
+		 // $("#"+form_id).submit();
+	});	
 
 	// Logout Click  
 	$('.logout').live('click',function() { 
