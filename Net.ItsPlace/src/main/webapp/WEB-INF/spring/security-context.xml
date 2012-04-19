@@ -52,7 +52,9 @@
 				login-processing-url="/signin/authenticate" 				
 				authentication-success-handler-ref="loginSuccessHandler"
 				authentication-failure-handler-ref="loginFailureHandler" 
-				default-target-url="/" />
+				default-target-url="/"
+						
+				/><!--  default-target-url="/"--> 
 		
 		<logout 
 				invalidate-session="true" 

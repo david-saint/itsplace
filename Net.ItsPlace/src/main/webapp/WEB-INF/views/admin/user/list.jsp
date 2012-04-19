@@ -8,21 +8,24 @@
 <!-- full width -->
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 기초코드 </span>
+		<span><span class="ico gray home"></span> 사용자관리  </span>
 	</div>
 	<!-- End header -->
 	<div class="content">
-
+								x
 		<div class="section" style="text-align: right">
 			<div>
-			
+			<ul class="uibutton-group">
+                                    <li><a class="uibutton icon add "  title="Add Product">Add Product</a></li>
+                                    <li><a class="uibutton special DeleteAll"  >Delete</a></li>
+                              </ul>
 			</div>
 		</div>
 		<script type="text/javascript">
 		 	$(document).ready(function(){
 		 		
 		 		var example = $('#example').dataTable( {
-		 			 "bFilter": false, //search
+		 			"bFilter": true, //search
 		 			"bPaginate": true,
 		 			"bLengthChange": false,
 		 			"sPaginationType": "full_numbers",
@@ -33,71 +36,67 @@
 		 			"bServerSide": true,		 			
 		 			"sAjaxSource": "/admin/user/getUserList",
 		 			"sAjaxDataProp": "rows",
-		 			"aoColumns": [
+		 			"aoColumns": [//"profileImageUrl", "email", "name","role", "mobile", "useyn", "emailyn"
 		 				  			{ "mDataProp": "profileImageUrl" },
 		 				  			{ "mDataProp": "email" },
+		 				  			{ "mDataProp": "name" },
+		 				  			{ "mDataProp": "role" },
 		 				  			{ "mDataProp": "mobile" },
-		 				  			{ "sDefaultContent": "", "fnRender" : make_crud_actions, "bSortable": false, "bSearchable": false },
-		 				  			/*{ "sName": "actions","fnRender": function ( oObj ) {
-		 								return "3";
-		 							}}*/
+		 				  			{ "mDataProp": "useyn" },
+		 				  			{ "mDataProp": "emailyn" },
+		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
+		 				  	
 		 				  		],
-		 			"fnServerParams": function (aoData, fnCallback) {
-		 			               aoData.push( { "name": "grpCd", "value":  "2" } );		 			               
-		 			},
-		 			"fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-		 				//alert(""+nRow);
-		 				/*if ( aData[4] == "A" )
-					      {
-					        $('td:eq(4)', nRow).html( '<b>A</b>' );
-					      }*/
-					      //로우 렌더링 가능
-		 			},
+		 			
 		 			"fnInitComplete":function(){
 		 				$('.userEdit').fancybox({
-		 					'autoDimensions':false,'scrolling':'auto','autoScale':true,'height':700,'centerOnScroll':true,
+		 					'autoDimensions':false,
+		 					'scrolling':'auto',
+		 					'autoScale':true,
+		 					'height':700,
+		 					'centerOnScroll':true,
 		 					'title':'사용자 정보 수정'
 
 		 				});
-		 				c.log("dd");
-		 			}
-		 			//"aaSorting": [[ 0, "desc" ]],
+		 			},
+		 			"aaSorting": [[ 2, "asc" ]]
 		 		});
 		 		
-		 		$("#example tbody td").live('click',function(){
-		 		    var aPos = $(example).dataTable().fnGetPosition(this);
-		 			console.log("aPos:"+aPos);
-		 		    var aData = $(example).dataTable().fnGetData(aPos[0]);
-		 		    console.log("aData1:"+aData.email);
-		 		    // at this point aData is an array containing all the row info, use it to retrieve what you need.
-		 		});
+		 		
 		 		
 		 		
 			});
-		 	function make_crud_actions(oObj) {
+		 	function make_actions(oObj) {
 		 		var id = oObj.aData['email'];
 		 		
-		 		var detailAction = '<span class="tip"><a class="userEdit" href="/admin/user/edit?email=3" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var editAction = '<a href="""' + id + '">Edit</a>';
-		 		var deleteAction = '<a href=""' + id + '">Delete</a>';
+		 		var editAction = '<span class="tip"><a class="userEdit" href="/admin/user/edit?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var deleteAction = '<span class="tip"><a class="userEdit" href="/admin/user/edit?email='+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
-		 		return detailAction + "&nbsp;&nbsp;" + editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 </script>
 		 
-		 <table class="display" id="example">
+		 <table class="display data_table2" id="example">
 		<thead>
 			<tr>
-				<th width="">Group</th>
-				<th width="">GrpCode</th>
-				<th width="">CodeName</th>
+				<th width="">profile</th>
+				<th width="">email</th>
+				<th width="">name</th>
+				<th width="">role</th>
+				<th width="">mobile</th>
+				<th width="">useyn</th>
+				<th width="">emailyn</th>
 				<th width="">Management</th>
 					
 			</tr>
 		</thead>
 	</table>
-	
-		
+	<a class="uibutton icon large add right">button</a>
+		<div class="section last right">
+			<div>
+				<a class="uibutton icon large add right">button</a>
+			</div>
+		</div>
 
 
 		<!-- clear fix -->

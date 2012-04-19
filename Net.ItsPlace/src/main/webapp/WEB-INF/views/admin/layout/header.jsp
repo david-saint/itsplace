@@ -23,9 +23,9 @@
                           <li ><a href="wizard.html"> wizard </a></li>
                         </ul>
                       </li>
-                      <li class="limenu" ><a href="<c:url value="/admin/user/list" />"><span class="ico gray  dimensions" ></span><b>유저관리</b></a>
+                      <li class="limenu" ><a href="<c:url value="/admin/user/list" />"><span class="ico gray  dimensions" ></span><b>사용자관리</b></a>
                         <ul>
-                          <li ><a href="<c:url value="/admin/base/list" />">유저관리 </a></li>
+                          <li ><a href="<c:url value="/admin/base/list" />">사용관리 </a></li>
                           <li ><a href="conversation.html"> conversation</a></li>
                           <li ><a href="imagesEditor.html"> Images Editor </a></li>
                           <li ><a href="barcode.html"> barcode </a></li>

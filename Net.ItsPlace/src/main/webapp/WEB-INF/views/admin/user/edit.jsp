@@ -50,7 +50,7 @@
                         <form id="userEdit" action=""> 
                               <div class="section" >
                                   <label> full <small>Text custom</small></label>   
-                                  <div> <input id="email" type="text" name="email" class="validate[required,minSize[3],maxSize[20]] medium "  /><span class="f_help">Text custom help</span></div>
+                                  <div> <input id="email" type="text" name="email" class="validate[required,minSize[3],maxSize[20]] medium "  value="${user.email }"/><span class="f_help">Text custom help</span></div>
                                   
                              </div>
                              <div class="section" >

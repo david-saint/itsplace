@@ -94,8 +94,8 @@ border-top-left-radius: 4px;
 			</tr>
 		</thead>
 	</table>
-	
-		<table class="display staticBase" id="static">
+
+		<%-- <table class="display staticBase" id="static">
 			<thead>
 				<tr>
 					<th width="">Group</th>
@@ -106,7 +106,7 @@ border-top-left-radius: 4px;
 					<th width="">Management</th>
 				</tr>
 			</thead>
-			<tbody>
+		 <tbody>
 				<c:forEach items="${basCdList}" var="basCd">
 					<tr>
 						<td>${basCd.grpName}</td>
@@ -124,8 +124,8 @@ border-top-left-radius: 4px;
 						</span></td>
 					</tr>
 				</c:forEach>
-			</tbody>
-		</table>
+			</tbody> 
+		</table> --%>
 
 
 

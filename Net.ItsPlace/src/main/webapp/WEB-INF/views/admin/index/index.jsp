@@ -2,19 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<div id="content">
-                <div class="inner">
-					<div class="topcolumn">
-						<div class="logo"></div>
-                            <ul  id="shortcut">
-                                <li> <a href="#" title="Back To home"> <img  src="<c:url value="/resources/admin/images/icon/shortcut/home.png"/>" alt="home"/><strong>Home</strong> </a> </li>
-                                <li> <a href="#" title="Website Graph"> <img src="<c:url value="/resources/admin/images/icon/shortcut/graph.png"/>" alt="graph"/><strong>Graph</strong> </a> </li>
-                                <li> <a href="#" title="Setting" > <img src="<c:url value="/resources/admin/images/icon/shortcut/setting.png"/>" alt="setting" /><strong>Setting</strong></a> </li> 
-                                <li> <a href="#" title="Messages"> <img src="<c:url value="/resources/admin/images/icon/shortcut/mail.png"/>" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
-                            </ul>
-							<div class="clear"></div>
-					</div>   
-                    <div class="clear"></div>
+
                     
 					<!-- full width -->
                     <div class="widget">
@@ -322,7 +310,7 @@
                                     Cras tincidunt hendrerit pharetra. Etiam erat magna,
                                     egestas sed placerat at, congue sed nisi. Nullam
                                     eget varius leo. Integer at justo a velit imperdiet
-                                    pulvinar. Sed magna mi, sodales sit amet aliquet
+                                    pulvinar. Ssed magna mi, sodales sit amet aliquet
                                     ac, eleifend eget sem. Nam ipsum lectus, fringilla
                                     sed rutrum ac, tempus in orci. Lorem ipsum dolor sit amet, consectetur adipiscing
                                     elit. Quisque non leo convallis nibh tristique commodo.
@@ -343,12 +331,6 @@
 							</div><!-- End content -->
 						</div><!-- End full width -->
 
-				    </div><!-- End column_right -->
+				    </dssiv><!-- End column_right -->
                         
-					<!-- clear fix -->
-					<div class="clear"></div>
-
-                    <div id="footer"> &copy; Copyright 2012 <span class="tip"><a  href="#" title="Zice Admin" >ItsPlace</a> </span> </div>
-
-                </div> <!--// End inner -->
-              </div> <!--// End content -->    
+				  
