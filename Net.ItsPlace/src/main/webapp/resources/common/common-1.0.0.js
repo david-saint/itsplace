@@ -9,7 +9,7 @@
 
 $(document).ready(function() {
 	$('.clear_form').live('click',function() {
-		c.log("clear");
+		c.log("clear Form");
 		c.clearForm();
 	});
 	
@@ -26,7 +26,8 @@ var c = {
 				console.log(message);
 			}
 		    
-		},
+		},		
+		
 		clearForm : function(){
 			$('form').each(function(index) {	  
 				var form_id=$('form:eq('+index+')').attr('id');
@@ -40,6 +41,17 @@ var c = {
 					  } 
 			  });	
 	
-		}		
+		},
+		loading : function(name,overlay) { 
+			$('body').append('<div id="overlay"></div><div id="preloader">'+name+'..</div>');
+					if(overlay==1){
+					  $('#overlay').css('opacity',0.4).fadeIn(400,function(){  $('#preloader').fadeIn(400);	});
+					  //return  false;
+			   }
+			$('#preloader').fadeIn();	  
+	   },
+		unloading : function() { 
+			$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut(); /*$.fancybox.close();*/ }).remove();
+	   }
 };//common		
 	

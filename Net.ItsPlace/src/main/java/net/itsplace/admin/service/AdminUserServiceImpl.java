@@ -13,6 +13,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 
 
 @Service("AdminUserService")
@@ -29,5 +31,17 @@ public class AdminUserServiceImpl implements AdminUserService{
 	
 	public User getUser(String email){
 		return adminUserDao.getUser(email);
+	}
+
+	@Override
+	public void saveUser(User user) {
+		adminUserDao.saveUser(user);
+		
+	}
+
+	@Override
+	public void updateUser(User user)  {
+		adminUserDao.updateUser(user);
+		
 	}
 }

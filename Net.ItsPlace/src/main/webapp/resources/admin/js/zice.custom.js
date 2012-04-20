@@ -1355,7 +1355,7 @@ $('.searchAutocomplete').click(function() {
 			  $('#alertMessage').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500);	
 	  }
 	  
-	  function loading(name,overlay) { 
+	 /* function loading(name,overlay) { 
 			$('body').append('<div id="overlay"></div><div id="preloader">'+name+'..</div>');
 					if(overlay==1){
 					  $('#overlay').css('opacity',0.4).fadeIn(400,function(){  $('#preloader').fadeIn(400);	});
@@ -1363,10 +1363,10 @@ $('.searchAutocomplete').click(function() {
 			   }
 			$('#preloader').fadeIn();	  
 	   }
-	   
-	  function unloading() { 
+	   */
+	  /*function unloading() { 
 			$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut(); $.fancybox.close(); }).remove();
-	   }
+	   }*/
 	
 	   function imgRow(){	
 			  var maxrow=$('.albumpics').width();

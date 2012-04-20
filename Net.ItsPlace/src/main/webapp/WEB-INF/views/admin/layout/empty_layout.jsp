@@ -86,7 +86,7 @@
         <script type="text/javascript" src="<c:url value="/resources/admin/components/highlightText/highlightText.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/admin/components/elastic/jquery.elastic.source.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/js/jquery.cookie.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/resources/admin/js/zice.custom.js"/>"></script>    
+        <%-- <script type="text/javascript" src="<c:url value="/resources/admin/js/zice.custom.js"/>"></script> --%>    
  
  
  

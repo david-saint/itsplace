@@ -12,26 +12,19 @@
 	</div>
 	<!-- End header -->
 	<div class="content">
-								x
-		<div class="section" style="text-align: right">
-			<div>
-			<ul class="uibutton-group">
-                                    <li><a class="uibutton icon add "  title="Add Product">Add Product</a></li>
-                                    <li><a class="uibutton special DeleteAll"  >Delete</a></li>
-                              </ul>
-			</div>
-		</div>
+		
 		<script type="text/javascript">
 		 	$(document).ready(function(){
 		 		
-		 		var example = $('#example').dataTable( {
+		 		var user_datatable = $('#user_datatable').dataTable( {
+		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
 		 			"bFilter": true, //search
 		 			"bPaginate": true,
-		 			"bLengthChange": false,
+		 			"bLengthChange": true, //로우수
 		 			"sPaginationType": "full_numbers",
 		 			"bProcessing": true,
 		 			"oLanguage": {
-		 		         "sProcessing": "<div style='border:0px solid red'>Loading...</di>"
+		 		         "sProcessing": "<div style='border:0px solid red'>User List Loading...</di>"
 		 		       },
 		 			"bServerSide": true,		 			
 		 			"sAjaxSource": "/admin/user/getUserList",
@@ -58,11 +51,14 @@
 		 					'title':'사용자 정보 수정'
 
 		 				});
+		 				
+		 				
 		 			},
 		 			"aaSorting": [[ 2, "asc" ]]
 		 		});
 		 		
-		 		
+		 		//datatable row selectbox style
+		 		$(".dataTables_length select").addClass("small");
 		 		
 		 		
 			});
@@ -75,27 +71,27 @@
 		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 </script>
-		 
-		 <table class="display data_table2" id="example">
-		<thead>
-			<tr>
-				<th width="">profile</th>
-				<th width="">email</th>
-				<th width="">name</th>
-				<th width="">role</th>
-				<th width="">mobile</th>
-				<th width="">useyn</th>
-				<th width="">emailyn</th>
-				<th width="">Management</th>
-					
-			</tr>
-		</thead>
-	</table>
-	<a class="uibutton icon large add right">button</a>
+		 <div class="tableName"><!-- tableName search box 이동  -->
+		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">Add User</a></span>
+			 <table class="display " id="user_datatable">
+				<thead>
+					<tr>
+						<th width="">profile</th>
+						<th width="">email</th>
+						<th width="">name</th>
+						<th width="">role</th>
+						<th width="">mobile</th>
+						<th width="">useyn</th>
+						<th width="">emailyn</th>
+						<th width="">Management</th>
+							
+					</tr>
+				</thead>
+			</table>
+		</div> 
+	
 		<div class="section last right">
-			<div>
-				<a class="uibutton icon large add right">button</a>
-			</div>
+			
 		</div>
 
 

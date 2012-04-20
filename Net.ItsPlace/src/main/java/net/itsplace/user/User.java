@@ -3,15 +3,22 @@ package net.itsplace.user;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.itsplace.validation.UserPrimarykey;
+
 import org.hibernate.validator.constraints.*;
+
+
 
 import javax.validation.constraints.Size;
 
 @XmlRootElement(name = "user")
 public class User {
+	public interface AddUser {}
+	public interface EditUser {}
 	
-	@Email	
-	@NotEmpty(message="Email을 입력하세요")
+	@Email(groups={AddUser.class})	
+	@NotEmpty(message="Email을 입력하세요",groups={AddUser.class})
+	@UserPrimarykey(groups={AddUser.class})
 	private String email;
 	
 	private String gender;
@@ -20,11 +27,11 @@ public class User {
 	private String emailyn;
 	private String mobile;
 	
-	@NotEmpty(message="비밀번호를 입력하세요")
-	@Size(min = 5, max = 20, message="비밀번호는 5글자 이상 입력하세요")
+	@NotEmpty(message="비밀번호를 입력하세요",groups={AddUser.class,EditUser.class})
+	@Size(min = 5, max = 20, message="비밀번호는 5글자 이상 입력하세요",groups={AddUser.class,EditUser.class})
 	private String password;
 	
-	@NotEmpty(message="이름을 입력하세요")
+	@NotEmpty(message="이름을 입력하세요",groups={AddUser.class,EditUser.class})
 	private String name;
 	/**
 	 * Access level of the user. 
