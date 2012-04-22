@@ -17,4 +17,5 @@ public interface AdminUserService {
 	public User getUser(String email) ;
 	public void saveUser(User user) ;
 	public void updateUser(User user);
+	public void deleteUser(User user);
 }

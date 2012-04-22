@@ -22,7 +22,7 @@
     	 FROM PUSER WHERE MOBILE = #mobile# 
     </select>
     <select id="getUserList" resultClass="User" parameterClass="java.util.Map" >
-    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGETYPE, USEYN, MOBILE, EMAILYN FROM PUSER
+    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGETYPE, USEYN, MOBILE, EMAILYN, SAVEDATE, EDITDATE FROM PUSER
     	 <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	WHERE NAME like CONCAT('%',#search#,'%')

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.itsplace.admin.dao.AdminUserDao;
 import net.itsplace.user.User;
+import net.itsplace.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	
 	@Autowired
 	private AdminUserDao adminUserDao;
+	@Autowired
+	private UserService userService;
 	
 	@Transactional(readOnly=true)
 	public List<User> getUserList(Map<String, Object> param){
@@ -42,6 +45,24 @@ public class AdminUserServiceImpl implements AdminUserService{
 	@Override
 	public void updateUser(User user)  {
 		adminUserDao.updateUser(user);
+		
+	}
+	
+	/**
+	 * 관리자는 사용자를 삭제하고 삭제 사유를 남기고 사용자에게 메일로 삭제 통보한다     <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param user
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@Override
+	public void deleteUser(User user) {
+		//String test = null;
+		//char tesdt = test.charAt(100);
+		userService.updateUserDisable(user);
 		
 	}
 }

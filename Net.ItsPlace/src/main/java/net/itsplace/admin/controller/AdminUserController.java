@@ -95,12 +95,12 @@ public class AdminUserController {
 	
 	}
 	/**
-	 * 회원 생성 <br />
+	 * 관리자가 회원 수정 폼을 호출한다.   <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
-	 * @param model
-	 * @return  list.jsp
+	 * @param email
+	 * @return  edit.jsp
 	 * @throws 
 	 * @see 
 	 */
@@ -115,12 +115,12 @@ public class AdminUserController {
 		return "admin/user/edit";
 	}
 	/**
-	 * 회원 생성 <br />
+	 * Ajax 관리자가 사용자를 수정한다  <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
-	 * @param model
-	 * @return  list.jsp
+	 * @param user
+	 * @return JsonResponse
 	 * @throws 
 	 * @see 
 	 */
@@ -141,6 +141,42 @@ public class AdminUserController {
 		
 		return json;
 	}
+	/**
+	 * Ajax 관리자가 사용자를 수정한다  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param user
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse delete(@RequestParam(required=true) String email)  {
+		logger.info("email:{}",email);
+		JsonResponse json = new JsonResponse();		
+		User user = new User();
+		user.setEmail(email);
+		adminUserService.deleteUser(user); 
+			
+		json.setResult(user);
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	/**
+	 * 사용자관리 리스트 관리자는 사용자상세정보, 수정, 삭제 기 <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param iDisplayStart 페이지 번
+	 * @param iDisplayLength 페이지 로우수 (한페이지에 보여줄 로우수)
+	 * @param iSortCol_0 sort할 컬럼 번호 
+	 * @param sSortDir_0 sort할 방향(asc/desc)
+	 * @param sSearch 검색
+	 * @return DataTables
+	 * @throws 
+	 * @see 
+	 */
 	@RequestMapping(value="/getUserList")
     @ResponseBody
     public DataTable<User> getUserList(
@@ -151,18 +187,18 @@ public class AdminUserController {
                                     @RequestParam(required=false, defaultValue="") String sSearch ) {
 
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
-                    logger.info("sSortDir_0:{}", sSortDir_0.toString());
-                    logger.info("iSortCol_0:{}", iSortCol_0.toString());
-                    logger.info("iDisplayLength:{}", iDisplayLength.toString());
-                    logger.info("sSearch:{}", sSearch.toString());
+                    logger.info("sSortDir_0:{}", sSortDir_0);
+                    logger.info("iSortCol_0:{}", iSortCol_0);
+                    logger.info("iDisplayLength:{}", iDisplayLength);
+                    logger.info("sSearch:{}", sSearch);
                    
-                    String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "useyn", "emailyn"};
+                    String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "useyn", "emailyn", "saveDate", "editDate"};
                     //도메인이랑 대소문자 일치해야
                     DataTable<User> table = iDisplayLength != null ?
                                     new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
                                     new DataTable<User>(columns, sSortDir_0, iDisplayStart);
                     
-                    logger.info("getOrderColumn:{}"+ table.getOrderColumn(iSortCol_0));
+                    //logger.info("getOrderColumn:{}"+ table.getOrderColumn(iSortCol_0));
                    
             		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
                     param.put("search", sSearch);

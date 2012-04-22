@@ -42,10 +42,8 @@ public class User {
 	private String role;
 	
 	/*주소fk*/
-	private String nldno;
-	
-	private String useyn;
-	
+	private String nldno;	
+	private String useyn;	
 
 	
 	/*프로필 이미지 URL*/
@@ -54,6 +52,21 @@ public class User {
 	/* 프로필 이미지 선택 */
 	private String profileImageType;
 	
+	private String saveDate;
+	private String editDate;
+	
+	public String getSaveDate() {
+		return saveDate;
+	}
+	public void setSaveDate(String saveDate) {
+		this.saveDate = saveDate;
+	}
+	public String getEditDate() {
+		return editDate;
+	}
+	public void setEditDate(String editDate) {
+		this.editDate = editDate;
+	}
 	public String getProfileImageUrl() {
 		return profileImageUrl;
 	}
