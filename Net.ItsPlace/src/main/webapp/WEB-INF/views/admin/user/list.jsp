@@ -3,7 +3,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<style>
+.right{text-align:right;}
+.left{text-align:left;}
+.tableName th{text-align:center;}
+</style>
 
 <!-- full width -->
 <div class="widget">
@@ -14,9 +18,11 @@
 	<div class="content">
 		
 		<script type="text/javascript">
+		var user_datatable;
+		
 		 	$(document).ready(function(){
 		 		
-		 		var user_datatable = $('#user_datatable').dataTable( {
+		 		 user_datatable = $('#user_datatable').dataTable( {
 		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
 		 			"bFilter": true, //search
 		 			"bPaginate": true,
@@ -31,30 +37,76 @@
 		 			"sAjaxDataProp": "rows",
 		 			"aoColumns": [//"profileImageUrl", "email", "name","role", "mobile", "useyn", "emailyn"
 		 				  			{ "mDataProp": "profileImageUrl" },
-		 				  			{ "mDataProp": "email" },
-		 				  			{ "mDataProp": "name" },
-		 				  			{ "mDataProp": "role" },
-		 				  			{ "mDataProp": "mobile" },
+		 				  			{ "mDataProp": "email", "sClass": "left", "sWidth": "150px"},
+		 				  			{ "mDataProp": "name", "sClass":"left" },
+		 				  			{ "mDataProp": "role", "sClass":"left" },
+		 				  			{ "mDataProp": "mobile", "sClass":"left" },
 		 				  			{ "mDataProp": "useyn" },
 		 				  			{ "mDataProp": "emailyn" },
+		 				  			{ "mDataProp": "saveDate" },
+		 				  			{ "mDataProp": "editDate" },
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  	
 		 				  		],
-		 			
+		 			"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+		 					c.log("aDAta:"+ aData[0]+ aData[1]+ aData[6]+ aData[7]);
+		 					c.log("nROw:"+ iDisplayIndex);
+		 			},
 		 			"fnInitComplete":function(){
-		 				$('.userEdit').fancybox({
-		 					'autoDimensions':false,
-		 					'scrolling':'auto',
-		 					'autoScale':true,
-		 					'height':700,
-		 					'centerOnScroll':true,
-		 					'title':'사용자 정보 수정'
-
-		 				});
+		 				//$('.datatable_tip a').tipsy({gravity: 's',live: false});
+		 				
+		 				
+		 				$('.tip a ').tipsy({trigger: 'manual'});
+		 				$('.tip a ').tipsy("hide");
+		 				//$('.userDelete').tipsy("hide").hide();
 		 				
 		 				
 		 			},
-		 			"aaSorting": [[ 2, "asc" ]]
+		 			"fnDrawCallback": function () {
+		 				
+		 				$('.userEdit').fancybox({//autodimensions false 후 width , height 가느
+		 					'autoDimensions':false,
+		 					'scrolling':'auto',
+		 					'autoScale':false,
+		 					'height':500,
+		 					//'centerOnScroll':true
+		 					//'title':'사용자 정보 수정'
+
+		 				});
+		 				$('.userDelete').bind('click', function() {
+		 					c.log("deete");
+		 					
+		 					$.ajax({
+		 	                     url: "/admin/user/delete",
+		 	                     type:"POST",
+		 	                     data:"email="+$(this).attr('email'),
+		 	                     beforeSend :function(){
+		 		   	 	 			  c.loading("delete",0);
+		 	                     },
+		 	                     success: function(response){
+		 	                       
+		 	                     	console.log("송고"+response.status);
+		 	                    	 // user_datatable.fnClearTable(0);
+		 	                    	 //user_datatable.fnDraw();
+		 	                    	 // refreshTable(user_datatable);
+		 	                    	 // user_datatable.fnReloadAjax();
+		 	                    	//  user_datatable.fnStandingRedraw();
+		 	                     },
+		 	                     error: function(jqXHR, textStatus, errorThrown){
+		 	                    	alert(textStatus+"j"+jqXHR+"e:"+errorThrown); 
+		 	                     },
+		 	                     complete:function(){
+		 	                    	//$('#user').validationEngine('detach');
+		 	                    	 setTimeout("c.unloading()",500); 
+		 	                    	//$('.datatable_tip a').tipsy({gravity: 's',live: false});
+		 	                    	
+		 	                    	  user_datatable.fnStandingRedraw();
+		 	                     }////
+		 	                   });//ajax */
+		 					
+		 				});
+		 			},
+		 			"aaSorting": [[ 7, "desc" ]]
 		 		});
 		 		
 		 		//datatable row selectbox style
@@ -62,29 +114,46 @@
 		 		
 		 		
 			});
+		 	
+		 	$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
+		 		$('.tipsy').remove();
+		 	    if(oSettings.oFeatures.bServerSide === false){
+		 	        var before = oSettings._iDisplayStart;
+		 	        oSettings.oApi._fnReDraw(oSettings);
+		 	        //iDisplayStart has been reset to zero - so lets change it back
+		 	        oSettings._iDisplayStart = before;
+		 	        oSettings.oApi._fnCalculateEnd(oSettings);
+		 	    }
+		 	    //draw the 'current' page
+		 	    oSettings.oApi._fnDraw(oSettings);
+		 	};
 		 	function make_actions(oObj) {
 		 		var id = oObj.aData['email'];
 		 		
 		 		var editAction = '<span class="tip"><a class="userEdit" href="/admin/user/edit?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var deleteAction = '<span class="tip"><a class="userEdit" href="/admin/user/edit?email='+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		var deleteAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
+		 	function test(){
+		 		
+		 	}
 		 </script>
-		 <div class="tableName"><!-- tableName search box 이동  -->
+		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
 		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">Add User</a></span>
-			 <table class="display " id="user_datatable">
+			 <table class="display" id="user_datatable">
 				<thead>
 					<tr>
-						<th width="">profile</th>
-						<th width="">email</th>
-						<th width="">name</th>
-						<th width="">role</th>
-						<th width="">mobile</th>
-						<th width="">useyn</th>
-						<th width="">emailyn</th>
-						<th width="">Management</th>
-							
+						<th class="center">profile</th>
+						<th >email</th>
+						<th class="center">name</th>
+						<th class="center">role</th>
+						<th class="center">mobile</th>
+						<th>useyn</th>
+						<th>emailyn</th>
+						<th>saveDate</th>
+						<th>editDate</th>
+						<th>Management</th>
 					</tr>
 				</thead>
 			</table>

@@ -103,7 +103,8 @@
                                   <div>
 	                                  <a id="btnEdit" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
 	                                  <a class="uibutton special clear_form"  >clear form</a> 
-	                                  <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> </div>
+	                                  <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
+	                              </div>
 	                             </div>
                            
                           </form:form>
