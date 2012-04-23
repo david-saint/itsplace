@@ -4,4 +4,74 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="place">
 	
+	<typeAlias type="net.itsplace.domain.Franchiser" alias="FranchiserMember"/>
+	<typeAlias type="net.itsplace.domain.Category" alias="Category"/>
+	<typeAlias type="net.itsplace.domain..Location" alias="Location"/>
+
+	<resultMap id="address" class="net.itsplace.domain.Address" >
+		<result property="sido" column="SIDO"></result>						
+	</resultMap>
+	
+	<resultMap id="FranchiserMemberJoinAddress" class="FranchiserMember" >
+		<result property="fid" column="FID"></result>
+		<result property="fname" column="FNAME"></result>
+		<result property="latitude" column="LATITUDE"></result>
+		<result property="longitude" column="LONGITUDE"></result>
+		<result property="nldno" column="NLDNO"></result>
+		<result property="phone1" column="PHONE1"></result>
+		<result property="mobile" column="MOBILE"></result>
+		<result property="fileName" column="FILENAME"></result>
+		<result property="commentCount" column="COMMENTCOUNT"></result>
+		<result property="authyn" column="AUTHYN"></result>
+		<result property="remark" column="REMARK"></result>
+		<result property="stamptype" column="STAMPTYPE"></result>
+		<result property="stype" column="STYPE"></result>
+		<result property="stypeName" column="STYPENAME"></result>
+		<result property="category" column="CATEGORY"></result>
+		
+		<result property="email" column="EMAIL"></result>
+		<result property="park" column="PARK"></result>
+		<result property="closedday" column="CLOSEDDAY"></result>
+		<result property="openday" column="OPENDAY"></result>
+		<result property="website" column="WEBSITE"></result>
+		<result property="info" column="INFO"></result>
+		<result property="qrcode" column="QRCODE"></result>
+		
+		<result property="address.sido" column="SIDO"></result>
+		<result property="address.gugun" column="GUGUN"></result>
+		<result property="address.bupname" column="BUPNAME"></result>
+		<result property="address.hdongname" column="HDONGNAME"></result>
+		<result property="address.doroname" column="DORONAME"></result>
+		<result property="address.bldmain" column="BLDMAIN"></result>
+		<result property="address.bldsubmain" column="BLDSUBMAIN"></result>
+		<result property="address.jimain" column="JIMAIN"></result>
+		<result property="address.jisubmain" column="JISUBMAIN"></result>
+								
+	</resultMap>
+	
+	<select id="getFranchiserList" resultMap="FranchiserMemberJoinAddress" parameterClass="java.util.Map">
+    	 SELECT  sql_calc_found_rows COUNT(D.COMMENT) AS COMMENTCOUNT, A.AUTHYN, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		 A.FILENAME, A.CATEGORY,  A.STYPE, PB.BASNAME AS STYPENAME,
+    	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE,
+		   	 	 B.SIDO, B.GUGUN, B.BUPNAME, B.HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN, S.REMARK , S.STAMPTYPE
+		 FROM PFRANCHISER A
+		 INNER JOIN PBASCD PB
+         	ON A.STYPE = PB.BASECD	
+         	AND PB.GRPCD = 'FTYPE'
+		 LEFT OUTER JOIN PADDRESS B
+			ON A.NLDNO = B.NLDNO
+		 LEFT OUTER JOIN PLACECOMMENT D 
+        	ON A.FID = D.FID
+         LEFT OUTER JOIN PSTAMPREGISTER S
+         	ON S.FID = A.FID
+         <dynamic>
+	    	 <isNotEmpty property="search">
+	    	 	WHERE A.FNAME like CONCAT('%',#search#,'%')
+	    	 	or B.HDONGNAME like CONCAT('%',#search#,'%')
+	    	 	or MOBILE like CONCAT('%',#search#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	 ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow# , #endRow#	
+    </select>
 </sqlMap>

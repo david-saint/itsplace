@@ -63,13 +63,20 @@ public class Franchiser {
 	private String website; // 영웹사이트
 	private String info; // 가맹점 상세설명
 	
-	private Date startDate; // 
+	private Date startDate; //
+	private Date inpDate; // 
 	private Date endDate; // 
 	
 	private String qrcode; 
 	
 	
 	
+	public Date getInpDate() {
+		return inpDate;
+	}
+	public void setInpDate(Date inpDate) {
+		this.inpDate = inpDate;
+	}
 	public String getQrcode() {
 		return qrcode;
 	}
