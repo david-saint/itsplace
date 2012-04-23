@@ -16,7 +16,7 @@
               <div id="left_menu">
                     <ul id="main_menu" class="main_menu">
                       <li class="limenu0 select"><a href="<c:url value="/admin/dashboard" />"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
-                      <li class="limenu1" ><a href="#" ><span class="ico gray shadow window"></span><b>기초코드</b></a>
+                      <li class="limenu1" ><a href="<c:url value="/admin/base/list" />" ><span class="ico gray shadow window"></span><b>기초코드</b></a>
                         <ul>
                           <li ><a href="<c:url value="/admin/base/list" />"> 기초코드 </a></li>
                           <li ><a href="<c:url value="/admin/base/list" />"> validation </a></li>
@@ -33,8 +33,8 @@
                           <li ><a href="grid.html"> Grid System </a></li>
                         </ul>
                       </li>
-                      <li class="limenu" ><a href="table.html"><span class="ico gray shadow  spreadsheet"></span><b>Tables</b> </a></li>
-                      <li class="limenu" ><a href="gallery.html"><span class="ico gray shadow pictures_folder"></span><b>Gallery </b></a></li>
+                      <li class="limenu" ><a href="<c:url value="/admin/place/list" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
+                      <li class="limenu" ><a href="<c:url value="/admin/stamp/list" />"><span class="ico gray shadow pictures_folder"></span><b>스탬프관리  </b></a></li>
                       <li class="limenu" ><a href="#"><span class="ico gray shadow stats_lines"></span><b>Graph and Charts</b> </a>
                         <ul>
                           <li><a href="modalchartLive.html" class="pop_box">live chart </a></li>
