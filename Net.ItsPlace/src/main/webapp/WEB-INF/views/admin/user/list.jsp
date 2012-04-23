@@ -41,16 +41,20 @@
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "role", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile", "sClass":"left" },
-		 				  			{ "mDataProp": "useyn" },
-		 				  			{ "mDataProp": "emailyn" },
+		 				  			{ "mDataProp": "useyn","fnRender" :function ( oObj ) {
+		 								return oObj.aData['useyn'] == " Y" ? "사용" : "탈퇴";
+		 							} },
+		 				  			{ "mDataProp": "emailyn","fnRender" :function ( oObj ) {
+		 								return oObj.aData['emailyn'] == " Y" ? "사용" : "탈퇴";
+		 							} },
 		 				  			{ "mDataProp": "saveDate" },
-		 				  			{ "mDataProp": "editDate" },
+		 				  			{ "mDataProp": "editDate","fnRender" : make_date },
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  	
 		 				  		],
 		 			"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
-		 					c.log("aDAta:"+ aData[0]+ aData[1]+ aData[6]+ aData[7]);
-		 					c.log("nROw:"+ iDisplayIndex);
+		 					//c.log("aDAta:"+ aData[0]+ aData[1]+ aData[6]+ aData[7]);
+		 					//c.log("nROw:"+ iDisplayIndex);
 		 			},
 		 			"fnInitComplete":function(){
 		 				//$('.datatable_tip a').tipsy({gravity: 's',live: false});
@@ -127,16 +131,24 @@
 		 	    //draw the 'current' page
 		 	    oSettings.oApi._fnDraw(oSettings);
 		 	};
+		 	function make_date(oObj) {
+		 		var date = new Date( oObj.aData['editDate']);
+		 		//date = oObj.aData['editDate'];
+		 		c.log(date.getMonth()+date.getDay());
+		 		var str = date.getFullYear()+"-"+date.getMonth()+1+"-"+date.getDate() ;
+		 		return str;
+		 	}
 		 	function make_actions(oObj) {
 		 		var id = oObj.aData['email'];
 		 		
-		 		var editAction = '<span class="tip"><a class="userEdit" href="/admin/user/edit?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var editAction = '<span class="tip"><a class="userEdit iframe" href="/admin/user/edit?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 	function test(){
-		 		
+		 		c.log("test");
+		 		user_datatable.fnStandingRedraw();
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->

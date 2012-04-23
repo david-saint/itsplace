@@ -9,6 +9,13 @@
  			c.log("submit Edit Form");
  			$('#user').submit();
  		});
+ 		$('.cancel').live('click',function() {
+ 			c.log("cancel2");
+ 			parent.$.fancybox.close();
+ 		
+ 			
+ 			//$.fancybox.close();
+ 		});
  		 $('#user').validationEngine('attach', {//서브밋 후에 밸리
  			  onValidationComplete: function(form, status){
  				 if(status==true){
@@ -26,6 +33,8 @@
  	                     success: function(response){
  	                       if(response.status=="SUCCESS"){
  	                    	   console.log("송고");
+ 	                    		parent.$.fancybox.close();
+ 	                    		parent.test();
  	                       }else{
  	                    	   var errorInfo="";
  	                    	   for(var i =0 ; i < response.result.length ; i++){
@@ -40,6 +49,7 @@
  	                     complete:function(){
  	                    	//$('#user').validationEngine('detach');
  	                    	 setTimeout("c.unloading()",1500); 
+ 	                    
  	                     }
  	                   });//ajax
  	                   
@@ -103,7 +113,7 @@
                                   <div>
 	                                  <a id="btnEdit" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
 	                                  <a class="uibutton special clear_form"  >clear form</a> 
-	                                  <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
+	                                  <a class="uibutton loading  cancel" title="Checking" rel="0" >Cancel</a> 
 	                              </div>
 	                             </div>
                            
