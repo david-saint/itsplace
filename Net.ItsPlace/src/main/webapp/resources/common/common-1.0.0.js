@@ -52,6 +52,15 @@ var c = {
 	   },
 		unloading : function() { 
 			$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut(); $.fancybox.close(); }).remove();
-	   }
+	   },
+	    render_date : function(column_date, type) {
+	 		var date = new Date(column_date);
+	 		var str = "";
+	 		if(type=="yyyy-MM-dd"){
+	 			str = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+	 		}
+	 		
+	 		return str;
+	 	}
 };//common		
 	

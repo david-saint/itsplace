@@ -43,8 +43,8 @@ public class AdminUserServiceImpl implements AdminUserService{
 	}
 
 	@Override
-	public void updateUser(User user)  {
-		adminUserDao.updateUser(user);
+	public void editUser(User user)  {
+		adminUserDao.editUser(user);
 		
 	}
 	

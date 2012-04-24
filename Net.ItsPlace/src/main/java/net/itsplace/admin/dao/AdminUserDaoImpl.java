@@ -41,7 +41,7 @@ public class AdminUserDaoImpl extends SqlMapClientDaoSupport implements AdminUse
 		getSqlMapClientTemplate().insert("setUser",user);
 	}
 
-	public void updateUser(User user) throws DataAccessException {
+	public void editUser(User user) throws DataAccessException {
 		getSqlMapClientTemplate().update("updateUser",user);
 		
 	}

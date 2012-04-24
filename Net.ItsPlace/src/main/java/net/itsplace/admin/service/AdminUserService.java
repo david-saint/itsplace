@@ -16,6 +16,6 @@ public interface AdminUserService {
 	public List<User> getUserList(Map<String, Object> param);
 	public User getUser(String email) ;
 	public void saveUser(User user) ;
-	public void updateUser(User user);
+	public void editUser(User user);
 	public void deleteUser(User user);
 }

@@ -136,7 +136,7 @@ public class AdminUserController {
 			json.setResult(result.getAllErrors());
 			json.setStatus("FAIL");
 		} else {	
-			adminUserService.updateUser(user);
+			adminUserService.editUser(user);
 			json.setResult(user);
 			json.setStatus("SUCCESS");
 			

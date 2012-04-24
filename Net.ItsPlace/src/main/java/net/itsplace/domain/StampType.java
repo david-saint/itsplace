@@ -2,17 +2,33 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
-public class StampType {
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+public class StampType {
+	public interface AddStampType {}
+	public interface EditStampType {}
+	
+	
 	private int sid;
+	//@NotEmpty(message="Title 을 입력하세요",groups={AddStampType.class})
 	private String title;
+	
+	//@NotEmpty(message="스탬프 갯수 입력하세요",groups={AddStampType.class})
 	private int stampcount;
+	
+	//@NotEmpty(message="스탬프 보너스 주기일수를 입력하세요",groups={AddStampType.class})
 	private int eventday;
+	
 	private String remark;
+	
 	private int dispseq;
+	
 	private String isDelete;
+	
 	private Date saveDate;
 	private Date editDate;
+	
 	public Date getSaveDate() {
 		return saveDate;
 	}
