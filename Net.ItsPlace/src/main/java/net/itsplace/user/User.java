@@ -1,5 +1,7 @@
 package net.itsplace.user;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,7 +26,7 @@ public class User {
 	private String gender;
 	private String birthDay;
 	private String emailToken;
-	private String emailyn;
+	private String isEmail;
 	private String mobile;
 	
 	@NotEmpty(message="비밀번호를 입력하세요",groups={AddUser.class,EditUser.class})
@@ -43,7 +45,7 @@ public class User {
 	
 	/*주소fk*/
 	private String nldno;	
-	private String useyn;	
+	private String isDelete;	
 
 	
 	/*프로필 이미지 URL*/
@@ -52,19 +54,20 @@ public class User {
 	/* 프로필 이미지 선택 */
 	private String profileImageType;
 	
-	private String saveDate;
-	private String editDate;
+	private Date saveDate;
+	private Date editDate;
 	
-	public String getSaveDate() {
+	
+	public Date getSaveDate() {
 		return saveDate;
 	}
-	public void setSaveDate(String saveDate) {
+	public void setSaveDate(Date saveDate) {
 		this.saveDate = saveDate;
 	}
-	public String getEditDate() {
+	public Date getEditDate() {
 		return editDate;
 	}
-	public void setEditDate(String editDate) {
+	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
 	public String getProfileImageUrl() {
@@ -87,12 +90,7 @@ public class User {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	public String getUseyn() {
-		return useyn;
-	}
-	public void setUseyn(String useyn) {
-		this.useyn = useyn;
-	}
+	
 	public String getNldno() {
 		return nldno;
 	}
@@ -148,11 +146,17 @@ public class User {
 	}
 	
 	
-	public String getEmailyn() {
-		return emailyn;
+	public String getIsEmail() {
+		return isEmail;
 	}
-	public void setEmailyn(String emailyn) {
-		this.emailyn = emailyn;
+	public void setIsEmail(String isEmail) {
+		this.isEmail = isEmail;
+	}
+	public String getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 	@Override
 	public String toString() {

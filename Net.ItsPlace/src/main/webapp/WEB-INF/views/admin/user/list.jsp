@@ -41,10 +41,10 @@
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "role", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile", "sClass":"left" },
-		 				  			{ "mDataProp": "useyn","fnRender" :function ( oObj ) {
+		 				  			{ "mDataProp": "isDelete","fnRender" :function ( oObj ) {
 		 								return oObj.aData['useyn'] == " Y" ? "사용" : "탈퇴";
 		 							} },
-		 				  			{ "mDataProp": "emailyn","fnRender" :function ( oObj ) {
+		 				  			{ "mDataProp": "isEmail","fnRender" :function ( oObj ) {
 		 								return oObj.aData['emailyn'] == " Y" ? "사용" : "탈퇴";
 		 							} },
 		 				  			{ "mDataProp": "saveDate" },

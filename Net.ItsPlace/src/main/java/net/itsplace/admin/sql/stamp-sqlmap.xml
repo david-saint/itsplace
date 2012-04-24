@@ -3,5 +3,20 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="stamp">
+	<typeAlias type="net.itsplace.domain.StampType" alias="StampType"/>	    
 	
+
+    <select id="getStampTypeList" resultClass="StampType" parameterClass="java.util.Map">
+    	 SELECT  sql_calc_found_rows SID, TITLE, STAMPCOUNT, EVENTDAY, REMARK, DISPSEQ, EDITDATE
+		 FROM PSTAMPTYPE
+         <dynamic>
+	    	 <isNotEmpty property="search">
+	    	 	WHERE A.FNAME like CONCAT('%',#search#,'%')
+	    	 	or B.HDONGNAME like CONCAT('%',#search#,'%')
+	    	 	or MOBILE like CONCAT('%',#search#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	 ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow# , #endRow#	
+    </select>
 </sqlMap>

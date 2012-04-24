@@ -63,23 +63,24 @@ public class AdminStampController {
           logger.info("iSortCol_0:{}", iSortCol_0);
           logger.info("iDisplayLength:{}", iDisplayLength);
           logger.info("sSearch:{}", sSearch);
-         
-		String columns[] = new String[] { "fid", "fileName", "fname", "name",
+          Franchiser f = null;
+        //  f.getClass().getDeclaredFields()
+		String columns[] = new String[] { "sid", "title", "stampcount", "name",
 										  "mobile", "authyn", "hdongname", "inpDate" };
 
 		DataTable<Franchiser> table = iDisplayLength != null ?
                 new DataTable<Franchiser>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
                 new DataTable<Franchiser>(columns, sSortDir_0, iDisplayStart);
 
-		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-        param.put("search", sSearch);
-        param.put("sortDirection", sSortDir_0);
-        param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+		//Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+    //    param.put("search", sSearch);
+    //    param.put("sortDirection", sSortDir_0);
+    //    param.put("sortColumn", table.getOrderColumn(iSortCol_0));
 		
-		List<Franchiser> franchiserList = adminPlaceService.getFranchiserList(param);
-		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-		table.setRows(franchiserList);
-		table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+	//	List<Franchiser> franchiserList = adminPlaceService.getFranchiserList(param);
+	//	pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+	//	table.setRows(franchiserList);
+	//	table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
 
 		return table;
     }   

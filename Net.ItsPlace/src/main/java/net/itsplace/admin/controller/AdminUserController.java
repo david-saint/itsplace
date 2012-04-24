@@ -1,5 +1,6 @@
 package net.itsplace.admin.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 @Controller
 @RequestMapping("/admin/user")
@@ -191,8 +194,17 @@ public class AdminUserController {
                     logger.info("iSortCol_0:{}", iSortCol_0);
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
-                   
-                    String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "useyn", "emailyn", "saveDate", "editDate"};
+                  
+                    /*User u = new User();
+                    Field temp[] = u.getClass().getDeclaredFields();
+                    String columns[] = new String[temp.length];
+                    for(int i=0; i<temp.length;i++){
+                    	logger.info(temp[i].getName());
+                    	columns[i] = temp[i].getName();
+                    }*/
+                    String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "isDelete", "isEmail", "saveDate", "editDate","dddd"};
+                    
+                    
                     //도메인이랑 대소문자 일치해야
                     DataTable<User> table = iDisplayLength != null ?
                                     new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :

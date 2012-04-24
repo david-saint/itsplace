@@ -9,20 +9,20 @@
    
     
     <select id="getUser" resultClass="User" parameterClass="String">
-    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, USEYN, MOBILE, EMAILYN 
+    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, ISDELETE, MOBILE, ISEMAIL 
     	 FROM PUSER WHERE EMAIL = #email# 
     </select>
     
     <select id="getUserEmailToken" resultClass="User" parameterClass="User">
-    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, USEYN, MOBILE , EMAILYN 
+    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, ISDELETE, MOBILE , ISEMAIL 
     	 FROM PUSER WHERE EMAIL = #email# And EMAILTOKEN = #emailToken#
     </select>
     <select id="getUserByMobile" resultClass="User" parameterClass="String">
-    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, USEYN, MOBILE 
+    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, ISDELETE, MOBILE 
     	 FROM PUSER WHERE MOBILE = #mobile# 
     </select>
     <select id="getUserList" resultClass="User" parameterClass="java.util.Map" >
-    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGETYPE, USEYN, MOBILE, EMAILYN, SAVEDATE, EDITDATE FROM PUSER
+    	 SELECT sql_calc_found_rows EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGETYPE, ISDELETE, MOBILE, ISEMAIL, SAVEDATE, EDITDATE FROM PUSER
     	 <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	WHERE NAME like CONCAT('%',#search#,'%')
@@ -36,14 +36,14 @@
     </select>
     
     <insert id="setUser" parameterClass="User">
-         INSERT INTO PUSER(EMAIL, PASSWORD, NAME, ROLE, MOBILE)
-         VALUES (#email#, #password#, #name#, 'ROLE_USER', #mobile#)
+         INSERT INTO PUSER(EMAIL, PASSWORD, NAME, ROLE, MOBILE, SAVEDATE)
+         VALUES (#email#, #password#, #name#, 'ROLE_USER', #mobile#, now())
     </insert>
     
     
     <update id="setUserEmailOn" parameterClass="User">
     	UPDATE PUSER SET 	    
-	    	EMAILYN = #emailyn#	    	
+	    	ISEMAIL = #isEmail#	    	
     	WHERE
     		EMAIL = #email#     	
     </update>
@@ -56,13 +56,13 @@
     </update>
     <update id="updateUserDisable" parameterClass="User">
     	UPDATE PUSER SET 	    
-	    	USEYN = 'N'
+	    	ISDELETE = 'N'
     	WHERE
     		EMAIL = #email#     	
     </update>
     <update id="updateUserEnable" parameterClass="User">
     	UPDATE PUSER SET 	    
-	    	USEYN = 'Y'
+	    	ISDELETE = 'Y'
     	WHERE
     		EMAIL = #email#     	
     </update>
