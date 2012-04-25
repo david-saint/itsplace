@@ -18,10 +18,10 @@
 	<div class="content">
 		
 		<script type="text/javascript">
-		var user_datatable;
+		
 		
 		 	$(document).ready(function(){
-		 		
+		 		var stampType_datatable;
 		 		stampType_datatable = $('#stampType_datatable').dataTable( {
 		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
 		 			"bFilter": true, //search
@@ -45,11 +45,53 @@
 		 				  			{ "mDataProp": "editDate", "fnRender" :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
-		 				  			{ "mDataProp": "isDelete" },
+		 				  			{ "mDataProp": "isDelete" ,"fnRender" :function ( oObj ) {
+		 								return oObj.aData['isDelete'] == " Y" ? "삭제" : "사용";
+		 							} },
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  	
 		 				  		],
-		 			"aaSorting": [[ 2, "desc" ]]
+		 			"aaSorting": [[ 2, "desc" ]],
+					"fnDrawCallback": function () {
+		 				
+		 				$('.edit').fancybox({
+		 					'autoDimensions':false,
+		 					'scrolling':'auto',
+		 					'autoScale':false,
+		 					'height':500,
+		 					//'centerOnScroll':true
+		 					//'title':'사용자 정보 수정'
+
+		 				});//edit
+		 				$('.delete').bind('click', function() {
+		 					c.log("deete");
+		 					
+		 					$.ajax({
+		 	                     url: "/admin/stamp/delete",
+		 	                     type:"POST",
+		 	                     data:"sid="+$(this).attr('sid'),
+		 	                     beforeSend :function(){
+		 		   	 	 			  c.loading("delete",0);
+		 	                     },
+		 	                     success: function(response){
+		 	                       
+		 	                     	if(response.status=="SUCCESS"){
+		 	                     		c.showSuccess("삭제성공",1000);
+		 	                     	};
+		 	                     	
+		 	                     },
+		 	                     error: function(jqXHR, textStatus, errorThrown){
+		 	                    	alert(textStatus+"j"+jqXHR+"e:"+errorThrown);
+		 	                    	c.showError(textStatus+"j"+jqXHR+"e:"+errorThrown);
+		 	                     },
+		 	                     complete:function(){
+		 	                    	 setTimeout("c.unloading()",500); 
+		 	                    	stampType_datatable.fnStandingRedraw();
+		 	                     }
+		 	                 });
+		 					
+		 				});//delete
+		 			},
 		 		});
 		 		
 		 		//datatable row selectbox style
@@ -61,10 +103,11 @@
 		 	function make_actions(oObj) {
 		 		var id = oObj.aData['sid'];
 		 		
-		 		var editAction = '<span class="tip"><a class="userEdit iframe" href="/admin/stamp/edit?sid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var deleteAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/stamp/edit?sid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var deleteAction = '<span class="tip"><a class="delete" sid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		var restoreAction = '<span class="tip"><a class="restore" sid="'+id+'" original-title="Restore"><img src="/resources/admin/images/icon/color_18/redo.png"></a><span>';
 		 		
-		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return  editAction + "&nbsp;&nbsp;" + deleteAction + "&nbsp;&nbsp;" + restoreAction ; 
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->

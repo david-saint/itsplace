@@ -4,7 +4,7 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="place">
 	
-	<typeAlias type="net.itsplace.domain.Franchiser" alias="FranchiserMember"/>
+	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
 	<typeAlias type="net.itsplace.domain.Category" alias="Category"/>
 	<typeAlias type="net.itsplace.domain..Location" alias="Location"/>
 
@@ -12,7 +12,7 @@
 		<result property="sido" column="SIDO"></result>						
 	</resultMap>
 	
-	<resultMap id="FranchiserMemberJoinAddress" class="FranchiserMember" >
+	<resultMap id="PlaceJoinAddress" class="Place" >
 		<result property="fid" column="FID"></result>
 		<result property="fname" column="FNAME"></result>
 		<result property="latitude" column="LATITUDE"></result>
@@ -22,13 +22,12 @@
 		<result property="mobile" column="MOBILE"></result>
 		<result property="fileName" column="FILENAME"></result>
 		<result property="commentCount" column="COMMENTCOUNT"></result>
-		<result property="authyn" column="AUTHYN"></result>
+		<result property="isAuth" column="ISAUTH"></result>
 		<result property="remark" column="REMARK"></result>
 		<result property="stamptype" column="STAMPTYPE"></result>
 		<result property="stype" column="STYPE"></result>
 		<result property="stypeName" column="STYPENAME"></result>
-		<result property="category" column="CATEGORY"></result>
-		
+		<result property="category" column="CATEGORY"></result>		
 		<result property="email" column="EMAIL"></result>
 		<result property="park" column="PARK"></result>
 		<result property="closedday" column="CLOSEDDAY"></result>
@@ -36,6 +35,8 @@
 		<result property="website" column="WEBSITE"></result>
 		<result property="info" column="INFO"></result>
 		<result property="qrcode" column="QRCODE"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
+		<result property="editDate" column="EDITDATE"></result>
 		
 		<result property="address.sido" column="SIDO"></result>
 		<result property="address.gugun" column="GUGUN"></result>
@@ -49,12 +50,12 @@
 								
 	</resultMap>
 	
-	<select id="getFranchiserList" resultMap="FranchiserMemberJoinAddress" parameterClass="java.util.Map">
-    	 SELECT  sql_calc_found_rows COUNT(D.COMMENT) AS COMMENTCOUNT, A.AUTHYN, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+	<select id="getPlaceList" resultMap="PlaceJoinAddress" parameterClass="java.util.Map">
+    	 SELECT  sql_calc_found_rows COUNT(D.COMMENT) AS COMMENTCOUNT, A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
     	 		 A.FILENAME, A.CATEGORY,  A.STYPE, PB.BASNAME AS STYPENAME,
     	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE,
 		   	 	 B.SIDO, B.GUGUN, B.BUPNAME, B.HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN, S.REMARK , S.STAMPTYPE
-		 FROM PFRANCHISER A
+		 FROM Place A
 		 INNER JOIN PBASCD PB
          	ON A.STYPE = PB.BASECD	
          	AND PB.GRPCD = 'FTYPE'
@@ -74,4 +75,37 @@
     	 ORDER BY $sortColumn$ $sortDirection$
     	 LIMIT #startRow# , #endRow#	
     </select>
+    
+    <insert id="savePlace" parameterClass="Place">
+         INSERT INTO Place(FNAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE)
+         VALUES (#fname#, #mobile#, #phone1#, #latitude#, #longitude#, #nldno#, #fileName#,'N', #remark#, #category#, #stype#)
+         
+        <selectKey keyProperty="fid" resultClass="java.lang.Integer">
+	    	 SELECT last_insert_id()
+	    </selectKey>
+	    
+    </insert>
+    <update id="editPlace" parameterClass="Place">
+         UPDATE  Place
+         SET FNAME = #fname# ,
+             MOBILE = #mobile#,
+             PHONE1 = #phone1#, 
+             NLDNO = #nldno#, 
+             FILENAME = #fileName#,
+             ISAUTH = #isAuth#,
+             REMARK = #remark#,
+             CATEGORY = #category#,
+             stype =#stype#
+      	WHERE FID = #fid#        
+    </update>
+    <update id="enablePlace" parameterClass="int">
+         UPDATE  Place
+         SET ISAUTH = 'Y',             
+      	WHERE FID = #fid#        
+    </update>
+    <update id="disablePlace" parameterClass="int">
+         UPDATE  Place
+         SET ISAUTH = 'N',             
+      	WHERE FID = #fid#        
+    </update>
 </sqlMap>

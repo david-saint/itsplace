@@ -39,4 +39,14 @@ public class AdminStampServiceImpl implements AdminStampService{
 	public StampType getStampType(int sid) {
 		return adminStampDao.getStampType(sid);
 	}
+
+	@Override
+	public void deleteStampType(int sid) {
+		adminStampDao.deleteStampType(sid);
+	}
+
+	@Override
+	public void restoreStampType(int sid) {
+		adminStampDao.restoreStampType(sid);		
+	}
 }

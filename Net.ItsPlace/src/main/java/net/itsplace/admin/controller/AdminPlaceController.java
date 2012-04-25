@@ -6,7 +6,8 @@ import java.util.Map;
 
 import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.domain.DataTable;
-import net.itsplace.domain.Franchiser;
+import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.Place;
 import net.itsplace.user.User;
 import net.itsplace.util.PagingManager;
 
@@ -72,7 +73,48 @@ public class AdminPlaceController {
 	public String event(Locale locale, Model model) {
 		return "admin/place/user/event";
 	}
-	
+	/**
+	 * Ajax 가맹점 승인  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid 가맹점 pk
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/enablePlace", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse enablePlace(@RequestParam(required=true) Integer fid)  {
+		logger.info("fid:{}",fid);
+		JsonResponse json = new JsonResponse();		
+		
+		adminPlaceService.enablePlace(fid); 
+			
+		json.setResult(null);
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	/**
+	 * Ajax 가맹점 승인  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid 가맹점 pk
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/disablePlace", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse disablePlace(@RequestParam(required=true) Integer fid)  {
+		logger.info("fid:{}",fid);
+		JsonResponse json = new JsonResponse();		
+		
+		adminPlaceService.enablePlace(fid); 
+			
+		json.setResult(null);
+		json.setStatus("SUCCESS");
+		return json;
+	}
 	/**
 	 * 가맹점관리 리스트<br> 
 	 * 관리자는 가맹점 승인, 승인취소, <br />
@@ -90,7 +132,7 @@ public class AdminPlaceController {
 	 */
 	@RequestMapping(value="/getPlaceList")
     @ResponseBody
-    public DataTable<Franchiser> getPlaceList(
+    public DataTable<Place> getPlaceList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
     								@RequestParam(required=false) Integer iDisplayLength,
     								@RequestParam(required=false) Integer iSortCol_0, 
@@ -105,16 +147,16 @@ public class AdminPlaceController {
 		String columns[] = new String[] { "fid", "fileName", "fname", "name",
 										  "mobile", "authyn", "hdongname", "inpDate" };
 
-		DataTable<Franchiser> table = iDisplayLength != null ?
-                new DataTable<Franchiser>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                new DataTable<Franchiser>(columns, sSortDir_0, iDisplayStart);
+		DataTable<Place> table = iDisplayLength != null ?
+                new DataTable<Place>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                new DataTable<Place>(columns, sSortDir_0, iDisplayStart);
 
 		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
         param.put("search", sSearch);
         param.put("sortDirection", sSortDir_0);
         param.put("sortColumn", table.getOrderColumn(iSortCol_0));
 		
-		List<Franchiser> franchiserList = adminPlaceService.getFranchiserList(param);
+		List<Place> franchiserList = adminPlaceService.getPlaceList(param);
 		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
 		table.setRows(franchiserList);
 		table.setiTotalDisplayRecords(pagingManaer.getTotalCount());

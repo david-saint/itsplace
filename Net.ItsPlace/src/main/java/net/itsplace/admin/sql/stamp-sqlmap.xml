@@ -30,7 +30,7 @@
     </insert>
     
     <update id="editStampType" parameterClass="StampType">
-        UPDATE PTAMPTYPE
+        UPDATE PSTAMPTYPE
         SET TITLE =#title#,
             STAMPCOUNT =#stampcount#,
             EVENTDAY = #eventday#,
@@ -41,13 +41,13 @@
     </update>
     
     <update id="deleteStampType" parameterClass="int">
-        UPDATE PTAMPTYPE
-        SET ISDELETE = 1
+        UPDATE PSTAMPTYPE
+        SET ISDELETE = 'Y'
         WHERE SID =#sid#    
     </update>
     <update id="restoreStampType" parameterClass="int">
-        UPDATE PTAMPTYPE
-        SET ISDELETE = 0
+        UPDATE PSTAMPTYPE
+        SET ISDELETE = 'N'
         WHERE SID =#sid#    
     </update>
 </sqlMap>

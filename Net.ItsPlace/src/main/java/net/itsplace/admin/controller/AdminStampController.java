@@ -6,7 +6,7 @@ import java.util.Map;
 
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.domain.DataTable;
-import net.itsplace.domain.Franchiser;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.StampType;
 import net.itsplace.domain.StampType.AddStampType;
@@ -172,6 +172,48 @@ public class AdminStampController {
 			json.setResult(stampType);
 			json.setStatus("SUCCESS");
 		}		
+		return json;
+	}
+	/**
+	 * Ajax 관리자가 스탬프 타입을 삭제한다  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param stamptype
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse delete(@RequestParam(required=true) Integer sid)  {
+		logger.info("sid:{}",sid);
+		JsonResponse json = new JsonResponse();		
+		
+		adminStampService.deleteStampType(sid); 
+			
+		json.setResult(null);
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	/**
+	 * Ajax 관리자가 스탬프 타입을 복구한다  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param stamptype
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/restore", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse restore(@RequestParam(required=true) Integer sid)  {
+		logger.info("sid:{}",sid);
+		JsonResponse json = new JsonResponse();		
+		
+		adminStampService.deleteStampType(sid); 
+			
+		json.setResult(null);
+		json.setStatus("SUCCESS");
 		return json;
 	}
 }

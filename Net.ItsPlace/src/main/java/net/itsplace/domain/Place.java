@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
-public class Franchiser {
+public class Place {
 
 	private int fid; //프랜차이저 고유키
 	@NotEmpty
@@ -30,7 +30,7 @@ public class Franchiser {
 	private String phone1; //가맹전화번호1
 	private String phone2; //가맹전화번호2
 	private String remark; //신청 메세지
-	private String authyn; //신청승인 여부
+	private String isAuth; //신청승인 여부
 	private String nldno; //주소FK
 	private String latitude; //위도
 	private String longitude; //경도
@@ -38,45 +38,27 @@ public class Franchiser {
 	private User user; 
 	private PlaceComment placeComment; 
 	private String fullAddress; //가맹점 주소
-
 	private String fileName; //파일명
-	
 	private String searchType; //
-
 	private String category; // 업종명
-	
-	
 	private CommonsMultipartFile fileData; //업로드파일
-	
 	private String commentCount; // 코멘트
-	
 	private String stamptype; // 스태프종류
-	
-	@NotEmpty
 	private String stype; // 서비스종류
 	private String stypeName; // 서비스종류
-	
 	private String email; // 가맹주 아이디
 	private String park; // 주차정보
 	private String closedday; // 휴무일
 	private String openday; // 영업시간
 	private String website; // 영웹사이트
 	private String info; // 가맹점 상세설명
-	
 	private Date startDate; //
-	private Date inpDate; // 
+	private Date saveDate; // 
+	private Date editDate; //
 	private Date endDate; // 
-	
 	private String qrcode; 
 	
 	
-	
-	public Date getInpDate() {
-		return inpDate;
-	}
-	public void setInpDate(Date inpDate) {
-		this.inpDate = inpDate;
-	}
 	public String getQrcode() {
 		return qrcode;
 	}
@@ -205,10 +187,10 @@ public class Franchiser {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public Franchiser(){
+	public Place(){
 	
 	}
-	public Franchiser(int fid, String fname, String nldno,
+	public Place(int fid, String fname, String nldno,
 			String latitude, String longitude) {
 		
 		this.fid = fid;
@@ -219,6 +201,24 @@ public class Franchiser {
 	}
 	
 	
+	public String getIsAuth() {
+		return isAuth;
+	}
+	public void setIsAuth(String isAuth) {
+		this.isAuth = isAuth;
+	}
+	public Date getSaveDate() {
+		return saveDate;
+	}
+	public void setSaveDate(Date saveDate) {
+		this.saveDate = saveDate;
+	}
+	public Date getEditDate() {
+		return editDate;
+	}
+	public void setEditDate(Date editDate) {
+		this.editDate = editDate;
+	}
 	public String getFtype() {
 		return ftype;
 	}
@@ -274,15 +274,7 @@ public class Franchiser {
 	}
 
 
-	public String getAuthyn() {
-		return authyn;
-	}
-
-
-	public void setAuthyn(String authyn) {
-		this.authyn = authyn;
-	}
-
+	
 
 	public void setFtype(String ftype) {
 		this.ftype = ftype;

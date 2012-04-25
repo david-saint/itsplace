@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import net.itsplace.domain.Franchiser;
+import net.itsplace.domain.Place;
 import net.itsplace.user.UserDao;
 import net.itsplace.user.UserDaoImpl;
 
@@ -27,7 +27,25 @@ public class AdminPlaceDaoImpl extends SqlMapClientDaoSupport implements AdminPl
 	}
 
 	@Override
-	public List<Franchiser> getFranchiserList(Map<String, Object> param) throws DataAccessException {
-		return  getSqlMapClientTemplate().queryForList("getFranchiserList",param);
+	public List<Place> getPlaceList(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getPlaceList",param);
 	}
+
+	@Override
+	public void enablePlace(int fid) throws DataAccessException {
+		getSqlMapClientTemplate().update("enablePlace",fid);
+	}
+
+	@Override
+	public void disablePlace(int fid) throws DataAccessException {
+		getSqlMapClientTemplate().update("disablePlace",fid);
+	}
+
+	@Override
+	public void editPlace(Place place) throws DataAccessException {
+		getSqlMapClientTemplate().update("editPlace",place);		
+	}
+
+
 }

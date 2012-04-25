@@ -13,4 +13,6 @@ public interface AdminStampService {
 	public void saveStampType(StampType stampType);	
 	public void editStampType(StampType stampType);
 	public StampType getStampType(int sid);
+	public void deleteStampType(int sid);
+	public void restoreStampType(int sid);
 }

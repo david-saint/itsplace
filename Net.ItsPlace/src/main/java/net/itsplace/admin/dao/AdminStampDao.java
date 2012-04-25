@@ -16,4 +16,7 @@ public interface AdminStampDao {
 	public void saveStampType(StampType stampType) throws DataAccessException;	
 	public void editStampType(StampType stampType) throws DataAccessException;
 	public StampType getStampType(int sid) throws DataAccessException;
+	
+	public void deleteStampType(int sid) throws DataAccessException;	
+	public void restoreStampType(int sid) throws DataAccessException;
 }

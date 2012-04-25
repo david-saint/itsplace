@@ -45,5 +45,16 @@ public class AdminStampDaoImpl extends SqlMapClientDaoSupport implements AdminSt
 	public StampType getStampType(int sid) throws DataAccessException {
 		return (StampType) getSqlMapClientTemplate().queryForObject("getStampType", sid);
 	}
+
+	@Override
+	public void deleteStampType(int sid) throws DataAccessException {
+		getSqlMapClientTemplate().update("deleteStampType",sid);
+		
+	}
+
+	@Override
+	public void restoreStampType(int sid) throws DataAccessException {
+		getSqlMapClientTemplate().update("restoreStampType",sid);		
+	}
 	
 }

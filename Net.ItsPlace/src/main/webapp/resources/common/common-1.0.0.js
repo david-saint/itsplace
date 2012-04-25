@@ -61,6 +61,55 @@ var c = {
 	 		}
 	 		
 	 		return str;
-	 	}
+	 	},
+		showError : function(str,delay){	
+			  if(delay){
+				  $('#alertMessage').removeClass('success info warning').addClass('error').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500,function(){
+						  $(this).delay(delay).animate({ opacity: 0,right: '-20'}, 500,function(){ $(this).hide(); });																														   																											
+					});
+				  return false;
+			  }
+				  	$('#alertMessage').addClass('error').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500);	
+		 },
+		showSuccess : function(str,delay){
+			  if(delay){
+				  $('#alertMessage').removeClass('error info warning').addClass('success').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500,function(){
+						  $(this).delay(delay).animate({ opacity: 0,right: '-20'}, 500,function(){ $(this).hide(); });																														   																											
+					});
+				  return false;
+			  }
+				  $('#alertMessage').addClass('success').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500);	
+		 },
+		 showWarning :  function(str,delay){
+			  if(delay){
+				  $('#alertMessage').removeClass('error success  info').addClass('warning').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500,function(){
+						  $(this).delay(delay).animate({ opacity: 0,right: '-20'}, 500,function(){ $(this).hide(); });																														   																											
+					});
+				  return false;
+			  }
+				  $('#alertMessage').addClass('warning').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500);	
+		  },
+		  showInfo : function(str,delay){
+			  if(delay){
+				  $('#alertMessage').removeClass('error success  warning').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500,function(){
+						  $(this).delay(delay).animate({ opacity: 0,right: '-20'}, 500,function(){ $(this).hide(); });																														   																											
+					});
+				  return false;
+			  }
+				  $('#alertMessage').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500);	
+		  }
 };//common		
+
+$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
+		$('.tipsy').remove();
+	    if(oSettings.oFeatures.bServerSide === false){
+	        var before = oSettings._iDisplayStart;
+	        oSettings.oApi._fnReDraw(oSettings);
+	        //iDisplayStart has been reset to zero - so lets change it back
+	        oSettings._iDisplayStart = before;
+	        oSettings.oApi._fnCalculateEnd(oSettings);
+	    }
+	    //draw the 'current' page
+	    oSettings.oApi._fnDraw(oSettings);
+};
 	
