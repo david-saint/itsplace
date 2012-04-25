@@ -11,6 +11,7 @@ public interface AdminPlaceDao {
 
 	/* 가맹점을 검색하여 리스트로 보여준다*/
 	public List<Place>  getPlaceList(Map<String, Object> param) throws DataAccessException;
+	public Place getPlace(int fid) throws DataAccessException;
 	/* 가맹점 승인*/
 	public void enablePlace(int fid) throws DataAccessException;
 	/* 가맹점 승인취소*/

@@ -5,10 +5,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import net.itsplace.admin.service.AdminPlaceService;
+import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.user.User;
+import net.itsplace.user.User.EditUser;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -16,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +32,8 @@ public class AdminPlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceController.class);
 	@Autowired
 	private AdminPlaceService adminPlaceService;
+	@Autowired
+	private AdminStampService adminStampService;
 	@Autowired
 	private PagingManager pagingManaer;
 	
@@ -73,6 +80,52 @@ public class AdminPlaceController {
 	public String event(Locale locale, Model model) {
 		return "admin/place/user/event";
 	}
+	
+	/**
+	 * 관리자가 가맹점 수정 폼을 호출한다.   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String edit(@RequestParam(required=true) Integer fid, Model model)  {
+	
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
+		model.addAttribute("place",adminStampService.getStamptypeList(param);
+		
+		return "admin/place/edit";
+	}
+	/**
+	 * Ajax 관리자가 가맹점을 수정한다. <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param user
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse editSubmit(@Validated({EditPlace.class}) Place place, BindingResult result, Model model)  {
+		JsonResponse json = new JsonResponse();
+		System.out.println("edit");
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			json.setResult(result.getAllErrors());
+			json.setStatus("FAIL");
+		} else {	
+			adminPlaceService.editPlace(place);
+			json.setResult(place);
+			json.setStatus("SUCCESS");
+			
+		}		
+		
+		return json;
+	}
 	/**
 	 * Ajax 가맹점 승인  <br />
 	 * 
@@ -83,8 +136,8 @@ public class AdminPlaceController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/enablePlace", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse enablePlace(@RequestParam(required=true) Integer fid)  {
+	@RequestMapping(value = "/enable", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse enable(@RequestParam(required=true) Integer fid)  {
 		logger.info("fid:{}",fid);
 		JsonResponse json = new JsonResponse();		
 		
@@ -104,12 +157,12 @@ public class AdminPlaceController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/disablePlace", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse disablePlace(@RequestParam(required=true) Integer fid)  {
+	@RequestMapping(value = "/disable", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse disable(@RequestParam(required=true) Integer fid)  {
 		logger.info("fid:{}",fid);
 		JsonResponse json = new JsonResponse();		
 		
-		adminPlaceService.enablePlace(fid); 
+		adminPlaceService.disablePlace(fid); 
 			
 		json.setResult(null);
 		json.setStatus("SUCCESS");
@@ -145,7 +198,7 @@ public class AdminPlaceController {
           logger.info("sSearch:{}", sSearch);
          
 		String columns[] = new String[] { "fid", "fileName", "fname", "name",
-										  "mobile", "authyn", "hdongname", "inpDate" };
+										  "mobile", "isAuth", "hdongname", "saveDate", "editDate" };
 
 		DataTable<Place> table = iDisplayLength != null ?
                 new DataTable<Place>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :

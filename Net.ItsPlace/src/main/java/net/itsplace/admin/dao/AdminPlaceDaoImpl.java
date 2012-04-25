@@ -47,5 +47,10 @@ public class AdminPlaceDaoImpl extends SqlMapClientDaoSupport implements AdminPl
 		getSqlMapClientTemplate().update("editPlace",place);		
 	}
 
+	@Override
+	public Place getPlace(int fid) throws DataAccessException {
+		return (Place) getSqlMapClientTemplate().queryForObject("getPlace",fid);
+	}
+
 
 }

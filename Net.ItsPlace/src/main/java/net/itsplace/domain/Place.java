@@ -11,7 +11,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 public class Place {
-
+	public interface AddPlace {}
+	public interface EditPlace {}
+	
 	private int fid; //프랜차이저 고유키
 	@NotEmpty
 	private String fname; //가맹점명
@@ -35,15 +37,18 @@ public class Place {
 	private String latitude; //위도
 	private String longitude; //경도
 	private Address address;
-	private User user; 
-	private PlaceComment placeComment; 
 	private String fullAddress; //가맹점 주소
 	private String fileName; //파일명
 	private String searchType; //
 	private String category; // 업종명
 	private CommonsMultipartFile fileData; //업로드파일
-	private String commentCount; // 코멘트
-	private String stamptype; // 스태프종류
+	
+	
+	private StampType stampType;
+	private User user; 
+	private PlaceComment placeComment; 
+	private PlaceStamp placeStamp;
+	
 	private String stype; // 서비스종류
 	private String stypeName; // 서비스종류
 	private String email; // 가맹주 아이디
@@ -125,12 +130,7 @@ public class Place {
 	public void setStype(String stype) {
 		this.stype = stype;
 	}
-	public String getStamptype() {
-		return stamptype;
-	}
-	public void setStamptype(String stamptype) {
-		this.stamptype = stamptype;
-	}
+	
 	public User getUser() {
 		return user;
 	}
@@ -143,12 +143,7 @@ public class Place {
 	public void setPlaceComment(PlaceComment placeComment) {
 		this.placeComment = placeComment;
 	}
-	public String getCommentCount() {
-		return commentCount;
-	}
-	public void setCommentCount(String commentCount) {
-		this.commentCount = commentCount;
-	}
+
 	
 	public String getCategory() {
 		return category;
@@ -312,8 +307,20 @@ public class Place {
 		this.longitude = longitude;
 	}
 	
+	public StampType getStampType() {
+		return stampType;
+	}
+	public void setStampType(StampType stampType) {
+		this.stampType = stampType;
+	}
+	public PlaceStamp getPlaceStamp() {
+		return placeStamp;
+	}
+	public void setPlaceStamp(PlaceStamp placeStamp) {
+		this.placeStamp = placeStamp;
+	}
 	@Override
 	public String toString() {
-		return "FranchiserMember:[fid=" + fid + ", fname= " + fname + ", nldno= " + nldno + ", latitude= " + latitude +  ", longitude= " + longitude +  ", stamptype= " + stamptype + "]"  ;
+		return "Place:[fid=" + fid + ", fname= " + fname + ", nldno= " + nldno + ", latitude= " + latitude +  ", longitude= " + longitude +  ",  ]"  ;
 	}
 }

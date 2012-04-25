@@ -145,7 +145,7 @@ public class AdminUserController {
 		return json;
 	}
 	/**
-	 * Ajax 관리자가 사용자를 수정한다  <br />
+	 * Ajax 관리자가 사용자를 탈퇴시킨  <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.

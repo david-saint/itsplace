@@ -20,7 +20,7 @@ private String blddtlname ;//건물상세명
 private String nldno ;//건물관리번호
 private String dongno;//읍면동일련번호
 private String hdongcd;//행정동코드
-private String hdongname;//행정동명
+private String hdongname="";//행정동명
 private String zipcd ;//우편번호
 private String zipseq;//우편일련번호
 private String bedalname;//다량배달처명

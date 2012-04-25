@@ -40,7 +40,6 @@
 		        
 		          
 		<script  src="<c:url value="/resources/admin/js/jquery.min.js" />" type="text/javascript"></script>
-		<script  src="<c:url value="/resources/common/common-1.0.0.js" />" type="text/javascript"></script>
 		
 		<script  src="<c:url value="/resources/admin/components/effect/jquery-jrumble.js" />" type="text/javascript"></script>
 		<script  src="<c:url value="/resources/admin/components/ui/jquery.ui.min.js" />" type="text/javascript"></script>		     
@@ -88,7 +87,8 @@
         <script type="text/javascript" src="<c:url value="/resources/admin/js/jquery.cookie.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/js/zice.custom.js"/>"></script>    
  
- 
+ 		<script  src="<c:url value="/resources/common/common-1.0.0.js" />" type="text/javascript"></script>
+		
  
 		
 		<!-- 각 레이아웃별 CSS , JAVASCRIPT -->

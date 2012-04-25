@@ -23,9 +23,14 @@ public class PlaceComment {
 		private Date inpdate;
 		private String writeDate;
 		private String profileImageUrl;
+		private String commentCount; // 코멘트갯수 
 		
-		
-		
+		public String getCommentCount() {
+			return commentCount;
+		}
+		public void setCommentCount(String commentCount) {
+			this.commentCount = commentCount;
+		}
 		public String getFname() {
 			return fname;
 		}

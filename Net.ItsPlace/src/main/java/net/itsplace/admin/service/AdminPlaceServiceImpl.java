@@ -22,24 +22,29 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 	
 	@Override
 	public List<Place> getPlaceList(Map<String, Object> param)
-			throws DataAccessException {
+			{
 		return adminPlaceDao.getPlaceList(param);
 	}
 
 	@Override
-	public void enablePlace(int fid) throws DataAccessException {
+	public void enablePlace(int fid) {
 		adminPlaceDao.enablePlace(fid);
 	}
 
 	@Override
-	public void disablePlace(int fid) throws DataAccessException {
+	public void disablePlace(int fid) {
 		adminPlaceDao.disablePlace(fid);
 	}
 
 	@Override
-	public void editPlace(Place place) throws DataAccessException {
+	public void editPlace(Place place) {
 		adminPlaceDao.editPlace(place);
 		
+	}
+
+	@Override
+	public Place getPlace(int fid) {
+		return adminPlaceDao.getPlace(fid);
 	}
 
 	

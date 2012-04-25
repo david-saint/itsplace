@@ -12,17 +12,14 @@
 <!-- full width -->
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 사용자관리  </span>
+		<span><span class="ico gray home"></span> 가맹점관  </span>
 	</div>
-	<!-- End header -->
 	<div class="content">
-		
 		<script type="text/javascript">
-		var user_datatable;
+		var datatable;
 		
 		 	$(document).ready(function(){
-		 		
-		 		 user_datatable = $('#userw_datatable').dataTable( {
+		 		 datatable = $('#datatable').dataTable( {
 		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
 		 			"bFilter": true, //search
 		 			"bPaginate": true,
@@ -41,12 +38,57 @@
 		 				  			{ "mDataProp": "fname", "sClass":"left" },
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile",},
-		 				  			{ "mDataProp": "authyn",},
+		 				  			{ "mDataProp": "isAuth",},
 		 				  			{ "mDataProp": "address.hdongname" },
-		 				  			{ "mDataProp": "inpDate" },
-		 				  			{ "sDefaultContent": ""},
-		 				  	
+		 				  			{ "mDataProp": "saveDate","fnRender"  :function ( oObj ) {
+		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
+		 							} },
+		 				  			{ "mDataProp": "editDate","fnRender"  :function ( oObj ) {
+		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
+		 							} },
+		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  		],
+			  		"fnInitComplete":function(){
+		 				$('.tip a ').tipsy({trigger: 'manual'});
+		 				$('.tip a ').tipsy("hide");
+		 			},
+		 			"fnDrawCallback": function () {
+		 				
+		 				$('.edit').fancybox({//autodimensions false 후 width , height 가느
+		 					'autoDimensions':false,
+		 					'scrolling':'auto',
+		 					'autoScale':false,
+		 					'height':500,
+		 					//'centerOnScroll':true
+		 					//'title':'사용자 정보 수정'
+	
+		 				});
+		 				$('.delete').bind('click', function() {
+		 					c.log("deete");
+		 					
+		 					$.ajax({
+		 	                     url: "/admin/place/disable",
+		 	                     type:"POST",
+		 	                     data:"fid="+$(this).attr('fid'),
+		 	                     beforeSend :function(){
+		 		   	 	 			  c.loading("delete",0);
+		 	                     },
+		 	                     success: function(response){
+		 	                     	if(response.status=="SUCCESS"){
+		 	                     		c.showSuccess("승인 취소되었습니",1000);
+		 	                     	}
+		 	                    	
+		 	                     },
+		 	                     error: function(jqXHR, textStatus, errorThrown){
+		 	                    	c.showError(textStatus+"j"+jqXHR+"e:"+errorThrown);
+		 	                     },
+		 	                     complete:function(){
+		 	                    	 setTimeout("c.unloading()",500); 
+		 	                    	 datatable.fnStandingRedraw();
+		 	                     }
+		 	                });//ajax */
+		 				});
+		 			},	  		
 		 			"aaSorting": [[ 2, "desc" ]]
 		 		});
 		 		
@@ -56,11 +98,18 @@
 		 		
 			});
 		 	
-		 	
+		 	function make_actions(oObj) {
+		 		var id = oObj.aData['fid'];
+		 		
+		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		
+		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
-		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">Add User</a></span>
-			 <table class="display" id="userw_datatable">
+		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">가맹점 추가 </a></span>
+			 <table class="display" id="datatable">
 				<thead>
 					<tr>
 						<th class="center">fid</th>
@@ -70,7 +119,8 @@
 						<th class="center">mobile</th>
 						<th>authyn</th>
 						<th>hdongname</th>
-						<th>inpDate</th>
+						<th>saveDate</th>
+						<th>editDate</th>
 						
 						<th>Management</th>
 					</tr>
