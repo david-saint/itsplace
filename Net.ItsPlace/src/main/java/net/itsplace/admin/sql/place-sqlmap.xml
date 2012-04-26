@@ -8,9 +8,6 @@
 	<typeAlias type="net.itsplace.domain.Category" alias="Category"/>
 	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>
 
-	<resultMap id="address" class="net.itsplace.domain.Address" >
-		<result property="sido" column="SIDO"></result>						
-	</resultMap>
 	
 	<resultMap id="PlaceJoinAddress" class="Place" >
 		<result property="fid" column="FID"></result>
@@ -43,6 +40,9 @@
 		<result property="address.bldsubmain" column="BLDSUBMAIN"></result>
 		<result property="address.jimain" column="JIMAIN"></result>
 		<result property="address.jisubmain" column="JISUBMAIN"></result>
+		
+		<result property="placeStamp.sid" column="SID"></result>
+		
 								
 	</resultMap>
 	
@@ -51,13 +51,17 @@
     	 		 A.FILENAME, A.CATEGORY,  A.STYPE, A.REMARK,
     	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		 PB.BASNAME AS STYPE,
-		   	 	 B.SIDO, B.GUGUN, B.BUPNAME, IFNULL(B.HDONGNAME,'') AS HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN 
+		   	 	 B.SIDO, B.GUGUN, B.BUPNAME, IFNULL(B.HDONGNAME,'') AS HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN,
+		   	 	 IFNULL(C.SID,'') AS SID 
 		 FROM PLACE A
 		 INNER JOIN PBASCD PB
          	ON A.STYPE = PB.BASECD	
          	AND PB.GRPCD = 'FTYPE'
 		 LEFT OUTER JOIN PADDRESS B
 			ON A.NLDNO = B.NLDNO
+ 		 LEFT OUTER JOIN PLACESTAMP C
+		    ON C.FID = A.FID
+		    AND C.ISDELETE ='N'	
          <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	WHERE A.FNAME like CONCAT('%',#search#,'%')
@@ -105,4 +109,6 @@
          SET ISAUTH = 'N'             
       	WHERE FID = #fid#        
     </update>
+    
+  
 </sqlMap>

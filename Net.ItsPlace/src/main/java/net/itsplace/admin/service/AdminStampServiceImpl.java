@@ -54,12 +54,21 @@ public class AdminStampServiceImpl implements AdminStampService{
 
 	@Override
 	public List<StampType> getStampTypeList(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-		return null;
+		return adminStampDao.getStampTypeList(param);
 	}
 
 	@Override
 	public List<PlaceStamp> getPlaceStampAll(int fid){
 		return adminStampDao.getPlaceStampAll(fid);
+	}
+
+	@Override
+	public void savePlaceStamp(PlaceStamp placeStamp) {
+		adminStampDao.savePlaceStamp(placeStamp);		
+	}
+
+	@Override
+	public void editPlaceStamp(PlaceStamp placeStamp) {
+		adminStampDao.editPlaceStamp(placeStamp);
 	}
 }

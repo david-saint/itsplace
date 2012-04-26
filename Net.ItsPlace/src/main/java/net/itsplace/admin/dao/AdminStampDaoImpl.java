@@ -67,5 +67,17 @@ public class AdminStampDaoImpl extends SqlMapClientDaoSupport implements AdminSt
 	public List<PlaceStamp> getPlaceStampAll(int fid) throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("getPlaceStampAll",fid);
 	}
+
+	@Override
+	public void savePlaceStamp(PlaceStamp placeStamp)
+			throws DataAccessException {
+		getSqlMapClientTemplate().insert("savePlaceStamp",placeStamp);
+	}
+
+	@Override
+	public void editPlaceStamp(PlaceStamp placeStamp)
+			throws DataAccessException {
+		getSqlMapClientTemplate().insert("editPlaceStamp",placeStamp);
+	}
 	
 }

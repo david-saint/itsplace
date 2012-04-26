@@ -2,15 +2,24 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class PlaceStamp {
 
+	public interface AddPlaceStamp {}
+	public interface EditPlaceStamp {}
+	
 	private int sid;        //스탬프타입 fk
 	private int fid;		//가맹점 fk
 	private String isDelete; //삭제여
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date saveDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
 	private String stampTitle;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDate; //유효기간 시작
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDate; // 유효기간 종료
 	private StampType stampType;
 	

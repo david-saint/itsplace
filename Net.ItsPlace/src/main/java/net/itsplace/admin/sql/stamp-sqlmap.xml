@@ -23,13 +23,14 @@
 	</resultMap>
 	
 	<select id="getPlaceStampAll" resultClass="PlaceStamp" parameterClass="int" >
-	    SELECT  A.FID, A.SID, A.STAMPTITLE, A.STAMPTITLE, A.ISDELETE, A.SAVEDATE, A.EDITDATE, A.STARTDATE, A.ENDDATE,
+	    SELECT  A.FID, A.SID, A.STAMPTITLE,  A.ISDELETE, A.SAVEDATE, A.EDITDATE, A.STARTDATE, A.ENDDATE,
 	            B.STAMPCOUNT, B.EVENTDAY, B.TITLE
 		FROM PLACESTAMP A
 		INNER JOIN  PSTAMPTYPE B
 		ON A.SID =B.SID
 		WHERE A.FID = #fid#
-		AND B.ISDELETE ='N'
+		AND A.ISDELETE ='N'
+		ORDER BY STARTDATE DESC
 	</select>
 	    
 	<select id="getStampType" resultClass="StampType" parameterClass="int" >
@@ -74,4 +75,17 @@
         SET ISDELETE = 'N'
         WHERE SID =#sid#    
     </update>
+      <!-- PlaceStamp -->
+     <update id="editPlaceStamp" parameterClass="PlaceStamp">
+         UPDATE  PLACESTAMP
+         SET STAMPTILE = #stampTitle# ,
+             ISDELETE = #isDelete#, 
+             STARTDATE = #startDate#, 
+             ENDDATE = #endDate#,
+      	WHERE FID = #fid#, AND SID = #sid#        
+    </update>
+    <insert id="savePlaceStamp" parameterClass="PlaceStamp">
+        INSERT INTO PLACESTAMP(STAMPTITLE, SID, FID, ISDELETE, STARTDATE, ENDDATE, SAVEDATE)
+        VALUES(#stampTitle#, #sid#, #fid#, 'N', #startDate#, #endDate#, now())
+    </insert>
 </sqlMap>

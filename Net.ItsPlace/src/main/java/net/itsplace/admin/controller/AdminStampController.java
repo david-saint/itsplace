@@ -63,7 +63,7 @@ public class AdminStampController {
 	 */
 	@RequestMapping(value="/getStampTypeList")
     @ResponseBody
-    public DataTable<StampType> getPlaceList(
+    public DataTable<StampType> getStampTypeList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
     								@RequestParam(required=false) Integer iDisplayLength,
     								@RequestParam(required=false) Integer iSortCol_0, 

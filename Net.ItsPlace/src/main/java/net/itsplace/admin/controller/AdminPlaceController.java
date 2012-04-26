@@ -11,6 +11,8 @@ import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
+import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
+import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.user.User;
 import net.itsplace.user.User.EditUser;
 import net.itsplace.util.PagingManager;
@@ -82,7 +84,7 @@ public class AdminPlaceController {
 		return "admin/place/user/event";
 	}
 	/**
-	 * 관리자가 가맹점 수정 폼을 호출한다.   <br />
+	 * 관리자가 가맹점 스탬프 수정    <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -92,14 +94,76 @@ public class AdminPlaceController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/stamp/edit", method = RequestMethod.GET)
-	public String stamp(@RequestParam(required=true) Integer fid, Model model)  {
+	public String placeStamp(@RequestParam(required=true) Integer fid, Model model)  {
 		//List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
 		
-		model.addAttribute("placeStamp", new PlaceStamp());
+		
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
-		model.addAttribute("placeStampList",adminStampService.getStampTypeListAll());
+		List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+		if(placeStampList.size()<=0){
+			model.addAttribute("placeStampList",null);
+			model.addAttribute("placeStamp", new PlaceStamp());
+		}else{
+			model.addAttribute("placeStampList",placeStampList);
+			model.addAttribute("placeStamp", placeStampList.get(0));
+		}
+		
 		return "admin/place/stamp/edit";
+	}
+	/**
+	 * 관리자가 가맹점 스탬프를 수정한다.   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return 
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/stamp/edit", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse placeStampSubmit(@Validated({EditPlaceStamp.class}) PlaceStamp placeStamp,BindingResult result, Model model)  {
+		JsonResponse json = new JsonResponse();
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			json.setResult(result.getAllErrors());
+			json.setStatus("FAIL");
+		} else {	
+			adminStampService.editPlaceStamp(placeStamp);
+			json.setResult(placeStamp);
+			json.setStatus("SUCCESS");
+			
+		}		
+		
+		return json;
+	}
+	/**
+	 * 관리자가 가맹점 스탬프를 등록한.   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return 
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/stamp/add", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse placeStampAdd(@Validated({AddPlaceStamp.class}) PlaceStamp placeStamp,BindingResult result, Model model)  {
+		JsonResponse json = new JsonResponse();
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			json.setResult(result.getAllErrors());
+			json.setStatus("FAIL");
+		} else {	
+			adminStampService.savePlaceStamp(placeStamp);
+			json.setResult(placeStamp);
+			json.setStatus("SUCCESS");
+			
+		}		
+		
+		return json;
 	}
 	/**
 	 * 관리자가 가맹점 수정 폼을 호출한다.   <br />

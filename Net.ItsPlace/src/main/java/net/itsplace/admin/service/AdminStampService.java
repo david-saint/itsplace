@@ -19,5 +19,9 @@ public interface AdminStampService {
 	public void restoreStampType(int sid);
 	
 	/* 가맹점 스탬프 타입 가져오기 */
-	public List<PlaceStamp> getPlaceStampAll(int fid) throws DataAccessException;
+	public List<PlaceStamp> getPlaceStampAll(int fid);
+	
+	/*가맹점 스탬프 등록 및 수*/
+	public void savePlaceStamp(PlaceStamp placeStamp) ;	
+	public void editPlaceStamp(PlaceStamp placeStamp) ;
 }
