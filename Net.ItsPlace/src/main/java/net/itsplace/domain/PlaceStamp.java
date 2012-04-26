@@ -9,9 +9,18 @@ public class PlaceStamp {
 	private String isDelete; //삭제여
 	private Date saveDate;
 	private Date editDate;
-	private String remark;
+	private String stampTitle;
 	private Date startDate; //유효기간 시작
 	private Date endDate; // 유효기간 종료
+	private StampType stampType;
+	
+	
+	public StampType getStampType() {
+		return stampType;
+	}
+	public void setStampType(StampType stampType) {
+		this.stampType = stampType;
+	}
 	public int getSid() {
 		return sid;
 	}
@@ -42,11 +51,12 @@ public class PlaceStamp {
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
-	public String getRemark() {
-		return remark;
+
+	public String getStampTitle() {
+		return stampTitle;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setStampTitle(String stampTitle) {
+		this.stampTitle = stampTitle;
 	}
 	public Date getStartDate() {
 		return startDate;

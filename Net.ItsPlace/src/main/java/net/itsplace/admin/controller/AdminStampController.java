@@ -87,7 +87,7 @@ public class AdminStampController {
         param.put("sortDirection", sSortDir_0);
         param.put("sortColumn", table.getOrderColumn(iSortCol_0));
 		
-		List<StampType> franchiserList = adminStampService.getStamptypeList(param);
+		List<StampType> franchiserList = adminStampService.getStampTypeList(param);
 		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
 		table.setRows(franchiserList);
 		table.setiTotalDisplayRecords(pagingManaer.getTotalCount());

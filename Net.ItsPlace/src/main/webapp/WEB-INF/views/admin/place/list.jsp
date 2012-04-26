@@ -102,9 +102,10 @@
 		 		var id = oObj.aData['fid'];
 		 		
 		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var stampAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/edit?fid='+id+'" original-title="Stamp"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
-		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return  stampAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.admin.dao.AdminStampDao;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
 import net.itsplace.user.UserServiceImpl;
 
@@ -20,11 +21,7 @@ public class AdminStampServiceImpl implements AdminStampService{
 	@Autowired
 	private AdminStampDao adminStampDao;
 
-	@Override
-	public List<StampType> getStamptypeList(Map<String, Object> param) {
-		return adminStampDao.getStamptypeList(param);
-	}
-
+	
 	@Override
 	public void saveStampType(StampType stampType){
 		adminStampDao.saveStampType(stampType);
@@ -48,5 +45,21 @@ public class AdminStampServiceImpl implements AdminStampService{
 	@Override
 	public void restoreStampType(int sid) {
 		adminStampDao.restoreStampType(sid);		
+	}
+
+	@Override
+	public List<StampType> getStampTypeListAll() {
+		return adminStampDao.getStampTypeListAll();
+	}
+
+	@Override
+	public List<StampType> getStampTypeList(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PlaceStamp> getPlaceStampAll(int fid){
+		return adminStampDao.getPlaceStampAll(fid);
 	}
 }

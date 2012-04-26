@@ -10,6 +10,7 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Place.EditPlace;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.user.User;
 import net.itsplace.user.User.EditUser;
 import net.itsplace.util.PagingManager;
@@ -80,7 +81,26 @@ public class AdminPlaceController {
 	public String event(Locale locale, Model model) {
 		return "admin/place/user/event";
 	}
-	
+	/**
+	 * 관리자가 가맹점 수정 폼을 호출한다.   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/stamp/edit", method = RequestMethod.GET)
+	public String stamp(@RequestParam(required=true) Integer fid, Model model)  {
+		//List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+		
+		model.addAttribute("placeStamp", new PlaceStamp());
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
+		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
+		model.addAttribute("placeStampList",adminStampService.getStampTypeListAll());
+		return "admin/place/stamp/edit";
+	}
 	/**
 	 * 관리자가 가맹점 수정 폼을 호출한다.   <br />
 	 * 
@@ -95,7 +115,7 @@ public class AdminPlaceController {
 	public String edit(@RequestParam(required=true) Integer fid, Model model)  {
 	
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
-		model.addAttribute("place",adminStampService.getStamptypeList(param);
+		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
 		
 		return "admin/place/edit";
 	}

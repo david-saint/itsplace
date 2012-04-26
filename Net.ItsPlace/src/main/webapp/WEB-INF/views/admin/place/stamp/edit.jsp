@@ -75,7 +75,7 @@
 	<!-- End header -->
 	<div class="content">
 			<!-- title box -->
-		<form:form commandName="place" method="post">
+		<form:form commandName="placeStamp" method="post">
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />

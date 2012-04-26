@@ -4,7 +4,34 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="stamp">
 	<typeAlias type="net.itsplace.domain.StampType" alias="StampType"/>	    
+	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>	
+
+	<resultMap id="PlaceStampJoinStampType" class="PlaceStamp" >
+		<result property="fid" column="FID"></result>
+		<result property="sid" column="SID"></result>
+		<result property="stampTitle" column="STAMPTITLE"></result>
+		<result property="isDelete" column="ISDELETE"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
+		<result property="editDate" column="EDITDATE"></result>		
+		<result property="startDate" column="STARTDATE"></result>
+		<result property="endDate" column="ENDDATE"></result>
+		
+		<result property="stampType.title" column="TITLE"></result>
+		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
+		<result property="stampType.eventday" column="EVENTDAY"></result>
+								
+	</resultMap>
 	
+	<select id="getPlaceStampAll" resultClass="PlaceStamp" parameterClass="int" >
+	    SELECT  A.FID, A.SID, A.STAMPTITLE, A.STAMPTITLE, A.ISDELETE, A.SAVEDATE, A.EDITDATE, A.STARTDATE, A.ENDDATE,
+	            B.STAMPCOUNT, B.EVENTDAY, B.TITLE
+		FROM PLACESTAMP A
+		INNER JOIN  PSTAMPTYPE B
+		ON A.SID =B.SID
+		WHERE A.FID = #fid#
+		AND B.ISDELETE ='N'
+	</select>
+	    
 	<select id="getStampType" resultClass="StampType" parameterClass="int" >
 	    SELECT  sql_calc_found_rows SID, TITLE, STAMPCOUNT, EVENTDAY, REMARK, DISPSEQ, EDITDATE, ISDELETE
 		FROM PSTAMPTYPE
@@ -12,18 +39,15 @@
 	</select>
     <select id="getStampTypeList" resultClass="StampType" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows SID, TITLE, STAMPCOUNT, EVENTDAY, REMARK, DISPSEQ, EDITDATE, ISDELETE
-		 FROM PSTAMPTYPE
-         <dynamic>
-	    	 <isNotEmpty property="search">
-	    	 	WHERE A.FNAME like CONCAT('%',#search#,'%')
-	    	 	or B.HDONGNAME like CONCAT('%',#search#,'%')
-	    	 	or MOBILE like CONCAT('%',#search#,'%')
-	    	 </isNotEmpty>
-    	 </dynamic>
+		 FROM PSTAMPTYPE        
     	 ORDER BY $sortColumn$ $sortDirection$
     	 LIMIT #startRow# , #endRow#	
     </select>
-    
+    <select id="getStampTypeListAll" resultClass="StampType" parameterClass="java.util.Map">
+    	 SELECT  SID, TITLE, STAMPCOUNT, EVENTDAY, REMARK, DISPSEQ, EDITDATE, ISDELETE
+		 FROM PSTAMPTYPE        
+    	 ORDER BY DISPSEQ ASC	
+    </select>
     <insert id="saveStampType" parameterClass="StampType">
         INSERT INTO PSTAMPTYPE(TITLE, STAMPCOUNT, EVENTDAY, REMARK, DISPSEQ, SAVEDATE)
         VALUES(#title#, #stampcount#, #eventday#, #remark#, #dispseq#, now() )

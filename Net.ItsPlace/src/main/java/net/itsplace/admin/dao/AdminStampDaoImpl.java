@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
 import net.itsplace.user.UserDao;
 import net.itsplace.user.UserDaoImpl;
@@ -27,7 +28,7 @@ public class AdminStampDaoImpl extends SqlMapClientDaoSupport implements AdminSt
 	}
 
 	@Override
-	public List<StampType> getStamptypeList(Map<String, Object> param) throws DataAccessException {
+	public List<StampType> getStampTypeList(Map<String, Object> param) throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("getStampTypeList",param);
 	}
 
@@ -55,6 +56,16 @@ public class AdminStampDaoImpl extends SqlMapClientDaoSupport implements AdminSt
 	@Override
 	public void restoreStampType(int sid) throws DataAccessException {
 		getSqlMapClientTemplate().update("restoreStampType",sid);		
+	}
+
+	@Override
+	public List<StampType> getStampTypeListAll() throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getStampTypeListAll");
+	}
+
+	@Override
+	public List<PlaceStamp> getPlaceStampAll(int fid) throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getPlaceStampAll",fid);
 	}
 	
 }

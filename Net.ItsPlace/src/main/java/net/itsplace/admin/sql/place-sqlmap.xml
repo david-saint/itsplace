@@ -68,8 +68,8 @@
     	 ORDER BY $sortColumn$ $sortDirection$
     	 LIMIT #startRow# , #endRow#	
     </select>
-    <select id="getPlace">
-        SELECT FNAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE
+    <select id="getPlace" resultClass="Place">
+        SELECT FID, FNAME, NAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE
         FROM PLACE
         WHERE FID = #fid#
     </select>
