@@ -218,6 +218,7 @@ public class AdminUserController {
                     param.put("sortColumn", table.getOrderColumn(iSortCol_0));
             		
                     List<User> userList= adminUserService.getUserList(param);
+                    
             		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
             		
             		

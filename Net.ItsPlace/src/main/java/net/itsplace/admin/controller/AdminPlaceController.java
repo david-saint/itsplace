@@ -62,7 +62,7 @@ public class AdminPlaceController {
 	
 	/**
 	 * 가맹점별 회원관리
-	 * @param locale
+	 * @param locale jhgjhgjhgjhg
 	 * @param model
 	 * @return
 	 */
