@@ -37,9 +37,10 @@
 		 				  			{ "mDataProp": "fileName", "sClass": "left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "fname", "sClass":"left" },
 		 				  			{ "mDataProp": "name", "sClass":"left" },
-		 				  			{ "mDataProp": "mobile",},
-		 				  			{ "mDataProp": "isAuth",},
+		 				  			{ "mDataProp": "mobile"},
+		 				  			{ "mDataProp": "isAuth"},
 		 				  			{ "mDataProp": "address.hdongname" },
+		 				  			{ "mDataProp": "placeStamp.sid","bVisible": true},
 		 				  			{ "mDataProp": "saveDate","fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
@@ -100,7 +101,8 @@
 		 	
 		 	function make_actions(oObj) {
 		 		var id = oObj.aData['fid'];
-		 		
+		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
+		 		c.log(""+oObj.aData['placeStamp.sid']);
 		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var stampAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/edit?fid='+id+'" original-title="Stamp"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
@@ -120,6 +122,7 @@
 						<th class="center">mobile</th>
 						<th>authyn</th>
 						<th>hdongname</th>
+						<th>sid</th>
 						<th>saveDate</th>
 						<th>editDate</th>
 						

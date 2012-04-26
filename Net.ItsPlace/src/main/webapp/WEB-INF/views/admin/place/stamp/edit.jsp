@@ -5,24 +5,25 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		var action= "/admin/place/stamp/add";
  		$('#btnEdit').live('click',function() {
- 			c.log("submit Edit Form");
- 			$('#user').submit();
+ 			c.log("submit Form");
+ 			<c:if test="${not empty plascStamp}">
+ 				action = "/admin/place/stamp/edit";
+ 			</c:if>
+ 			
+
+ 			$('#placeStamp').submit();
  		});
  		$('.cancel').live('click',function() {
  			c.log("cancel2");
  			parent.$.fancybox.close();
- 		
- 			
- 			//$.fancybox.close();
  		});
- 		 $('#user').validationEngine('attach', {//서브밋 후에 밸리
+ 		$('#placeStamp').validationEngine('attach', {//서브밋 후에 밸리
  			  onValidationComplete: function(form, status){
  				 if(status==true){
- 					 c.log("edit:"+status);
- 					//$('#user').validationEngine('detach');
  					$.ajax({
- 	                     url: "/admin/user/edit",
+ 	                     url:action,
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -32,7 +33,6 @@
  	                     },
  	                     success: function(response){
  	                       if(response.status=="SUCCESS"){
- 	                    	   console.log("송고");
  	                    		parent.$.fancybox.close();
  	                    		parent.test();
  	                       }else{
@@ -41,40 +41,27 @@
  	                               errorInfo = "<br>" + (i + 1) +". " + response.result[i].defaultMessage;
  	                           }
  	                    	   c.log(errorInfo);
+ 	                    	   c.showError(errorInfo,1000);
  	                       }
  	                     },
  	                     error: function(jqXHR, textStatus, errorThrown){
  	                    	alert(textStatus+jqXHR+errorThrown); 
  	                     },
  	                     complete:function(){
- 	                    	//$('#user').validationEngine('detach');
  	                    	 setTimeout("c.unloading()",1500); 
  	                    
  	                     }
- 	                   });//ajax
- 	                   
- 		 			   					 
+ 	                  });//ajax
  				 }
  			  }
-	 	});
-
-		
- 		 
- 		 
- 		
- 	});
- 	
+	 	});//validation
+ 	});//ready
 </script>
-
-		
-
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 기초코드 </span>
+		<span><span class="ico gray home"></span> 스탬프 등록 - ${place.fname}  </span>
 	</div>
-	<!-- End header -->
 	<div class="content">
-			<!-- title box -->
 		<form:form commandName="placeStamp" method="post">
 			<div class="boxtitle">
 				<c:set var="errors">
@@ -87,61 +74,70 @@
 	             </c:if>
 
 			</div>
-
 			<div class="section">
-				<label> 가맹점명 <small></small></label>
+				<label> 스탬프명 <small></small></label>
 				<div>
-					<input id="fname" name="fname" type="text"
-						class="validate[required,minSize[3],maxSize[50]] medium "
-						value="${place.fname }" /> <input name="fid" value="${place.fid}"
-						type="hidden" /> <span class="f_help">가맹점명 필수 입력</span>
+					<input id="stampTitle" name="stampTitle" type="text"
+						class="validate[required,maxSize[50]] medium "
+						value="${placeStamp.stampTitle}" /> 
+						<input id="fid" name="fid" value="${place.fid}" type="text" /> <span class="f_help"></span>
+				</div>
+			</div>
+			<div class="section">
+				<label> 스탬프명 <small></small></label>
+				<div>
+					<form:select id="sid" path="sid" multiple="false">
+						<form:options items="${stampTypeList}" itemValue="sid"	itemLabel="title" />
+					</form:select>
 				</div>
 			</div>
 			<div class="section"> 
-				<label> 신청자 <small></small></label>
+				<label> 시작일 <small></small></label>
 				<div>
-					<input id="name" type="text" name="name"
-						class="validate[required,minSize[3],maxSize[50]] full"
-						value="${place.name }" /> <span class="f_help">영문+숫자 혼합</span>
+					<input id="startDate" type="text" name="startDate"
+						class="validate[required,maxSize[50]] full"
+						value="${placeStamp.startDate }" /> <span class="f_help"></span>
 				</div>
 			</div>
 			<div class="section">
-				<label> mobile <small></small></label>
+				<label> 종료일  <small></small></label>
 				<div>
-					<input id="mobile" type="text" name="mobile"
-						class="validate[required,minSize[3],maxSize[50]] full"
-						value="${place.mobile }" /> <span class="f_help">영문+숫자 혼합</span>
+					<input id="endDate" type="text" name="endDate"
+						class="validate[required,maxSize[50]] full"
+						value="${placeStamp.endDate }" /> <span class="f_help"></span>
 				</div>
 			</div>
-			<div class="section">
-				<label> mobile <small></small></label>
-				<div>
-					<form:select id="remark" path="fid" multiple="false">
-						
-					</form:select> 
-					
-					<span class="f_help">영문+숫자 혼합</span>
-				</div>
-			</div>
-
-
 			<div class="section last">
 				<div>
-					<a id="btnEdit" class="uibutton loading submit_form" title="Saving"
-						rel="1">submit</a> <a class="uibutton special clear_form">clear
-						form</a> <a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
+					<a id="btnEdit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
+					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
 				</div>
 			</div>
-
 		</form:form>
-
-
-
-
-
-
-
-
+			<div class="setion">
+				<table class="display staticBase" id="static">
+				<thead>
+					<tr>
+						<th>StampTitle</th>
+						<th>EditDate</th>
+						<th>StartDate</th>
+						<th>EndDate</th>
+						<th>isDelete</th>
+					</tr>
+				</thead>
+				 <tbody>
+					<c:forEach items="${placeStampList}" var="placeStamp">
+						<tr>
+							<td>${placeStamp.stampTitle}</td>
+							<td>${placeStamp.editDate}</td>
+							<td>${placeStamp.startDate}</td>
+							<td>${placeStamp.endDate}</td>
+							<td>${placeStamp.isDelete}</td>
+						</tr>
+					</c:forEach>
+				</tbody> 
+				</table>
+			</div>
 	</div>
 </div>
 
