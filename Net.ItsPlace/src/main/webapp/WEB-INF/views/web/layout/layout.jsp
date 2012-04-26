@@ -31,6 +31,7 @@
 		<script src="<c:url value="/resources/oakland/js/jquery.validationEngine.js" />" type="text/javascript"></script>
 		<script src="<c:url value="/resources/oakland/js/jquery.validationEngine-lang.js" />" type="text/javascript"></script>
 		<script src="<c:url value="/resources/oakland/js/jquery.cmsmsResponsiveSlider-1.0.min.js" />" type="text/javascript"></script>
+		<script src="<c:url value="/resources/js/jquery.url.js" />" type="text/javascript"></script>
 		
 		<!-- 자바스크립트 디버그 
 		<script type="text/javascript" src="<c:url value="/resources/blackbirdjs/1.0/blackbird.js" />"></script>

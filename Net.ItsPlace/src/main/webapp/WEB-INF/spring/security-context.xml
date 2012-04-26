@@ -37,7 +37,7 @@
 		<intercept-url pattern="/partner/franchiserList" access="permitAll"/>	
 		
 	<intercept-url pattern="/user/JqUserList" access="hasRole('ROLE_ADMIN')"/>	
-		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>	
+<!-- 		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>	 -->
 		<intercept-url pattern="/partner/franchiserListJson/**" access="permitAll"/>	
 		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>				
 		<intercept-url pattern="/signin/**" access="permitAll" />

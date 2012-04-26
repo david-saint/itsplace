@@ -308,6 +308,113 @@ function main_event(d)
 						</div>
 					</div>
 				</div>
+				<div class="one_first">
+					<h1 class="main_text">이벤트</h1>
+				</div>
+				<div id="" style=";">
+					<div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+					</div>
+					<div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+					</div>
+					<div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+						<div class="one_fourth">
+							<figure class="preloader">
+								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+							</figure>
+							<br />
+							<h6>가맹점 1</h6>
+							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+						</div>
+					</div>
+				</div>
 				<div><a href="javascript:main_event('open')" id="event_open">더보기</a><a href="javascript:main_event('close')" id="event_close" style="display:none">닫기</a></div>
 				<div id="main_event_none" style="display:none;">
 					<div>
@@ -415,6 +522,9 @@ function main_event(d)
 				</div>
 			</section>
 			<div class="top_sidebar_divider"></div>
+		</div>
+	</section>
+
 <!--  Finish Top Sidebar -->
 
 

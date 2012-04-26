@@ -5,6 +5,8 @@
 <style type="text/css">
 a{font-family: "돋옴, 돋움"; font-size: 12px; font-weight:bold;}
 </style>
+<script>
+</script>
 <!-- Start Header -->
 			<header id="header">
 				<div class="header">
@@ -12,9 +14,10 @@ a{font-family: "돋옴, 돋움"; font-size: 12px; font-weight:bold;}
 					<nav>
 						<ul id="navigation">
 							<li class="current_page_item"><a href="index.html">Home</a></li>
-							<li><a href="shortcodes.html">서비스소개</a></li>
+							<li><a href="/feature">서비스소개</a></li>
 							<li><a href="portfolio_sort_four.html">나의스템프</a>
 								<ul>
+									<li><a href="/user/register">회원가입</a></li>
 									<li><a href="shortcodes.html">스템프확인</a></li>
 									<li><a href="typography.html">즐겨찾기(북마크)</a></li>
 								</ul>
