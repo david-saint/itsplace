@@ -8,7 +8,7 @@ public class PlaceStamp {
 
 	public interface AddPlaceStamp {}
 	public interface EditPlaceStamp {}
-	
+	private int stampid; //pk
 	private int sid;        //스탬프타입 fk
 	private int fid;		//가맹점 fk
 	private String isDelete; //삭제여
@@ -17,6 +17,7 @@ public class PlaceStamp {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
 	private String stampTitle;
+	private String theme;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDate; //유효기간 시작
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -24,6 +25,18 @@ public class PlaceStamp {
 	private StampType stampType;
 	
 	
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+	public int getStampid() {
+		return stampid;
+	}
+	public void setStampid(int stampid) {
+		this.stampid = stampid;
+	}
 	public StampType getStampType() {
 		return stampType;
 	}

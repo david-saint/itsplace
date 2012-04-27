@@ -9,9 +9,9 @@
 	
 	<!-- UTIL  -->
 	<sqlMap resource="net/itsplace/util/util-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/common/common-sqlmap.xml" />
 	
-	<!-- 웹페이지 관련 SQL -->
-	
+	<!-- 웹페이지 관련 SQL -->	
 	<sqlMap resource="net/itsplace/web/sql/feature-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/web/sql/index-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/web/sql/search-sqlmap.xml" />

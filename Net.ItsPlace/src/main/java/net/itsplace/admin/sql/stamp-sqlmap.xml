@@ -7,8 +7,10 @@
 	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>	
 
 	<resultMap id="PlaceStampJoinStampType" class="PlaceStamp" >
+		<result property="stampid" column="STAMPID"></result>
 		<result property="fid" column="FID"></result>
 		<result property="sid" column="SID"></result>
+		<result property="theme" column="THEME"></result>
 		<result property="stampTitle" column="STAMPTITLE"></result>
 		<result property="isDelete" column="ISDELETE"></result>
 		<result property="saveDate" column="SAVEDATE"></result>
@@ -23,7 +25,7 @@
 	</resultMap>
 	
 	<select id="getPlaceStampAll" resultClass="PlaceStamp" parameterClass="int" >
-	    SELECT  A.FID, A.SID, A.STAMPTITLE,  A.ISDELETE, A.SAVEDATE, A.EDITDATE, A.STARTDATE, A.ENDDATE,
+	    SELECT  A.STAMPID, A.FID, A.SID, A.STAMPTITLE, A.THEME,  A.ISDELETE, A.SAVEDATE, A.EDITDATE, A.STARTDATE, A.ENDDATE,
 	            B.STAMPCOUNT, B.EVENTDAY, B.TITLE
 		FROM PLACESTAMP A
 		INNER JOIN  PSTAMPTYPE B
@@ -78,14 +80,15 @@
       <!-- PlaceStamp -->
      <update id="editPlaceStamp" parameterClass="PlaceStamp">
          UPDATE  PLACESTAMP
-         SET STAMPTILE = #stampTitle# ,
+         SET STAMPTILE = #stampTitle#,
+         	 THEME =#theme#,
              ISDELETE = #isDelete#, 
              STARTDATE = #startDate#, 
              ENDDATE = #endDate#,
-      	WHERE FID = #fid#, AND SID = #sid#        
+      	 WHERE STAMPID = #stampid#        
     </update>
     <insert id="savePlaceStamp" parameterClass="PlaceStamp">
-        INSERT INTO PLACESTAMP(STAMPTITLE, SID, FID, ISDELETE, STARTDATE, ENDDATE, SAVEDATE)
-        VALUES(#stampTitle#, #sid#, #fid#, 'N', #startDate#, #endDate#, now())
+        INSERT INTO PLACESTAMP(STAMPTITLE, THEME, SID, FID, ISDELETE, STARTDATE, ENDDATE, SAVEDATE)
+        VALUES(#stampTitle#, #theme#, #sid#, #fid#, 'N', #startDate#, #endDate#, now())
     </insert>
 </sqlMap>

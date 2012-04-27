@@ -6,6 +6,7 @@ import java.util.Map;
 
 import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
+import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
@@ -39,7 +40,8 @@ public class AdminPlaceController {
 	private AdminStampService adminStampService;
 	@Autowired
 	private PagingManager pagingManaer;
-	
+	@Autowired
+	private CommonService commonService;
 	/**
 	 * 가맹점 승인관리
 	 * @param locale
@@ -100,6 +102,7 @@ public class AdminPlaceController {
 		
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
+		model.addAttribute("themeList",commonService.getBascdList("STAMPTHEME"));
 		List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
 		if(placeStampList.size()<=0){
 			model.addAttribute("placeStampList",null);

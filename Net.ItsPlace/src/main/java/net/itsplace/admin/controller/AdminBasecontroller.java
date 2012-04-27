@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Locale;
 
 import net.itsplace.admin.service.AdminBaseService;
-import net.itsplace.domain.BasCd;
+import net.itsplace.domain.Bascd;
+import net.itsplace.domain.Bascd.AddBascd;
+import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.DataTable;
 import net.itsplace.user.User;
+import net.itsplace.user.User.AddUser;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -15,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,14 +43,88 @@ public class AdminBasecontroller {
 		model.addAttribute("basCdList", adminBaseService.getBascdList(grpCd));
 		return "admin/base/list";
 	}
-	@RequestMapping(value="/lest")
+	
+	/**
+	 * 기초코드 생성폼<br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  add.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String add(Model model) {
+		model.addAttribute("basCd",new Bascd());	
+		return "admin/base/add";
+	}
+	/**
+	 * 회원 생성 <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+ 	public String addSubmit(@Validated({AddBascd.class}) Bascd bascd, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			return "admin/base/add";
+		} else {	
+			adminBaseService.saveBascd(bascd);
+			return "admin/base/list";
+		}
+	
+	}
+	/**
+	 * 기초코드 생성폼<br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String edit(@RequestParam(required=true) Integer fid, Model model)  {
+		model.addAttribute("basCd",adminBaseService.getBascd(fid));	
+		return "admin/base/edit";
+	}
+	/**
+	 * 회원 생성 <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+ 	public String editSubmit(@Validated({EditBascd.class}) Bascd bascd, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			return "admin/base/edit";
+		} else {	
+			adminBaseService.editBascd(bascd);
+			return "admin/base/list";
+		}
+	
+	}
+	
+	/*@RequestMapping(value="/lest")
     @ResponseBody
-    public DataTable<BasCd> list(@RequestParam(required=false) String grpCd,
+    public DataTable<Bascd> list(@RequestParam(required=false) String grpCd,
     				@RequestParam(required=false) Integer iDisplayStart, 
-    				@RequestParam(required=false) Integer iDisplayLength, /* Pagination */
+    				@RequestParam(required=false) Integer iDisplayLength,  Pagination 
                     @RequestParam(required=false) Integer iSortCol_0, 
-                    @RequestParam(required=false) String sSortDir_0, /* Sorting */
-                    @RequestParam(required=false, defaultValue="") String sSearch /* Search */
+                    @RequestParam(required=false) String sSortDir_0,  Sorting 
+                    @RequestParam(required=false, defaultValue="") String sSearch  Search 
                     ) {
 
                     System.out.println("iDisplayStart:"+ iDisplayStart.toString());
@@ -57,10 +136,10 @@ public class AdminBasecontroller {
                     
                     
                     String columns[] = new String[]{"grpCd", "grpName", "basName", "baseCd"};
-                    List<BasCd> list = adminBaseService.getBascdList("");
-                    DataTable<BasCd> table = iDisplayLength != null ?
-                                    new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                                    new DataTable<BasCd>(columns, sSortDir_0, iDisplayStart);
+                    List<Bascd> list = adminBaseService.getBascdList("");
+                    DataTable<Bascd> table = iDisplayLength != null ?
+                                    new DataTable<Bascd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                                    new DataTable<Bascd>(columns, sSortDir_0, iDisplayStart);
                     table.setRows(adminBaseService.getBascdList(grpCd)); // TODO add filter params to the service method, like in organizations.
                     table.setiTotalDisplayRecords( 100);
                     table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
@@ -68,5 +147,5 @@ public class AdminBasecontroller {
                     return table;
            
                    
-    }       
+    }    */   
 }

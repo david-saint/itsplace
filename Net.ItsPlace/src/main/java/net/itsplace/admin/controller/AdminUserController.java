@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import net.itsplace.admin.service.AdminUserService;
-import net.itsplace.domain.BasCd;
+import net.itsplace.domain.Bascd;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.user.User;

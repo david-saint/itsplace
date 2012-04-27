@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import net.itsplace.domain.BasCd;
+import net.itsplace.domain.Bascd;
 import net.itsplace.user.UserDao;
 import net.itsplace.user.UserDaoImpl;
 
@@ -26,15 +26,28 @@ public class AdminBaseDaoImpl extends SqlMapClientDaoSupport implements AdminBas
 	}
 
 	@Override
-	public List<BasCd> getGrpBascdList() throws DataAccessException {
-		// TODO Auto-generated method stub
+	public List<Bascd> getGrpBascdList() throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("getGrpBascdList");
 	}
 
 	@Override
-	public List<BasCd> getBascdList(String grpCd) throws DataAccessException {
-		// TODO Auto-generated method stub
+	public List<Bascd> getBascdList(String grpCd) throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("getBascdList", grpCd);
+	}
+
+	@Override
+	public void saveBascd(Bascd bascd) throws DataAccessException {
+		getSqlMapClientTemplate().insert("saveBascd",bascd);
+	}
+
+	@Override
+	public void editBascd(Bascd bascd) throws DataAccessException {
+		getSqlMapClientTemplate().update("editBascd",bascd);		
+	}
+
+	@Override
+	public Bascd getBascd(int fid) throws DataAccessException {
+		return (Bascd) getSqlMapClientTemplate().queryForObject("getBascd",fid);
 	}
 	
 }

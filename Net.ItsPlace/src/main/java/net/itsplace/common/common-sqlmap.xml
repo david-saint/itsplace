@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="common">
+	<typeAlias type="net.itsplace.domain.Bascd" alias="Bascd"/>
+	
+	
+    <select id="getBascdList" resultClass="Bascd" parameterClass="String">
+    	Select A.GRPNAME, A.GRPCD, B.BASNAME, B.BASECD, B.REMARK, B.USEYN B From PGRPBASCD A
+		Inner Join PBASCD B
+		On A.GRPCD = B.GRPCD	
+		<isNotEmpty>
+		Where A.GRPCD =#grpCd#
+		</isNotEmpty>    			
+    </select>
+</sqlMap>

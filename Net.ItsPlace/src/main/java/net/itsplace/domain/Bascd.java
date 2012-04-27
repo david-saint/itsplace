@@ -1,13 +1,27 @@
 package net.itsplace.domain;
 
-public class BasCd {
+import org.hibernate.validator.constraints.NotEmpty;
 
+public class Bascd {
+	public interface AddBascd {}
+	public interface EditBascd {}
+	
+	private int no;
+	@NotEmpty
 	private String grpCd;
+	@NotEmpty
 	private String grpName;
 	private String basName;
 	private String baseCd;
 	private String remark;
-	private String useYN;
+	private String isDelete;
+	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getGrpCd() {
 		return grpCd;
 	}
@@ -38,11 +52,12 @@ public class BasCd {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getUseYN() {
-		return useYN;
+	public String getIsDelete() {
+		return isDelete;
 	}
-	public void setUseYN(String useYN) {
-		this.useYN = useYN;
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
+	
 
 }

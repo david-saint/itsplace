@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.itsplace.domain.BasCd;
+import net.itsplace.domain.Bascd;
 
 @Service("AdminBaseService")
 public class AdminBaseServiceImpl implements AdminBaseService{
@@ -20,16 +20,36 @@ public class AdminBaseServiceImpl implements AdminBaseService{
 	private AdminBaseDao adminBaseDao;
 	
 	@Override
-	public List<BasCd> getGrpBascdList() {
-		// TODO Auto-generated method stub
+	public List<Bascd> getGrpBascdList() {
 		return adminBaseDao.getGrpBascdList();
 	}
 
 
 
 	@Override
-	public List<BasCd> getBascdList(String grpCd) {
-		// TODO Auto-generated method stub
+	public List<Bascd> getBascdList(String grpCd) {
 		return adminBaseDao.getBascdList(grpCd);
+	}
+
+
+
+	@Override
+	public void saveBascd(Bascd bascd) {
+		adminBaseDao.saveBascd(bascd);		
+	}
+
+
+
+	@Override
+	public void editBascd(Bascd bascd) {
+		adminBaseDao.editBascd(bascd);		
+	}
+
+
+
+	@Override
+	public Bascd getBascd(int fid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
