@@ -1,1 +1,15 @@
 net.itsplace.admin.controller
+net.itsplace.admin.dao
+net.itsplace.admin.service
+net.itsplace.domain
+net.itsplace.exception
+net.itsplace.oauth2
+net.itsplace.social
+net.itsplace.social.facebook
+net.itsplace.social.twitter
+net.itsplace.user
+net.itsplace.util
+net.itsplace.validation
+net.itsplace.web.controller
+net.itsplace.web.dao
+net.itsplace.web.service
