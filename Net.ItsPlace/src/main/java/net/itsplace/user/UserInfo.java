@@ -1,5 +1,9 @@
 package net.itsplace.user;
 
+import java.util.List;
+
+import net.itsplace.domain.Place;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -7,7 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserInfo {
+	final static public String ROLE_USER = "ROLE_USER";
+	final static public String ROLE_ADMIN = "ROLE_ADMIN";
+	final static public String ROLE_FRANCHISER = "ROLE_FRANCHISER";
+	final static public String ROLE_FID = "ROLE_FID";
 	
+
 	public static CustomUserDetails currentUserDetails(){
 	    SecurityContext securityContext = SecurityContextHolder.getContext();
 	    Authentication authentication = securityContext.getAuthentication();
@@ -58,4 +67,22 @@ public class UserInfo {
 		 }
 		 return true;
 	}
+
+	public static int getFid() {
+		CustomUserDetails customUserDetails;
+        customUserDetails =  currentUserDetails();
+        return customUserDetails.getFid();
+	}
+
+	public static void setFid(int fid) {
+		CustomUserDetails customUserDetails;
+        customUserDetails =  currentUserDetails();
+        customUserDetails.setFid(fid);
+	}
+	public static void setPlaceList(List<Place> placeList) {
+		CustomUserDetails customUserDetails;
+		customUserDetails =  currentUserDetails();
+		customUserDetails.setPlaceList(placeList);
+	}
+	
 }

@@ -2,9 +2,12 @@ package net.itsplace.user;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Named;
+
+import net.itsplace.domain.Place;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,9 +24,8 @@ public class CustomUserDetails implements Serializable, UserDetails {
 
 	private User user;
 	private String username;
-
-	private String mobile;
-	private String profileImageUrl;
+	
+	
 	private String password;
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
@@ -32,7 +34,10 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	private Set<String> roles;
 	private Set<String> privileges;
 	private Collection<? extends GrantedAuthority> authorities;
-
+	
+	private int fid; // 선택한 가맹
+	private String placeListSelect;
+	
 	public CustomUserDetails(User user, String username, String password,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
@@ -48,6 +53,35 @@ public class CustomUserDetails implements Serializable, UserDetails {
 		this.authorities = authorities;
 
 	}
+	
+	
+	public String getPlaceListSelect() {
+		return placeListSelect;
+	}
+
+
+	public void setPlaceList(List<Place> placeList) {
+		this.placeListSelect ="<select id=\"places\">";
+		for(int i=0;i<placeList.size();i++){
+			if(fid == placeList.get(i).getFid()){
+				this.placeListSelect += "<option value=\""+placeList.get(i).getFid()+"\" selected>"+placeList.get(i).getFname()+"</option>";
+			}else{
+				this.placeListSelect += "<option value=\""+placeList.get(i).getFid()+"\">"+placeList.get(i).getFname()+"</option>";
+			}
+		}
+		this.placeListSelect +="</select>";
+		 
+	}
+
+
+	public int getFid() {
+		return fid;
+	}
+
+
+	public void setFid(int fid) {
+		this.fid = fid;
+	}
 
 	public User getUser() {
 		return user;
@@ -57,21 +91,6 @@ public class CustomUserDetails implements Serializable, UserDetails {
 		this.user = user;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getProfileImageUrl() {
-		return profileImageUrl;
-	}
-
-	public void setProfileImageUrl(String profileImageUrl) {
-		this.profileImageUrl = profileImageUrl;
-	}
 
 	public Set<String> getRoles() {
 		return roles;
@@ -103,6 +122,9 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	public String getUsername() {
 		return this.username;
 	}
+
+	
+
 
 	@Override
 	public boolean isAccountNonExpired() {

@@ -49,5 +49,10 @@ public class AdminBaseDaoImpl extends SqlMapClientDaoSupport implements AdminBas
 	public Bascd getBascd(int fid) throws DataAccessException {
 		return (Bascd) getSqlMapClientTemplate().queryForObject("getBascd",fid);
 	}
+
+	@Override
+	public void delete(int fid) throws DataAccessException {
+		getSqlMapClientTemplate().update("delete",fid);
+	}
 	
 }

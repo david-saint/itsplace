@@ -49,7 +49,6 @@ public class AdminBaseServiceImpl implements AdminBaseService{
 
 	@Override
 	public Bascd getBascd(int fid) {
-		// TODO Auto-generated method stub
-		return null;
+		return adminBaseDao.getBascd(fid);
 	}
 }

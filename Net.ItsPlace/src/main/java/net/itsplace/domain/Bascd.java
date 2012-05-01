@@ -8,25 +8,32 @@ public class Bascd {
 	
 	private int no;
 	@NotEmpty
-	private String grpCd;
-	@NotEmpty
+	private String grpcd;
 	private String grpName;
 	private String basName;
-	private String baseCd;
+	private String basecd;
 	private String remark;
 	private String isDelete;
+	private String baseval;
 	
+	
+	public String getBaseval() {
+		return baseval;
+	}
+	public void setBaseval(String baseval) {
+		this.baseval = baseval;
+	}
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getGrpCd() {
-		return grpCd;
+	public String getGrpcd() {
+		return grpcd;
 	}
-	public void setGrpCd(String grpCd) {
-		this.grpCd = grpCd;
+	public void setGrpcd(String grpcd) {
+		this.grpcd = grpcd;
 	}
 	public String getGrpName() {
 		return grpName;
@@ -40,11 +47,11 @@ public class Bascd {
 	public void setBasName(String basName) {
 		this.basName = basName;
 	}
-	public String getBaseCd() {
-		return baseCd;
+	public String getBasecd() {
+		return basecd;
 	}
-	public void setBaseCd(String baseCd) {
-		this.baseCd = baseCd;
+	public void setBasecd(String basecd) {
+		this.basecd = basecd;
 	}
 	public String getRemark() {
 		return remark;
@@ -59,5 +66,6 @@ public class Bascd {
 		this.isDelete = isDelete;
 	}
 	
+
 
 }

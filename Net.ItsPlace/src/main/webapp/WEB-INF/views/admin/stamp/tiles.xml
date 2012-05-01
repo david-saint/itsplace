@@ -6,5 +6,8 @@
 
 	<definition name="admin/stamp/edit" extends="admin_empty_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/admin/stamp/edit.jsp" />		
+	</definition>    
+	<definition name="admin/stamp/add" extends="admin_empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/admin/stamp/add.jsp" />		
 	</definition>     	
 </tiles-definitions>

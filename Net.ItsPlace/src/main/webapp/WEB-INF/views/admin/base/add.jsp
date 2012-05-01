@@ -6,28 +6,21 @@
 <script type="text/javascript">
  	$(document).ready(function(){
  		$('#btnAdd').live('click',function() {
- 			c.log("submit Form");
- 			$('#user').submit();
+ 			$('#bascd').submit();
  		});
- 		   $('#user').validationEngine('attach', {//서브밋 후에 밸리
- 			  onValidationComplete: function(form, status){
-	 			   // alert("The form status is: " +status+", it will never submit");
-	 			   c.log("submit:"+status);
-	 			   if(status==true){
-	 				   var title = $('.loading').attr('title');
-	 				  var overlay=$(this).attr('rel'); 
-	 	 			  c.loading(title,overlay);
-	 	 	    	  setTimeout("c.unloading()",1500); 
-	 	 			$('#user').validationEngine('detach');
-	 	 			$('#user').submit();
-	 	 			
-	 			   }
-	 	  }  
+	    $('#bascd').validationEngine('attach', {//서브밋 후에 밸리
+		  onValidationComplete: function(form, status){
+			   c.log("submit:"+status);
+			   if(status==true){
+			   	  var title = $('.loading').attr('title');
+				  var overlay=$(this).attr('rel'); 
+	 			  c.loading(title,overlay);
+	 	    	  setTimeout("c.unloading()",1500); 
+	 			  $('#bascd').validationEngine('detach');
+	 			  $('#bascd').submit();
+			   }
+	   		}  
 	 	});  
-
- 		
- 		 
- 		
  	});
  	
 </script>
@@ -36,57 +29,62 @@
 
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 사용지 등록  </span>
+		
+		<span class="ico gray home"></span><span> 기초코드등록  </span>
 	</div>
 	<!-- End header -->
 	<div class="content">
-					<!-- title box -->
-					<form:form  action="add" commandName="bascd" method="post">
-                        <div class="boxtitle">
-                        <c:set var="errors"><form:errors path="*" /></c:set>
-                        <c:if test="${not empty errors}">
-	                        <span class="ico color lightbulb"></span><span>Exception:</span>
-	                        ${errors }
-                        </c:if>
-                        	
-                        </div>
-						  
-                      
-                        	
-                              <div class="section" >
-                                  <label> Email <small></small></label>   
-                                  <div>
-	                                  <input id="email" type="text" name="email" class="validate[required,minSize[3],maxSize[20]] medium "  value="${user.email }"/>                                   
-	                                   <span class="f_help">Email 필수 입력</span>
-                                  </div>
-                                  
-                             </div>
-                             <div class="section" >
-                                  <label> Password <small></small></label>   
-                                  <div> 
-                                  	<input id="password" type="text" name="password" class="validate[required,minSize[3],maxSize[20]] full" value="${user.password }"  />
-                                  	<span class="f_help">영문+숫자 혼합</span></div>                                  
-                             </div>
-                         	<div class="section" >
-                                  <label> Name <small></small></label>   
-                                  <div> 
-                                  	<input id="name" type="text" name="name" class="validate[required,minSize[3],maxSize[20]] full" value="${user.name }"  />
-                                  	<span class="f_help">영문+숫자 혼합</span></div>                                  
-                             </div>
-                        
-                              
-                              <div class="section last">
-                                  <div>
-	                                  <a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
-	                                  <a class="uibutton special clear_form"  >clear form</a> 
-	                                  <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> </div>
-	                             </div>
-                           
-                          </form:form>
-		
-		
-	
-		
+		<form:form  action="add" commandName="bascd" method="post">
+           <div class="boxtitle">
+	           <c:set var="errors"><form:errors path="*" /></c:set>
+	           <c:if test="${not empty errors}">
+	           <span class="ico color lightbulb"></span><span>Exception:</span>
+	        	    ${errors }
+	           </c:if>
+           </div>
+           <div class="section" >
+               <label> BASECD <small></small></label>   
+               <div>
+                <input id="basecd" type="text" name="basecd" class="validate[required,maxSize[20]] medium "  value="${bascd.basecd }"/>                                   
+                 <span class="f_help"></span>
+               </div>
+               
+          </div>
+          <div class="section" >
+               <label> GroupCode <small></small></label>   
+               <div> 
+               	<form:select id="grpcd" path="grpcd" multiple="false">
+					<form:options items="${grpBasCdList}" itemValue="grpcd" itemLabel="grpName" />
+				</form:select>
+               	<span class="f_help"></span>
+               	</div>                                  
+          </div>
+          <div class="section" >
+               <label> BaseName <small></small></label>   
+               <div> 
+               	<input id="basName" type="text" name="basName" class="validate[required,maxSize[20]] full" value="${bascd.basName }"  />
+               	<span class="f_help"></span></div>                                  
+          </div>
+          <div class="section" >
+               <label> Remark <small></small></label>   
+               <div> 
+               	<input id="remark" type="text" name="remark" class=" full" value="${bascd.remark }"  />
+               	<span class="f_help"></span></div>                                  
+          </div>
+     
+           
+           <div class="section last">
+               <div>
+                <a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
+                <a class="uibutton special clear_form"  >clear form</a> 
+                <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> </div>
+           </div>
+        
+       </form:form>
+
+
+
+
 
 
 	

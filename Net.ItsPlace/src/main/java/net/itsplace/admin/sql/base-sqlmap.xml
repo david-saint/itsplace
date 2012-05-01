@@ -6,25 +6,26 @@
 	<typeAlias type="net.itsplace.domain.Bascd" alias="Bascd"/>
 	
 	<select id="getGrpBascdList" resultClass="Bascd" >
-    	 Select GRPCD,  GRPNAME  From PGRPBASCD Where USEYN='Y';	    	
+    	 Select GRPCD,  GRPNAME  From PGRPBASCD Where ISDELETE='N';	    	
     </select>  
 	
-    <select id="getBascd" parameterClass="int">
-    	SELECT BASECD, GRPCD, BASNAME, REMARK, ISDELETE
+    <select id="getBascd" parameterClass="int" resultClass="Bascd" >
+    	SELECT NO, BASECD, GRPCD, BASNAME, REMARK, ISDELETE
     	FROM PBASCD
     	WHERE NO = #no#
     </select>
-    <insert id="saveBasCd" parameterClass="Bascd">	
-    	Insert Into PBascd(BASECD, GRPCD, BASNAME, REMARK, ISDELETE)
-    	VALUES ( #baseCd#, #grpCd#, #basName#, #remark#, 'N')
+    <insert id="saveBascd" parameterClass="Bascd">	
+    	INSERT INTO PBASCD(BASECD, GRPCD, BASNAME, REMARK, ISDELETE)
+    	VALUES ( #basecd#, #grpcd#, #basName#, #remark#, 'N')
     </insert>
-    <update id="editBasCd" parameterClass="Bascd">	
-    	UPDATE PBascd
-    		BASECD =  #baseCd#,
-    		GRPCD = #grpCd#,
+    <update id="editBascd" parameterClass="Bascd">	
+    	UPDATE PBASCD SET
+    		BASECD =  #basecd#,
+    		GRPCD = #grpcd#,
     		BASNAME = #basName#,
     		REMARK = #remark#,
     		ISDELETE = #isDelete#
     	WHERE NO = #no#;
     </update>
+    
 </sqlMap>

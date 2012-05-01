@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="placeuser">
+	
+	<typeAlias type="net.itsplace.domain.PlaceUser" alias="PlaceUser"/>
+	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
+	
+	
+	<select id="getPlaceUser" resultClass="PlaceUser" parameterClass="PlaceUser">
+	    SELECT FID FROM PLACEUSER
+	    WHERE FID = #fid# AND EMAIL=#email#
+	</select>
+	<select id="getPlaceListByEmail" resultClass="PlaceUser" parameterClass="String">
+        SELECT B.FID, A.FNAME
+		FROM PLACE A
+		INNER JOIN PLACEUSER B
+		ON A.FID = B.FID
+		AND A.ISAUTH='Y' AND B.ISDELETE='N'
+		WHERE B.EMAIL = #email#
+    </select>  
+	<select id="getFranchiserListByEmail" resultClass="Place" parameterClass="String">
+        SELECT A.FID, A.FNAME
+		FROM PLACE A
+		INNER JOIN PUSER B
+		ON A.EMAIL = B.EMAIL
+		AND A.ISAUTH='Y' AND B.ISDELETE='N'
+		WHERE B.EMAIL = #email#
+    </select>  
+    
+    <select id="getPlaceUserList" resultClass="PlaceUser" parameterClass="java.util.Map">
+        SELECT sql_calc_found_rows A.UID, B.EMAIL, B.NAME,  A.SAVEDATE, A.EDITDATE, A.ISDELETE, B.MOBILE
+		FROM PLACEUSER A
+		INNER JOIN PUSER B
+		ON A.EMAIL = B.EMAIL
+		AND A.ISDELETE='N' AND B.ISDELETE='N'
+		WHERE A.FID = #fid#
+		<dynamic>
+	    	 <isNotEmpty property="search">
+	    	 	AND B.NAME like CONCAT('%',#search#,'%')
+	    	 	OR B.EMAIL like CONCAT('%',#search#,'%')
+	    	 	OR B.MOBILE like CONCAT('%',#search#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	 ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow#,#endRow#
+    </select>
+    <insert id="savePlaceUser" parameterClass="PlaceUser">
+        INSERT INTO PLACEUSER(FID, EMAIL, SAVEDATE, ISDELETE)
+        VALUES(#fid#, #email#, now(), 'N')
+    </insert>
+    <update id="deletePlaceUser" parameterClass="PlaceUser">
+        UPDATE PLACEUSER SET
+        	ISDELETE = #isDelete#
+        WHERE UID = #uid#	
+    </update>
+</sqlMap>

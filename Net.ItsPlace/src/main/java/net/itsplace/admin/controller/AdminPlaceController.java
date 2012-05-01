@@ -142,6 +142,31 @@ public class AdminPlaceController {
 		return json;
 	}
 	/**
+	 * 관리자가 가맹점 스탬프 등록     <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/stamp/add", method = RequestMethod.GET)
+	public String placeStampAdd(@RequestParam(required=true) Integer fid, Model model)  {
+		
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
+		
+		model.addAttribute("placeStamp", new PlaceStamp());
+		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
+		model.addAttribute("themeList",commonService.getBascdList("STAMPTHEME"));
+		List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+	
+		model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));			
+		
+		
+		return "admin/place/stamp/add";
+	}
+	/**
 	 * 관리자가 가맹점 스탬프를 등록한.   <br />
 	 * 
 	 * @author 김동훈

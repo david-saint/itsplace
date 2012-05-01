@@ -34,14 +34,16 @@
 		 			"sAjaxDataProp": "rows",
 		 			"aoColumns": [
 		 				  			{ "mDataProp": "fid" },
-		 				  			{ "mDataProp": "fileName", "sClass": "left", "sWidth": "150px"},
-		 				  			{ "mDataProp": "fname", "sClass":"left" },
+		 				  			{ "mDataProp": "fileName", "fnRender"  :function ( oObj ) {
+		 								return "<img src=\"(oObj.aData['fileName']\" style=\"width:50px;\" />";
+		 							} },
+		 				  			{ "mDataProp": "fname", "sClass":"left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile"},
 		 				  			{ "mDataProp": "isAuth"},
 		 				  			{ "mDataProp": "address.hdongname" },
 		 				  			{ "mDataProp": "placeStamp.sid","bVisible": true},
-		 				  			{ "mDataProp": "saveDate","fnRender"  :function ( oObj ) {
+		 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
 		 				  			{ "mDataProp": "editDate","fnRender"  :function ( oObj ) {
@@ -49,6 +51,9 @@
 		 							} },
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  		],
+		 			"oLanguage": {
+		 			                "sUrl": "/resources/common/datatables.txt"
+		 			            },	  		
 			  		"fnInitComplete":function(){
 		 				$('.tip a ').tipsy({trigger: 'manual'});
 		 				$('.tip a ').tipsy("hide");
@@ -65,8 +70,6 @@
 	
 		 				});
 		 				$('.delete').bind('click', function() {
-		 					c.log("deete");
-		 					
 		 					$.ajax({
 		 	                     url: "/admin/place/disable",
 		 	                     type:"POST",
@@ -104,10 +107,11 @@
 		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
 		 		c.log(""+oObj.aData['placeStamp.sid']);
 		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var stampAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/edit?fid='+id+'" original-title="Stamp"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+		 		var stampEditAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/edit?fid='+id+'" original-title="stamp-edit"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+		 		var stampAddAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
-		 		return  stampAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return  stampAddAction +"&nbsp;&nbsp;"+ stampEditAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->

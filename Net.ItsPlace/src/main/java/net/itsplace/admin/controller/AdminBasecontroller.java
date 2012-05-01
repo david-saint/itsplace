@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.domain.Bascd;
+import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Bascd.AddBascd;
 import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.DataTable;
@@ -36,11 +37,11 @@ public class AdminBasecontroller {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String base_list(
-			@RequestParam (value = "grpCd", required = false, defaultValue = "") String grpCd,
+			@RequestParam (value = "grpcd", required = false, defaultValue = "") String grpcd,
 			Model model
 			) {
 		model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
-		model.addAttribute("basCdList", adminBaseService.getBascdList(grpCd));
+		model.addAttribute("basCdList", adminBaseService.getBascdList(grpcd));
 		return "admin/base/list";
 	}
 	
@@ -56,7 +57,8 @@ public class AdminBasecontroller {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String add(Model model) {
-		model.addAttribute("basCd",new Bascd());	
+		model.addAttribute("bascd",new Bascd());	
+		model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
 		return "admin/base/add";
 	}
 	/**
@@ -73,10 +75,11 @@ public class AdminBasecontroller {
  	public String addSubmit(@Validated({AddBascd.class}) Bascd bascd, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			
 			return "admin/base/add";
 		} else {	
 			adminBaseService.saveBascd(bascd);
-			return "admin/base/list";
+			return "redirect:/admin/base/list";
 		}
 	
 	}
@@ -91,8 +94,11 @@ public class AdminBasecontroller {
 	 * @see 
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String edit(@RequestParam(required=true) Integer fid, Model model)  {
-		model.addAttribute("basCd",adminBaseService.getBascd(fid));	
+	public String edit(@RequestParam(required=true) Integer no, Model model)  {
+		Bascd b = adminBaseService.getBascd(no);
+		logger.info("dd:"+b.getBasName());
+		model.addAttribute("bascd",adminBaseService.getBascd(no));	
+		model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
 		return "admin/base/edit";
 	}
 	/**
@@ -112,11 +118,32 @@ public class AdminBasecontroller {
 			return "admin/base/edit";
 		} else {	
 			adminBaseService.editBascd(bascd);
-			return "admin/base/list";
+			return "redirect:/admin/base/list";
 		}
 	
 	}
-	
+	/**
+	 * 기초코드 삭제   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param user
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse delete(@RequestParam(required=true) String email)  {
+		logger.info("email:{}",email);
+		JsonResponse json = new JsonResponse();		
+		User user = new User();
+		user.setEmail(email);
+		//adminUserService.deleteUser(user); 
+			
+		json.setResult(user);
+		json.setStatus("SUCCESS");
+		return json;
+	}
 	/*@RequestMapping(value="/lest")
     @ResponseBody
     public DataTable<Bascd> list(@RequestParam(required=false) String grpCd,

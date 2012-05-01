@@ -25,5 +25,7 @@
 	<sqlMap resource="net/itsplace/admin/sql/stamp-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/admin/sql/support-sqlmap.xml" />
 
-	<!--// 관리자 관련 SQL -->
+	<!--// 가맹 관련 SQL -->
+	<sqlMap resource="net/itsplace/place/sql/placeuser-sqlmap.xml" />
+	
 </sqlMapConfig>

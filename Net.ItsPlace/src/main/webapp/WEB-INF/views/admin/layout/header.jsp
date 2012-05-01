@@ -17,21 +17,8 @@
                     <ul id="main_menu" class="main_menu">
                       <li class="limenu0 select"><a href="<c:url value="/admin/dashboard" />"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
                       <li class="limenu1" ><a href="<c:url value="/admin/base/list" />" ><span class="ico gray shadow window"></span><b>기초코드</b></a>
-                        <ul>
-                          <li ><a href="<c:url value="/admin/base/list" />"> 기초코드 </a></li>
-                          <li ><a href="<c:url value="/admin/base/list" />"> validation </a></li>
-                          <li ><a href="wizard.html"> wizard </a></li>
-                        </ul>
                       </li>
                       <li class="limenu" ><a href="<c:url value="/admin/user/list" />"><span class="ico gray  dimensions" ></span><b>사용자관리</b></a>
-                        <ul>
-                          <li ><a href="<c:url value="/admin/base/list" />">사용관리 </a></li>
-                          <li ><a href="conversation.html"> conversation</a></li>
-                          <li ><a href="imagesEditor.html"> Images Editor </a></li>
-                          <li ><a href="barcode.html"> barcode </a></li>
-                          <li ><a href="messages.html"> messages </a></li>
-                          <li ><a href="grid.html"> Grid System </a></li>
-                        </ul>
                       </li>
                       <li class="limenu" ><a href="<c:url value="/admin/place/list" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
                       <li class="limenu" ><a href="<c:url value="/admin/stamp/list" />"><span class="ico gray shadow pictures_folder"></span><b>스탬프관리  </b></a></li>

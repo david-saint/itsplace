@@ -3,20 +3,21 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <script type="text/javascript">
  	$(document).ready(function(){
- 		var action= "/admin/place/stamp/add";
- 		$('#btnEdit').live('click',function() {
+ 		$( ".date" ).datepicker({ 
+ 			dateFormat: 'yy-mm-dd',
+ 			numberOfMonths: 1
+ 		});
+ 		var action= "/admin/place/stamp/edit";
+ 		
+		
+ 		$('#btnSubmit').live('click',function() {
  			c.log("submit Form");
- 			<c:if test="${not empty plascStamp}">
- 				action = "/admin/place/stamp/edit";
- 			</c:if>
- 			
-
  			$('#placeStamp').submit();
  		});
  		$('.cancel').live('click',function() {
- 			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
  		$('#placeStamp').validationEngine('attach', {//서브밋 후에 밸리
@@ -34,7 +35,6 @@
  	                     success: function(response){
  	                       if(response.status=="SUCCESS"){
  	                    		parent.$.fancybox.close();
- 	                    		parent.test();
  	                       }else{
  	                    	   var errorInfo="";
  	                    	   for(var i =0 ; i < response.result.length ; i++){
@@ -74,6 +74,9 @@
 	             </c:if>
 
 			</div>
+			<div class="boxtitle">
+				시작일이 경과한 경우 수정이 불가능함, 스탬프를 추가해야합니다.
+			</div>
 			<div class="section">
 				<label> 스탬프명 <small></small></label>
 				<div>
@@ -84,10 +87,18 @@
 				</div>
 			</div>
 			<div class="section">
-				<label> 스탬프명 <small></small></label>
+				<label> 스탬프타입 <small></small></label>
 				<div>
 					<form:select id="sid" path="sid" multiple="false">
 						<form:options items="${stampTypeList}" itemValue="sid"	itemLabel="title" />
+					</form:select>
+				</div>
+			</div>
+			<div class="section">
+				<label> 스탬프테마  <small></small></label>
+				<div>
+					<form:select id="theme" path="theme" multiple="false">
+						<form:options items="${themeList}" itemValue="basecd"	itemLabel="basName" />
 					</form:select>
 				</div>
 			</div>
@@ -95,24 +106,36 @@
 				<label> 시작일 <small></small></label>
 				<div>
 					<input id="startDate" type="text" name="startDate"
-						class="validate[required,maxSize[50]] full"
-						value="${placeStamp.startDate }" /> <span class="f_help"></span>
+						class="validate[required,maxSize[50]] samll date"
+						value="<fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/>" /> 
+						<span class="f_help"></span>
 				</div>
 			</div>
 			<div class="section">
 				<label> 종료일  <small></small></label>
 				<div>
 					<input id="endDate" type="text" name="endDate"
-						class="validate[required,maxSize[50]] full"
-						value="${placeStamp.endDate }" /> <span class="f_help"></span>
+						class="validate[required,maxSize[50]] small date"
+						value="<fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/>" />  
+						<span class="f_help"></span>
 				</div>
 			</div>
+			<div class="section" >
+               <label> isDelete <small></small></label>   
+               <div> 
+               <form:radiobutton path="isDelete"  value="Y" label="Yes"/> 
+               <form:radiobutton path="isDelete"  value="N" label="No"/> 
+               <span class="f_help"></span>
+            </div> 
 			<div class="section last">
 				<div>
-					<a id="btnEdit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
+					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
+					<a class="uibutton special clear_form">clear form</a>
 					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
 				</div>
 			</div>
+			                                 
+          </div>
 		</form:form>
 			<div class="setion">
 				<table class="display staticBase" id="static">
@@ -129,9 +152,9 @@
 					<c:forEach items="${placeStampList}" var="placeStamp">
 						<tr>
 							<td>${placeStamp.stampTitle}</td>
-							<td>${placeStamp.editDate}</td>
-							<td>${placeStamp.startDate}</td>
-							<td>${placeStamp.endDate}</td>
+							<td><fmt:formatDate value="${placeStamp.editDate }" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/></td>
 							<td>${placeStamp.isDelete}</td>
 						</tr>
 					</c:forEach>

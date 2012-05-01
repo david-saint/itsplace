@@ -88,7 +88,7 @@
       	 WHERE STAMPID = #stampid#        
     </update>
     <insert id="savePlaceStamp" parameterClass="PlaceStamp">
-        INSERT INTO PLACESTAMP(STAMPTITLE, THEME, SID, FID, ISDELETE, STARTDATE, ENDDATE, SAVEDATE)
-        VALUES(#stampTitle#, #theme#, #sid#, #fid#, 'N', #startDate#, #endDate#, now())
+        INSERT INTO PLACESTAMP(STAMPTITLE, THEME, SID, FID, STARTDATE, ENDDATE, SAVEDATE, ISDELETE)
+        VALUES(#stampTitle#, #theme#, #sid#, #fid#, #startDate#, #endDate#, now(), 'N')
     </insert>
 </sqlMap>

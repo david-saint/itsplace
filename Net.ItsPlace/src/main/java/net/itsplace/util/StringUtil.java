@@ -55,5 +55,27 @@ public class StringUtil{
 	        }
 	        str = sb.toString() + str;  // 만들어진 문자열 "0..."과 int형을 변환한 문자열을 합쳐서 리턴합니다.
 	        return str;
-	    }
+	 }
+	 public static boolean isNull(Object obj){
+		 boolean result = false;
+		 if(obj != null){
+			 if(obj.getClass().getName() == "java.lang.Integer"){
+				 if(obj == null){
+					 result = true;
+				 }else if((Integer)obj == 0){
+					 result = true;
+				 }
+			 }
+			 if(obj.getClass().getName() == "java.lang.String"){
+				 if(obj == null){
+					 result = true;
+				 }else if((String)obj == ""){
+					 result = true;
+				 }
+			 }
+		 }else{
+			 result = true;
+		 }
+		 return result;
+	 }
 }

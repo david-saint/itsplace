@@ -9,7 +9,8 @@
 
 $(document).ready(function() {
 	$('.clear_form').live('click',function() {
-		c.log("clear Form");
+		
+
 		c.clearForm();
 	});
 	
@@ -29,9 +30,12 @@ var c = {
 		},		
 		
 		clearForm : function(){
-			$('form').each(function(index) {	  
-				var form_id=$('form:eq('+index+')').attr('id');
-					  if(form_id){ 
+			$('form').each(function(index) {	
+				this.reset();
+				c.log("c");
+				var form_id=$('form:eq('+index+')').attr('id');				
+					  if(form_id){
+						  c.log("clear Form:"+form_id);
 						  $('#'+form_id).get(0).reset(); 
 						  $('#'+form_id).validationEngine('hideAll');
 								  var editor=$('#'+form_id).find('#editor').attr('id');

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import net.itsplace.user.User;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
@@ -57,9 +58,13 @@ public class Place {
 	private String openday; // 영업시간
 	private String website; // 영웹사이트
 	private String info; // 가맹점 상세설명
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDate; //
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date saveDate; // 
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate; //
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDate; // 
 	private String qrcode; 
 	

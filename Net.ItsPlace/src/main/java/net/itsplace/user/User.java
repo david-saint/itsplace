@@ -1,13 +1,18 @@
 package net.itsplace.user;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.itsplace.domain.Place;
 import net.itsplace.validation.UserPrimarykey;
 
 import org.hibernate.validator.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 
 
@@ -46,15 +51,16 @@ public class User {
 	/*주소fk*/
 	private String nldno;	
 	private String isDelete;	
-
-	
 	/*프로필 이미지 URL*/
 	private String profileImageUrl;
-	
 	/* 프로필 이미지 선택 */
 	private String profileImageType;
 	
+	
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date saveDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
 	
 	

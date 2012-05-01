@@ -35,7 +35,7 @@
 		 			"bServerSide": true,		 			
 		 			"sAjaxSource": "/admin/user/getUserList",
 		 			"sAjaxDataProp": "rows",
-		 			"aoColumns": [//"profileImageUrl", "email", "name","role", "mobile", "useyn", "emailyn"
+		 			"aoColumns": [
 		 				  			{ "mDataProp": "profileImageUrl" },
 		 				  			{ "mDataProp": "email", "sClass": "left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },

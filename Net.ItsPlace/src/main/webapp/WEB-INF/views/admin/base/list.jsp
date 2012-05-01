@@ -3,21 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<style>
-/*jqgrid에서 사용 jquery ui css 사용안하고 아래 스타일로 지정*/
-.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
--moz-border-radius-topright: 4px;
--webkit-border-top-right-radius: 4px;
--khtml-border-top-right-radius: 4px;
-border-top-right-radius: 4px;
-}
-.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
--moz-border-radius-topleft: 4px;
--webkit-border-top-left-radius: 4px;
--khtml-border-top-left-radius: 4px;
-border-top-left-radius: 4px;
-}
-</style>
 
 <!-- full width -->
 <div class="widget">
@@ -27,57 +12,32 @@ border-top-left-radius: 4px;
 	<!-- End header -->
 	<div class="content">
 
-		<div class="section" style="text-align: right">
-			<div>
-				<form:select id="grpCd" path="grpBasCdList" multiple="false">
-					<form:option value="" label="전체" />
-					<form:options items="${grpBasCdList}" itemValue="grpCd"
-						itemLabel="grpName" />
-				</form:select>
-				<script type="text/javascript">
-					 $(document).ready(function(){
-						 
-						/*$('#grpCd').change(function(){											
-							c.movePage("/admin/base/list?grpCd="+$('#grpCd').val());
-							c.log("dddwwwwwwwwww");
-						});*/
-				  	 });
-				 </script>
+		<div class="section">
+			<div style="float:left">
+				<a href="/admin/base/add" class="uibutton icon large add ">Add BASE</a>
 			</div>
-		</div>
+			<div  style="text-align: right">			
+				<form:select id="grpcd" path="grpBasCdList" multiple="false">
+					<form:option value="" label="전체" />
+					<form:options items="${grpBasCdList}" itemValue="grpcd" itemLabel="grpName" />
+				</form:select>
+				</div>
+			</div>
+
 		<script type="text/javascript">
 		 	$(document).ready(function(){
 		 		var staticBase = $('.staticBase').dataTable({
-		 			"sDom": '',
+		 			"bLengthChange": false, //로우수
+		 			"bFilter": false, //search
+		 			"bPaginate": true,
+		 			
 		 			"aaSorting": [],
 		 		    "aoColumns": [
-		 						{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }
+		 						{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }
 		 		  ]
 		 		});
 		 		
-		 		
-		 		/* /* var example = $('#example').dataTable( {
-		 			 "bFilter": true, //search
-		 			"bPaginate": true,
-		 			"bLengthChange": false,
-		 			
-		 			"bProcessing": true,
-		 			"bServerSide": true,		 			
-		 			"sAjaxSource": "<c:url value="/admin/base/list"/>",
-		 			"sAjaxDataProp": "rows",
-		 			"aoColumns": [
-		 				  			{ "mDataProp": "grpCd" },
-		 				  			{ "mDataProp": "grpName" },
-		 				  			{ "mDataProp": "basName" },
-		 				  			{ "mDataProp": "baseCd" },
-		 				  		],
-		 			"fnServerParams": function (aoData, fnCallback) {
-		 			               aoData.push( { "name": "grpCd", "value":  $('#grpCd').val() } );		 			               
-		 			        }
-		 			//"aaSorting": [[ 0, "desc" ]],
-		 		}); */ 
-		 		
-		 		$('#grpCd').change(function(){			
+		 		$('#grpcd').change(function(){			
 		 			console.log($(this).val());
 		 			staticBase.fnFilter( $(this).val() );
 		 			staticBase.fnDraw();
@@ -85,45 +45,47 @@ border-top-left-radius: 4px;
 			});
 		 </script>
 		 
-	
-
-		<table class="display staticBase" id="static">
-			<thead>
-				<tr>
-					<th>GroupCode</th>
-					<th>GroupName</th>
-					<th>CodeName</th>
-					<th>BaseCode</th>
-					<th width="">Remark</th>
-					<th width="">Management</th>
-				</tr>
-			</thead>
-		 <tbody>
-				<c:forEach items="${basCdList}" var="basCd">
+		<div class="tableName">	
+			<table class="display staticBase" id="static">
+				<thead>
 					<tr>
-						<td>${basCd.grpName}</td>
-						<td>${basCd.grpCd}</td>
-						<td>${basCd.basName}</td>
-						<td>${basCd.baseCd}</td>
-						<td>${basCd.remark}</td>
-						<td><span class="tip"> <a title="Edit"> <img
-									src="/resources/admin/images/icon/icon_edit.png">
-							</a>
-						</span> <span class="tip"> <a id="1" class="Delete"
-								name="Band ring" title="Delete"> <img
-									src="/resources/admin/images/icon/icon_delete.png">
-							</a>
-						</span></td>
+						<th>No</th>
+						<th>GroupCode</th>
+						<th>GroupName</th>
+						<th>CodeName</th>
+						<th>BaseCode</th>
+						<th>Remark</th>
+						<th>isDelete</th>
+						<th>Management</th>
 					</tr>
-				</c:forEach>
-			</tbody> 
-		</table>
-
+				</thead>
+			 	<tbody>
+				<c:forEach items="${basCdList}" var="basCd">
+				<tr>
+					<td>${basCd.no}</td>
+					<td>${basCd.grpName}</td>
+					<td>${basCd.grpcd}</td>
+					<td>${basCd.basName}</td>
+					<td>${basCd.basecd}</td>
+					<td>${basCd.remark}</td>
+					<td>${basCd.isDelete}</td>
+					<td><span class="tip"> <a title="Edit" href="/admin/base/edit?no=${basCd.no}"> <img
+								src="/resources/admin/images/icon/icon_edit.png">
+						</a>
+					</span> <span class="tip"> <a id="1" class="Delete"
+							name="Band ring" title="Delete"> <img
+								src="/resources/admin/images/icon/icon_delete.png">
+						</a>
+					</span></td>
+				</tr>
+	 		 	</c:forEach>
+				</tbody> 
+			</table>
+		</div>
 
 
 		<!-- clear fix -->
-		<div class="clear"></div>
-
+	<div class="clear"></div>
 	</div>
 	<!-- End content -->
 </div>

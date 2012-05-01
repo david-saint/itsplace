@@ -17,4 +17,7 @@ public interface AdminBaseDao {
 	public void saveBascd(Bascd bascd)  throws DataAccessException;
 	public void editBascd(Bascd bascd)  throws DataAccessException;
 	public Bascd getBascd(int fid) throws DataAccessException;
+
+	public void delete(int fid)  throws DataAccessException;
+	
 }

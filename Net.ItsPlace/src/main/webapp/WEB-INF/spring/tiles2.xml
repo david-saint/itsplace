@@ -14,6 +14,11 @@
 		<put-attribute name="footer" expression="/WEB-INF/views/admin/layout/footer.jsp" />
 	</definition>
 	
+	<definition name="place_layout" templateExpression="/WEB-INF/views/place/layout/layout.jsp">		
+		<put-attribute name="header" expression="/WEB-INF/views/place/layout/header.jsp" />	
+		<put-attribute name="footer" expression="/WEB-INF/views/place/layout/footer.jsp" />
+	</definition>
+	
 	<definition name="admin_empty_layout" templateExpression="/WEB-INF/views/admin/layout/empty_layout.jsp">			
 	</definition>
 	
