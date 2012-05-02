@@ -62,7 +62,7 @@ public class User {
 	private Date saveDate;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
-	
+	private String sex;
 	
 	public Date getSaveDate() {
 		return saveDate;
@@ -163,6 +163,12 @@ public class User {
 	}
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	@Override
 	public String toString() {

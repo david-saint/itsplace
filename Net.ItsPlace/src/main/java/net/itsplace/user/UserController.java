@@ -24,4 +24,11 @@ public class UserController {
 		
 		return "user/register";
 	}
+	
+	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+	public String saveUser(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request, User p) 
+	{
+		userService.saveUser(p);
+		return "redirect:/";
+	}
 }
