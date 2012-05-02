@@ -25,6 +25,44 @@ input[type="text"], input[type="password"], textarea{
 label.left{display: inline;}
 span.label{font-weight: bold;}
 </style>
+<script type="text/javascript">
+menuSelected("나의스템프");
+$(document).ready(function(){
+	$('input[title]').inputHints();
+	$("#form").validationEngine('init');
+	$("#form a#submit").click(function(){
+		$("#form .loading").animate({
+			opacity : 1
+		}, 250);
+		if($("#email").val() == "example@gmail.com")
+		{
+			$("#email").val("");
+		}
+		if($("#form").validationEngine('validate')){
+			$.post("/user/saveUser",{
+				email 	 : $("#email").val(),
+				name	 : $("#name").val(),
+				password : $("#password").val(),
+				sex		 : $("#sex").val(),
+				formname : 'form',
+				formtype : 'widget'
+			}, function(){
+				jQuery('#form .loading').animate( {
+					opacity : 0
+				} , 250);
+				$("#form")[0].reset();
+				alert("회원등록 되었습니다.");
+				location.href = "/";
+			});
+			return false;
+		}else{
+			jQuery('#form .loading').animate( {
+				opacity : 0
+			} , 250);
+		}
+	});
+});
+</script>
 <div class="container">
 	<section id="middle">
 		<div class="middle_inner">
@@ -34,21 +72,21 @@ span.label{font-weight: bold;}
 			<div class="cont_nav">
 				<a href="/">Home</a>&nbsp; /&nbsp;<a href="/user/register">나의스템프</a>&nbsp; /&nbsp;회원가입
 			</div>
-			<div style="padding:5px;"> 
-				<form action="#" method="post" id="form_contact_form_widget_001">
+			<div style="padding:5px;text-align:center;"> 
+				<form action="/user/userSave" method="post" id="form">
 					<div class="form_info cmsms_input">
 						<label for="field_003">
 							<span class="label">Email(아이디로 사용됩니다 정확히 기재 해주세요!!)</span>
 							<span class="color_3"> *</span>
 						</label>
-						<input type="text" name="email" id="email" style="width:500px;" class="validate[required,custom[email]]" />
+						<input type="text" title="example@gmail.com" name="email" id="email" style="width:500px;" class="validate[required,custom[email]]" />
 					</div>
 					<div class="form_info cmsms_input">
 						<label for="field_003">
 							<span class="label">이름(별명)</span>
 							<span class="color_3"> *</span>
 						</label>
-						<input type="text" name="email" id="email" style="width:500px;" class="validate[required]" />
+						<input type="text" name="name" id="name" style="width:500px;" class="validate[required,minSize[3]]" />
 					</div>
 					<div class="form_info cmsms_input">
 						<label for="field_003">
@@ -105,18 +143,12 @@ span.label{font-weight: bold;}
 						<input type="checkbox" name="yes" id="yes" class="validate[required]" /><label class="left" for="yes">이용약관 동의</label>
 						</div>
 					</div>
+					<div class="loading"></div>
 					<div>
-						<a href="#" class="button">
+						<a href="#" class="button" id="submit">
 							<span>가입하기</span>
 						</a>
 					</div>
-					<!-- <div class="form_info cmsms_textarea">
-						<label for="field_004">Message<span class="color_3"> *</span></label>
-						<textarea name="wmessage" id="field_004" cols="28" rows="6" tabindex="13" class="validate[required,minSize[3]]"></textarea>
-					</div>
-					<div class="loading"></div>
-					<div><input type="hidden" name="contact_form_widget_001_wurl" id="contact_form_widget_001_wurl" value="http://oakland-html.cmsmasters.net/php/sendmail.php" /></div>Here you need to set the path to the sendmail file
-					<div><a href="#" id="contact_form_widget_001_wformsend" class="button" tabindex="14"><span>Send Message</span></a></div> -->
 				</form>
 			</div>
 		</div>

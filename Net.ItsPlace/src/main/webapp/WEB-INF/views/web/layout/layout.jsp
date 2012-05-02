@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cookie:regular"  type="text/css" />
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Cambo:regular,italic,bold,bolditalic" type="text/css" />
 		<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/jquery.prettyPhoto.css" />" type="text/css" media="screen" />
+		<link rel="stylesheet" href="<c:url value="/resources/common/common.css" />" type="text/css" media="screen" />
 		<!--[if lt IE 9]>
 			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie.css" />" type="text/css" />
 			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie_css3.css" />" type="text/css" media="screen" />
@@ -32,6 +33,7 @@
 		<script src="<c:url value="/resources/oakland/js/jquery.validationEngine-lang.js" />" type="text/javascript"></script>
 		<script src="<c:url value="/resources/oakland/js/jquery.cmsmsResponsiveSlider-1.0.min.js" />" type="text/javascript"></script>
 		<script src="<c:url value="/resources/js/jquery.url.js" />" type="text/javascript"></script>
+		<script src="<c:url value="/resources/js/jquery.inputhints.js" />" type="text/javascript"></script>
 		
 		<!-- 자바스크립트 디버그 
 		<script type="text/javascript" src="<c:url value="/resources/blackbirdjs/1.0/blackbird.js" />"></script>

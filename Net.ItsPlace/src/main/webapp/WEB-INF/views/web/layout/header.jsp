@@ -5,7 +5,18 @@
 <style type="text/css">
 a{font-family: "돋옴, 돋움"; font-size: 12px; font-weight:bold;}
 </style>
-<script>
+<script type="text/javascript">
+function menuSelected(name)
+{
+	$(".current_page_item").removeClass("current_page_item");
+	$("#navigation").find("a").each(function(){
+		if($(this).text() == name)
+		{
+			$(this).parent().addClass("current_page_item");
+			return false;
+		}
+	});
+}
 </script>
 <!-- Start Header -->
 			<header id="header">
@@ -13,9 +24,9 @@ a{font-family: "돋옴, 돋움"; font-size: 12px; font-weight:bold;}
 					<a class="logo" href="index.html"><img src="/resources/oakland/images/logo.png" alt="" /></a>
 					<nav>
 						<ul id="navigation">
-							<li class="current_page_item"><a href="index.html">Home</a></li>
+							<li class="current_page_item"><a href="/">Home</a></li>
 							<li><a href="/feature">서비스소개</a></li>
-							<li><a href="portfolio_sort_four.html">나의스템프</a>
+							<li><a href="/user/register">나의스템프</a>
 								<ul>
 									<li><a href="/user/register">회원가입</a></li>
 									<li><a href="shortcodes.html">스템프확인</a></li>

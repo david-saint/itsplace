@@ -3,6 +3,9 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
+<script type="text/javascript">
+menuSelected("서비스소개");
+</script>
 <div class="tab">
 	<ul class="tabs">
 		<li><a href="#">Tab 1</a></li>
