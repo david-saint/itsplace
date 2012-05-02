@@ -6,11 +6,27 @@
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		$('#sid').change(function(){
+ 			drawStampCanvas($('#theme').val());//테마와 스탬프를 그린다	
+ 		});
+ 		$('#theme').change(function(){
+ 			drawStampCanvas($(this).val());//테마와 스탬프를 그린다	
+ 		});
  		
  		$('.albumImage').live('click',function() {
  			c.log($(this).find('img').attr('src') );
- 			$('#theme').val("111");
+			var theme = $(this).attr('theme');
+ 			$('#theme').find('option').each(function(i){
+ 				if(theme == $(this).val()){
+ 					$('#theme').selectmenu("value",i);	
+ 				}
+ 			});
+ 			c.log("테마선택:"+theme);
+ 			drawStampCanvas(theme);//테마와 스탬프를 그린다 
+ 			
  			//$('#theme').click();
+ 			//$("#theme").attr("value","modern");
+ 			//console.log("val:"+$('#theme').val());
  		});
 
  		
@@ -65,8 +81,65 @@
  				 }
  			  }
 	 	});//validation
+	 	
+ 		
  	});//ready
+ 	function drawStampCanvas(theme){
+ 		$('.stamp').remove();
+ 		var sid = $('#sid').val(); // 스탬프 타입
+ 		var stampcount = $('#'+sid).attr('stampcount');
+ 		var eventday = $('#'+sid).attr('eventday');
+			var tag = "<ul class=\"stamp\">";
+			for(var i=1;i<=stampcount;i++){
+				tag+="<li>"+i+"</li>";
+			}
+			tag += "</ul>";
+			c.log("theme:"+theme);
+			$('#'+sid).removeClass();
+			$('#'+sid).addClass(theme); // 테마 선택 
+			$('#'+sid).append(tag);
+			
+ 		/* $('.stampType').each(function(i){
+ 			var stampcount = $(this).attr('stampcount');
+ 			var eventday = $(this).attr('eventday');
+ 			var tag = "<ul>";
+ 			for(var i=1;i<=stampcount;i++){
+ 				tag+="<li>"+i+"</li>";
+ 			}
+ 			tag += "</ul>";
+ 			c.log(tag);
+ 			$('#stampCanvas').append(tag); 
+ 			});*/
+ 	}
 </script>
+<style>
+	.classic ul{
+		border:1px solid blue;
+		width:220px;
+		display: inline-block;
+	}
+	.classic li{
+		width:35px;height:35px;border:1px solid black;text-align: center;
+		margin:3px;
+		line-height:35px;
+		list-style: none;
+		display: inline-block;
+		border-radius: 4px;
+	}
+	.modern ul{
+		border:1px solid red;
+		width:220px;
+		display: inline-block;
+	}
+	.modern li{
+		width:35px;height:35px;border:1px solid black;text-align: center;
+		margin:3px;
+		line-height:35px;
+		list-style: none;
+		display: inline-block;
+		border-radius: 4px;
+	}
+</style>
 <div class="widget">
 	<div class="header">
 		<span><span class="ico gray home"></span> 스탬프 등록 - ${place.fname}  </span>
@@ -85,7 +158,7 @@
 
 			</div>
 			<div class="boxtitle">
-				시작일이 경과한 경우 수정이 불가능함, 스탬프를 추가해야합니다.
+				새로운 스탬프를 추가합니다. 기존에 사용하던 스탬프 고객들은 사용중이던 스탬프를 모두 사용후 새로운 스탬프를 사용하게 됩니다.
 			</div>
 			<div class="section">
 				<label> 스탬프명 <small></small></label>
@@ -97,49 +170,26 @@
 				</div>
 			</div>
 			<div class="section">
-				<label> 스탬프타입 <small></small></label>
+				<label> 스탬프 유형  <small>스탬프 유형을 선택해주세요 </small></label>
 				<div>
 					<form:select id="sid" path="sid" multiple="false">
 						<form:options items="${stampTypeList}" itemValue="sid"	itemLabel="title" />
 					</form:select>
+					<span class="f_help">sss</span>
 				</div>
+				
 			</div>
 			<div class="section">
-				<label> 스탬프테마  <small></small></label>
+				<label> 스탬프 테마  <small>스탬프 테마를 선택해주세요. 특별한 테마를 원한다면 연락주세요 </small></label>
 				<div>
 					<form:select id="theme" path="theme" multiple="false">
 						<form:options items="${themeList}" itemValue="basecd"	itemLabel="basName" />
 					</form:select>
 				</div>
-				
-							
-			</div>
-			<div class="section">
-				<label> 스탬프테마  <small></small></label>
 				<div>
-                  <ul id="">
+                  <ul>
                  	<c:forEach items="${themeList}" var="theme">
-						<li class="albumImage" >
-                            <div class="picHolder">
-                              <span class="image_highlight"></span><!--// Highlight Images -->
-                              <a href="${theme.baseval}" rel='glr'></a><!--// Hide Double Click Link Images -->
-                              <img src="${theme.baseval}" title="Drag Image to delete"/><!--//  Images -->
-                              <div class="picTitle">${theme.basName}</div><!--//  Images Title-->
-                            </div>
-                        </li>
-					</c:forEach>
-					<c:forEach items="${themeList}" var="theme">
-						<li class="albumImage" >
-                            <div class="picHolder">
-                              <span class="image_highlight"></span><!--// Highlight Images -->
-                              <a href="${theme.baseval}" rel='glr'></a><!--// Hide Double Click Link Images -->
-                              <img src="${theme.baseval}" title="Drag Image to delete"/><!--//  Images -->
-                              <div class="picTitle">${theme.basName}</div><!--//  Images Title-->
-                            </div>
-                        </li>
-					</c:forEach>
-					<c:forEach items="${themeList}" var="theme">
-						<li class="albumImage" >
+						<li class="albumImage" theme="${theme.basecd}">
                             <div class="picHolder">
                               <span class="image_highlight"></span><!--// Highlight Images -->
                               <a href="${theme.baseval}" rel='glr'></a><!--// Hide Double Click Link Images -->
@@ -151,12 +201,30 @@
               	  </ul>
 				</div>
 				<div class="clear"></div>
+				
 							
+			</div>
+			<div class="section">
+				<label> 미리보기   <small></small></label>
+				<div>
+					<c:forEach items="${stampTypeList}" var="stampType" varStatus ="status">
+						<div id="${stampType.sid}"  stampcount="${stampType.stampcount }" eventday="${stampType.eventday}" remark="${stampType.remark }"></div>
+					</c:forEach>
+				</div>
+				<div class="clear"></div>
+							
+			</div>
+			<div class="section"> 
+				<label> 스탬프설명  <small></small></label>
+				<div>
+					<textarea name="content"></textarea>
+						<span class="f_help"></span>
+				</div>
 			</div>
 			<div class="section"> 
 				<label> 시작일 <small></small></label>
 				<div>
-					<input id="startDate" type="text" name="startDate"
+					<input id="1startDate" type="text" name="startDate"
 						class="validate[required,maxSize[50]] samll date"
 						value="<fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/>" /> 
 						<span class="f_help"></span>
@@ -165,7 +233,7 @@
 			<div class="section">
 				<label> 종료일  <small></small></label>
 				<div>
-					<input id="endDate" type="text" name="endDate"
+					<input id="1endDate" type="text" name="endDate"
 						class="validate[required,maxSize[50]] small date"
 						value="<fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/>" />  
 						<span class="f_help"></span>

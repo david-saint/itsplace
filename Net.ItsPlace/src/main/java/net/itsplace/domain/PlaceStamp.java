@@ -24,7 +24,14 @@ public class PlaceStamp {
 	private Date endDate; // 유효기간 종료
 	private StampType stampType;
 	
+	private String content;
 	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public String getTheme() {
 		return theme;
 	}

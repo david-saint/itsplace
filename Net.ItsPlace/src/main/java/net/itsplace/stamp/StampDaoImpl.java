@@ -1,0 +1,43 @@
+package net.itsplace.stamp;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import net.itsplace.domain.Stamp;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import org.springframework.stereotype.Repository;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.*;
+@Repository("StampDAO")
+public class StampDaoImpl extends SqlMapClientDaoSupport implements StampDao {
+
+	private static final Logger logger = LoggerFactory.getLogger(StampDaoImpl.class);
+	
+	@Resource(name="sqlMapClient")
+	protected void init(SqlMapClient sqlMapClient) {
+		super.setSqlMapClient(sqlMapClient);
+	}
+
+	@Override
+	public void saveStamp(Stamp stamp) throws DataAccessException {
+		getSqlMapClientTemplate().insert("saveStamp", stamp);
+	}
+
+	@Override
+	public void burnStamp(Stamp stamp) throws DataAccessException {
+		getSqlMapClientTemplate().insert("burnStamp", stamp);	
+	}
+	
+	
+
+
+}

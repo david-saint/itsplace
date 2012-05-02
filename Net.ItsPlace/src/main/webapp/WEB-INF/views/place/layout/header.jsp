@@ -100,15 +100,11 @@
                 <li class="limenu" ><a href="<c:url value="/place/user/list" />"><span class="ico gray  dimensions" ></span><b>직원관리</b></a>
                 </li>
                 <li class="limenu" ><a href="<c:url value="/place/edit" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
-                <li class="limenu" ><a href="#"><span class="ico gray shadow stats_lines"></span><b>Graph and Charts</b> </a>
+                <li class="limenu" ><a href="<c:url value="/place/auth" />"><span class="ico gray shadow stats_lines"></span><b>인증코드 관리 </b> </a>
              
-                <ul>
-                    <li><a href="modalchartLive.html" class="pop_box">live chart </a></li>
-                    <li><a href="chart.html">all chart</a></li>
-                </ul>
                 </li>
-                <li class="limenu" ><a href="filemanager.html"><span class="ico gray shadow  file"></span><b>File manager </b></a></li>
-                <li class="limenu " ><a href="calendar.html"><span class="ico gray shadow calendar"></span><b>Calendar </b></a></li>
+                <li class="limenu" ><a href="<c:url value="/place/user/stamp" />"><span class="ico gray shadow  file"></span><b>스탬프 수동 등록 </b></a></li>
+                <li class="limenu " ><a href="calendar.html"><span class="ico gray shadow calendar"></span><b>스탬프 소진  </b></a></li>
                 <li class="limenu" ><a href="typography.html"><span class="ico gray  shadow paragraph_align_left"></span><b>Typography</b></a></li>
                 <li class="limenu" ><a href="inelement.html"><span class="ico gray shadow abacus"></span><b>Interface elements </b></a></li>
                 <li class="limenu" ><a href="map.html"><span class="ico gray shadow  location"></span><b>Map location </b></a></li>

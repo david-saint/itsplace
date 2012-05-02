@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="stamp">
+	<typeAlias type="net.itsplace.domain.Stamp" alias="Stamp"/>	    
+   
+	 <insert id="saveStamp" parameterClass="Stamp">
+         INSERT INTO PSTAMP(STAMPID, EMAIL, STATUS, REMARK, MOBILE)
+         VALUES (#stampid#, #email#,  'P', #remark#, #mobile#)
+    </insert>
+    <update id="burnStamp" parameterClass="Stamp">
+         UPDATE PSTAMP
+         SET STATUS = 'U',
+         	 USEDATE =  CURRENT_TIMESTAMP()
+         WHERE STATUS = 'P'
+         AND PID = #pid#
+         
+    </update>
+    
+    <update id="cancelStamp" parameterClass="String">
+         UPDATE PSTAMP SET STATUS ='C'
+         WHERE PID = #pid#         
+    </update>
+</sqlMap>

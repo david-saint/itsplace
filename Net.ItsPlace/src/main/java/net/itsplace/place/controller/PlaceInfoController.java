@@ -19,6 +19,7 @@ public class PlaceInfoController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceInfoController.class);
 	@Autowired
 	private AdminPlaceService adminPlaceService;
+	@Autowired
 	private AdminStampService adminStampService;
 	
 	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
@@ -28,5 +29,37 @@ public class PlaceInfoController {
 		
 		return "place/edit";
 	}
-	
+
+	/**
+	 * 인증코드  관리폼 팝업   <br />
+	 * ROLE_FRANCHISER
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/place/auth", method = RequestMethod.GET)
+	public String auth(Model model) {
+		
+		return "place/auth";
+	}
+	/**
+	 * 인증코드 발급   <br />
+	 * ROLE_FRANCHISER
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/place/auth", method = RequestMethod.POST)
+	public String authSubmit(Model model) {
+		
+		return "place/auth";
+	}
 }
