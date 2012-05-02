@@ -6,14 +6,17 @@
 a{font-family: "돋옴, 돋움"; font-size: 12px; font-weight:bold;}
 </style>
 <script type="text/javascript">
-function menuSelected(name)
+function menuSelected(name, sub)
 {
+	var intCnt = 0;
 	$(".current_page_item").removeClass("current_page_item");
 	$("#navigation").find("a").each(function(){
-		if($(this).text() == name)
+		if($(this).text() == name || $(this).text() == sub)
 		{
 			$(this).parent().addClass("current_page_item");
-			return false;
+			intCnt++;
+			if(intCnt == 2) return false;
+			//return false;
 		}
 	});
 }
@@ -33,18 +36,18 @@ function menuSelected(name)
 									<li><a href="typography.html">즐겨찾기(북마크)</a></li>
 								</ul>
 							</li>
-							<li><a href="blog_sidebar.html">가맹점검색</a>
+							<li><a href="/search/place">가맹점검색</a>
 								<ul>
-									<li><a href="blog_sidebar.html">주변검색</a></li>
-									<li><a href="blog_fwidth.html">지도검색</a></li>
-									<li><a href="openpost.html">이벤트</a></li>
+									<li><a href="/search/place">주변검색</a></li>
+									<li><a href="/search/map">지도검색</a></li>
+									<li><a href="/search/event">이벤트</a></li>
 								</ul>
 							</li>
-							<li><a href="blog_sidebar.html">도움말</a>
+							<li><a href="/support/help">도움말</a>
 								<ul>
-									<li><a href="blog_sidebar.html">FAQ</a></li>
-									<li><a href="blog_fwidth.html">1:1 문의</a></li>
-									<li><a href="openpost.html">나의 문의 현황</a></li>
+									<li><a href="/support/help">FAQ</a></li>
+									<li><a href="/support/write">1:1 문의</a></li>
+									<li><a href="/support/list">나의 문의 현황</a></li>
 								</ul>
 							</li>
 						</ul>
