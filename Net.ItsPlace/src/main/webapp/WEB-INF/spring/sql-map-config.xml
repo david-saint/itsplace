@@ -7,6 +7,9 @@
 	<!-- 사용자로그인 -->
 	<sqlMap resource="net/itsplace/user/user-sqlmap.xml" />
 	
+	<!-- 스탬프 적립 및 소진  -->
+	<sqlMap resource="net/itsplace/stamp/stamp-sqlmap.xml" />
+	
 	<!-- UTIL  -->
 	<sqlMap resource="net/itsplace/util/util-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/common/common-sqlmap.xml" />
@@ -25,7 +28,7 @@
 	<sqlMap resource="net/itsplace/admin/sql/stamp-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/admin/sql/support-sqlmap.xml" />
 
-	<!--// 가맹 관련 SQL -->
+	<!--// 가맹점 관련 SQL -->
 	<sqlMap resource="net/itsplace/place/sql/placeuser-sqlmap.xml" />
 	
 </sqlMapConfig>
