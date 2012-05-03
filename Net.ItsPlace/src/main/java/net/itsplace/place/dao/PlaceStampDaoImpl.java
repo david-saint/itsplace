@@ -1,4 +1,4 @@
-package net.itsplace.stamp;
+package net.itsplace.place.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Repository;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import com.mysql.jdbc.*;
-@Repository("StampDAO")
-public class StampDaoImpl extends SqlMapClientDaoSupport implements StampDao {
+@Repository("placeStampDao")
+public class PlaceStampDaoImpl extends SqlMapClientDaoSupport implements PlaceStampDao {
 
-	private static final Logger logger = LoggerFactory.getLogger(StampDaoImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(PlaceStampDaoImpl.class);
 	
 	@Resource(name="sqlMapClient")
 	protected void init(SqlMapClient sqlMapClient) {

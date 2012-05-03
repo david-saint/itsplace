@@ -1,18 +1,17 @@
-package net.itsplace.stamp;
+package net.itsplace.place.dao;
 
 import java.util.List;
-import java.util.Map;
 
+import net.itsplace.domain.Bascd;
 import net.itsplace.domain.Stamp;
 
 import org.springframework.dao.DataAccessException;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
+public interface PlaceStampDao {
 
 
-public interface StampDao {
-	
 	public void saveStamp(Stamp stamp) throws DataAccessException;
 	public void burnStamp(Stamp stamp) throws DataAccessException;	
-
+	
 }

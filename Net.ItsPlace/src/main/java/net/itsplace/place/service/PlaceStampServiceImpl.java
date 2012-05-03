@@ -1,4 +1,4 @@
-package net.itsplace.stamp;
+package net.itsplace.place.service;
 
 import java.util.List;
 import java.util.Map;
@@ -15,26 +15,27 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.itsplace.domain.Stamp;
+import net.itsplace.place.dao.PlaceStampDao;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.StringUtil;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 
-@Service("StampService")
-public class StampServiceImpl implements StampService {
-	private static final Logger logger = LoggerFactory.getLogger(StampServiceImpl.class);
+@Service("placeStampService")
+public class PlaceStampServiceImpl implements PlaceStampService {
+	private static final Logger logger = LoggerFactory.getLogger(PlaceStampServiceImpl.class);
 	
 	@Autowired
-	private StampDao stampDao;
+	private PlaceStampDao placeStampDao;
 
 	@Override
 	public void saveStamp(Stamp stamp) {
-		stampDao.saveStamp(stamp);		
+		placeStampDao.saveStamp(stamp);		
 	}
 
 	@Override
 	public void burnStamp(Stamp stamp) {
-		stampDao.burnStamp(stamp);
+		placeStampDao.burnStamp(stamp);
 	}
 	
 	
