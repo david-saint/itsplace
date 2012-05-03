@@ -6,11 +6,12 @@
 	
 	<typeAlias type="net.itsplace.domain.PlaceUser" alias="PlaceUser"/>
 	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
-	
+	 
 	<select id="getPlaceUser" resultClass="PlaceUser" parameterClass="PlaceUser">
 	    SELECT FID FROM PLACEUSER
 	    WHERE FID = #fid# AND EMAIL=#email#
 	</select>
+	
 	<select id="getPlaceListByEmail" resultClass="PlaceUser" parameterClass="String">
         SELECT B.FID, A.FNAME
 		FROM PLACE A
