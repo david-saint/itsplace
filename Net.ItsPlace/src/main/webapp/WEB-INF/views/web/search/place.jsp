@@ -3,8 +3,114 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
 <script type="text/javascript">
 menuSelected("가맹점검색", "주변검색");
+
+var PLACE = ${list};
+var map;
+var lat = "37.54428363237073";
+var lng = "127.0205732625485";
+
+function zoomIn() {
+	map.setLevel(map.getLevel() - 3);
+}
+
+function zoomOut() {
+	map.setLevel(map.getLevel() + 1);
+}
+
+function jsCallAndroid() {
+	alert(msg);
+}
+
+function successCallback(position) {
+	var lat = position.coords.latitude;
+	var lng = position.coords.longitude;
+	map = new daum.maps.Map(document.getElementById('map'), {
+		center : new daum.maps.LatLng(lat, lng)
+	});
+
+	var marker = new daum.maps.Marker({
+		position : new daum.maps.LatLng(lat, lng)
+	});
+
+	marker.setMap(map);
+}
+
+function errorCallback(error) {
+	alert("map failed: " + error.message);
+}
+
+/*지도 중심점 바로 이동하기*/
+function daummap_setCenter(lat, lng) {
+	map.setCenter(new daum.maps.LatLng(lat, lng));
+
+	var marker = new daum.maps.Marker({
+		position : new daum.maps.LatLng(lat.lng)
+	});
+
+	marker.setMap(map);
+}
+
+//마크먼저 배열에 담는다.
+var marker = Array();
+//인포윈도우 배열에 담는다.
+	var infowindow = new Array();
+function init() {
+	// 지도 생성
+	map = new daum.maps.Map(document.getElementById('map'), {
+		center : new daum.maps.LatLng(lat, lng)
+	});
+	
+ 	for(var i=0; i<PLACE.length; i++)
+	{
+		var lat = PLACE[i].latitude;
+		var lng = PLACE[i].longitude;
+		marker[i] = new daum.maps.Marker({
+			position : new daum.maps.LatLng(lat, lng)
+		});
+
+		// 마커 표시
+		marker[i].setMap(map);
+		
+		// 좌표로 이동
+		map.setCenter(new daum.maps.LatLng(lat, lng));
+	}
+	
+ 	for(var i=0; i<PLACE.length; i++)
+	{
+ 		var fname = PLACE[i].fname;
+ 		marker[i].index = i;
+ 		// 메시지 박스 
+		infowindow[i] = new daum.maps.InfoWindow({
+			content: '<p style="margin:7px 22px 7px 12px;font:12px/1.5 sans-serif"><strong>안녕하세요~</strong><br/>' + fname + '.</p>',
+			removable : true
+		});
+	
+		daum.maps.event.addListener(marker[i], "click", function() {
+			for(var j=0; j<marker.length; j++)
+			{
+				infowindow[j].close();
+			}
+			infowindow[this.index].open(map, marker[this.index]);
+		});
+	}
+}
+
+function init3() {
+	var p = new daum.maps.LatLng(lat, lng);
+	var rc = new daum.maps.RoadviewClient();
+	var rv = new daum.maps.Roadview(document.getElementById("roadview"));
+
+	rc.getNearestPanoId(p, 100, function(panoid) {
+		rv.setPanoId(panoid, p);
+	});
+}
+
+$(document).ready(function(){
+	init();	
+});	
 </script>
 <style type="text/css">
 input[type="text"], input[type="password"], textarea{
@@ -33,7 +139,45 @@ input[type="text"], input[type="password"], textarea{
 }
 label.left{display: inline;}
 span.label{font-weight: bold;}
+
+html,body,#map {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%
+}
+
+#btnZoomIn,#btnZoomOut {
+	position: absolute;
+	right: 1em;
+	z-index: 1;
+	padding: 10px;
+	-webkit-border-radius: 0.5em;
+	border: 1px solid #aaa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#EFEFF0),to(#BCBEC1) )
+}
+
+#roadview {
+	position: absolute;
+	top: 1em;
+	right: 10em;
+	z-index: 1;
+}
+
+#btnZoomIn {top: 1em;}
+#btnZoomOut {top: 4em;}
 </style>
+<script>
+function dd()
+{
+	infowindow[0].open(map, marker[0]);
+/* 	for(var i=0; i<marker.length; i++)
+	{
+		marker[i].click();
+	} */
+}
+</script>
+<button onclick="dd();">dddd</button>
 <div class="container">
 	<section id="middle">
 		<div class="middle_inner">
@@ -105,10 +249,12 @@ span.label{font-weight: bold;}
 							</span>
 						</div>
 					</div>
-					<div style="width:75%;float: left;">
-						미암ㄴ
-					</div>
+					<div style="width:75%;height:700px;float: left;" id="map"></div>
 				</div>
+				<div id="roadview" style="width: 600px; height: 400px;"></div>
+				<span id="btnZoomIn" onclick="zoomIn()">확대</span>
+				<span id="btnZoomOut" onclick="zoomOut()">축소</span>
+				<img id="roadview" src="../resources/images/roadview.png" onclick="init3()" />
 			</section>
 		</div>
 	</section>

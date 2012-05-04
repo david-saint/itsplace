@@ -3,7 +3,11 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="seach">
-	<select id="getSearch">
-	    
+    <typeAlias type="net.itsplace.domain.Place" alias="place"/>
+    
+	<!-- 가맹점 정보가져오기 -->
+	<select id="getPlaceInfo" parameterClass="place" resultClass="place">
+	    SELECT	*
+	    	FROM PLACE
 	</select>
 </sqlMap>

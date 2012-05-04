@@ -79,7 +79,7 @@ $(document).ready(function(){
 							<span class="label">Email(아이디로 사용됩니다 정확히 기재 해주세요!!)</span>
 							<span class="color_3"> *</span>
 						</label>
-						<input type="text" title="example@gmail.com" name="email" id="email" style="width:500px;" class="validate[required,custom[email]]" />
+						<input type="text" title="example@gmail.com" name="email" id="email" style="max-width: 200px;width:100%" class="validate[required,custom[email]]" />
 					</div>
 					<div class="form_info cmsms_input">
 						<label for="field_003">

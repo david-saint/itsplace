@@ -64,7 +64,8 @@
 
 		
 		<!-- 각 레이아웃별 CSS , JAVASCRIPT -->
-
+<!-- 		다음 지도 API -->
+<!-- 3cc715fbd2c405578092bdae6c2a3a6867790d9f -->
 		<title>ItsPlace</title>
 	</head>
 	<body>
