@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+
+	<definition name="place/edit" extends="place_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/place/edit.jsp" />		
+		<put-list-attribute name="scripts">
+    		<add-attribute value="js/upload/ajaxfileupload.js" />    
+     
+  		</put-list-attribute>  				
+	</definition>     
+	 
+	    
+</tiles-definitions>

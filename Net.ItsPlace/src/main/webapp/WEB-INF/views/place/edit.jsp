@@ -5,6 +5,33 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		$("#upload").live('click',function() {
+ 			$.ajaxFileUpload({
+ 			   url: "/place/upload",
+ 			   secureuri:false,
+ 			   fileElementId:'file',
+ 			   dataType: 'json',
+ 			   beforeSend:function()
+ 			   {
+ 			    $("#loading").show();
+ 			   },
+ 			   complete:function()
+ 			   {
+ 			    $("#loading").hide();
+ 			   },
+ 			   success: function (data, status)
+ 			   {
+ 			        c.log(data.msg);
+ 			        c.log(data.fileName);
+ 			            
+ 			   },
+ 			   error: function (data, status, e)
+ 			   {
+ 			    alert("status : " + status + " error : " + e);    
+ 			   }
+ 			  }
+ 			 )
+ 		});
  		$('#btnEdit').live('click',function() {
  			c.log("submit Edit Form");
  			$('#user').submit();
@@ -59,10 +86,9 @@
 	 	});
 
 		
- 		 
- 		 
+ 	
  		
- 	});
+ 	});//ready
  	
 </script>
 
@@ -113,16 +139,8 @@
 						value="${place.mobile }" /> <span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>
-			<div class="section">
-				<label> mobile <small></small></label>
-				<div>
-					<form:select id="remark" path="fid" multiple="false">
-						
-					</form:select> 
-					
-					<span class="f_help">영문+숫자 혼합</span>
-				</div>
-			</div>
+			
+			
 
 
 			<div class="section last">
@@ -135,7 +153,14 @@
 
 		</form:form>
 
-
+		 <div class="section">
+				<label> upload <small></small></label>
+				<div>
+					 <form id="fileupload" action="/place/upload" enctype="multipart/form-data" method="post"> <input id="file" type="file" name="file" class="fileupload" /><a id="upload" class="uibutton special">upload</a>
+					  </form>
+					<span class="f_help">영문+숫자 혼합</span>
+				</div>
+			</div>
 
 
 

@@ -1,17 +1,33 @@
 package net.itsplace.place.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
 import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
+import net.itsplace.domain.Bascd;
+import net.itsplace.domain.ImageFileUpload;
+import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.Bascd.EditBascd;
+import net.itsplace.domain.Place;
 import net.itsplace.user.UserInfo;
+import net.itsplace.util.FtpService;
+import net.itsplace.util.ImageService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Controller
 public class PlaceInfoController {
@@ -21,6 +37,8 @@ public class PlaceInfoController {
 	private AdminPlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
+	@Autowired
+	private ImageService imageService;
 	
 	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
 	public String placeInfo(Model model) {
@@ -29,7 +47,54 @@ public class PlaceInfoController {
 		
 		return "place/edit";
 	}
-
+	/**
+	 * 회원 생성 <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/place/edit", method = RequestMethod.POST)
+ 	public String placeInfoEdit(@Validated({EditBascd.class}) Place place, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			return "place/edit";
+		} else {	
+			adminPlaceService.editPlace(place);
+			
+			return "place/edit";
+		}
+	
+	}
+	@RequestMapping(value = "/place/upload", method = RequestMethod.POST)
+ 	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
+		logger.info("filename:"+file.getFile().getOriginalFilename());
+		
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			
+		}else{	
+			
+			String orinalImagePath = imageService.convertToPng(file.getFile(),0,0);//원본
+			String placeImagePath = imageService.convertToPng(file.getFile(),280,230);//가맹점대표이미지
+			String placeThumnailPath = imageService.convertToPng(file.getFile(),80,80);//썸네일
+			logger.info("원본:{}",orinalImagePath);
+			logger.info("가맹점대표이미지:{}",placeImagePath);
+			logger.info("썸네일:{}",placeThumnailPath);
+			
+		}
+		 response.setContentType("text/html");
+		 ByteArrayOutputStream out = new ByteArrayOutputStream();
+		 String temp ="{error: '',fileName:'"+file.getFile().getOriginalFilename()+"',msg: 'File Name: r4.jpg,  File Size: 929789'}";
+		 out.write(temp.getBytes());
+		 response.setContentLength(out.size());
+		 
+		 response.getOutputStream().write(out.toByteArray());
+		 response.getOutputStream().flush();
+	}
 	/**
 	 * 인증코드  관리폼 팝업   <br />
 	 * ROLE_FRANCHISER

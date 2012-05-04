@@ -5,8 +5,9 @@ import java.util.Date;
 import net.itsplace.user.User;
 
 public class Stamp {
-
+	
 	private int pid ;//적립 스탬프 키
+	
 	private PlaceStamp placeStamp;
 	private User user;
 	private String mobile;

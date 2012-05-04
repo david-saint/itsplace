@@ -7,7 +7,7 @@
    
 	 <insert id="saveStamp" parameterClass="Stamp">
          INSERT INTO PSTAMP(STAMPID, EMAIL, STATUS, REMARK, MOBILE)
-         VALUES (#stampid#, #email#,  'P', #remark#, #mobile#)
+         VALUES (#placeStamp.stampid#, #user.email#,  'P', #remark#, #mobile#)
     </insert>
     <update id="burnStamp" parameterClass="Stamp">
          UPDATE PSTAMP

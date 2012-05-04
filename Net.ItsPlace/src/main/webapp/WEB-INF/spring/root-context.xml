@@ -52,7 +52,7 @@
 		</property>		 
 		<property name="defaultViews">
 			<list>
-				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+				<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"  p:contentType="text/html">
 					<property name="prefixJson" value="true" />
 				</bean>
 			</list>
