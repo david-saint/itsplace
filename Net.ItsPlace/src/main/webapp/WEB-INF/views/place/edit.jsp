@@ -128,12 +128,10 @@
 			</div>
 			<div class="section">
 				<label> 대표사진 <small></small></label>
-				<img id="fileName" style="position:absolute;" src="${place.imageHost}${place.fileName}"></img>
+				<img id="fileName" style="" src="${place.imageHost}${place.fileName}"></img>
 				<div>
-					<input id="fname" name="fname" type="text"
-						class="validate[required,minSize[3],maxSize[50]] medium "
-						value="${place.fname }" /> <input name="fid" value="${place.fid}"
-						type="hidden" /> <span class="f_help">가맹점명 필수 입력</span>
+					 <input id="file" type="file" name="file" class="fileupload" />
+					 <span class="f_help">가맹점명 필수 입력</span>
 				</div>
 			</div>
 			<div class="section"> 
@@ -170,7 +168,7 @@
 				<label> upload <small></small></label>
 				<div>
 					<%--  <form id="fileupload" action="/place/upload" enctype="multipart/form-data" method="post"> --%> 
-					 <input id="file" type="file" name="file" class="fileupload" />
+					
 					 <a id="upload" class="uibutton special">upload</a>
 <%-- 					  </form> --%>
 					<span class="f_help">영문+숫자 혼합</span>

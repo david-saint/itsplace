@@ -39,7 +39,7 @@
                               //  "overflow": "hidden"
                             });
             var valname = $('.txtpart')             
-            var filename = $('<input class="file" placeholder="Choose File">')
+            var filename = $('<input class="file" placeholder="파일 선택">')
                              .addClass($(self).attr("class"))
                              .css({
                                  "display": "inline",

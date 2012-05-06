@@ -3,8 +3,11 @@ package net.itsplace.user;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
+import net.itsplace.domain.Place;
+import net.itsplace.place.service.PlaceUserService;
 import net.itsplace.user.User;
 import net.itsplace.user.UserService;
 import net.itsplace.util.UrlTool;
@@ -27,6 +30,8 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PlaceUserService placeUserService;
 	
 	private static final Logger logger =  LoggerFactory.getLogger(LoginSuccessHandler.class);
 	
@@ -47,7 +52,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		        }
 			 }
 		 }
-		 System.out.println("onAuthenticationSuccess middle");
+		 System.out.println("onAuthenticationSuccess user.getRole():"+user.getRole());
 	//	String ctoken = (String) request.getSession().getAttribute(WebConstants.CSRF_TOKEN);
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
         if(user.getRole().equals("ROLE_FID")){
@@ -59,6 +64,23 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     		//getRedirectStrategy().sendRedirect(request, response, requestUrl);
  
     	}
+        if(user.getRole().equals("ROLE_FID") || user.getRole().equals("ROLE_FRANCHISER")){
+        	List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
+
+     		if(UserInfo.getFid()==0){
+     			UserInfo.setFid(placeList.get(0).getFid());
+     		}
+     		UserInfo.setPlaceList(placeList);
+        }else{
+        	List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
+
+     		if(UserInfo.getFid()==0){
+     			UserInfo.setFid(placeList.get(0).getFid());
+     		}
+     		UserInfo.setPlaceList(placeList);
+        }
+       
+		
         System.out.println("onAuthenticationSuccess ???");
         if( defaultSavedRequest != null ) {
         	
@@ -80,7 +102,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         	 logger.info("Default Request Redirect URL: {}",request.getRequestURL() );
         	 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
            //getRedirectStrategy().sendRedirect(request, response, ");
-        	 if(logger.isInfoEnabled()){
+        	 if(logger.isInfoEnabled()){//개발모
         		 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
         	 }else{
         		 super.onAuthenticationSuccess(request, response, authentication); 
