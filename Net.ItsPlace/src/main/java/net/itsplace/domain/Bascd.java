@@ -15,8 +15,15 @@ public class Bascd {
 	private String remark;
 	private String isDelete;
 	private String baseval;
+	private String basekey;
 	
 	
+	public String getBasekey() {
+		return basekey;
+	}
+	public void setBasekey(String basekey) {
+		this.basekey = basekey;
+	}
 	public String getBaseval() {
 		return baseval;
 	}

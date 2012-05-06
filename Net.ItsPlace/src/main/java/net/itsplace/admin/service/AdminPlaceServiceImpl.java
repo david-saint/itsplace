@@ -5,6 +5,7 @@ import java.util.Map;
 
 import net.itsplace.admin.dao.AdminPlaceDao;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.Pmedia;
 import net.itsplace.user.UserServiceImpl;
 
 import org.slf4j.Logger;
@@ -46,6 +47,7 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 	public Place getPlace(int fid) {
 		return adminPlaceDao.getPlace(fid);
 	}
+
 
 	
 }

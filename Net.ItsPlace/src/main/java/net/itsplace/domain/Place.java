@@ -49,7 +49,7 @@ public class Place {
 	private User user; 
 	private PlaceComment placeComment; 
 	private PlaceStamp placeStamp;
-	
+	private String imageHost; 
 	private String stype; // 서비스종류
 	private String stypeName; // 서비스종류
 	private String email; // 가맹주 아이디
@@ -69,6 +69,12 @@ public class Place {
 	private String qrcode; 
 	
 	
+	public String getImageHost() {
+		return imageHost;
+	}
+	public void setImageHost(String imageHost) {
+		this.imageHost = imageHost;
+	}
 	public String getQrcode() {
 		return qrcode;
 	}

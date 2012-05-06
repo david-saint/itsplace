@@ -7,6 +7,7 @@
 	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
 	<typeAlias type="net.itsplace.domain.Category" alias="Category"/>
 	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>
+	<typeAlias type="net.itsplace.domain.Pmedia" alias="Pmedia"/>
 
 	
 	<resultMap id="PlaceJoinAddress" class="Place" >
@@ -17,6 +18,7 @@
 		<result property="nldno" column="NLDNO"></result>
 		<result property="phone1" column="PHONE1"></result>
 		<result property="mobile" column="MOBILE"></result>
+		<result property="imageHost" column="IMAGEHOST"></result>
 		<result property="fileName" column="FILENAME"></result>
 		<result property="isAuth" column="ISAUTH"></result>
 		<result property="remark" column="REMARK"></result>
@@ -48,7 +50,7 @@
 	
 	<select id="getPlaceList" resultMap="PlaceJoinAddress" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-    	 		 A.FILENAME, A.CATEGORY,  A.STYPE, A.REMARK,
+    	 		 A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.STYPE, A.REMARK,
     	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		 PB.BASNAME AS STYPE,
 		   	 	 B.SIDO, B.GUGUN, B.BUPNAME, IFNULL(B.HDONGNAME,'') AS HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN,
@@ -73,7 +75,7 @@
     	 LIMIT #startRow# , #endRow#	
     </select>
     <select id="getPlace" resultClass="Place">
-        SELECT FID, FNAME, NAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE
+        SELECT FID, FNAME, NAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, IMAGEHOST, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE
         FROM PLACE
         WHERE FID = #fid#
     </select>
@@ -109,6 +111,6 @@
          SET ISAUTH = 'N'             
       	WHERE FID = #fid#        
     </update>
-    
+   
   
 </sqlMap>

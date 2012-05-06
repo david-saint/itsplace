@@ -31,6 +31,12 @@ public class CommonDaoImpl extends SqlMapClientDaoSupport implements CommonDao {
 		return getSqlMapClientTemplate().queryForList("getBascdList",grpCd);
 	}
 
+
+	@Override
+	public List<Bascd> getBascdALL() throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getBascdALL");
+	}
+
 	
 	
 }

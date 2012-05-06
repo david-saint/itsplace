@@ -42,6 +42,8 @@ public class PlaceIndexController {
 	@Autowired
 	private PlaceUserService placeUserService;
 	
+	@Autowired
+	private CommonService commonService;
 	
 	/**
 	 * 가맹점 관리 <br />

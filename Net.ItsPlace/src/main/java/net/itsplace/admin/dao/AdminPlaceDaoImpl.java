@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.Pmedia;
 import net.itsplace.user.UserDao;
 import net.itsplace.user.UserDaoImpl;
 
@@ -52,5 +53,6 @@ public class AdminPlaceDaoImpl extends SqlMapClientDaoSupport implements AdminPl
 		return (Place) getSqlMapClientTemplate().queryForObject("getPlace",fid);
 	}
 
+	
 
 }

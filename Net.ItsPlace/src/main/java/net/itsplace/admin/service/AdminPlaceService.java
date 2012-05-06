@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.Pmedia;
 
 public interface AdminPlaceService {
 	/* 가맹점을 검색하여 리스트로 보여준다*/
@@ -17,5 +18,6 @@ public interface AdminPlaceService {
 	public void disablePlace(int fid);
 	/* 가맹점 수정*/
 	public void editPlace(Place place) ;
+	
 	
 }

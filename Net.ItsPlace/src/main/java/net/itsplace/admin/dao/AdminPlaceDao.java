@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.Pmedia;
 
 public interface AdminPlaceDao {
 
@@ -16,7 +17,9 @@ public interface AdminPlaceDao {
 	public void enablePlace(int fid) throws DataAccessException;
 	/* 가맹점 승인취소*/
 	public void disablePlace(int fid) throws DataAccessException;
+	
 	/* 가맹점 수정*/
 	public void editPlace(Place place) throws DataAccessException;
+	
 	
 }

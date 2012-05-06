@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="place">
+
+   	<typeAlias type="net.itsplace.domain.Pmedia" alias="Pmedia"/>
+   	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
+
+   	<update id="updatePlaceImage" parameterClass="Place">
+        UPDATE PLACE SET IMAGEHOST = #imageHost#,
+        FILENAME = #fileName#
+        WHERE FID = #fid# 
+        
+    </update>
+    
+    <insert id="saveMedia" parameterClass="Pmedia">
+        INSERT INTO PMEDIA(FID, MTITLE, MURL, MTYPE, SIZE, ISDELETE, SAVEDATE, EMAIL,DISPSEQ, HOST)
+        VALUES(#fid#, #mTitle#, #mUrl#, #mType#, #size#, 'N', now(), #email#, #dispseq#, #host#)
+    </insert>
+  
+    <update id="updatePlaceMedia" parameterClass="Pmedia">
+        UPDATE PMEDIA SET = MTITLE = #mTitle#,
+        MURL = #mUrl#,
+        ISDELETE = #isDelete#
+        WHERE MID = #mid#
+    </update>
+</sqlMap>

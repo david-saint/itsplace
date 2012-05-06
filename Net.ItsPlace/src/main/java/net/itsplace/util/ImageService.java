@@ -73,7 +73,7 @@ public class ImageService {
  					 e.printStackTrace();
  				 }
  				 */
-	 			 newFileName = sysYear+sysMonth+fileName;
+	 			 newFileName = "/"+sysYear+"/"+sysMonth+"/"+fileName;
  				logger.info("타켓DIR: " + newFileName);
  				 
  			

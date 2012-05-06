@@ -31,7 +31,7 @@
                             .css({
                                 "width": "190px",
                                 "height": "30px",
-                                "background": "url('images/addFiles.png') 0 0 no-repeat",
+                                "background": "url('/resources/admin/images/addFiles.png') 0 0 no-repeat",
                                 "background-position": "right",
                                 "display": "inline",
                                 "position": "absolute",
