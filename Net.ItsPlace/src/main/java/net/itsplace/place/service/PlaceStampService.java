@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import net.itsplace.domain.DataTable;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Stamp;
 
@@ -12,5 +13,8 @@ public interface PlaceStampService {
 
 	public void saveStamp(Stamp stamp) ;
 	public void burnStamp(Stamp stamp) ;	
+	
+	public DataTable<Stamp> getPlaceStampUserList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch);
+	
 	
 }

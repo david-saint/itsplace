@@ -22,4 +22,30 @@
          UPDATE PSTAMP SET STATUS ='C'
          WHERE PID = #pid#         
     </update>
+    
+    <!-- 가맹점 스탬프 사용자 (가맹점 비회원) 검색 -->
+    <select id="getPlaceStampUserList"  parameterClass="java.util.Map" resultClass="Stamp"> 
+      SELECT  sql_calc_found_rows  B.stampedTotal, B.stampedLastDate, A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE 
+	  FROM PUSER A
+      LEFT OUTER JOIN 
+						  (
+						  		 	SELECT  B.EMAIL, COUNT(B.PID) AS stampedTotal, MAX(B.SAVEDATE) AS stampedLastDate
+									FROM  PLACESTAMP  A
+										INNER JOIN PSTAMP B
+										ON A.STAMPID = B.STAMPID
+					<![CDATA[		WHERE B.STATUS <> 'C'        ]]> 
+									AND A.FID= #fid#
+									GROUP BY B.EMAIL
+					     ) B
+		ON A.EMAIL = B.EMAIL	
+		WHERE  A.ISDELETE ='N' 
+				AND A.ROLE ='ROLE_USER'
+		<isNotEmpty property="search">
+	    	 	OR A.NAME like CONCAT('%',#search#,'%')
+	    	 	OR A.EMAIL like CONCAT('%',#search#,'%')
+	    	 	OR A.MOBILE like CONCAT('%',#search#,'%')
+	    </isNotEmpty>
+	 ORDER BY $sortColumn$ $sortDirection$
+     LIMIT #startRow#,#endRow#
+    </select>
 </sqlMap>

@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 	<!-- This is where we configure Spring-Security  -->
-	<http auto-config="true" use-expressions="true" access-denied-page="/denied"    xmlns="http://www.springframework.org/schema/security">
+	<http auto-config="true"   disable-url-rewriting="true" use-expressions="true" access-denied-page="/denied"    xmlns="http://www.springframework.org/schema/security">
 	
 		<intercept-url pattern="/login" access="permitAll"/>
 		<!-- 최고 관리자 -->
@@ -17,8 +17,8 @@
 		
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="*" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/place/*" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/place/*/*" access="permitAll"/>
+		<intercept-url pattern="/place*" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/place/**" access="permitAll"/>
 		<intercept-url pattern="/place/fbylocation/lat/*" access="permitAll" />
 		<intercept-url pattern="/place/fbylocation/lat/*/lot/*" access="permitAll" />
 		<!--  <intercept-url pattern="/user/**" access="permitAll"/>-->

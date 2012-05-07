@@ -103,7 +103,7 @@
                 <li class="limenu" ><a href="<c:url value="/place/auth" />"><span class="ico gray shadow stats_lines"></span><b>인증코드 관리 </b> </a>
              
                 </li>
-                <li class="limenu" ><a href="<c:url value="/place/user/stamp" />"><span class="ico gray shadow  file"></span><b>스탬프 수동 등록 </b></a></li>
+                <li class="limenu" ><a href="<c:url value="/place/stamp/q" />"><span class="ico gray shadow  file"></span><b>스탬프 적립 및 소진 </b></a></li>
                 <li class="limenu " ><a href="calendar.html"><span class="ico gray shadow calendar"></span><b>스탬프 소진  </b></a></li>
                 <li class="limenu" ><a href="typography.html"><span class="ico gray  shadow paragraph_align_left"></span><b>Typography</b></a></li>
                 <li class="limenu" ><a href="inelement.html"><span class="ico gray shadow abacus"></span><b>Interface elements </b></a></li>

@@ -239,7 +239,7 @@ public class AdminPlaceController {
 		return json;
 	}
 	/**
-	 * Ajax 가맹점 승인  <br />
+	 * Ajax 가맹점 승인 하고 인증코드를 0000으로 초기화한다 <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.

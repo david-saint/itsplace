@@ -107,7 +107,7 @@ public class PlaceUserController {
 	}
 	
 	/**
-	 * 사용자관리 리스트 관리자는 사용자상세정보, 수정, 삭제 기 <br />
+	 * 가맹점 회원 관리,  리스트 관리자는 사용자상세정보, 수정, 삭제 기 <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.

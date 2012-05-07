@@ -15,6 +15,23 @@ public class Stamp {
 	private Date saveDate;
 	private Date burnDate;
 	private String remark;
+	
+	private int stampedTotal;
+	private Date stampedLastDate;
+	
+	
+	public int getStampedTotal() {
+		return stampedTotal;
+	}
+	public void setStampedTotal(int stampedTotal) {
+		this.stampedTotal = stampedTotal;
+	}
+	public Date getStampedLastDate() {
+		return stampedLastDate;
+	}
+	public void setStampedLastDate(Date stampedLastDate) {
+		this.stampedLastDate = stampedLastDate;
+	}
 	public int getPid() {
 		return pid;
 	}

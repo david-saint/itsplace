@@ -14,9 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.itsplace.domain.DataTable;
 import net.itsplace.domain.Stamp;
 import net.itsplace.place.dao.PlaceStampDao;
+import net.itsplace.user.User;
+import net.itsplace.user.UserInfo;
 import net.itsplace.util.Encrypt;
+import net.itsplace.util.PagingManager;
 import net.itsplace.util.StringUtil;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
@@ -27,7 +31,9 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	
 	@Autowired
 	private PlaceStampDao placeStampDao;
-
+	@Autowired
+	private PagingManager pagingManaer;
+	
 	@Override
 	public void saveStamp(Stamp stamp) {
 		placeStampDao.saveStamp(stamp);		
@@ -37,8 +43,36 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	public void burnStamp(Stamp stamp) {
 		placeStampDao.burnStamp(stamp);
 	}
-	
-	
+
+	@Override
+	public DataTable<Stamp> getPlaceStampUserList(String[] columns,
+			Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0,
+			String sSortDir_0, String sSearch) {
+		
+		DataTable<Stamp> table = iDisplayLength != null ?
+                 new DataTable<Stamp>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                 new DataTable<Stamp>(columns, sSortDir_0, iDisplayStart);
+ 
+		
+		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+		  param.put("sortDirection", sSortDir_0);
+		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+		  param.put("search", sSearch);
+		  param.put("fid", UserInfo.getFid());
+			
+		  List<Stamp> userList=  placeStampDao.getPlaceStampUserList(param);
+		  
+		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+			
+			
+		 
+		  table.setRows(userList); 
+		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		  
+		  return table;
+		
+	}
+
 
 	
 	

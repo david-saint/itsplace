@@ -36,6 +36,12 @@ public class PlaceStampDaoImpl extends SqlMapClientDaoSupport implements PlaceSt
 	public void burnStamp(Stamp stamp) throws DataAccessException {
 		getSqlMapClientTemplate().insert("burnStamp", stamp);	
 	}
+
+	@Override
+	public List<Stamp> getPlaceStampUserList(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getPlaceStampUserList",param);
+	}
 	
 	
 

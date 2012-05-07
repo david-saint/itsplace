@@ -26,8 +26,11 @@
     	 <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	WHERE NAME like CONCAT('%',#search#,'%')
-	    	 	or EMAIL like CONCAT('%',#search#,'%')
-	    	 	or MOBILE like CONCAT('%',#search#,'%')
+	    	 	OR EMAIL like CONCAT('%',#search#,'%')
+	    	 	OR MOBILE like CONCAT('%',#search#,'%')
+	    	 </isNotEmpty>
+	    	 <isNotEmpty property="role">
+	    	 	AND ROLE = #role#
 	    	 </isNotEmpty>
     	 </dynamic>
     	 ORDER BY $sortColumn$ $sortDirection$

@@ -10,12 +10,15 @@ import net.itsplace.admin.service.AdminMediaService;
 import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
+import net.itsplace.domain.Authcode;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Pmedia;
+import net.itsplace.place.service.PlaceInfoService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.FtpService;
 import net.itsplace.util.ImageService;
@@ -46,6 +49,8 @@ public class PlaceInfoController {
 	private CommonService commonService;
 	@Autowired
 	private ImageService imageService;
+	@Autowired
+	private PlaceInfoService placeInfoService;
 	
 	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
 	public String placeInfo(Model model) {
@@ -137,9 +142,8 @@ public class PlaceInfoController {
 		 response.getOutputStream().flush();
 	}
 	/**
-	 * 인증코드  관리폼 팝업   <br />
-	 * ROLE_FRANCHISER
-	 * 가맹점 관리자 인증코드 수정    
+	 * 인증코드  관리 폼  <br />
+	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
 	 * @param 
@@ -149,12 +153,12 @@ public class PlaceInfoController {
 	 */
 	@RequestMapping(value = "/place/auth", method = RequestMethod.GET)
 	public String auth(Model model) {
-		
+		model.addAttribute("authcode", new Authcode());
 		return "place/auth";
 	}
 	/**
-	 * 인증코드 발급   <br />
-	 * ROLE_FRANCHISER
+	 * 가맹점 관리자 인증코드 수정       <br />
+	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
 	 * 가맹점 관리자 인증코드 수정    
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -164,8 +168,21 @@ public class PlaceInfoController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/place/auth", method = RequestMethod.POST)
-	public String authSubmit(Model model) {
-		
-		return "place/auth";
+	public @ResponseBody JsonResponse authSubmit(Authcode authcode, BindingResult result, Model model) {
+		JsonResponse json = new JsonResponse();
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			json.setResult(result.getAllErrors());
+			json.setStatus("FAIL");
+		} else {	
+			if(placeInfoService.editAuthCode(authcode)){
+				json.setResult(null);
+				json.setStatus("SUCCESS");
+			}else{
+				json.setResult("인증코드가 유효하지 않습니다");
+				json.setStatus("FAIL");
+			}
+		}
+		return json;
 	}
 }

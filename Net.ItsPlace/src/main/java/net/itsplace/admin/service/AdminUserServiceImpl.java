@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.admin.dao.AdminUserDao;
+import net.itsplace.domain.DataTable;
 import net.itsplace.user.User;
 import net.itsplace.user.UserService;
+import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +23,36 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 @Service("AdminUserService")
 public class AdminUserServiceImpl implements AdminUserService{
 	private static final Logger logger = LoggerFactory.getLogger(AdminUserServiceImpl.class);
-	
+	@Autowired
+	private PagingManager pagingManaer;
 	@Autowired
 	private AdminUserDao adminUserDao;
 	@Autowired
 	private UserService userService;
 	
 	@Transactional(readOnly=true)
-	public List<User> getUserList(Map<String, Object> param){
-		return adminUserDao.getUserList(param);
+	public DataTable getUserList(String columns[],Integer iDisplayStart,Integer iDisplayLength,Integer iSortCol_0,String sSortDir_0, String sSearch,String role){
+		  DataTable<User> table = iDisplayLength != null ?
+                  new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                  new DataTable<User>(columns, sSortDir_0, iDisplayStart);
+  
+		
+		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+		  param.put("sortDirection", sSortDir_0);
+		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+		  param.put("search", sSearch);
+		  param.put("role", role);
+			
+		  List<User> userList= adminUserDao.getUserList(param);
+		  
+		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+			
+			
+		 
+		  table.setRows(userList); 
+		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		  
+		  return table;
 	}
 	
 	public User getUser(String email){

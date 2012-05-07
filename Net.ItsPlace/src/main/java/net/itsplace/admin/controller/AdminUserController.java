@@ -40,8 +40,7 @@ public class AdminUserController {
 	@Autowired
 	private AdminUserService adminUserService;
 	
-	@Autowired
-	private PagingManager pagingManaer;
+
 	
 	/**
 	 * 관리자 회원 관리 리스트 <br />
@@ -205,28 +204,9 @@ public class AdminUserController {
                     String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "isDelete", "isEmail", "saveDate", "editDate","dddd"};
                     
                     
-                    //도메인이랑 대소문자 일치해야
-                    DataTable<User> table = iDisplayLength != null ?
-                                    new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                                    new DataTable<User>(columns, sSortDir_0, iDisplayStart);
-                    
-                    //logger.info("getOrderColumn:{}"+ table.getOrderColumn(iSortCol_0));
+                 
                    
-            		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-                    param.put("search", sSearch);
-                    param.put("sortDirection", sSortDir_0);
-                    param.put("sortColumn", table.getOrderColumn(iSortCol_0));
-            		
-                    List<User> userList= adminUserService.getUserList(param);
-                    
-            		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-            		
-            		
-                   
-                    table.setRows(userList); // TODO add filter params to the service method, like in organizations.
-                    table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
-                   
-                    return table;
+                    return  adminUserService.getUserList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch,null);
            
                    
     }       

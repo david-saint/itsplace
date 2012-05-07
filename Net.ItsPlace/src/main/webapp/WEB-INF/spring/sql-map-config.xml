@@ -31,5 +31,6 @@
 	<!--// 가맹점 관련 SQL -->
 	<sqlMap resource="net/itsplace/place/sql/place-user-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/place/sql/place-stamp-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/place/sql/place-info-sqlmap.xml" />
 	
 </sqlMapConfig>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="info">
+	<typeAlias type="net.itsplace.domain.Authcode" alias="AuthCode"/>	    		   
+   
+	 <insert id="editAuthCode" parameterClass="AuthCode">
+        UPDATE PLACE SET AUTHCODE = #newAuthCode#
+        WHERE FID = #fid#
+    </insert>
+    <select id="getAuthCode" parameterClass="int" resultClass="AuthCode">
+         SELECT FID, AUTHCODE FROM PLACE
+         WHERE FID =  #fid#
+         
+    </select>
+  
+</sqlMap>

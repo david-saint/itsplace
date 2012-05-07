@@ -35,7 +35,7 @@
 		 			"aoColumns": [
 		 				  			{ "mDataProp": "fid" },
 		 				  			{ "mDataProp": "fileName", "fnRender"  :function ( oObj ) {
-		 								return "<img src=\"(oObj.aData['fileName']\" style=\"width:50px;\" />";
+		 								return "<img src=\""+oObj.aData['fileName']+ "\" style=\"width:50px;\" />";
 		 							} },
 		 				  			{ "mDataProp": "fname", "sClass":"left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },
@@ -51,9 +51,9 @@
 		 							} },
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  		],
-		 			"oLanguage": {
-		 			                "sUrl": "/resources/common/datatables.txt"
-		 			            },	  		
+		 			//"oLanguage": {
+		 			//                "sUrl": "/resources/common/datatables.txt"
+		 			//            },	  		
 			  		"fnInitComplete":function(){
 		 				$('.tip a ').tipsy({trigger: 'manual'});
 		 				$('.tip a ').tipsy("hide");
@@ -121,9 +121,9 @@
 					<tr>
 						<th class="center">fid</th>
 						<th >fileName</th>
-						<th class="center">fname</th>
-						<th class="center">name</th>
-						<th class="center">mobile</th>
+						<th >fname</th>
+						<th>name</th>
+						<th>mobile</th>
 						<th>authyn</th>
 						<th>hdongname</th>
 						<th>sid</th>
