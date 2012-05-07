@@ -62,6 +62,9 @@ var c = {
 	 		var str = "";
 	 		if(type=="yyyy-MM-dd"){
 	 			str = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+	 			if(str=="2000-1-1"){
+	 				str ="";
+	 			}
 	 		}
 	 		
 	 		return str;

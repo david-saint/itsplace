@@ -5,7 +5,45 @@
 <sqlMap namespace="stamp">
 	<typeAlias type="net.itsplace.domain.Stamp" alias="Stamp"/>	    
    
-	 <insert id="saveStamp" parameterClass="Stamp">
+	<!-- 
+	private int pid ;//적립 스탬프 키
+	
+	private PlaceStamp placeStamp;
+	private User user;
+	private String mobile;
+	private String status;
+	private Date saveDate;
+	private Date burnDate;
+	private String remark;
+	
+	private int stampedTotal;
+	private Date stampedLastDate;
+	
+	 A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+	private Date stampedLastDate; A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE -->
+	<resultMap id="PlaceStampMap" class="Stamp" >
+		<result property="placeStamp.stampid" column="STAMPID"></result>
+		<result property="placeStamp.fid" column="FID"></result>
+		<result property="placeStamp.stampTitle" column="STAMPTITLE"></result>
+		<result property="placeStamp.startDate" column="STARTDATE"></result>
+		<result property="placeStamp.endDate" column="ENDDATE"></result>
+		
+		<result property="stampType.sid" column="SID"></result>
+		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
+		<result property="stampType.eventday" column="EVENTDAY"></result>
+		<result property="stampType.remark" column="REMARK"></result>
+	</resultMap>
+	
+	<resultMap id="StampUserMap" class="Stamp" >
+		<result property="stampedTotal" column="stampedTotal"></result>
+		<result property="stampedLastDate" column="stampedLastDate"></result>
+		<result property="user.profileImageUrl" column="PROFILEIMAGEURL"></result>
+		<result property="user.email" column="EMAIL"></result>
+		<result property="user.name" column="NAME"></result>
+		<result property="user.mobile" column="MOBILE"></result>
+	</resultMap>
+	
+	<insert id="saveStamp" parameterClass="Stamp">
          INSERT INTO PSTAMP(STAMPID, EMAIL, STATUS, REMARK, MOBILE)
          VALUES (#placeStamp.stampid#, #user.email#,  'P', #remark#, #mobile#)
     </insert>
@@ -24,8 +62,10 @@
     </update>
     
     <!-- 가맹점 스탬프 사용자 (가맹점 비회원) 검색 -->
-    <select id="getPlaceStampUserList"  parameterClass="java.util.Map" resultClass="Stamp"> 
-      SELECT  sql_calc_found_rows  B.stampedTotal, B.stampedLastDate, A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE 
+    <select id="getPlaceStampUserList"  parameterClass="java.util.Map" resultMap="StampUserMap"> 
+      SELECT  sql_calc_found_rows  IFNULL(B.stampedTotal,0) AS STAMPEDTOTAL,
+      		  IFNULL(B.stampedLastDate,'2000-01-01 00:00:00') AS STAMPEDLASTDATE, 
+      		  A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE 
 	  FROM PUSER A
       LEFT OUTER JOIN 
 						  (
@@ -39,13 +79,26 @@
 					     ) B
 		ON A.EMAIL = B.EMAIL	
 		WHERE  A.ISDELETE ='N' 
-				AND A.ROLE ='ROLE_USER'
+			   AND A.ROLE ='ROLE_USER'
 		<isNotEmpty property="search">
-	    	 	OR A.NAME like CONCAT('%',#search#,'%')
-	    	 	OR A.EMAIL like CONCAT('%',#search#,'%')
-	    	 	OR A.MOBILE like CONCAT('%',#search#,'%')
+	    	AND A.NAME like CONCAT('%',#search#,'%')
+	     	OR A.EMAIL like CONCAT('%',#search#,'%')
+	   	 	OR A.MOBILE like CONCAT('%',#search#,'%')
 	    </isNotEmpty>
 	 ORDER BY $sortColumn$ $sortDirection$
      LIMIT #startRow#,#endRow#
     </select>
+    
+    <!-- 가맹점/사용자 스탬프 현황  -->
+    <select id="getPlaceStampListByEmail" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
+	   SELECT A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+		FROM PLACESTAMP A
+		INNER JOIN PSTAMP B
+		ON A.STAMPID = B.STAMPID
+		INNER JOIN PSTAMPTYPE C
+		ON A.SID = C.SID
+		WHERE B.EMAIL = #email#
+		AND A.FID=#fid#
+		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK  
+	</select>  
 </sqlMap>

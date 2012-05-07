@@ -9,6 +9,7 @@ public class Stamp {
 	private int pid ;//적립 스탬프 키
 	
 	private PlaceStamp placeStamp;
+	private StampType stampType;
 	private User user;
 	private String mobile;
 	private String status;
@@ -20,6 +21,14 @@ public class Stamp {
 	private Date stampedLastDate;
 	
 	
+	
+	
+	public StampType getStampType() {
+		return stampType;
+	}
+	public void setStampType(StampType stampType) {
+		this.stampType = stampType;
+	}
 	public int getStampedTotal() {
 		return stampedTotal;
 	}

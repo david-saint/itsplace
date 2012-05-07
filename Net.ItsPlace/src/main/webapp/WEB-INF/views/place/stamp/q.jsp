@@ -12,7 +12,7 @@
 <!-- full width -->
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 사용자관리  </span>
+		<span><span class="ico gray home"></span> 회원 검색   </span>
 	</div>
 	<!-- End header -->
 	<div class="content">
@@ -33,22 +33,19 @@
 		 		         "sProcessing": "<div style='border:0px solid red'>User List Loading...</di>"
 		 		       },
 		 			"bServerSide": true,		 			
-		 			"sAjaxSource": "/admin/user/getUserList",
+		 			"sAjaxSource": "/place/stamp/getPlaceStampUserList",
 		 			"sAjaxDataProp": "rows",
 		 			"aoColumns": [
-		 				  			{ "mDataProp": "profileImageUrl" },
-		 				  			{ "mDataProp": "email", "sClass": "left", "sWidth": "150px"},
-		 				  			{ "mDataProp": "name", "sClass":"left" },
-		 				  			{ "mDataProp": "role", "sClass":"left" },
-		 				  			{ "mDataProp": "mobile", "sClass":"left" },
-		 				  			{ "mDataProp": "isDelete","fnRender" :function ( oObj ) {
-		 								return oObj.aData['useyn'] == " Y" ? "사용" : "탈퇴";
+		 				  			{ "mDataProp": "user.profileImageUrl" , "fnRender"  :function ( oObj ) {
+		 				  				return "<img src=\""+oObj.aData['user'].profileImageUrl+ "\" style=\"width:50px;\" />";
 		 							} },
-		 				  			{ "mDataProp": "isEmail","fnRender" :function ( oObj ) {
-		 								return oObj.aData['emailyn'] == " Y" ? "사용" : "탈퇴";
+		 				  			{ "mDataProp": "user.email", "sClass": "left", "sWidth": "150px"},
+		 				  			{ "mDataProp": "user.name", "sClass":"left" },
+		 				  			{ "mDataProp": "user.mobile", "sClass":"left" },		 				  		
+		 				  			{ "mDataProp": "stampedTotal" },
+		 				  			{ "mDataProp": "stampedLastDate", "fnRender"  :function ( oObj ) {
+		 								return c.render_date(oObj.aData['stampedLastDate'],'yyyy-MM-dd');
 		 							} },
-		 				  			{ "mDataProp": "saveDate" },
-		 				  			{ "mDataProp": "editDate","fnRender" : make_date },
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  	
 		 				  		],
@@ -77,38 +74,7 @@
 		 					//'title':'사용자 정보 수정'
 
 		 				});
-		 				$('.userDelete').bind('click', function() {
-		 					c.log("deete");
-		 					
-		 					$.ajax({
-		 	                     url: "/admin/user/delete",
-		 	                     type:"POST",
-		 	                     data:"email="+$(this).attr('email'),
-		 	                     beforeSend :function(){
-		 		   	 	 			  c.loading("delete",0);
-		 	                     },
-		 	                     success: function(response){
-		 	                       
-		 	                     	console.log("송고"+response.status);
-		 	                    	 // user_datatable.fnClearTable(0);
-		 	                    	 //user_datatable.fnDraw();
-		 	                    	 // refreshTable(user_datatable);
-		 	                    	 // user_datatable.fnReloadAjax();
-		 	                    	//  user_datatable.fnStandingRedraw();
-		 	                     },
-		 	                     error: function(jqXHR, textStatus, errorThrown){
-		 	                    	alert(textStatus+"j"+jqXHR+"e:"+errorThrown); 
-		 	                     },
-		 	                     complete:function(){
-		 	                    	//$('#user').validationEngine('detach');
-		 	                    	 setTimeout("c.unloading()",500); 
-		 	                    	//$('.datatable_tip a').tipsy({gravity: 's',live: false});
-		 	                    	
-		 	                    	  user_datatable.fnStandingRedraw();
-		 	                     }////
-		 	                   });//ajax */
-		 					
-		 				});
+		 				
 		 			},
 		 			"aaSorting": [[ 7, "desc" ]]
 		 		});
@@ -119,21 +85,14 @@
 		 		
 			});
 		 	
-		 	
-		 	function make_date(oObj) {
-		 		var date = new Date( oObj.aData['editDate']);
-		 		//date = oObj.aData['editDate'];
-		 		c.log(date.getMonth()+date.getDay());
-		 		var str = date.getFullYear()+"-"+date.getMonth()+1+"-"+date.getDate() ;
-		 		return str;
-		 	}
 		 	function make_actions(oObj) {
-		 		var id = oObj.aData['email'];
+		 		var id = oObj.aData['user'].email
+		 			c.log(oObj.aData[1]);
+		 		var ViewStampAction = '<span class="tip"><a class="userEdit iframe" href="/place/stamp/burn?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var saveAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		var burnAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
-		 		var editAction = '<span class="tip"><a class="userEdit iframe" href="/admin/user/edit?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var deleteAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
-		 		
-		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return  ViewStampAction; //"&nbsp;&nbsp;" + saveAction + "&nbsp;&nbsp;" + burnAction ; 
 		 	}
 		 	function test(){
 		 		c.log("test");
@@ -145,15 +104,12 @@
 			 <table class="display" id="user_datatable">
 				<thead>
 					<tr>
-						<th class="center">profile</th>
-						<th >email</th>
-						<th class="center">name</th>
-						<th class="center">role</th>
-						<th class="center">mobile</th>
-						<th>useyn</th>
-						<th>emailyn</th>
-						<th>saveDate</th>
-						<th>editDate</th>
+						<th>profile</th>
+						<th>email</th>
+						<th>name</th>
+						<th>mobile</th>
+						<th>stampcount</th>
+						<th>마지막적립일</th>
 						<th>Management</th>
 					</tr>
 				</thead>

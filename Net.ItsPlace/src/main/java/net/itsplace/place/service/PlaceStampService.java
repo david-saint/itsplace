@@ -15,6 +15,7 @@ public interface PlaceStampService {
 	public void burnStamp(Stamp stamp) ;	
 	
 	public DataTable<Stamp> getPlaceStampUserList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch);
-	
+	/* 회원 스탬프 타입 리스트  */
+	public List<Stamp> getPlaceStampListByEmail(Map<String, Object> param);
 	
 }

@@ -17,4 +17,7 @@ public interface PlaceStampDao {
 	public void burnStamp(Stamp stamp) throws DataAccessException;	
 	/* 가맴점 회원/비회원 리스트 */
 	public List<Stamp> getPlaceStampUserList(Map<String, Object> param) throws DataAccessException;
+
+	/* 회원 스탬프 타입 리스트  */
+	public List<Stamp> getPlaceStampListByEmail(Map<String, Object> param) throws DataAccessException;
 }

@@ -1,5 +1,6 @@
 package net.itsplace.place.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -173,7 +174,7 @@ public class PlaceStampController {
 		return json;
 	}
 	/**
-	 * 회원검색  <br />
+	 * 가맹점 회원검색  <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -201,14 +202,8 @@ public class PlaceStampController {
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
                   
-                    /*User u = new User();
-                    Field temp[] = u.getClass().getDeclaredFields();
-                    String columns[] = new String[temp.length];
-                    for(int i=0; i<temp.length;i++){
-                    	logger.info(temp[i].getName());
-                    	columns[i] = temp[i].getName();
-                    }*/
-                    String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "isDelete", "isEmail", "saveDate", "editDate","dddd"};
+                    //B.stampedTotal, B.stampedLastDate, A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE
+                    String columns[] = new String[]{"profileImageUrl", "email", "name", "mobile", "stampedTotal", "stampedLastDate"};
                     
                     
                  
@@ -217,4 +212,30 @@ public class PlaceStampController {
            
                    
     }       
+
+	/**
+	 *   스탬프 적립및소진 사용중인 스탬프 타입으로  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param email
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/burn", method = RequestMethod.GET)
+	public String burn(@RequestParam(required=true) String email,Model model)  {
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("fid", UserInfo.getFid());
+		param.put("email", email);
+		
+		List<Stamp> list = placeStampService.getPlaceStampListByEmail(param);
+		model.addAttribute("stampTypeList",list);
+		for(int i=0;i<list.size();i++){
+			
+		}
+		
+		return "place/stamp/burn";
+	}
 }
