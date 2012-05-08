@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.place.dao.PlaceStampDao;
 import net.itsplace.user.User;
@@ -74,8 +75,14 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	}
 
 	@Override
-	public List<Stamp> getPlaceStampListByEmail(Map<String, Object> param) {
+	public List<PlaceStamp> getPlaceStampListByEmail(Map<String, Object> param) {
 		return placeStampDao.getPlaceStampListByEmail(param);
+	}
+
+	@Override
+	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

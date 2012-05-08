@@ -12,5 +12,5 @@ public interface CommonDao {
 	
 	public List<Bascd> getBascdList(String grpCd) throws DataAccessException;
 	public  List<Bascd>  getBascdALL() throws DataAccessException;
-	
+	public Integer getFoundRows() throws DataAccessException;
 }

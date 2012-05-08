@@ -8,9 +8,9 @@ public class Stamp {
 	
 	private int pid ;//적립 스탬프 키
 	
-	private PlaceStamp placeStamp;
-	private StampType stampType;
+	private PlaceStamp placeStamp;	
 	private User user;
+	
 	private String mobile;
 	private String status;
 	private Date saveDate;
@@ -19,15 +19,14 @@ public class Stamp {
 	
 	private int stampedTotal;
 	private Date stampedLastDate;
+	private String attribue; // 스탬프 속성
 	
 	
-	
-	
-	public StampType getStampType() {
-		return stampType;
+	public String getAttribue() {
+		return attribue;
 	}
-	public void setStampType(StampType stampType) {
-		this.stampType = stampType;
+	public void setAttribue(String attribue) {
+		this.attribue = attribue;
 	}
 	public int getStampedTotal() {
 		return stampedTotal;

@@ -95,6 +95,11 @@ public class CommonServiceImpl implements CommonService{
 		return basecd;
 	}
 
+	@Override
+	public Integer getFoundRows() throws DataAccessException {
+		return commonDao.getFoundRows();
+	}
+
 	
 
 }

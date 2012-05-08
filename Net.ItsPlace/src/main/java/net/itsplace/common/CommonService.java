@@ -15,7 +15,8 @@ import net.itsplace.user.User;
 public interface CommonService {
 
 	public List<Bascd> getBascdList(String grpCd);
-	public  List<Bascd>  getBascdALL(); 
-	public  String getCode(String grpCd, String basekey);	
+	public List<Bascd>  getBascdALL(); 
+	public String getCode(String grpCd, String basekey);	
 	public Basecd getBasecd();
+	public Integer getFoundRows() throws DataAccessException;
 }

@@ -3,7 +3,8 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="stamp">
-	<typeAlias type="net.itsplace.domain.Stamp" alias="Stamp"/>	    
+	<typeAlias type="net.itsplace.domain.Stamp" alias="Stamp"/>
+	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>	   	    
    
 	<!-- 
 	private int pid ;//적립 스탬프 키
@@ -19,22 +20,47 @@
 	private int stampedTotal;
 	private Date stampedLastDate;
 	
-	 A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
-	private Date stampedLastDate; A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE -->
-	<resultMap id="PlaceStampMap" class="Stamp" >
-		<result property="placeStamp.stampid" column="STAMPID"></result>
-		<result property="placeStamp.fid" column="FID"></result>
-		<result property="placeStamp.stampTitle" column="STAMPTITLE"></result>
-		<result property="placeStamp.startDate" column="STARTDATE"></result>
-		<result property="placeStamp.endDate" column="ENDDATE"></result>
-		
+	A.STAMPID,
+	        A.FID,
+	        A.STAMPTITLE,
+	        A.THEME,
+	        A.STARTDATE,
+	        A.ENDDATE ,
+	        C.SID,
+	        C.STAMPCOUNT,
+	        C.EVENTDAY,
+	        C.REMARK 	B.PID,
+		    B.STATUS,
+		    B.SAVEDATE     -->
+	<resultMap id="PlaceStampMap" class="PlaceStamp" >
+		<result property="stampid" column="STAMPID"></result>
+		<result property="fid" column="FID"></result>
+		<result property="stampTitle" column="STAMPTITLE"></result>
+		<result property="startDate" column="STARTDATE"></result>
+		<result property="endDate" column="ENDDATE"></result>
 		<result property="stampType.sid" column="SID"></result>
 		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
 		<result property="stampType.eventday" column="EVENTDAY"></result>
 		<result property="stampType.remark" column="REMARK"></result>
 	</resultMap>
 	
-	<resultMap id="StampUserMap" class="Stamp" >
+	<resultMap id="PlaceStampedMap" class="Stamp" >
+		<result property="pid" column="PID"></result>
+		<result property="status" column="STATUS"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
+		<result property="placeStamp.stampid" column="STAMPID"></result>
+		<result property="placeStamp.fid" column="FID"></result>
+		<result property="placeStamp.stampTitle" column="STAMPTITLE"></result>
+		<result property="placeStamp.startDate" column="STARTDATE"></result>
+		<result property="placeStamp.endDate" column="ENDDATE"></result>
+	<!-- 	<result property="stampType.sid" column="SID"></result>
+		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
+		<result property="stampType.eventday" column="EVENTDAY"></result>
+		<result property="stampType.remark" column="REMARK"></result>
+    -->
+	</resultMap>
+	
+	<resultMap id="PlaceStampUserMap" class="Stamp" >
 		<result property="stampedTotal" column="stampedTotal"></result>
 		<result property="stampedLastDate" column="stampedLastDate"></result>
 		<result property="user.profileImageUrl" column="PROFILEIMAGEURL"></result>
@@ -62,7 +88,7 @@
     </update>
     
     <!-- 가맹점 스탬프 사용자 (가맹점 비회원) 검색 -->
-    <select id="getPlaceStampUserList"  parameterClass="java.util.Map" resultMap="StampUserMap"> 
+    <select id="getPlaceStampUserList"  parameterClass="java.util.Map" resultMap="PlaceStampUserMap"> 
       SELECT  sql_calc_found_rows  IFNULL(B.stampedTotal,0) AS STAMPEDTOTAL,
       		  IFNULL(B.stampedLastDate,'2000-01-01 00:00:00') AS STAMPEDLASTDATE, 
       		  A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE 
@@ -89,16 +115,58 @@
      LIMIT #startRow#,#endRow#
     </select>
     
-    <!-- 가맹점/사용자 스탬프 현황  -->
+    <!-- 가맹점/사용자 스탬프타입  종류   -->
     <select id="getPlaceStampListByEmail" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
-	   SELECT A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+	   SELECT A.STAMPID, 
+	  		  A.FID,
+	  		  A.STAMPTITLE, 
+	   		  A.THEME, 
+	   		  A.STARTDATE,
+	    	  A.ENDDATE , 
+	    	  C.SID, 
+	    	  C.STAMPCOUNT,
+	     	  C.EVENTDAY, 
+	     	  C.REMARK
 		FROM PLACESTAMP A
 		INNER JOIN PSTAMP B
-		ON A.STAMPID = B.STAMPID
+			ON A.STAMPID = B.STAMPID
 		INNER JOIN PSTAMPTYPE C
-		ON A.SID = C.SID
+			ON A.SID = C.SID
 		WHERE B.EMAIL = #email#
 		AND A.FID=#fid#
+		<![CDATA[   AND B.STATUS <> 'C']]> 
 		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK  
 	</select>  
+	
+	<!-- 가맹점/사용자 적립된 스탬프 현황  -->
+	<select id="getPlaceStampedListByEmail" parameterClass="java.util.Map" resultMap="PlaceStampedMap"> 
+		SELECT
+	        A.STAMPID,
+	        A.FID,
+	        A.STAMPTITLE,
+	        A.THEME,
+	        A.STARTDATE,
+	        A.ENDDATE ,
+	        C.SID,
+	        C.STAMPCOUNT,
+	        C.EVENTDAY,
+	        C.REMARK ,
+			B.PID,
+		    B.STATUS,
+		    B.SAVEDATE  
+	    FROM
+	        PLACESTAMP A   
+	    INNER JOIN
+	        PSTAMP B   
+	            ON A.STAMPID = B.STAMPID   
+	    INNER JOIN
+	        PSTAMPTYPE C   
+	            ON A.SID = C.SID   
+	    WHERE
+	        B.EMAIL = #email#
+	        AND A.FID = #fid#
+	        AND A.STAMPID = #stampid#
+<![CDATA[   AND B.STATUS <> 'C' ]]> 
+	
+	</select>
 </sqlMap>

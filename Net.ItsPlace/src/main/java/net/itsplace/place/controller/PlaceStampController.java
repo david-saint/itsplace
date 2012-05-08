@@ -1,5 +1,6 @@
 package net.itsplace.place.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -229,12 +230,57 @@ public class PlaceStampController {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("fid", UserInfo.getFid());
 		param.put("email", email);
+		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampListByEmail(param);
 		
-		List<Stamp> list = placeStampService.getPlaceStampListByEmail(param);
-		model.addAttribute("stampTypeList",list);
-		for(int i=0;i<list.size();i++){
+		List<Object> stamppedListAll = new ArrayList<Object>();
+		
+		for(int i=0;i<placeStampList.size();i++){//스탬프타입별(종류)별로 적립된 스탬프 만든다
+			logger.info("stamptype:{}"+placeStampList.get(i).getStampTitle()+placeStampList.get(i).getStampid());
+			param.put("stampid", placeStampList.get(i).getStampid());
+			List<Stamp> stampedList = placeStampService.getPlaceStampedListByEmail(param);
 			
+			int totalStampedCount = commonService.getFoundRows(); //적립된 스탬프 토탈카운트  수
+			int stampCount = placeStampList.get(i).getStampType().getStampcount();
+			int stampTypeCount = (totalStampedCount/stampCount)+(totalStampedCount%stampCount==0?0:1);// 스탬프 타입 개수 		
+			int startRow = 0;
+			int endRow = 0;
+			
+			logger.info("totalStampedCount:{}",totalStampedCount);
+			logger.info("stampTypeCount:{}",stampTypeCount);
+			List<Stamp> stamppedList = new ArrayList<Stamp>();	
+			for(int k=1;k<stampCount+1;k++){
+				if(k<stampedList.size()+1){
+					 Stamp stampped = (Stamp)stampedList.get(k-1);
+					 if(k % placeStampList.get(i).getStampType().getEventday()==0){
+						 stampped.setAttribue("eventday");//당첨받는날
+					 }
+					 if(stampped.getAttribue()==null || stampped.getAttribue().equals("")){
+						 stampped.setAttribue("stampped"); 
+					 }else{
+						 stampped.setAttribue("stamppedEvent"); // 스탬프와 이벤트(스탬프까지 사용함)
+					 }
+					 stamppedList.add(stampped);
+					 //적립된 스탬프 생성
+				 }else{
+					 logger.info("인덱스:"+i + "data:blank");
+						
+					 Stamp blank = new Stamp();
+					 if(k % placeStampList.get(i).getStampType().getEventday()==0){
+						 blank.setAttribue("eventday"); // 스탬프는 안찍히고 당첨받는날
+					 }
+					 stamppedList.add(blank);
+				 }
+			}
+			stamppedListAll.add(stamppedList);
+		
 		}
+		
+		
+		
+		
+		
+		model.addAttribute("stamppedListAll",stamppedListAll);
+		
 		
 		return "place/stamp/burn";
 	}

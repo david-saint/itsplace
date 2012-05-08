@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
 
 import org.apache.commons.logging.Log;
@@ -44,9 +45,15 @@ public class PlaceStampDaoImpl extends SqlMapClientDaoSupport implements PlaceSt
 	}
 
 	@Override
-	public List<Stamp> getPlaceStampListByEmail(Map<String, Object> param)
+	public List<PlaceStamp> getPlaceStampListByEmail(Map<String, Object> param)
 			throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("getPlaceStampListByEmail",param);
+	}
+
+	@Override
+	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getPlaceStampedListByEmail",param);
 	}
 	
 	

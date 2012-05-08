@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.Bascd;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceUser;
 import net.itsplace.domain.Stamp;
 
@@ -19,5 +20,7 @@ public interface PlaceStampDao {
 	public List<Stamp> getPlaceStampUserList(Map<String, Object> param) throws DataAccessException;
 
 	/* 회원 스탬프 타입 리스트  */
-	public List<Stamp> getPlaceStampListByEmail(Map<String, Object> param) throws DataAccessException;
+	public List<PlaceStamp> getPlaceStampListByEmail(Map<String, Object> param) throws DataAccessException;
+	/* 적립된 스탬프 회원별 */
+	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param) throws DataAccessException;
 }

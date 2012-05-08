@@ -59,6 +59,21 @@
                 <c:forEach items="${stampTypeList}" var="stamp">
                 	${stamp.placeStamp.stampid }
                 </c:forEach>
+                <p>--------------------------</p>
+                <c:forEach var="stamppedList" items="${stamppedListAll}"  >
+		<ul style="border:1px solid blue;">
+			<c:forEach var="stamp" items="${stamppedList}" varStatus ="status">
+				<li id="${stamp.pid}" class="stamp_column ${stamp.eventday}"  title="<fmt:formatDate value="${stamp.inpdate}" pattern="yyyy-MM-dd hh:mm:ss"/>"  pid="${stamp.pid}" date="">
+						
+						${status.index+1}
+						
+						</li>
+			</c:forEach>
+		</ul>
+		<div>
+			<pre>${stamptypeRegister.remark}</pre>
+		</div>	
+	</c:forEach>	
            </div>
          
           
