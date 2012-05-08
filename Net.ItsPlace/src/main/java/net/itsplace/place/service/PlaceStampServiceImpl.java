@@ -81,8 +81,7 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 
 	@Override
 	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-		return null;
+		return placeStampDao.getPlaceStampedListByEmail(param);
 	}
 
 

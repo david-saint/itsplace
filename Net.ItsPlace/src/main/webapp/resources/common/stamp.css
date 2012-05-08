@@ -1,0 +1,46 @@
+.classic ul{
+	border:1px solid blue;
+	width:220px;
+	display: inline-block;
+}
+
+.classic li{
+	width:35px;
+	height:35px;
+	border:1px solid black;
+	text-align: center;
+	margin:3px;
+	line-height:35px;
+	list-style: none;
+	display: inline-block;
+	border-radius: 4px;
+}
+.stampBoard{
+	margin:10px;
+}
+.Stampped{
+	background-color: aqua;
+}
+.StampedEventday{
+	background-color: green;
+}
+.Eventday{
+	background-color: olive;
+}
+.modern ul{
+	border:1px solid red;
+	width:220px;
+	display: inline-block;
+}
+
+.modern li{
+	width:35px;
+	height:35px;
+	border:1px solid black;
+	text-align: center;
+	margin:3px;
+	line-height:35px;
+	list-style: none;
+	display: inline-block;
+	border-radius: 4px;
+}

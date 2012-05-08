@@ -38,6 +38,7 @@
 		<result property="stampTitle" column="STAMPTITLE"></result>
 		<result property="startDate" column="STARTDATE"></result>
 		<result property="endDate" column="ENDDATE"></result>
+		<result property="theme" column="THEME"></result>
 		<result property="stampType.sid" column="SID"></result>
 		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
 		<result property="stampType.eventday" column="EVENTDAY"></result>
@@ -51,6 +52,7 @@
 		<result property="placeStamp.stampid" column="STAMPID"></result>
 		<result property="placeStamp.fid" column="FID"></result>
 		<result property="placeStamp.stampTitle" column="STAMPTITLE"></result>
+		<result property="placeStamp.theme" column="THEME"></result>
 		<result property="placeStamp.startDate" column="STARTDATE"></result>
 		<result property="placeStamp.endDate" column="ENDDATE"></result>
 	<!-- 	<result property="stampType.sid" column="SID"></result>

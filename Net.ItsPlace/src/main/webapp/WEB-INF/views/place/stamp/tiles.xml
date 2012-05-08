@@ -6,15 +6,16 @@
 	<definition name="place/**" extends="place_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/place/{1}.jsp" />		
 		<put-list-attribute name="scripts">
-    		<add-attribute value="js/scroller/jquery.thumbnailScroller.js" />    
   		</put-list-attribute>  		
   		<put-list-attribute name="styles">  			
-  			<add-attribute value="js/scroller/jquery.thumbnailScroller.css" />
+  			<add-attribute value="common/stamp.css" />
   		</put-list-attribute>		
 	</definition>     
 	<definition name="place/stamp/burn" extends="admin_empty_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/place/stamp/burn.jsp" />		
-				
+		<put-list-attribute name="styles">  			
+  			<add-attribute value="common/stamp.css" />
+  		</put-list-attribute>			
 	</definition>     
 	
 </tiles-definitions>

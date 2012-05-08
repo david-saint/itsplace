@@ -19,14 +19,15 @@ public class Stamp {
 	
 	private int stampedTotal;
 	private Date stampedLastDate;
-	private String attribue; // 스탬프 속성
+	private String attribute; // 스탬프 속성
 	
 	
-	public String getAttribue() {
-		return attribue;
+	
+	public String getAttribute() {
+		return attribute;
 	}
-	public void setAttribue(String attribue) {
-		this.attribue = attribue;
+	public void setAttribute(String attribute) {
+		this.attribute = attribute;
 	}
 	public int getStampedTotal() {
 		return stampedTotal;

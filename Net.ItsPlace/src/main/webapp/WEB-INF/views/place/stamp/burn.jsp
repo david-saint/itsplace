@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <script type="text/javascript">
  	$(document).ready(function(){
  		$('#btnAdd').live('click',function() { 			
@@ -60,21 +61,37 @@
                 	${stamp.placeStamp.stampid }
                 </c:forEach>
                 <p>--------------------------</p>
+              
                 <c:forEach var="stamppedList" items="${stamppedListAll}"  >
-		<ul style="border:1px solid blue;">
-			<c:forEach var="stamp" items="${stamppedList}" varStatus ="status">
-				<li id="${stamp.pid}" class="stamp_column ${stamp.eventday}"  title="<fmt:formatDate value="${stamp.inpdate}" pattern="yyyy-MM-dd hh:mm:ss"/>"  pid="${stamp.pid}" date="">
-						
-						${status.index+1}
-						
-						</li>
-			</c:forEach>
-		</ul>
-		<div>
-			<pre>${stamptypeRegister.remark}</pre>
-		</div>	
-	</c:forEach>	
+					<ul style="border:1px solid blue;">
+						<c:forEach var="stamp" items="${stamppedList}" varStatus ="status">
+							<li id="${stamp.pid}" class="stamp_column ${stamp.placeStamp.stampType.eventDay}"  title=""  pid="${stamp.pid}">
+									<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd hh:mm:ss" />
+									${status.index+1}
+									${stamp.attribute}
+									${stamp.placeStamp.theme}
+									
+									</li>
+						</c:forEach>
+					</ul>
+					<div>
+						<pre></pre>
+					</div>	
+				</c:forEach>	
+				
            </div>
+           
+                <c:forEach var="stamppedList" items="${stamppedListAll2}">
+                <div class=" ${stamppedList.theme}">
+					<ul >
+						<c:forEach var="stamp" items="${ stamppedList.stampList}" varStatus="status">
+							<li class="${stamp.attribute}">
+								${status.index+1}
+							</li>
+						</c:forEach>
+					</ul>
+				</div>
+				</c:forEach>	
          
           
          

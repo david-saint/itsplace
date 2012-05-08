@@ -17,6 +17,7 @@ import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.domain.Stamp;
+import net.itsplace.domain.Stamped;
 import net.itsplace.place.service.PlaceStampService;
 import net.itsplace.user.User;
 import net.itsplace.user.UserInfo;
@@ -230,49 +231,71 @@ public class PlaceStampController {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("fid", UserInfo.getFid());
 		param.put("email", email);
+		
 		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampListByEmail(param);
 		
 		List<Object> stamppedListAll = new ArrayList<Object>();
+		List<Object> stamppedListAll2 = new ArrayList<Object>();
 		
 		for(int i=0;i<placeStampList.size();i++){//스탬프타입별(종류)별로 적립된 스탬프 만든다
 			logger.info("stamptype:{}"+placeStampList.get(i).getStampTitle()+placeStampList.get(i).getStampid());
 			param.put("stampid", placeStampList.get(i).getStampid());
+			logger.info("placeStampList.size():{}",placeStampList.size());
 			List<Stamp> stampedList = placeStampService.getPlaceStampedListByEmail(param);
 			
 			int totalStampedCount = commonService.getFoundRows(); //적립된 스탬프 토탈카운트  수
 			int stampCount = placeStampList.get(i).getStampType().getStampcount();
 			int stampTypeCount = (totalStampedCount/stampCount)+(totalStampedCount%stampCount==0?0:1);// 스탬프 타입 개수 		
-			int startRow = 0;
-			int endRow = 0;
 			
+			int leftCount = totalStampedCount;
 			logger.info("totalStampedCount:{}",totalStampedCount);
 			logger.info("stampTypeCount:{}",stampTypeCount);
-			List<Stamp> stamppedList = new ArrayList<Stamp>();	
-			for(int k=1;k<stampCount+1;k++){
-				if(k<stampedList.size()+1){
-					 Stamp stampped = (Stamp)stampedList.get(k-1);
-					 if(k % placeStampList.get(i).getStampType().getEventday()==0){
-						 stampped.setAttribue("eventday");//당첨받는날
-					 }
-					 if(stampped.getAttribue()==null || stampped.getAttribue().equals("")){
-						 stampped.setAttribue("stampped"); 
-					 }else{
-						 stampped.setAttribue("stamppedEvent"); // 스탬프와 이벤트(스탬프까지 사용함)
-					 }
-					 stamppedList.add(stampped);
-					 //적립된 스탬프 생성
-				 }else{
-					 logger.info("인덱스:"+i + "data:blank");
-						
-					 Stamp blank = new Stamp();
-					 if(k % placeStampList.get(i).getStampType().getEventday()==0){
-						 blank.setAttribue("eventday"); // 스탬프는 안찍히고 당첨받는날
-					 }
-					 stamppedList.add(blank);
-				 }
+			logger.info("eventday:{}",placeStampList.get(i).getStampType().getEventday());
+			for(int j=0;j<stampTypeCount;j++){
+				List<Stamp> stampList = new ArrayList<Stamp>();	
+				
+				for(int k=1;k<stampCount+1;k++){
+					leftCount--;
+					logger.info("leftcount:{}",leftCount);
+					if(leftCount>=0){
+						if(k<stampedList.size()+1){
+							 Stamp stampped = (Stamp)stampedList.get(leftCount);
+							 if(stampped == null){
+								 logger.info("stamped null:"+leftCount);
+							 }else{
+								// logger.info("stamped k:{}",k);
+								 if(k % placeStampList.get(i).getStampType().getEventday()==0){
+									 stampped.setAttribute("StampedEventday");//당첨받는날
+								 }else{
+									 
+									 stampped.setAttribute("Stampped"); 
+								 }
+							 }
+							 
+							
+							
+							 stampList.add(stampped);
+							 //적립된 스탬프 생성
+						 }
+					}else{
+						 logger.info("인덱스:"+i + "data:blank");
+							
+						 Stamp blank = new Stamp();
+						 if(k % placeStampList.get(i).getStampType().getEventday()==0){
+							 blank.setAttribute("Eventday"); // 스탬프는 안찍히고 당첨받는날
+						 }
+						 stampList.add(blank);
+					}
+				}
+				Stamped s = new Stamped();
+				logger.info("placeStampList.get(i).getTheme()"+placeStampList.get(i).getTheme());
+				s.setTheme(placeStampList.get(i).getTheme());
+				s.setStampid(placeStampList.get(i).getStampid());
+				s.setStampList(stampList);
+				stamppedListAll2.add(s);
+				stamppedListAll.add(stampList);
+				
 			}
-			stamppedListAll.add(stamppedList);
-		
 		}
 		
 		
@@ -280,6 +303,8 @@ public class PlaceStampController {
 		
 		
 		model.addAttribute("stamppedListAll",stamppedListAll);
+		model.addAttribute("stamppedListAll2",stamppedListAll2);
+		model.addAttribute("placeStampList",placeStampList);
 		
 		
 		return "place/stamp/burn";
