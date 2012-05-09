@@ -235,7 +235,7 @@ public class PlaceStampController {
 		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampListByEmail(param);
 		
 		List<Object> stamppedListAll = new ArrayList<Object>();
-		List<Object> stamppedListAll2 = new ArrayList<Object>();
+		//List<Object> stamppedListAll2 = new ArrayList<Object>();
 		
 		for(int i=0;i<placeStampList.size();i++){//스탬프타입별(종류)별로 적립된 스탬프 만든다
 			logger.info("stamptype:{}"+placeStampList.get(i).getStampTitle()+placeStampList.get(i).getStampid());
@@ -289,11 +289,10 @@ public class PlaceStampController {
 				}
 				Stamped s = new Stamped();
 				logger.info("placeStampList.get(i).getTheme()"+placeStampList.get(i).getTheme());
-				s.setTheme(placeStampList.get(i).getTheme());
-				s.setStampid(placeStampList.get(i).getStampid());
+				s.setPlaceStamp( placeStampList.get(i));
 				s.setStampList(stampList);
-				stamppedListAll2.add(s);
-				stamppedListAll.add(stampList);
+				stamppedListAll.add(s);
+			//	stamppedListAll.add(stampList);
 				
 			}
 		}
@@ -303,8 +302,8 @@ public class PlaceStampController {
 		
 		
 		model.addAttribute("stamppedListAll",stamppedListAll);
-		model.addAttribute("stamppedListAll2",stamppedListAll2);
-		model.addAttribute("placeStampList",placeStampList);
+		//model.addAttribute("stamppedListAll2",stamppedListAll2);
+		//model.addAttribute("placeStampList",placeStampList);
 		
 		
 		return "place/stamp/burn";

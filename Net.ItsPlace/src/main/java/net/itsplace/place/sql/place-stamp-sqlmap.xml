@@ -38,6 +38,7 @@
 		<result property="stampTitle" column="STAMPTITLE"></result>
 		<result property="startDate" column="STARTDATE"></result>
 		<result property="endDate" column="ENDDATE"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
 		<result property="theme" column="THEME"></result>
 		<result property="stampType.sid" column="SID"></result>
 		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
@@ -124,7 +125,8 @@
 	  		  A.STAMPTITLE, 
 	   		  A.THEME, 
 	   		  A.STARTDATE,
-	    	  A.ENDDATE , 
+	    	  A.ENDDATE ,
+	    	  A.SAVEDATE,	    	   
 	    	  C.SID, 
 	    	  C.STAMPCOUNT,
 	     	  C.EVENTDAY, 
@@ -137,7 +139,8 @@
 		WHERE B.EMAIL = #email#
 		AND A.FID=#fid#
 		<![CDATA[   AND B.STATUS <> 'C']]> 
-		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK  
+		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+		ORDER BY A.SAVEDATE  
 	</select>  
 	
 	<!-- 가맹점/사용자 적립된 스탬프 현황  -->

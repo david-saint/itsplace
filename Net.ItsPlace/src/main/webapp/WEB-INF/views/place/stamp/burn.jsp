@@ -56,10 +56,9 @@
 		        ${errors }
 		       </c:if>
 		    </div>
+           <%-- 
             <div class="section" >
-                <c:forEach items="${stampTypeList}" var="stamp">
-                	${stamp.placeStamp.stampid }
-                </c:forEach>
+              
                 <p>--------------------------</p>
               
                 <c:forEach var="stamppedList" items="${stamppedListAll}"  >
@@ -77,15 +76,22 @@
 					<div>
 						<pre></pre>
 					</div>	
-				</c:forEach>	
+				</c:forEach>	 
 				
            </div>
-           
-                <c:forEach var="stamppedList" items="${stamppedListAll2}">
-                <div class=" ${stamppedList.theme}">
-					<ul >
+           --%>
+                <c:forEach var="stamppedList" items="${stamppedListAll}">
+                <div style="border:1px solid blue" class="${stamppedList.placeStamp.theme}" stampid="${stamppedList.placeStamp.stampid}">
+                
+                	<p>${stamppedList.placeStamp.stampTitle}</p>
+                	<p> 유효기간: 
+	                	<fmt:formatDate value="${stamppedList.placeStamp.startDate}" pattern="yyyy-MM-dd" />
+	                	~ <fmt:formatDate value="${stamppedList.placeStamp.endDate}" pattern="yyyy-MM-dd" />
+                	</p>
+                
+					<ul style="display:block"> 
 						<c:forEach var="stamp" items="${ stamppedList.stampList}" varStatus="status">
-							<li class="${stamp.attribute}">
+							<li class="${stamp.attribute}" pid="${stamp.pid}" saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
 								${status.index+1}
 							</li>
 						</c:forEach>
