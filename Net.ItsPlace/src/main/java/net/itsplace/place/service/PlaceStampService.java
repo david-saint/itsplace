@@ -12,8 +12,8 @@ import net.itsplace.domain.Stamp;
 
 public interface PlaceStampService {
 
-	public void saveStamp(Stamp stamp) ;
-	public void burnStamp(Stamp stamp) ;	
+	public boolean saveStamp(Stamp stamp,String authCode) ;
+	public boolean burnStamp(Stamp stamp,String authCode) ;	
 	
 	public DataTable<Stamp> getPlaceStampUserList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch);
 	/* 회원 스탬프 타입 리스트  */

@@ -13,9 +13,9 @@
  			  onValidationComplete: function(form, status){
 	 			   if(status==true){
 	 				  $.ajax({
-	 	                     url: "/place/auth",
+	 	                     url: "/place/stamp/save",
 	 	                     type:"POST",
-	 	                     data:$("form").serialize(),
+	 	                     data:$("form").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
 	 	                     beforeSend :function(){
 	 		                      var title = $('.loading').attr('title');
 	 		   	 				  var overlay=$(this).attr('rel'); 
@@ -45,17 +45,23 @@
 </script>
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 인증코드 관리   </span>
+		<span><span class="ico gray home"></span> 스탬프 적립 및 소진    </span>
 	</div>
 	<div class="content">
-		<form:form  action="auth" commandName="authcode" method="post">
+		<form  id="authcode">
 	   		<div class="boxtitle">
-		       <c:set var="errors"><form:errors path="*" /></c:set>
-		       <c:if test="${not empty errors}">
-		        <span class="ico color lightbulb"></span><span>Exception:</span>
-		        ${errors }
-		       </c:if>
+		    
 		    </div>
+		     <div class="section">
+		     	<label> 인증코드 <small></small></label>
+				 <div>
+                 <input id="authcode" type="text" name="authcode" class="validate[required,minSize[4],maxSize[4]] small "  value=""/>                                   
+                 <input id="stampid" type="text" name="stampid"   value="${stampid}"/>                                   
+                   
+                 <a id="btnAdd" class="uibutton icon add large" title="Saving" rel="1" >적립</a>
+                </div>
+		     </div>
+		  </form>   
            <%-- 
             <div class="section" >
               
@@ -108,7 +114,7 @@
 	                 <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
 	            </div>
 	       </div>
-	  </form:form>
+	
 	</div>
 </div>
 

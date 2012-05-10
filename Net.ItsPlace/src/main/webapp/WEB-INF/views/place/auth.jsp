@@ -58,7 +58,7 @@
             <div class="section" >
                 <label> 현재 인증코드  <small></small></label>   
                 <div>
-                 <input id="authcode" type="text" name="authCode" class="validate[required,minSize[4],maxSize[4]] medium "  value="${authcode.authCode }"/>                                   
+                 <input id="authcode" type="text" name="authCode" class="validate[required,minSize[4],maxSize[4]] medium "  value="${authcode.authCode}"/>                                   
                   <span class="f_help"인증코드/span>
                 </div>
            </div>

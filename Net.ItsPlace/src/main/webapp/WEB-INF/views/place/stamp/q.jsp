@@ -88,7 +88,7 @@
 		 	function make_actions(oObj) {
 		 		var id = oObj.aData['user'].email
 		 			c.log(oObj.aData[1]);
-		 		var ViewStampAction = '<span class="tip"><a class="userEdit iframe" href="/place/stamp/burn?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var ViewStampAction = '<span class="tip"><a class="userEdit iframe" href="/place/stamp/stampped?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var saveAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		var burnAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		

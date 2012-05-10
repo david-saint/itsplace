@@ -9,6 +9,7 @@ import java.util.Map;
 import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
+import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
@@ -148,33 +149,7 @@ public class PlaceStampController {
 		
 		return "place/stamp/q";
 	}
-	/**
-	 *  가맹점 스탬프 적립 및 소진     <br />
-	 * 
-	 * @author 김동훈
-	 * @version 1.0, 2011. 8. 24.
-	 * @param fid
-	 * @return 
-	 * @return  edit.jsp
-	 * @throws 
-	 * @see 
-	 */
-	@RequestMapping(value = "/q", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse saveorBurn(Stamp stamp,BindingResult result, Model model)  {
-		JsonResponse json = new JsonResponse();
-		if (result.hasErrors()) {
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			json.setResult(result.getAllErrors());
-			json.setStatus("FAIL");
-		} else {	
-			placeStampService.saveStamp(stamp);
-			json.setResult(stamp);
-			json.setStatus("SUCCESS");
-			
-		}		
-		
-		return json;
-	}
+	
 	/**
 	 * 가맹점 회원검색  <br />
 	 * 
@@ -216,7 +191,7 @@ public class PlaceStampController {
     }       
 
 	/**
-	 *   스탬프 적립및소진 사용중인 스탬프 타입으로  <br />
+	 *   스탬프 적립및소진 사용중 스탬프 리스트  <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -225,7 +200,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/burn", method = RequestMethod.GET)
+	@RequestMapping(value = "/stampped", method = RequestMethod.GET)
 	public String burn(@RequestParam(required=true) String email,Model model)  {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -296,16 +271,35 @@ public class PlaceStampController {
 				
 			}
 		}
-		
-		
-		
-		
-		
 		model.addAttribute("stamppedListAll",stamppedListAll);
-		//model.addAttribute("stamppedListAll2",stamppedListAll2);
-		//model.addAttribute("placeStampList",placeStampList);
+		model.addAttribute("stampid",placeStampList.get(0).getStampid());// 적립할 최신 스탬프아이디
+		return "place/stamp/stampped";
+	}
+	/**
+	 * 가맹점 관리자 인증코드 수정       <br />
+	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse save(@RequestParam(required=true) String authcode,@RequestParam(required=true) Integer stampid) {
+		JsonResponse json = new JsonResponse();
+		logger.info("authcode:{}",authcode);	
+			Stamp stamp = new Stamp();
+			stamp.getPlaceStamp().setStampid(stampid);
+			if(placeStampService.saveStamp(stamp,authcode)){
+				json.setResult(null);
+				json.setStatus("SUCCESS");
+			}else{
+				json.setResult("인증코드가 유효하지 않습니다");
+				json.setStatus("FAIL");
+			}
 		
-		
-		return "place/stamp/burn";
+		return json;
 	}
 }

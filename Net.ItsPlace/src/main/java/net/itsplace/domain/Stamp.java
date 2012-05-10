@@ -48,6 +48,9 @@ public class Stamp {
 		this.pid = pid;
 	}
 	public PlaceStamp getPlaceStamp() {
+		if(placeStamp == null){
+			this.placeStamp = new PlaceStamp();
+		}
 		return placeStamp;
 	}
 	public void setPlaceStamp(PlaceStamp placeStamp) {
