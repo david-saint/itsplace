@@ -63,14 +63,14 @@
                 </div>
            </div>
            <div class="section" >
-                <label> 변경할 인증코드  <small></small></label>   
+                <label> 새로 인증코드  <small></small></label>   
                 <div>
                  <input id="newAuthCode" type="text" name="newAuthCode" class="validate[required,minSize[4],maxSize[4]] medium "  value="${authcode.newAuthCode }"/>                                   
                   <span class="f_help"인증코드/span>
                 </div>
            </div>
            <div class="section" >
-                <label> 변경할 인증코드 재입력 <small></small></label>   
+                <label> 새로 인증코드 재입력 <small></small></label>   
                 <div>
                  <input id="confirmAuthCode" type="text" name="confirmAuthCode" class="validate[required,minSize[4],maxSize[4],equals[newAuthCode]] medium "  value="${authcode.confirmAuthCode }"/>                                   
                   <span class="f_help"인증코드/span>

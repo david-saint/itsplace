@@ -55,7 +55,8 @@ var c = {
 			$('#preloader').fadeIn();	  
 	   },
 		unloading : function() { 
-			$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut(); $.fancybox.close(); }).remove();
+			//$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut(); $.fancybox.close(); }).remove();
+			$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut();  }).remove();
 	   },
 	    render_date : function(column_date, type) {
 	 		var date = new Date(column_date);

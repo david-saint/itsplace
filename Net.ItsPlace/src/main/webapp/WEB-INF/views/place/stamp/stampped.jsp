@@ -7,34 +7,40 @@
 <script type="text/javascript">
  	$(document).ready(function(){
  		$('#btnAdd').live('click',function() { 			
- 			$('#authcode').submit();
+ 			$('#saveStamp').submit();
  		});
- 		$('#authcode').validationEngine('attach', {
+ 		$('#saveStamp').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
 	 			   if(status==true){
 	 				  $.ajax({
 	 	                     url: "/place/stamp/save",
 	 	                     type:"POST",
-	 	                     data:$("form").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
+	 	                     data:$("#saveStamp").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
 	 	                     beforeSend :function(){
 	 		                      var title = $('.loading').attr('title');
 	 		   	 				  var overlay=$(this).attr('rel'); 
 	 		   	 	 			  c.loading(title,overlay);
 	 	                     },
 	 	                     success: function(response){
-	 	                       if(response.status=="SUCCESS"){
-	 	                    	  c.showSuccess("인증코드를 변경하였습니다",1000);
-	 	                    	
-	 	                       }else{
-	 	                    	   c.showError(response.result,1000);
-	 	                       }
+	 	                        if(response.status=="SUCCESS"){
+	 	                    	   //c.showSuccess(response.result,1500);
+	 	                    	   parent.$.fancybox.close();
+	 	                    	   parent.datatableRedraw(response.result,"true");
+	 	                    		//iframe fancybox일경우 부모에서 처리한
+	 	                        }else{
+	 	                    	   
+	 	                    	   parent.datatableRedraw(response.result,"false");
+	 	                        }
+	 	                        c.log("success");
 	 	                     },
 	 	                     error: function(jqXHR, textStatus, errorThrown){
-	 	                    	 c.showError(textStatus+jqXHR+errorThrown,1000); 
+	 	                     	c.showError(textStatus+jqXHR+errorThrown,1000); 
 	 	                     },
 	 	                     complete:function(){
 	 	                    	 setTimeout("c.unloading()",500); 
-	 	                    
+	 	                    	 c.log("complete:");
+	 	                    	//$.get("/place/stamp/stampped?email="+$('#email').val(), {}, function(data) { $.fancybox(data); } );
+	 	                    	
 	 	                     }
 	 	               });//ajax
 	 			   }
@@ -48,7 +54,7 @@
 		<span><span class="ico gray home"></span> 스탬프 적립 및 소진    </span>
 	</div>
 	<div class="content">
-		<form  id="authcode">
+		<form  id="saveStamp">
 	   		<div class="boxtitle">
 		    
 		    </div>
@@ -57,6 +63,7 @@
 				 <div>
                  <input id="authcode" type="text" name="authcode" class="validate[required,minSize[4],maxSize[4]] small "  value=""/>                                   
                  <input id="stampid" type="text" name="stampid"   value="${stampid}"/>                                   
+                 <input id="eamil" type="text" name="email"   value="${email}"/>                                   
                    
                  <a id="btnAdd" class="uibutton icon add large" title="Saving" rel="1" >적립</a>
                 </div>

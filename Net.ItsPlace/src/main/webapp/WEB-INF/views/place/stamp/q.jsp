@@ -12,7 +12,7 @@
 <!-- full width -->
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 회원 검색   </span>
+		<span><span class="ico gray home"></span>   스탬프 적립 및 소진    </span>
 	</div>
 	<!-- End header -->
 	<div class="content">
@@ -21,7 +21,7 @@
 		var user_datatable;
 		
 		 	$(document).ready(function(){
-		 		
+		 			
 		 		 user_datatable = $('#user_datatable').dataTable( {
 		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
 		 			"bFilter": true, //search
@@ -82,20 +82,26 @@
 		 		//datatable row selectbox style
 		 		$(".dataTables_length select").addClass("small");
 		 		
-		 		
+		 		$('.dataTables_filter').find('input').focus();
 			});
 		 	
 		 	function make_actions(oObj) {
-		 		var id = oObj.aData['user'].email
-		 			c.log(oObj.aData[1]);
+		 		var id = oObj.aData['user'].email;
+		 		//	c.log(oObj.aData[1]);
+		 		//iframe 펜시박스 일경우는 ok 아닐경우 자바스크립트 초기화 오류남 
 		 		var ViewStampAction = '<span class="tip"><a class="userEdit iframe" href="/place/stamp/stampped?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var saveAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		var burnAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return  ViewStampAction; //"&nbsp;&nbsp;" + saveAction + "&nbsp;&nbsp;" + burnAction ; 
 		 	}
-		 	function test(){
-		 		c.log("test");
+		 	function datatableRedraw(result,status){
+		 		c.log("dataTableRedraw");
+		 		if(status=="true"){
+			 		c.showSuccess(result,1500);
+		 		}else{
+					c.showError(result,1500);		 			
+		 		}
 		 		user_datatable.fnStandingRedraw();
 		 	}
 		 </script>

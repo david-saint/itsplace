@@ -21,7 +21,10 @@ public class Stamp {
 	private Date stampedLastDate;
 	private String attribute; // 스탬프 속성
 	
-	
+	public Stamp(){
+		placeStamp = new PlaceStamp();
+		user = new User();
+	}
 	
 	public String getAttribute() {
 		return attribute;
@@ -48,9 +51,6 @@ public class Stamp {
 		this.pid = pid;
 	}
 	public PlaceStamp getPlaceStamp() {
-		if(placeStamp == null){
-			this.placeStamp = new PlaceStamp();
-		}
 		return placeStamp;
 	}
 	public void setPlaceStamp(PlaceStamp placeStamp) {

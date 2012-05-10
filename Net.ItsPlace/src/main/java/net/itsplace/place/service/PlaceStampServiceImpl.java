@@ -117,6 +117,11 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 		return placeStampDao.getPlaceStampedListByEmail(param);
 	}
 
+	@Override
+	public List<PlaceStamp> getPlaceStampList(Map<String, Object> param) {
+		return placeStampDao.getPlaceStampList(param);
+	}
+
 
 	
 	

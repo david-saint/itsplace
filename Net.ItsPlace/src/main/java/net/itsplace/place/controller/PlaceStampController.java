@@ -208,6 +208,10 @@ public class PlaceStampController {
 		param.put("email", email);
 		
 		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampListByEmail(param);
+		if(placeStampList.size()==0){
+			logger.info("가맹점 첫 회원");
+			placeStampList = placeStampService.getPlaceStampList(param);
+		}
 		
 		List<Object> stamppedListAll = new ArrayList<Object>();
 		//List<Object> stamppedListAll2 = new ArrayList<Object>();
@@ -218,12 +222,12 @@ public class PlaceStampController {
 			logger.info("placeStampList.size():{}",placeStampList.size());
 			List<Stamp> stampedList = placeStampService.getPlaceStampedListByEmail(param);
 			
-			int totalStampedCount = commonService.getFoundRows(); //적립된 스탬프 토탈카운트  수
+			int totalStampedCount = stampedList.size(); //적립된 스탬프 토탈카운트  수
+			logger.info("totalStampedCount:{}",totalStampedCount);
 			int stampCount = placeStampList.get(i).getStampType().getStampcount();
 			int stampTypeCount = (totalStampedCount/stampCount)+(totalStampedCount%stampCount==0?0:1);// 스탬프 타입 개수 		
 			
 			int leftCount = totalStampedCount;
-			logger.info("totalStampedCount:{}",totalStampedCount);
 			logger.info("stampTypeCount:{}",stampTypeCount);
 			logger.info("eventday:{}",placeStampList.get(i).getStampType().getEventday());
 			for(int j=0;j<stampTypeCount;j++){
@@ -273,6 +277,7 @@ public class PlaceStampController {
 		}
 		model.addAttribute("stamppedListAll",stamppedListAll);
 		model.addAttribute("stampid",placeStampList.get(0).getStampid());// 적립할 최신 스탬프아이디
+		model.addAttribute("email",email);
 		return "place/stamp/stampped";
 	}
 	/**
@@ -287,19 +292,28 @@ public class PlaceStampController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(@RequestParam(required=true) String authcode,@RequestParam(required=true) Integer stampid) {
+	public @ResponseBody JsonResponse save(@RequestParam(required=true) String authcode,
+										   @RequestParam(required=true) Integer stampid,
+										   @RequestParam(required=true) String email
+										  ) {
 		JsonResponse json = new JsonResponse();
-		logger.info("authcode:{}",authcode);	
+		try{
+		
+			logger.info("authcode:{}",authcode);	
 			Stamp stamp = new Stamp();
 			stamp.getPlaceStamp().setStampid(stampid);
+			stamp.getUser().setEmail(email);
 			if(placeStampService.saveStamp(stamp,authcode)){
-				json.setResult(null);
+				json.setResult("스탬프를 적립하였습니다 !!");
 				json.setStatus("SUCCESS");
 			}else{
 				json.setResult("인증코드가 유효하지 않습니다");
 				json.setStatus("FAIL");
 			}
-		
-		return json;
-	}
+		}catch(Exception e){
+			json.setResult("스탬프 적립에 실패하였습니다.");
+			json.setStatus("FAIL");
+		}
+			return json;
+		}
 }

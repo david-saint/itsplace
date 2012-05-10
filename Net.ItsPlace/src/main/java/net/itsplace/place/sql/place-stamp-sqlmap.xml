@@ -117,7 +117,27 @@
 	 ORDER BY $sortColumn$ $sortDirection$
      LIMIT #startRow#,#endRow#
     </select>
-    
+    <!-- 가맹점 사용중인 스탬프 타입 조회  -->
+    <select id="getPlaceStampList" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
+	   SELECT A.STAMPID, 
+	  		  A.FID,
+	  		  A.STAMPTITLE, 
+	   		  A.THEME, 
+	   		  A.STARTDATE,
+	    	  A.ENDDATE ,
+	    	  A.SAVEDATE,	    	   
+	    	  C.SID, 
+	    	  C.STAMPCOUNT,
+	     	  C.EVENTDAY, 
+	     	  C.REMARK
+		FROM PLACESTAMP A		
+		INNER JOIN PSTAMPTYPE C
+			ON A.SID = C.SID
+		WHERE  A.FID=#fid#
+			AND A.ISDELETE = 'N'
+		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+		ORDER BY A.SAVEDATE  
+	</select>
     <!-- 가맹점/사용자 스탬프타입  종류   -->
     <select id="getPlaceStampListByEmail" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
 	   SELECT A.STAMPID, 

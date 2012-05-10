@@ -19,5 +19,5 @@ public interface PlaceStampService {
 	/* 회원 스탬프 타입 리스트  */
 	public List<PlaceStamp> getPlaceStampListByEmail(Map<String, Object> param);
 	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param);
-	
+	public List<PlaceStamp> getPlaceStampList(Map<String, Object> param) ;
 }

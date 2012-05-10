@@ -55,6 +55,12 @@ public class PlaceStampDaoImpl extends SqlMapClientDaoSupport implements PlaceSt
 			throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("getPlaceStampedListByEmail",param);
 	}
+
+	@Override
+	public List<PlaceStamp> getPlaceStampList(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getPlaceStampList",param);
+	}
 	
 	
 
