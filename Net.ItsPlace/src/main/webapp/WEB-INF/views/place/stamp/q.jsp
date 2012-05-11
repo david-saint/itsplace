@@ -65,11 +65,12 @@
 		 			},
 		 			"fnDrawCallback": function () {
 		 				
-		 				$('.userEdit').fancybox({//autodimensions false 후 width , height 가느
+		 				$('.saveStamp').fancybox({//autodimensions false 후 width , height 가느
 		 					'autoDimensions':false,
 		 					'scrolling':'auto',
 		 					'autoScale':false,
 		 					'height':500,
+		 					'width':520,
 		 					//'centerOnScroll':true
 		 					//'title':'사용자 정보 수정'
 
@@ -89,7 +90,7 @@
 		 		var id = oObj.aData['user'].email;
 		 		//	c.log(oObj.aData[1]);
 		 		//iframe 펜시박스 일경우는 ok 아닐경우 자바스크립트 초기화 오류남 
-		 		var ViewStampAction = '<span class="tip"><a class="userEdit iframe" href="/place/stamp/stampped?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var ViewStampAction = '<span class="tip"><a class="saveStamp iframe" href="/place/stamp/stampped?email='+id+'" original-title="적립 및 소진"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var saveAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		var burnAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		

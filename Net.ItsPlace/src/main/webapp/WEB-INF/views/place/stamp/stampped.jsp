@@ -9,6 +9,16 @@
  		$('#btnAdd').live('click',function() { 			
  			$('#saveStamp').submit();
  		});
+ 		$('.StampedEventday').live('click',function() {
+ 			 $.confirm({
+ 				  'title': '_DELETE DIALOG BOX','message': "<strong>YOU WANT TO DELETE </strong><br /><font color=red>' ggg ' </font> ",'buttons': {'Yes': {'class': 'special',
+ 				  'action': function(){
+ 					 $('#preloader').html('Deleting...');
+ 							  setTimeout("unloading();",1500); 
+ 							 // alert("");
+ 					}},'No'	: {'class'	: ''}}});
+ 			//$('#saveStamp').submit();
+ 		});
  		$('#saveStamp').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
 	 			   if(status==true){
@@ -54,74 +64,51 @@
 		<span><span class="ico gray home"></span> 스탬프 적립 및 소진    </span>
 	</div>
 	<div class="content">
-		<form  id="saveStamp">
-	   		<div class="boxtitle">
-		    
-		    </div>
-		     <div class="section">
-		     	<label> 인증코드 <small></small></label>
-				 <div>
-                 <input id="authcode" type="text" name="authcode" class="validate[required,minSize[4],maxSize[4]] small "  value=""/>                                   
-                 <input id="stampid" type="text" name="stampid"   value="${stampid}"/>                                   
-                 <input id="eamil" type="text" name="email"   value="${email}"/>                                   
-                   
-                 <a id="btnAdd" class="uibutton icon add large" title="Saving" rel="1" >적립</a>
-                </div>
-		     </div>
-		  </form>   
-           <%-- 
-            <div class="section" >
-              
-                <p>--------------------------</p>
-              
-                <c:forEach var="stamppedList" items="${stamppedListAll}"  >
-					<ul style="border:1px solid blue;">
-						<c:forEach var="stamp" items="${stamppedList}" varStatus ="status">
-							<li id="${stamp.pid}" class="stamp_column ${stamp.placeStamp.stampType.eventDay}"  title=""  pid="${stamp.pid}">
-									<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd hh:mm:ss" />
-									${status.index+1}
-									${stamp.attribute}
-									${stamp.placeStamp.theme}
-									
-									</li>
-						</c:forEach>
-					</ul>
-					<div>
-						<pre></pre>
-					</div>	
-				</c:forEach>	 
-				
-           </div>
-           --%>
-                <c:forEach var="stamppedList" items="${stamppedListAll}">
-                <div style="border:1px solid blue" class="${stamppedList.placeStamp.theme}" stampid="${stamppedList.placeStamp.stampid}">
-                
-                	<p>${stamppedList.placeStamp.stampTitle}</p>
-                	<p> 유효기간: 
-	                	<fmt:formatDate value="${stamppedList.placeStamp.startDate}" pattern="yyyy-MM-dd" />
-	                	~ <fmt:formatDate value="${stamppedList.placeStamp.endDate}" pattern="yyyy-MM-dd" />
-                	</p>
-                
-					<ul style="display:block"> 
-						<c:forEach var="stamp" items="${ stamppedList.stampList}" varStatus="status">
-							<li class="${stamp.attribute}" pid="${stamp.pid}" saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
-								${status.index+1}
-							</li>
-						</c:forEach>
-					</ul>
+		<form id="saveStamp">
+			<div class="boxtitle"></div>
+			<div class="section">
+				<label> 인증코드 <small></small></label>
+				<div>
+					<input id="authcode" type="text" name="authcode"
+						class="validate[required,minSize[4],maxSize[4]] middle " value="" />
+					<input id="stampid" type="hidden" name="stampid" value="${stampid}" />
+					<input id="eamil" type="hidden" name="email" value="${email}" /> <a
+						id="btnAdd" class="uibutton icon add large" title="Saving" rel="1">적립</a>
 				</div>
-				</c:forEach>	
-         
-          
-         
-	       <div class="section last">
-	            <div>
-	                 <a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
-	                 <a class="uibutton special clear_form"  >clear form</a> 
-	                 <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
-	            </div>
-	       </div>
-	
+			</div>
+		</form>
+
+		<c:forEach var="stamppedList" items="${stamppedListAll}">
+			<div 
+				class="${stamppedList.placeStamp.theme}"
+				stampid="${stamppedList.placeStamp.stampid}">
+
+				<span class="stampTitle">${stamppedList.placeStamp.stampTitle}</span>
+				<span class="ableDate">
+					유효기간:
+				</span>
+				<span>
+					<fmt:formatDate value="${stamppedList.placeStamp.startDate}"
+						pattern="yyyy-MM-dd" />
+					~
+					<fmt:formatDate value="${stamppedList.placeStamp.endDate}"
+						pattern="yyyy-MM-dd" />
+				</span>
+
+				<ul style="display: block">
+					<c:forEach var="stamp" items="${ stamppedList.stampList}"
+						varStatus="status">
+						<li class="${stamp.attribute}" pid="${stamp.pid}"
+							saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
+							${status.index+1}</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:forEach>
+
+
+
+
 	</div>
 </div>
 

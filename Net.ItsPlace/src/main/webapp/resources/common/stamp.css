@@ -1,7 +1,28 @@
-.classic ul{
+/*스탬프 공통*/
+
+/*유효기간*/
+.ableDate{
+	border:0px solid blue;
+	padding:5px;
+}
+/*스탬프제목*/
+.stampTitle{
+	border:0px solid blue;
+	padding:5px;
+}
+
+/*스탬프테두리*/
+.classic {
 	border:1px solid blue;
-	width:220px;
+	border-radius: 5px;
+	margin-top:10px;
+}
+
+.classic ul{
+	border:0px solid blue;
+	width:460px;
 	display: inline-block;
+	padding:3px;
 }
 
 .classic li{
@@ -23,13 +44,14 @@
 }
 .StampedEventday{
 	background-color: green;
+	cursor: pointer;
 }
 .Eventday{
 	background-color: olive;
 }
 .modern ul{
 	border:1px solid red;
-	width:220px;
+	width:460px;
 	display: inline-block;
 }
 
