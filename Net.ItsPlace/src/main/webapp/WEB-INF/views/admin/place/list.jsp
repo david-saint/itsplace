@@ -35,14 +35,14 @@
 		 			"aoColumns": [
 		 				  			{ "mDataProp": "fid" },
 		 				  			{ "mDataProp": "fileName", "fnRender"  :function ( oObj ) {
-		 								return "<img src=\""+oObj.aData['fileName']+ "\" style=\"width:50px;\" />";
+		 				  				c.log("imagehost:"+"<img src=\""+oObj.aData['imageHost']);
+		 								return "<img src=\""+oObj.aData['imageHost']+oObj.aData['fileName']+ "\" style=\"width:50px;\" />";
 		 							} },
 		 				  			{ "mDataProp": "fname", "sClass":"left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile"},
 		 				  			{ "mDataProp": "isAuth"},
 		 				  			{ "mDataProp": "address.hdongname" },
-		 				  			{ "mDataProp": "placeStamp.sid","bVisible": true},
 		 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
@@ -115,7 +115,7 @@
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
-		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">가맹점 추가 </a></span>
+		 	<span style="position:absolute"><a href="/admin/place/add" class="uibutton icon large add ">가맹점 추가 </a></span>
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>
@@ -126,7 +126,6 @@
 						<th>mobile</th>
 						<th>authyn</th>
 						<th>hdongname</th>
-						<th>sid</th>
 						<th>saveDate</th>
 						<th>editDate</th>
 						

@@ -99,7 +99,7 @@
 
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 기초코드 </span>
+		<span><span class="ico gray home"></span> 가맹점 수정  </span>
 	</div>
 	<!-- End header -->
 	<div class="content">

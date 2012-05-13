@@ -5,6 +5,32 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		$("#file").change(function(){
+ 			$.ajaxFileUpload({
+  			   url: "/place/upload",
+  			   secureuri:false,
+  			   fileElementId:'file',
+  			   dataType: 'json',
+  			   beforeSend:function()
+  			   {
+  			   		$("#loading").show();
+  			   },
+  			   complete:function()
+  			   {
+  			   		$("#loading").hide();
+  			   },
+  			   success: function (data, status)
+  			   {
+  			        c.log(data.msg);
+  			        c.log(data.fileName);
+  			        $("#fileName").attr('src',data.fileName);    
+  			   },
+  			   error: function (data, status, e)
+  			   {
+  			    	alert("status : " + status + " error : " + e);    
+  			   }
+  			})
+ 		});
  		$('#btnEdit').live('click',function() {
  			c.log("submit Edit Form");
  			$('#user').submit();
@@ -70,7 +96,7 @@
 
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 기초코드 </span>
+		<span><span class="ico gray home"></span> 가맹점 수정  </span>
 	</div>
 	<!-- End header -->
 	<div class="content">
@@ -97,6 +123,14 @@
 						type="hidden" /> <span class="f_help">가맹점명 필수 입력</span>
 				</div>
 			</div>
+			<div class="section">
+				<label> 대표사진 <small></small></label>
+				<img id="fileName" style="" src="${place.imageHost}${place.fileName}"></img>
+				<div>
+					 <input id="file" type="file" name="file" class="fileupload" />
+					 <span class="f_help">가맹점명 필수 입력</span>
+				</div>
+			</div>
 			<div class="section"> 
 				<label> 신청자 <small></small></label>
 				<div>
@@ -113,16 +147,7 @@
 						value="${place.mobile }" /> <span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>
-			<div class="section">
-				<label> mobile <small></small></label>
-				<div>
-					<form:select id="remark" path="fid" multiple="false">
-						
-					</form:select> 
-					
-					<span class="f_help">영문+숫자 혼합</span>
-				</div>
-			</div>
+			
 
 
 			<div class="section last">

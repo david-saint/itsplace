@@ -43,7 +43,6 @@
 		<result property="address.jimain" column="JIMAIN"></result>
 		<result property="address.jisubmain" column="JISUBMAIN"></result>
 		
-		<result property="placeStamp.sid" column="SID"></result>
 		
 								
 	</resultMap>
@@ -53,17 +52,20 @@
     	 		 A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.STYPE, A.REMARK,
     	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		 PB.BASNAME AS STYPE,
-		   	 	 B.SIDO, B.GUGUN, B.BUPNAME, IFNULL(B.HDONGNAME,'') AS HDONGNAME, B.JIMAIN, B.JISUBMAIN, B.DORONAME, B.BLDMAIN, B.BLDSUBMAIN,
-		   	 	 IFNULL(C.SID,'') AS SID 
+		   	 	 B.SIDO, B.GUGUN,
+		   	 	 B.BUPNAME, 
+		   	 	 IFNULL(B.HDONGNAME,'') AS HDONGNAME, 
+		   	 	 B.JIMAIN, 
+		   	 	 B.JISUBMAIN, 
+		   	 	 B.DORONAME, 
+		   	 	 B.BLDMAIN, 
+		   	 	 B.BLDSUBMAIN
 		 FROM PLACE A
 		 INNER JOIN PBASCD PB
          	ON A.STYPE = PB.BASECD	
          	AND PB.GRPCD = 'FTYPE'
 		 LEFT OUTER JOIN PADDRESS B
 			ON A.NLDNO = B.NLDNO
- 		 LEFT OUTER JOIN PLACESTAMP C
-		    ON C.FID = A.FID
-		    AND C.ISDELETE ='N'	
          <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	WHERE A.FNAME like CONCAT('%',#search#,'%')
@@ -80,8 +82,9 @@
         WHERE FID = #fid#
     </select>
     <insert id="savePlace" parameterClass="Place">
-         INSERT INTO Place(FNAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE)
-         VALUES (#fname#, #mobile#, #phone1#, #latitude#, #longitude#, #nldno#, #fileName#,'N', #remark#, #category#, #stype#)
+         
+        INSERT INTO Place(FNAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISDELETE, ISAUTH, REMARK, CATEGORY, STYPE)
+        VALUES (#fname#, #mobile#, #phone1#, #latitude#, #longitude#, #nldno#, #fileName#, 'N', 'N', #remark#, #category#, #stype#)
          
         <selectKey keyProperty="fid" resultClass="java.lang.Integer">
 	    	 SELECT last_insert_id()
@@ -98,7 +101,7 @@
              ISAUTH = #isAuth#,
              REMARK = #remark#,
              CATEGORY = #category#,
-             stype =#stype#
+             STYPE = #stype#
       	WHERE FID = #fid#        
     </update>
     <update id="enablePlace" parameterClass="int">

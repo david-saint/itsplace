@@ -10,12 +10,12 @@
  			$('#saveStamp').submit();
  		});
  		$('.StampedEventday').live('click',function() {
+ 			var pid = $(this).attr("pid");
  			 $.confirm({
- 				  'title': '_DELETE DIALOG BOX','message': "<strong>YOU WANT TO DELETE </strong><br /><font color=red>' ggg ' </font> ",'buttons': {'Yes': {'class': 'special',
+ 				  'title': '_DELETE DIALOG BOX','message': "<strong>스탬프를 소진하시겠습니까? </strong><br /><font color=red>'  ' </font> ",'buttons': {'Yes': {'class': 'special',
  				  'action': function(){
- 					 $('#preloader').html('Deleting...');
- 							  setTimeout("unloading();",1500); 
- 							 // alert("");
+ 					  	burn(pid);
+ 					 
  					}},'No'	: {'class'	: ''}}});
  			//$('#saveStamp').submit();
  		});
@@ -27,9 +27,9 @@
 	 	                     type:"POST",
 	 	                     data:$("#saveStamp").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
 	 	                     beforeSend :function(){
-	 		                      var title = $('.loading').attr('title');
-	 		   	 				  var overlay=$(this).attr('rel'); 
-	 		   	 	 			  c.loading(title,overlay);
+	 		                      var title = "적립중";
+	 		   	 				  var overlay=1; 
+	 		   	 	 			  //c.loading(title,overlay);
 	 	                     },
 	 	                     success: function(response){
 	 	                        if(response.status=="SUCCESS"){
@@ -47,7 +47,7 @@
 	 	                     	c.showError(textStatus+jqXHR+errorThrown,1000); 
 	 	                     },
 	 	                     complete:function(){
-	 	                    	 setTimeout("c.unloading()",500); 
+	 	                    	 //setTimeout("c.unloading()",500); 
 	 	                    	 c.log("complete:");
 	 	                    	//$.get("/place/stamp/stampped?email="+$('#email').val(), {}, function(data) { $.fancybox(data); } );
 	 	                    	
@@ -58,6 +58,37 @@
 	 	}); //validationEngine 
  	});//ready
  	
+ 	function burn(pid){
+ 		c.log("pid:"+pid);
+ 		$('#pid').val(pid);
+ 		 $.ajax({
+             url: "/place/stamp/burn",
+             type:"POST",
+             data:$("#saveStamp").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
+             beforeSend :function(){
+	 	 			  c.loading("스탬프 소진중",0);
+             },
+             success: function(response){
+                if(response.status=="SUCCESS"){
+                   parent.$.fancybox.close();
+            	   parent.datatableRedraw(response.result,"true");
+                }else{
+            	   
+            	   parent.datatableRedraw(response.result,"false");
+                c.log("fa");
+                }
+             },
+             error: function(jqXHR, textStatus, errorThrown){
+             	alert("오류가 발생하였씁니다"+textStatus+jqXHR+errorThrown,1000); 
+             },
+             complete:function(){
+            	 setTimeout("c.unloading()",500); 
+            	 c.log("complete:");
+            	//$.get("/place/stamp/stampped?email="+$('#email').val(), {}, function(data) { $.fancybox(data); } );
+            	
+             }
+       });//ajax 
+ 	}
 </script>
 <div class="widget">
 	<div class="header">
@@ -72,7 +103,9 @@
 					<input id="authcode" type="text" name="authcode"
 						class="validate[required,minSize[4],maxSize[4]] middle " value="" />
 					<input id="stampid" type="hidden" name="stampid" value="${stampid}" />
-					<input id="eamil" type="hidden" name="email" value="${email}" /> <a
+					<input id="pid" type="hidden" name="pid" value="" />
+					<input id="eamil" type="hidden" name="email" value="${email}" /> 
+					<a
 						id="btnAdd" class="uibutton icon add large" title="Saving" rel="1">적립</a>
 				</div>
 			</div>
@@ -100,7 +133,9 @@
 						varStatus="status">
 						<li class="${stamp.attribute}" pid="${stamp.pid}"
 							saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
-							${status.index+1}</li>
+							${status.index+1}
+							${stamp.status}
+						</li>
 					</c:forEach>
 				</ul>
 			</div>

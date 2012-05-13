@@ -76,12 +76,13 @@
          INSERT INTO PSTAMP(STAMPID, EMAIL, STATUS, REMARK, MOBILE)
          VALUES (#placeStamp.stampid#, #user.email#,  'P', #remark#, #mobile#)
     </insert>
+    <!-- 적립된 이벤트날에 소진 u 를 표시 -->
     <update id="burnStamp" parameterClass="Stamp">
          UPDATE PSTAMP
          SET STATUS = 'U',
-         	 USEDATE =  CURRENT_TIMESTAMP()
-         WHERE STATUS = 'P'
-         AND PID = #pid#
+         	 BURNDATE =  CURRENT_TIMESTAMP()
+         WHERE 
+         	 PID = #pid#
          
     </update>
     

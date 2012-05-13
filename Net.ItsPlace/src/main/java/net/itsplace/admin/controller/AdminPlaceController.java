@@ -10,6 +10,7 @@ import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.Place.AddPlace;
 import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
@@ -192,6 +193,43 @@ public class AdminPlaceController {
 		}		
 		
 		return json;
+	}
+	/**
+	 * 관리자가 가맹점을 생성한다    <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model Place
+	 * @return  add.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String add(Model model)  {
+	
+		model.addAttribute("place",new Place());
+		
+		return "admin/place/add";
+	}
+	/**
+	 * Ajax 관리자가 가맹점을 등록한다. <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param user
+	 * @return JsonResponse
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addSubmit(@Validated({AddPlace.class}) Place place, BindingResult result, Model model)  {
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			return "admin/place/add";
+		} else {	
+			adminPlaceService.savePlace(place)	;	
+			return "admin/place/list";
+		}	
 	}
 	/**
 	 * 관리자가 가맹점 수정 폼을 호출한다.   <br />

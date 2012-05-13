@@ -21,5 +21,6 @@ public interface AdminPlaceDao {
 	/* 가맹점 수정*/
 	public void editPlace(Place place) throws DataAccessException;
 	
-	
+	/*가맹점 등록*/
+	public int savePlace(Place place) throws DataAccessException;
 }

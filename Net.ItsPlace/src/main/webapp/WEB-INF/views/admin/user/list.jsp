@@ -42,10 +42,11 @@
 		 				  			{ "mDataProp": "role", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile", "sClass":"left" },
 		 				  			{ "mDataProp": "isDelete","fnRender" :function ( oObj ) {
-		 								return oObj.aData['useyn'] == " Y" ? "사용" : "탈퇴";
+		 				  				c.log(oObj.aData['isDelete']);
+		 								return oObj.aData['isDelete'] == "N" ? "사용" : "탈퇴";
 		 							} },
 		 				  			{ "mDataProp": "isEmail","fnRender" :function ( oObj ) {
-		 								return oObj.aData['emailyn'] == " Y" ? "사용" : "탈퇴";
+		 								return oObj.aData['isEmail'] == "N" ? "사용" : "탈퇴";
 		 							} },
 		 				  			{ "mDataProp": "saveDate" },
 		 				  			{ "mDataProp": "editDate","fnRender" : make_date },
@@ -141,7 +142,7 @@
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
-		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">Add User</a></span>
+		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">사용자 생</a></span>
 			 <table class="display" id="user_datatable">
 				<thead>
 					<tr>

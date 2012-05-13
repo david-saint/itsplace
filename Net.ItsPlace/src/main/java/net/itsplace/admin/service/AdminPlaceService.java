@@ -17,7 +17,7 @@ public interface AdminPlaceService {
 	/* 가맹점 승인취소*/
 	public void disablePlace(int fid);
 	/* 가맹점 수정*/
-	public void editPlace(Place place) ;
-	
+	public void editPlace(Place place);
+	public int savePlace(Place place);
 	
 }

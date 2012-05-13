@@ -62,7 +62,7 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	@Override
 	public boolean burnStamp(Stamp stamp,String authCode) {
 		boolean result = false;
-		Authcode dbAuthcode = placeInfoDao.getAuthCode(UserInfo.getFid());
+		/*Authcode dbAuthcode = placeInfoDao.getAuthCode(UserInfo.getFid());
 		if(dbAuthcode.getAuthCode()==null){
 			result = false;
 		}else{		
@@ -73,8 +73,9 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 			}else{
 				result = false;
 			}
-		}
-		return result;
+		}*/
+		placeStampDao.burnStamp(stamp);	
+		return true;
 		
 	}
 

@@ -52,7 +52,7 @@
  					 c.log("edit:"+status);
  					//$('#user').validationEngine('detach');
  					$.ajax({
- 	                     url: "/admin/user/edit",
+ 	                     url: "/admin/place/add",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -99,11 +99,9 @@
 
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 기초코드 </span>
+		<span><span class="ico gray add"></span> 가맹점 생성 </span>
 	</div>
-	<!-- End header -->
 	<div class="content">
-			<!-- title box -->
 		<form:form commandName="place" method="post">
 			<div class="boxtitle">
 				<c:set var="errors">
@@ -113,8 +111,7 @@
 					<span class="ico color lightbulb"></span>
 					<span>Exception:</span>
 	              ${errors }
-	             </c:if>
-
+	            </c:if>
 			</div>
 
 			<div class="section">
@@ -150,10 +147,6 @@
 						value="${place.mobile }" /> <span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>
-			
-			
-
-
 			<div class="section last">
 				<div>
 					<a id="btnEdit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a>

@@ -227,24 +227,27 @@ public class PlaceStampController {
 			int stampCount = placeStampList.get(i).getStampType().getStampcount();
 			int stampTypeCount = (totalStampedCount/stampCount)+(totalStampedCount%stampCount==0?0:1);// 스탬프 타입 개수 		
 			
-			int leftCount = totalStampedCount;
+			int leftCount = 0;
 			logger.info("stampTypeCount:{}",stampTypeCount);
 			logger.info("eventday:{}",placeStampList.get(i).getStampType().getEventday());
 			for(int j=0;j<stampTypeCount;j++){
 				List<Stamp> stampList = new ArrayList<Stamp>();	
 				
 				for(int k=1;k<stampCount+1;k++){
-					leftCount--;
-					logger.info("leftcount:{}",leftCount);
-					if(leftCount>=0){
+					
+					if(leftCount<totalStampedCount){
+						logger.info("leftcount:{}",leftCount);
 						if(k<stampedList.size()+1){
 							 Stamp stampped = (Stamp)stampedList.get(leftCount);
+							 logger.info(stampped.getPid() + stampped.getStatus());
+							 
 							 if(stampped == null){
 								 logger.info("stamped null:"+leftCount);
 							 }else{
 								// logger.info("stamped k:{}",k);
 								 if(k % placeStampList.get(i).getStampType().getEventday()==0){
 									 stampped.setAttribute("StampedEventday");//당첨받는날
+									 logger.info(stampped.getPid() + stampped.getStatus()+"당첨받는날");
 								 }else{
 									 
 									 stampped.setAttribute("Stampped"); 
@@ -255,6 +258,7 @@ public class PlaceStampController {
 							
 							 stampList.add(stampped);
 							 //적립된 스탬프 생성
+							 leftCount++;
 						 }
 					}else{
 						 logger.info("인덱스:"+i + "data:blank");
@@ -281,7 +285,7 @@ public class PlaceStampController {
 		return "place/stamp/stampped";
 	}
 	/**
-	 * 가맹점 관리자 인증코드 수정       <br />
+	 * 스탬프적립       <br />
 	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
 	 * 가맹점 관리자 인증코드 수정    
 	 * @author 김동훈
@@ -315,5 +319,44 @@ public class PlaceStampController {
 			json.setStatus("FAIL");
 		}
 			return json;
+	}
+	/**
+	 * 스탬프 소       <br />
+	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/burn", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse burn(
+										   @RequestParam(required=true) Integer stampid,
+										   @RequestParam(required=true) String email,
+										   @RequestParam(required=true) Integer pid
+										  ) {
+		
+		logger.info(stampid+email+pid);
+		JsonResponse json = new JsonResponse();
+		try{
+			Stamp stamp = new Stamp();
+			stamp.getPlaceStamp().setStampid(stampid);
+			stamp.setPid(pid);
+			stamp.getUser().setEmail(email);
+			if(placeStampService.burnStamp(stamp,null)){
+				
+				json.setResult("스탬프를 소진하였습니다 !!");
+				json.setStatus("SUCCESS");
+			}else{
+				json.setResult("인증코드가 유효하지 않습니다");
+				json.setStatus("FAIL");
+			}
+		}catch(Exception e){
+			json.setResult("스탬프 소진에 실패하였습니다.");
+			json.setStatus("FAIL");
 		}
+			return json;
+	}
 }

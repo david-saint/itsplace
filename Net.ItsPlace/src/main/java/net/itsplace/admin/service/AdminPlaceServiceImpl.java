@@ -48,6 +48,11 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 		return adminPlaceDao.getPlace(fid);
 	}
 
+	@Override
+	public int savePlace(Place place) {
+		return adminPlaceDao.savePlace(place);
+	}
+
 
 	
 }

@@ -85,8 +85,6 @@ public class AdminUserController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
  	public String addSubmit(@Validated({AddUser.class}) User user, BindingResult result, Model model) {
-		
-	  
 		if (result.hasErrors()) {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			return "admin/user/add";
@@ -94,7 +92,6 @@ public class AdminUserController {
 			adminUserService.saveUser(user);		
 			return "admin/user/list";
 		}
-	
 	}
 	/**
 	 * 관리자가 회원 수정 폼을 호출한다.   <br />
