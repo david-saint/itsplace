@@ -109,6 +109,10 @@
 		 		
 		 		return  editAction + "&nbsp;&nbsp;" + deleteAction + "&nbsp;&nbsp;" + restoreAction ; 
 		 	}
+		 	function test(){
+		 		c.log("test");
+		 		user_datatable.fnStandingRedraw();
+		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
 		 	<span style="position:absolute"><a href="/admin/stamp/add" class="uibutton icon large add ">Add Stamp Type</a></span>

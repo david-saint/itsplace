@@ -1,13 +1,18 @@
 package net.itsplace.admin.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import net.itsplace.admin.service.AdminMediaService;
 import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Place.AddPlace;
@@ -16,6 +21,7 @@ import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.user.User;
+import net.itsplace.user.UserInfo;
 import net.itsplace.user.User.EditUser;
 import net.itsplace.util.PagingManager;
 
@@ -39,6 +45,8 @@ public class AdminPlaceController {
 	private AdminPlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
+	@Autowired
+	private AdminMediaService adminMediaService;
 	@Autowired
 	private PagingManager pagingManaer;
 	@Autowired
@@ -227,6 +235,9 @@ public class AdminPlaceController {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			return "admin/place/add";
 		} else {	
+			if(place.getFileName()=="" || place.getFileName().equals("")){
+				place.setFileName("/images/empty.png");
+			}
 			adminPlaceService.savePlace(place)	;	
 			return "admin/place/list";
 		}	
@@ -365,5 +376,36 @@ public class AdminPlaceController {
 		table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
 
 		return table;
-    }    
+    }   
+	/**
+	 * 관리자 가맹점 대표 사진 업로드  <br />
+	 * 이미지는 항상 새로 발생하고(업데이트없음) 대표이미지만 교체한다. 업데이트 없이 삭제로 함.
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+ 	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
+		logger.info("filename:{}",file.getFile().getOriginalFilename());
+		logger.info("fid:{}",file.getFid());
+		String resultJson = "";
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+		}else{	
+			
+			String placeImagePath = adminMediaService.savePlaceMedia(file,file.getFid());
+			resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
+		}
+		 response.setContentType("text/html");
+		 ByteArrayOutputStream out = new ByteArrayOutputStream();
+		 
+		 out.write(resultJson.getBytes());
+		 response.setContentLength(out.size());
+		 
+		 response.getOutputStream().write(out.toByteArray());
+		 response.getOutputStream().flush();
+	}
 }

@@ -12,11 +12,11 @@
 <!-- full width -->
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 가맹점관  </span>
+		<span><span class="ico gray home"></span> 가맹점관리   </span>
 	</div>
 	<div class="content">
 		<script type="text/javascript">
-		var datatable;
+			var datatable;
 		
 		 	$(document).ready(function(){
 		 		 datatable = $('#datatable').dataTable( {
@@ -112,6 +112,10 @@
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return  stampAddAction +"&nbsp;&nbsp;"+ stampEditAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 	}
+		 	function refresh(){
+		 		c.log("refresh");
+		 		datatable.fnStandingRedraw();
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->

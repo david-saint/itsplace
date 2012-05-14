@@ -83,7 +83,7 @@ public class PlaceInfoController {
 	}
 	/**
 	 * 가맹점 대표 사진 업로드  <br />
-	 * 
+	 * 이미지는 항상 새로 발생하고(업데이트없음) 대표이미지만 교체한다. 업데이트 없이 삭제로 함.
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
 	 * @param model
@@ -97,39 +97,9 @@ public class PlaceInfoController {
 		String resultJson = "";
 		if (result.hasErrors()) {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			
 		}else{	
-			
-			String orinalImagePath = imageService.convertToPng(file.getFile(),0,0);//원본
-			String placeImagePath = imageService.convertToPng(file.getFile(),280,230);//대표 이미지(가맹점뷰어시) 
-			String placeThumnailPath = imageService.convertToPng(file.getFile(),80,80);
 
-			Pmedia media = new Pmedia();
-			media.setFid(UserInfo.getFid());
-			media.setEmail(UserInfo.getEmail());
-			media.setmType(commonService.getBasecd().getMediaImage());
-			media.setSize(commonService.getBasecd().getMediaLarge());
-			media.setmUrl(orinalImagePath);
-			media.setHost(commonService.getBasecd().getMediaImageHost());
-			media.setIsDelete("N");
-			logger.info("원본이미지 저장 size:"+commonService.getBasecd().getMediaLarge());
-			adminMediaService.savePlaceMedia(media); //원본 이미지
-			
-			media.setSize(commonService.getBasecd().getMediaThumbnail());
-			media.setmUrl(placeThumnailPath);			
-			logger.info("썸네 저장");
-			adminMediaService.savePlaceMedia(media); //썸네일 이미지 
-			
-			Place place = new Place();
-			place.setFid(UserInfo.getFid());
-			place.setFileName(placeImagePath);
-			place.setImageHost(commonService.getBasecd().getMediaImageHost());
-			adminMediaService.updatePlaceImage(place);
-			
-			
-			logger.info("원본:{}",orinalImagePath);
-			logger.info("가맹점대표이미지:{}",placeImagePath);
-			logger.info("썸네일:{}",placeThumnailPath);
+			String placeImagePath = adminMediaService.savePlaceMedia(file,UserInfo.getFid());
 			resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
 		}
 		 response.setContentType("text/html");

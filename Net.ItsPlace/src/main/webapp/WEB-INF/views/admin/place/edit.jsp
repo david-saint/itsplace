@@ -6,8 +6,10 @@
 <script type="text/javascript">
  	$(document).ready(function(){
  		$("#file").change(function(){
+ 			data ={fid:$('#fid').val()};
  			$.ajaxFileUpload({
-  			   url: "/place/upload",
+  			   url: "/admin/place/upload",
+  			   data: data,
   			   secureuri:false,
   			   fileElementId:'file',
   			   dataType: 'json',
@@ -23,7 +25,8 @@
   			   {
   			        c.log(data.msg);
   			        c.log(data.fileName);
-  			        $("#fileName").attr('src',data.fileName);    
+  			        $("#fileName").attr('src',data.fileName); 
+  			      	parent.refresh();
   			   },
   			   error: function (data, status, e)
   			   {
@@ -60,7 +63,7 @@
  	                       if(response.status=="SUCCESS"){
  	                    	   console.log("송고");
  	                    		parent.$.fancybox.close();
- 	                    		parent.test();
+ 	                    		parent.refresh();
  	                       }else{
  	                    	   var errorInfo="";
  	                    	   for(var i =0 ; i < response.result.length ; i++){
@@ -119,7 +122,8 @@
 				<div>
 					<input id="fname" name="fname" type="text"
 						class="validate[required,minSize[3],maxSize[50]] medium "
-						value="${place.fname }" /> <input name="fid" value="${place.fid}"
+						value="${place.fname }" /> 
+					<input id="fid" name="fid" value="${place.fid}"
 						type="hidden" /> <span class="f_help">가맹점명 필수 입력</span>
 				</div>
 			</div>

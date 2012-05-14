@@ -20,9 +20,12 @@
     </insert>
   
     <update id="updatePlaceMedia" parameterClass="Pmedia">
-        UPDATE PMEDIA SET = MTITLE = #mTitle#,
-        MURL = #mUrl#,
-        ISDELETE = #isDelete#
+        UPDATE 
+        	PMEDIA 
+        SET 
+	        MTITLE = #mTitle#,
+	        MURL = #mUrl#,
+	        ISDELETE = #isDelete#
         WHERE MID = #mid#
     </update>
 </sqlMap>
