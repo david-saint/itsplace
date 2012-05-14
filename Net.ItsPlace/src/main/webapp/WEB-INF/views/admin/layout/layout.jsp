@@ -88,6 +88,7 @@
         <script type="text/javascript" src="<c:url value="/resources/admin/js/zice.custom.js"/>"></script>    
  
  		<script  src="<c:url value="/resources/common/common-1.0.0.js" />" type="text/javascript"></script>
+ 		<script  src="<c:url value="/resources/js/upload/ajaxfileupload.js" />" type="text/javascript"></script>
 		
  
 		
