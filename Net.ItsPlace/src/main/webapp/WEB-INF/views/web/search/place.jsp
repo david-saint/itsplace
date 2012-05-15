@@ -6,7 +6,7 @@
 <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
 <script type="text/javascript">
 menuSelected("가맹점검색", "주변검색");
-
+var mapImage = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var PLACE = ${list};
 var map;
 var lat = "37.54428363237073";
@@ -53,29 +53,56 @@ function daummap_setCenter(lat, lng) {
 	marker.setMap(map);
 }
 
-//마크먼저 배열에 담는다.
-var marker = Array();
-//인포윈도우 배열에 담는다.
-	var infowindow = new Array();
+var marker = new Array();
+var infowindow = new Array();
+var l, l2;
 function init() {
+	var div = $("#place_list");
 	// 지도 생성
 	map = new daum.maps.Map(document.getElementById('map'), {
 		center : new daum.maps.LatLng(lat, lng)
 	});
-	
+	var html = "";
  	for(var i=0; i<PLACE.length; i++)
 	{
 		var lat = PLACE[i].latitude;
 		var lng = PLACE[i].longitude;
+		var place_name   = PLACE[i].fname;
+		var place_phone  = PLACE[i].phone1;
+		var place_remark = PLACE[i].remark;
+		var img = "http://localhost:8080/resources/images/marker/" + mapImage[i] + ".png";
+		console.log(img);
+		var icon = new daum.maps.MarkerImage(
+			img,
+			new daum.maps.Size(32, 32),
+			new daum.maps.Point(16,34),
+			"poly"
+		);
+		//마크먼저 배열에 담는다.
 		marker[i] = new daum.maps.Marker({
-			position : new daum.maps.LatLng(lat, lng)
+			position : new daum.maps.LatLng(lat, lng),
+			image : icon
 		});
 
 		// 마커 표시
 		marker[i].setMap(map);
 		
+		// 툴팁
+		//marker[i].setTitle(place_name);
 		// 좌표로 이동
 		map.setCenter(new daum.maps.LatLng(lat, lng));
+		
+		var script = '<img src="/resources/images/marker/' + mapImage[i] + '.png"/><a href=\'javascript:placeDisplay("' + i + '");void(0);\'>' + place_name + '</a>';
+		html += 	"<div class='box'>" +
+					"	<span onmouseover='placeTooltip(\"" + i + "\")'>" + script + "</span>" +
+					"</div>" +
+					"<div class='box'>" +
+					"	<ul>" +
+					"		<li>" + place_phone + "</li>" +
+					"		<li>주소가 들어와야함</li>" +
+					"		<li>" + place_remark + "</li>" +
+					"	</ul>" +
+					"</div>";
 	}
 	
  	for(var i=0; i<PLACE.length; i++)
@@ -83,6 +110,7 @@ function init() {
  		var fname = PLACE[i].fname;
  		marker[i].index = i;
  		// 메시지 박스 
+ 		//인포윈도우 배열에 담는다.
 		infowindow[i] = new daum.maps.InfoWindow({
 			content: '<p style="margin:7px 22px 7px 12px;font:12px/1.5 sans-serif"><strong>안녕하세요~</strong><br/>' + fname + '.</p>',
 			removable : true
@@ -95,7 +123,12 @@ function init() {
 			}
 			infowindow[this.index].open(map, marker[this.index]);
 		});
+		
+		daum.maps.event.addListener(marker[i], "mouseover", function() {  
+		});
 	}
+ 	
+ 	div.append(html);	
 }
 
 function init3() {
@@ -106,6 +139,19 @@ function init3() {
 	rc.getNearestPanoId(p, 100, function(panoid) {
 		rv.setPanoId(panoid, p);
 	});
+}
+function placeDisplay(idx)
+{
+	for(var j=0; j<marker.length; j++)
+	{
+		infowindow[j].close();
+	}
+	infowindow[idx].open(map, marker[idx]);
+}
+
+function placeTooltip(idx)
+{
+
 }
 
 $(document).ready(function(){
@@ -167,17 +213,6 @@ html,body,#map {
 #btnZoomIn {top: 1em;}
 #btnZoomOut {top: 4em;}
 </style>
-<script>
-function dd()
-{
-	infowindow[0].open(map, marker[0]);
-/* 	for(var i=0; i<marker.length; i++)
-	{
-		marker[i].click();
-	} */
-}
-</script>
-<button onclick="dd();">dddd</button>
 <div class="container">
 	<section id="middle">
 		<div class="middle_inner">
@@ -234,27 +269,14 @@ function dd()
 						<div class="box">
 							<span class="s" style="border-bottom:2px solid #bbb;width:100%;"></span>
 						</div>
-						<div class="box">
-							<span class="s" style="padding-top:5px;">
-								<img src="/resources/images/search/iPhone_23.jpg" width="100" height="100" />
-							</span>
-							<span class="s">
-								
-								<div class="ovh">
-								여기가 어딜까?<br />
-								전화번호 : 053) 666-6666<br />
-								대구 달서구 송현동 111번지 <br />
-									<p>이래저래 여기는 이런게 맛있고 이런거를 추천 합니다.....</p>
-								</div>
-							</span>
-						</div>
+						<div id="place_list" style="padding-top:10px;clear:both;"></div>
 					</div>
 					<div style="width:75%;height:700px;float: left;" id="map"></div>
 				</div>
 				<div id="roadview" style="width: 600px; height: 400px;"></div>
-				<span id="btnZoomIn" onclick="zoomIn()">확대</span>
+				<!-- <span id="btnZoomIn" onclick="zoomIn()">확대</span>
 				<span id="btnZoomOut" onclick="zoomOut()">축소</span>
-				<img id="roadview" src="../resources/images/roadview.png" onclick="init3()" />
+				<img id="roadview" src="../resources/images/roadview.png" onclick="init3()" /> -->
 			</section>
 		</div>
 	</section>
