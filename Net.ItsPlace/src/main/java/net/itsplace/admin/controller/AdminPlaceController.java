@@ -235,10 +235,12 @@ public class AdminPlaceController {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			return "admin/place/add";
 		} else {	
-			if(place.getFileName()=="" || place.getFileName().equals("")){
+			logger.info(place.toString());
+			if(place.getFileName()==null|| place.getFileName().equals("")){
 				place.setFileName("/images/empty.png");
 			}
-			adminPlaceService.savePlace(place)	;	
+			int fid = adminPlaceService.savePlace(place)	;
+			logger.info(" 가맹생성 fid:{}",fid);
 			return "admin/place/list";
 		}	
 	}

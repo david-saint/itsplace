@@ -55,7 +55,7 @@ public class AdminPlaceDaoImpl extends SqlMapClientDaoSupport implements AdminPl
 
 	@Override
 	public int savePlace(Place place) throws DataAccessException {
-		return (Integer)getSqlMapClientTemplate().insert("savePlace");
+		return (Integer)getSqlMapClientTemplate().insert("savePlace",place);
 	}
 
 	

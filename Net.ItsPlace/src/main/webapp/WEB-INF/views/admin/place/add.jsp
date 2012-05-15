@@ -35,9 +35,9 @@
  		$("#upload").live('click',function() {
  			
  		});
- 		$('#btnEdit').live('click',function() {
- 			c.log("submit Edit Form");
- 			$('#user').submit();
+ 		$('#btnAdd').live('click',function() {
+ 			c.log("submit  Form");
+ 			$('#place').submit();
  		});
  		$('.cancel').live('click',function() {
  			c.log("cancel2");
@@ -46,7 +46,7 @@
  			
  			//$.fancybox.close();
  		});
- 		 $('#user').validationEngine('attach', {//서브밋 후에 밸리
+ 		 $('#place').validationEngine('attach', {//서브밋 후에 밸리
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					 c.log("edit:"+status);
@@ -119,7 +119,8 @@
 				<div>
 					<input id="fname" name="fname" type="text"
 						class="validate[required,minSize[3],maxSize[50]] medium "
-						value="${place.fname }" /> <input name="fid" value="${place.fid}"
+						value="${place.fname }" /> 
+					<input name="fid" value="${place.fid}"
 						type="hidden" /> <span class="f_help">가맹점명 필수 입력</span>
 				</div>
 			</div>
@@ -135,7 +136,7 @@
 				<label> 신청자 <small></small></label>
 				<div>
 					<input id="name" type="text" name="name"
-						class="validate[required,minSize[3],maxSize[50]] full"
+						class="validate[required,minSize[2],maxSize[50]] full"
 						value="${place.name }" /> <span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>
@@ -149,7 +150,7 @@
 			</div>
 			<div class="section last">
 				<div>
-					<a id="btnEdit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a>
+					<a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1">submit</a>
 					<a class="uibutton special clear_form">clear form</a>
 					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
 				</div>

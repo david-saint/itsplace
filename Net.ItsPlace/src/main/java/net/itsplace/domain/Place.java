@@ -332,6 +332,6 @@ public class Place {
 	}
 	@Override
 	public String toString() {
-		return "Place:[fid=" + fid + ", fname= " + fname + ", nldno= " + nldno + ", latitude= " + latitude +  ", longitude= " + longitude +  ",  ]"  ;
+		return "Place:[fid=" + fid + ", fname= " + fname + ",mobile= " + mobile+ ", nldno= " + nldno + ", latitude= " + latitude +  ", longitude= " + longitude +  ",  ]"  ;
 	}
 }

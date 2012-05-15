@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="event">
+	
+	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
+
+    <insert id="savePlace" parameterClass="Place">
+         
+        INSERT INTO PLACEEVENT(FNAME, NAME, MOBILE, FILENAME,  ISAUTH, STARTDATE, SAVEDATE, ENDDATE)
+        VALUES (#fname#, #name#, #mobile#,  #fileName#, 'N', now(),now(),now())
+         
+        <selectKey keyProperty="fid" resultClass="java.lang.Integer">
+	    	 SELECT last_insert_id()
+	    </selectKey>
+	    
+    </insert>
+    <update id="editPlace" parameterClass="Place">
+         UPDATE  PLACE
+         SET FNAME = #fname# ,
+             MOBILE = #mobile#,
+             PHONE1 = #phone1#, 
+             NLDNO = #nldno#, 
+             FILENAME = #fileName#,
+             ISAUTH = #isAuth#,
+             REMARK = #remark#,
+             CATEGORY = #category#,
+             STYPE = #stype#
+      	WHERE FID = #fid#        
+    </update>
+    <update id="enablePlace" parameterClass="int">
+         UPDATE  PLACE
+         SET ISAUTH = 'Y'             
+      	WHERE FID = #fid#        
+    </update>
+    <update id="disablePlace" parameterClass="int">
+         UPDATE  PLACE
+         SET ISAUTH = 'N'             
+      	WHERE FID = #fid#        
+    </update>
+   
+  
+</sqlMap>

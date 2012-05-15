@@ -83,8 +83,8 @@
     </select>
     <insert id="savePlace" parameterClass="Place">
          
-        INSERT INTO Place(FNAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, FILENAME, ISDELETE, ISAUTH, REMARK, CATEGORY, STYPE)
-        VALUES (#fname#, #mobile#, #phone1#, #latitude#, #longitude#, #nldno#, #fileName#, 'N', 'N', #remark#, #category#, #stype#)
+        INSERT INTO PLACE(FNAME, NAME, MOBILE, FILENAME,  ISAUTH, STARTDATE, SAVEDATE, ENDDATE)
+        VALUES (#fname#, #name#, #mobile#,  #fileName#, 'N', now(),now(),now())
          
         <selectKey keyProperty="fid" resultClass="java.lang.Integer">
 	    	 SELECT last_insert_id()
