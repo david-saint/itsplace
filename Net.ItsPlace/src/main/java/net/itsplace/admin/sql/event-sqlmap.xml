@@ -4,41 +4,36 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="event">
 	
-	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
+	<typeAlias type="net.itsplace.domain.PlaceEvent" alias="PlaceEvent"/>
 
-    <insert id="savePlace" parameterClass="Place">
+    <insert id="savePlaceEvent" parameterClass="PlaceEvent">
          
-        INSERT INTO PLACEEVENT(FNAME, NAME, MOBILE, FILENAME,  ISAUTH, STARTDATE, SAVEDATE, ENDDATE)
-        VALUES (#fname#, #name#, #mobile#,  #fileName#, 'N', now(),now(),now())
+        INSERT INTO PLACEEVENT(TITLE, CONTENT, FID,  ISAUTH, ISDELETE, STARTDATE, SAVEDATE, ENDDATE)
+        VALUES (#title#, #content#, #place.fid#,  'N', 'N', #startDate#, now(), #endDate#)
          
-        <selectKey keyProperty="fid" resultClass="java.lang.Integer">
-	    	 SELECT last_insert_id()
-	    </selectKey>
+        
 	    
     </insert>
-    <update id="editPlace" parameterClass="Place">
-         UPDATE  PLACE
-         SET FNAME = #fname# ,
-             MOBILE = #mobile#,
-             PHONE1 = #phone1#, 
-             NLDNO = #nldno#, 
-             FILENAME = #fileName#,
-             ISAUTH = #isAuth#,
-             REMARK = #remark#,
-             CATEGORY = #category#,
-             STYPE = #stype#
-      	WHERE FID = #fid#        
+    <update id="editPlaceEvent" parameterClass="PlaceEvent">
+         UPDATE  PLACEEVENT
+         SET TITLE = #title# ,
+             CONTENT = #content#,
+             ISAUTH = #isAuth#, 
+             ISDELETE = #isDelete#, 
+             STARTDATE = #startDate#,
+             ENDDATE = #endDate#,
+      	WHERE FID = #eid#        
     </update>
-    <update id="enablePlace" parameterClass="int">
-         UPDATE  PLACE
-         SET ISAUTH = 'Y'             
-      	WHERE FID = #fid#        
-    </update>
-    <update id="disablePlace" parameterClass="int">
-         UPDATE  PLACE
-         SET ISAUTH = 'N'             
-      	WHERE FID = #fid#        
-    </update>
-   
+    <select id="getPlaceEventList" parameterClass="int" resultClass="PlaceEvent">
+        SELECT EID 
+        	TITLE,
+            CONTENT,
+            ISAUTH,
+            ISDELETE,
+            STARTDATE,
+            ENDDATE
+        FROM PLACEEVENT 
+        WHERE FID = #fid#    
+    </select> 
   
 </sqlMap>

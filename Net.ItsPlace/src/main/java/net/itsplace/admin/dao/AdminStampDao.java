@@ -25,7 +25,8 @@ public interface AdminStampDao {
 	/* 가맹점 스탬프 타입 가져오기 */
 	public List<PlaceStamp> getPlaceStampAll(int fid) throws DataAccessException;
 	
-	/*가맹점 스탬프 등록 및 수*/
+	/*가맹점 스탬프 등록 및 수정 */
 	public void savePlaceStamp(PlaceStamp placeStamp) throws DataAccessException;	
 	public void editPlaceStamp(PlaceStamp placeStamp) throws DataAccessException;
+	public PlaceStamp getPlaceStamp(int stampid) throws DataAccessException;
 }

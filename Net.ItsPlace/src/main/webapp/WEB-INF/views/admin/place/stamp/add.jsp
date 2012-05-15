@@ -10,6 +10,14 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
+ 		$('.edit').fancybox({//autodimensions false 후 width , height 가느
+				'autoDimensions':false,
+				'scrolling':'auto',
+				'autoScale':false,
+				'height':500,
+
+			});
+ 		
  		var action= "/admin/place/stamp/add";
  		
  		$('#btnSubmit').live('click',function() {
@@ -58,6 +66,22 @@
  			  }
 	 	});//validation
  	});//ready
+	function make_actions(oObj) {
+ 		var id = oObj.aData['fid'];
+ 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
+ 		c.log(""+oObj.aData['placeStamp.sid']);
+ 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+ 		var stampEditAction = '<span class="tip"><a class="edit" href="/admin/place/stamp/edit?fid='+id+'" original-title="stamp-edit"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+ 		var stampAddAction = '<span class="tip"><a class=""" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+ 		var eventAddAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+ 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+ 		
+ 		return  stampAddAction +"&nbsp;&nbsp;"+ stampEditAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
+ 	}
+ 	function refresh(){
+ 		c.log("refresh");
+ 		datatable.fnStandingRedraw();
+ 	}
 </script>
 <div class="widget">
 	<div class="header">
@@ -148,6 +172,7 @@
 						<th>StartDate</th>
 						<th>EndDate</th>
 						<th>isDelete</th>
+						<th>Management</th>
 					</tr>
 				</thead>
 				 <tbody>
@@ -158,6 +183,9 @@
 							<td><fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/></td>
 							<td>${placeStamp.isDelete}</td>
+							<td>
+								<span class="tip"><a class="edit" href="/admin/place/stamp/edit?fid=${placeStamp.fid}&stampid=${placeStamp.stampid}" original-title="stamp-edit"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody> 

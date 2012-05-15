@@ -24,4 +24,5 @@ public interface AdminStampService {
 	/*가맹점 스탬프 등록 및 수*/
 	public void savePlaceStamp(PlaceStamp placeStamp) ;	
 	public void editPlaceStamp(PlaceStamp placeStamp) ;
+	public PlaceStamp getPlaceStamp(int stampid);
 }

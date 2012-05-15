@@ -71,4 +71,9 @@ public class AdminStampServiceImpl implements AdminStampService{
 	public void editPlaceStamp(PlaceStamp placeStamp) {
 		adminStampDao.editPlaceStamp(placeStamp);
 	}
+
+	@Override
+	public PlaceStamp getPlaceStamp(int stampid) {
+		return adminStampDao.getPlaceStamp(stampid);
+	}
 }

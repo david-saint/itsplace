@@ -10,14 +10,24 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
- 		var action= "/admin/place/stamp/edit";
+ 		$('.edit').fancybox({//autodimensions false 후 width , height 가느
+				'autoDimensions':false,
+				'scrolling':'auto',
+				'autoScale':false,
+				'height':500,
+
+			});
  		
-		
+ 		var action= "/admin/place/stamp/add";
+ 		
  		$('#btnSubmit').live('click',function() {
  			c.log("submit Form");
+ 		
+
  			$('#placeStamp').submit();
  		});
  		$('.cancel').live('click',function() {
+ 			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
  		$('#placeStamp').validationEngine('attach', {//서브밋 후에 밸리
@@ -56,13 +66,29 @@
  			  }
 	 	});//validation
  	});//ready
+	function make_actions(oObj) {
+ 		var id = oObj.aData['fid'];
+ 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
+ 		c.log(""+oObj.aData['placeStamp.sid']);
+ 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+ 		var stampEditAction = '<span class="tip"><a class="edit" href="/admin/place/stamp/edit?fid='+id+'" original-title="stamp-edit"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+ 		var stampAddAction = '<span class="tip"><a class=""" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+ 		var eventAddAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+ 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+ 		
+ 		return  stampAddAction +"&nbsp;&nbsp;"+ stampEditAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
+ 	}
+ 	function refresh(){
+ 		c.log("refresh");
+ 		datatable.fnStandingRedraw();
+ 	}
 </script>
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 스탬프 수정 - ${placeStamp.stampTitle}  </span>
+		<span><span class="ico gray home"></span> 이벤트 관리 - ${place.fname}  </span>
 	</div>
 	<div class="content">
-		<form:form commandName="placeStamp" method="post">
+		<form:form commandName="placeEvent" method="post">
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -75,39 +101,30 @@
 
 			</div>
 			<div class="boxtitle">
-				시작일이 경과한 경우 수정이 불가능함, 스탬프를 추가해야합니다.
+				이벤트 관리 
 			</div>
 			<div class="section">
-				<label> 스탬프명 <small></small></label>
+				<label> 이벤트명  <small></small></label>
 				<div>
 					<input id="stampTitle" name="stampTitle" type="text"
 						class="validate[required,maxSize[50]] medium "
-						value="${placeStamp.stampTitle}" /> 
-						<input id="fid" name="fid" value="${place.fid}" type="text" /> <span class="f_help"></span>
+						value="${placeEvent.title}" /> 
+						<input id="eid" name="eid" value="${placeEvent.eid}" type="text" /> <span class="f_help"></span>
 				</div>
 			</div>
 			<div class="section">
-				<label> 스탬프타입 <small></small></label>
+				<label> 내용  <small></small></label>
 				<div>
-					<form:select id="sid" path="sid" multiple="false">
-						<form:options items="${stampTypeList}" itemValue="sid"	itemLabel="title" />
-					</form:select>
+					<textarea>${placeEvent.content}</textarea>
 				</div>
 			</div>
-			<div class="section">
-				<label> 스탬프테마  <small></small></label>
-				<div>
-					<form:select id="theme" path="theme" multiple="false">
-						<form:options items="${themeList}" itemValue="basecd"	itemLabel="basName" />
-					</form:select>
-				</div>
-			</div>
+			
 			<div class="section"> 
 				<label> 시작일 <small></small></label>
 				<div>
 					<input id="startDate" type="text" name="startDate"
 						class="validate[required,maxSize[50]] samll date"
-						value="<fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/>" /> 
+						value="<fmt:formatDate value="${placeEvent.startDate }" pattern="yyyy-MM-dd"/>" /> 
 						<span class="f_help"></span>
 				</div>
 			</div>
@@ -116,7 +133,7 @@
 				<div>
 					<input id="endDate" type="text" name="endDate"
 						class="validate[required,maxSize[50]] small date"
-						value="<fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/>" />  
+						value="<fmt:formatDate value="${placeEvent.endDate }" pattern="yyyy-MM-dd"/>" />  
 						<span class="f_help"></span>
 				</div>
 			</div>
@@ -137,7 +154,34 @@
 			                                 
           </div>
 		</form:form>
-			
+			<div class="setion">
+				<table class="display staticBase" id="static">
+				<thead>
+					<tr>
+						<th>이벤트명 </th>
+						<th>EditDate</th>
+						<th>StartDate</th>
+						<th>EndDate</th>
+						<th>isDelete</th>
+						<th>Management</th>
+					</tr>
+				</thead>
+				 <tbody>
+					<c:forEach items="${placeEventList}" var="placeEvent">
+						<tr>
+							<td>${placeEvent.stampTitle}</td>
+							<td><fmt:formatDate value="${placeEvent.editDate }" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${placeEvent.startDate }" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${placeEvent.endDate }" pattern="yyyy-MM-dd"/></td>
+							<td>${placeEvent.isDelete}</td>
+							<td>
+								<span class="tip"><a class="edit" href="/admin/place/stamp/edit?fid=${placeEvent.eid}&stampid=${placeEvent.eid}" original-title="stamp-edit"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody> 
+				</table>
+			</div>
 	</div>
 </div>
 

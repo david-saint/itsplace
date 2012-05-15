@@ -107,11 +107,12 @@
 		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
 		 		c.log(""+oObj.aData['placeStamp.sid']);
 		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var stampEditAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/edit?fid='+id+'" original-title="stamp-edit"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
-		 		var stampAddAction = '<span class="tip"><a class="edit iframe" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+		 		
+		 		var stampAddAction = '<span class="tip"><a class="" href="/admin/place/stamp/add?fid='+id+'" original-title="stamp-add"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
+		 		var eventAddAction = '<span class="tip"><a class="" href="/admin/place/event/add?fid='+id+'" original-title="event-add"><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
-		 		return  stampAddAction +"&nbsp;&nbsp;"+ stampEditAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return  stampAddAction +"&nbsp;&nbsp;"+ eventAddAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 	function refresh(){
 		 		c.log("refresh");

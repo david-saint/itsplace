@@ -84,16 +84,7 @@ public class AdminPlaceController {
 		return "admin/place/user/list";
 	}
 	
-	/**
-	 * 가맹점 이벤트관리
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/user/event", method = RequestMethod.GET)
-	public String event(Locale locale, Model model) {
-		return "admin/place/user/event";
-	}
+	
 	/**
 	 * 관리자가 가맹점 스탬프 수정    <br />
 	 * 
@@ -105,22 +96,24 @@ public class AdminPlaceController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/stamp/edit", method = RequestMethod.GET)
-	public String placeStamp(@RequestParam(required=true) Integer fid, Model model)  {
+	public String placeStamp(@RequestParam(required=true) Integer fid,
+							 @RequestParam(required=true) Integer stampid,
+							 Model model)  {
 		//List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
 		
 		
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
 		model.addAttribute("themeList",commonService.getBascdList("STAMPTHEME"));
-		List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
-		if(placeStampList.size()<=0){
+		//List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+		/*if(placeStampList.size()<=0){
 			model.addAttribute("placeStampList",null);
 			model.addAttribute("placeStamp", new PlaceStamp());
 		}else{
 			model.addAttribute("placeStampList",placeStampList);
 			model.addAttribute("placeStamp", placeStampList.get(0));
-		}
-		
+		}*/
+		model.addAttribute("placeStamp",adminStampService.getPlaceStamp(stampid));
 		return "admin/place/stamp/edit";
 	}
 	/**

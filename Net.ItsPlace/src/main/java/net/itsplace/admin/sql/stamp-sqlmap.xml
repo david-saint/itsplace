@@ -91,4 +91,9 @@
         INSERT INTO PLACESTAMP(STAMPTITLE, THEME, SID, FID, STARTDATE, ENDDATE, SAVEDATE, ISDELETE)
         VALUES(#stampTitle#, #theme#, #sid#, #fid#, #startDate#, #endDate#, now(), 'N')
     </insert>
+    <select id="getPlaceStamp" parameterClass="int" resultClass="PlaceStamp">
+        SELECT STAMPID, STAMPTITLE, THEME, ISDELETE, STARTDATE, ENDDATE
+        FROM PLACESTAMP
+        WHERE STAMPID = #stampid#
+    </select>
 </sqlMap>

@@ -27,6 +27,7 @@
 	<sqlMap resource="net/itsplace/admin/sql/stamp-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/admin/sql/support-sqlmap.xml" />
 	<sqlMap resource="net/itsplace/admin/sql/media-sqlmap.xml" />
+	<sqlMap resource="net/itsplace/admin/sql/event-sqlmap.xml" />
 
 	<!--// 가맹점 관련 SQL -->
 	<sqlMap resource="net/itsplace/place/sql/place-user-sqlmap.xml" />
