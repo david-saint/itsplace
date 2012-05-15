@@ -6,33 +6,102 @@
 <script type="text/javascript">
 menuSelected("서비스소개");
 </script>
-<div class="tab">
-	<ul class="tabs">
-		<li><a href="#">Tab 1</a></li>
-		<li><a href="#">Tab 2</a></li>
-		<li><a href="#">Tab 3</a></li>
-	</ul>
-	<div class="tab_content">
-		<div class="tabs_tab">
-			<figure class="alignleft">
-				<img src="images/img/tab_1.jpg" alt="" />
-			</figure>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor</p>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna.</p>
+<div class="container">
+	<section id="middle">
+		<div class="middle_inner">
+			<div class="headline">
+				<h3>서비스소개</h3>
+			</div>
+			<div class="tab">
+				<ul class="tabs">
+					<li><a href="#">웹</a></li>
+					<li><a href="#">안드로이드</a></li>
+					<li><a href="#">아이폰</a></li>
+				</ul>
+				<div class="tab_content">
+					<div class="tabs_tab">
+						<figure class="alignleft">
+							<img src="images/img/tab_1.jpg" alt="" />
+						</figure>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+					</div>
+					<div class="tabs_tab" style="display:none;">
+						<figure class="alignleft">
+							<img src="images/img/tab_2.jpg" alt="" />
+						</figure>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+					</div>
+					<div class="tabs_tab" style="display:none;">
+						<figure class="alignleft">
+							<img src="images/img/tab_3.jpg" alt="" />
+						</figure>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>안녕하세요...</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+						<p>이미지이미지</p>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="tabs_tab" style="display:none;">
-			<figure class="alignleft">
-				<img src="images/img/tab_2.jpg" alt="" />
-			</figure>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor</p>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra</p>
-		</div>
-		<div class="tabs_tab" style="display:none;">
-			<figure class="alignleft">
-				<img src="images/img/tab_3.jpg" alt="" />
-			</figure>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor</p>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi. Sed pretium, ligula sollicitudin laoreet viverra</p>
-		</div>
-	</div>
+	</section>
 </div>

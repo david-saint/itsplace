@@ -109,10 +109,14 @@ function init() {
 	{
  		var fname = PLACE[i].fname;
  		marker[i].index = i;
+ 		var content = "";
+ 		content = '<p style="margin:7px 22px 7px 12px;font:12px/1.5 sans-serif">';
+ 				+ '		<strong>안녕하세요~</strong><br/>'
+ 				+ fname + '.</p>';
  		// 메시지 박스 
  		//인포윈도우 배열에 담는다.
 		infowindow[i] = new daum.maps.InfoWindow({
-			content: '<p style="margin:7px 22px 7px 12px;font:12px/1.5 sans-serif"><strong>안녕하세요~</strong><br/>' + fname + '.</p>',
+			content: content,
 			removable : true
 		});
 	
