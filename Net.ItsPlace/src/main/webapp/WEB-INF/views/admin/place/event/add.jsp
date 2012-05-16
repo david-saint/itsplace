@@ -18,23 +18,23 @@
 
 			});
  		
- 		var action= "/admin/place/stamp/add";
+ 		
  		
  		$('#btnSubmit').live('click',function() {
  			c.log("submit Form");
  		
 
- 			$('#placeStamp').submit();
+ 			$('#placeEvent').submit();
  		});
  		$('.cancel').live('click',function() {
  			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
- 		$('#placeStamp').validationEngine('attach', {//서브밋 후에 밸리
+ 		$('#placeEvent').validationEngine('attach', {//서브밋 후에 밸리
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:action,
+ 	                     url:"/admin/place/event/add",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -110,6 +110,7 @@
 						class="validate[required,maxSize[50]] medium "
 						value="${placeEvent.title}" /> 
 						<input id="eid" name="eid" value="${placeEvent.eid}" type="text" /> <span class="f_help"></span>
+						<input id="fid" name="fid" value="${place.fid}" type="text" /> <span class="f_help"></span>
 				</div>
 			</div>
 			<div class="section">

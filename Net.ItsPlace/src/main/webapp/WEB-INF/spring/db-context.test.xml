@@ -37,7 +37,7 @@
 		<property name="defaultAutoCommit" value="true"/>			
 	</bean>
 	
--->
+
 	<mongo:mongo host="http://mongo.jdpp.net" port="27017" />
  
 	<bean id="mongoTemplate" 
@@ -48,7 +48,8 @@
 		<property name="username" value="kayakiller" /> 
   		<property name="password" value="qpdlql" />
 	</bean>
-	<bean id="dataSource" class="com.myplace.util.ItsplaceBasicDataSource">	 	
+	-->
+	<bean id="dataSource" class="net.itsplace.util.ItsplaceBasicDataSource">	 	
   		<property name="driverClassName" value="core.log.jdbc.driver.MysqlDriver"/> 		 	   	                  	
     	<property name="url" value="jdbc:mysql://db.jdpp.net:3306/faya"/>                	
 		<property name="username" value="username"/>

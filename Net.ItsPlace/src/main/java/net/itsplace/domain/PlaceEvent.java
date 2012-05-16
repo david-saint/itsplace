@@ -3,7 +3,9 @@ package net.itsplace.domain;
 import java.util.Date;
 
 public class PlaceEvent {
-
+	public interface AddPlaceEvent {}
+	public interface EditPlaceEvent {}
+	
 	private int eid;
 	private String title;
 	private String content;
