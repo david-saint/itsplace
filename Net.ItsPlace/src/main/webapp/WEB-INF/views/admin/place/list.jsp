@@ -133,7 +133,6 @@
 						<th>hdongname</th>
 						<th>saveDate</th>
 						<th>editDate</th>
-						
 						<th>Management</th>
 					</tr>
 				</thead>

@@ -2,6 +2,8 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class PlaceEvent {
 	public interface AddPlaceEvent {}
 	public interface EditPlaceEvent {}
@@ -10,9 +12,13 @@ public class PlaceEvent {
 	private String title;
 	private String content;
 	private Place place;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date saveDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
 	private String isAuth;
 	private String isDelete;

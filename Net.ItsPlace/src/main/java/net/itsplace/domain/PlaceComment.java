@@ -2,6 +2,8 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 가맹점 댓글 클래스    <br />
  * 
@@ -20,6 +22,7 @@ public class PlaceComment {
 		private String name; 
 		private String fname;
 		private String fid;
+		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 		private Date inpdate;
 		private String writeDate;
 		private String profileImageUrl;

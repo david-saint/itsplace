@@ -1,6 +1,7 @@
 package net.itsplace.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -40,6 +41,17 @@ private static final Logger logger = LoggerFactory.getLogger(AdminEventDaoImpl.c
 	public void editPlaceEvent(PlaceEvent placeEvent)
 			throws DataAccessException {
 		getSqlMapClientTemplate().update("editPlaceEvent",placeEvent);
+	}
+
+	@Override
+	public void deletePlaceEvent(int eid) throws DataAccessException {
+		getSqlMapClientTemplate().update("deletePlaceEvent",eid);
+	}
+
+	@Override
+	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("getPlaceEventDataTable", param);
 	}
 
 	

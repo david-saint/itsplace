@@ -9,11 +9,14 @@
     <insert id="savePlaceEvent" parameterClass="PlaceEvent">
          
         INSERT INTO PLACEEVENT(TITLE, CONTENT, FID,  ISAUTH, ISDELETE, STARTDATE, SAVEDATE, ENDDATE)
-        VALUES (#title#, #content#, #place.fid#,  'N', 'N', #startDate#, now(), #endDate#)
+        VALUES (#title#, #content#, #place.fid#,  #isAuth#, 'N', #startDate#, now(), #endDate#)
          
-        
-	    
     </insert>
+    <update id="deletePlaceEvent" parameterClass="int">
+        UPDATE PLACEEVENT
+        SET ISDELETE = 'N'
+        WHERE EID =#eid#
+    </update>
     <update id="editPlaceEvent" parameterClass="PlaceEvent">
          UPDATE  PLACEEVENT
          SET TITLE = #title# ,
@@ -25,15 +28,38 @@
       	WHERE FID = #eid#        
     </update>
     <select id="getPlaceEventList" parameterClass="int" resultClass="PlaceEvent">
-        SELECT EID 
+        SELECT 
+        	EID, 
         	TITLE,
             CONTENT,
             ISAUTH,
             ISDELETE,
             STARTDATE,
-            ENDDATE
+            ENDDATE,
+            EDITDATE
         FROM PLACEEVENT 
         WHERE FID = #fid#    
-    </select> 
-  
+    </select>
+     
+	<select id="getPlaceEventDataTable" resultClass="PlaceEvent" parameterClass="java.util.Map" >
+    	 SELECT sql_calc_found_rows 
+    		EID, 
+        	TITLE,
+            CONTENT,
+            ISAUTH,
+            ISDELETE,
+            STARTDATE,
+            ENDDATE,
+            EDITDATE
+         FROM PLACEEVENT
+         WHERE FID = #fid#   
+    	 <dynamic>
+	    	 <isNotEmpty property="search">
+	    	 	AND TITLE like CONCAT('%',#title#,'%')
+	    	 	OR CONTENT like CONCAT('%',#content#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	 ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow#,#endRow#
+    </select>  
 </sqlMap>

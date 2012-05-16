@@ -10,13 +10,90 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
- 		$('.edit').fancybox({//autodimensions false 후 width , height 가느
-				'autoDimensions':false,
-				'scrolling':'auto',
-				'autoScale':false,
-				'height':500,
+ 		var datatable = $('#datatable').dataTable( {
+ 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
+ 			"bFilter": true, //search
+ 			"bPaginate": true,
+ 			"bLengthChange": true, //로우수
+ 			"sPaginationType": "full_numbers",
+ 			"bProcessing": true,
+ 			"oLanguage": {
+ 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		       },
+ 			"bServerSide": true,		 			
+ 			"sAjaxSource": "/admin/place/event/getPlaceEventList",
+ 			//"fnServerParams": function (aoData, fnCallback) {
+	        //      aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
+			//},
+ 			"sAjaxDataProp": "rows",
+ 			"aoColumns": [
+ 				  			{ "mDataProp": "title" },
+ 				  			{ "mDataProp": "startDate", "fnRender"  :function ( oObj ) {
+ 								return c.render_date(oObj.aData['startDate'],'yyyy-MM-dd');
+ 							} },
+ 							{ "mDataProp": "endDate", "fnRender"  :function ( oObj ) {
+ 								return c.render_date(oObj.aData['endDate'],'yyyy-MM-dd');
+ 							} },
+ 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
+ 								return c.render_date(oObj.aData['saveDate'],'yyyy-MM-dd');
+ 							} },
+ 				  			{ "mDataProp": "editDate","fnRender"  :function ( oObj ) {
+ 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
+ 							} },
+ 							{ "mDataProp": "isAuth","fnRender" :function ( oObj ) {
+ 				  				c.log(oObj.aData['isAuth']);
+ 								return oObj.aData['isAuth'] == "Y" ? "승인" : "대기";
+ 							} },
+ 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
+ 				  		],
+	  		"fnInitComplete":function(){
+ 				$('.tip a ').tipsy({trigger: 'manual'});
+ 				$('.tip a ').tipsy("hide");
+ 			},
+ 			"fnDrawCallback": function () {
+ 				
+ 				$('.edit').fancybox({//autodimensions false 후 width , height 가느
+ 					'autoDimensions':false,
+ 					'scrolling':'auto',
+ 					'autoScale':false,
+ 					'height':500,
+ 					//'centerOnScroll':true
+ 					//'title':'사용자 정보 수정'
 
-			});
+ 				});
+ 				$('.delete').bind('click', function() {
+ 					$.ajax({
+ 	                     url: "/admin/place/disable",
+ 	                     type:"POST",
+ 	                     data:"fid="+$(this).attr('fid'),
+ 	                     beforeSend :function(){
+ 		   	 	 			  c.loading("delete",0);
+ 	                     },
+ 	                     success: function(response){
+ 	                     	if(response.status=="SUCCESS"){
+ 	                     		c.showSuccess("승인 취소되었습니",1000);
+ 	                     	}
+ 	                    	
+ 	                     },
+ 	                     error: function(jqXHR, textStatus, errorThrown){
+ 	                    	c.showError(textStatus+"j"+jqXHR+"e:"+errorThrown);
+ 	                     },
+ 	                     complete:function(){
+ 	                    	 setTimeout("c.unloading()",500); 
+ 	                    	 datatable.fnStandingRedraw();
+ 	                     }
+ 	                });//ajax */
+ 				});
+ 			},	  		
+ 			"aaSorting": [[ 2, "desc" ]]
+ 		});//datatable
+ 		
+ 		$('.edit').fancybox({//autodimensions false 후 width , height 가느
+			'autoDimensions':false,
+			'scrolling':'auto',
+			'autoScale':false,
+			'height':500,
+		});
  		
  		
  		
@@ -43,8 +120,11 @@
  		   	 	 			  c.loading(title,overlay);
  	                     },
  	                     success: function(response){
+ 	                    	c.log(response);
  	                       if(response.status=="SUCCESS"){
- 	                    		parent.$.fancybox.close();
+ 	                    		//parent.$.fancybox.close();
+ 	                    		c.showSuccess("이벤트를 등록하였습니다 !",1000);
+					
  	                       }else{
  	                    	   var errorInfo="";
  	                    	   for(var i =0 ; i < response.result.length ; i++){
@@ -106,17 +186,16 @@
 			<div class="section">
 				<label> 이벤트명  <small></small></label>
 				<div>
-					<input id="stampTitle" name="stampTitle" type="text"
+					<input id="title" name="title" type="text"
 						class="validate[required,maxSize[50]] medium "
 						value="${placeEvent.title}" /> 
-						<input id="eid" name="eid" value="${placeEvent.eid}" type="text" /> <span class="f_help"></span>
-						<input id="fid" name="fid" value="${place.fid}" type="text" /> <span class="f_help"></span>
+						
 				</div>
 			</div>
 			<div class="section">
 				<label> 내용  <small></small></label>
 				<div>
-					<textarea>${placeEvent.content}</textarea>
+					<textarea name="content">${placeEvent.content}</textarea>
 				</div>
 			</div>
 			
@@ -139,10 +218,10 @@
 				</div>
 			</div>
 			<div class="section" >
-               <label> isDelete <small></small></label>   
+               <label> 승인여부  <small></small></label>   
                <div> 
-               <form:radiobutton path="isDelete"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isDelete"  value="N" label="No"/> 
+               <form:radiobutton path="isAuth"  value="Y" label="Yes"/> 
+               <form:radiobutton path="isAuth"  value="N" label="No"/> 
                <span class="f_help"></span>
             </div> 
 			<div class="section last">
@@ -155,22 +234,30 @@
 			                                 
           </div>
 		</form:form>
-			<div class="setion">
-				<table class="display staticBase" id="static">
+	</div>
+</div>
+<div class="widget">
+	<div class="header">
+		<span><span class="ico gray home"></span> 이벤트 리스트 </span>
+	</div>
+	<div class="content">
+			<div class="tableName">
+				<table class="display" id="datatable">
 				<thead>
 					<tr>
 						<th>이벤트명 </th>
-						<th>EditDate</th>
 						<th>StartDate</th>
 						<th>EndDate</th>
-						<th>isDelete</th>
+						<th>SaveDate</th>
+						<th>EditDate</th>
+						<th>isAuth</th>
 						<th>Management</th>
 					</tr>
 				</thead>
-				 <tbody>
+				 <!-- <tbody>
 					<c:forEach items="${placeEventList}" var="placeEvent">
 						<tr>
-							<td>${placeEvent.stampTitle}</td>
+							<td>${placeEvent.title}</td>
 							<td><fmt:formatDate value="${placeEvent.editDate }" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${placeEvent.startDate }" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${placeEvent.endDate }" pattern="yyyy-MM-dd"/></td>
@@ -180,10 +267,12 @@
 							</td>
 						</tr>
 					</c:forEach>
-				</tbody> 
+				</tbody>
+				 --> 
 				</table>
 			</div>
-	</div>
+		</div>	
 </div>
+
 
 
