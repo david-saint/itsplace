@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 
 public interface AdminEventService {
 	public List<PlaceEvent> getPlaceEventList(int fid);
+	public PlaceEvent getPlaceEvent(int eid) ;
 	public void savePlaceEvent(PlaceEvent placeEvent);
 	public void editPlaceEvent(PlaceEvent placeEvent);
 	public void deletePlaceEvent(int eid);;

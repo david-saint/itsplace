@@ -16,4 +16,5 @@ public interface AdminEventDao {
 	public void editPlaceEvent(PlaceEvent placeEvent) throws DataAccessException;
 	public void deletePlaceEvent(int eid) throws DataAccessException;
 	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param) throws DataAccessException;
+	public PlaceEvent getPlaceEvent(int eid) throws DataAccessException;
 }

@@ -71,6 +71,11 @@ public class AdminEventServiceImpl implements AdminEventService{
 		  return table;
 	}
 
+	@Override
+	public PlaceEvent getPlaceEvent(int eid) {
+		return adminEventeDao.getPlaceEvent(eid);
+	}
+
 
 	
 

@@ -41,22 +41,38 @@ public class AdminEventController {
 	@Autowired
 	private  AdminPlaceService adminPlaceService;
 	
+	
+	private Place place; // 선택된 가맹점 
 	/**
 	 * 가맹점 이벤트관리
 	 * @param locale
 	 * @param model
 	 * @return
 	 */
-	private Place place; // 선택된 가맹점 
-	
-	@RequestMapping(value = "/admin/place/event/add", method = RequestMethod.GET)
-	public String add(@RequestParam(required=true) Integer fid,
-						ModelMap model) {
+	@RequestMapping(value = "/admin/place/event/list", method = RequestMethod.GET)
+	public String list(@RequestParam(required=true) Integer fid, ModelMap model) {
 		
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		place = adminPlaceService.getPlace(fid);
 		model.addAttribute("placeEvent", new PlaceEvent());
 		model.addAttribute("placeEventList",adminEventService.getPlaceEventList(fid));
+		return "admin/place/event/list";
+	}
+	/**
+	 * 가맹점 이벤트관리
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/place/event/add", method = RequestMethod.GET)
+	public String add(@RequestParam(required=false) Integer fid, ModelMap model) {
+		if(place == null){
+			model.addAttribute("place",adminPlaceService.getPlace(fid));
+		}else{
+			model.addAttribute("place",place);
+		}
+		model.addAttribute("placeEvent", new PlaceEvent());
+
 		return "admin/place/event/add";
 	}
 	/**
@@ -76,17 +92,60 @@ public class AdminEventController {
 		if (result.hasErrors()) {
 			logger.info("place:"+placeEvent.toString());
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			json.setResult(result.getAllErrors());
+			json.setResult("이벤트를 추가할 수 없습니다");
 			json.setStatus("FAIL");
 		} else {	
 			placeEvent.setPlace(place);
 			logger.info("placeEvent:"+placeEvent.getTitle());
 			adminEventService.savePlaceEvent(placeEvent);
+			json.setResult("이벤트를 추가하였씁니다");
+			json.setStatus("SUCCESS");
+		}
+		return json;
+	}
+	/**
+	 * 가맹점 이벤트 수정 폼 
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/place/event/edit", method = RequestMethod.GET)
+	public String edit(@RequestParam(required=true) Integer eid, ModelMap model) {
+		PlaceEvent placeEvent = adminEventService.getPlaceEvent(eid);
+		model.addAttribute("placeEvent", placeEvent);
+
+		return "admin/place/event/edit";
+	}
+	/**
+	 * 이벤트  수 <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/admin/place/event/edit", method = RequestMethod.POST)
+	@ResponseBody
+ 	public JsonResponse editSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
+		JsonResponse json = new JsonResponse();
+		if (result.hasErrors()) {
+			logger.info("place:"+placeEvent.toString());
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			json.setResult(result.getAllErrors());
+			json.setStatus("FAIL");
+		} else {	
+			placeEvent.setPlace(place);
+			logger.info("placeEvent:"+placeEvent.getTitle());
+			placeEvent.setIsDelete("N");
+			adminEventService.editPlaceEvent(placeEvent);
 			json.setResult(placeEvent);
 			json.setStatus("SUCCESS");
 		}
 		return json;
 	}
+	
 	/**
 	 * 이벤트  삭제  <br />
 	 * 
@@ -149,6 +208,7 @@ public class AdminEventController {
                     return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch, 46);
            
                    
-    }       
+    }   
+	
 }
 

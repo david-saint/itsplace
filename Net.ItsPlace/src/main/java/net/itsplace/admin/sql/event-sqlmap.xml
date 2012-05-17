@@ -24,9 +24,22 @@
              ISAUTH = #isAuth#, 
              ISDELETE = #isDelete#, 
              STARTDATE = #startDate#,
-             ENDDATE = #endDate#,
-      	WHERE FID = #eid#        
+             ENDDATE = #endDate#
+      	WHERE EID = #eid#        
     </update>
+    <select id="getPlaceEvent" parameterClass="int" resultClass="PlaceEvent">
+        SELECT 
+        	EID, 
+        	TITLE,
+            CONTENT,
+            ISAUTH,
+            ISDELETE,
+            STARTDATE,
+            ENDDATE,
+            EDITDATE
+        FROM PLACEEVENT 
+        WHERE EID = #eid#    
+    </select>
     <select id="getPlaceEventList" parameterClass="int" resultClass="PlaceEvent">
         SELECT 
         	EID, 
