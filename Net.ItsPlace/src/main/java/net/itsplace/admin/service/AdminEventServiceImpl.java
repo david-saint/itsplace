@@ -30,6 +30,7 @@ public class AdminEventServiceImpl implements AdminEventService{
 
 	@Override
 	public void savePlaceEvent(PlaceEvent placeEvent) {
+		
 		adminEventeDao.savePlaceEvent(placeEvent);
 	}
 

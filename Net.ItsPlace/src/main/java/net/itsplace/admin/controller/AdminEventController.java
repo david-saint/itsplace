@@ -2,6 +2,9 @@ package net.itsplace.admin.controller;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.admin.service.AdminEventService;
 import net.itsplace.admin.service.AdminPlaceService;
@@ -23,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,15 +124,17 @@ public class AdminEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/admin/place/event/getPlaceEventList")
+	//@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET, headers="Accept=application/xml, application/json")
+	@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET)
     @ResponseBody
-    public DataTable<User> getPlaceEventList(
+    public DataTable<PlaceEvent> getPlaceEventList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
-    								@RequestParam(required=false) Integer iDisplayLength,
-    								@RequestParam(required=false) Integer iSortCol_0, 
-    								@RequestParam(required=false) String sSortDir_0, 
+    								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
+    								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
+    								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
                                     @RequestParam(required=false, defaultValue="") String sSearch ) {
 
+                  //  logger.info("languageHeader:{}", languageHeader.toString());
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
                     logger.info("sSortDir_0:{}", sSortDir_0);
                     logger.info("iSortCol_0:{}", iSortCol_0);
@@ -140,7 +146,7 @@ public class AdminEventController {
                     
                  
                    
-                    return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
+                    return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch, 46);
            
                    
     }       

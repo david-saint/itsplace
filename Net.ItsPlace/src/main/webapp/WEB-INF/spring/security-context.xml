@@ -13,6 +13,7 @@
 		<intercept-url pattern="/login" access="permitAll"/>
 		<!-- 최고 관리자 -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/admin/place/event/getPlaceEventList" access="hasRole('ROLE_USER')"/>
 		
 		
 		<intercept-url pattern="/" access="permitAll"/>

@@ -339,7 +339,7 @@ public class AdminPlaceController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/getPlaceList")
+	@RequestMapping(value="/getPlaceList", method = RequestMethod.GET)
     @ResponseBody
     public DataTable<Place> getPlaceList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
