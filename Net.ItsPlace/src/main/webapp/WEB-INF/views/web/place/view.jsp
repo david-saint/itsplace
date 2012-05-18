@@ -17,7 +17,7 @@ menuSelected("가맹점검색", "주변검색");
 	<section id="middle">
 		<div class="middle_inner">
 			<div class="headline">
-				<h3>가맹점검색</h3>
+				<h3>${place.fname}</h3>
 			</div>
 			<section id="middle_content">
 				<div class="entry">
@@ -76,6 +76,10 @@ menuSelected("가맹점검색", "주변검색");
 						</div>
 					</div>
 				</div>
+			</section>
+			<section>
+				<textarea rows="" cols="">
+				</textarea>
 			</section>
 		</div>
 	</section>

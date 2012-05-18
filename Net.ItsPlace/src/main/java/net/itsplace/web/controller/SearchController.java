@@ -36,16 +36,6 @@ public class SearchController {
 		return "web/search/place";
 	}
 	
-	/**
-	 * 가맹점 상세보기
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/placeView", method = RequestMethod.GET)
-	public String placeView(Locale locale, Model model, @ModelAttribute Place p) {
-		return "web/search/placeView";
-	}
 	
 	/**
 	 * 지도검색

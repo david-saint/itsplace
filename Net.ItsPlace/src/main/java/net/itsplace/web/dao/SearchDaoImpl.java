@@ -32,6 +32,6 @@ public class SearchDaoImpl extends SqlMapClientDaoSupport implements SearchDao{
 	 */
 	public List<Place> placeInfo(Place p)
 	{
-		return getSqlMapClientTemplate().queryForList("getPlaceInfo", p);
+		return getSqlMapClientTemplate().queryForList("web.getPlaceInfo", p);
 	}
 }
