@@ -28,20 +28,20 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 	
 	
 	public User getUser(String email) throws DataAccessException{			
-		return (User)getSqlMapClientTemplate().queryForObject("getUser",email);		
+		return (User)getSqlMapClientTemplate().queryForObject("user.getUser",email);		
 	}
 
 	public User getUser(String email, String token) throws DataAccessException{		
 		User user = new User();
 		user.setEmail(email);
 		user.setEmailToken(token);
-		return (User)getSqlMapClientTemplate().queryForObject("getUserEmailToken",user);		
+		return (User)getSqlMapClientTemplate().queryForObject("user.getUserEmailToken",user);		
 	}
 
 	public void setUser(User user) throws DataAccessException,MySQLIntegrityConstraintViolationException {		
 		logger.info("사용자 정보를 저장합니다 ");
 		try{
-			getSqlMapClientTemplate().insert("setUser",user);
+			getSqlMapClientTemplate().insert("user.setUser",user);
 			
 		}catch(Exception e){
 			
@@ -53,21 +53,21 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
 	public List<User> getUserList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getUserList", param);
+		return getSqlMapClientTemplate().queryForList("user.getUserList", param);
 		
 	}
 
 
 
 	public void updateUser(User user) throws DataAccessException {
-		getSqlMapClientTemplate().update("updateUser",user);
+		getSqlMapClientTemplate().update("user.updateUser",user);
 		
 	}
 
 
 
 	public void saveSocial(Social social) throws DataAccessException {
-		getSqlMapClientTemplate().insert("saveSocial", social);
+		getSqlMapClientTemplate().insert("user.saveSocial", social);
 		
 	}
 
@@ -75,34 +75,34 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 
 	public void updateSocial(Social social) throws DataAccessException {
 		// TODO Auto-generated method stub
-		getSqlMapClientTemplate().update("updateSocial",social);
+		getSqlMapClientTemplate().update("user.updateSocial",social);
 	}
 
 
 
 	public Social getSocial(Social social) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return (Social)getSqlMapClientTemplate().queryForObject("getSocial",social);
+		return (Social)getSqlMapClientTemplate().queryForObject("user.getSocial",social);
 	}
 
 
 
 	public String getUserConnection(Social social) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return (String)getSqlMapClientTemplate().queryForObject("getUserConnection",social);
+		return (String)getSqlMapClientTemplate().queryForObject("user.getUserConnection",social);
 	}
 
 
 
 	public void updateUserDisable(User user) throws DataAccessException {
-		getSqlMapClientTemplate().update("updateUserDisable",user);
+		getSqlMapClientTemplate().update("user.updateUserDisable",user);
 	}
 
 
 
 	@Override
 	public void updateUserEnable(User user) throws DataAccessException {
-		getSqlMapClientTemplate().update("updateUserEnable",user);
+		getSqlMapClientTemplate().update("user.updateUserEnable",user);
 		
 	}
 
@@ -111,7 +111,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 	@Override
 	public User getUserByMobile(String mobile) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return (User)getSqlMapClientTemplate().queryForObject("getUserByMobile",mobile);
+		return (User)getSqlMapClientTemplate().queryForObject("user.getUserByMobile",mobile);
 	}
 
 
@@ -119,7 +119,7 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 	@Override
 	public void setUserEmailOn(User user) throws DataAccessException {
 		
-		getSqlMapClientTemplate().update("setUserEmailOn",user);
+		getSqlMapClientTemplate().update("user.setUserEmailOn",user);
 	}
 
 

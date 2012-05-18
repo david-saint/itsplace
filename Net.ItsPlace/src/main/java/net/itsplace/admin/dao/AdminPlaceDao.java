@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+
+
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Pmedia;
 
@@ -23,4 +25,6 @@ public interface AdminPlaceDao {
 	
 	/*가맹점 등록*/
 	public int savePlace(Place place) throws DataAccessException;
+	
+	public void editPlacerQrcode(Place place)throws DataAccessException ;
 }

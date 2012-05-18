@@ -37,12 +37,6 @@ import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
-
-
-
-
-
-
 public class AdminEventControllerTest extends TestApplicationContext {
 	  
 	private static final Logger logger = LoggerFactory.getLogger(AdminEventControllerTest.class);

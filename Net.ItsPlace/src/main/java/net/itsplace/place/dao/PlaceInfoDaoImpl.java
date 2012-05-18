@@ -25,13 +25,13 @@ public class PlaceInfoDaoImpl  extends SqlMapClientDaoSupport implements  PlaceI
 
 	@Override
 	public void editAuthCode(Authcode authcode) throws DataAccessException {
-		getSqlMapClientTemplate().update("editAuthCode",authcode);		
+		getSqlMapClientTemplate().update("place.editAuthCode",authcode);		
 	}
 
 	@Override
 	public Authcode getAuthCode(int fid) throws DataAccessException {
 	
-		return 	(Authcode)getSqlMapClientTemplate().queryForObject("getAuthCode",fid)	;
+		return 	(Authcode)getSqlMapClientTemplate().queryForObject("place.getAuthCode",fid)	;
 	}
 
 }

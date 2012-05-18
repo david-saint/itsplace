@@ -30,32 +30,38 @@ public class AdminPlaceDaoImpl extends SqlMapClientDaoSupport implements AdminPl
 	@Override
 	public List<Place> getPlaceList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceList",param);
+		return getSqlMapClientTemplate().queryForList("admin.getPlaceList",param);
 	}
 
 	@Override
 	public void enablePlace(int fid) throws DataAccessException {
-		getSqlMapClientTemplate().update("enablePlace",fid);
+		getSqlMapClientTemplate().update("admin.enablePlace",fid);
 	}
 
 	@Override
 	public void disablePlace(int fid) throws DataAccessException {
-		getSqlMapClientTemplate().update("disablePlace",fid);
+		getSqlMapClientTemplate().update("admin.disablePlace",fid);
 	}
 
 	@Override
 	public void editPlace(Place place) throws DataAccessException {
-		getSqlMapClientTemplate().update("editPlace",place);		
+		getSqlMapClientTemplate().update("admin.editPlace",place);		
 	}
 
 	@Override
 	public Place getPlace(int fid) throws DataAccessException {
-		return (Place) getSqlMapClientTemplate().queryForObject("getPlace",fid);
+		return (Place) getSqlMapClientTemplate().queryForObject("admin.getPlace",fid);
 	}
 
 	@Override
 	public int savePlace(Place place) throws DataAccessException {
-		return (Integer)getSqlMapClientTemplate().insert("savePlace",place);
+		return (Integer)getSqlMapClientTemplate().insert("admin.savePlace",place);
+	}
+
+	@Override
+	public void editPlacerQrcode(Place place) throws DataAccessException {
+		getSqlMapClientTemplate().update("admin.editPlacerQrcode",place);
+		
 	}
 
 	

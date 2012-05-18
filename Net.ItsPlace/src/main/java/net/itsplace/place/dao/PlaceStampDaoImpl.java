@@ -30,36 +30,36 @@ public class PlaceStampDaoImpl extends SqlMapClientDaoSupport implements PlaceSt
 
 	@Override
 	public void saveStamp(Stamp stamp) throws DataAccessException {
-		getSqlMapClientTemplate().insert("saveStamp", stamp);
+		getSqlMapClientTemplate().insert("place.saveStamp", stamp);
 	}
 
 	@Override
 	public void burnStamp(Stamp stamp) throws DataAccessException {
-		getSqlMapClientTemplate().insert("burnStamp", stamp);	
+		getSqlMapClientTemplate().insert("place.burnStamp", stamp);	
 	}
 
 	@Override
 	public List<Stamp> getPlaceStampUserList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceStampUserList",param);
+		return getSqlMapClientTemplate().queryForList("place.getPlaceStampUserList",param);
 	}
 
 	@Override
 	public List<PlaceStamp> getPlaceStampListByEmail(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceStampListByEmail",param);
+		return getSqlMapClientTemplate().queryForList("place.getPlaceStampListByEmail",param);
 	}
 
 	@Override
 	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceStampedListByEmail",param);
+		return getSqlMapClientTemplate().queryForList("place.getPlaceStampedListByEmail",param);
 	}
 
 	@Override
 	public List<PlaceStamp> getPlaceStampList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceStampList",param);
+		return getSqlMapClientTemplate().queryForList("place.getPlaceStampList",param);
 	}
 	
 	

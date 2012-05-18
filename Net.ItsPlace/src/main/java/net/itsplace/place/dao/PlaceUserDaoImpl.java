@@ -31,37 +31,37 @@ public class PlaceUserDaoImpl extends SqlMapClientDaoSupport implements PlaceUse
 
 	@Override
 	public List<PlaceUser> getPlaceUserList(Map<String, Object> param) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceUserList",param);
+		return getSqlMapClientTemplate().queryForList("place.getPlaceUserList",param);
 	}
 
 	@Override
 	public void savePlaceUser(PlaceUser placeUser) throws DataAccessException {
-		getSqlMapClientTemplate().insert("savePlaceUser",placeUser);
+		getSqlMapClientTemplate().insert("place.savePlaceUser",placeUser);
 	}
 
 	
 
 	@Override
 	public void deletePlaceUser(int uid) throws DataAccessException {
-		getSqlMapClientTemplate().update("deletePlaceUser",uid);
+		getSqlMapClientTemplate().update("place.deletePlaceUser",uid);
 	}
 
 	@Override
 	public List<PlaceUser> getPlaceListByEmail(String email)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceListByEmail",email);
+		return getSqlMapClientTemplate().queryForList("place.getPlaceListByEmail",email);
 	}
 
 	@Override
 	public List<Place> getFranchiserListByEmail(String email)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getFranchiserListByEmail",email);
+		return getSqlMapClientTemplate().queryForList("place.getFranchiserListByEmail",email);
 	}
 
 	@Override
 	public PlaceUser getPlaceUser(PlaceUser placeUser)
 			throws DataAccessException {
-		return (PlaceUser) getSqlMapClientTemplate().queryForObject("getPlaceUser",placeUser);
+		return (PlaceUser) getSqlMapClientTemplate().queryForObject("place.getPlaceUser",placeUser);
 	}
 	
 	

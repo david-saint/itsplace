@@ -29,20 +29,20 @@ public class AdminUserDaoImpl extends SqlMapClientDaoSupport implements AdminUse
 	
 	public List<User> getUserList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getUserList", param);
+		return getSqlMapClientTemplate().queryForList("user.getUserList", param);
 		
 	}
 	
 	public User getUser(String email) throws DataAccessException{			
-		return (User)getSqlMapClientTemplate().queryForObject("getUser",email);		
+		return (User)getSqlMapClientTemplate().queryForObject("user.getUser",email);		
 	}
 	
 	public void saveUser(User user) throws DataAccessException {		
-		getSqlMapClientTemplate().insert("setUser",user);
+		getSqlMapClientTemplate().insert("user.setUser",user);
 	}
 
 	public void editUser(User user) throws DataAccessException {
-		getSqlMapClientTemplate().update("updateUser",user);
+		getSqlMapClientTemplate().update("user.updateUser",user);
 		
 	}
 }

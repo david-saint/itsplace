@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="place">
+	<typeAlias type="net.itsplace.domain.PlaceComment" alias="PlaceComment"/>	    		   
+    
+    <insert id="savePlaceComment" parameterClass="PlaceComment">
+         INSERT INTO PLACECOMMENT(COMMENT, EMAIL, FID)
+         VALUES (#comment#, #email#, #fid#)
+    </insert>
+
+    <select id="getPlaceCommentList" resultClass="PlaceComment" parameterClass="java.util.Map">
+    	 SELECT sql_calc_found_rows A.FID,
+    	  C.COMMENT, E.NAME, E.PROFILEIMAGEURL, C.EMAIL, C.SAVEDATE, C.CID 
+		 FROM PLACE A		 	
+		 LEFT OUTER JOIN PLACECOMMENT C
+        	ON A.FID = C.FID        	
+         INNER JOIN PUSER E
+         	ON E.EMAIL = C.EMAIL	
+         WHERE A.FID = #fid#	
+         ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow# , #endRow#		    	
+    </select>
+    <update id="deletePlaceComment" parameterClass="int">
+    	UPDATE PLACECOMMENT
+    	SET ISDELETE = 'Y'
+    	WHERE CID=#cid# 
+    </update>
+  
+</sqlMap>

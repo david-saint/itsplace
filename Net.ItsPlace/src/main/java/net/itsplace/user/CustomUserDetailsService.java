@@ -48,7 +48,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 			// DbUser is our custom domain user. This is not the same as Spring's User
 			
 			logger.info("Login:{}","loadUserByUsername");
-			net.itsplace.user.User dbUser = (net.itsplace.user.User)getSqlMapClientTemplate().queryForObject("getUser",username);	 
+			net.itsplace.user.User dbUser = (net.itsplace.user.User)getSqlMapClientTemplate().queryForObject("user.getUser",username);	 
 			
 			
 			

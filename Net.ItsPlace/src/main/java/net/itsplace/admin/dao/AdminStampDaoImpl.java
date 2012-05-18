@@ -29,60 +29,60 @@ public class AdminStampDaoImpl extends SqlMapClientDaoSupport implements AdminSt
 
 	@Override
 	public List<StampType> getStampTypeList(Map<String, Object> param) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getStampTypeList",param);
+		return getSqlMapClientTemplate().queryForList("admin.getStampTypeList",param);
 	}
 
 	@Override
 	public void saveStampType(StampType stampType) throws DataAccessException {
-		getSqlMapClientTemplate().insert("saveStampType",stampType);		
+		getSqlMapClientTemplate().insert("admin.saveStampType",stampType);		
 	}
 
 	@Override
 	public void editStampType(StampType stampType) throws DataAccessException {
-		getSqlMapClientTemplate().update("editStampType",stampType);
+		getSqlMapClientTemplate().update("admin.editStampType",stampType);
 	}
 
 	@Override
 	public StampType getStampType(int sid) throws DataAccessException {
-		return (StampType) getSqlMapClientTemplate().queryForObject("getStampType", sid);
+		return (StampType) getSqlMapClientTemplate().queryForObject("admin.getStampType", sid);
 	}
 
 	@Override
 	public void deleteStampType(int sid) throws DataAccessException {
-		getSqlMapClientTemplate().update("deleteStampType",sid);
+		getSqlMapClientTemplate().update("admin.deleteStampType",sid);
 		
 	}
 
 	@Override
 	public void restoreStampType(int sid) throws DataAccessException {
-		getSqlMapClientTemplate().update("restoreStampType",sid);		
+		getSqlMapClientTemplate().update("admin.restoreStampType",sid);		
 	}
 
 	@Override
 	public List<StampType> getStampTypeListAll() throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getStampTypeListAll");
+		return getSqlMapClientTemplate().queryForList("admin.getStampTypeListAll");
 	}
 
 	@Override
 	public List<PlaceStamp> getPlaceStampAll(int fid) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceStampAll",fid);
+		return getSqlMapClientTemplate().queryForList("admin.getPlaceStampAll",fid);
 	}
 
 	@Override
 	public void savePlaceStamp(PlaceStamp placeStamp)
 			throws DataAccessException {
-		getSqlMapClientTemplate().insert("savePlaceStamp",placeStamp);
+		getSqlMapClientTemplate().insert("admin.savePlaceStamp",placeStamp);
 	}
 
 	@Override
 	public void editPlaceStamp(PlaceStamp placeStamp)
 			throws DataAccessException {
-		getSqlMapClientTemplate().insert("editPlaceStamp",placeStamp);
+		getSqlMapClientTemplate().insert("admin.editPlaceStamp",placeStamp);
 	}
 
 	@Override
 	public PlaceStamp getPlaceStamp(int stampid) throws DataAccessException {
-		return (PlaceStamp)getSqlMapClientTemplate().queryForObject("getPlaceStamp", stampid);
+		return (PlaceStamp)getSqlMapClientTemplate().queryForObject("admin.getPlaceStamp", stampid);
 	}
 	
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="web/place/*" extends="web_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/web/place/{1}.jsp" />		
+		<put-list-attribute name="scripts">				
+		      <add-attribute value="admin/js/jquery.min.js" />    
+		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
+		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
+		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
+		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
+		      <add-attribute value="admin/js/login.js" />
+  		</put-list-attribute>  			
+		
+		<put-list-attribute name="styles">
+  			
+  			
+  		</put-list-attribute>
+	</definition>
+	
+    
+</tiles-definitions>

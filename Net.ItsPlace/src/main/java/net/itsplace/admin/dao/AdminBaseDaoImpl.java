@@ -27,32 +27,32 @@ public class AdminBaseDaoImpl extends SqlMapClientDaoSupport implements AdminBas
 
 	@Override
 	public List<Bascd> getGrpBascdList() throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getGrpBascdList");
+		return getSqlMapClientTemplate().queryForList("admin.getGrpBascdList");
 	}
 
 	@Override
 	public List<Bascd> getBascdList(String grpCd) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getBascdList", grpCd);
+		return getSqlMapClientTemplate().queryForList("admin.getBascdList", grpCd);
 	}
 
 	@Override
 	public void saveBascd(Bascd bascd) throws DataAccessException {
-		getSqlMapClientTemplate().insert("saveBascd",bascd);
+		getSqlMapClientTemplate().insert("admin.saveBascd",bascd);
 	}
 
 	@Override
 	public void editBascd(Bascd bascd) throws DataAccessException {
-		getSqlMapClientTemplate().update("editBascd",bascd);		
+		getSqlMapClientTemplate().update("admin.editBascd",bascd);		
 	}
 
 	@Override
 	public Bascd getBascd(int fid) throws DataAccessException {
-		return (Bascd) getSqlMapClientTemplate().queryForObject("getBascd",fid);
+		return (Bascd) getSqlMapClientTemplate().queryForObject("admin.getBascd",fid);
 	}
 
 	@Override
 	public void delete(int fid) throws DataAccessException {
-		getSqlMapClientTemplate().update("delete",fid);
+		getSqlMapClientTemplate().update("admin.delete",fid);
 	}
 	
 }

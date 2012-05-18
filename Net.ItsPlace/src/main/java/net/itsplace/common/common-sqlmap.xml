@@ -4,7 +4,10 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="common">
 	<typeAlias type="net.itsplace.domain.Bascd" alias="Bascd"/>
-	
+	<typeAlias type="net.itsplace.domain.Address" alias="Address"/>
+	<select id="getFoundRows" resultClass="Integer">
+		SELECT  FOUND_ROWS()
+    </select>
 	
 	
     <select id="getBascdList" resultClass="Bascd" parameterClass="String">
@@ -20,8 +23,31 @@
 		Inner Join PBASCD B
 		On A.GRPCD = B.GRPCD	
 		Where A.ISDELETE ='N'
-		
-		 			
     </select>
+     
+    <select id="getAddressListByDong" resultClass="Address" parameterClass="java.util.Map">
+		SELECT  sql_calc_found_rows NLDNO,SIDO, GUGUN, DORONAME, BLDMAIN, BLDSUBMAIN, BUPNAME,HDONGNAME, JIMAIN, JISUBMAIN
+		FROM PADDRESS 
+		<!-- WHERE DORONAME LIKE CONCAT('%',#searchWord#,'%') LIMIT #startRow#,#endRow# -->
+		WHERE BUPNAME LIKE CONCAT('%',#bupname#,'%')  
+		<isNotEmpty property="jimain">
+		AND JIMAIN  LIKE CONCAT('%',#jimain#,'%')  
+		</isNotEmpty> 		
+		<!--  <isNotEmpty property="jisubmain">
+		AND JISUBMAIN LIKE CONCAT('%', #jisubmain#,'%')
+		</isNotEmpty> 
+		-->  
+		ORDER BY BUPNAME, JIMAIN, JISUBMAIN
+		 LIMIT #startRow#,#endRow#  
+		
+    </select>
+    <select id="getAddressListByDoroname" resultClass="Address" parameterClass="java.util.Map">
+		SELECT  sql_calc_found_rows NLDNO,SIDO, GUGUN, DORONAME, BLDMAIN, BLDSUBMAIN, BUPNAME,HDONGNAME, JIMAIN, JISUBMAIN
+		FROM PADDRESS 		
+		WHERE DORONAME LIKE CONCAT('%',#doroname#,'%')  
+		ORDER BY DORONAME, BLDMAIN, BLDSUBMAIN
+		LIMIT #startRow#,#endRow#  
+    </select>
+    
     
 </sqlMap>

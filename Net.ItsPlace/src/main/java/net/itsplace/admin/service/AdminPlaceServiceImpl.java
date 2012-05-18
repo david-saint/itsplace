@@ -7,6 +7,7 @@ import net.itsplace.admin.dao.AdminPlaceDao;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Pmedia;
 import net.itsplace.user.UserServiceImpl;
+import net.itsplace.util.QrCodeService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +51,13 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 
 	@Override
 	public int savePlace(Place place) {
-		return adminPlaceDao.savePlace(place);
+	
+		place.setFid(adminPlaceDao.savePlace(place));
+		QrCodeService qr = new QrCodeService();
+		place = qr.makePlaceQrCode(place, "url");
+		adminPlaceDao.editPlacerQrcode(place);
+		
+		return place.getFid();
 	}
 
 

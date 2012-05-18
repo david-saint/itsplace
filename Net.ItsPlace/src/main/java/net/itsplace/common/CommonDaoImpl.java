@@ -1,9 +1,11 @@
 package net.itsplace.common;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import net.itsplace.domain.Address;
 import net.itsplace.domain.Bascd;
 import net.itsplace.user.UserDao;
 import net.itsplace.user.UserDaoImpl;
@@ -28,20 +30,37 @@ public class CommonDaoImpl extends SqlMapClientDaoSupport implements CommonDao {
 	
 	@Override
 	public List<Bascd> getBascdList(String grpCd) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getBascdList",grpCd);
+		return getSqlMapClientTemplate().queryForList("common.getBascdList",grpCd);
 	}
 
 
 	@Override
 	public List<Bascd> getBascdALL() throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getBascdALL");
+		return getSqlMapClientTemplate().queryForList("common.getBascdALL");
 	}
 
 
 	@Override
 	public Integer getFoundRows() throws DataAccessException {
-		return (Integer) getSqlMapClientTemplate().queryForObject("getFoundRows");
+		return (Integer) getSqlMapClientTemplate().queryForObject("common.getFoundRows");
 	}
+
+
+	@Override
+	public List<Address> getAddressListByDong(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("common.getAddressListByDong",param);
+	}
+
+
+	@Override
+	public List<Address> getAddressListByDoroname(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("common.getAddressListByDoroname",param);
+	}
+
+
+	
 
 	
 	

@@ -23,7 +23,7 @@ public class PlaceComment {
 		private String fname;
 		private String fid;
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-		private Date inpdate;
+		private Date saveDate;
 		private String writeDate;
 		private String profileImageUrl;
 		private String commentCount; // 코멘트갯수 
@@ -82,13 +82,14 @@ public class PlaceComment {
 		public void setFid(String fid) {
 			this.fid = fid;
 		}
-		public Date getInpdate() {
-			return inpdate;
-		}
-		public void setInpdate(Date inpdate) {
-			this.inpdate = inpdate;
-		}
 		
+		
+		public Date getSaveDate() {
+			return saveDate;
+		}
+		public void setSaveDate(Date saveDate) {
+			this.saveDate = saveDate;
+		}
 		@Override
 		public String toString() {
 			return "PlaceComment:[cid=" + cid + ", fid= " + fid + ", email= " + email + ", comment= " + comment  + "]"  ;

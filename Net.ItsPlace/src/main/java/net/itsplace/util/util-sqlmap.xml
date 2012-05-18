@@ -4,7 +4,5 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="util">
 	
-	<select id="getFoundRows" resultClass="Integer">
-		SELECT  FOUND_ROWS()
-    </select>
+	
 </sqlMap>

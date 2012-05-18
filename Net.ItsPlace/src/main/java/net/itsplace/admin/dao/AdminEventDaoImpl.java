@@ -28,35 +28,35 @@ private static final Logger logger = LoggerFactory.getLogger(AdminEventDaoImpl.c
 
 	@Override
 	public List<PlaceEvent> getPlaceEventList(int fid) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceEventList",fid);
+		return getSqlMapClientTemplate().queryForList("admin.getPlaceEventList",fid);
 	}
 
 	@Override
 	public void savePlaceEvent(PlaceEvent placeEvent)
 			throws DataAccessException {
-		getSqlMapClientTemplate().insert("savePlaceEvent",placeEvent);
+		getSqlMapClientTemplate().insert("admin.savePlaceEvent",placeEvent);
 	}
 
 	@Override
 	public void editPlaceEvent(PlaceEvent placeEvent)
 			throws DataAccessException {
-		getSqlMapClientTemplate().update("editPlaceEvent",placeEvent);
+		getSqlMapClientTemplate().update("admin.editPlaceEvent",placeEvent);
 	}
 
 	@Override
 	public void deletePlaceEvent(int eid) throws DataAccessException {
-		getSqlMapClientTemplate().update("deletePlaceEvent",eid);
+		getSqlMapClientTemplate().update("admin.deletePlaceEvent",eid);
 	}
 
 	@Override
 	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("getPlaceEventDataTable", param);
+		return getSqlMapClientTemplate().queryForList("admin.getPlaceEventDataTable", param);
 	}
 
 	@Override
 	public PlaceEvent getPlaceEvent(int eid) throws DataAccessException {
-		return (PlaceEvent)getSqlMapClientTemplate().queryForObject("getPlaceEvent",eid);
+		return (PlaceEvent)getSqlMapClientTemplate().queryForObject("admin.getPlaceEvent",eid);
 	}
 
 	

@@ -36,7 +36,7 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 	}
 	public Integer getFoundRows()
 			throws DataAccessException {		
-		return (Integer) getSqlMapClientTemplate().queryForObject("getFoundRows");
+		return (Integer) getSqlMapClientTemplate().queryForObject("common.getFoundRows");
 	}
 	/**
 	 * <pre>

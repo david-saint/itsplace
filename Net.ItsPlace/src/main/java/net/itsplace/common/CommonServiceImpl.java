@@ -1,13 +1,19 @@
 package net.itsplace.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import net.itsplace.admin.dao.AdminUserDao;
+import net.itsplace.domain.Address;
 import net.itsplace.domain.Bascd;
+import net.itsplace.domain.DataTable;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.user.User;
 import net.itsplace.user.UserService;
+import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 
 
@@ -27,6 +32,9 @@ public class CommonServiceImpl implements CommonService{
 	
 	@Autowired
 	private CommonDao commonDao;
+	
+	@Autowired
+	private PagingManager pagingManaer;
 
 	private Map<String, String> baseMap;
 	
@@ -100,6 +108,70 @@ public class CommonServiceImpl implements CommonService{
 		return commonDao.getFoundRows();
 	}
 
+	@Override
+	public DataTable<Address> getAddressList(String[] columns, Integer iDisplayStart,
+			Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0,
+			String sSearch) {
+
+		 DataTable<Address> table = iDisplayLength != null ?
+                 new DataTable<Address>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                 new DataTable<Address>(columns, sSortDir_0, iDisplayStart);
+                 
+		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<String> temp2 = new ArrayList<String>();				
+		
+		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+		param.put("sortDirection", sSortDir_0);
+		param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+		
+		
+		StringTokenizer st = new StringTokenizer(sSearch," ");
+	    logger.info("검색어:" + sSearch);
+		while (st.hasMoreTokens()) {																
+			temp.add(st.nextToken());				
+		}
+		// 지번주소 진천동 525-5		
+		for(int i = 0 ; i<temp.size();i++){
+			if(i==0){
+				param.put("bupname", temp.get(0));
+				logger.info("지번주소 동이름:" +temp.get(0));
+			}
+			if(i==1){
+				param.put("jimain",  temp.get(1));
+				logger.info("지번주소 번지:" +temp.get(1));				
+					StringTokenizer bunji = new StringTokenizer(temp.get(1),"-");
+					while (bunji.hasMoreTokens()) {
+						temp2.add(bunji.nextToken());
+					}
+					for(int j = 0 ; j<temp2.size();j++){
+						if(j==0){
+							param.put("jimain", temp2.get(0));
+							logger.info("번지 jimain:" +temp2.get(0));
+						}
+						if(j==1){
+							param.put("jisubmain", temp2.get(1));
+							logger.info("번지 jisubmain:" +temp2.get(1));
+						}
+					}
+				
+			}
+		}
+		 List<Address> addressList= commonDao.getAddressListByDong(param);
+		 if(addressList.size()<=0){
+			 param.put("doroname", temp.get(0));
+			 addressList= commonDao.getAddressListByDoroname(param);
+		 }
+		 pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+			
+			
+		 
+		  table.setRows(addressList); 
+		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		  
+		  return table;
+	}
+
+	
 	
 
 }
