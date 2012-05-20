@@ -12,12 +12,40 @@ menuSelected("가맹점검색", "주변검색");
 #text_box li{list-style: none;clear: both;}
 #text_box li span{display: block; float: left;}
 #text_box span.title{width:80px;padding-left:3px;}
+
+#comment li{
+	list-style: none outside none;	
+	display:inline;
+}
+#comment a{
+	display:inline-block;
+}
+.social img{
+	width:23px;
+	height:23px;
+}
+.commentList{
+	border:1px solid black;
+	clear: both;
+}
+.commentList img{
+	float: left;
+	border: 1px solid #CCC;
+	background: white;
+	margin: 0 10px;
+	padding: 3px;
+}
+.commentBody{
+	border:1px solid #CCC;
+}
+
 </style>
 <div class="container">
 	<section id="middle">
 		<div class="middle_inner">
 			<div class="headline">
-				<h3>${place.fname}</h3>
+				<h3>${place.fname}${ DurationFromNow.test2}</h3>
+				
 			</div>
 			<section id="middle_content">
 				<div class="entry">
@@ -78,10 +106,147 @@ menuSelected("가맹점검색", "주변검색");
 				</div>
 			</section>
 			<section>
-				<textarea rows="" cols="">
-				</textarea>
+				
+				
+				
+				
+				<div id="comment" style="border:1px solid blue">
+					<ul style="margin:0px">
+						<li id="facebook" class="social">
+							<c:choose>
+								<c:when test="${not empty facebook}">
+									<img status="connected" src="<c:url value="/resources/images/social/32/facebook.png" />" />
+								</c:when>
+								<c:otherwise>
+									<img status="connect" src="<c:url value="/resources/images/social/32/facebook2.png" />" />
+								</c:otherwise>
+							</c:choose>
+						</li>
+						<li id="twitter" class="social">
+							<c:choose>
+								<c:when test="${not empty twitter}">
+								<a href="<c:url value="/connect/twitter" />">
+									<img class="connected" src="<c:url value="/resources/images/social/32/twitter.png" />" />
+								</a>	
+								</c:when>
+								<c:otherwise>
+								<a href="<c:url value="/connect/twitter" />">
+									<img status="connect" src="<c:url value="/resources/images/social/32/twitter2.png" />" />
+								</a>	
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</ul>
+					<div id="displayName" style="border:1px solid red;">
+					  kimdonghonn
+					</div>
+					<form action="" method="POST">
+						<ul style="border:1px solid blue">
+							<li style="border:1px solid blue">
+								<img id="imageUrl" style="width:50px;height:50px" src=""/>
+							</li>
+							<li >
+								<textarea name="comment" style="width:300px;height:50px"></textarea>
+							</li>
+							<li>
+								<button>코멘트 </button>
+							</li>
+						</ul>
+					</form>
+					<c:if test="${!empty placeCommentList}">
+						<div id="comments">
+							<h3>리뷰(${placeCommentCount} )</h3>
+							<ol>
+							<c:forEach var="placeComment" items="${placeCommentList}" >
+			  					 <li class="commentList">
+			  						<div class="commentBody">
+			  							<img src="${placeComment.profileImageUrl}" width="50" height="50">
+			  							<span>${placeComment.name}</span>
+
+			  							<p>${placeComment.comment}</p>
+			  							<spring:eval expression="T(net.itsplace.util.DurationFromNow).getTimeDiffLabel(placeComment.saveDate)" var="saveDate" />
+ 										<p>${saveDate}</p>
+			  							<sec:authentication property="name" var="currentUserName"/>
+										<c:if test="${currentUserName == placeComment.email}">
+										 <p>삭제버튼</p>
+										</c:if>
+			  						</div>
+			  					</li>
+			  				</c:forEach>	
+							</ol>
+						</div><!--  comments -->
+					</c:if>		
+				</div><!-- comment div end -->
 			</section>
 		</div>
 	</section>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('.dsocial').fancybox({//autodimensions false 후 width , height 가느
+			'autoDimensions':false,
+			'scrolling':'auto',
+			'autoScale':false,
+			'height':500,
+			//'centerOnScroll':true
+			//'title':'사용자 정보 수정'
+			//fancybox,주소 dataraletable
+	});
+	
+	 $('.social').live('click',function() {
+		var status = $(this).find('img').attr('status');
+		var id = $(this).attr("id");
+		var url = "/connect/" + id;
+		console.log(status + id);
+		if(status=="connected"){
+			console.log("logout");
+			$.ajax({
+                 url: "/connect/facebook",
+                 type:"POST",
+                 data:"_method=delete",
+                 success: function(response){
+                  console.log("s");
+                 },
+                 error: function(jqXHR, textStatus, errorThrown){
+                	alert(textStatus+jqXHR+errorThrown); 
+                 }
+           });//ajax
+			//window.open(url, 'ADpop','resizable=yes,status=no,toolbar=no,menubar=no,width=840,height=800,scrollbars=yes');
+		}else{
+
+			//c.newWindow(url);
+			window.open(url, 'ADpop','resizable=yes,status=no,toolbar=no,menubar=no,width=840,height=800,scrollbars=yes');
+		}
+	}); 
+	
+});	
+function chageSocialStatus(provider,status){
+	var img = $('#'+provider).find('img');
+	$(img).attr('status',status);
+	if(provider=="facebook" && status=="connect"){
+		$(img).attr('src',"/resources/images/social/32/facebook2.png");
+	}else{
+		//connected
+		
+		
+		$(img).attr('src',"/resources/images/social/32/facebook.png");
+		$.ajax({
+            url: "/social/fbProfile", 
+            type:"GET",
+            success: function(response){
+             console.log("s:"+response.status);
+             console.log("s:"+response.imageUrl);
+             console.log("s:"+response.displayName);
+             $('#displayName').text(response.displayName);
+             $('#imageUrl').attr('src',response.imageUrl);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+          	 	alert(textStatus+jqXHR+errorThrown); 
+            }
+    	});
+	}
+}
+</script>
 			

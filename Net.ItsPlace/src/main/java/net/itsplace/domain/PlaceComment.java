@@ -15,16 +15,17 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @see 
  */
 public class PlaceComment {
-
+	public interface AddPlaceComment {}
+	public interface EditPlaceComment {}
+	
 		private String cid; /* 코멘트  */
 		private String comment; /* 코멘트 */
-		private String email; /* 사용자 이메 */
+		private String email; /* 사용자 이메일  */
 		private String name; 
 		private String fname;
-		private String fid;
+		private int fid;
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 		private Date saveDate;
-		private String writeDate;
 		private String profileImageUrl;
 		private String commentCount; // 코멘트갯수 
 		
@@ -52,12 +53,6 @@ public class PlaceComment {
 		public void setName(String name) {
 			this.name = name;
 		}
-		public String getWriteDate() {
-			return writeDate;
-		}
-		public void setWriteDate(String writeDate) {
-			this.writeDate = writeDate;
-		}
 		public String getCid() {
 			return cid;
 		}
@@ -76,14 +71,15 @@ public class PlaceComment {
 		public void setEmail(String email) {
 			this.email = email;
 		}
-		public String getFid() {
+		
+		
+		
+		public int getFid() {
 			return fid;
 		}
-		public void setFid(String fid) {
+		public void setFid(int fid) {
 			this.fid = fid;
 		}
-		
-		
 		public Date getSaveDate() {
 			return saveDate;
 		}

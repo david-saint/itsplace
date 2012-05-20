@@ -18,6 +18,11 @@ package net.itsplace.social;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import net.itsplace.social.facebook.PostToWallAfterConnectInterceptor;
+import net.itsplace.social.twitter.TweetAfterConnectInterceptor;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,23 +61,14 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 @Configuration
 @PropertySource("classpath:net/itsplace/social/application.properties")
 public class SocialConfig {
-
+	private static final Logger logger = LoggerFactory.getLogger(SocialConfig.class);
+	
 	@Inject
 	private Environment environment;
 
 	@Inject
 	private DataSource dataSource;
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-    	return NoOpPasswordEncoder.getInstance();
-	}
-    
-	@Bean
-	public TextEncryptor textEncryptor() {
-		return Encryptors.noOpText();
-	}
-	
+
 	@Bean
 	@Scope(value="singleton", proxyMode=ScopedProxyMode.INTERFACES) 
 	public ConnectionFactoryLocator connectionFactoryLocator() {
@@ -81,31 +77,22 @@ public class SocialConfig {
 				environment.getProperty("twitter.consumerSecret")));
 		registry.addConnectionFactory(new FacebookConnectionFactory(environment.getProperty("facebook.clientId"),
 				environment.getProperty("facebook.clientSecret")));
-		System.out.println("트위터 페이북 API 키생성" +environment.getProperty("twitter.consumerKey"));
-		System.out.println("트위터 페이북 API 키생성");
-		System.out.println("트위터 페이북 API 키생성");
 		return registry;
 	}
 
 	@Bean
 	@Scope(value="singleton", proxyMode=ScopedProxyMode.INTERFACES) 
 	public UsersConnectionRepository usersConnectionRepository() {
-		System.out.println("JdbcUsersConnectionRepository 생성");
-		System.out.println("JdbcUsersConnectionRepository 생성");
-		System.out.println("JdbcUsersConnectionRepository 생성");
 		return new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator(), Encryptors.noOpText());
 	}
-
 
 	@Bean
 	@Scope(value="request", proxyMode=ScopedProxyMode.INTERFACES)	
 	public ConnectionRepository connectionRepository() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null) {
-			System.out.println("connectionRepository 생성: 인증되지 않은 로그인한 사용자가 없음");
 			throw new IllegalStateException("Unable to get a ConnectionRepository: no user signed in");
 		}
-		System.out.println("createConnectionRepository 생성: " + authentication.getName() +"사용자 로그인 하였음");
 		return usersConnectionRepository().createConnectionRepository(authentication.getName());
 	}
 
@@ -122,21 +109,15 @@ public class SocialConfig {
 		Connection<Twitter> twitter = connectionRepository().findPrimaryConnection(Twitter.class);
 		return twitter != null ? twitter.getApi() : new TwitterTemplate();
 	}
+
 	
+
 	@Bean
 	public ConnectController connectController() {
 		ConnectController connectController = new ConnectController(connectionFactoryLocator(), connectionRepository());
-		//connectController.addInterceptor(new PostToWallAfterConnectInterceptor());
-		//connectController.addInterceptor(new TweetAfterConnectInterceptor());
+		connectController.addInterceptor(new PostToWallAfterConnectInterceptor());
+		connectController.addInterceptor(new TweetAfterConnectInterceptor());
 		return connectController;
 	}
 
-	
-
-	@Inject
-	private ConnectionRepository connectionRepository;
-
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new ConnectedToHandlerInterceptor(connectionRepository));		
-	}
 }

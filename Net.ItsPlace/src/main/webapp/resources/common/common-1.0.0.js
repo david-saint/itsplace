@@ -105,6 +105,9 @@ var c = {
 				  return false;
 			  }
 				  $('#alertMessage').html(str).stop(true,true).show().animate({ opacity: 1,right: '10'}, 500);	
+		  },
+		  newWindow : function(url){
+			window.open(url, 'ADpop','resizable=yes,status=no,toolbar=no,menubar=no,width=840,height=800,scrollbars=yes');
 		  }
 };//common		
 

@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import net.itsplace.admin.dao.AdminBaseDao;
 import net.itsplace.admin.dao.AdminBaseDaoImpl;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceComment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,12 @@ public class PlaceDaoImpl extends SqlMapClientDaoSupport implements PlaceDao {
 	public Place getPlace(int fid)
 			throws DataAccessException {
 		return (Place) getSqlMapClientTemplate().queryForObject("web.getPlace",fid);
+	}
+
+	@Override
+	public List<PlaceComment> getPlaceCommentList(int fid)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("web.getPlaceCommentList", fid);
 	}
 
 

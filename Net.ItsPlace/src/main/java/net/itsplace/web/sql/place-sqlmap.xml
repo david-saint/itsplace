@@ -3,10 +3,26 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="web">
+    <typeAlias type="net.itsplace.domain.PlaceComment" alias="PlaceComment"/>	    		   
+    
 	  <select id="getPlace" resultClass="Place" parameterClass="int">
         SELECT FID, FNAME, NAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, IMAGEHOST, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE
         FROM PLACE
         WHERE FID = #fid#
+      </select>
+      <select id="getPlaceCommentList" resultClass="PlaceComment" parameterClass="int">
+    	 SELECT sql_calc_found_rows A.FID,
+    	  	    C.COMMENT, E.NAME, E.PROFILEIMAGEURL, C.EMAIL, C.SAVEDATE, C.CID 
+		 FROM PLACE A		 	
+		 LEFT OUTER JOIN
+		 	  PLACECOMMENT C
+         ON A.FID = C.FID        	
+         INNER JOIN
+         	  PUSER E
+         ON E.EMAIL = C.EMAIL	
+         WHERE A.FID = #fid#	
+         ORDER BY C.SAVEDATE DESC
+    	 	    	
     </select>
 </sqlMap>
   

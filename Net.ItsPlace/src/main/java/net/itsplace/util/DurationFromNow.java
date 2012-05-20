@@ -15,8 +15,8 @@ import org.springframework.context.MessageSource;
 
 public class DurationFromNow {
 	
-	@Autowired 
-	private static  MessageSource messageSource;
+//	@Autowired 
+	//private static  MessageSource messageSource;
 	
 	/**
 	 * 현재부터 "yyyyMMddHHmmss" 포맷의 날짜 차이 레이블
@@ -100,7 +100,7 @@ public class DurationFromNow {
 		return getString(year , "DateLabel.years");
 
 	}
-	private static final String BUNDLE_NAME = "com.myplace.util.messages";
+	private static final String BUNDLE_NAME = "net.itsplace.util.messages";
 
 	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
@@ -129,6 +129,7 @@ public class DurationFromNow {
 	}
 	
 	public static  String test2(){
-		return messageSource.getMessage("DateLabel.lastyear", null,Locale.getDefault());
+		//return messageSource.getMessage("DateLabel.lastyear", null,Locale.getDefault());
+		return "kkkk";
 	}
 }
