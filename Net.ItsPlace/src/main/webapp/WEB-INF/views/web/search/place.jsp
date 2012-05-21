@@ -228,15 +228,44 @@ function placeDisplay(idx)
 	map.setCenter(new daum.maps.LatLng(PLACE[idx].latitude, PLACE[idx].longitude));
 }
 
+function setPaginate(page)
+{
+	var length = $(".page_num").length;
+	var prev = "<img src=\"http://static.naver.com/common/paginate/btn_page_prev.gif\" width=\"56\" height=\"27\" alt='이전'/>";
+	var next = "<img src=\"http://static.naver.com/common/paginate/btn_page_next.gif\" width=\"57\" height=\"27\" alt='다음'/>";
+	var curHTML = "";
+	
+	for(var i=1; i<=length; i++)
+	{
+		if(i == page)
+		{
+			curHTML +="<strong><span class='page_num'>"+ i +"</span></strong>\n";
+		}else{
+			curHTML += "<a href='javascript:doList(" + i + ", this)'><span class='page_num'>" + i + "</span></a>\n";
+		}
+	}
+	
+	$(".paginate").html(prev + curHTML + next);
+}
+
 function doList(page, obj)
 {
-	$(obj).unbind("click");
-	//$(obj).
+	setPaginate(page);
+	var html = $(obj).html();
+	
+	$(".page_num").each(function(){
+		var text = $(this).text();
+		$(this).bind("click", function(){
+			doList(text, this);
+		});
+	});
+	
+	$(obj).attr("onclick", "");
+	
 	$("#currentPage").val(page);
 	var param = $("#form").serialize();
 	PLACE = "";
 	$.post("/search/placeAjax", param, function(data){
-		alert(data)
 		PLACE = data;	
 		$("#place_list").html("");
 		init();
