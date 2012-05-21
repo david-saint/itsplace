@@ -231,8 +231,8 @@ function placeDisplay(idx)
 function setPaginate(page)
 {
 	var length = $(".page_num").length;
-	var prev = "<img src=\"http://static.naver.com/common/paginate/btn_page_prev.gif\" width=\"56\" height=\"27\" alt='이전'/>";
-	var next = "<img src=\"http://static.naver.com/common/paginate/btn_page_next.gif\" width=\"57\" height=\"27\" alt='다음'/>";
+	var prev = "<img src=\"http://static.naver.com/common/paginate/btn_page_prev.gif\" width=\"56\" height=\"27\" alt='이전' style='margin-right:10px;'/>";
+	var next = "<img src=\"http://static.naver.com/common/paginate/btn_page_next.gif\" width=\"57\" height=\"27\" alt='다음' style='margin-left:10px;'/>";
 	var curHTML = "";
 	
 	for(var i=1; i<=length; i++)
@@ -241,7 +241,7 @@ function setPaginate(page)
 		{
 			curHTML +="<strong><span class='page_num'>"+ i +"</span></strong>\n";
 		}else{
-			curHTML += "<a href='javascript:doList(" + i + ", this)'><span class='page_num'>" + i + "</span></a>\n";
+			curHTML += "<a href='javascript:doList(" + i + ")'><span class='page_num'>" + i + "</span></a>\n";
 		}
 	}
 	
@@ -251,16 +251,6 @@ function setPaginate(page)
 function doList(page, obj)
 {
 	setPaginate(page);
-	var html = $(obj).html();
-	
-	$(".page_num").each(function(){
-		var text = $(this).text();
-		$(this).bind("click", function(){
-			doList(text, this);
-		});
-	});
-	
-	$(obj).attr("onclick", "");
 	
 	$("#currentPage").val(page);
 	var param = $("#form").serialize();
