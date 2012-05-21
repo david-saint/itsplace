@@ -47,6 +47,15 @@ public class PlaceController {
 	@Inject
 	private ConnectionRepository connectionRepository;
 
+	private  Twitter twitter;
+	
+	
+	@Inject
+	public PlaceController(Twitter twitter){
+		this.twitter = twitter;
+	}
+	
+	
 	/**
 	 * 가맹점 상세보기  <br />
 	 * 
@@ -94,7 +103,7 @@ public class PlaceController {
 	 * @throws 
 	 * @see 
 	 */
-	 @RequestMapping(value = "/place/addComment", method = RequestMethod.GET)
+	 @RequestMapping(value = "/place/addComment", method = RequestMethod.POST)
 	 public @ResponseBody JsonResponse addComment(@Validated({AddPlaceComment.class}) PlaceComment placeComment, BindingResult result, Model model){
 		 JsonResponse json = new JsonResponse();
 		 if (result.hasErrors()) {
@@ -102,10 +111,35 @@ public class PlaceController {
 				json.setResult("댓글 입력에 실패 하였습니다");
 				json.setResult("FAIL");
 		 }else{
-			 placeCommentService.savePlaceComment(placeComment);
+			 placeCommentService.savePlaceComment(placeComment);			
 			 json.setResult("");
 			 json.setResult("SUCCESS");
+			 
+			 twitter.directMessageOperations().sendDirectMessage(placeComment.getEmail(),placeComment.getComment());
 		 }
 	    	return json;
-	    }
+	 }
+	 /**
+		 * 가맹점 댓글 삭제   <br />
+		 * 
+		 * @author 김동훈
+		 * @version 1.0, 2012. 5. 18.
+		 * @param cid 코멘트 pk
+		 * @return view.jsp
+		 * @throws 
+		 * @see 
+		 */
+		 @RequestMapping(value = "/place/deleteComment", method = RequestMethod.POST)
+		 public @ResponseBody JsonResponse deleteComment(@RequestParam(required=true) Integer cid){
+			 JsonResponse json = new JsonResponse();
+			 if(placeCommentService.deletePlaceComment(cid)){
+				 json.setResult("");
+				 json.setResult("SUCCESS");
+			 }else{
+				 json.setResult("댓글 삭제  권한이 없습니다.");
+					json.setResult("FAIL");
+			 }
+			
+		     return json;
+		 }
 }

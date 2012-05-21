@@ -41,4 +41,9 @@ public class PlaceCommentDaoImpl  extends SqlMapClientDaoSupport implements  Pla
 		getSqlMapClientTemplate().update("place.deletePlaceComment",cid);
 	}
 
+	@Override
+	public PlaceComment getPlaceComment(int cid) throws DataAccessException {
+		return (PlaceComment) getSqlMapClientTemplate().queryForObject("place.getPlaceComment",cid);
+	}
+
 }

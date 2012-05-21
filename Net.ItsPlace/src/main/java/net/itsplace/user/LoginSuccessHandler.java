@@ -100,9 +100,9 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         	//SavedRequest savedRequest = new DefaultSavedRequest(request, new PortResolverImpl());
         	//String url=savedRequest.getRedirectUrl();
         	 logger.info("Default Request Redirect URL: {}",request.getRequestURL() );
-        	 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
            //getRedirectStrategy().sendRedirect(request, response, ");
         	 if(logger.isInfoEnabled()){//개발모
+        		 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
         		 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
         	 }else{
         		 super.onAuthenticationSuccess(request, response, authentication); 

@@ -3,11 +3,13 @@ package net.itsplace.place.service;
 import java.util.List;
 import java.util.Map;
 
+import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.place.dao.PlaceCommentDao;
 import net.itsplace.place.dao.PlaceInfoDao;
 import net.itsplace.user.User;
+import net.itsplace.user.UserInfo;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -22,6 +24,9 @@ public class PlaceCommentServiceImpl  implements PlaceCommentService {
 	private PagingManager pagingManaer;
 	@Autowired
 	private PlaceCommentDao placeCommentDao;
+	
+	@Autowired
+	private CommonService commonService;
 
 	@Override
 	public DataTable<PlaceComment> getPlaceCommentList(String columns[],Integer iDisplayStart,Integer iDisplayLength,Integer iSortCol_0,String sSortDir_0, String sSearch,int fid){
@@ -48,8 +53,26 @@ public class PlaceCommentServiceImpl  implements PlaceCommentService {
 	}
 
 	@Override
-	public void deletePlaceComment(int cid) {
-		placeCommentDao.deletePlaceComment(cid);		
+	public boolean deletePlaceComment(int cid) {
+		boolean result = false;
+		PlaceComment placeComment = getPlaceComment(cid);	
+		if(placeComment == null){
+			return false;
+		}
+		if(placeComment.getEmail().equals(UserInfo.getEmail()) || UserInfo.getUser().getRole().equals(commonService.getCode("ROLE","ADMIN"))){
+			placeCommentDao.deletePlaceComment(cid);	
+			result = true;
+		}
+		else{
+			
+			result = false;
+		}
+		return result;
+	}
+
+	@Override
+	public PlaceComment getPlaceComment(int cid) {
+		return placeCommentDao.getPlaceComment(cid);
 	}
 
 }

@@ -72,8 +72,6 @@ public class PlaceComment {
 			this.email = email;
 		}
 		
-		
-		
 		public int getFid() {
 			return fid;
 		}

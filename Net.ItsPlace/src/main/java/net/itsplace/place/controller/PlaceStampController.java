@@ -207,80 +207,12 @@ public class PlaceStampController {
 		param.put("fid", UserInfo.getFid());
 		param.put("email", email);
 		
-		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampListByEmail(param);
-		if(placeStampList.size()==0){
-			logger.info("가맹점 첫 회원");
-			placeStampList = placeStampService.getPlaceStampList(param);
-		}
+		List<Stamped> stamppedListAll = placeStampService.getPlaceStampListByEmail(param);
 		
-		List<Object> stamppedListAll = new ArrayList<Object>();
-		//List<Object> stamppedListAll2 = new ArrayList<Object>();
-		
-		for(int i=0;i<placeStampList.size();i++){//스탬프타입별(종류)별로 적립된 스탬프 만든다
-			logger.info("stamptype:{}"+placeStampList.get(i).getStampTitle()+placeStampList.get(i).getStampid());
-			param.put("stampid", placeStampList.get(i).getStampid());
-			logger.info("placeStampList.size():{}",placeStampList.size());
-			List<Stamp> stampedList = placeStampService.getPlaceStampedListByEmail(param);
-			
-			int totalStampedCount = stampedList.size(); //적립된 스탬프 토탈카운트  수
-			logger.info("totalStampedCount:{}",totalStampedCount);
-			int stampCount = placeStampList.get(i).getStampType().getStampcount();
-			int stampTypeCount = (totalStampedCount/stampCount)+(totalStampedCount%stampCount==0?0:1);// 스탬프 타입 개수 		
-			
-			int leftCount = 0;
-			logger.info("stampTypeCount:{}",stampTypeCount);
-			logger.info("eventday:{}",placeStampList.get(i).getStampType().getEventday());
-			for(int j=0;j<stampTypeCount;j++){
-				List<Stamp> stampList = new ArrayList<Stamp>();	
-				
-				for(int k=1;k<stampCount+1;k++){
-					
-					if(leftCount<totalStampedCount){
-						logger.info("leftcount:{}",leftCount);
-						if(k<stampedList.size()+1){
-							 Stamp stampped = (Stamp)stampedList.get(leftCount);
-							 logger.info(stampped.getPid() + stampped.getStatus());
-							 
-							 if(stampped == null){
-								 logger.info("stamped null:"+leftCount);
-							 }else{
-								// logger.info("stamped k:{}",k);
-								 if(k % placeStampList.get(i).getStampType().getEventday()==0){
-									 stampped.setAttribute("StampedEventday");//당첨받는날
-									 logger.info(stampped.getPid() + stampped.getStatus()+"당첨받는날");
-								 }else{
-									 
-									 stampped.setAttribute("Stampped"); 
-								 }
-							 }
-							 
-							
-							
-							 stampList.add(stampped);
-							 //적립된 스탬프 생성
-							 leftCount++;
-						 }
-					}else{
-						 logger.info("인덱스:"+i + "data:blank");
-							
-						 Stamp blank = new Stamp();
-						 if(k % placeStampList.get(i).getStampType().getEventday()==0){
-							 blank.setAttribute("Eventday"); // 스탬프는 안찍히고 당첨받는날
-						 }
-						 stampList.add(blank);
-					}
-				}
-				Stamped s = new Stamped();
-				logger.info("placeStampList.get(i).getTheme()"+placeStampList.get(i).getTheme());
-				s.setPlaceStamp( placeStampList.get(i));
-				s.setStampList(stampList);
-				stamppedListAll.add(s);
-			//	stamppedListAll.add(stampList);
-				
-			}
-		}
 		model.addAttribute("stamppedListAll",stamppedListAll);
-		model.addAttribute("stampid",placeStampList.get(0).getStampid());// 적립할 최신 스탬프아이디
+		
+//		model.addAttribute("stampid",placeStampList.get(0).getStampid());// 적립할 최신 스탬프아이디
+		model.addAttribute("stampid",stamppedListAll.get(0).getPlaceStamp().getStampid());// 적립할 최신 스탬프아이디
 		model.addAttribute("email",email);
 		return "place/stamp/stampped";
 	}
@@ -321,7 +253,7 @@ public class PlaceStampController {
 			return json;
 	}
 	/**
-	 * 스탬프 소       <br />
+	 * 스탬프 소 진       <br />
 	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
 	 * 가맹점 관리자 인증코드 수정    
 	 * @author 김동훈

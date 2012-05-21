@@ -3,7 +3,63 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="web">
-	<select id="getStamp">
-	    
+	<typeAlias type="net.itsplace.domain.Stamp" alias="Stamp"/>
+	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
+	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>
+	
+	<resultMap id="PlaceStampMap" class="PlaceStamp" >
+		<result property="stampid" column="STAMPID"></result>
+		<result property="fid" column="FID"></result>
+		<result property="stampTitle" column="STAMPTITLE"></result>
+		<result property="startDate" column="STARTDATE"></result>
+		<result property="endDate" column="ENDDATE"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
+		<result property="theme" column="THEME"></result>
+		<result property="stampType.sid" column="SID"></result>
+		<result property="stampType.stampcount" column="STAMPCOUNT"></result>
+		<result property="stampType.eventday" column="EVENTDAY"></result>
+		<result property="stampType.remark" column="REMARK"></result>
+	</resultMap>
+	
+	<select id="getPlaceStampedList" parameterClass="java.lang.String" resultClass="Place">
+		SELECT A.FID, A.FNAME, D.BASEKEY AS CATEGORY
+		FROM PLACE A
+		INNER JOIN	
+			PLACESTAMP B
+		ON A.FID = B.FID 
+		INNER JOIN
+			PSTAMP C
+		ON B.STAMPID = C.STAMPID
+		INNER JOIN
+			PBASCD D
+		ON A.CATEGORY = D.BASECD
+		AND D.GRPCD = 'CATEGORY'
+		WHERE C.EMAIL = #email#  
+	<![CDATA[		AND C.STATUS<>'C' ]]> 
+		GROUP BY A.FID, A.FNAME
 	</select>
+	<!--  <select id="getStampedList" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
+	   SELECT A.STAMPID, 
+	  		  A.FID,
+	  		  A.STAMPTITLE, 
+	   		  A.THEME, 
+	   		  A.STARTDATE,
+	    	  A.ENDDATE ,
+	    	  A.SAVEDATE,	    	   
+	    	  C.SID, 
+	    	  C.STAMPCOUNT,
+	     	  C.EVENTDAY, 
+	     	  C.REMARK
+		FROM PLACESTAMP A
+		INNER JOIN PSTAMP B
+			ON A.STAMPID = B.STAMPID
+		INNER JOIN PSTAMPTYPE C
+			ON A.SID = C.SID
+		WHERE B.EMAIL = #email#
+		AND A.FID=#fid#
+		<![CDATA[   AND B.STATUS <> 'C']]> 
+		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+		ORDER BY A.SAVEDATE  
+	</select>  
+	 -->
 </sqlMap>

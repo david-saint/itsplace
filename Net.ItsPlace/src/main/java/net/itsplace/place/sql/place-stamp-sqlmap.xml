@@ -195,4 +195,5 @@
 <![CDATA[   AND B.STATUS <> 'C' ]]> 
 	
 	</select>
+	
 </sqlMap>

@@ -1,6 +1,11 @@
 package net.itsplace.web.service;
 
 
+import java.util.List;
+import java.util.Map;
+
+import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.web.dao.StampDao;
 
 import org.slf4j.Logger;
@@ -14,4 +19,14 @@ public class StampServiceImpl implements StampService{
 	
 	@Autowired
 	private StampDao stampDao;
+
+	@Override
+	public List<Place> getPlaceStampedList(String email) {
+		return stampDao.getPlaceStampedList(email);
+	}
+
+	@Override
+	public List<PlaceStamp> getStampedList(Map<String, Object> param) {
+		return stampDao.getStampedList(param);
+	}
 }

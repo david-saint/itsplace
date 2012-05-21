@@ -2,11 +2,15 @@ package net.itsplace.web.controller;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import net.itsplace.admin.service.AdminEventService;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.place.controller.PlaceCommentController;
 import net.itsplace.place.controller.PlaceCommentControllerTest;
+import net.itsplace.web.service.PlaceService;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -20,14 +24,14 @@ public class PlaceControllerTest  extends TestApplicationContext {
 	
 
 	@Autowired
-	AdminEventService service;
+	PlaceService service;
 	@Autowired
 	PlaceController controller;
 
 	@Test
 	public void test() {
 		PlaceComment placeComment = new PlaceComment();
-		placeComment.setComment("댁글내용 ");
+		placeComment.setComment("댁글내용 "); 
 		placeComment.setFid(2);
 		placeComment.setEmail("faye12005@gmail.com");
 		DataBinder result = new DataBinder(placeComment);
@@ -36,4 +40,9 @@ public class PlaceControllerTest  extends TestApplicationContext {
 		
 	}
 
+	@Test
+	public void view(){
+		Place p= service.getPlace(2);
+			logger.info(p.getFname()+p.getAddress().getBupname());
+	}
 }

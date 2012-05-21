@@ -27,5 +27,7 @@
     	SET ISDELETE = 'Y'
     	WHERE CID=#cid# 
     </update>
-  
+ 	<select id="getPlaceComment" resultClass="PlaceComment"  parameterClass="int">
+ 		SELECT CID, COMMENT, EMAIL FROM PLACECOMMENT WHERE CID = #cid#;
+	</select>
 </sqlMap>

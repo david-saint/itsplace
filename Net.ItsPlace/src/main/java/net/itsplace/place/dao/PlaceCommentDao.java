@@ -10,6 +10,8 @@ import org.springframework.dao.DataAccessException;
 
 public interface PlaceCommentDao {
 	public List<PlaceComment> getPlaceCommentList(Map<String, Object> param) throws DataAccessException;
+
 	public void savePlaceComment(PlaceComment placeComment) throws DataAccessException;
+	public PlaceComment getPlaceComment(int cid) throws DataAccessException;
 	public void deletePlaceComment(int cid) throws DataAccessException;
 }

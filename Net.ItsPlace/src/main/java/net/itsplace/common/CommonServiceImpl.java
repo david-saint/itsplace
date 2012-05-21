@@ -116,7 +116,10 @@ public class CommonServiceImpl implements CommonService{
 		 DataTable<Address> table = iDisplayLength != null ?
                  new DataTable<Address>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
                  new DataTable<Address>(columns, sSortDir_0, iDisplayStart);
-                 
+        
+        if(sSearch ==""){
+        	  return table;
+        }
 		ArrayList<String> temp = new ArrayList<String>();
 		ArrayList<String> temp2 = new ArrayList<String>();				
 		

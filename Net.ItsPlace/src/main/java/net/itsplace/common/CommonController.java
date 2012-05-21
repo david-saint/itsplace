@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,13 @@ public class CommonController {
 	private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	@Autowired
 	private CommonService commonService;
+	
+	
+	@RequestMapping(value = "/address/search", method = RequestMethod.GET)
+	public String search() {
+		
+		return "common/address/list";
+	}
 	
 	/**
 	 *  주소검색  <br />
@@ -46,8 +54,8 @@ public class CommonController {
     								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
                                     @RequestParam(required=false, defaultValue="") String sSearch ) {
 
-       String columns[] = new String[]{"SIDO", "GUGUN", "BUPNAME"};
- 
+       String columns[] = new String[]{"sido", "gugun", "bupname"};
+       
        return commonService.getAddressList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
            
                    

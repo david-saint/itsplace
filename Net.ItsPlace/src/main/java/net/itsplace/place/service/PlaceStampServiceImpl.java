@@ -1,5 +1,6 @@
 package net.itsplace.place.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
+import net.itsplace.domain.Stamped;
 import net.itsplace.place.dao.PlaceInfoDao;
 import net.itsplace.place.dao.PlaceStampDao;
 import net.itsplace.user.User;
@@ -109,8 +111,80 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	}
 
 	@Override
-	public List<PlaceStamp> getPlaceStampListByEmail(Map<String, Object> param) {
-		return placeStampDao.getPlaceStampListByEmail(param);
+	public List<Stamped> getPlaceStampListByEmail(Map<String, Object> param) {
+		List<PlaceStamp> placeStampList = placeStampDao.getPlaceStampListByEmail(param);
+		if(placeStampList.size()==0){
+			logger.info("가맹점 첫 회원");
+			placeStampList = getPlaceStampList(param);
+		}
+		
+		List<Stamped> stamppedListAll = new ArrayList<Stamped>();
+		//List<Object> stamppedListAll2 = new ArrayList<Object>();
+		
+		for(int i=0;i<placeStampList.size();i++){//스탬프타입별(종류)별로 적립된 스탬프 만든다
+			logger.info("stamptype:{}"+placeStampList.get(i).getStampTitle()+placeStampList.get(i).getStampid());
+			param.put("stampid", placeStampList.get(i).getStampid());
+			logger.info("placeStampList.size():{}",placeStampList.size());
+			List<Stamp> stampedList = getPlaceStampedListByEmail(param);
+			
+			int totalStampedCount = stampedList.size(); //적립된 스탬프 토탈카운트  수
+			logger.info("totalStampedCount:{}",totalStampedCount);
+			int stampCount = placeStampList.get(i).getStampType().getStampcount();
+			int stampTypeCount = (totalStampedCount/stampCount)+(totalStampedCount%stampCount==0?0:1);// 스탬프 타입 개수 		
+			
+			int leftCount = 0;
+			logger.info("stampTypeCount:{}",stampTypeCount);
+			logger.info("eventday:{}",placeStampList.get(i).getStampType().getEventday());
+			for(int j=0;j<stampTypeCount;j++){
+				List<Stamp> stampList = new ArrayList<Stamp>();	
+				
+				for(int k=1;k<stampCount+1;k++){
+					
+					if(leftCount<totalStampedCount){
+						logger.info("leftcount:{}",leftCount);
+						if(k<stampedList.size()+1){
+							 Stamp stampped = (Stamp)stampedList.get(leftCount);
+							 logger.info(stampped.getPid() + stampped.getStatus());
+							 
+							 if(stampped == null){
+								 logger.info("stamped null:"+leftCount);
+							 }else{
+								// logger.info("stamped k:{}",k);
+								 if(k % placeStampList.get(i).getStampType().getEventday()==0){
+									 stampped.setAttribute("StampedEventday");//당첨받는날
+									 logger.info(stampped.getPid() + stampped.getStatus()+"당첨받는날");
+								 }else{
+									 
+									 stampped.setAttribute("Stampped"); 
+								 }
+							 }
+							 
+							
+							
+							 stampList.add(stampped);
+							 //적립된 스탬프 생성
+							 leftCount++;
+						 }
+					}else{
+						 logger.info("인덱스:"+i + "data:blank");
+							
+						 Stamp blank = new Stamp();
+						 if(k % placeStampList.get(i).getStampType().getEventday()==0){
+							 blank.setAttribute("Eventday"); // 스탬프는 안찍히고 당첨받는날
+						 }
+						 stampList.add(blank);
+					}
+				}
+				Stamped s = new Stamped();
+				logger.info("placeStampList.get(i).getTheme()"+placeStampList.get(i).getTheme());
+				s.setPlaceStamp( placeStampList.get(i));
+				s.setStampList(stampList);
+				stamppedListAll.add(s);
+			//	stamppedListAll.add(stampList);
+				
+			}
+		}
+		return stamppedListAll;
 	}
 
 	@Override
