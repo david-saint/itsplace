@@ -119,13 +119,13 @@ public class Paging  extends SqlMapClientDaoSupport{
 		String lastHtml   = "";
 		
 		String firstSymbol = "<img src='img/board/frist.gif' alt='첫페이지' align='absmiddle'/>";
-		String prevSymbol = "<img src=\"http://static.naver.com/common/paginate/btn_page_prev.gif\" width=\"56\" height=\"27\" alt='이전'/>";
-		String nextSymbol = "<img src=\"http://static.naver.com/common/paginate/btn_page_next.gif\" width=\"57\" height=\"27\" alt='다음'/>";
+		String prevSymbol = "<img src=\"http://static.naver.com/common/paginate/btn_page_prev.gif\" width=\"56\" height=\"27\" alt='이전' style='margin-right:10px;'/>";
+		String nextSymbol = "<img src=\"http://static.naver.com/common/paginate/btn_page_next.gif\" width=\"57\" height=\"27\" alt='다음' style='margin-left:10px;'/>";
 		String lastSymbol  = "<img src='img/board/end.gif' alt='끝페이지' align='absmiddle'/>";
 		
 		//*** 이전 페이지 ***//
 		if ( prev > 0 )
-			prevHtml = "<a href='#' onclick=\"doList(" + prev + ")\" class='pre'>"  + prevSymbol + "</a>\n";
+			prevHtml = "<a href='javascript:doList(" + prev + ")'>"  + prevSymbol + "</a>\n";
 		else
 			prevHtml = "<span class='pre'>" + prevSymbol + "</span>";
 		
@@ -133,13 +133,13 @@ public class Paging  extends SqlMapClientDaoSupport{
 		for ( int i = 0; pageNo.size() > i; i++ )
 		{
 			if(currentPage == pageNo.get(i).intValue())
-				currHtml +="<span class='page_num current_page'>"+pageNo.get(i)+"</span>\n";
+				currHtml +="<strong><span class='page_num'>"+pageNo.get(i)+"</span></strong>\n";
 			else
-				currHtml += "<span class='page_num' onclick=\"doList(" + pageNo.get(i) + ", this)\">" + pageNo.get(i) + "</span>\n";
+				currHtml += "<a href='javascript:doList(" + pageNo.get(i) + ")'><span class='page_num'>" + pageNo.get(i) + "</span></a>\n";
 		}
 		//*** 다음 페이지 ***//
 		if ( next > totalCount )
-			nextHtml = "<a href='#' onclick=\"doList(" + next + ")\" class='next'>"  + nextSymbol + "</a>\n";
+			nextHtml = "<a href='javascript:doList(" + next + ")' onclick=class='next'>"  + nextSymbol + "</a>\n";
 		else
 			nextHtml = "<span class='next'>" +nextSymbol + "</span>";
 		
