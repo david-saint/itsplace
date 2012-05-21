@@ -10,6 +10,21 @@ License URI:
 Tags: light, white, one-column, two-columns, left-sidebar, right-sidebar, custom-colors, post-formats, responsive, html5, css3
 */
 
+/* UI Object  페이징 */
+.paginate{/* overflow:hidden;clear:both; */margin:0 auto;padding:0px;text-align:center;zoom:1}
+.paginate a{display:-moz-inline-box;display:inline-block;_position:relative;margin-right:-3px;padding:0 0 0 10px;color:#666;font-family:'돋움',Dotum;font-size:12px;font-weight:bold;line-height:28px;text-decoration:none !important}
+.paginate a:hover,
+.paginate a:focus,
+.paginate a:active{background:url(http://static.naver.com/common/paginate/bg_page_nav_ru.gif) no-repeat 0 0 !important}
+.paginate .current_page{display:-moz-inline-box;display:inline-block;_position:relative;margin-right:-3px;padding:0 0 0 5px;background:url(http://static.naver.com/common/paginate/bg_page_nav_ru.gif) no-repeat 0 0 !important;color:#666;font-family:'돋움',Dotum;font-size:12px;font-weight:bold;line-height:28px;text-decoration:none !important}
+.paginate strong{color:#01939c !important}
+.paginate a span{display:block;_display:inline;position:relative;top:0;padding:0 8px 0 3px;zoom:1; padding-bottom:0px;}
+.paginate a:hover span,
+.paginate a:focus span,
+.paginate a:active span{background:url(http://static.naver.com/common/paginate/bg_page_nav_ru.gif) no-repeat 100% 0 !important;text-decoration:underline;cursor:pointer}
+.paginate .current_page span{display:block;_display:inline;position:relative;top:0;padding:0 8px 0 3px;background:url(http://static.naver.com/common/paginate/bg_page_nav_ru.gif) no-repeat 100% 0 !important;zoom:1}
+
+
 html {height:100%;}
 
 body {
