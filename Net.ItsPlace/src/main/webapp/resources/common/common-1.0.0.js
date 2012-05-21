@@ -62,7 +62,14 @@ var c = {
 	 		var date = new Date(column_date);
 	 		var str = "";
 	 		if(type=="yyyy-MM-dd"){
-	 			str = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+	 			var month = date.getMonth()+1;
+	 			var day = date.getDate();
+	 			 if (month < 10)
+	 	            month = "0" + month;
+	 	        if (day < 10)
+	 	            day = "0" + day;
+	 	        
+	 			str = date.getFullYear()+"-"+month+"-"+day;
 	 			if(str=="2000-1-1"){
 	 				str ="";
 	 			}
