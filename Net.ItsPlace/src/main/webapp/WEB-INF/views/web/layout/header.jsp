@@ -32,7 +32,7 @@ function menuSelected(name, sub)
 							<li><a href="/user/register">나의스템프</a>
 								<ul>
 									<li><a href="/user/register">회원가입</a></li>
-									<li><a href="shortcodes.html">스템프확인</a></li>
+									<li><a href="/stamp/list">스템프확인</a></li>
 									<li><a href="typography.html">즐겨찾기(북마크)</a></li>
 								</ul>
 							</li>

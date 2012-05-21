@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +34,6 @@ public class StampController {
 	@Autowired
 	private PlaceStampService placeStampService;
 	
-
 	/**
 	 *   적립된  스탬프 리스트  <br />
 	 * 
@@ -45,22 +45,51 @@ public class StampController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String stampped(@RequestParam(required=false, defaultValue="0") Integer fid, Model model)  {
+	public String list(Model model)  {
 		List<Place> placeStampedList =  stampService.getPlaceStampedList(UserInfo.getEmail());
 		model.addAttribute("placeStampedList",placeStampedList);
-		if(placeStampedList.size()>0 && fid==0){
-			fid = placeStampedList.get(0).getFid();
-		}
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("fid", fid);
-		param.put("email", UserInfo.getEmail());
+		model.addAttribute("fname", placeStampedList.get(0).getFname());
 		
-	
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("fid", placeStampedList.get(0).getFid());
+		
+		param.put("email", UserInfo.getEmail());
 		
 		List<Stamped> stamppedListAll = placeStampService.getPlaceStampListByEmail(param);
 		
 		model.addAttribute("stamppedListAll",stamppedListAll);
-		//model.addAttribute("stampid",placeStampList.get(0).getStampid());// 적립할 최신 스탬프아이디
+		model.addAttribute("email",UserInfo.getEmail());
+		return "web/stamp/list";
+	}
+	/**
+	 *   적립된  스탬프 리스트  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/list/{fid}", method = RequestMethod.GET)
+	public String stampped(@PathVariable Integer fid, Model model)  {
+		
+		List<Place> placeStampedList =  stampService.getPlaceStampedList(UserInfo.getEmail());
+		model.addAttribute("placeStampedList",placeStampedList);
+		for(int i=0; i<placeStampedList.size();i++){
+			if(placeStampedList.get(i).getFid() == fid){
+				model.addAttribute("fname", placeStampedList.get(i).getFname());
+			}
+		}
+		
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("fid", fid);
+		param.put("email", UserInfo.getEmail());
+		
+		List<Stamped> stamppedListAll = placeStampService.getPlaceStampListByEmail(param);
+		model.addAttribute("stamppedListAll",stamppedListAll);
 		model.addAttribute("email",UserInfo.getEmail());
 		return "web/stamp/list";
 	}

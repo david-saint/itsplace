@@ -91,8 +91,8 @@
 		 		//	c.log(oObj.aData[1]);
 		 		//iframe 펜시박스 일경우는 ok 아닐경우 자바스크립트 초기화 오류남 
 		 		var ViewStampAction = '<span class="tip"><a class="saveStamp iframe" href="/place/stamp/stampped?email='+id+'" original-title="적립 및 소진"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var saveAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
-		 		var burnAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		//var saveAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		//var burnAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return  ViewStampAction; //"&nbsp;&nbsp;" + saveAction + "&nbsp;&nbsp;" + burnAction ; 
 		 	}

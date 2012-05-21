@@ -119,7 +119,7 @@ public class PlaceIndexController {
 	public @ResponseBody JsonResponse changePlace(@RequestParam(required=true) Integer fid)  {
 		JsonResponse json = new JsonResponse();
 		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());		
-		UserInfo.setFid(fid);
+		UserInfo.setFid(fid); // 현재선택된 가맹ㅇ점 
 		UserInfo.setPlaceList(placeList);
 		
 		logger.info("가맹점 변경 : " + fid);

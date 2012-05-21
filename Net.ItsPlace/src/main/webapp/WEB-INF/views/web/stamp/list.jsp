@@ -5,134 +5,75 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <script type="text/javascript">
- 	$(document).ready(function(){
- 		$('#btnAdd').live('click',function() { 			
- 			$('#saveStamp').submit();
- 		});
- 		$('.StampedEventday').live('click',function() {
- 			var pid = $(this).attr("pid");
- 			 $.confirm({
- 				  'title': '_DELETE DIALOG BOX','message': "<strong>스탬프를 소진하시겠습니까? </strong><br /><font color=red>'  ' </font> ",'buttons': {'Yes': {'class': 'special',
- 				  'action': function(){
- 					  	burn(pid);
- 					 
- 					}},'No'	: {'class'	: ''}}});
- 			//$('#saveStamp').submit();
- 		});
- 		$('#saveStamp').validationEngine('attach', {
- 			  onValidationComplete: function(form, status){
-	 			   if(status==true){
-	 				  $.ajax({
-	 	                     url: "/place/stamp/save",
-	 	                     type:"POST",
-	 	                     data:$("#saveStamp").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
-	 	                     beforeSend :function(){
-	 		                      var title = "적립중";
-	 		   	 				  var overlay=1; 
-	 		   	 	 			  //c.loading(title,overlay);
-	 	                     },
-	 	                     success: function(response){
-	 	                        if(response.status=="SUCCESS"){
-	 	                    	   //c.showSuccess(response.result,1500);
-	 	                    	   parent.$.fancybox.close();
-	 	                    	   parent.datatableRedraw(response.result,"true");
-	 	                    		//iframe fancybox일경우 부모에서 처리한
-	 	                        }else{
-	 	                    	   
-	 	                    	   parent.datatableRedraw(response.result,"false");
-	 	                        }
-	 	                        c.log("success");
-	 	                     },
-	 	                     error: function(jqXHR, textStatus, errorThrown){
-	 	                     	c.showError(textStatus+jqXHR+errorThrown,1000); 
-	 	                     },
-	 	                     complete:function(){
-	 	                    	 //setTimeout("c.unloading()",500); 
-	 	                    	 c.log("complete:");
-	 	                    	//$.get("/place/stamp/stampped?email="+$('#email').val(), {}, function(data) { $.fancybox(data); } );
-	 	                    	
-	 	                     }
-	 	               });//ajax
-	 			   }
-	 	  	}  
-	 	}); //validationEngine 
- 	});//ready
- 	
- 	function burn(pid){
- 		c.log("pid:"+pid);
- 		$('#pid').val(pid);
- 		 $.ajax({
-             url: "/place/stamp/burn",
-             type:"POST",
-             data:$("#saveStamp").serialize(),// data:"{authcode:"+$('#authcode').val()+"\",stampid:\"8\"}",
-             beforeSend :function(){
-	 	 			  c.loading("스탬프 소진중",0);
-             },
-             success: function(response){
-                if(response.status=="SUCCESS"){
-                   parent.$.fancybox.close();
-            	   parent.datatableRedraw(response.result,"true");
-                }else{
-            	   
-            	   parent.datatableRedraw(response.result,"false");
-                c.log("fa");
-                }
-             },
-             error: function(jqXHR, textStatus, errorThrown){
-             	alert("오류가 발생하였씁니다"+textStatus+jqXHR+errorThrown,1000); 
-             },
-             complete:function(){
-            	 setTimeout("c.unloading()",500); 
-            	 c.log("complete:");
-            	//$.get("/place/stamp/stampped?email="+$('#email').val(), {}, function(data) { $.fancybox(data); } );
-            	
-             }
-       });//ajax 
- 	}
+menuSelected("나의스탬프");
 </script>
-<div class="widget">
-	<div class="header">
-		<span><span class="ico gray home"></span> 스탬프 적립 및 소진    </span>
-	</div>
-	<div class="content">
-	<c:forEach var="place" items="${placeStampedList}">
-		<div>${place.fname }</div>
-	</c:forEach>
-
-		<c:forEach var="stamppedList" items="${stamppedListAll}">
-			<div 
-				class="${stamppedList.placeStamp.theme}"
-				stampid="${stamppedList.placeStamp.stampid}">
-
-				<span class="stampTitle">${stamppedList.placeStamp.stampTitle}</span>
-				<span class="ableDate">
-					유효기간:
-				</span>
-				<span>
-					<fmt:formatDate value="${stamppedList.placeStamp.startDate}"
-						pattern="yyyy-MM-dd" />
-					~
-					<fmt:formatDate value="${stamppedList.placeStamp.endDate}"
-						pattern="yyyy-MM-dd" />
-				</span>
-
-				<ul style="display: block">
-					<c:forEach var="stamp" items="${ stamppedList.stampList}"
-						varStatus="status">
-						<li class="${stamp.attribute}" pid="${stamp.pid}"
-							saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
-							${status.index+1}
-							${stamp.status}
-						</li>
-					</c:forEach>
-				</ul>
+<div class="container">
+	<section id="middle">
+		<div class="middle_inner">
+			<div class="headline">
+				<h3>나의스탬프 - ${fname }</h3>
 			</div>
-		</c:forEach>
+			<div class="content_wrap">
+				<section id="content">
+					<div class="entry">
+						<!-- <h2>Experience is our power</h2>
+						<h5>25 years on market</h5>
+						<figure class="alignleft">
+							<img src="images/img/about_1.jpg" alt="">
+						</figure>
+						<p>Worem ipsum dolor sit amet, consec tetuer adipis cing elitraesent vestibulum molestie</p>
+						<p>Aum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculusmus. Nulla dui. Fusce feugiat malesuada odio. Morbi nunc odio, gravida at, cursus nec luctus lorem aecenas tristique orci ac semuis ultricies pharetra</p>
+						<a href="#" class="with_arrow fr">Read more about us</a>
+						<div class="cl"></div>
+						<br> -->
+						
+						<c:forEach var="stamppedList" items="${stamppedListAll}">
+						<div 
+							class="${stamppedList.placeStamp.theme}"
+							stampid="${stamppedList.placeStamp.stampid}">
+			
+							<h5 class="stampTitle">${stamppedList.placeStamp.stampTitle}</h5>
+							<span class="ableDate">
+								유효기간:
+							</span>
+							<span>
+								<fmt:formatDate value="${stamppedList.placeStamp.startDate}" pattern="yyyy-MM-dd" />
+								~
+								<fmt:formatDate value="${stamppedList.placeStamp.endDate}" pattern="yyyy-MM-dd" />
+							</span>
+			
+							<ul style="display: block">
+								<c:forEach var="stamp" items="${ stamppedList.stampList}" varStatus="status">
+									<li class="${stamp.attribute}" pid="${stamp.pid}"
+										saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
+										${status.index+1}
+										${stamp.status}
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+						<div class="divider"></div>
+					</c:forEach>
+					</div>
+				</section>
+<!-- __________________________________________________ Finish Content -->
 
 
-
-
-	</div>
+<!-- __________________________________________________ Start Sidebar -->
+				<section id="sidebar">
+					<div class="one_first">
+						<aside class="widget widget_links">
+							<h3 class="widgettitle">places list</h3>
+							<ul>
+								<c:forEach var="placeStamp" items="${placeStampedList}">
+								<li><a href="/stamp/list/${placeStamp.fid}">${placeStamp.fname }</a></li>
+								</c:forEach>
+							</ul>
+						</aside>
+					</div>
+				</section>
+				<div class="cl"></div>
+			</div>
+		</div>
+	</section>
 </div>
-
-

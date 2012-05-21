@@ -211,13 +211,17 @@ public class PlaceStampController {
 		
 		model.addAttribute("stamppedListAll",stamppedListAll);
 		
-//		model.addAttribute("stampid",placeStampList.get(0).getStampid());// 적립할 최신 스탬프아이디
-		model.addAttribute("stampid",stamppedListAll.get(0).getPlaceStamp().getStampid());// 적립할 최신 스탬프아이디
+		if(stamppedListAll != null && stamppedListAll.size()>0){
+		//	model.addAttribute("stampid",stamppedListAll.get(0).getPlaceStamp().getStampid());// 적립할 최신 스탬프아이디
+		}else{
+		}
+		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampList(param);
+		model.addAttribute("stampid",placeStampList.get(0).getStampid());//현재 선택된 가맹점의 사용중인 스탬프 아이 
 		model.addAttribute("email",email);
 		return "place/stamp/stampped";
 	}
 	/**
-	 * 스탬프적립       <br />
+	 * 스탬프 적립       <br />
 	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
 	 * 가맹점 관리자 인증코드 수정    
 	 * @author 김동훈
@@ -247,6 +251,7 @@ public class PlaceStampController {
 				json.setStatus("FAIL");
 			}
 		}catch(Exception e){
+			logger.info(e.getMessage());
 			json.setResult("스탬프 적립에 실패하였습니다.");
 			json.setStatus("FAIL");
 		}

@@ -73,9 +73,7 @@
                    parent.$.fancybox.close();
             	   parent.datatableRedraw(response.result,"true");
                 }else{
-            	   
             	   parent.datatableRedraw(response.result,"false");
-                c.log("fa");
                 }
              },
              error: function(jqXHR, textStatus, errorThrown){

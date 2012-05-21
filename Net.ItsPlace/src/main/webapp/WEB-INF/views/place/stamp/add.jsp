@@ -34,7 +34,7 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
- 		var action= "/admin/place/stamp/add";
+ 		
  		
  		$('#btnSubmit').live('click',function() {
  			c.log("submit Form");
@@ -50,7 +50,7 @@
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:action,
+ 	                     url:"/admin/place/stamp/add",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -65,8 +65,8 @@
  	                    	   var errorInfo="";
  	                    	   for(var i =0 ; i < response.result.length ; i++){
  	                               errorInfo = "<br>" + (i + 1) +". " + response.result[i].defaultMessage;
+ 	                               c.log("error:"+errorInfo);
  	                           }
- 	                    	   c.log(errorInfo);
  	                    	   c.showError(errorInfo,1000);
  	                       }
  	                     },

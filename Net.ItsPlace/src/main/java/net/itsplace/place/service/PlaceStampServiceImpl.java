@@ -114,7 +114,7 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	public List<Stamped> getPlaceStampListByEmail(Map<String, Object> param) {
 		List<PlaceStamp> placeStampList = placeStampDao.getPlaceStampListByEmail(param);
 		if(placeStampList.size()==0){
-			logger.info("가맹점 첫 회원");
+			logger.info("가맹점 첫 스탬프 적립하는 회원임 ");
 			placeStampList = getPlaceStampList(param);
 		}
 		
@@ -125,8 +125,11 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 			logger.info("stamptype:{}"+placeStampList.get(i).getStampTitle()+placeStampList.get(i).getStampid());
 			param.put("stampid", placeStampList.get(i).getStampid());
 			logger.info("placeStampList.size():{}",placeStampList.size());
-			List<Stamp> stampedList = getPlaceStampedListByEmail(param);
 			
+			List<Stamp> stampedList = getPlaceStampedListByEmail(param);
+			if(stampedList.size()<=0){
+				return null;
+			}
 			int totalStampedCount = stampedList.size(); //적립된 스탬프 토탈카운트  수
 			logger.info("totalStampedCount:{}",totalStampedCount);
 			int stampCount = placeStampList.get(i).getStampType().getStampcount();
