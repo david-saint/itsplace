@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<!DOCTYPE html>
+<!DOCTYPE>
 <!--[if lt IE 7]><html dir="ltr" lang="ko-KR" class="ie6"><![endif]-->
 <!--[if IE 7]><html dir="ltr" lang="ko-KR" class="ie7"><![endif]-->
 <!--[if IE 8]><html dir="ltr" lang="ko-KR" class="ie8"><![endif]-->
