@@ -9,5 +9,6 @@
 	<select id="getPlaceInfo" parameterClass="place" resultClass="place">
 	    SELECT	*
 	    	FROM PLACE
+	    WHERE	FID LIMIT #start#, #pageSize#
 	</select>
 </sqlMap>

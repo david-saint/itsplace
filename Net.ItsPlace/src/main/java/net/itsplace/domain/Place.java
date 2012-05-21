@@ -68,6 +68,12 @@ public class Place {
 	private Date endDate; // 
 	private String qrcode; 
 	
+	private int pageBlock = 10;
+	private int pageSize  = 5;
+	private int currentPage = 1;
+	private int pageNum = 1;
+	
+	private int start = 0;
 	
 	public String getImageHost() {
 		return imageHost;
@@ -329,6 +335,40 @@ public class Place {
 	}
 	public void setPlaceStamp(PlaceStamp placeStamp) {
 		this.placeStamp = placeStamp;
+	}
+	public int getPageBlock() {
+		return pageBlock;
+	}
+	public void setPageBlock(int pageBlock) {
+		if(pageBlock == 0) pageBlock = 10;
+		this.pageBlock = pageBlock;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		if(pageSize == 0) pageSize = 5;
+		this.pageSize = pageSize;
+	}
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		if(currentPage == 0) currentPage = 1;
+		this.currentPage = currentPage;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		if(pageNum == 0) pageNum = 1;
+		this.pageNum = pageNum;
+	}
+	public int getStart() {
+		return start;
+	}
+	public void setStart(int start) {
+		this.start = start;
 	}
 	@Override
 	public String toString() {

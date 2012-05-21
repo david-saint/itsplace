@@ -12,8 +12,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
-public class Paging  extends SqlMapClientDaoSupport  {
+public class Paging  extends SqlMapClientDaoSupport{
 	private static final Logger logger = LoggerFactory.getLogger(Paging.class);
 	
 	private List<Integer> pageNo;	// 페이지 그룹의 페이지 번호를 담고 있는 List
@@ -43,7 +42,7 @@ public class Paging  extends SqlMapClientDaoSupport  {
 	protected void init(SqlMapClient sqlMapClient) {
 		super.setSqlMapClient(sqlMapClient);
 	}
-	
+
 	/**
 	 * 페이징 기본정보
 	 * @param _currentpage
@@ -51,7 +50,7 @@ public class Paging  extends SqlMapClientDaoSupport  {
 	 * @param _totalCount
 	 * @param _pageGroupSize
 	 */
-	public Paging(int _currentpage, int _pagesize, int _pageGroupSize, String _table, String _where)
+/*	public Paging(int _currentpage, int _pagesize, int _pageGroupSize, String _table, String _where)
 	{
 		this.currentPage 	= _currentpage;
 		this.pageSize 		= _pagesize;
@@ -67,14 +66,27 @@ public class Paging  extends SqlMapClientDaoSupport  {
 		this.totalCount 	= (Integer) getSqlMapClientTemplate().queryForObject("util.getCount", param);		
 		
 		init();
-	}
+	}*/
 	
 	/**
 	 * 페이징 기본 설정
 	 * @return
 	 */
-	public void init() 
+	public String init(int _currentpage, int _pagesize, int _pageGroupSize, String _table, String _where) 
 	{
+		this.currentPage 	= _currentpage;
+		this.pageSize 		= _pagesize;
+		this.table			= _table;
+		this.where			= _where;
+		this.pageGroupSize 	= _pageGroupSize;
+		this.prev 			= 0;
+		this.next 			= 0;
+		
+		param = new HashMap<String, Object>();
+		param.put("table", table);
+		param.put("where", where);
+		this.totalCount 	= (Integer) getSqlMapClientTemplate().queryForObject("util.getCount", param);
+		
 		pageCount = (totalCount / pageSize) + (totalCount % pageSize == 0 ? 0 : 1);
 		currentCroup = (int)Math.ceil((double) currentPage / pageGroupSize);
 		totalGroup = pageCount / pageSize + 1;
@@ -91,6 +103,8 @@ public class Paging  extends SqlMapClientDaoSupport  {
 		
 		if(currentCroup > 1) prev = (currentCroup - 2) * pageGroupSize + pageSize;
 		if(currentCroup < totalGroup) next = currentCroup * pageGroupSize + 1;
+		
+		return getPageSet();
 	}
 	
 	/********************************
@@ -119,9 +133,9 @@ public class Paging  extends SqlMapClientDaoSupport  {
 		for ( int i = 0; pageNo.size() > i; i++ )
 		{
 			if(currentPage == pageNo.get(i).intValue())
-				currHtml +="<strong><span class='page_num'>"+pageNo.get(i)+"</span></strong>\n";
+				currHtml +="<span class='page_num current_page'>"+pageNo.get(i)+"</span>\n";
 			else
-				currHtml += "<a href='#' onclick=\"doList(" + pageNo.get(i) + ")\"><span class='page_num'>" + pageNo.get(i) + "</span></a>\n";
+				currHtml += "<span class='page_num' onclick=\"doList(" + pageNo.get(i) + ", this)\">" + pageNo.get(i) + "</span>\n";
 		}
 		//*** 다음 페이지 ***//
 		if ( next > totalCount )

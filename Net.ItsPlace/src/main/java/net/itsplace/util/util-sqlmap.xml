@@ -4,5 +4,11 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="util">
 	
-	
+	<select id="getCount" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT	COUNT(*)
+			FROM $table$
+		<isNotEmpty property="where">
+		    $where$
+		</isNotEmpty>	    
+	</select>
 </sqlMap>
