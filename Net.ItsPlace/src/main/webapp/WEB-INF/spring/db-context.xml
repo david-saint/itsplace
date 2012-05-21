@@ -90,7 +90,11 @@
 		<property name="configLocation" value="/WEB-INF/spring/sql-map-config.xml"></property>		
 		<property name="dataSource"><ref bean="dataSource" /></property>	
 	</bean>
-
+	
+	<bean id="util" class="net.itsplace.util.Paging">
+	    <property name="sqlMapClient" ref="sqlMapClient" />
+	    <property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>
 	
 
