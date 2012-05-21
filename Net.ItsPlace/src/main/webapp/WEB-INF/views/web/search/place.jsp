@@ -4,6 +4,73 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
+<style type="text/css">
+input[type="text"], input[type="password"], textarea{
+	border:1px solid #c8c8c8;
+	background-color:#e4e4e4;
+	margin-bottom:5px;
+	height:20px;
+	padding:5px 4px;
+	margin:0 0 3px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+}
+.box span.s{
+	display: block;
+	float: left;
+}
+.box span.s.select{
+	padding-top:5px;
+}
+.box span.s.pl5{
+	padding-left:5px;
+}
+.box span.s p{
+	overflow: hidden;	
+}
+label.left{display: inline;}
+span.label{font-weight: bold;}
+
+html,body,#map {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%
+}
+
+#btnZoomIn,#btnZoomOut {
+	position: absolute;
+	right: 1em;
+	z-index: 1;
+	padding: 10px;
+	-webkit-border-radius: 0.5em;
+	border: 1px solid #aaa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#EFEFF0),to(#BCBEC1) )
+}
+
+#roadview {
+	position: absolute;
+	top: 1em;
+	right: 10em;
+	z-index: 1;
+}
+
+#btnZoomIn {top: 1em;}
+#btnZoomOut {top: 4em;}  
+.info{position: absolute;}
+
+
+
+.franchiser .fname{
+	color: orange;
+	font-weight: bold;
+	
+}
+.franchiser .mapview{
+	cursor: pointer;
+}
+</style>
 <script type="text/javascript">
 menuSelected("가맹점검색", "주변검색");
 var mapImage = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
@@ -62,6 +129,7 @@ function init() {
 	map = new daum.maps.Map(document.getElementById('map'), {
 		center : new daum.maps.LatLng(lat, lng)
 	});
+	map.setCenter(new daum.maps.LatLng(PLACE[0].latitude, PLACE[0].longitude));
 	var html = "";
  	for(var i=0; i<PLACE.length; i++)
 	{
@@ -71,12 +139,18 @@ function init() {
 		var place_phone  = PLACE[i].phone1;
 		var place_remark = PLACE[i].remark;
 		var img = "http://localhost:8080/resources/images/marker/" + mapImage[i] + ".png";
-		console.log(img);
+	/* 	console.log("lat ===> " + lat);
+		console.log("lng ===> " + lng); */
+		
+		// 좌표로 이동
+		//map.setCenter(new daum.maps.LatLng(lat, lng));
+		
 		var icon = new daum.maps.MarkerImage(
 			img,
 			new daum.maps.Size(32, 32),
 			new daum.maps.Point(16,34),
-			"poly"
+			"poly",
+			"1,20,1,9,5,2,10,0,21,0,27,3,30,9,30,20,17,33,14,33"
 		);
 		//마크먼저 배열에 담는다.
 		marker[i] = new daum.maps.Marker({
@@ -84,17 +158,15 @@ function init() {
 			image : icon
 		});
 
+		
 		// 마커 표시
 		marker[i].setMap(map);
-		
 		// 툴팁
 		//marker[i].setTitle(place_name);
-		// 좌표로 이동
-		map.setCenter(new daum.maps.LatLng(lat, lng));
 		
 		var script = '<img src="/resources/images/marker/' + mapImage[i] + '.png"/><a href=\'javascript:placeDisplay("' + i + '");void(0);\'>' + place_name + '</a>';
 		html += 	"<div class='box'>" +
-					"	<span onmouseover='placeTooltip(\"" + i + "\")'>" + script + "</span>" +
+					"	<span>" + script + "</span>" +
 					"</div>" +
 					"<div class='box'>" +
 					"	<ul>" +
@@ -110,25 +182,27 @@ function init() {
  		var fname = PLACE[i].fname;
  		marker[i].index = i;
  		var content = "";
- 		content = '<p style="margin:7px 22px 7px 12px;font:12px/1.5 sans-serif">';
- 				+ '		<strong>안녕하세요~</strong><br/>'
- 				+ fname + '.</p>';
+ 		content += "<div class='infoWindow'>";
+ 		content += "<h5 class='title'>";
+ 		content += "	<a class='namelink' href='/place/view/" + PLACE[i].fid + "/'>" + fname + "</a>";
+ 		content += "</h5>";
+ 		content += "</div>";    
  		// 메시지 박스 
  		//인포윈도우 배열에 담는다.
+ 		
 		infowindow[i] = new daum.maps.InfoWindow({
 			content: content,
 			removable : true
 		});
 	
+
 		daum.maps.event.addListener(marker[i], "click", function() {
 			for(var j=0; j<marker.length; j++)
 			{
 				infowindow[j].close();
 			}
 			infowindow[this.index].open(map, marker[this.index]);
-		});
-		
-		daum.maps.event.addListener(marker[i], "mouseover", function() {  
+			//map.setCenter(new daum.maps.LatLng(PLACE[idx].latitude, PLACE[idx].longitude));
 		});
 	}
  	
@@ -151,72 +225,28 @@ function placeDisplay(idx)
 		infowindow[j].close();
 	}
 	infowindow[idx].open(map, marker[idx]);
+	map.setCenter(new daum.maps.LatLng(PLACE[idx].latitude, PLACE[idx].longitude));
 }
 
-function placeTooltip(idx)
+function doList(page, obj)
 {
-
+	$(obj).unbind("click");
+	//$(obj).
+	$("#currentPage").val(page);
+	var param = $("#form").serialize();
+	PLACE = "";
+	$.post("/search/placeAjax", param, function(data){
+		alert(data)
+		PLACE = data;	
+		$("#place_list").html("");
+		init();
+	});
 }
 
 $(document).ready(function(){
 	init();	
 });	
 </script>
-<style type="text/css">
-input[type="text"], input[type="password"], textarea{
-	border:1px solid #c8c8c8;
-	background-color:#e4e4e4;
-	margin-bottom:5px;
-	height:20px;
-	padding:5px 4px;
-	margin:0 0 3px;
-	border-radius:4px;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-}
-.box span.s{
-	display: block;
-	float: left;
-}
-.box span.s.select{
-	padding-top:5px;
-}
-.box span.s.pl5{
-	padding-left:5px;
-}
-.box span.s p{
-	overflow: hidden;	
-}
-label.left{display: inline;}
-span.label{font-weight: bold;}
-
-html,body,#map {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%
-}
-
-#btnZoomIn,#btnZoomOut {
-	position: absolute;
-	right: 1em;
-	z-index: 1;
-	padding: 10px;
-	-webkit-border-radius: 0.5em;
-	border: 1px solid #aaa;
-	background: -webkit-gradient(linear, left top, left bottom, from(#EFEFF0),to(#BCBEC1) )
-}
-
-#roadview {
-	position: absolute;
-	top: 1em;
-	right: 10em;
-	z-index: 1;
-}
-
-#btnZoomIn {top: 1em;}
-#btnZoomOut {top: 4em;}
-</style>
 <div class="container">
 	<section id="middle">
 		<div class="middle_inner">
@@ -227,6 +257,10 @@ html,body,#map {
 				<a href="index.html">Home</a>&nbsp; /&nbsp;<a href="shortcodes.html">가맹점검색</a>&nbsp; /&nbsp;주변검색
 			</div>
 			<section id="middle_content">
+				<form name="form" id="form">
+				<input type="hidden" name="pageBlock" 	id="pageBlock" 		value="5" />
+				<input type="hidden" name="pageSize" 	id="pageSize" 		value="5" />
+				<input type="hidden" name="currentPage" id="currentPage" 	value="${p.currentPage }" />
 				<div class="entry">
 					<div class="form_info cmsms_input">
 						<input type="text" title="example@gmail.com" name="email" id="email" style="width:90%;" class="validate[required,custom[email]]" />
@@ -274,13 +308,15 @@ html,body,#map {
 							<span class="s" style="border-bottom:2px solid #bbb;width:100%;"></span>
 						</div>
 						<div id="place_list" style="padding-top:10px;clear:both;"></div>
+						<div id="paging">${page }</div>
 					</div>
-					<div style="width:75%;height:700px;float: left;" id="map"></div>
+					<div style="width:75%;height:700px;float: left;z-index:9999;" id="map"></div>
 				</div>
 				<div id="roadview" style="width: 600px; height: 400px;"></div>
 				<!-- <span id="btnZoomIn" onclick="zoomIn()">확대</span>
 				<span id="btnZoomOut" onclick="zoomOut()">축소</span>
 				<img id="roadview" src="../resources/images/roadview.png" onclick="init3()" /> -->
+				</form>				
 			</section>
 		</div>
 	</section>
