@@ -5,6 +5,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		$('.address').fancybox({//autodimensions false 후 width , height 가느
+				'autoDimensions':false,
+				'scrolling':'auto',
+				'autoScale':false,
+				'height':700,
+				'width':1200,
+				//'centerOnScroll':true
+				//'title':'사용자 정보 수정'
+
+		});
+ 		
  		$("#file").change(function(){
  			$.ajaxFileUpload({
   			   url: "/place/upload",
@@ -92,7 +103,9 @@
  	
  		
  	});//ready
- 	
+ 	function setAddress(nldno,lat,lng,address){
+ 		c.log("부모에게 넘어온 주소:"+address);	
+ 	}
 </script>
 
 		
@@ -140,6 +153,16 @@
 					<input id="name" type="text" name="name"
 						class="validate[required,minSize[3],maxSize[50]] full"
 						value="${place.name }" /> <span class="f_help">영문+숫자 혼합</span>
+				</div>
+			</div>
+			<div class="section">
+				<label> 주소  <small></small></label>
+				<div>
+					<input id="nldno" type="text" name="nldno"/>
+					<input id="lat" type="text" name="latitude"/>
+					<input id="lng" type="text" name="longitude"/>
+					<input id="address" class="address iframe" href="/address/search" type="text" name="address" onclick="search()"/>
+					<span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>
 			<div class="section">

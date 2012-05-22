@@ -16,6 +16,9 @@
 	<div class="content">
 		<script type="text/javascript">
 		var map;
+		//var marker = new Array();
+		var datatable;
+		var index;
 		var lat = "35.81473605375478";
 		var lng = "128.52437732176546";	
 		window.onload = function() {	
@@ -25,15 +28,15 @@
 
 			});
 
-			var marker = new daum.maps.Marker({
+			/* var marker = new daum.maps.Marker({
 
 				position: new daum.maps.LatLng(lat, lng)
 
-			});
+			}); */
 			
 			//marker.setMap(map);
 		};
-			var datatable;
+			
 		
 		 	$(document).ready(function(){
 		 		
@@ -52,14 +55,14 @@
 		 			"sAjaxDataProp": "rows",
 		 			"aoColumns": [
 		 				  				 				  			
-		 				  			{ "mDataProp": "sido", "sClass":"left", "sWidth": "150px"},
-		 				  			{ "mDataProp": "gugun", "sClass":"left", "sWidth": "150px"},
+		 				  			{ "sDefaultContent": "", "fnRender" : make_address,  "sClass":"center", "bSortable": false, "bSearchable": false },
+		 				  			/*{ "mDataProp": "gugun", "sClass":"left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "bupname", "sClass":"left" },		 				  		
 		 				  			{ "mDataProp": "jimain", "sClass":"left" },		 				  		
 		 				  			{ "mDataProp": "jisubmain", "sClass":"left" },		 				  		
 		 				  			{ "mDataProp": "doroname", "sClass":"left" },		 				  		
 		 				  			{ "mDataProp": "bldmain", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "bldsubmain", "sClass":"left" },
+		 				  			{ "mDataProp": "bldsubmain", "sClass":"left" },*/
 		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  			
 		 				  		],
@@ -67,11 +70,19 @@
 		 			//                "sUrl": "/resources/common/datatables.txt"
 		 			//            },	  		
 			  		"fnInitComplete":function(){
+			  			console.log("fnInitComplete");
 		 				$('.tip a ').tipsy({trigger: 'manual'});
 		 				$('.tip a ').tipsy("hide");
 		 			},
-		 			"fnDrawCallback": function () {
+		 			"fnPreDrawCallback": function( oSettings ) {
+		 				//console.log("그리기전?-------------------------------"+marker.length);
+		 				test2();
 		 				
+		 			    },
+		 			"fnDrawCallback": function () {
+						index=0;
+			  			console.log("fnDrawCallback");
+			  			
 		 				$('.edit').fancybox({//autodimensions false 후 width , height 가느
 		 					'autoDimensions':false,
 		 					'scrolling':'auto',
@@ -81,7 +92,9 @@
 		 					//'title':'사용자 정보 수정'
 	
 		 				});
-		 				
+		 				// new daum.maps.Marker({
+				 			 		 
+				 		// }).setMap(null);
 		 			},	  		
 		 			"aaSorting": [[ 2, "desc" ]]
 		 		});
@@ -92,18 +105,48 @@
 		 	
 			});
 		 	
+		 	function make_address(oObj) {
+		 		var bldbmain;
+		 		var jimain;
+		 		if(oObj.aData['bldsubmain']!=="0"){
+		 			bldmain = oObj.aData['bldmain'] + "-" +oObj.aData['bldsubmain'];
+		 		}else{
+		 			bldmain = oObj.aData['bldmain'] ;
+		 		}
+		 		if(oObj.aData['jisubmain']!=""){
+		 			jimain = oObj.aData['jimain'] + "-" +oObj.aData['jisubmain'];
+		 		}else{
+		 			jimain = oObj.aData['jimain'] ;
+		 		}
+		 		c.log(jimain);
+		 		var address = oObj.aData['sido']+"&nbsp;"
+		 					 +oObj.aData['gugun']+"&nbsp;"
+		 					 +oObj.aData['doroname']+"&nbsp;"
+		 					 +bldmain+"&nbsp;("
+		 					 +oObj.aData['bupname']+"&nbsp;" + jimain +" )";
+		 					// +jimain+" )";
+		 		return address;
+		 	}
 		 	function make_actions(oObj) {
-		 		
+		 		 
 		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
-		 		c.log(""+oObj.aData['bupname']);
-		 		getDaumCOORD(oObj.aData['bupname']+oObj.aData['jimain']);
-		 		var action = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid=" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		//c.log("마:"+marker.length);
+		 		//번지까지 넣으면 결과값이 하나만 나온다?
+		 		var search = oObj.aData['bupname']+oObj.aData['jimain'];
+		 		if(oObj.aData['jisubmain']!=""){
+		 			search += "-" + oObj.aData['jisubmain'];
+		 		}
+		 		getDaumCOORD(search);
+		 		
+		 		var nldno = oObj.aData['nldno'];
+		 		var address = search;
+		 		var action = '<span class="tip"><a onclick="changeAddress("'+nldno+'","'+address+'")" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		
 		 		return  action ; 
 		 	}
-		 	function refresh(){
-		 		c.log("refresh");
-		 		datatable.fnStandingRedraw();
+		 	function changeAddress(nldno,address){
+
+		 		parent.setAddress(nldno,lat,lng,address);
 		 	}
 		 	function getDaumCOORD(searchWord){
 		 		//http://apis.daum.net/maps/addr2coord?apikey=' + obj.apikey + '&output=json&callback=obj.pongSearch&q=' + encodeURI(obj.q.value)
@@ -126,13 +169,20 @@
 		 						//log.info("결과좌표:" + resultArray[0] +", " +resultArray[1]);
 		 		        	    //$('#latitude').val(resultArray[0]);
 		 		        		//$('#longitude').val(resultArray[1]);
-		 						console.log(this.point_y);
-		 						console.log(this.point_x);
+		 						//console.log(this.point_y);
+		 						//console.log(this.point_x);
 		 		        		//$('#latitude').val(this.point_y);
 		 						//$('#longitude').val(this.point_x);
-		 						 new daum.maps.Marker({
+		 						/*  new daum.maps.Marker({
 		 				 			 position: new daum.maps.LatLng(this.point_y, this.point_x),		 
 		 				 		 }).setMap(map);
+		 						 */
+		 						if(i==0){
+		 							lat = this.point_y;
+		 							lng =  this.point_x;
+		 							map.setCenter(new daum.maps.LatLng(lat, lng));
+		 						}
+		 						daummap_setMarker(this.point_y, this.point_x, index);
 		 						
 		 					});
 		 				}		
@@ -142,40 +192,45 @@
 		 		
 		 		
 		 	}
+		 	var  mark;
 		 	 /*기본마커 올리기*/
-		 	 function daummap_setMarker(lat, lng){	
-		 		 console.log("s");
-		 		 new daum.maps.Marker({
+		 	 function daummap_setMarker(lat, lng, index){	
+		 		// console.log("s");
+		 		 mark = new daum.maps.Marker({
 		 			 position: new daum.maps.LatLng(lat, lng),		 
 		 		 }).setMap(map);
-		 		 
-		 		 
+		 		
+		 			
+		 		
 		 	 }
+		 	 
+		 	 
 		 	 function test(){
-		 		daummap_setMarker(lat,lng);
+		 		daummap_setMarker(lat,lng,1);
 		 	 }
+		 	  function test2(){
+		 		 map = new daum.maps.Map(document.getElementById('map'), {
+
+						center: new daum.maps.LatLng(lat, lng)
+
+					});
+		 	 } 
 		 </script>
 		
-		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
+		 <div class="tableName" style="float:left;width:650px"><!--클래 tableName search box를 타이 이동험   -->
 		 	<span style="position:absolute"></span>
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>
-						<th >시도</th>
-						<th >GUGUN</th>
-						<th >fname</th>
-						<th >fname</th>
-						<th >fname</th>
-						<th >fname</th>
-						<th >fname</th>
-						<th >fname</th>
+						<th>주소 </th>
+						
 						<th >Action</th>
 						
 					</tr>
 				</thead>
 			</table>
 		</div> 
-	
+	<div id="map" style="float:right;width:500px;height:500px"></div>
 		<div class="section last right">
 			
 		</div>
@@ -184,7 +239,8 @@
 		<!-- clear fix -->
 		<div class="clear"></div>
 		 <button onclick="test()">maker</button>
-<div id="map" style="width:500px;height:500px"></div>
+		 <button onclick="test2()">maker2</button>
+
 	</div>
 	<!-- End content -->
 </div>

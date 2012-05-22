@@ -32,7 +32,7 @@ public class AdminBaseDaoImpl extends SqlMapClientDaoSupport implements AdminBas
 
 	@Override
 	public List<Bascd> getBascdList(String grpCd) throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("admin.getBascdList", grpCd);
+		return getSqlMapClientTemplate().queryForList("common.getBascdList", grpCd);
 	}
 
 	@Override
