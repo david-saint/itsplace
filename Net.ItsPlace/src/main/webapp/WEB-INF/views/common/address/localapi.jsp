@@ -40,69 +40,30 @@
 		
 		 	$(document).ready(function(){
 		 		
-		 		 datatable = $('#datatable').dataTable( {
-		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
-		 			"bFilter": true, 
-		 			"bPaginate": true,
-		 			"bLengthChange": true, 
-		 			"sPaginationType": "full_numbers",
-		 			"bProcessing": true,
-		 			"oLanguage": {
-		 		         "sProcessing": "<div style='border:0px solid red'>Address Loading...</di>"
-		 		       },
-		 			"bServerSide": true,		 			
-		 			"sAjaxSource": "/address/list",
-		 			"sAjaxDataProp": "rows",
-		 			"aoColumns": [
-		 				  				 				  			
-		 				  			{ "sDefaultContent": "", "fnRender" : make_address,  "sClass":"center", "bSortable": false, "bSearchable": false },
-		 				  			/*{ "mDataProp": "gugun", "sClass":"left", "sWidth": "150px"},
-		 				  			{ "mDataProp": "bupname", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "jimain", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "jisubmain", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "doroname", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "bldmain", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "bldsubmain", "sClass":"left" },*/
-		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
-		 				  			
-		 				  		],
-		 			//"oLanguage": {
-		 			//                "sUrl": "/resources/common/datatables.txt"
-		 			//            },	  		
-			  		"fnInitComplete":function(){
-			  			console.log("fnInitComplete");
-		 				$('.tip a ').tipsy({trigger: 'manual'});
-		 				$('.tip a ').tipsy("hide");
-		 			},
-		 			"fnPreDrawCallback": function( oSettings ) {
-		 				//console.log("그리기전?-------------------------------"+marker.length);
-		 				test2();
-		 				
-		 			    },
-		 			"fnDrawCallback": function () {
-						index=0;
-			  			console.log("fnDrawCallback");
-			  			
-		 				$('.edit').fancybox({//autodimensions false 후 width , height 가느
-		 					'autoDimensions':false,
-		 					'scrolling':'auto',
-		 					'autoScale':false,
-		 					'height':500,
-		 					//'centerOnScroll':true
-		 					//'title':'사용자 정보 수정'
-	
-		 				});
-		 				// new daum.maps.Marker({
-				 			 		 
-				 		// }).setMap(null);
-		 			},	  		
-		 			"aaSorting": [[ 2, "desc" ]]
-		 		});
-		 		
-		 		//datatable row selectbox style
-		 		$(".dataTables_length select").addClass("small");
-		 		
-		 	
+		 		 $.ajax({
+		 	        type: 'get'
+		 	        , async: false
+		 	        , url: url
+		 	        , dataType: 'json'		       
+		 	        , success: function(data) {
+		 	        	alert(authyn);
+		 	        	if(authyn=="Y"){
+		 	        		$('#auth_'+fid).text("승인취소");
+		 	        		$('#auth_'+fid).attr("authyn","Y");
+		 	        	}else{
+		 	        		$('#auth_'+fid).text("승인");
+		 	        		$('#auth_'+fid).attr("authyn","N");
+		 	        	}
+		 	        	
+		 	        }
+		 	 		, error: function(data, status, err) {
+		 	 			//log.info("error forward : "+data+err+status);
+		 	 			alert('franchiser_auth 서버와의 통신이 실패했습니다.'+data+err+status);
+		 	 		}
+		 	 		, complete: function() {
+		 	 		
+		 	 		}
+		 	 });
 			});
 		 	
 		 	function make_address(oObj) {

@@ -8,6 +8,9 @@
  		$('#btnAdd').live('click',function() { 			
  			$('#authcode').submit();
  		});
+ 		$('#btnQrCode').live('click',function() { 			
+ 			
+ 		});
  		$('#authcode').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
 	 			   if(status==true){
@@ -63,14 +66,14 @@
                 </div>
            </div>
            <div class="section" >
-                <label> 새로 인증코드  <small></small></label>   
+                <label> 새로운 인증코드  <small></small></label>   
                 <div>
                  <input id="newAuthCode" type="text" name="newAuthCode" class="validate[required,minSize[4],maxSize[4]] medium "  value="${authcode.newAuthCode }"/>                                   
                   <span class="f_help"인증코드/span>
                 </div>
            </div>
            <div class="section" >
-                <label> 새로 인증코드 재입력 <small></small></label>   
+                <label> 새로운 인증코드 재입력 <small></small></label>   
                 <div>
                  <input id="confirmAuthCode" type="text" name="confirmAuthCode" class="validate[required,minSize[4],maxSize[4],equals[newAuthCode]] medium "  value="${authcode.confirmAuthCode }"/>                                   
                   <span class="f_help"인증코드/span>
@@ -81,6 +84,7 @@
 	       <div class="section last">
 	            <div>
 	                 <a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
+	                 <a id="btnQrCode" class="uibutton loading " title="적립QR코드생성" rel="1" >적립QR코드생성</a> 
 	                 <a class="uibutton special clear_form"  >clear form</a> 
 	                 <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
 	            </div>

@@ -4,7 +4,42 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="place">
 	<typeAlias type="net.itsplace.domain.Authcode" alias="AuthCode"/>	    		   
-   
+	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>	    		   
+   	<resultMap id="PlaceJoinAddress" class="Place" >
+		<result property="fid" column="FID"></result>
+		<result property="fname" column="FNAME"></result>
+		<result property="latitude" column="LATITUDE"></result>
+		<result property="longitude" column="LONGITUDE"></result>
+		<result property="nldno" column="NLDNO"></result>
+		<result property="phone1" column="PHONE1"></result>
+		<result property="mobile" column="MOBILE"></result>
+		<result property="imageHost" column="IMAGEHOST"></result>
+		<result property="fileName" column="FILENAME"></result>
+		<result property="isAuth" column="ISAUTH"></result>
+		<result property="remark" column="REMARK"></result>
+		<result property="stype" column="STYPE"></result>
+		<result property="email" column="EMAIL"></result>
+		<result property="park" column="PARK"></result>
+		<result property="closedday" column="CLOSEDDAY"></result>
+		<result property="openday" column="OPENDAY"></result>
+		<result property="website" column="WEBSITE"></result>
+		<result property="info" column="INFO"></result>
+		<result property="qrcode" column="QRCODE"></result>
+		<result property="qrAuthCode" column="QRAUTHCODE"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
+		<result property="editDate" column="EDITDATE"></result>
+		
+		<result property="address.sido" column="SIDO"></result>
+		<result property="address.gugun" column="GUGUN"></result>
+		<result property="address.bupname" column="BUPNAME"></result>
+		<result property="address.hdongname" column="HDONGNAME"></result>
+		<result property="address.doroname" column="DORONAME"></result>
+		<result property="address.bldmain" column="BLDMAIN"></result>
+		<result property="address.bldsubmain" column="BLDSUBMAIN"></result>
+		<result property="address.jimain" column="JIMAIN"></result>
+		<result property="address.jisubmain" column="JISUBMAIN"></result>
+	</resultMap>
+	
 	 <insert id="editAuthCode" parameterClass="AuthCode">
         UPDATE PLACE SET AUTHCODE = #newAuthCode#
         WHERE FID = #fid#
@@ -12,7 +47,28 @@
     <select id="getAuthCode" parameterClass="int" resultClass="AuthCode">
          SELECT FID, AUTHCODE FROM PLACE
          WHERE FID =  #fid#
-         
+    </select>
+    <select id="getPlace" parameterClass="int" resultMap="PlaceJoinAddress">
+         SELECT  sql_calc_found_rows  A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		 A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.STYPE, A.REMARK,
+    	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE,A.QRAUTHCODE, A.SAVEDATE, A.EDITDATE,
+    	 		 PB.BASNAME AS STYPE,
+		   	 	 B.SIDO, 
+		   	 	 B.GUGUN,
+		   	 	 B.BUPNAME, 
+		   	 	 IFNULL(B.HDONGNAME,'') AS HDONGNAME, 
+		   	 	 B.JIMAIN, 
+		   	 	 B.JISUBMAIN, 
+		   	 	 B.DORONAME, 
+		   	 	 B.BLDMAIN, 
+		   	 	 B.BLDSUBMAIN
+		 FROM PLACE A
+		 INNER JOIN PBASCD PB
+         	ON A.STYPE = PB.BASECD	
+         	AND PB.GRPCD = 'FTYPE'
+		 LEFT OUTER JOIN PADDRESS B
+			ON A.NLDNO = B.NLDNO
+       WHERE A.FID= #fid#
     </select>
   
 </sqlMap>

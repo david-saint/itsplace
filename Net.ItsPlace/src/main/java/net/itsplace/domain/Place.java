@@ -67,7 +67,7 @@ public class Place {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDate; // 
 	private String qrcode; 
-	
+	private String qrAuthCode;
 	private int pageBlock = 10;
 	private int pageSize  = 5;
 	private int currentPage = 1;
@@ -75,6 +75,13 @@ public class Place {
 	
 	private int start = 0;
 	
+	
+	public String getQrAuthCode() {
+		return qrAuthCode;
+	}
+	public void setQrAuthCode(String qrAuthCode) {
+		this.qrAuthCode = qrAuthCode;
+	}
 	public String getImageHost() {
 		return imageHost;
 	}

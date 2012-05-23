@@ -104,6 +104,11 @@
  		
  	});//ready
  	function setAddress(nldno,lat,lng,address){
+ 		$('#nldno').val(nldno);
+ 		$('#lat').val(lat);
+ 		$('#lng').val(lng);
+ 		$('#address').val(address);
+ 		
  		c.log("부모에게 넘어온 주소:"+address);	
  	}
 </script>
@@ -161,7 +166,7 @@
 					<input id="nldno" type="text" name="nldno"/>
 					<input id="lat" type="text" name="latitude"/>
 					<input id="lng" type="text" name="longitude"/>
-					<input id="address" class="address iframe" href="/address/search" type="text" name="address" onclick="search()"/>
+					<input id="address" class="address iframe" href="/address/search" type="text" name="address" />
 					<span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>

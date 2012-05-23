@@ -55,6 +55,7 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 		place.setFid(adminPlaceDao.savePlace(place));
 		QrCodeService qr = new QrCodeService();
 		place = qr.makePlaceQrCode(place, "url");
+		place = qr.makePlaceQrAuthCode(place);
 		adminPlaceDao.editPlacerQrcode(place);
 		
 		return place.getFid();

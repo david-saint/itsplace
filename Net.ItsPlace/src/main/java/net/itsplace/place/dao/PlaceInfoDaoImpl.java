@@ -3,6 +3,7 @@ package net.itsplace.place.dao;
 import javax.annotation.Resource;
 
 import net.itsplace.domain.Authcode;
+import net.itsplace.domain.Place;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,11 @@ public class PlaceInfoDaoImpl  extends SqlMapClientDaoSupport implements  PlaceI
 	public Authcode getAuthCode(int fid) throws DataAccessException {
 	
 		return 	(Authcode)getSqlMapClientTemplate().queryForObject("place.getAuthCode",fid)	;
+	}
+
+	@Override
+	public Place getPlace(int fid) throws DataAccessException {
+		return (Place) getSqlMapClientTemplate().queryForObject("place.getPlace", fid);
 	}
 
 }

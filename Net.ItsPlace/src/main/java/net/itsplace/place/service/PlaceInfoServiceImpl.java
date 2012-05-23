@@ -1,6 +1,7 @@
 package net.itsplace.place.service;
 
 import net.itsplace.domain.Authcode;
+import net.itsplace.domain.Place;
 import net.itsplace.place.dao.PlaceInfoDao;
 import net.itsplace.place.dao.PlaceStampDao;
 import net.itsplace.user.UserInfo;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service("placeInfoService")
 public class PlaceInfoServiceImpl  implements PlaceInfoService {
-	private static final Logger logger = LoggerFactory.getLogger(PlaceStampServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(PlaceInfoServiceImpl.class);
 	
 	@Autowired
 	private PlaceInfoDao placeInfoDao;
@@ -42,6 +43,12 @@ public class PlaceInfoServiceImpl  implements PlaceInfoService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Place getPlace(int fid) {
+		
+		return placeInfoDao.getPlace(fid);
 	}
 
 

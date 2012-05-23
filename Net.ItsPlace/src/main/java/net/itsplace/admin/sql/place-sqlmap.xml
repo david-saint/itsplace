@@ -117,7 +117,8 @@
     </update>
     <update id="editPlacerQrcode" parameterClass="Place">
          UPDATE PLACE 
-         SET QRCODE = #qrcode#
+         SET QRCODE = #qrcode#,
+             QRAUTHCODE = #qrAuthCode#
          WHERE FID=#fid#
     </update>  
   

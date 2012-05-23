@@ -22,6 +22,7 @@ import net.itsplace.place.service.PlaceInfoService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.FtpService;
 import net.itsplace.util.ImageService;
+import net.itsplace.util.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -154,5 +156,23 @@ public class PlaceInfoController {
 			}
 		}
 		return json;
+	}
+	/**
+	 * 가맹점 관리자 QR 코드 출력      <br />
+	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/place/getQrCode", method = RequestMethod.GET)
+	public String list(Model model) {
+		
+		model.addAttribute("place",placeInfoService.getPlace(UserInfo.getFid()));	
+		
+		return "place/stamp/list";
 	}
 }
