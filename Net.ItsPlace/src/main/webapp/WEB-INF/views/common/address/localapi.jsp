@@ -39,75 +39,22 @@
 			
 		
 		 	$(document).ready(function(){
+		 		$('#btnSearch').live('click',function() {
+		 			getDaumCOORD($('#search').val());
+		 		});
+		 		$('#search').bind('keyup',function(e){
+		 		     if( e.which == 13){
+		 		    	getDaumCOORD($('#search').val());
+		 		    }
+		 		});
+		 		$('#search').focus();
 		 		
-		 		 $.ajax({
-		 	        type: 'get'
-		 	        , async: false
-		 	        , url: url
-		 	        , dataType: 'json'		       
-		 	        , success: function(data) {
-		 	        	alert(authyn);
-		 	        	if(authyn=="Y"){
-		 	        		$('#auth_'+fid).text("승인취소");
-		 	        		$('#auth_'+fid).attr("authyn","Y");
-		 	        	}else{
-		 	        		$('#auth_'+fid).text("승인");
-		 	        		$('#auth_'+fid).attr("authyn","N");
-		 	        	}
-		 	        	
-		 	        }
-		 	 		, error: function(data, status, err) {
-		 	 			//log.info("error forward : "+data+err+status);
-		 	 			alert('franchiser_auth 서버와의 통신이 실패했습니다.'+data+err+status);
-		 	 		}
-		 	 		, complete: function() {
-		 	 		
-		 	 		}
-		 	 });
+		 		
 			});
 		 	
-		 	function make_address(oObj) {
-		 		var bldmain;
-		 		var jimain;
-		 		if(oObj.aData['bldsubmain']!=="0"){
-		 			bldmain = oObj.aData['bldmain'] + "-" +oObj.aData['bldsubmain'];
-		 		}else{
-		 			bldmain = oObj.aData['bldmain'] ;
-		 		}
-		 		if(oObj.aData['jisubmain']!=""){
-		 			jimain = oObj.aData['jimain'] + "-" +oObj.aData['jisubmain'];
-		 		}else{
-		 			jimain = oObj.aData['jimain'] ;
-		 		}
-		 		c.log(jimain);
-		 		var address = oObj.aData['sido']+"&nbsp;"
-		 					 +oObj.aData['gugun']+"&nbsp;"
-		 					 +oObj.aData['doroname']+"&nbsp;"
-		 					 +bldmain+"&nbsp;("
-		 					 +oObj.aData['bupname']+"&nbsp;" + jimain +" )";
-		 					// +jimain+" )";
-		 		return address;
-		 	}
-		 	function make_actions(oObj) {
-		 		 
-		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
-		 		//c.log("마:"+marker.length);
-		 		//번지까지 넣으면 결과값이 하나만 나온다?
-		 		var search = oObj.aData['bupname']+oObj.aData['jimain'];
-		 		if(oObj.aData['jisubmain']!=""){
-		 			search += "-" + oObj.aData['jisubmain'];
-		 		}
-		 		getDaumCOORD(search);
-		 		
-		 		var nldno = oObj.aData['nldno'];
-		 		var address = search;
-		 		var action = '<span class="tip"><a onclick="changeAddress(\''+nldno+'\',\''+address+'\')" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		
-		 		return  action ; 
-		 	}
-		  	function changeAddress(nldno,address){
-				console.log(nldno+address);
-		 		parent.setAddress(nldno,lat,lng,address);
+		 	
+		  	function changeAddress(address,lat,lng,localName_1,localName_2,localName_3,newAddress){
+		 		parent.setAddress(address,lat,lng,localName_1,localName_2,localName_3,newAddress);
 		 		parent.$.fancybox.close();
 		 	} 
 		 	function getDaumCOORD(searchWord){
@@ -120,10 +67,14 @@
 		 		var y = "";
 		 		var url = "http://apis.daum.net/local/geo/addr2coord?apikey="+key+"&output=json&q=";
 		 		url = url + encodeURIComponent(searchWord);
+		 		initMap();
 		 		$.getJSON(url + "&callback=?",function(data){				
-		 			
+		 			var html="";
+		 			var btn="";
+		 			$("#addressList").empty();
 		 				if(data.channel.item.length>0){
 		 					$.each(data.channel.item, function(i){
+		 						//c.log("total:"+data.channel.totalCount);
 		 						
 		 						x=this.point_x;
 		 						y=this.point_y;
@@ -139,6 +90,20 @@
 		 				 			 position: new daum.maps.LatLng(this.point_y, this.point_x),		 
 		 				 		 }).setMap(map);
 		 						 */
+		 						this.title = this.title.replace(/&lt;/g,"<");
+		 						this.title = this.title.replace(/&gt;/g,">");
+		 						
+		 						this.localName_3 = this.localName_3.replace(/&lt;/g,"");
+		 						this.localName_3 = this.localName_3.replace(/&gt;/g,"");
+		 						this.localName_3 = this.localName_3.replace(/b/g,"");
+		 						this.localName_3 = this.localName_3.replace(/\//g,"");
+		 						c.log(this.localName_3);
+		 						//c.log(this.title);
+		 						 //this.title = this.title.replace(/<b>/g,"dddddddd");
+		 						 //c.log(this.title);//address,lat,lng,localName_1,localName_2,localName_3,newAddress
+		 						btn = '<span class="tip"><a title="Edit" onclick="changeAddress(\''+this.title+'\',\''+this.lat+'\',\''+this.lng+'\',\''+this.localName_1+'\',\''+this.localName_2+'\',\''+this.localName_3+'\',\''+this.newAddress+'\')"><img src="/resources/admin/images/icon/icon_edit.png"></a></span>';
+		 						html = html +  '<tr><td align="left">'+this.title+'</td><td>'+btn+'</td></tr>';
+		 						
 		 						if(i==0){
 		 							lat = this.point_y;
 		 							lng =  this.point_x;
@@ -146,6 +111,7 @@
 		 						}
 		 						daummap_setMarker(this.point_y, this.point_x, index);
 		 					});
+		 					$("#addressList").append(html);
 		 				}		
 		 		});	
 		 	}
@@ -162,7 +128,7 @@
 		 	 function test(){
 		 		daummap_setMarker(lat,lng,1);
 		 	 }
-		 	  function test2(){
+		 	  function initMap(){
 		 		 map = new daum.maps.Map(document.getElementById('map'), {
 
 						center: new daum.maps.LatLng(lat, lng)
@@ -170,20 +136,21 @@
 					});
 		 	 } 
 		 </script>
-		
+		<div><input type="text" id="search" value="진천동525"/></div><button id="btnSearch">검색</button>
 		 <div class="tableName" style="float:left;width:650px"><!--클래 tableName search box를 타이 이동험   -->
 		 	<span style="position:absolute"></span>
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>
-						<th>주소 </th>
-						
+						<th >주소 </th>
 						<th >Action</th>
-						
 					</tr>
 				</thead>
+				<tbody id="addressList" >
+				</tbody>
 			</table>
 		</div> 
+		
 	<div id="map" style="float:right;width:500px;height:500px"></div>
 		<div class="section last right">
 			

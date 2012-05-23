@@ -68,7 +68,7 @@
          	AND PB.GRPCD = 'FTYPE'
 		 LEFT OUTER JOIN PADDRESS B
 			ON A.NLDNO = B.NLDNO
-       WHERE A.FID= #fid#
+      	 WHERE A.FID= #fid#
     </select>
   
 </sqlMap>

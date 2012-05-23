@@ -103,13 +103,18 @@
  	
  		
  	});//ready
- 	function setAddress(nldno,lat,lng,address){
- 		$('#nldno').val(nldno);
+ 	function setAddress(address,lat,lng,localName_1,localName_2,localName_3,newAddress){
+ 		address = address.replace(/<b>/g,"");
+ 		address = address.replace(/<\/b>/g,"");
+ 		$('#address').val(address);
  		$('#lat').val(lat);
  		$('#lng').val(lng);
- 		$('#address').val(address);
+ 		$('#sido').val(localName_1);
+ 		$('#gugun').val(localName_2);
+ 		$('#dong').val(localName_3);
+ 		$('#newAddress').val(newAddress);
  		
- 		c.log("부모에게 넘어온 주소:"+address);	
+ 		c.log("부모에게 넘어온 주소:"+localName_1+localName_2+localName_3+newAddress);	
  	}
 </script>
 
@@ -163,10 +168,14 @@
 			<div class="section">
 				<label> 주소  <small></small></label>
 				<div>
-					<input id="nldno" type="text" name="nldno"/>
-					<input id="lat" type="text" name="latitude"/>
-					<input id="lng" type="text" name="longitude"/>
-					<input id="address" class="address iframe" href="/address/search" type="text" name="address" />
+					<input id="address" class="address full iframe" href="/address/search" type="text" name="address" />
+					<input id="lat" type="hidden" name="latitude"/>
+					<input id="lng" type="hidden" name="longitude"/>
+					<input id="sido" type="hidden" name="sido"/>
+					<input id="gugun" type="hidden" name="localName_1"/>
+					<input id="dong" type="hidden" name="localName_2"/>
+					<input id="newAddress" type="hidden" name="newAddress"/>
+					
 					<span class="f_help">영문+숫자 혼합</span>
 				</div>
 			</div>

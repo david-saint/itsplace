@@ -26,7 +26,7 @@ public class CommonController {
 	@RequestMapping(value = "/address/search", method = RequestMethod.GET)
 	public String search() {
 		
-		return "common/address/list";
+		return "common/address/localapi";
 	}
 	
 	/**
