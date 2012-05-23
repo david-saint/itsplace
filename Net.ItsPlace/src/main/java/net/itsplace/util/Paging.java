@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-@Service("Paging")
 public class Paging  extends SqlMapClientDaoSupport{
 	private static final Logger logger = LoggerFactory.getLogger(Paging.class);
 	
