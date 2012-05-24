@@ -63,8 +63,7 @@
 		 		
 		 		//var searchWord="대구광역시 중구 공평로8길 29 0";
 		 		var key = "791f18f41d85d7e90a5d3f8004ae84b53dd5eafd";
-		 		var x = "";
-		 		var y = "";
+		 	
 		 		var url = "http://apis.daum.net/local/geo/addr2coord?apikey="+key+"&output=json&q=";
 		 		url = url + encodeURIComponent(searchWord);
 		 		initMap();
@@ -76,8 +75,7 @@
 		 					$.each(data.channel.item, function(i){
 		 						//c.log("total:"+data.channel.totalCount);
 		 						
-		 						x=this.point_x;
-		 						y=this.point_y;
+		 						
 		 						//log.info("리턴좌표:" + y+", " +x);
 		 						//log.info("결과좌표:" + resultArray[0] +", " +resultArray[1]);
 		 		        	    //$('#latitude').val(resultArray[0]);
@@ -149,6 +147,8 @@
 				<tbody id="addressList" >
 				</tbody>
 			</table>
+			
+			<div class="dataTables_paginate paging_full_numbers" id="user_datatable_paginate"><a tabindex="0" class="first paginate_button paginate_button_disabled" id="user_datatable_first">First</a><a tabindex="0" class="previous paginate_button paginate_button_disabled" id="user_datatable_previous">Previous</a><span><a tabindex="0" class="paginate_active">1</a><a tabindex="0" class="paginate_button">2</a><a tabindex="0" class="paginate_button">3</a></span><a tabindex="0" class="next paginate_button" id="user_datatable_next">Next</a><a tabindex="0" class="last paginate_button" id="user_datatable_last">Last</a></div>
 		</div> 
 		
 	<div id="map" style="float:right;width:500px;height:500px"></div>
