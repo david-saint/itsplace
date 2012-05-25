@@ -41,18 +41,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		String requestUrl;
 		User user = userService.getUser(authentication.getName());
 		//request.getSession().setAttribute("USERSESSION",user);
-		 if(request.getHeader("X-Ajax-call")!=null){
-			 if (request.getHeader("X-Ajax-call").equals("true")) {
-				 if( UserInfo.getUser().getRole().equals("ROLE_ADMIN") ){
-		            response.getWriter().print("ROLE_ADMIN");
-		            response.getWriter().flush();
-		        } else if( UserInfo.getUser().getRole().equals("ROLE_USER") ){
-		        	response.getWriter().print("ROLE_USER");
-		            response.getWriter().flush();
-		        }
-			 }
-		 }
+		
+		 
 		 System.out.println("onAuthenticationSuccess user.getRole():"+user.getRole());
+		 
 	//	String ctoken = (String) request.getSession().getAttribute(WebConstants.CSRF_TOKEN);
         DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
         if(user.getRole().equals("ROLE_FID")){
@@ -81,7 +73,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         }
        
 		
-        System.out.println("onAuthenticationSuccess ???");
+        System.out.println("onAuthenticationSuccess 가맹점 fid:"+UserInfo.getFid());
+        
         if( defaultSavedRequest != null ) {
         	
         	 System.out.println("onAuthenticationSuccess 111");
@@ -103,7 +96,22 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
            //getRedirectStrategy().sendRedirect(request, response, ");
         	 if(logger.isInfoEnabled()){//개발모
         		 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
-        		 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
+        		
+        		 
+        		 if(request.getHeader("X-Ajax-call")!=null){
+        			 logger.info("ajax Login Success");
+        			 if (request.getHeader("X-Ajax-call").equals("true")) {
+        				 if( UserInfo.getUser().getRole().equals("ROLE_ADMIN") ){
+        		            response.getWriter().print("ROLE_ADMIN");
+        		            response.getWriter().flush();
+        		        } else if( UserInfo.getUser().getRole().equals("ROLE_USER") ){
+        		        	response.getWriter().print("ROLE_USER");
+        		            response.getWriter().flush();
+        		        }
+        			 }
+        		 }else{        			 
+        			 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
+        		 }
         	 }else{
         		 super.onAuthenticationSuccess(request, response, authentication); 
         	 }

@@ -139,14 +139,7 @@ public class PlaceStampController {
 	 */
 	@RequestMapping(value = "/q", method = RequestMethod.GET)
 	public String save(Model model)  {
-		
-		
-		
 		model.addAttribute("Stamp", new Stamp());
-		
-	
-		
-		
 		return "place/stamp/q";
 	}
 	
@@ -240,6 +233,8 @@ public class PlaceStampController {
 		try{
 		
 			logger.info("authcode:{}",authcode);	
+			logger.info("선택된 가맹점 :{}",UserInfo.getFid());	
+			logger.info("로그인한 사용자 :{}",UserInfo.getEmail());	
 			Stamp stamp = new Stamp();
 			stamp.getPlaceStamp().setStampid(stampid);
 			stamp.getUser().setEmail(email);

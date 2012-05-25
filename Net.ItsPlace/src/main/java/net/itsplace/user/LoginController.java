@@ -51,15 +51,15 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request) {
-		 System.out.println("자동로그인");
-		 if(net.itsplace.user.UserInfo.autoLogin("faye12005@gmail.com", "hoon1014")){
-			 DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
-			 System.out.println("자동로그인"+request.getRequestURI()+defaultSavedRequest);
-			 //return request.getRequestURI();
-			// new CustomUserDetailsService().loadUserByUsername(username)
-			 model.addAttribute("back","back");
-			 
-		 }
+		 System.out.println("개발 모드 자동로그인");
+//		 if(net.itsplace.user.UserInfo.autoLogin("faye12005@gmail.com", "hoon1014")){
+//			 DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
+//			 System.out.println("자동로그인"+request.getRequestURI()+defaultSavedRequest);
+//			 //return request.getRequestURI();
+//			// new CustomUserDetailsService().loadUserByUsername(username)
+//			 model.addAttribute("back","back");
+//			 
+//		 }
 		
 		/*Map<String, Object> param;
 		param = new HashMap<String, Object>();		
