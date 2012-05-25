@@ -2,20 +2,37 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
-public class PlaceComment {
 
-		private String cid;
-		private String comment;
-		private String email;
-		private String name;
+/**
+ * 가맹점 댓글 클래스    <br />
+ * 
+ * @author 김동훈
+ * @version 1.0, 2011. 8. 24.
+ * @param email
+ * @return  edit.jsp
+ * @throws 
+ * @see 
+ */
+public class PlaceComment {
+	public interface AddPlaceComment {}
+	public interface EditPlaceComment {}
+	
+		private String cid; /* 코멘트  */
+		private String comment; /* 코멘트 */
+		private String email; /* 사용자 이메일  */
+		private String name; 
 		private String fname;
-		private String fid;
-		private Date inpdate;
-		private String writeDate;
+		private int fid;
+		private Date saveDate;
 		private String profileImageUrl;
+		private String commentCount; // 코멘트갯수 
 		
-		
-		
+		public String getCommentCount() {
+			return commentCount;
+		}
+		public void setCommentCount(String commentCount) {
+			this.commentCount = commentCount;
+		}
 		public String getFname() {
 			return fname;
 		}
@@ -33,12 +50,6 @@ public class PlaceComment {
 		}
 		public void setName(String name) {
 			this.name = name;
-		}
-		public String getWriteDate() {
-			return writeDate;
-		}
-		public void setWriteDate(String writeDate) {
-			this.writeDate = writeDate;
 		}
 		public String getCid() {
 			return cid;
@@ -58,19 +69,19 @@ public class PlaceComment {
 		public void setEmail(String email) {
 			this.email = email;
 		}
-		public String getFid() {
+		
+		public int getFid() {
 			return fid;
 		}
-		public void setFid(String fid) {
+		public void setFid(int fid) {
 			this.fid = fid;
 		}
-		public Date getInpdate() {
-			return inpdate;
+		public Date getSaveDate() {
+			return saveDate;
 		}
-		public void setInpdate(Date inpdate) {
-			this.inpdate = inpdate;
+		public void setSaveDate(Date saveDate) {
+			this.saveDate = saveDate;
 		}
-		
 		@Override
 		public String toString() {
 			return "PlaceComment:[cid=" + cid + ", fid= " + fid + ", email= " + email + ", comment= " + comment  + "]"  ;

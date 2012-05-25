@@ -86,7 +86,8 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 			return  new ItemFragment();
 			// new getStamped().execute(Integer.toString(fid)); 
 		}else{
-			return new ItemFragment(this.stampList.get(pos).getFid());
+			return null;
+			//return new ItemFragment(this.stampList.get(pos).getFid());
 		}
 		
 		//return new ItemFragment(this.stampList.get(pos).getFid());
@@ -104,7 +105,7 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 		cal.add(Calendar.DAY_OF_MONTH, pos - getCount() / 2);
 		//return readableDateFormat.format(cal.getTime());
 		
-		return this.stampList.get(pos).getFname()+pos;
+		return "";//this.stampList.get(pos).getFname()+pos;
 	}
 
 
@@ -182,16 +183,16 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 			LinearLayout stampLineLayout = null;
 			List<Stamp> useStampList = new ArrayList<Stamp>();
 			 //textView.setText(stampList.get(0).getFname());
-			L.i("ddddddddddddd", stampList.get(0).getFname());
+			//L.i("ddddddddddddd", stampList.get(0).getFname());
 			//textView.setText(stampList.get(0).getFname()+stampList.get(0).getRemark());
 			int stampCount=0;
 			int useStampCount=0;//사용한 스탬프 갯수
 			int emptyStampCount=0;
-			int eventDay = Integer.parseInt(stampList.get(0).getEventday());
+			//int eventDay = Integer.parseInt(stampList.get(0).getEventday());
 			
-			stampCount = Integer.parseInt(stampList.get(0).getStampcount());
+			//stampCount = Integer.parseInt(stampList.get(0).getStampcount());
 			txtEvent.setText(stampList.get(0).getRemark());
-			txtFcode.setText(stampList.get(0).getFcode());
+			//txtFcode.setText(stampList.get(0).getFcode());
 			
 			 Button btnStampSaveActivity = (Button) v.findViewById(R.id.btnStampSaveActivity);
 		        final Intent intent = new Intent(getActivity(), StampSaveActivity.class);	        
@@ -227,7 +228,7 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 				
 					Stamp stamp = stampList.get(i);
 					if(stamp.getStatus().equals("P")){//적립					  
-					    bitmap = drawText(BitmapFactory.decodeResource(getResources(),R.drawable.stamp), stampList.get(i).getInpdate() );
+					  //  bitmap = drawText(BitmapFactory.decodeResource(getResources(),R.drawable.stamp), stampList.get(i).getInpdate() );
 					}
 					if(stamp.getStatus().equals("U")){
 						++useStampCount;
@@ -240,11 +241,11 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 				//	bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.stamp_empty);
 				//}
 				
-				if((i+1)%eventDay==0){
-					++emptyStampCount;
-					bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.heart_and_rose);
-					
-				}
+//				if((i+1)%eventDay==0){
+//					++emptyStampCount;
+//					bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.heart_and_rose);
+//					
+//				}
 				  	image.setImageBitmap(bitmap);
 			        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
 			       
