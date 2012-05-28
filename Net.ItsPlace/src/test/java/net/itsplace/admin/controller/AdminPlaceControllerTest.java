@@ -36,7 +36,7 @@ public class AdminPlaceControllerTest  extends TestApplicationContext {
 		Place place = new Place();
 		place.setName("babo");
 		place.setFname("바보가게");
-		place.setFtype("1");
+		//place.setFtype("1");
 		place.setPhone1("666666");
 		place.setMobile("22222222");
 		DataBinder result = new DataBinder(place);

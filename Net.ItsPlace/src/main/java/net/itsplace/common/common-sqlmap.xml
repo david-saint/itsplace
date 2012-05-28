@@ -11,17 +11,23 @@
 	
 	
     <select id="getBascdList" resultClass="Bascd" parameterClass="String">
-    	Select B.NO, A.GRPNAME, A.GRPCD, B.BASNAME, B.BASECD, B.REMARK, B.ISDELETE, B.BASEVAL From PGRPBASCD A
-		Inner Join PBASCD B
-		On A.GRPCD = B.GRPCD	
+    	Select B.NO, A.GRPNAME, A.GRPCD, B.BASNAME, B.BASECD, B.REMARK, B.ISDELETE, B.BASEVAL 
+    	From 
+    		PGRPBASCD A
+		Inner Join 
+			PBASCD B
+				On A.GRPCD = B.GRPCD	
 		<isNotEmpty>
 		Where A.GRPCD =#grpCd#
 		</isNotEmpty>    			
     </select>
     <select id="getBascdALL" resultClass="Bascd" >
-    	Select A.GRPCD,B.BASEKEY, B.BASECD, B.BASEVAL From PGRPBASCD A
-		Inner Join PBASCD B
-		On A.GRPCD = B.GRPCD	
+    	Select A.GRPCD,B.BASEKEY, B.BASECD, B.BASEVAL 
+    	From 
+    		PGRPBASCD A
+		Inner Join 
+			PBASCD B
+				On A.GRPCD = B.GRPCD	
 		Where A.ISDELETE ='N'
     </select>
      

@@ -28,5 +28,6 @@ public interface AdminStampDao {
 	/*가맹점 스탬프 등록 및 수정 */
 	public void savePlaceStamp(PlaceStamp placeStamp) throws DataAccessException;	
 	public void editPlaceStamp(PlaceStamp placeStamp) throws DataAccessException;
+	public void deletePlaceStamp(PlaceStamp placeStamp) throws DataAccessException;
 	public PlaceStamp getPlaceStamp(int stampid) throws DataAccessException;
 }

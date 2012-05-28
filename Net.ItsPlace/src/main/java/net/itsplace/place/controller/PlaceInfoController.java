@@ -58,7 +58,9 @@ public class PlaceInfoController {
 	public String placeInfo(Model model) {
 		model.addAttribute("place",adminPlaceService.getPlace(UserInfo.getFid()));
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
-		
+		model.addAttribute("categoryList",commonService.getBascdList("CATEGORY"));
+		model.addAttribute("placeTypeList",commonService.getBascdList("PLACETYPE"));
+		model.addAttribute("serviceTypeList",commonService.getBascdList("SERVICETYPE"));
 		return "place/edit";
 	}
 	/**

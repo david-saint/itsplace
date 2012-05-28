@@ -8,7 +8,7 @@
 	<typeAlias type="net.itsplace.domain.Category" alias="Category"/>
 	<typeAlias type="net.itsplace.domain.PlaceStamp" alias="PlaceStamp"/>
 	<typeAlias type="net.itsplace.domain.Pmedia" alias="Pmedia"/>
-
+<!-- 
 	
 	<resultMap id="PlaceJoinAddress" class="Place" >
 		<result property="fid" column="FID"></result>
@@ -33,59 +33,73 @@
 		<result property="saveDate" column="SAVEDATE"></result>
 		<result property="editDate" column="EDITDATE"></result>
 		
-		<result property="address.sido" column="SIDO"></result>
-		<result property="address.gugun" column="GUGUN"></result>
-		<result property="address.bupname" column="BUPNAME"></result>
-		<result property="address.hdongname" column="HDONGNAME"></result>
-		<result property="address.doroname" column="DORONAME"></result>
-		<result property="address.bldmain" column="BLDMAIN"></result>
-		<result property="address.bldsubmain" column="BLDSUBMAIN"></result>
-		<result property="address.jimain" column="JIMAIN"></result>
-		<result property="address.jisubmain" column="JISUBMAIN"></result>
 		
 		
 								
 	</resultMap>
-	
-	<select id="getPlaceList" resultMap="PlaceJoinAddress" parameterClass="java.util.Map">
-    	 SELECT  sql_calc_found_rows  A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-    	 		 A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.STYPE, A.REMARK,
-    	 		 A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
-    	 		 PB.BASNAME AS STYPE,
-		   	 	 B.SIDO, 
-		   	 	 B.GUGUN,
-		   	 	 B.BUPNAME, 
-		   	 	 IFNULL(B.HDONGNAME,'') AS HDONGNAME, 
-		   	 	 B.JIMAIN, 
-		   	 	 B.JISUBMAIN, 
-		   	 	 B.DORONAME, 
-		   	 	 B.BLDMAIN, 
-		   	 	 B.BLDSUBMAIN
-		 FROM PLACE A
-		 INNER JOIN PBASCD PB
-         	ON A.STYPE = PB.BASECD	
-         	AND PB.GRPCD = 'FTYPE'
-		 LEFT OUTER JOIN PADDRESS B
-			ON A.NLDNO = B.NLDNO
+	 -->
+	<select id="getPlaceList" resultClass="Place" parameterClass="java.util.Map">
+    	 SELECT  sql_calc_found_rows  
+    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
+    	 		A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
+    	 		S.BASNAME AS SERVICETYPE,
+    	 		P.BASNAME AS PLACETYPE,
+		   	 	A.FULLADDRESS,
+		   	 	A.SIDO,
+		   	 	A.GUGUN,
+		   	 	A.DONG,
+		   	 	A.NEWADDRESS
+		 FROM 
+		 	PLACE A
+		 LEFT OUTER JOIN
+		 	PBASCD S
+         		ON A.SERVICETYPE = S.BASECD	
+         		AND S.GRPCD = 'SERVICETYPE'
+		 LEFT OUTER JOIN
+		 	PBASCD P
+         		ON A.PLACETYPE = P.BASECD	
+         		AND P.GRPCD = 'PLACETYPE'
+		
          <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	WHERE A.FNAME like CONCAT('%',#search#,'%')
-	    	 	or B.HDONGNAME like CONCAT('%',#search#,'%')
-	    	 	or MOBILE like CONCAT('%',#search#,'%')
+	    	 	OR A.FULLADDRESS like CONCAT('%',#search#,'%')
+	    	 	OR MOBILE like CONCAT('%',#search#,'%')
 	    	 </isNotEmpty>
     	 </dynamic>
     	 ORDER BY $sortColumn$ $sortDirection$
     	 LIMIT #startRow# , #endRow#	
     </select>
     <select id="getPlace" resultClass="Place">
-        SELECT FID, FNAME, NAME, MOBILE, PHONE1, LATITUDE, LONGITUDE, NLDNO, IMAGEHOST, FILENAME, ISAUTH, REMARK, CATEGORY, STYPE
+        SELECT FID, 
+        	   FNAME, 
+        	   NAME,
+        	   MOBILE,
+         	   PHONE1, 
+         	   LATITUDE, 
+         	   LONGITUDE, 
+         	   NLDNO, 
+         	   IMAGEHOST, 
+         	   FILENAME, 
+         	   ISAUTH, 
+         	   REMARK, 
+         	   CATEGORY, 
+         	   SERVICETYPE,
+         	   PLACETYPE,
+         	   FULLADDRESS,
+		   	   SIDO,
+		   	   GUGUN,
+		   	   DONG,
+		   	   NEWADDRESS
         FROM PLACE
         WHERE FID = #fid#
+        
     </select>
     <insert id="savePlace" parameterClass="Place">
          
-        INSERT INTO PLACE(FNAME, NAME, MOBILE, FILENAME,  ISAUTH, STARTDATE, SAVEDATE, ENDDATE)
-        VALUES (#fname#, #name#, #mobile#,  #fileName#, 'N', now(),now(),now())
+        INSERT INTO PLACE(FNAME, NAME, MOBILE, FILENAME, PLACETYPE,  ISAUTH, STARTDATE, SAVEDATE, ENDDATE)
+        VALUES (#fname#, #name#, #mobile#,  #fileName#, #placeType#, 'N', now(),now(),now())
          
         <selectKey keyProperty="fid" resultClass="java.lang.Integer">
 	    	 SELECT last_insert_id()
@@ -94,15 +108,24 @@
     </insert>
     <update id="editPlace" parameterClass="Place">
          UPDATE  PLACE
-         SET FNAME = #fname# ,
+         SET 
+         	 NAME = #name# ,
+         	 FNAME = #fname# ,
              MOBILE = #mobile#,
              PHONE1 = #phone1#, 
              NLDNO = #nldno#, 
-             FILENAME = #fileName#,
              ISAUTH = #isAuth#,
              REMARK = #remark#,
              CATEGORY = #category#,
-             STYPE = #stype#
+             SERVICETYPE = #serviceType#,
+             PLACETYPE = #placeType#,
+             LATITUDE = #latitude#, 
+         	 LONGITUDE = #longitude#, 
+             FULLADDRESS = #fullAddress#,
+		   	 SIDO = #sido#,
+		   	 GUGUN = #gugun#,
+		   	 DONG = #dong#,
+		   	 NEWADDRESS = #newAddress#
       	WHERE FID = #fid#        
     </update>
     <update id="enablePlace" parameterClass="int">

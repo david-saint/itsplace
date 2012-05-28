@@ -1,54 +1,65 @@
-/*스탬프 공통*/
-
-/*유효기간*/
-.ableDate{
-	border:0px solid blue;
-	padding:5px;
+.classic li {
+	background-image: url("/resources/images/stamp/tile/129.png")
 }
-/*스탬프제목*/
-.stampTitle{
-	border:0px solid blue;
-	padding:5px;
+.modern li {
+	background-image: url("/resources/images/stamp/tile/1707.png")
 }
-
-/*스탬프테두리*/
-.classic {
-	border:1px solid blue;
-	border-radius: 5px;
-	margin-top:10px;
+.pretty li {
+	background-image: url("/resources/images/stamp/tile/1676.png")
+}
+.lovely li {
+	background-image: url("/resources/images/stamp/tile/1628.png")
 }
 
-.classic ul{
-	border:0px solid blue;
-	width:460px;
+.stamp {
+	border-radius: 4px;
+	padding-left: 5px;
+}
+
+.stamps ul {
+	width: 220px;
 	display: inline-block;
-	padding:3px;
 }
 
-.classic li{
-	width:35px;
-	height:35px;
-	border:1px solid black;
+.stamps li {
+	width: 35px;
+	height: 35px;
+	border: 1px solid black;
 	text-align: center;
-	margin:3px;
-	line-height:35px;
+	margin: 3px;
+	line-height: 35px;
 	list-style: none;
 	display: inline-block;
 	border-radius: 4px;
 }
-.stampBoard{
-	margin:10px;
+/*유효기간 */
+.ableDate {
+	border: 0px solid blue;
+	padding: 5px;
 }
-.Stampped{
+/*제목 */
+.stampTitle {
+	border: 0px solid blue;
+	padding: 5px;
+}
+/*테두리 */
+.stampBoard {
+	margin: 10px;
+}
+
+.Stampped {
 	background-color: aqua;
 }
-.StampedEventday{
+
+.StampedEventday {
 	background-color: green;
 	cursor: pointer;
 }
-.Eventday{
+
+.Eventday {
 	background-color: olive;
 }
+/*
 .modern ul{
 	border:1px solid red;
 	width:460px;
@@ -65,4 +76,4 @@
 	list-style: none;
 	display: inline-block;
 	border-radius: 4px;
-}
+}*/

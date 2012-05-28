@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		drawStampCanvas($('#theme').val());
  		$('#sid').change(function(){
  			drawStampCanvas($('#theme').val());//테마와 스탬프를 그린다	
  		});
@@ -14,7 +15,7 @@
  		});
  		
  		$('.albumImage').live('click',function() {
- 			c.log($(this).find('img').attr('src') );
+ 		//	c.log($(this).find('img').attr('src') );
 			var theme = $(this).attr('theme');
  			$('#theme').find('option').each(function(i){
  				if(theme == $(this).val()){
@@ -93,52 +94,17 @@
 			for(var i=1;i<=stampcount;i++){
 				tag+="<li>"+i+"</li>";
 			}
-			tag += "</ul>";
-			c.log("theme:"+theme);
-			$('#'+sid).removeClass();
-			$('#'+sid).addClass(theme); // 테마 선택 
-			$('#'+sid).append(tag);
-			
- 		/* $('.stampType').each(function(i){
- 			var stampcount = $(this).attr('stampcount');
- 			var eventday = $(this).attr('eventday');
- 			var tag = "<ul>";
- 			for(var i=1;i<=stampcount;i++){
- 				tag+="<li>"+i+"</li>";
- 			}
- 			tag += "</ul>";
- 			c.log(tag);
- 			$('#stampCanvas').append(tag); 
- 			});*/
+		tag += "</ul>";
+		c.log("theme:"+theme);
+		$('#'+sid).removeClass();
+		$('#'+sid).addClass(theme); // 테마 선택 
+		$('#'+sid).append(tag);
+		
  	}
 </script>
 <style>
-	.classic ul{
-		border:1px solid blue;
-		width:220px;
-		display: inline-block;
-	}
-	.classic li{
-		width:35px;height:35px;border:1px solid black;text-align: center;
-		margin:3px;
-		line-height:35px;
-		list-style: none;
-		display: inline-block;
-		border-radius: 4px;
-	}
-	.modern ul{
-		border:1px solid red;
-		width:220px;
-		display: inline-block;
-	}
-	.modern li{
-		width:35px;height:35px;border:1px solid black;text-align: center;
-		margin:3px;
-		line-height:35px;
-		list-style: none;
-		display: inline-block;
-		border-radius: 4px;
-	}
+	
+	
 </style>
 <div class="widget">
 	<div class="header">
@@ -170,17 +136,17 @@
 				</div>
 			</div>
 			<div class="section">
-				<label> 스탬프 유형  <small>스탬프 유형을 선택해주세요 </small></label>
+				<label> 스탬프 유형  <small> </small></label>
 				<div>
 					<form:select id="sid" path="sid" multiple="false">
 						<form:options items="${stampTypeList}" itemValue="sid"	itemLabel="title" />
 					</form:select>
-					<span class="f_help">sss</span>
+					<span class="f_help"></span>
 				</div>
 				
 			</div>
 			<div class="section">
-				<label> 스탬프 테마  <small>스탬프 테마를 선택해주세요. 특별한 테마를 원한다면 연락주세요 </small></label>
+				<label> 스탬프 테마  <small> </small></label>
 				<div>
 					<form:select id="theme" path="theme" multiple="false">
 						<form:options items="${themeList}" itemValue="basecd"	itemLabel="basName" />
@@ -206,9 +172,9 @@
 			</div>
 			<div class="section">
 				<label> 미리보기   <small></small></label>
-				<div>
+				<div class="stamps">
 					<c:forEach items="${stampTypeList}" var="stampType" varStatus ="status">
-						<div id="${stampType.sid}"  stampcount="${stampType.stampcount }" eventday="${stampType.eventday}" remark="${stampType.remark }"></div>
+						<div id="${stampType.sid}"   stampcount="${stampType.stampcount }" eventday="${stampType.eventday}" remark="${stampType.remark }"></div>
 					</c:forEach>
 				</div>
 				<div class="clear"></div>
@@ -217,15 +183,15 @@
 			<div class="section"> 
 				<label> 스탬프설명  <small></small></label>
 				<div>
-					<textarea name="content"></textarea>
+					<textarea name="content" col="100"></textarea>
 						<span class="f_help"></span>
 				</div>
 			</div>
 			<div class="section"> 
 				<label> 시작일 <small></small></label>
 				<div>
-					<input id="1startDate" type="text" name="startDate"
-						class="validate[required,maxSize[50]] samll date"
+					<input id="startDate" type="text" name="startDate"
+						class="samll date"
 						value="<fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/>" /> 
 						<span class="f_help"></span>
 				</div>
@@ -233,19 +199,13 @@
 			<div class="section">
 				<label> 종료일  <small></small></label>
 				<div>
-					<input id="1endDate" type="text" name="endDate"
-						class="validate[required,maxSize[50]] small date"
+					<input id="endDate" type="text" name="endDate"
+						class="small date"
 						value="<fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/>" />  
 						<span class="f_help"></span>
 				</div>
 			</div>
-			<div class="section" >
-               <label> isDelete <small></small></label>   
-               <div> 
-               <form:radiobutton path="isDelete"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isDelete"  value="N" label="No"/> 
-               <span class="f_help"></span>
-            </div> 
+			
 			<div class="section last">
 				<div>
 					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
@@ -254,7 +214,6 @@
 				</div>
 			</div>
 			                                 
-          </div>
 		</form:form>
 			
 	</div>

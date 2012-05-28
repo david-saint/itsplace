@@ -77,7 +77,9 @@
         SET ISDELETE = 'N'
         WHERE SID =#sid#    
     </update>
-      <!-- PlaceStamp -->
+     
+     
+     <!-- PlaceStamp -->
      <update id="editPlaceStamp" parameterClass="PlaceStamp">
          UPDATE  PLACESTAMP
          SET STAMPTILE = #stampTitle#,
@@ -85,6 +87,12 @@
              ISDELETE = #isDelete#, 
              STARTDATE = #startDate#, 
              ENDDATE = #endDate#,
+      	 WHERE STAMPID = #stampid#        
+    </update>
+     <update id="deletePlaceStamp" parameterClass="PlaceStamp">
+         UPDATE  PLACESTAMP
+         SET ISDELETE = #isDelete#, 
+             EDITDATE = NOW()
       	 WHERE STAMPID = #stampid#        
     </update>
     <insert id="savePlaceStamp" parameterClass="PlaceStamp">

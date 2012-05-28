@@ -40,16 +40,18 @@
 		 							} },
 		 				  			{ "mDataProp": "fname", "sClass":"left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },
-		 				  			{ "mDataProp": "mobile"},
-		 				  			{ "mDataProp": "isAuth"},
-		 				  			{ "mDataProp": "address.hdongname" },
+		 				  			{ "mDataProp": "mobile", "sWidth": "150px"},
+		 				  			{ "mDataProp": "isAuth", "fnRender" :function ( oObj ) {
+		 								return oObj.aData['isAuth'] == " Y" ? "승인" : "미승인";
+		 							} },
+		 				  			{ "mDataProp": "dong" },
 		 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
 		 				  			{ "mDataProp": "editDate","fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
-		 				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
+		 				  			{ "sDefaultContent": "","sWidth": "150px", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  		],
 		 			//"oLanguage": {
 		 			//                "sUrl": "/resources/common/datatables.txt"
@@ -60,15 +62,16 @@
 		 			},
 		 			"fnDrawCallback": function () {
 		 				
-		 				$('.edit').fancybox({//autodimensions false 후 width , height 가느
+		 				 $('.edit').fancybox({//autodimensions false 후 width , height 가느
 		 					'autoDimensions':false,
 		 					'scrolling':'auto',
 		 					'autoScale':false,
-		 					'height':500,
+		 					'height':600,
+		 					'width':1300,
 		 					//'centerOnScroll':true
 		 					//'title':'사용자 정보 수정'
 	
-		 				});
+		 				}); 
 		 				$('.delete').bind('click', function() {
 		 					$.ajax({
 		 	                     url: "/admin/place/disable",
@@ -124,16 +127,16 @@
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>
-						<th class="center">fid</th>
-						<th >fileName</th>
-						<th >fname</th>
-						<th>name</th>
-						<th>mobile</th>
-						<th>authyn</th>
-						<th>hdongname</th>
-						<th>saveDate</th>
-						<th>editDate</th>
-						<th>Management</th>
+						<th class="center">FID</th>
+						<th>대표사진</th>
+						<th>업체명</th>
+						<th>대표자</th>
+						<th>휴대폰</th>
+						<th>승인여부</th>
+						<th>도로명</th>
+						<th>신청일자</th>
+						<th>수정일자</th>
+						<th>관리</th>
 					</tr>
 				</thead>
 			</table>

@@ -62,7 +62,7 @@ public class AdminBasecontroller {
 		return "admin/base/add";
 	}
 	/**
-	 * 회원 생성 <br />
+	 * 기초코드  생성 <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.

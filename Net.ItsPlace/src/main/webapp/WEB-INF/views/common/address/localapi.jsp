@@ -16,7 +16,7 @@
 	<div class="content">
 		<script type="text/javascript">
 		var map;
-		//var marker = new Array();
+		var mapImage = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 		var datatable;
 		var index;
 		var lat = "35.81473605375478";
@@ -40,11 +40,11 @@
 		
 		 	$(document).ready(function(){
 		 		$('#btnSearch').live('click',function() {
-		 			getDaumCOORD($('#search').val());
+		 			getDaumCOORD($('#search').val(),1);
 		 		});
 		 		$('#search').bind('keyup',function(e){
 		 		     if( e.which == 13){
-		 		    	getDaumCOORD($('#search').val());
+		 		    	getDaumCOORD($('#search').val(),1);
 		 		    }
 		 		});
 		 		$('#search').focus();
@@ -57,23 +57,25 @@
 		 		parent.setAddress(address,lat,lng,localName_1,localName_2,localName_3,newAddress);
 		 		parent.$.fancybox.close();
 		 	} 
-		 	function getDaumCOORD(searchWord){
+		 	function getDaumCOORD(searchWord,pageno){
 		 		//http://apis.daum.net/maps/addr2coord?apikey=' + obj.apikey + '&output=json&callback=obj.pongSearch&q=' + encodeURI(obj.q.value)
 		 		//log.info("http://apis.daum.net/maps/addr2coord?apikey=c70f1cec73528a81f8888026073984d89ec37e38&output=json&q="+encodeURI(searchWord));
-		 		
+		 		$("#addressList").empty();
+		 		$('#paginate').empty();
 		 		//var searchWord="대구광역시 중구 공평로8길 29 0";
 		 		var key = "791f18f41d85d7e90a5d3f8004ae84b53dd5eafd";
-		 	
-		 		var url = "http://apis.daum.net/local/geo/addr2coord?apikey="+key+"&output=json&q=";
+		 		var url = "http://apis.daum.net/local/geo/addr2coord?apikey="+key+"&output=json&pageno="+pageno+"&q=";
 		 		url = url + encodeURIComponent(searchWord);
 		 		initMap();
 		 		$.getJSON(url + "&callback=?",function(data){				
 		 			var html="";
 		 			var btn="";
-		 			$("#addressList").empty();
+		 			
 		 				if(data.channel.item.length>0){
+		 					c.log("total:"+data.channel.totalCount);
+		 					pageNavigation(searchWord, data.channel.pageno,data.channel.totalCount)
+
 		 					$.each(data.channel.item, function(i){
-		 						//c.log("total:"+data.channel.totalCount);
 		 						
 		 						
 		 						//log.info("리턴좌표:" + y+", " +x);
@@ -99,7 +101,7 @@
 		 						//c.log(this.title);
 		 						 //this.title = this.title.replace(/<b>/g,"dddddddd");
 		 						 //c.log(this.title);//address,lat,lng,localName_1,localName_2,localName_3,newAddress
-		 						btn = '<span class="tip"><a title="Edit" onclick="changeAddress(\''+this.title+'\',\''+this.lat+'\',\''+this.lng+'\',\''+this.localName_1+'\',\''+this.localName_2+'\',\''+this.localName_3+'\',\''+this.newAddress+'\')"><img src="/resources/admin/images/icon/icon_edit.png"></a></span>';
+		 						btn = '<span class="tip"><a title="선택" onclick="changeAddress(\''+this.title+'\',\''+this.lat+'\',\''+this.lng+'\',\''+this.localName_1+'\',\''+this.localName_2+'\',\''+this.localName_3+'\',\''+this.newAddress+'\')"><img src="/resources/admin/images/icon//color_18/location.png"></a></span>';
 		 						html = html +  '<tr><td align="left">'+this.title+'</td><td>'+btn+'</td></tr>';
 		 						
 		 						if(i==0){
@@ -107,22 +109,82 @@
 		 							lng =  this.point_x;
 		 							map.setCenter(new daum.maps.LatLng(lat, lng));
 		 						}
-		 						daummap_setMarker(this.point_y, this.point_x, index);
+		 						daummap_setMarker(this.point_y, this.point_x, i);
 		 					});
 		 					$("#addressList").append(html);
+		 				}else{
+		 					$('#paginate').append('검색결과가 없습니다');
 		 				}		
 		 		});	
 		 	}
 		 	var  mark;
 		 	 /*기본마커 올리기*/
-		 	 function daummap_setMarker(lat, lng, index){	
+		 	 function daummap_setMarker(lat, lng, index){
+		 		 c.log(index);
+		 		var img = "/resources/images/marker/" + mapImage[index] + ".png";
+		 		var icon = new daum.maps.MarkerImage(
+		 				img,
+		 				new daum.maps.Size(32, 32),
+		 				new daum.maps.Point(16,34),
+		 				"poly",
+		 				"1,20,1,9,5,2,10,0,21,0,27,3,30,9,30,20,17,33,14,33"
+		 			);
 		 		 mark = new daum.maps.Marker({
-		 			 position: new daum.maps.LatLng(lat, lng),		 
+		 			 position: new daum.maps.LatLng(lat, lng),	
+		 			 image: icon
 		 		 }).setMap(map);
 		 		
 		 	 }
 		 	 
-		 	 
+		 	 function pageNavigation(searchWord, currentPage, totalCount){
+		 		var pageNo = new Array();
+		 		var pageSize = 10;
+		 		var pageGroupSize = 10;
+		 		var pageCount    = (totalCount/pageSize)+(totalCount%pageSize==0?0:1);	// 총페이지수
+		 			pageCount = Math.ceil(pageCount-1);
+		 		console.log("pageCOunt:"+pageCount);
+				var last         = pageCount;
+				var currentGroup = Math.ceil(currentPage/pageGroupSize);	// 현재그룹
+				var totalGroup   = pageCount/pageSize+1;								// 총그룹
+				var startPage    = (currentGroup-1)*pageGroupSize+1; 					// 페이지 그룹의 시작페이지
+				var endPage      = startPage+pageGroupSize; 							// 페이지 그룹의 마지막페이지
+				var prev=0;
+				var next=0;
+				
+				if(endPage>pageCount){
+					endPage = pageCount+1;
+				}
+				var j = 0;
+				for(var i=startPage;i<endPage;i++){
+					pageNo[j]=i;
+					j++;
+				}
+				if(currentGroup>1){
+				    prev=(currentGroup-2)*pageGroupSize+pageSize;
+				}
+
+				if(currentGroup<totalGroup){
+					next=currentGroup*pageGroupSize+1;
+				}
+				console.log("현재그룹:"+currentGroup);
+				$('#paginate').empty();
+				var btn="";
+				btn +='<a tabindex="0" class="first paginate_button paginate_button_disabled" id="first"onclick="getDaumCOORD(\''+searchWord+'\',1)">First</a>';
+				btn +='<a tabindex="0" class="previous paginate_button paginate_button_disabled" id="previous"onclick="getDaumCOORD(\''+searchWord+'\','+prev+')">Previous</a>';
+				btn +="<span>";
+				for(var i=0;i<pageNo.length;i++){
+					if(currentPage==i+1){
+						btn += '<a tabindex="0" class="paginate_active" onclick="getDaumCOORD(\''+searchWord+'\','+pageNo[i]+')">'+pageNo[i]+'</a>';
+					}else{
+						btn += '<a tabindex="0" class="paginate_button" onclick="getDaumCOORD(\''+searchWord+'\','+pageNo[i]+')">'+pageNo[i]+'</a>';
+					}
+				}
+				btn += "</span>";
+				btn += '<a tabindex="0" class="next paginate_button" id="next" onclick="getDaumCOORD(\''+searchWord+'\','+next+')">Next</a>';
+				btn += '<a tabindex="0" class="last paginate_button" id="last" onclick="getDaumCOORD(\''+searchWord+'\','+last+')">Last</a>';
+				console.log("last:"+last);
+				$('#paginate').append(btn);
+		 	 }
 		 	 function test(){
 		 		daummap_setMarker(lat,lng,1);
 		 	 }
@@ -134,33 +196,32 @@
 					});
 		 	 } 
 		 </script>
-		<div><input type="text" id="search" value="진천동525"/></div><button id="btnSearch">검색</button>
-		 <div class="tableName" style="float:left;width:650px"><!--클래 tableName search box를 타이 이동험   -->
+		<div>
+			<input type="text" style="width:460px;" id="search" value="대학로"/>
+			<a id="btnSearch" class="uibutton normal large">검색 </a>
+		</div>
+		
+		<div class="tableName" style="width:560px;min-height:500px;">
 		 	<span style="position:absolute"></span>
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>
 						<th >주소 </th>
-						<th >Action</th>
+						<th >선택 </th>
 					</tr>
 				</thead>
 				<tbody id="addressList" >
 				</tbody>
 			</table>
-			
-			<div class="dataTables_paginate paging_full_numbers" id="user_datatable_paginate"><a tabindex="0" class="first paginate_button paginate_button_disabled" id="user_datatable_first">First</a><a tabindex="0" class="previous paginate_button paginate_button_disabled" id="user_datatable_previous">Previous</a><span><a tabindex="0" class="paginate_active">1</a><a tabindex="0" class="paginate_button">2</a><a tabindex="0" class="paginate_button">3</a></span><a tabindex="0" class="next paginate_button" id="user_datatable_next">Next</a><a tabindex="0" class="last paginate_button" id="user_datatable_last">Last</a></div>
+			<div class="dataTables_paginate paging_full_numbers" id="paginate">
+				검색 결과가 없습니다 
+			</div>
 		</div> 
 		
-	<div id="map" style="float:right;width:500px;height:500px"></div>
-		<div class="section last right">
-			
-		</div>
-
+		<div id="map" style="position:absolute;top:105px;margin-left:600px;width:500px;height:550px"></div>
 
 		<!-- clear fix -->
 		<div class="clear"></div>
-		 <button onclick="test()">maker</button>
-		 <button onclick="test2()">maker2</button>
 
 	</div>
 	<!-- End content -->

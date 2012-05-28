@@ -69,10 +69,12 @@ public class PlaceStampController {
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
-		if(StringUtil.isNull(fid)){
-			fid = UserInfo.getFid();
-		}
-		model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));	
+		
+		//model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("fid", UserInfo.getFid());
+		
+		model.addAttribute("placeStampList",placeStampService.getPlaceStampList(param));	
 		
 		return "place/stamp/list";
 	}
@@ -125,6 +127,85 @@ public class PlaceStampController {
 			
 		}		
 		
+		return json;
+	}
+	/**
+	 *  가맹점 스탬프 수정    <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String placeStamp(@RequestParam(required=true) Integer fid,
+							 @RequestParam(required=true) Integer stampid,
+							 Model model)  {
+		//List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+		
+		
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
+		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
+		model.addAttribute("themeList",commonService.getBascdList("STAMPTHEME"));
+		//List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+		/*if(placeStampList.size()<=0){
+			model.addAttribute("placeStampList",null);
+			model.addAttribute("placeStamp", new PlaceStamp());
+		}else{
+			model.addAttribute("placeStampList",placeStampList);
+			model.addAttribute("placeStamp", placeStampList.get(0));
+		}*/
+		model.addAttribute("placeStamp",adminStampService.getPlaceStamp(stampid));
+		return "place/stamp/edit";
+	}
+	/**
+	 *  가맹점 스탬프를 수정한다.   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return 
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse placeStampSubmit(@Validated({EditPlaceStamp.class}) PlaceStamp placeStamp,BindingResult result, Model model)  {
+		JsonResponse json = new JsonResponse();
+		if (result.hasErrors()) {
+			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
+			json.setResult(result.getAllErrors());
+			json.setStatus("FAIL");
+		} else {	
+			adminStampService.editPlaceStamp(placeStamp);
+			json.setResult(placeStamp);
+			json.setStatus("SUCCESS");
+			
+		}		
+		
+		return json;
+	}
+	/**
+	 *  가맹점 스탬프를 삭제   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return 
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse placeStampDelete(@RequestParam(required=true) Integer stampid)  {
+		JsonResponse json = new JsonResponse();
+		PlaceStamp placeStamp = new PlaceStamp();
+		placeStamp.setStampid(stampid);
+		adminStampService.deletePlaceStamp(placeStamp);
+		json.setResult("스탬프가 삭제되었습니다");
+		json.setStatus("SUCCESS");
 		return json;
 	}
 	/**

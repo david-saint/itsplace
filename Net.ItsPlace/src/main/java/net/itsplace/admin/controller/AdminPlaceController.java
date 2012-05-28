@@ -196,6 +196,49 @@ public class AdminPlaceController {
 		return json;
 	}
 	/**
+	 *  관리자가 가맹점 스탬프를 삭제   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return 
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/stamp/delete", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse placeStampDelete(@RequestParam(required=true) Integer stampid)  {
+		JsonResponse json = new JsonResponse();
+		PlaceStamp placeStamp = new PlaceStamp();
+		placeStamp.setStampid(stampid);
+		adminStampService.deletePlaceStamp(placeStamp);
+		json.setResult("스탬프가 삭제되었습니다");
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	/**
+	 *  관리자가 가맹점 스탬프를  복구   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param fid
+	 * @return 
+	 * @return  edit.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/stamp/restore", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse placeStampRestore(@RequestParam(required=true) Integer stampid)  {
+		JsonResponse json = new JsonResponse();
+		PlaceStamp placeStamp = new PlaceStamp();
+		placeStamp.setStampid(stampid);
+		adminStampService.restorePlaceStamp(placeStamp);
+		json.setResult("스탬프가 복구되었습니다");
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	
+	/**
 	 * 관리자가 가맹점을 생성한다    <br />
 	 * 
 	 * @author 김동훈
@@ -209,7 +252,9 @@ public class AdminPlaceController {
 	public String add(Model model)  {
 	
 		model.addAttribute("place",new Place());
-		
+		model.addAttribute("categoryList",commonService.getBascdList("CATEGORY"));
+		model.addAttribute("placeTypeList",commonService.getBascdList("PLACETYPE"));
+		model.addAttribute("serviceTypeList",commonService.getBascdList("SERVICETYPE"));
 		return "admin/place/add";
 	}
 	/**
@@ -252,7 +297,9 @@ public class AdminPlaceController {
 	
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
-		
+		model.addAttribute("categoryList",commonService.getBascdList("CATEGORY"));
+		model.addAttribute("placeTypeList",commonService.getBascdList("PLACETYPE"));
+		model.addAttribute("serviceTypeList",commonService.getBascdList("SERVICETYPE"));
 		return "admin/place/edit";
 	}
 	/**
@@ -304,7 +351,7 @@ public class AdminPlaceController {
 		return json;
 	}
 	/**
-	 * Ajax 가맹점 승인  <br />
+	 * Ajax 가맹점 승인취소   <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -326,7 +373,7 @@ public class AdminPlaceController {
 	}
 	/**
 	 * 가맹점관리 리스트<br> 
-	 * 관리자는 가맹점 승인, 승인취소, <br />
+	 *  <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -354,7 +401,7 @@ public class AdminPlaceController {
           logger.info("sSearch:{}", sSearch);
          
 		String columns[] = new String[] { "fid", "fileName", "fname", "name",
-										  "mobile", "isAuth", "hdongname", "saveDate", "editDate" };
+										  "mobile", "isAuth", "dong", "saveDate", "editDate" };
 
 		DataTable<Place> table = iDisplayLength != null ?
                 new DataTable<Place>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :

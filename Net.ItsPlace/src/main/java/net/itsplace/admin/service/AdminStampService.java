@@ -25,4 +25,6 @@ public interface AdminStampService {
 	public void savePlaceStamp(PlaceStamp placeStamp) ;	
 	public void editPlaceStamp(PlaceStamp placeStamp) ;
 	public PlaceStamp getPlaceStamp(int stampid);
+	public void deletePlaceStamp(PlaceStamp placeStamp);
+	public void restorePlaceStamp(PlaceStamp placeStamp);
 }

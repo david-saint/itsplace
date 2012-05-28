@@ -145,13 +145,7 @@ function init() {
 		// 좌표로 이동
 		//map.setCenter(new daum.maps.LatLng(lat, lng));
 		
-		var icon = new daum.maps.MarkerImage(
-			img,
-			new daum.maps.Size(32, 32),
-			new daum.maps.Point(16,34),
-			"poly",
-			"1,20,1,9,5,2,10,0,21,0,27,3,30,9,30,20,17,33,14,33"
-		);
+
 		//마크먼저 배열에 담는다.
 		marker[i] = new daum.maps.Marker({
 			position : new daum.maps.LatLng(lat, lng),

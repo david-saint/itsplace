@@ -853,7 +853,7 @@ $('.searchAutocomplete').click(function() {
 		  var albumid=$(this).attr('id');
 		  $(this).addClass('selected');
 		  loadalbum(albumid);
-	})	
+	});
 	$(".albumDelete").live('click',function() { 
 		   var dataSet=$(this).parents('form');
 		   var name = $(this).attr("name");
@@ -867,7 +867,7 @@ $('.searchAutocomplete').click(function() {
 	$('.boxtitle .texttip').hide();
 		$(this).html('close edit').attr('title','Click here to Close edit  ').removeClass('editOn').addClass('editOff');
 		imgRow();
-	})
+	});
 	$('#editAlbum.editOff').live('click',function(){			
 												   
 		$('.album_edit').fadeOut(400,function(){
@@ -1245,7 +1245,7 @@ $('.searchAutocomplete').click(function() {
 				var table = dataSet.hdata(2);
 				var data = data+"&tabel="+table;
 		$.confirm({
-		'title': '_DELETE DIALOG BOX','message': " <strong>YOU WANT TO DELETE </strong><br /><font color=red>' "+ name +" ' </font> ",'buttons': {'Yes': {'class': 'special',
+		'title': '삭제','message': " <strong>삭제하시겠습니까? </strong><br /><font color=red>' "+ name +" ' </font> ",'buttons': {'Yes': {'class': 'special',
 		'action': function(){
 					loading('Checking');
 									 $('#preloader').html('Deleting...');

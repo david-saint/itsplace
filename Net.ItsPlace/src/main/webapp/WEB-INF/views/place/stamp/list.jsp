@@ -20,11 +20,13 @@
 
 		<script type="text/javascript">
 		 	$(document).ready(function(){
-		 		var staticBase = $('.staticBase').dataTable({
+		 		
+		 		
+		 		var datatable = $('#static').dataTable({
 		 			"bLengthChange": false, //로우수
-		 			"bFilter": false, //search
+		 			"bFilter": true, //search
 		 			"bPaginate": true,
-		 			
+		 			"bServerSide": false,
 		 			"aaSorting": [],
 		 		    "aoColumns": [
 		 						  { "bSortable": false },
@@ -32,7 +34,7 @@
 		 						  { "bSortable": false },
 		 						  { "bSortable": false },
 		 						  { "bSortable": false },
-		 						  { "bSortable": false },
+		 						  
 		 		                 ],
 	                "oPaginate": {
 					                "sFirst":    "처음",
@@ -41,9 +43,53 @@
 					                "sLast":     "마지막"
 	           					},
 		 		    "sInfoEmpty":    "게시 0 to 0 of 0 entries",
+		 		    "fnDrawCallback": function () {
+		 			  $('.delete').bind('click', function() {
+		 				  //console.log($(this).attr('name'));
+		 				Delete($(this).attr('name'),$(this).attr('stampid'));
+		 				// $(this).remove();
+		 				
+		 				 //datatable.fnDraw(); 
+		 			  });
+		 		   }
 		 		});
 		 		
 			});
+		 	
+
+		 	function Delete(title, stampid){
+		 	
+			 	$.confirm({
+			 	'title': '삭제','message': " <strong>삭제하시겠습니까? </strong><br /><font color=red>' "+ title +" ' </font> ",
+			    'buttons': {'Yes': {'class': 'special',
+			 	'action': function(){
+			 					DeleteAjax(stampid);
+			 				 }},'No'	: {'class'	: ''}}});
+		 	}
+		   function DeleteAjax(stampid){
+				$.ajax({
+                     url: "/place/stamp/delete",
+                     type:"POST",
+                     data:"stampid="+stampid,
+                     beforeSend :function(){
+	   	 	 			  c.loading("delete",0);
+                     },
+                     success: function(response){
+                     	if(response.status=="SUCCESS"){
+                     		c.showSuccess(response.result,1000);
+                     	}else{
+                     		c.showError(response.result,1000);
+                     	}
+                    	
+                     },
+                     error: function(jqXHR, textStatus, errorThrown){
+                    	c.showError(textStatus+"j"+jqXHR+"e:"+errorThrown);
+                     },
+                     complete:function(){
+                    	 setTimeout("document.location.href=''",500); 
+                     }
+                });//ajax */
+		   }
 		 </script>
 		 
 		<div class="tableName">	
@@ -51,11 +97,10 @@
 				<table class="display staticBase" id="static">
 				<thead>
 					<tr>
-						<th>StampTitle</th>
-						<th>EditDate</th>
-						<th>StartDate</th>
-						<th>EndDate</th>
-						<th>isDelete</th>
+						<th>스탬프명</th>
+						<th>시작일 </th>
+						<th>종료일 </th>
+						<th>수정일</th>
 						<th>관리 </th>
 					</tr>
 				</thead>
@@ -63,13 +108,12 @@
 					<c:forEach items="${placeStampList}" var="placeStamp">
 						<tr>
 							<td>${placeStamp.stampTitle}</td>
-							<td><fmt:formatDate value="${placeStamp.editDate }" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${placeStamp.startDate }" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/></td>
-							<td>${placeStamp.isDelete}</td>
+							<td><fmt:formatDate value="${placeStamp.editDate }" pattern="yyyy-MM-dd"/></td>
 						    <td>
-						    	<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="수정"><img src="/resources/admin/images/icon/icon_edit.png"></a></span>
-						    	<span class="tip"><a class="delete" fid="'+id+'" original-title="삭제"><img src="/resources/admin/images/icon/icon_delete.png"></a></span>
+						    	<span class="tip"><a class="edit" href="/place/stamp/edit?fid=${placeStamp.fid}&stampid=${placeStamp.stampid}" original-title="수정"><img src="/resources/admin/images/icon/icon_edit.png"></a></span>
+						    	<span class="tip"><a class="delete" stampid="${placeStamp.stampid}" name="${placeStamp.stampTitle}" original-title="삭제"><img src="/resources/admin/images/icon/icon_delete.png"></a></span>
 						    </td>
 						</tr>
 					</c:forEach>

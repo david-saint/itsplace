@@ -25,7 +25,7 @@ public class Place {
 	 * 1:개인 자영업 0:프랜차이즈
 	 */
 	@NotEmpty
-	private String ftype; //가맹점 형태
+	private String placeType; //1: 프랜ㄴ차이저, 2: 일반가맹점 
 	@NotEmpty
 	private String mobile; //신청자휴대전화번호
 		
@@ -50,8 +50,8 @@ public class Place {
 	private PlaceComment placeComment; 
 	private PlaceStamp placeStamp;
 	private String imageHost; 
-	private String stype; // 서비스종류
-	private String stypeName; // 서비스종류
+	private String serviceType; // 서비스종류
+
 	private String email; // 가맹주 아이디
 	private String park; // 주차정보
 	private String closedday; // 휴무일
@@ -68,6 +68,12 @@ public class Place {
 	private Date endDate; // 
 	private String qrcode; 
 	private String qrAuthCode;
+	
+	private String sido;
+	private String gugun;
+	private String dong;
+	private String newAddress;
+	
 	private int pageBlock = 10;
 	private int pageSize  = 5;
 	private int currentPage = 1;
@@ -106,12 +112,7 @@ public class Place {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public String getStypeName() {
-		return stypeName;
-	}
-	public void setStypeName(String stypeName) {
-		this.stypeName = stypeName;
-	}
+	
 	public String getWebsite() {
 		return website;
 	}
@@ -148,13 +149,20 @@ public class Place {
 	public void setOpenday(String openday) {
 		this.openday = openday;
 	}
-	public String getStype() {
-		return stype;
-	}
-	public void setStype(String stype) {
-		this.stype = stype;
-	}
 	
+	
+	public String getPlaceType() {
+		return placeType;
+	}
+	public void setPlaceType(String placeType) {
+		this.placeType = placeType;
+	}
+	public String getServiceType() {
+		return serviceType;
+	}
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
 	public User getUser() {
 		return user;
 	}
@@ -238,9 +246,6 @@ public class Place {
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
-	public String getFtype() {
-		return ftype;
-	}
 
 	
 	public String getName() {
@@ -294,11 +299,6 @@ public class Place {
 
 
 	
-
-	public void setFtype(String ftype) {
-		this.ftype = ftype;
-	}
-
 
 	public int getFid() {
 		return fid;
@@ -376,6 +376,32 @@ public class Place {
 	}
 	public void setStart(int start) {
 		this.start = start;
+	}
+	
+	
+	public String getSido() {
+		return sido;
+	}
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+	public String getGugun() {
+		return gugun;
+	}
+	public void setGugun(String gugun) {
+		this.gugun = gugun;
+	}
+	public String getDong() {
+		return dong;
+	}
+	public void setDong(String dong) {
+		this.dong = dong;
+	}
+	public String getNewAddress() {
+		return newAddress;
+	}
+	public void setNewAddress(String newAddress) {
+		this.newAddress = newAddress;
 	}
 	@Override
 	public String toString() {

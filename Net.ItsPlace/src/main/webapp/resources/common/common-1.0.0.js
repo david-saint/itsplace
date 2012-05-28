@@ -118,6 +118,8 @@ var c = {
 		  }
 };//common		
 
+
+
 $.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
 		$('.tipsy').remove();
 	    if(oSettings.oFeatures.bServerSide === false){

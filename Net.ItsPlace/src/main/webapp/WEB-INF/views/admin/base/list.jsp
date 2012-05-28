@@ -28,7 +28,7 @@
 		 	$(document).ready(function(){
 		 		var staticBase = $('.staticBase').dataTable({
 		 			"bLengthChange": false, //로우수
-		 			"bFilter": false, //search
+		 			"bFilter": true, //search
 		 			"bPaginate": true,
 		 			
 		 			"aaSorting": [],
@@ -36,11 +36,11 @@
 		 						{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false },{ "bSortable": false }
 		 		  ]
 		 		});
-		 		
+		 		$('.dataTables_filter').hide();
 		 		$('#grpcd').change(function(){			
 		 			console.log($(this).val());
 		 			staticBase.fnFilter( $(this).val() );
-		 			staticBase.fnDraw();
+		 			//staticBase.fnDraw();
 				});
 			});
 		 </script>

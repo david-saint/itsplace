@@ -125,6 +125,25 @@
 				</div>
 			</div>
 			<div class="section">
+				<label> 가맹점 타입    <small>  </small></label>
+				<div>
+					<form:select id="placeType" path="placeType" multiple="placeType">
+						<form:options items="${placeTypeList}" itemValue="basecd"	itemLabel="basName" />
+					</form:select>
+					<span class="f_help">sss</span>
+				</div>
+			</div>
+			<div class="section">
+				<label> 가맹점 분류   <small>카테고리  </small></label>
+				<div>
+					<form:select id="category" path="category" multiple="category">
+						<form:options items="${categoryList}" itemValue="basecd"	itemLabel="basName" />
+					</form:select>
+					<span class="f_help">sss</span>
+				</div>
+				
+			</div>
+			<div class="section">
 				<label> 대표사진 <small></small></label>
 				<img id="fileName" style="" src="${place.imageHost}${place.fileName}"></img>
 				<div>
@@ -141,11 +160,34 @@
 				</div>
 			</div>
 			<div class="section">
-				<label> mobile <small></small></label>
+				<label> 연락처  <small></small></label>
 				<div>
 					<input id="mobile" type="text" name="mobile"
-						class="validate[required,minSize[3],maxSize[50]] full"
-						value="${place.mobile }" /> <span class="f_help">영문+숫자 혼합</span>
+						value="${place.mobile }" /> <span class="f_help">숫자</span>
+				</div>
+			</div>
+			<div class="section">
+				<label> 주소  <small></small></label>
+				<div>
+					<input id="fullAddress" class="address full iframe" readonly href="/address/search" type="text" name="fullAddress" value="${place.fullAddress }" />
+					
+					<input id="lat" type="hidden" name="latitude" value="${place.latitude}" />
+					<input id="lng" type="hidden" name="longitude" value="${place.longitude}" />
+					<input id="sido" type="hidden" name="sido" value="${place.sido}" />
+					<input id="gugun" type="hidden" name="gugun" value="${place.gugun}" />
+					<input id="dong" type="hidden" name="dong" value="${place.dong}" />
+					<input id="newAddress" type="hidden" name="newAddress" value="${place.newAddress}" />
+					
+					<span class="f_help"></span>
+				</div>
+			</div>
+			<div class="section">
+				<label> 서비스  타입    <small>  </small></label>
+				<div>
+					<form:select id="serviceType" path="serviceType" multiple="serviceType">
+						<form:options items="${serviceTypeList}" itemValue="basecd"	itemLabel="basName" />
+					</form:select>
+					<span class="f_help">sss</span>
 				</div>
 			</div>
 			<div class="section last">
