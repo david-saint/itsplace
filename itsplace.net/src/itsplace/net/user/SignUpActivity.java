@@ -12,6 +12,10 @@ import java.util.List;
 import net.itsplace.domain.User;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -42,7 +46,6 @@ public class SignUpActivity extends AbstractAsyncActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.signup_activity);
-		
 		emailEditText = (EditText) findViewById(R.id.email);
 		passwordEditText = (EditText) findViewById(R.id.password);
 		nameEditText = (EditText) findViewById(R.id.name);
@@ -102,12 +105,18 @@ public class SignUpActivity extends AbstractAsyncActivity{
 			User user = (User)params[0]	;
 			try {				
 				List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-				acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+				//acceptableMediaTypes.add(MediaType.);
 			
+				Log.i(TAG, "rest11111111111111111111111");
 				RestTemplate restTemplate = new RestTemplate();
-			
-				String url = getString(R.string.base_uri)+"/user/newAccountJson";
+				String url = getString(R.string.base_uri)+"/user/saveUser";
 				
+				Log.i(TAG, url);
+				List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+				messageConverters.add(new FormHttpMessageConverter());
+				messageConverters.add(new StringHttpMessageConverter());
+				messageConverters.add(new MappingJacksonHttpMessageConverter());
+				restTemplate.setMessageConverters(messageConverters);
 				
 				MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
 				mvm.add("email", user.getEmail());
@@ -115,6 +124,7 @@ public class SignUpActivity extends AbstractAsyncActivity{
 				mvm.add("name", user.getName());
 				mvm.add("mobile", user.getMobile());
 				
+				Log.i(TAG, "rest post");
 			
 				result =  (String)restTemplate.postForObject(url, mvm, String.class);
 				L.i(TAG, result);
