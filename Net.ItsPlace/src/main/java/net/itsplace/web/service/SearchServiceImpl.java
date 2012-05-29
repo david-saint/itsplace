@@ -2,6 +2,7 @@ package net.itsplace.web.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import net.itsplace.domain.Place;
 import net.itsplace.web.dao.SearchDao;
@@ -27,5 +28,10 @@ public class SearchServiceImpl implements SearchService{
 	public List<Place>  placeInfo(Place p)
 	{
 		return searchDao.placeInfo(p);
+	}
+
+	@Override
+	public List<Place> getPlaceList(Map<String, Object> param) {
+		return searchDao.getPlaceList(param);
 	}
 }

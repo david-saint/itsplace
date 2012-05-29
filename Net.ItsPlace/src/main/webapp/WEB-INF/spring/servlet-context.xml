@@ -38,11 +38,11 @@
  			<beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 					<beans:property name="supportedMediaTypes" value="application/json;charset=UTF-8" />				
 			</beans:bean>
-			<beans:bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+	<!-- 		<beans:bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
 					<beans:property name="supportedMediaTypes" value="application/xml;charset=UTF-8" />
 					<beans:property name="marshaller" ref="jaxb2Marshaller" />
 					<beans:property name="unmarshaller" ref="jaxb2Marshaller" />
-			</beans:bean>
+			</beans:bean> -->
     	</message-converters>
 	</annotation-driven>
 	

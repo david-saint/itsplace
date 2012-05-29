@@ -87,7 +87,7 @@ public class PlaceIndexController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/places", method = RequestMethod.POST)
+	@RequestMapping(value = "/places", method = RequestMethod.GET)
 	public @ResponseBody JsonResponse places()  {
 		JsonResponse json = new JsonResponse();
 		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());

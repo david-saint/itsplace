@@ -31,6 +31,7 @@
 		<intercept-url pattern="/user/confirmEmail" access="hasRole('ROLE_USER')"/>			
 		
 		<intercept-url pattern="/user/newAccountJson/**" access="permitAll"/>
+		<intercept-url pattern="/user/getUser" access="permitAll"/>
 		
 		<intercept-url pattern="/css/**" access="permitAll"/>
 		<intercept-url pattern="/partner/*" access="permitAll"/>	

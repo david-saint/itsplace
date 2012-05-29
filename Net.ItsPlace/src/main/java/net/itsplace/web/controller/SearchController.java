@@ -2,9 +2,12 @@ package net.itsplace.web.controller;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.util.Paging;
+import net.itsplace.util.PagingManager;
 import net.itsplace.web.service.SearchService;
 import net.sf.json.JSONArray;
 
@@ -14,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -26,7 +31,8 @@ public class SearchController {
 	private SearchService searchService;
 	@Autowired
 	private Paging page;
-	
+	@Autowired
+	private PagingManager pagingManaer;
 	/**
 	 * 주변검색
 	 * @param locale
@@ -57,6 +63,28 @@ public class SearchController {
 		JSONArray array = new JSONArray();
 		p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
 		return searchService.placeInfo(p);
+	}
+	/**
+	 * 스마트폰 가맹점 검색
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/placeList", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  PlaceList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+			 									@RequestParam(required=false, defaultValue="10") Integer pageSize ,
+			 									@RequestParam(required=false, defaultValue="10") Integer pageGroupSize ,
+			 									@RequestParam(required=false, defaultValue="") String searchWord 
+			 									){
+		logger.info("currentPage:{}",currentPage);
+		logger.info("pageSize:{}",pageSize);
+		logger.info("pageGroupSize:{}",pageGroupSize);
+		logger.info("searchWord:{}",searchWord);
+		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+		JsonResponse json = new JsonResponse();
+		json.setResult(searchService.getPlaceList(param));
+		json.setStatus("SUCCESS");
+		return json;
 	}
 	
 	

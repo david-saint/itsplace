@@ -107,6 +107,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         		        } else if( UserInfo.getUser().getRole().equals("ROLE_USER") ){
         		        	response.getWriter().print("ROLE_USER");
         		            response.getWriter().flush();
+        		           
         		        }
         			 }
         		 }else{        			 

@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Size;
 
-@XmlRootElement(name = "user")
+
 public class User {
 	public interface AddUser {}
 	public interface EditUser {}
@@ -113,21 +113,18 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	public String getPassword() {
 		return password;
 	}
-	@XmlElement
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getName() {
 		return name;
 	}
-	@XmlElement
 	public void setName(String name) {
 		this.name = name;
 	}

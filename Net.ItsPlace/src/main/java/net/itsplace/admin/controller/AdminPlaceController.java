@@ -84,6 +84,18 @@ public class AdminPlaceController {
 		return "admin/place/user/list";
 	}
 	
+	/**
+	 * 가맹점 삭제/등록
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/stamp/list", method = RequestMethod.GET)
+	public String list(@RequestParam(required=true) Integer fid, Model model) {
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
+		model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));			
+		return "admin/place/stamp/list";
+	}
 	
 	/**
 	 * 관리자가 가맹점 스탬프 수정    <br />
@@ -161,9 +173,9 @@ public class AdminPlaceController {
 		model.addAttribute("placeStamp", new PlaceStamp());
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
 		model.addAttribute("themeList",commonService.getBascdList("STAMPTHEME"));
-		List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
+	//	List<PlaceStamp> placeStampList = adminStampService.getPlaceStampAll(fid);
 	
-		model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));			
+		
 		
 		
 		return "admin/place/stamp/add";

@@ -1,6 +1,7 @@
 package net.itsplace.web.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,6 +11,7 @@ import net.sf.json.JSONArray;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +35,11 @@ public class SearchDaoImpl extends SqlMapClientDaoSupport implements SearchDao{
 	public List<Place> placeInfo(Place p)
 	{
 		return getSqlMapClientTemplate().queryForList("web.getPlaceInfo", p);
+	}
+
+	@Override
+	public List<Place> getPlaceList(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("web.getPlaceList", param);
 	}
 }

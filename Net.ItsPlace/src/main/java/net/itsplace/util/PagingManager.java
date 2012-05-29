@@ -53,7 +53,7 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 		Map<String, Object> param = new HashMap<String, Object>();
 		
 		int pageSizeTmp = pageSize;
-		int currentPageTmp = currentPage+1;
+		int currentPageTmp = currentPage;
 		
 		int startRow = pageSizeTmp * currentPageTmp - (pageSizeTmp -1);
 		int endRow =  pageSizeTmp;
