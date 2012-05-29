@@ -45,29 +45,29 @@ import android.widget.Toast;
  */
 public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickListener {
 	protected static final String TAG = FranchiserMemberListAdapter.class.getSimpleName();
-    private List<FranchiserMember> franchiserMembers;
+    private List<Place> placeList;
     private final LayoutInflater layoutInflater;
     private Context context;
     private ImageLoader imageLoader; 
     
     public FranchiserMemberListAdapter(Context context){
-    	this.franchiserMembers = new ArrayList<FranchiserMember>();
+    	this.placeList = new ArrayList<Place>();
     	this.layoutInflater = LayoutInflater.from(context);
     	this.context = context;
     	this.imageLoader=new ImageLoader(context);
     }
     
-    public void addStatesListAdapter(List<FranchiserMember> franchiserMembers) {
-        this.franchiserMembers.addAll(franchiserMembers);
+    public void addStatesListAdapter(List<Place> placeList) {
+        this.placeList.addAll(placeList);
         notifyDataSetChanged();//refresh 해준다 
     }
 
     public int getCount() {
-        return franchiserMembers != null ? franchiserMembers.size() : 0;
+        return placeList != null ? placeList.size() : 0;
     }
 
-    public FranchiserMember getItem(int position) {
-        return franchiserMembers.get(position);
+    public Place getItem(int position) {
+        return placeList.get(position);
     }
 
     public long getItemId(int position) {
@@ -79,7 +79,7 @@ public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickL
             convertView = layoutInflater.inflate(R.layout.list, parent, false);
         }
         
-        FranchiserMember f = getItem(position);
+        Place f = getItem(position);
         if (f != null) {
         	TextView t = (TextView) convertView.findViewById(R.id.state_name);
             t.setText(f.getFname()+"kk");
@@ -99,7 +99,7 @@ public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickL
 	@Override
 	public void onClick(View view) {
 		 int position = (Integer) view.getTag();
-		  FranchiserMember f = getItem(position);
+		 Place f = getItem(position);
 		  if(f == null){
 			  L.i(TAG, "가맹점 널" );
 		  }else{

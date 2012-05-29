@@ -4,6 +4,8 @@ import itsplace.net.MainActivity;
 import itsplace.net.R;
 import itsplace.net.common.AbstractAsyncActivity;
 import itsplace.net.common.Tdialog;
+import itsplace.net.connection.RestClient;
+import itsplace.net.connection.RestClient.RequestMethod;
 import itsplace.net.util.Encrypt;
 import itsplace.net.util.L;
 import itsplace.net.util.SharedPreference;
@@ -13,10 +15,13 @@ import java.util.List;
 
 import net.itsplace.domain.User;
 
+
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
 
 import android.app.Activity;
 import android.content.Context;
@@ -71,15 +76,18 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 				//SharedPreference.putSharedPreference(context, "email", user.getEmail());
 				//SharedPreference.putSharedPreference(context, "password",  Encrypt.encrypt("itsplace", user.getPassword()));
 				SharedPreferences userInfo = getSharedPreferences("USERINFO", android.content.Context.MODE_PRIVATE);
-				L.i(TAG, "Login onPostExecute:USERINFO저장");
 				L.i(TAG, "Login onPostExecute:"+user.toString());
 		        Editor editor = userInfo.edit();
 		        editor.putString("email", getApplicationContext().getUser().getEmail());      			        
 		        editor.putString("password", Encrypt.encrypt("itsplace", getApplicationContext().getUser().getPassword()));				 
+		        L.i(TAG, "Login onPostExecute:USERINFO저장:"+getApplicationContext().getUser().getEmail()+":"+getApplicationContext().getUser().getPassword());
 		        editor.commit();
 		        Toast.makeText( this,  "로그인완료 메인화면으로 이동"+user.getName()+user.getPassword(),Toast.LENGTH_LONG).show();
 		   //   Toast.makeText(this, "", Toast.LENGTH_LONG).show();
 		        getApplicationContext().setLogged(true);
+		        
+		        getApplicationContext().setUser(user);
+		        
 		        final Intent intent = new Intent(this, MainActivity.class);
 		        startActivity(intent);
 		        finish();
@@ -119,37 +127,69 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		@Override
 		protected User doInBackground(User... params) {
 			User loginUser = null;
-			try {
-				int numberOfParams = params.length;
+			User user = (User)params[0]	;
+			String url = getString(R.string.base_uri) + "/signin/authenticate";
+			RestClient restClient = new RestClient(url);
+			
+			Log.i(TAG,user.getEmail() + ":" + user.getPassword());
+			restClient.AddParam("j_username", user.getEmail());
+			restClient.AddParam("j_password", user.getPassword());
+			restClient.AddParam("_spring_security_remember_me", "true");
+			restClient.AddHeader("X-Ajax-call", "true");
+			try {			
+				restClient.Execute(RequestMethod.POST);
+				String role = restClient.getResponse();
+				Log.i(TAG, "role:"+role);
+				if(role.trim().equals("ROLE_ADMIN") || role.trim().equals("ROLE_USER")){
+//					List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+//					acceptableMediaTypes.add(MediaType.APPLICATION_JSON);				
+//					RestTemplate restTemplate = new RestTemplate();
+//					url = getString(R.string.base_uri)+"/user/getUser";
+//					
+//					MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
+//					mvm.add("email", user.getEmail());
+//					mvm.add("password", user.getPassword());
+//					
+//					Log.i(TAG, "user.getPassword()"+user.getPassword());
+//					
+//					loginUser = restTemplate.postForObject(url, mvm, User.class);
+					 url = getString(R.string.base_uri) + "/user/getUser";
+					 restClient = new RestClient(url);
+					restClient.AddParam("email", user.getEmail());
+					restClient.Execute(RequestMethod.POST);
+					Gson gson = new Gson();
+					loginUser =  gson.fromJson(restClient.getResponse(), User.class);
+				}
+			
+			
+			
+				//int numberOfParams = params.length;
 
 				/*for (int i = 0; i < numberOfParams; i++) {
 					SystemClock.sleep(1000);
 
 					publishProgress((int) (((i + 1) / (float) numberOfParams) * 100));
 				}*/
-				List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-				acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-			
-				RestTemplate restTemplate = new RestTemplate();
+				
 			//	List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 			//	messageConverters.add(new FormHttpMessageConverter());
 			//	messageConverters.add(new StringHttpMessageConverter());// 리스폰스 객체가(responsebody) String 일때 한글깨짐현상이 있으면 컨벝너 사용할껏
 			//	restTemplate.setMessageConverters(messageConverters);
-				String url = getString(R.string.base_uri)+"/m/login";
-				L.i(TAG, "Login URL"+url);
-				User user = (User)params[0]	;
-				MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
-				mvm.add("email", user.getEmail());
-				mvm.add("password", user.getPassword());
-				L.i(TAG, "user.getEmail()"+user.getEmail());
-				L.i(TAG, "user.getPassword()"+user.getPassword());
+			//	String url = getString(R.string.base_uri)+"/m/login";
+//				L.i(TAG, "Login URL"+url);
+//				
+//				MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
+//				mvm.add("email", user.getEmail());
+//				mvm.add("password", user.getPassword());
+//				L.i(TAG, "user.getEmail()"+user.getEmail());
+//				L.i(TAG, "user.getPassword()"+user.getPassword());
 			//	Toast.makeText(getApplicationContext(),  "d"+user.getEmail(),1000).show();
 				
-				 loginUser = restTemplate.postForObject(url, mvm, User.class);
+				// loginUser = restTemplate.postForObject(url, mvm, User.class);
 				
-			}catch (Exception e) {
-				Log.e(TAG+"_doInBackground", e.getMessage(), e);
-			
+			} catch (Exception e) {
+				Log.e(TAG, e.getMessage()+ e.getLocalizedMessage(), e);
+				Log.i(TAG, restClient.getErrorMessage(), e);
 				
 			}
 	
@@ -162,11 +202,11 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 			//loginAsyncTask.cancel(true);
 			dismissProgressDialog();
 			L.i(TAG, "종료");
-			if(user != null){
-				showResult(user);
-			}else{
-				 Toast.makeText(LoginAsyncActivity.this, "로그인 할 수 없습니다", Toast.LENGTH_SHORT).show();				 
-			}
+			showResult(user);
+//			if(user != null){
+//			}else{
+//				 Toast.makeText(LoginAsyncActivity.this, "로그인 할 수 없습니다", Toast.LENGTH_SHORT).show();				 
+//			}
 		//	cancel(true);
 		}
 

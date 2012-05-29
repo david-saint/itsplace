@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 public class User {
-	public interface AddUser {}
-	public interface EditUser {}
 	
 	private String email;
 	
@@ -88,28 +86,24 @@ public class User {
 	public String getRole() {
 		return role;
 	}
-	@XmlElement
 	public void setRole(String role) {
 		this.role = role;
 	}
 	public String getEmail() {
 		return email;
 	}
-	@XmlElement
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	public String getPassword() {
 		return password;
 	}
-	@XmlElement
 	public void setPassword(String password) {
 		this.password = password;
 	}
 	public String getName() {
 		return name;
 	}
-	@XmlElement
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -128,7 +128,8 @@ public class ItsplaceActivity extends Activity {
 					L.i(TAG,"자동로그인 password:"+ user.getPassword());
 	
 					user.setPassword(Encrypt.decrypt("itsplace", user.getPassword()));
-	
+					Log.i(TAG,"복호화:"+user.getPassword());
+					
 					//new LoginAsyncActivity(getApplicationContext(), user);
 					startActivity(new Intent(this,(LoginAsyncActivity.class)));
 	

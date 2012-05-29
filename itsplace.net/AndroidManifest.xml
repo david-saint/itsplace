@@ -14,7 +14,7 @@
         android:name=".MainApplication"     	
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar"
+        android:theme="@style/Theme.Sherlock"
         >
         <activity
             android:name=".ItsplaceActivity"
