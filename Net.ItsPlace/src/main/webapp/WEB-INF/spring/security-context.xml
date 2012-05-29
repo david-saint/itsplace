@@ -46,6 +46,7 @@
 		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>				
 		<intercept-url pattern="/signin/**" access="permitAll" />
 		<intercept-url pattern="/signup/**" access="permitAll" />
+		<intercept-url pattern="/search/**" access="permitAll" />
 		<intercept-url pattern="/partner/fid" access="hasRole('ROLE_FID')" />
 		
 		

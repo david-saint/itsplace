@@ -1,6 +1,7 @@
 package net.itsplace.user;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,13 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
 
 import net.itsplace.place.controller.PlaceCommentController;
 import net.itsplace.user.UserService;
@@ -32,9 +36,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-	public String saveUser(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request, User p) 
+	public String saveUser(@Valid User user, BindingResult result) 
 	{
-		userService.saveUser(p);
+		logger.info("user.getEmail():{}",user.getEmail());
+		userService.saveUser(user);
 		return "redirect:/";
 	}
 	
