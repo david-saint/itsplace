@@ -6,7 +6,6 @@
   <packaging>apk</packaging>
 
   
-  
     <properties> 
         <android-platform>7</android-platform>
         <android-emulator>Android-2_1</android-emulator>
@@ -36,11 +35,7 @@
 		<version>4.1.2</version>
 		<scope>compile</scope>
 	</dependency>
-	<dependency>
-		<groupId>com.google.code.gson</groupId>
-		<artifactId>gson</artifactId>
-		<version>1.7.1</version>
-	</dependency>
+	
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
