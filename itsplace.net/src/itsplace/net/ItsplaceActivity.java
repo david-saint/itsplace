@@ -40,7 +40,7 @@ public class ItsplaceActivity extends Activity {
 		exitActiviry = this;
 		L.i(TAG, "onCreate");
 		// splash 및 초기화 작업
-		startActivity(new Intent(this, SplashActivity.class));
+		//startActivity(new Intent(this, SplashActivity.class));
 
 	//	TestMenu header = (TestMenu) findViewById(R.id.header);
 	 //   header.initHeader();

@@ -70,6 +70,7 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		     //Toast.makeText( this,  "Email 또는 비밀번호를 확인해주세요",Toast.LENGTH_LONG).show();
 			Toast.makeText( this,  getValidationMessage(),Toast.LENGTH_LONG).show();
 		    getApplicationContext().setLogged(false);
+		    getApplicationContext().setUser(null);
 		 	finish();
 		}else{
 			
