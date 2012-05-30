@@ -186,8 +186,10 @@ public class LoginActivity  extends Activity  {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
 	     
-	        finish();
-	        return false;
+	    	 moveTaskToBack(true); // 본Activity finish후 다른 Activity가 뜨는 걸 방지.
+	         finish();
+	          android.os.Process.killProcess(android.os.Process.myPid()); 
+	         // -> 해당 어플의 프로세스를 강제 Kill시킨다.
 	    }
 	    return super.onKeyDown(keyCode, event);
 	}
