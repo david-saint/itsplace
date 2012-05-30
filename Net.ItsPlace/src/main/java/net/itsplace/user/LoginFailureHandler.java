@@ -21,7 +21,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         
         if(request.getHeader("X-Ajax-call")!=null){
         	 if (request.getHeader("X-Ajax-call").equals("true")) {
-                 response.getWriter().print("error");
+                 response.getWriter().print("Email 또는 비밀번호를 확인하세요");
                  response.getWriter().flush();
              }
         }

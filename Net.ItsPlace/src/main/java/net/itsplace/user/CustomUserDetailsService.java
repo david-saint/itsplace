@@ -76,7 +76,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 					);
 
 		} catch (Exception e) {
-			logger.error(e.toString()+"사 용자가 없습니다.");
+			logger.error(e.toString()+"사용자가 없습니다.");
 			//throw new UsernameNotFoundException("Error in retrieving user");
 		}
 		
