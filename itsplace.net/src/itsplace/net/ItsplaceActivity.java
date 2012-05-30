@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -109,7 +110,7 @@ public class ItsplaceActivity extends Activity {
 		user = main.getUser();
 		Intent intent;
 		if(main.isLogged()){
-			L.i(TAG, "로그인중입니다");
+			L.i(TAG, " 현재 로그인중입니다");
 		}else{
 			if(user==null){
 				intent = new Intent(this, LoginActivity.class);
@@ -137,5 +138,15 @@ public class ItsplaceActivity extends Activity {
 			}
 		}
 	}
-	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	     
+	    	 moveTaskToBack(true); // 본Activity finish후 다른 Activity가 뜨는 걸 방지.
+	         finish();
+	         android.os.Process.killProcess(android.os.Process.myPid()); 
+	         // -> 해당 어플의 프로세스를 강제 Kill시킨다.
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
 }

@@ -58,7 +58,7 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		if(getApplicationContext().getUser()==null){
 			 Toast.makeText( this,  "getApplicationContext null!",Toast.LENGTH_LONG).show();
 		}else{
-			 Toast.makeText( this,  getApplicationContext().getUser().getEmail()+"",Toast.LENGTH_LONG).show();
+			 //Toast.makeText( this,  getApplicationContext().getUser().getEmail()+"",Toast.LENGTH_LONG).show();
 			 loginAsyncTask = new LoginAsyncTask().execute(getApplicationContext().getUser());	
 		}
 		//
@@ -73,6 +73,9 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		    getApplicationContext().setUser(null);
 		 	finish();
 		}else{
+			 if(LoginActivity.exitActiviry!=null){
+				 LoginActivity.exitActiviry.finish(); 
+			 }
 			
 			try {
 				//SharedPreference.putSharedPreference(context, "email", user.getEmail());

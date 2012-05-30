@@ -42,14 +42,16 @@ public class ImageLoader {
         executorService=Executors.newFixedThreadPool(5);
     }
     
-    final int stub_id=R.drawable.stub;
+    final int stub_id=R.drawable.stub; // 빈이미
     public void DisplayImage(String url, ImageView imageView)
     {
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
       
         if(bitmap!=null){
-        	 
+        	//동후
+            bitmap = getRoundedCornerBitmap(bitmap);
+             // 
             imageView.setImageBitmap(bitmap);
         }
         else

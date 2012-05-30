@@ -8,11 +8,12 @@
 	<!--  android:background="#000" -->
     <ImageView
         android:id="@+id/image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/stub" 
+        android:background="@layout/shape_round"
        />
 	<LinearLayout
         android:layout_width="fill_parent"

@@ -8,6 +8,15 @@ import itsplace.net.map.DaumMapActivity;
 import itsplace.net.util.L;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -41,8 +50,13 @@ public class FranchiserViewActivity extends  AbstractAsyncActivity {
     	 imageLoader=new ImageLoader(this);
     	 ImageView image=(ImageView)findViewById(R.id.fImage);       
     	   String t = getIntent().getStringExtra("image");
-         imageLoader.DisplayImage(getIntent().getStringExtra("image"), image);
-      
+        // imageLoader.DisplayImage(getIntent().getStringExtra("image"), image);
+    	   Bitmap bm = BitmapFactory.decodeResource(getResources(), 
+                   R.drawable.stamp);
+           image.setImageBitmap(getRoundedCornerBitmap(bm, 10));
+           
+           
+           
     	 webView = (WebView)findViewById(R.id.webView);
         
     	 final String MAP_URL = getString(R.string.map_uri);
@@ -92,7 +106,28 @@ public class FranchiserViewActivity extends  AbstractAsyncActivity {
      
         
     }
-    
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
   
     	
 }

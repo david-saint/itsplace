@@ -43,7 +43,7 @@ import android.widget.Toast;
 public class LoginActivity  extends Activity  {
 	protected static final String TAG = LoginActivity.class.getSimpleName();
 
-
+	public static Activity exitActiviry;
 	EditText emailEditText;
 	EditText passwordEditText ;
 	TextView signUpTextView;
@@ -51,13 +51,15 @@ public class LoginActivity  extends Activity  {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
+		exitActiviry = this;
 		if(ItsplaceActivity.exitActiviry!=null){
 			ItsplaceActivity.exitActiviry.finish();
 		}
 		
 		emailEditText = (EditText) findViewById(R.id.email);
 		passwordEditText = (EditText) findViewById(R.id.password);
-		
+		emailEditText.setText("faye12005@gmail.com");
+		passwordEditText.setText("hoon1014");
 		// showLoadingProgressDialog();
 		Button loginButton = (Button) findViewById(R.id.btnLogin);
 		final Intent intent = new Intent(this, (LoginAsyncActivity.class));
@@ -188,7 +190,7 @@ public class LoginActivity  extends Activity  {
 	     
 	    	 moveTaskToBack(true); // 본Activity finish후 다른 Activity가 뜨는 걸 방지.
 	         finish();
-	       //   android.os.Process.killProcess(android.os.Process.myPid()); 
+	         android.os.Process.killProcess(android.os.Process.myPid()); 
 	         // -> 해당 어플의 프로세스를 강제 Kill시킨다.
 	    }
 	    return super.onKeyDown(keyCode, event);
