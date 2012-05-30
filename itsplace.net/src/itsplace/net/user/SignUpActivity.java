@@ -1,5 +1,6 @@
 package itsplace.net.user;
 
+import itsplace.net.ItsplaceActivity;
 import itsplace.net.MainApplication;
 import itsplace.net.R;
 import itsplace.net.common.AbstractAsyncActivity;
@@ -9,6 +10,7 @@ import itsplace.net.util.L;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.User;
 
 import org.springframework.http.MediaType;
@@ -28,6 +30,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,36 +40,19 @@ public class SignUpActivity extends AbstractAsyncActivity{
 	protected static final String TAG = SignUpActivity.class.getSimpleName();
 	
 	
-	String errorMessage;
-	EditText emailEditText;
-	EditText passwordEditText ;
-	EditText nameEditText ;
-	EditText mobileEditText ;
+	String ValidationMessage;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.signup_activity);
-		emailEditText = (EditText) findViewById(R.id.email);
-		passwordEditText = (EditText) findViewById(R.id.password);
-		nameEditText = (EditText) findViewById(R.id.name);
-		mobileEditText = (EditText) findViewById(R.id.mobile);
-
-		Button button = (Button) findViewById(R.id.btnSignUp);
-		button.setOnClickListener(new View.OnClickListener() {
+		if(ItsplaceActivity.exitActiviry!=null){
+			ItsplaceActivity.exitActiviry.finish();
+		}
+		Button btnSignUp = (Button) findViewById(R.id.btnSignUp);
+		btnSignUp.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				User user = new User();
-				user.setEmail(emailEditText.getText().toString());
-				user.setPassword(passwordEditText.getText().toString());
-				user.setName(nameEditText.getText().toString());
-				user.setMobile(mobileEditText.getText().toString());
-
-				if (user.getEmail() == "" || user.getPassword() == "") {
-					Toast.makeText(getApplicationContext(),
-							" itsplace 이메일 또는 비밀번호흫 입력해주세요", 1000).show();
-				} else {
-					 new SignUpAsync().execute(user);
-
-				}
+					 new SignUpAsync().execute();
 			}
 		});
 		Button btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -92,24 +78,39 @@ public class SignUpActivity extends AbstractAsyncActivity{
         }       
 	}
 
-	private class SignUpAsync extends AsyncTask<User, Void, User> {
-
+	private class SignUpAsync extends AsyncTask<Void, Void, User> {
+		User user = new User();
 		@Override
 		protected void onPreExecute() {
 			showLoadingProgressDialog();
+			EditText emailEditText;
+			EditText passwordEditText;
+			EditText nameEditText;
+			EditText mobileEditText;
+		
+			
+			emailEditText = (EditText) findViewById(R.id.email);
+			passwordEditText = (EditText) findViewById(R.id.password);
+			nameEditText = (EditText) findViewById(R.id.name);
+			mobileEditText = (EditText) findViewById(R.id.mobile);
+			
+			user.setEmail(emailEditText.getText().toString());
+			user.setPassword(passwordEditText.getText().toString());
+			user.setName(nameEditText.getText().toString());
+			user.setMobile(mobileEditText.getText().toString());
 		}
 
 		@Override
-		protected User doInBackground(User... params) {
-			String result="false";
-			User user = (User)params[0]	;
+		protected User doInBackground(Void... params) {
+			JsonResponse json = new JsonResponse();
+			//User user = (User)params[0]	;
 			try {				
 				List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 				//acceptableMediaTypes.add(MediaType.);
 			
-				Log.i(TAG, "rest11111111111111111111111");
+				
 				RestTemplate restTemplate = new RestTemplate();
-				String url = getString(R.string.base_uri)+"/user/saveUser";
+				String url = getString(R.string.base_uri)+"/user/saveUserJson";
 				
 				Log.i(TAG, url);
 				List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
@@ -124,19 +125,20 @@ public class SignUpActivity extends AbstractAsyncActivity{
 				mvm.add("name", user.getName());
 				mvm.add("mobile", user.getMobile());
 				
-				Log.i(TAG, "rest post");
+				
 			
-				result =  (String)restTemplate.postForObject(url, mvm, String.class);
-				L.i(TAG, result);
+				json =  (JsonResponse)restTemplate.postForObject(url, mvm, JsonResponse.class);
+				Log.i(TAG, json.getStatus());
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage(), e);
 			}
 
-			if(result.equals("true")){
+			if(json.getStatus().equals("SUCCESS")){
 				return user;
 			}else{
-				errorMessage = result;
-				//Toast.makeText(getBaseContext(),  result,1000).show();
+				Log.i(TAG,  json.getResult().toString());
+				setValidationMessage(json.getResult().toString());
+				//Toast.makeText(getBaseContext(),  json.getResult().toString(),1000).show();
 				//Toast.makeText(SignUpActivity.this,  result,1000).show();
 				return null;
 			}
@@ -153,21 +155,22 @@ public class SignUpActivity extends AbstractAsyncActivity{
 			
 			if(user == null){
 				
-				 Toast.makeText(SignUpActivity.this,  errorMessage,1000).show();
+				 Toast.makeText(SignUpActivity.this,  getValidationMessage(),1000).show();
 				//alert.setMessage("오류발생");
 			
-			}else{ Toast.makeText(getBaseContext(),  "가입성공",1000).show();
+			}else{ 
+				Toast.makeText(getBaseContext(),  "가입성공",1000).show();
 				L.i(TAG, "Login onPostExecute: 가입성공") ;
 				Intent intent;
-				intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+			//	intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
 				//화원가입후 메세지 뿌리고 메일인증 하도로 ㄱ 유도
-				startActivity(intent);
+			//	startActivity(intent);
 				MainApplication main = (MainApplication) getApplication();
 				main.setUser(user);
 				intent = new Intent(SignUpActivity.this, LoginActivity.class);
 				//intent.putExtra("Email", user.getEmail());
 				startActivity(intent);
-				
+				finish();
 				
 			//	new LoginAsyncActivity(getBaseContext(), user);
 				/*
@@ -186,4 +189,20 @@ public class SignUpActivity extends AbstractAsyncActivity{
 		}
 
 	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	        finish();
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+
+	public String getValidationMessage() {
+		return ValidationMessage;
+	}
+
+	public void setValidationMessage(String validationMessage) {
+		ValidationMessage = validationMessage;
+	}
+	
 }

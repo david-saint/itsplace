@@ -46,7 +46,7 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 //		 this.context = context;
 //		 new LoginAsync().execute(user);
 //	}
-
+	String ValidationMessage;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {	//new LoginAsync.execute(getApplicationContext().getUser());
 	        super.onCreate(savedInstanceState);	        
@@ -65,10 +65,11 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 	
 	}
 	private void showResult(User user){
-		if(user.getEmail()==null){
+		if(user==null){
 			//L.i(TAG, "Login onPostExecute:로그인할 수 없음");
-		     Toast.makeText( this,  "Email 또는 비밀번호를 확인해주세요",Toast.LENGTH_LONG).show();
-		     getApplicationContext().setLogged(false);
+		     //Toast.makeText( this,  "Email 또는 비밀번호를 확인해주세요",Toast.LENGTH_LONG).show();
+			Toast.makeText( this,  getValidationMessage(),Toast.LENGTH_LONG).show();
+		    getApplicationContext().setLogged(false);
 		 	finish();
 		}else{
 			
@@ -138,9 +139,9 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 			restClient.AddHeader("X-Ajax-call", "true");
 			try {			
 				restClient.Execute(RequestMethod.POST);
-				String role = restClient.getResponse();
-				Log.i(TAG, "role:"+role);
-				if(role.trim().equals("ROLE_ADMIN") || role.trim().equals("ROLE_USER")){
+				String result = restClient.getResponse();
+				Log.i(TAG, "role:"+result);
+				if(result.trim().equals("ROLE_ADMIN") || result.trim().equals("ROLE_USER")){
 //					List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
 //					acceptableMediaTypes.add(MediaType.APPLICATION_JSON);				
 //					RestTemplate restTemplate = new RestTemplate();
@@ -159,6 +160,8 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 					restClient.Execute(RequestMethod.POST);
 					Gson gson = new Gson();
 					loginUser =  gson.fromJson(restClient.getResponse(), User.class);
+				}else{
+					setValidationMessage(result);
 				}
 			
 			
@@ -211,4 +214,12 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		}
 
 	}
+	public String getValidationMessage() {
+		return ValidationMessage;
+	}
+	public void setValidationMessage(String validationMessage) {
+		ValidationMessage = validationMessage;
+	}
+	
+	
 }

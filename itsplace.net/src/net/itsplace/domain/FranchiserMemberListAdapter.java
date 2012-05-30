@@ -87,7 +87,7 @@ public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickL
             t2.setText("t2t2");
             
             ImageView image=(ImageView)convertView.findViewById(R.id.image);        
-            imageLoader.DisplayImage("http://itsplace.net/resources/images/"+f.getFileName(), image);
+            imageLoader.DisplayImage(f.getImageHost()+f.getFileName(), image);
            // imageLoader.DisplayImage("http://a3.twimg.com/profile_images/670625317/aam-logo-v3-twitter.png", image);
         }
         convertView.setTag(position);

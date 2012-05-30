@@ -32,11 +32,12 @@ public class ItsplaceActivity extends Activity {
  
 	protected static final String TAG = ItsplaceActivity.class.getSimpleName();
 	private User user;
-
+	public static Activity exitActiviry;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		exitActiviry = this;
 		L.i(TAG, "onCreate");
 		// splash 및 초기화 작업
 		startActivity(new Intent(this, SplashActivity.class));
@@ -110,22 +111,13 @@ public class ItsplaceActivity extends Activity {
 		if(main.isLogged()){
 			L.i(TAG, "로그인중입니다");
 		}else{
-			
-			L.i(TAG, "로그인중  아닙니다");
-			if (user == null) {
-				L.i(TAG, "회원가입");
-				// startActivityForResult(new Intent(this,LoginActivity.class),
-				// 9999);
-				startActivity(new Intent(this, SignUpActivity.class));
-				
-			}else if(user.getPassword()==null || user.getPassword()==""){
+			if(user==null){
 				intent = new Intent(this, LoginActivity.class);
-				intent.putExtra("Email", user.getEmail());
 				startActivity(intent);
-				
-			}else if (user.getEmail().length() > 0 && user.getPassword().length() > 0) {
+			}
+			else if (user.getEmail().length() > 0 && user.getPassword().length() > 0) {
 				try {
-					L.i(TAG,"자동로그인 password:"+ user.getPassword());
+					L.i(TAG,"자동로그인:"+user.getEmail()+":"+ user.getPassword());
 	
 					user.setPassword(Encrypt.decrypt("itsplace", user.getPassword()));
 					Log.i(TAG,"복호화:"+user.getPassword());
@@ -139,6 +131,9 @@ public class ItsplaceActivity extends Activity {
 					
 				}
 	
+			}else{
+				intent = new Intent(this, LoginActivity.class);
+				startActivity(intent);
 			}
 		}
 	}

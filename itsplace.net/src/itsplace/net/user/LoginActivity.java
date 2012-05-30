@@ -33,6 +33,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,10 @@ public class LoginActivity  extends Activity  {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
-
+		if(ItsplaceActivity.exitActiviry!=null){
+			ItsplaceActivity.exitActiviry.finish();
+		}
+		
 		emailEditText = (EditText) findViewById(R.id.email);
 		passwordEditText = (EditText) findViewById(R.id.password);
 		
@@ -107,75 +111,84 @@ public class LoginActivity  extends Activity  {
 		}
 	}
 
-	private class LoginAsync extends AsyncTask<User, Void, User> {
-
-		@Override
-		protected void onPreExecute() {
-			// before the network request begins, show a progress indicator
-			//  showLoadingProgressDialog();
-		}
-
-		@Override
-		protected User doInBackground(User... params) {
-			try {
-				
-				List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-				acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-			
-				RestTemplate restTemplate = new RestTemplate();
-			//	List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
-			//	messageConverters.add(new FormHttpMessageConverter());
-			//	messageConverters.add(new StringHttpMessageConverter());// 리스폰스 객체가(responsebody) String 일때 한글깨짐현상이 있으면 컨벝너 사용할껏
-			//	restTemplate.setMessageConverters(messageConverters);
-			
-				String url = getString(R.string.base_uri)+"/m/login";
-				
-				User user = (User)params[0]	;
-				MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
-				mvm.add("email", user.getEmail());
-				mvm.add("password", user.getPassword());
-				
-				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
-				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
-				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
-				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
-				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
-			//	Toast.makeText(getApplicationContext(),  "d"+user.getEmail(),1000).show();
-
-				return (User)restTemplate.postForObject(url, mvm, User.class);
-				
-			} catch (Exception e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
-
-			return null;
-		}
-
-		// when data set changes, you need to call proper method here.
-		// do not call notifyDataSetChanged() in 'doInBackground()'.
-		protected void onPostExecute(User user) {
-			  // hide the progress indicator when the network request is complete
-         
-			if(user == null){
-				Toast.makeText(getBaseContext(),  "로그인 할 수 없습니다!",1000).show();
-			}else{
-				
-				try {
-					SharedPreferences userInfo = getSharedPreferences("USERINFO", MODE_PRIVATE);
-			        Editor editor = userInfo.edit();
-			        editor.putString("email", user.getEmail());      			        
-			        editor.putString("password", Encrypt.encrypt("itsplace", user.getPassword()));				 
-			        editor.commit();
-			        
-			      //  Intent intent = new Intent(LoginActivity.this, MainActivity.class);					
-					//startActivity(intent);
-					
-				} catch (Exception e) {					
-					Log.e(TAG, e.getMessage(), e);
-				}      
-			}	
-			 
-		}
-
+//	private class LoginAsync extends AsyncTask<User, Void, User> {
+//
+//		@Override
+//		protected void onPreExecute() {
+//			// before the network request begins, show a progress indicator
+//			//  showLoadingProgressDialog();
+//		}
+//
+//		@Override
+//		protected User doInBackground(User... params) {
+//			try {
+//				
+//				List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+//				acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+//			
+//				RestTemplate restTemplate = new RestTemplate();
+//			//	List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+//			//	messageConverters.add(new FormHttpMessageConverter());
+//			//	messageConverters.add(new StringHttpMessageConverter());// 리스폰스 객체가(responsebody) String 일때 한글깨짐현상이 있으면 컨벝너 사용할껏
+//			//	restTemplate.setMessageConverters(messageConverters);
+//			
+//				String url = getString(R.string.base_uri)+"/m/login";
+//				
+//				User user = (User)params[0]	;
+//				MultiValueMap<String, String> mvm = new LinkedMultiValueMap<String, String>();
+//				mvm.add("email", user.getEmail());
+//				mvm.add("password", user.getPassword());
+//				
+//				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
+//				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
+//				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
+//				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
+//				L.i(TAG, "doInBackground: user: "+user.getEmail()+"");
+//			//	Toast.makeText(getApplicationContext(),  "d"+user.getEmail(),1000).show();
+//
+//				return (User)restTemplate.postForObject(url, mvm, User.class);
+//				
+//			} catch (Exception e) {
+//				Log.e(TAG, e.getMessage(), e);
+//			}
+//
+//			return null;
+//		}
+//
+//		// when data set changes, you need to call proper method here.
+//		// do not call notifyDataSetChanged() in 'doInBackground()'.
+//		protected void onPostExecute(User user) {
+//			  // hide the progress indicator when the network request is complete
+//         
+//			if(user == null){
+//				Toast.makeText(getBaseContext(),  "로그인 할 수 없습니다!",1000).show();
+//			}else{
+//				
+//				try {
+//					SharedPreferences userInfo = getSharedPreferences("USERINFO", MODE_PRIVATE);
+//			        Editor editor = userInfo.edit();
+//			        editor.putString("email", user.getEmail());      			        
+//			        editor.putString("password", Encrypt.encrypt("itsplace", user.getPassword()));				 
+//			        editor.commit();
+//			        
+//			      //  Intent intent = new Intent(LoginActivity.this, MainActivity.class);					
+//					//startActivity(intent);
+//					
+//				} catch (Exception e) {					
+//					Log.e(TAG, e.getMessage(), e);
+//				}      
+//			}	
+//			 
+//		}
+//
+//	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	     
+	        finish();
+	        return false;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }
