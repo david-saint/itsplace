@@ -110,7 +110,7 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		@Override
 		protected void onPreExecute() {
 			// before the network request begins, show a progress indicator
-			showLoadingProgressDialog();
+			//showLoadingProgressDialog();
 		}
 		
 		
@@ -207,7 +207,7 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		// do not call notifyDataSetChanged() in 'doInBackground()'.
 		protected void onPostExecute(User user) {
 			//loginAsyncTask.cancel(true);
-			dismissProgressDialog();
+			//dismissProgressDialog();
 			L.i(TAG, "종료");
 			showResult(user);
 //			if(user != null){

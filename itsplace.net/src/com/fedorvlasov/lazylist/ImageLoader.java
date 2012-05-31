@@ -49,7 +49,7 @@ public class ImageLoader {
         Bitmap bitmap=memoryCache.get(url);
       
         if(bitmap!=null){
-        	//동후
+        	//최초호출시 라운드 된다 그다음 호출은 메모리에서?
             bitmap = getRoundedCornerBitmap(bitmap);
              // 
             imageView.setImageBitmap(bitmap);
@@ -73,8 +73,12 @@ public class ImageLoader {
         
         //from SD cache
         Bitmap b = decodeFile(f);
-        if(b!=null)
-            return b;
+        if(b!=null){
+        	b = getRoundedCornerBitmap(b);
+        	return b;
+        }
+        	
+            
         
         //from web
         try {
