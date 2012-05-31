@@ -35,8 +35,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,11 +88,13 @@ public class LoginActivity  extends Activity  {
 				}
 			}
 		});
-
+		 final LinearLayout aniLayout = (LinearLayout)this.findViewById(R.id.aniLayout);
 		signUpTextView = (TextView)findViewById(R.id.signUp);
 		signUpTextView.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				startActivity(new Intent(getApplicationContext(), (SignUpActivity.class)));
+				//startActivity(new Intent(getApplicationContext(), (SignUpActivity.class)));
+				
+				setLayoutAnim_slidedownfromtop(aniLayout);
 			}
 		});
 	}
@@ -195,4 +203,25 @@ public class LoginActivity  extends Activity  {
 	    }
 	    return super.onKeyDown(keyCode, event);
 	}
+	
+	 /* ViewGroup를 아규먼트로 받아서 해당 ViewGroup에 추가되는 뷰가 있을 경우에 적용하는 애니메이션을 정의함 */
+    public static void setLayoutAnim_slidedownfromtop(ViewGroup panel) {
+       AnimationSet set = new AnimationSet(true);
+       Animation animation = new AlphaAnimation(0.0f, 1.0f);
+       animation.setDuration(1000);
+       set.addAnimation(animation);
+       animation = new TranslateAnimation(
+           Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+           Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0.0f
+       );
+       animation.setDuration(1000);
+       set.addAnimation(animation);
+       /*
+       ScaleAnimation scale = new ScaleAnimation(-1, 1, -1, 1, 
+         ScaleAnimation.RELATIVE_TO_SELF, 1f, 
+         ScaleAnimation.RELATIVE_TO_SELF, 1f); 
+       set.addAnimation(scale);
+       */
+       panel.startAnimation(set);
+    }
 }

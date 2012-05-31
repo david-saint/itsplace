@@ -31,6 +31,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.HttpClientErrorException;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
@@ -44,6 +45,9 @@ public class MainActivity extends SherlockActivity{
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		actionBarMenu.createMenu(menu);
+
+		
+	       
 	    return true;
     }
     @Override
@@ -51,6 +55,8 @@ public class MainActivity extends SherlockActivity{
       
     	return actionBarMenu.selectMenuEvent(this, item);
     }
+   
+    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

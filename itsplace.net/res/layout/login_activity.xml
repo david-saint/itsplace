@@ -38,6 +38,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:padding="10dip"
+          android:id="@+id/aniLayout"
           android:layout_below="@id/header">
           <!--  Email Label -->
           <TextView android:layout_width="fill_parent"

@@ -1,5 +1,7 @@
 package itsplace.net.franchiser;
 
+import net.itsplace.domain.Place;
+
 import com.fedorvlasov.lazylist.ImageLoader;
 
 import itsplace.net.R;
@@ -21,6 +23,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -55,8 +58,11 @@ public class FranchiserViewActivity extends  AbstractAsyncActivity {
                    R.drawable.stamp);
            image.setImageBitmap(getRoundedCornerBitmap(bm, 10));
            
-           
-           
+           Place place = (Place) getIntent().getSerializableExtra("place");
+           Log.i(TAG,place.getFname());
+           Log.i(TAG,place.getFname());
+           Log.i(TAG,place.getFname());
+           Log.i(TAG,place.getFname());
     	 webView = (WebView)findViewById(R.id.webView);
         
     	 final String MAP_URL = getString(R.string.map_uri);

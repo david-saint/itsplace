@@ -109,7 +109,7 @@ public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickL
 			  intent.putExtra("latitude", f.getLatitude());
 			  intent.putExtra("longitude", f.getLongitude());
 			  intent.putExtra("image", "http://itsplace.net/resources/images/"+f.getFileName());
-			 
+			  intent.putExtra("place",f);
 			  L.i(TAG, ""+position+f.toString() );
 			  
 			  context.startActivity(intent);
