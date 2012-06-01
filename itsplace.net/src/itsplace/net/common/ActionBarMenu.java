@@ -1,8 +1,9 @@
 package itsplace.net.common;
 import java.util.List;
 
-import itsplace.net.FranchiserActivity;
+import itsplace.net.PlaceActivity;
 import itsplace.net.R;
+import itsplace.net.StampActivity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
@@ -21,7 +22,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.SubMenu;
 
 public class ActionBarMenu {
-	protected static final String TAG = FranchiserActivity.class.getSimpleName();
+	protected static final String TAG = PlaceActivity.class.getSimpleName();
 	private ActionMode actionMode;
 	private Context context;
 	public void createMenu(Menu menu){
@@ -31,7 +32,7 @@ public class ActionBarMenu {
 	        
 	        SubMenu sub = menu.addSubMenu("Theme");
 	        sub.add(0, 10, 0, "Search Place");
-	        sub.add(0, 20, 1, "Light");
+	        sub.add(0, 20, 1, "ssssss");
 	        sub.add(0, 30, 0, "Light (Dark Action Bar---------------)");
 	        sub.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 	        sub.getItem().setIcon(R.drawable.flag);
@@ -46,6 +47,11 @@ public class ActionBarMenu {
 	}
 	public boolean selectMenuEvent(Context context, MenuItem item){
 		 Toast.makeText(context, " item.getItemId()"+ item.getItemId()+"----Theme changed to \"" + item.getTitle() + "\"", Toast.LENGTH_SHORT).show();
+		 ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+	   	  List<RunningTaskInfo> Info = am.getRunningTasks(1);
+	   	  ComponentName topActivity = Info.get(0).topActivity;
+	   	  String topactivityname = topActivity.getPackageName()+topActivity.getClassName()+topActivity.getShortClassName();
+	   	  
 		 this.context = context;
 		 if(item.getItemId()==100){
 			 SherlockActivity sa = (SherlockActivity) context;
@@ -54,22 +60,26 @@ public class ActionBarMenu {
 		  if (item.getItemId() == android.R.id.home || item.getItemId() == 0) {
 	            return false;
 	      }else{
-	    	  ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
-	    	  List<RunningTaskInfo> Info = am.getRunningTasks(1);
-	    	  ComponentName topActivity = Info.get(0).topActivity;
-	    	  String topactivityname = topActivity.getPackageName()+topActivity.getClassName()+topActivity.getShortClassName();
+	    	 
 	    	  Log.i(TAG,"topactivityname--------->"+topactivityname);
 	    	 
 	    	  
 	    	  Log.i(TAG,"--------->"+topActivity.getShortClassName());	    		  
-    		  Log.i(TAG," --------->"+FranchiserActivity.class.getSimpleName());
+    		  Log.i(TAG," --------->"+PlaceActivity.class.getSimpleName());
     		  
     		  if(item.getItemId()==10){
-    			  if(topActivity.getShortClassName().equals("."+FranchiserActivity.class.getSimpleName())){
-    	    		  Log.i(TAG,"같으니까 실행하지 마라 --------->"+topActivity.getShortClassName());	    		  
-    	    		  Log.i(TAG,"같으니까 실행하지 마라 --------->"+FranchiserActivity.class.getSimpleName());	    		  
+    			  if(topActivity.getShortClassName().equals("."+PlaceActivity.class.getSimpleName())){
+    	    		     		  
     	    	  }else{
-    	    		  Intent intent = new Intent(context, FranchiserActivity.class);
+    	    		  Intent intent = new Intent(context, PlaceActivity.class);
+    		    	  context.startActivity(intent);  
+    	    	  }  
+    		  }else if(item.getItemId()==20){
+    			  
+    			  if(topActivity.getShortClassName().equals("."+StampActivity.class.getSimpleName())){
+    	    		  		  
+    	    	  }else{
+    	    		  Intent intent = new Intent(context, StampActivity.class);
     		    	  context.startActivity(intent);  
     	    	  }  
     		  }

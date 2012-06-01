@@ -1,5 +1,8 @@
 package itsplace.net;
 
+import itsplace.net.common.DateDeserializer;
+import itsplace.net.connection.RestClient;
+import itsplace.net.connection.RestClient.RequestMethod;
 import itsplace.net.util.L;
 
 import java.text.ParseException;
@@ -10,17 +13,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import net.itsplace.domain.FranchiserMember;
+
+import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.StampFragmentAdpter;
 import net.itsplace.domain.User;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import android.content.Intent;
@@ -105,20 +116,36 @@ public class StampActivity extends FragmentActivity {
 		
 	}
     
-    private void setStampList(List<Stamp> stampList){
+    private void setStampList(List<PlaceStamp> stampList){
     	//mPagerAdapter
-    	mPagerAdapter.addStampList(stampList);
-    	mViewPager.setAdapter(mPagerAdapter);
-    	mIndicator.init(0, mPagerAdapter.getCount(), mPagerAdapter);
- 		Resources res = getResources();
- 		Drawable prev = res.getDrawable(R.drawable.indicator_prev_arrow);
- 		Drawable next = res.getDrawable(R.drawable.indicator_next_arrow);
- 		mIndicator.setFocusedTextColor(new int[]{255, 0, 0});
- 		
- 		// Set images for previous and next arrows.
- 		mIndicator.setArrows(prev, next);
- 		
- 		mIndicator.setOnClickListener(new OnIndicatorClickListener());
+    	if(stampList.isEmpty()){
+    		Log.i(TAG, "스탬프없음");
+    		Toast.makeText(getApplicationContext(), "init`````````````````1", Toast.LENGTH_LONG).show();
+    		
+    	}else{
+    		Log.i(TAG, "스탬프없음1");
+    		mPagerAdapter.addStampList(stampList);
+    		Log.i(TAG, "스탬프없음2");
+    		if(mPagerAdapter==null){
+    			Log.i(TAG, "mPagerAdapter null");
+    		}
+        	mViewPager.setAdapter(mPagerAdapter);
+        	Log.i(TAG, "스탬프없음3");
+        	mIndicator.init(0, mPagerAdapter.getCount(), mPagerAdapter);
+        	
+        	Toast.makeText(getApplicationContext(), "init`````````````````", Toast.LENGTH_LONG).show();
+        	
+     		Resources res = getResources();
+     		Drawable prev = res.getDrawable(R.drawable.indicator_prev_arrow);
+     		Drawable next = res.getDrawable(R.drawable.indicator_next_arrow);
+     		mIndicator.setFocusedTextColor(new int[]{255, 0, 0});
+     		
+     		// Set images for previous and next arrows.
+     		mIndicator.setArrows(prev, next);
+     		
+     		mIndicator.setOnClickListener(new OnIndicatorClickListener());
+    	}
+    	
  		
 	
     }
@@ -145,7 +172,7 @@ public class StampActivity extends FragmentActivity {
    
     
     
-    private class getStampedList extends AsyncTask<Void, Void, List<Stamp>> {
+    private class getStampedList extends AsyncTask<Void, Void, List<PlaceStamp>> {
 
         @Override
         protected void onPreExecute() {
@@ -156,55 +183,57 @@ public class StampActivity extends FragmentActivity {
         }
 
         @Override
-        protected List<Stamp> doInBackground(Void... params) {
-			try {
-                // The URL for making the GET request
-                final String url = getString(R.string.base_uri)+"/stamp/myStampJson?email=" + user.getEmail(); 
-                		
-                //getString(R.string.base_uri)
-                Log.i(TAG,"URL:"+url);
-                
-                // Set the Accept header for "application/json"
-                HttpHeaders requestHeaders = new HttpHeaders();
-                List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
-                acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-                requestHeaders.setAccept(acceptableMediaTypes);
-
-                // Populate the headers in an HttpEntity object to use for the
-                // request
-                HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-
-                // Create a new RestTemplate instance
-                RestTemplate restTemplate = new RestTemplate();
-
-                // Perform the HTTP GET request
-                ResponseEntity<Stamp[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Stamp[].class);
-
-                // convert the array to a list and return it
-               
-                return Arrays.asList(responseEntity.getBody());
+        protected List<PlaceStamp> doInBackground(Void... params) {
+			
+                final String url = getString(R.string.base_uri) + "/stamp/placeStampList";
+            	RestClient restClient = new RestClient(url);
+   			 List<PlaceStamp> placeStampList = new ArrayList();
+   			try {
+   				restClient.AddParam("email", user.getEmail());
+				
+				restClient.Execute(RequestMethod.POST);
+				if (restClient.getResponseCode() == 200) {
+					try {
+						JSONObject jsonResponse = restClient.getJsonObject();
+						JSONArray placesJson = jsonResponse.getJSONArray("result");
+						GsonBuilder gsonb = new GsonBuilder();
+						DateDeserializer ds = new DateDeserializer();
+						gsonb.registerTypeAdapter(Date.class, ds);
+						Gson gson = gsonb.create();
+						
+						for (int i = 0; i < placesJson.length(); i++) {
+							PlaceStamp placeStamp = gson.fromJson(placesJson.getString(i), PlaceStamp.class);
+							placeStampList.add(placeStamp);
+							Log.i(TAG, placeStamp.getStampTitle());
+							Log.i(TAG, placeStamp.getSaveDate().toGMTString());
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				} else {
+					Log.i(TAG, "가맹점 조회 오류");
+				}
             } catch (Exception e) {
-                L.e(TAG, e.getMessage(), e);
+            	Log.e(TAG, e.getMessage()+ e.getLocalizedMessage(), e);
+				Log.i(TAG, restClient.getErrorMessage(), e);
                
             }
-
+			
 		
-			return null;
+		
+			return placeStampList;
 		}
 		
 		// when data set changes, you need to call proper method here.
 		// do not call notifyDataSetChanged() in 'doInBackground()'.
-		protected void onPostExecute(List<Stamp> result){
+		protected void onPostExecute(List<PlaceStamp> result){
 			//Items.add(result.get(0).getName()+"kkkkkkkkkkkkkkkkk");
 			//mAdapter.notifyDataSetChanged();
 			//dismissProgressDialog();
 			//mTestLayout.setVisibility(View.INVISIBLE);
-			if(result != null){
-				//refreshStates(result);
+			
 				setStampList(result);
-			}else{
-				 Toast.makeText(getApplicationContext(), "스탬프가 없습니다", Toast.LENGTH_LONG).show();
-			}
+			
 			
             // �۾��� �Ϸ� �� �� ����
             // dialog.dismiss();

@@ -2,7 +2,7 @@ package itsplace.net.common;
 
 
 
-import itsplace.net.FranchiserActivity;
+import itsplace.net.PlaceActivity;
 import itsplace.net.MainActivity;
 import itsplace.net.R;
 import itsplace.net.util.L;
@@ -51,7 +51,7 @@ public class TestMenu   extends RelativeLayout {
 	    //logo = (ImageView) findViewById(R.id.logo);
 	    label = (TextView) findViewById(R.id.header_title);
 	    loginButton = (ImageButton) findViewById(R.id.btn_Search);
-	     final Intent intent = new Intent(getContext(), FranchiserActivity.class);
+	     final Intent intent = new Intent(getContext(), PlaceActivity.class);
 	    loginButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {

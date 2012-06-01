@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.itsplace.domain.FranchiserMember;
+
+
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +18,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import itsplace.net.FranchiserActivity;
+import itsplace.net.PlaceActivity;
 import itsplace.net.R;
 import android.app.Activity;
 import android.content.Context;
@@ -90,7 +91,7 @@ public class DemoActivity2 extends Activity{
 				acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
 				//requestHeaders.setAccept(acceptableMediaTypes);
 				
-				HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
+				HttpEntity<?> requestEntity =null;// new HttpEntity<Object>(requestHeaders);
 				
 				RestTemplate restTemplate = new RestTemplate();
 				List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();

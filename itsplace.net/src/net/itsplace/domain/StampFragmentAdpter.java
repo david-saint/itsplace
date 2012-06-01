@@ -2,8 +2,9 @@ package net.itsplace.domain;
 
 import itsplace.net.MainApplication;
 import itsplace.net.R;
+import itsplace.net.StampActivity;
 import itsplace.net.ViewPagerIndicator;
-import itsplace.net.franchiser.FranchiserViewActivity;
+import itsplace.net.place.PlaceViewActivity;
 import itsplace.net.stamp.StampSaveActivity;
 import itsplace.net.util.L;
 
@@ -56,7 +57,9 @@ import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPagerIndicator.PageInfoProvider{
-	private List<Stamp> stampList;
+	protected static final String TAG = StampActivity.class.getSimpleName();
+	
+	private List<PlaceStamp> stampList;
 	User user;
 	private Context context;
 	public StampFragmentAdpter(FragmentManager fm,User user,Context context) {
@@ -64,8 +67,8 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 		this.user = user;
 		this.context = context;
 	}
-	public void addStampList(List<Stamp> stampList){
-		this.stampList = new ArrayList<Stamp>();
+	public void addStampList(List<PlaceStamp> stampList){
+		this.stampList = new ArrayList<PlaceStamp>();
 		this.stampList.addAll(stampList);
 	}
 	
@@ -79,9 +82,10 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 		
 		//this.stampList.get(pos).getFid()
 		//myStampByFidJson
-		L.i("dddd", pos+"");
+		
 	
 		if(stampList == null){
+			L.i(TAG, "stampList null");
 			//return ItemFragment.newInstance(1);
 			return  new ItemFragment();
 			// new getStamped().execute(Integer.toString(fid)); 

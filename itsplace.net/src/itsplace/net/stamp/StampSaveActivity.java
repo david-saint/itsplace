@@ -1,6 +1,6 @@
 package itsplace.net.stamp;
 
-import itsplace.net.FranchiserActivity;
+import itsplace.net.PlaceActivity;
 import itsplace.net.R;
 import itsplace.net.common.AbstractAsyncActivity;
 import itsplace.net.common.AbstractAsyncListActivity;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.itsplace.domain.FranchiserMember;
-import net.itsplace.domain.FranchiserMemberListAdapter;
+
+import net.itsplace.domain.PlaceListAdapter;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

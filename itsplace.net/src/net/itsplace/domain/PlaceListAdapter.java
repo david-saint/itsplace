@@ -15,10 +15,10 @@
  */
 package net.itsplace.domain;
 
-import itsplace.net.FranchiserActivity;
+import itsplace.net.PlaceActivity;
 import itsplace.net.R;
-import itsplace.net.franchiser.FranchiserViewActivity;
 import itsplace.net.map.DaumMapActivity;
+import itsplace.net.place.PlaceViewActivity;
 import itsplace.net.util.L;
 
 import java.util.ArrayList;
@@ -43,14 +43,14 @@ import android.widget.Toast;
  * @author Roy Clarkson
  * @author Pierre-Yves Ricau
  */
-public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickListener {
-	protected static final String TAG = FranchiserMemberListAdapter.class.getSimpleName();
+public class PlaceListAdapter extends BaseAdapter implements OnClickListener {
+	protected static final String TAG = PlaceListAdapter.class.getSimpleName();
     private List<Place> placeList;
     private final LayoutInflater layoutInflater;
     private Context context;
     private ImageLoader imageLoader; 
     
-    public FranchiserMemberListAdapter(Context context){
+    public PlaceListAdapter(Context context){
     	this.placeList = new ArrayList<Place>();
     	this.layoutInflater = LayoutInflater.from(context);
     	this.context = context;
@@ -105,7 +105,7 @@ public class FranchiserMemberListAdapter extends BaseAdapter implements OnClickL
 		  if(f == null){
 			  L.i(TAG, "가맹점 널" );
 		  }else{
-			  Intent intent = new Intent(context,FranchiserViewActivity.class);
+			  Intent intent = new Intent(context,PlaceViewActivity.class);
 			  intent.putExtra("latitude", f.getLatitude());
 			  intent.putExtra("longitude", f.getLongitude());
 			  intent.putExtra("image", "http://itsplace.net/resources/images/"+f.getFileName());

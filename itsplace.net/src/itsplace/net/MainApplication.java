@@ -1,7 +1,7 @@
 package itsplace.net;
 import itsplace.net.util.L;
 import itsplace.net.util.SharedPreference;
-import net.itsplace.domain.FranchiserMember;
+
 import net.itsplace.domain.User;
 import android.app.Application;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.util.Log;
 public class MainApplication extends Application {
 
 	private User user;
-	private FranchiserMember franchiser;
+
 	private boolean isLogged = false;
 	protected static final String TAG = MainApplication.class.getSimpleName();
 	@Override
@@ -56,12 +56,6 @@ public class MainApplication extends Application {
 		this.isLogged = isLogged;
 	}
 
-	public FranchiserMember getFranchiser() {
-		return franchiser;
-	}
-
-	public void setFranchiser(FranchiserMember franchiser) {
-		this.franchiser = franchiser;
-	}
+	
 	
 }

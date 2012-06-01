@@ -1,4 +1,4 @@
-package itsplace.net.franchiser;
+package itsplace.net.place;
 
 import net.itsplace.domain.Place;
 
@@ -29,9 +29,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-public class FranchiserViewActivity extends  AbstractAsyncActivity {
+public class PlaceViewActivity extends  AbstractAsyncActivity {
     
-	protected static final String TAG = FranchiserViewActivity.class.getSimpleName();
+	protected static final String TAG = PlaceViewActivity.class.getSimpleName();
 	   
 	private WebView webView;
 	private ImageLoader imageLoader; 

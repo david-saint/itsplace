@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.itsplace.domain.FranchiserMemberListAdapter;
+import net.itsplace.domain.PlaceListAdapter;
 import net.itsplace.domain.Place;
 
 import org.json.JSONArray;
@@ -34,8 +34,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class FranchiserActivity  extends SherlockListActivity{
-	protected static final String TAG = FranchiserActivity.class.getSimpleName();
+public class PlaceActivity  extends SherlockListActivity{
+	protected static final String TAG = PlaceActivity.class.getSimpleName();
 	private ActionBarMenu actionBarMenu;
 	
 	@Override
@@ -57,7 +57,7 @@ public class FranchiserActivity  extends SherlockListActivity{
 	public ArrayList<String> Items;
 	public ArrayAdapter<String> mAdapter;
 	public TextView mTestText;
-	private FranchiserMemberListAdapter adapter;
+	private PlaceListAdapter adapter;
 	public LinearLayout  mTestLayout;
 	private int pageSize = 10;
 	private Boolean isLoading = true;
@@ -66,7 +66,7 @@ public class FranchiserActivity  extends SherlockListActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBarMenu = new ActionBarMenu();
-        adapter = new FranchiserMemberListAdapter(this);
+        adapter = new PlaceListAdapter(this);
         
         
         mTestLayout = (LinearLayout) View.inflate(this, R.layout.mytext, null);

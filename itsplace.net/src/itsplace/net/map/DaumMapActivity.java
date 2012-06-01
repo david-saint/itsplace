@@ -6,7 +6,7 @@ import itsplace.net.util.L;
 import java.io.IOException;
 import java.util.List;
 
-import net.itsplace.domain.FranchiserMemberListAdapter;
+import net.itsplace.domain.PlaceListAdapter;
 
 
 import android.accounts.Account;
