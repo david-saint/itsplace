@@ -39,5 +39,11 @@ public class StampDaoImpl extends SqlMapClientDaoSupport implements StampDao{
 		return getSqlMapClientTemplate().queryForList("web.getStampedList",param);
 	}
 
+	@Override
+	public List<PlaceStamp> getPlaceStampListByEmail(String email)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("web.getPlaceStampListByEmail",email);
+	}
+
 
 }

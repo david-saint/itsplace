@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/stamp")
@@ -93,6 +95,31 @@ public class StampController {
 		model.addAttribute("email",UserInfo.getEmail());
 		return "web/stamp/list";
 	}
+	/**
+	 * 스마트폰 적립된 스탬프 가맹점 리스트
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/placeStampList", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  PlaceList(@RequestParam(required=true, defaultValue="1") String  email			 									 
+			 									){
+		logger.info("email:{}",email);
+		JsonResponse json = new JsonResponse();
+		try{
+			
+			json.setResult(stampService.getPlaceStampListByEmail(email));
+			json.setStatus("SUCCESS");	
+		}catch(Exception e){
+			
+			json.setResult(e.getLocalizedMessage());
+			json.setStatus("FAIL");	
+		}
+		
+		
+		return json;
+	}
+	
 	/**
 	 * 즐겨찾기
 	 * @param locale

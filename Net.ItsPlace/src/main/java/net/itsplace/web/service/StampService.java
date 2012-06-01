@@ -13,4 +13,5 @@ public interface StampService {
 	public  List<Place> getPlaceStampedList(String email);
 	/*적립된  스탬프 리스트 가맹점별*/
 	public  List<PlaceStamp> getStampedList(Map<String, Object> param) ;
+	public List<PlaceStamp> getPlaceStampListByEmail(String email);
 }

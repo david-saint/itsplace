@@ -14,4 +14,5 @@ public interface StampDao {
 	public  List<Place> getPlaceStampedList(String email)  throws DataAccessException;
 	/*적립된  스탬프 리스트 가맹점별*/
 	public  List<PlaceStamp> getStampedList(Map<String, Object> param)  throws DataAccessException;
+	public  List<PlaceStamp> getPlaceStampListByEmail(String email)  throws DataAccessException;
 }

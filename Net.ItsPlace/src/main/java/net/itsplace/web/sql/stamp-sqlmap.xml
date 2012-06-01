@@ -38,7 +38,8 @@
 	<![CDATA[		AND C.STATUS<>'C' ]]> 
 		GROUP BY A.FID, A.FNAME
 	</select>
-	<!--  <select id="getStampedList" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
+	<!-- 적립한 스탬프 가맹점 리스트  -->
+    <select id="getPlaceStampListByEmail" parameterClass="String" resultMap="PlaceStampMap"> 
 	   SELECT A.STAMPID, 
 	  		  A.FID,
 	  		  A.STAMPTITLE, 
@@ -55,11 +56,10 @@
 			ON A.STAMPID = B.STAMPID
 		INNER JOIN PSTAMPTYPE C
 			ON A.SID = C.SID
-		WHERE B.EMAIL = #email#
-		AND A.FID=#fid#
+		WHERE B.EMAIL = #email#	
 		<![CDATA[   AND B.STATUS <> 'C']]> 
 		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
 		ORDER BY A.SAVEDATE  
 	</select>  
-	 -->
+	 
 </sqlMap>

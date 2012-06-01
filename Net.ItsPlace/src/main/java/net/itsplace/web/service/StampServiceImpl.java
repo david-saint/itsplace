@@ -29,4 +29,9 @@ public class StampServiceImpl implements StampService{
 	public List<PlaceStamp> getStampedList(Map<String, Object> param) {
 		return stampDao.getStampedList(param);
 	}
+
+	@Override
+	public List<PlaceStamp> getPlaceStampListByEmail(String email) {
+		return stampDao.getPlaceStampListByEmail(email);
+	}
 }
