@@ -119,6 +119,37 @@ public class StampController {
 		
 		return json;
 	}
+	/**
+	 * 스마트폰 적립된 스탬프 리스트 가맹점별 
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/stamppedList", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  stamppedList(@RequestParam(required=true, defaultValue="1") String  email,
+													@RequestParam(required=true, defaultValue="1") String  fid,
+													@RequestParam(required=true, defaultValue="1") String  stampid
+			 									){
+		logger.info("email:{}",email);
+		logger.info("fid:{}",fid);
+		logger.info("stampid:{}",stampid);
+		JsonResponse json = new JsonResponse();
+		try{
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("email", email);
+			param.put("fid", fid);
+			param.put("stampid", stampid);
+			json.setResult(placeStampService.getPlaceStampedListByEmail(param));
+			json.setStatus("SUCCESS");	
+		}catch(Exception e){
+			
+			json.setResult(e.getLocalizedMessage());
+			json.setStatus("FAIL");	
+		}
+		
+		
+		return json;
+	}
 	
 	/**
 	 * 즐겨찾기

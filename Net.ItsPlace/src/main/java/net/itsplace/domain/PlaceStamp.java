@@ -23,9 +23,15 @@ public class PlaceStamp {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDate; // 유효기간 종료
 	private StampType stampType;
-	
+	private Place place;
 	private String content;
 	
+	public Place getPlace() {
+		return place;
+	}
+	public void setPlace(Place place) {
+		this.place = place;
+	}
 	public String getContent() {
 		return content;
 	}

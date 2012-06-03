@@ -10,6 +10,7 @@
 	<resultMap id="PlaceStampMap" class="PlaceStamp" >
 		<result property="stampid" column="STAMPID"></result>
 		<result property="fid" column="FID"></result>
+		<result property="place.fname" column="FNAME"></result>
 		<result property="stampTitle" column="STAMPTITLE"></result>
 		<result property="startDate" column="STARTDATE"></result>
 		<result property="endDate" column="ENDDATE"></result>
@@ -22,7 +23,10 @@
 	</resultMap>
 	
 	<select id="getPlaceStampedList" parameterClass="java.lang.String" resultClass="Place">
-		SELECT A.FID, A.FNAME, D.BASEKEY AS CATEGORY
+		SELECT 
+			A.FID, 
+			A.FNAME, 
+			D.BASEKEY AS CATEGORY
 		FROM PLACE A
 		INNER JOIN	
 			PLACESTAMP B
@@ -42,6 +46,7 @@
     <select id="getPlaceStampListByEmail" parameterClass="String" resultMap="PlaceStampMap"> 
 	   SELECT A.STAMPID, 
 	  		  A.FID,
+	  		  D.FNAME,
 	  		  A.STAMPTITLE, 
 	   		  A.THEME, 
 	   		  A.STARTDATE,
@@ -52,13 +57,18 @@
 	     	  C.EVENTDAY, 
 	     	  C.REMARK
 		FROM PLACESTAMP A
-		INNER JOIN PSTAMP B
-			ON A.STAMPID = B.STAMPID
-		INNER JOIN PSTAMPTYPE C
-			ON A.SID = C.SID
+		INNER JOIN 
+			PSTAMP B
+				ON A.STAMPID = B.STAMPID
+		INNER JOIN 
+			PSTAMPTYPE C
+				ON A.SID = C.SID
+		INNER JOIN
+			PLACE D
+				ON A.FID = D.FID		
 		WHERE B.EMAIL = #email#	
 		<![CDATA[   AND B.STATUS <> 'C']]> 
-		GROUP BY A.STAMPID, A.FID, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
+		GROUP BY A.STAMPID, A.FID, D.FNAME, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
 		ORDER BY A.SAVEDATE  
 	</select>  
 	 
