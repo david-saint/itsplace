@@ -9,6 +9,7 @@ import itsplace.net.connection.RestClient.RequestMethod;
 import itsplace.net.util.Encrypt;
 import itsplace.net.util.L;
 import itsplace.net.util.SharedPreference;
+import itsplace.net.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,9 +97,10 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 		        final Intent intent = new Intent(this, MainActivity.class);
 		        startActivity(intent);
 		        finish();
-			} catch (Exception e) {					
-				L.i(TAG+"_showResult",e.getMessage(),e);
-			} finally{
+			
+			} catch(Exception e){
+				
+			}finally{
 				
 			}
 		}	
@@ -194,7 +196,12 @@ public class LoginAsyncActivity extends AbstractAsyncActivity {
 				
 				// loginUser = restTemplate.postForObject(url, mvm, User.class);
 				
-			} catch (Exception e) {
+			 } catch (IllegalStateException e) {
+				 Log.i(TAG,"111111111111111---->"+e.hashCode());		
+				L.i(TAG+"_showResult",e.getMessage(),e);
+				L.i(TAG+"_showResult",e.getMessage(),e);
+				ToastUtil.toastOnUiThread(LoginAsyncActivity.this, "서버에연결할수 없습니다"+e.getMessage());
+			}catch (Exception e) {
 				Log.e(TAG, e.getMessage()+ e.getLocalizedMessage(), e);
 				Log.i(TAG, restClient.getErrorMessage(), e);
 				

@@ -8,11 +8,11 @@
     android:padding="4dip" >
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/stampTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:text="name"
+        android:text="스탬프제목 "
         android:textSize="10dp" 
         />
  <TextView
@@ -23,11 +23,12 @@
         android:text="fcode"
         android:textSize="10dp" 
         />
+ 
     <LinearLayout       
         android:id="@+id/stampLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@layout/shape_round"
+        android:background="@layout/shape_tablelayout"
         android:padding="5dp"
         android:orientation="vertical" >
 
@@ -39,11 +40,12 @@
         android:layout_height="wrap_content"
         android:background="@layout/shape_round"
         android:orientation="vertical" >
-	<Button android:id="@+id/btnStampSaveActivity"
+
+        	<Button android:id="@+id/btnStampSaveActivity"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"                  
                   android:text="적립"   android:background="@layout/shape_button" />
-	<Button android:id="@+id/btnStamUseActivity"
+			<Button android:id="@+id/btnStamUseActivity"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="10dp"                  
@@ -57,15 +59,14 @@
         android:layout_height="wrap_content"
         android:background="@layout/shape_round"
         android:orientation="horizontal" >
- 	<TextView
-        android:id="@+id/event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:text="이벤트 정보"
-        android:textSize="10dp" 
-        />
- 
+	 	<TextView
+	        android:id="@+id/event"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="left"
+	        android:text="이벤트 정보~~~~~~~~"
+	        android:textSize="10dp" 
+	        />
     </LinearLayout>
             
   <ListView

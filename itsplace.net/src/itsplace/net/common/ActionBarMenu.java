@@ -1,8 +1,10 @@
 package itsplace.net.common;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 import itsplace.net.PlaceActivity;
 import itsplace.net.R;
+import itsplace.net.MyStampActivity;
 import itsplace.net.StampActivity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
@@ -12,6 +14,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.MenuItem;
@@ -32,8 +35,8 @@ public class ActionBarMenu {
 	        
 	        SubMenu sub = menu.addSubMenu("Theme");
 	        sub.add(0, 10, 0, "Search Place");
-	        sub.add(0, 20, 1, "ssssss");
-	        sub.add(0, 30, 0, "Light (Dark Action Bar---------------)");
+	        sub.add(0, 20, 1, "stamped");
+	        sub.add(0, 30, 2, "나의스탬프");
 	        sub.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 	        sub.getItem().setIcon(R.drawable.flag);
 	        
@@ -45,17 +48,21 @@ public class ActionBarMenu {
             sub3.getItem().setActionView(R.layout.search_edittext);
             sub3.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 	}
-	public boolean selectMenuEvent(Context context, MenuItem item){
-		 Toast.makeText(context, " item.getItemId()"+ item.getItemId()+"----Theme changed to \"" + item.getTitle() + "\"", Toast.LENGTH_SHORT).show();
+	public boolean selectMenuEvent(ActionBarSherlock abs,Context context, MenuItem item){
+		// Toast.makeText(, " item.getItemId()"+ item.getItemId()+"----Theme changed to \"" + item.getTitle() + "\"", Toast.LENGTH_SHORT).show();
+		 
 		 ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
 	   	  List<RunningTaskInfo> Info = am.getRunningTasks(1);
 	   	  ComponentName topActivity = Info.get(0).topActivity;
 	   	  String topactivityname = topActivity.getPackageName()+topActivity.getClassName()+topActivity.getShortClassName();
 	   	  
 		 this.context = context;
+		 Log.i(TAG,"ddddddddddddd--------1");
 		 if(item.getItemId()==100){
-			 SherlockActivity sa = (SherlockActivity) context;
-	   	  		actionMode = sa.startActionMode(new AnActionModeOfEpicProportions());
+			 Log.i(TAG,"ddddddddddddd--------2");
+			// SherlockActivity sa = (SherlockActivity) context;// 셜록을 상속받아야한다 무조건?
+			 Log.i(TAG,"ddddddddddddd--------3");
+	   	  		actionMode = abs.startActionMode(new AnActionModeOfEpicProportions());
 	   	  	  }
 		  if (item.getItemId() == android.R.id.home || item.getItemId() == 0) {
 	            return false;
@@ -82,6 +89,10 @@ public class ActionBarMenu {
     	    		  Intent intent = new Intent(context, StampActivity.class);
     		    	  context.startActivity(intent);  
     	    	  }  
+    		  }else if(item.getItemId()==30){
+    			  Log.i(TAG,"테스--------30");
+    			  Intent intent = new Intent(context, MyStampActivity.class);
+		    	  context.startActivity(intent);
     		  }
 	    	  
 	    	 
@@ -113,7 +124,7 @@ public class ActionBarMenu {
 
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				Toast.makeText(context, "Got click: " + item, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(context, "Got click: " + item, Toast.LENGTH_SHORT).show();
 	            mode.finish();
 	            return true;
 			}

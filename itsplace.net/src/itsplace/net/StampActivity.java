@@ -32,8 +32,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.viewpagerindicator.TitlePageIndicator;
 
-
+import com.viewpagerindicator.PageIndicator;
+import com.viewpagerindicator.TitlePageIndicator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -60,14 +62,14 @@ public class StampActivity extends FragmentActivity {
 	
 	StampFragmentAdpter mPagerAdapter;
     ViewPager  mViewPager;
-    ViewPagerIndicator mIndicator;
+    PageIndicator mIndicator;
    
 	User user;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stamp_activity);
+        setContentView(R.layout.stamp_pager);
         
         
         MainApplication main = (MainApplication) getApplication();			
@@ -77,19 +79,10 @@ public class StampActivity extends FragmentActivity {
         // Create our custom adapter to supply pages to the viewpager.
         mPagerAdapter = new StampFragmentAdpter(getSupportFragmentManager(), user, getApplicationContext());
         
-        new getStampedList().execute();
+       // new getStampedList().execute();
         
-        mViewPager = (ViewPager)findViewById(R.id.pager);
-      //  mViewPager.setAdapter(mPagerAdapter);
-        
-        // Start at a custom position
-        mViewPager.setCurrentItem(0);
-        
-        // Find the indicator from the layout
-        mIndicator = (ViewPagerIndicator)findViewById(R.id.indicator);
-		
         // Set the indicator as the pageChangeListener
-        mViewPager.setOnPageChangeListener(mIndicator);
+       // mViewPager.setOnPageChangeListener(mIndicator);
         
         // Initialize the indicator. We need some information here:
         // * What page do we start on.
@@ -124,53 +117,32 @@ public class StampActivity extends FragmentActivity {
     		
     	}else{
     		Log.i(TAG, "스탬프없음1");
-    		mPagerAdapter.addStampList(stampList);
+    		//mPagerAdapter.addStampList(stampList);
     		Log.i(TAG, "스탬프없음2");
     		if(mPagerAdapter==null){
     			Log.i(TAG, "mPagerAdapter null");
     		}
         	mViewPager.setAdapter(mPagerAdapter);
         	Log.i(TAG, "스탬프없음3");
-        	mIndicator.init(0, mPagerAdapter.getCount(), mPagerAdapter);
+        	//mIndicator.init(0, mPagerAdapter.getCount(), mPagerAdapter);
         	
         	Toast.makeText(getApplicationContext(), "init`````````````````", Toast.LENGTH_LONG).show();
         	
      		Resources res = getResources();
      		Drawable prev = res.getDrawable(R.drawable.indicator_prev_arrow);
      		Drawable next = res.getDrawable(R.drawable.indicator_next_arrow);
-     		mIndicator.setFocusedTextColor(new int[]{255, 0, 0});
+     	//	mIndicator.setFocusedTextColor(new int[]{255, 0, 0});
      		
      		// Set images for previous and next arrows.
-     		mIndicator.setArrows(prev, next);
+     	//	mIndicator.setArrows(prev, next);
      		
-     		mIndicator.setOnClickListener(new OnIndicatorClickListener());
+     	//	mIndicator.setOnClickListener(new OnIndicatorClickListener());
     	}
     	
  		
 	
     }
-    
-    class OnIndicatorClickListener implements ViewPagerIndicator.OnClickListener{
-		@Override
-		public void onCurrentClicked(View v) {
-			Toast.makeText(StampActivity.this, "Hello", Toast.LENGTH_SHORT).show();
-		}
-		
-		@Override
-		public void onNextClicked(View v) {
-			mViewPager.setCurrentItem(Math.min(mPagerAdapter.getCount() - 1, mIndicator.getCurrentPosition() + 1));
-			Toast.makeText(StampActivity.this, "Hellon", Toast.LENGTH_SHORT).show();	
-		}
-
-		@Override
-		public void onPreviousClicked(View v) {
-			mViewPager.setCurrentItem(Math.max(0, mIndicator.getCurrentPosition() - 1));
-		}
-    	
-    }
-    
-   
-    
+      
     
     private class getStampedList extends AsyncTask<Void, Void, List<PlaceStamp>> {
 
@@ -211,7 +183,7 @@ public class StampActivity extends FragmentActivity {
 						e.printStackTrace();
 					}
 				} else {
-					Log.i(TAG, "가맹점 조회 오류");
+					Log.i(TAG, "스탬 조회 오류");
 				}
             } catch (Exception e) {
             	Log.e(TAG, e.getMessage()+ e.getLocalizedMessage(), e);

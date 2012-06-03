@@ -3,8 +3,6 @@ package net.itsplace.domain;
 import itsplace.net.MainApplication;
 import itsplace.net.R;
 import itsplace.net.StampActivity;
-import itsplace.net.ViewPagerIndicator;
-import itsplace.net.place.PlaceViewActivity;
 import itsplace.net.stamp.StampSaveActivity;
 import itsplace.net.util.L;
 
@@ -56,8 +54,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
-public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPagerIndicator.PageInfoProvider{
-	protected static final String TAG = StampActivity.class.getSimpleName();
+public class StampFragmentAdpter extends FragmentPagerAdapter{
+	protected static final String TAG = StampFragmentAdpter.class.getSimpleName();
 	
 	private List<PlaceStamp> stampList;
 	User user;
@@ -66,9 +64,10 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 		super(fm);
 		this.user = user;
 		this.context = context;
+		this.stampList = new ArrayList<PlaceStamp>();
 	}
 	public void addStampList(List<PlaceStamp> stampList){
-		this.stampList = new ArrayList<PlaceStamp>();
+		
 		this.stampList.addAll(stampList);
 	}
 	
@@ -85,7 +84,7 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 		
 	
 		if(stampList == null){
-			L.i(TAG, "stampList null");
+			L.i(TAG, "stampList null=============");
 			//return ItemFragment.newInstance(1);
 			return  new ItemFragment();
 			// new getStamped().execute(Integer.toString(fid)); 
@@ -103,14 +102,14 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 	}
 	
 	
-	@Override
-	public String getTitle(int pos){
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, pos - getCount() / 2);
-		//return readableDateFormat.format(cal.getTime());
-		
-		return "";//this.stampList.get(pos).getFname()+pos;
-	}
+//	@Override
+//	public String getTitle(int pos){
+//		Calendar cal = Calendar.getInstance();
+//		cal.add(Calendar.DAY_OF_MONTH, pos - getCount() / 2);
+//		//return readableDateFormat.format(cal.getTime());
+//		
+//		return "";//this.stampList.get(pos).getFname()+pos;
+//	}
 
 
 	
@@ -378,8 +377,7 @@ public class StampFragmentAdpter extends FragmentPagerAdapter implements ViewPag
 	}   
 	
 	
-	
-			
+   	
 	
 	 
     

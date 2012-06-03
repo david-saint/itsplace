@@ -18,8 +18,9 @@ public class PlaceStamp {
 	private Date startDate; //유효기간 시작
 	private Date endDate; // 유효기간 종료
 	private StampType stampType;
-	
 	private String content;
+	
+	private Place place;
 	
 	public String getContent() {
 		return content;
@@ -93,6 +94,12 @@ public class PlaceStamp {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public Place getPlace() {
+		return place;
+	}
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 	
 	

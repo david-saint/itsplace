@@ -46,7 +46,7 @@ public class PlaceActivity  extends SherlockListActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       
-    	return actionBarMenu.selectMenuEvent(this, item);
+    	return actionBarMenu.selectMenuEvent(getSherlock(),this, item);
     }
 	
 	private TextView mStatusTextView;
