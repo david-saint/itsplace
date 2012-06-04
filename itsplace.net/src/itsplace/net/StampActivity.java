@@ -104,6 +104,7 @@ public class StampActivity extends FragmentActivity {
     
     @Override
 	protected void onStart() {		
+    	Log.i(TAG, "onStart");
 		super.onStart();
 		
 		

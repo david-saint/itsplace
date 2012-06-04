@@ -30,7 +30,7 @@ import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
 
 public class MyStampActivity extends FragmentActivity {
-	protected static final String TAG = StampActivity.class.getSimpleName();	
+	protected static final String TAG = MyStampActivity.class.getSimpleName();	
 	MyStampFragmentAdapter mAdapter;
     ViewPager mPager;
     PageIndicator mIndicator;
@@ -39,11 +39,19 @@ public class MyStampActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stamp_pager);
+        Log.i(TAG, "MyStampActivity======================onCreate+new getStampedList().execute()");
+		Log.i(TAG, "MyStampActivity======================onCreate");
+		Log.i(TAG, "MyStampActivity======================onCreate");
+		Log.i(TAG, "MyStampActivity======================onCreate");
+		Log.i(TAG, "MyStampActivity======================onCreate");
         MainApplication main = (MainApplication) getApplication();			
 		if(main.isLogged()){
 			user = main.getUser();
 		}
+		Log.i(TAG, "new getStampedList().execute();");
 		new getStampedList().execute();
+		
+		//new getStampedList().execute();
         mAdapter = new MyStampFragmentAdapter(getSupportFragmentManager(), user, getApplicationContext());
 //
 //        mPager = (ViewPager)findViewById(R.id.pager);
@@ -52,6 +60,13 @@ public class MyStampActivity extends FragmentActivity {
 //        mIndicator = (TitlePageIndicator)findViewById(R.id.indicator);
 //        mIndicator.setViewPager(mPager);
     }
+    @Override
+  	protected void onStart() {		
+      	Log.i(TAG, "onStart");
+  		super.onStart();
+  		
+  		
+  	}
     private void setStampList(List<PlaceStamp> stampList){
     	//mPagerAdapter
     	if(stampList.isEmpty()){
@@ -79,7 +94,9 @@ public class MyStampActivity extends FragmentActivity {
 
         @Override
         protected List<PlaceStamp> doInBackground(Void... params) {
-			
+			if(user == null){
+				Log.i(TAG,"유저 널입니다");
+			}
                 final String url = getString(R.string.base_uri) + "/stamp/placeStampList";
             	RestClient restClient = new RestClient(url);
    			 List<PlaceStamp> placeStampList = new ArrayList();
@@ -99,11 +116,12 @@ public class MyStampActivity extends FragmentActivity {
 						for (int i = 0; i < placesJson.length(); i++) {
 							PlaceStamp placeStamp = gson.fromJson(placesJson.getString(i), PlaceStamp.class);
 							placeStampList.add(placeStamp);
-							Log.i(TAG, placeStamp.getStampTitle());
-							Log.i(TAG, placeStamp.getPlace().getFname());
-							Log.i(TAG, placeStamp.getSaveDate().toGMTString());
+						//	Log.i(TAG, placeStamp.getStampTitle());
+						//	Log.i(TAG, placeStamp.getPlace().getFname());
+						//	Log.i(TAG, placeStamp.getSaveDate().toGMTString());
 						}
 					} catch (JSONException e) {
+						Log.i(TAG,"스탬프 가맹점 조회 익셉션 발생 ");
 						e.printStackTrace();
 					}
 				} else {

@@ -1,5 +1,6 @@
 package itsplace.net.stamp;
 
+import itsplace.net.MainApplication;
 import itsplace.net.PlaceActivity;
 import itsplace.net.R;
 import itsplace.net.common.DateDeserializer;
@@ -32,6 +33,7 @@ import com.google.gson.GsonBuilder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -67,21 +69,51 @@ public class MyStampFragment extends ListFragment{
 	private LinearLayout linearLayout;
 	private LinearLayout stampLayout;
 	private Date date;
-	private User user;
-	private Context context;
-	public MyStampFragment() {}
+	 private  String email;
+	private static final String KEY_FID = "fid" ;
+	private static final String KEY_STAPMID = "stampid";
+	private static final String KEY_EMAIL = "email";
+	public MyStampFragment() {	Log.i(TAG,"프래그먼트 일반생성자 콜 ");}
 	protected static final String TAG = MyStampFragment.class.getSimpleName();
-	public MyStampFragment(Integer fid,Integer stampid,User user,Context context) {
-		this.fid = fid;
-		this.stampid = stampid;
-		this.user = user;
-		this.context = context;
+	
+	 public static MyStampFragment newInstance(Integer fid, Integer stampid, String email) {
+		 MyStampFragment fragment = new MyStampFragment();
+		 fragment.fid = fid;
+		 fragment.stampid = stampid;
+		 fragment.email = email;
+	     return fragment;
 	}
+//	public MyStampFragment(Integer fid,Integer stampid,User user,Context context) {
+//		Log.i(TAG,"프래그먼트 생성자 콜 ");
+//		this.fid = fid;
+//		this.stampid = stampid;
+//		this.user = user;
+//		this.context = context;
+//	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
+		if (savedInstanceState != null) {
+			
+	            this.fid = savedInstanceState.getInt(KEY_FID);
+	            this.stampid = savedInstanceState.getInt(KEY_STAPMID);
+	            this.email = savedInstanceState.getString(KEY_EMAIL);
+	            Log.i(TAG,"프래그먼트 oncreate fid:" + fid );
+	            Log.i(TAG,"프래그먼트 oncreate stampid:" + stampid );
+	            Log.i(TAG,"프래그먼트 oncreate email:" + email );
+	    }
 	} 
-	
+	 @Override
+	    public void onSaveInstanceState(Bundle outState) {
+	        super.onSaveInstanceState(outState);
+	        outState.putInt(KEY_FID, fid );
+	        outState.putInt(KEY_STAPMID, stampid);
+	        outState.putString(KEY_EMAIL, email);
+	        Log.i(TAG,"프래그먼트 onSaveInstanceState fid:" + fid );
+            Log.i(TAG,"프래그먼트 onSaveInstanceState stampid:" + stampid );
+            Log.i(TAG,"프래그먼트 onSaveInstanceState email:" + email );
+	    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Drawable prev =  getResources().getDrawable(R.drawable.rss);
@@ -95,14 +127,19 @@ public class MyStampFragment extends ListFragment{
         image.setPadding(5, 5, 5, 5);
       //  LinearLayout.LayoutParams arrowLayoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
       //  container.addView(image,arrowLayoutParams);
-        
+       
         v = inflater.inflate(R.layout.stamp_fragment, container, false);
         linearLayout = (LinearLayout) v.findViewById(R.id.stamplinear);
         stampLayout  = (LinearLayout) v.findViewById(R.id.stampLayout);
         txtEvent = (TextView) v.findViewById(R.id.event);
         txtFcode = (TextView) v.findViewById(R.id.fcode);
         txtStampTitle = (TextView) v.findViewById(R.id.stampTitle);
-        new getStamped().execute(fid); 
+       if(fid!=null){
+    	   Log.i(TAG,"fid널 아닙니다다---------exec ");
+    	   new getStamped().execute(fid); 
+       }else{
+    	   Log.i(TAG,"fid널 입니다-------exec ");
+       }
 //	        l.addView(image,arrowLayoutParams);
       //  l.addView(image);
       //  stampLayout.addView(image, 1, new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
@@ -115,6 +152,8 @@ public class MyStampFragment extends ListFragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.i(TAG,"onActivityCreated");
+        Log.i(TAG,"onActivityCreated");
         //setListAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, list));
     }
     @Override
@@ -213,7 +252,7 @@ public class MyStampFragment extends ListFragment{
 		      */  
 		  
 		
-		
+		Log.i(TAG,"그리기 완료 ");
 	
 	}
 	private Bitmap drawText(Bitmap bitmap,Date saveDate){
@@ -258,12 +297,17 @@ public class MyStampFragment extends ListFragment{
 			RestClient restClient = new RestClient(url);
 			List<Stamp> stampList = new ArrayList();
 			try {
+				
+					Log.i(TAG, "헐 fid"+Integer.toString(fid));
+					Log.i(TAG, "헐 stampid"+Integer.toString(stampid));
+				
 				restClient.AddParam("fid", Integer.toString(fid));
-				restClient.AddParam("email", user.getEmail());
+				restClient.AddParam("email", "faye12005@gmail.com");
 				restClient.AddParam("stampid", Integer.toString(stampid));
 				restClient.Execute(RequestMethod.POST);
 				if (restClient.getResponseCode() == 200) {
 					try {
+						Log.i(TAG, "적립된 스탬프 조회 200");
 						JSONObject jsonResponse = restClient.getJsonObject();
 						JSONArray placesJson = jsonResponse.getJSONArray("result");
 						GsonBuilder gsonb = new GsonBuilder();
@@ -274,8 +318,8 @@ public class MyStampFragment extends ListFragment{
 						for (int i = 0; i < placesJson.length(); i++) {
 							Stamp stamp = gson.fromJson(placesJson.getString(i), Stamp.class);
 							stampList.add(stamp);
-							Log.i(TAG, stamp.getPlaceStamp().getStampTitle());
-							Log.i(TAG, stamp.getSaveDate().toGMTString());
+							//Log.i(TAG, stamp.getPlaceStamp().getStampTitle());
+							//Log.i(TAG, stamp.getSaveDate().toGMTString());
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -284,6 +328,7 @@ public class MyStampFragment extends ListFragment{
 					Log.i(TAG, "적립된 스탬프  조회 오류");
 				}
             } catch (Exception e) {
+            	Log.i(TAG, "적립된 스탬프 조회 익셉션 발생성 ");
             	Log.e(TAG, e.getMessage()+ e.getLocalizedMessage(), e);
 				Log.i(TAG, restClient.getErrorMessage(), e);
                
