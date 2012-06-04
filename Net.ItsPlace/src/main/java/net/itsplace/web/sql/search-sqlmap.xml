@@ -4,7 +4,17 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="web">
     <typeAlias type="net.itsplace.domain.Place" alias="place"/>
-    
+    <typeAlias type="net.itsplace.domain.PlaceEvent" alias="placeEvent"/>
+    <resultMap id="PlaceEventJoinPlace" class="PlaceEvent" >
+		<result property="eid" column="EID"></result>
+		<result property="title" column="TITLE"></result>
+		<result property="content" column="CONTENT"></result>
+		<result property="isAuth" column="ISAUTH"></result>
+		<result property="startDate" column="STARTDATE"></result>
+		<result property="endDate" column="ENDDATE"></result>
+		<result property="editDate" column="EDITDATE"></result>
+		<result property="place.fname" column="FNAME"></result>
+	</resultMap>
 	<!-- 가맹점 정보가져오기 -->
 	<select id="getPlaceInfo" parameterClass="place" resultClass="place">
 	    SELECT	*
@@ -44,4 +54,29 @@
     	 </dynamic>
     	 LIMIT #startRow# , #endRow#	
     </select>
+    
+    <select id="getPlaceEventList" resultMap="PlaceEventJoinPlace" parameterClass="java.util.Map" >
+    	 SELECT sql_calc_found_rows 
+    		A.EID, 
+        	A.TITLE,
+            A.CONTENT,
+            A.ISAUTH,           
+            A.STARTDATE,
+            A.ENDDATE,
+            A.EDITDATE,
+            B.FNAME
+         FROM PLACEEVENT A
+         INNER JOIN
+         	PLACE B
+         		ON A.FID = B.FID
+         WHERE A.ISDELETE = 'N'  AND ISAUTH = 'Y' 
+    	 <dynamic>
+	    	 <isNotEmpty property="search">
+	    	 	AND TITLE like CONCAT('%',#title#,'%')
+	    	 	OR CONTENT like CONCAT('%',#content#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	 ORDER BY A.EID DESC
+    	 LIMIT #startRow#,#endRow#
+    </select>        
 </sqlMap>

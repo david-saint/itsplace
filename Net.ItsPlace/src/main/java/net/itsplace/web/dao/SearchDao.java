@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.sf.json.JSONArray;
 
 public interface SearchDao {
@@ -16,4 +17,5 @@ public interface SearchDao {
 	 */
 	public List<Place>  placeInfo(Place p);
 	public List<Place>  getPlaceList(Map<String, Object> param) throws DataAccessException;
+	public List<PlaceEvent>  getPlaceEventList(Map<String, Object> param) throws DataAccessException;
 }

@@ -59,5 +59,11 @@ private static final Logger logger = LoggerFactory.getLogger(AdminEventDaoImpl.c
 		return (PlaceEvent)getSqlMapClientTemplate().queryForObject("admin.getPlaceEvent",eid);
 	}
 
+	@Override
+	public List<PlaceEvent> getPlaceEventListAll(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("admin.getPlaceEventDataTableAll",param);
+	}
+
 	
 }

@@ -45,10 +45,14 @@ public class AdminEventServiceImpl implements AdminEventService{
 	}
 
 	@Override
-	public DataTable getPlaceEventList(String[] columns, Integer iDisplayStart,
-			Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0,
-			String sSearch, int fid) {
-		  DataTable<PlaceEvent> table = iDisplayLength != null ?
+	public DataTable getPlaceEventList(String[] columns, 
+			Integer iDisplayStart,
+			Integer iDisplayLength, 
+			Integer iSortCol_0, 
+			String sSortDir_0,
+			String sSearch, 
+			int fid) {
+		    DataTable<PlaceEvent> table = iDisplayLength != null ?
                   new DataTable<PlaceEvent>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
                   new DataTable<PlaceEvent>(columns, sSortDir_0, iDisplayStart);
   
@@ -74,6 +78,32 @@ public class AdminEventServiceImpl implements AdminEventService{
 	@Override
 	public PlaceEvent getPlaceEvent(int eid) {
 		return adminEventeDao.getPlaceEvent(eid);
+	}
+
+	@Override
+	public DataTable getPlaceEventListAll(String[] columns,
+			Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0,
+			String sSortDir_0, String sSearch) {
+	    DataTable<PlaceEvent> table = iDisplayLength != null ?
+                new DataTable<PlaceEvent>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                new DataTable<PlaceEvent>(columns, sSortDir_0, iDisplayStart);
+
+		
+		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+		  param.put("sortDirection", sSortDir_0);
+		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+		  param.put("search", sSearch);
+		
+		  List<PlaceEvent> placeEventList= adminEventeDao.getPlaceEventListAll(param);
+		  
+		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+			
+			
+		 
+		  table.setRows(placeEventList); 
+		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		  
+		  return table;
 	}
 
 

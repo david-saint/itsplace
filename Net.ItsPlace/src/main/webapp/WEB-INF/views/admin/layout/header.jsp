@@ -22,7 +22,7 @@
                       </li>
                       <li class="limenu" ><a href="<c:url value="/admin/place/list" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
                       <li class="limenu" ><a href="<c:url value="/admin/stamp/list" />"><span class="ico gray shadow pictures_folder"></span><b>스탬프관리  </b></a></li>
-                      <li class="limenu" ><a href="#"><span class="ico gray shadow stats_lines"></span><b>Graph and Charts</b> </a>
+                      <li class="limenu" ><a href="<c:url value="/admin/event/list" />"><span class="ico gray shadow stats_lines"></span><b>이벤트관리</b> </a>
                         <ul>
                           <li><a href="modalchartLive.html" class="pop_box">live chart </a></li>
                           <li><a href="chart.html">all chart</a></li>

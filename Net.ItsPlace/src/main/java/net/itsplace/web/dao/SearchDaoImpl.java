@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.user.UserDaoImpl;
 import net.sf.json.JSONArray;
 
@@ -42,4 +43,11 @@ public class SearchDaoImpl extends SqlMapClientDaoSupport implements SearchDao{
 			throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("web.getPlaceList", param);
 	}
+
+	@Override
+	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("web.getPlaceEventList", param);
+	}
+	
 }

@@ -94,22 +94,18 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 	 * @param totalCount
 	 * @param pageGroupSize
 	 */
-	public void creatPaging(String currentPage, String pageSize, int totalCount,String pageGroupSize) {
+	public void creatPaging(Integer currentPage, Integer pageSize, Integer totalCount,Integer pageGroupSize) {
 		
-		if(currentPage == null){
-			this.currentPage=1;
-		}else{
-			this.currentPage = Integer.parseInt(currentPage);			
-		}
-		if(pageSize == null){
-			this.pageSize=10;
-		}else{
-			this.pageSize = Integer.parseInt(pageSize);			
-		}
+		
+			this.currentPage = currentPage;			
+		
+		
+			this.pageSize = pageSize;			
+		
 		if(pageGroupSize == null){
 			this.pageGroupSize=10;
 		}else{
-			this.pageGroupSize = Integer.parseInt(pageGroupSize);			
+			this.pageGroupSize = pageGroupSize;			
 		}
 		
 		this.totalCount =  totalCount;

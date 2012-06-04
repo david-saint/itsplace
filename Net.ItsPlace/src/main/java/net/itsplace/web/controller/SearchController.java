@@ -1,11 +1,13 @@
 package net.itsplace.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.util.Paging;
 import net.itsplace.util.PagingManager;
 import net.itsplace.web.service.SearchService;
@@ -102,5 +104,24 @@ public class SearchController {
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String event(Locale locale, Model model) {
 		return "web/search/event";
+	}
+	/**
+	 * 주변검색
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/event/list", method = RequestMethod.POST,  headers="Accept=application/json")
+	public @ResponseBody List<PlaceEvent>  eventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+													 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
+													 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize 
+													){
+		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+		 List<PlaceEvent> placeEventList = searchService.getPlaceEventList(param);
+		 pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
+		 pagingManaer.createPageHtml();
+	//	pagingManaer.creatPaging(currentPage,pageSize,pagingManaer.getFoundRows(),pageGroupSize);
+		
+		return searchService.getPlaceEventList(param);
 	}
 }

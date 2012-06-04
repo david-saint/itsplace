@@ -44,7 +44,7 @@ public class AdminEventController {
 	
 	private Place place; // 선택된 가맹점 
 	/**
-	 * 가맹점 이벤트관리
+	 * 가맹점별 이벤트관리
 	 * @param locale
 	 * @param model
 	 * @return
@@ -57,6 +57,18 @@ public class AdminEventController {
 		model.addAttribute("placeEvent", new PlaceEvent());
 		model.addAttribute("placeEventList",adminEventService.getPlaceEventList(fid));
 		return "admin/place/event/list";
+	}
+	/**
+	 * 가맹점 이벤트관리
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/event/list", method = RequestMethod.GET)
+	public String list(ModelMap model) {
+		
+		
+		return "admin/event/list";
 	}
 	/**
 	 * 가맹점 이벤트관리
@@ -191,6 +203,48 @@ public class AdminEventController {
     								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
     								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
     								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
+                                    @RequestParam(required=false, defaultValue="") String sSearch,
+                                    @RequestParam(required=false, defaultValue="1") Integer fid) {
+
+                  //  logger.info("languageHeader:{}", languageHeader.toString());
+                    logger.info("iDisplayStart:{}", iDisplayStart.toString());
+                    logger.info("sSortDir_0:{}", sSortDir_0);
+                    logger.info("iSortCol_0:{}", iSortCol_0);
+                    logger.info("iDisplayLength:{}", iDisplayLength);
+                    logger.info("sSearch:{}", sSearch);
+                    logger.info("fid:{}", fid);
+                  
+                    String columns[] = new String[]{"title", "startDate", "endDate"};
+                    
+                    
+                 
+                   
+                    return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch, fid);
+           
+                   
+    }   
+	/**
+	 *   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param iDisplayStart 페이지 번
+	 * @param iDisplayLength 페이지 로우수 (한페이지에 보여줄 로우수)
+	 * @param iSortCol_0 sort할 컬럼 번호 
+	 * @param sSortDir_0 sort할 방향(asc/desc)
+	 * @param sSearch 검색
+	 * @return DataTables
+	 * @throws 
+	 * @see 
+	 */
+	//@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET, headers="Accept=application/xml, application/json")
+	@RequestMapping(value="/admin/event/getPlaceEventListAll",method = RequestMethod.GET)
+    @ResponseBody
+    public DataTable<PlaceEvent> getPlaceEventListAll(
+    								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
+    								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
+    								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
+    								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
                                     @RequestParam(required=false, defaultValue="") String sSearch ) {
 
                   //  logger.info("languageHeader:{}", languageHeader.toString());
@@ -205,7 +259,7 @@ public class AdminEventController {
                     
                  
                    
-                    return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch, 46);
+                    return  adminEventService.getPlaceEventListAll(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
            
                    
     }   

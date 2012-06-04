@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.web.dao.SearchDao;
 import net.sf.json.JSONArray;
 
@@ -33,5 +34,10 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public List<Place> getPlaceList(Map<String, Object> param) {
 		return searchDao.getPlaceList(param);
+	}
+
+	@Override
+	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param) {
+		return searchDao.getPlaceEventList(param);
 	}
 }

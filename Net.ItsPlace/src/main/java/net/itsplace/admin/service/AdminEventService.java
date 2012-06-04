@@ -15,4 +15,5 @@ public interface AdminEventService {
 	public void editPlaceEvent(PlaceEvent placeEvent);
 	public void deletePlaceEvent(int eid);;
 	public DataTable getPlaceEventList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch,int fid);
+	public DataTable getPlaceEventListAll(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch);
 }
