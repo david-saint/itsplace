@@ -287,7 +287,8 @@ public class AdminPlaceController {
 		} else {	
 			logger.info(place.toString());
 			if(place.getFileName()==null|| place.getFileName().equals("")){
-				place.setFileName("/images/empty.png");
+				place.setImageHost("http://img.itsplace.net/img");
+				place.setFileName("/empty.png");
 			}
 			int fid = adminPlaceService.savePlace(place)	;
 			logger.info(" 가맹생성 fid:{}",fid);
