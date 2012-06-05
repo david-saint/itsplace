@@ -136,7 +136,7 @@ public class MyStampFragment extends ListFragment{
         txtStampTitle = (TextView) v.findViewById(R.id.stampTitle);
        if(fid!=null){
     	   Log.i(TAG,"fid널 아닙니다다---------exec ");
-    	   new getStamped().execute(fid); 
+    	   //new getStamped().execute(fid); 
        }else{
     	   Log.i(TAG,"fid널 입니다-------exec ");
        }
