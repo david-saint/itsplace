@@ -9,6 +9,7 @@
 	</classpathentry>
 	<classpathentry kind="src" output="bin/classes" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="/Users/faye12005/Documents/workspace-2.9.1/abs4.0/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="/CaptureActivity/libs/core.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

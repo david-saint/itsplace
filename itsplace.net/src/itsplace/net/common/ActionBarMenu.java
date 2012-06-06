@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.SimpleTimeZone;
 
 import itsplace.net.PlaceActivity;
+import itsplace.net.QRcodeActivity;
 import itsplace.net.R;
 import itsplace.net.MyStampActivity;
 import itsplace.net.StampActivity;
@@ -35,7 +36,7 @@ public class ActionBarMenu {
 	        
 	        SubMenu sub = menu.addSubMenu("Theme");
 	        sub.add(0, 10, 0, "Search Place");
-	        sub.add(0, 20, 1, "stamped");
+	        sub.add(0, 20, 1, "qr");
 	        sub.add(0, 30, 2, "나의스탬프");
 	        sub.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 	        sub.getItem().setIcon(R.drawable.flag);
@@ -86,7 +87,7 @@ public class ActionBarMenu {
     			  if(topActivity.getShortClassName().equals("."+StampActivity.class.getSimpleName())){
     	    		  		  
     	    	  }else{
-    	    		  Intent intent = new Intent(context, StampActivity.class);
+    	    		  Intent intent = new Intent(context, QRcodeActivity.class);
     		    	  context.startActivity(intent);  
     	    	  }  
     		  }else if(item.getItemId()==30){
