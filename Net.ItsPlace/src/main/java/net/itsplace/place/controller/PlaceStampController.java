@@ -295,8 +295,8 @@ public class PlaceStampController {
 		return "place/stamp/stampped";
 	}
 	/**
-	 * 스탬프 적립       <br />
-	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
+	 * 가맬점 관리자가 인증코드로 스탬프 적립       <br />
+	 * 
 	 * 가맹점 관리자 인증코드 수정    
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -316,6 +316,8 @@ public class PlaceStampController {
 			logger.info("authcode:{}",authcode);	
 			logger.info("선택된 가맹점 :{}",UserInfo.getFid());	
 			logger.info("로그인한 사용자 :{}",UserInfo.getEmail());	
+			
+			
 			Stamp stamp = new Stamp();
 			stamp.getPlaceStamp().setStampid(stampid);
 			stamp.getUser().setEmail(email);

@@ -161,4 +161,85 @@ public class StampController {
 	public String favorite(Locale locale, Model model) {
 		return "web/stamp/favorite";
 	}
+	
+	/**
+	 * //최신의 stampid를 조회하여 적힙한다 그러나 현재적립중인 슽탬프가 있다면(유효기간내에 적립중입 스틈프id가 존재한다면) 해당 stampid에 적립한다.
+	 * 
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse save(@RequestParam(required=true) String authcode,
+										   @RequestParam(required=true) Integer stampid,
+										   @RequestParam(required=true) String email
+										  ) {
+		JsonResponse json = new JsonResponse();
+		try{
+		
+			logger.info("authcode:{}",authcode);	
+			logger.info("선택된 가맹점 :{}",UserInfo.getFid());	
+			logger.info("로그인한 사용자 :{}",UserInfo.getEmail());	
+			
+			
+			Stamp stamp = new Stamp();
+			stamp.getPlaceStamp().setStampid(stampid);
+			stamp.getUser().setEmail(email);
+			if(placeStampService.saveStamp(stamp,authcode)){
+				json.setResult("스탬프를 적립하였습니다 !!");
+				json.setStatus("SUCCESS");
+			}else{
+				json.setResult("인증코드가 유효하지 않습니다");
+				json.setStatus("FAIL");
+			}
+		}catch(Exception e){
+			logger.info(e.getMessage());
+			json.setResult("스탬프 적립에 실패하였습니다.");
+			json.setStatus("FAIL");
+		}
+			return json;
+	}
+	/**
+	 * 스탬프 소 진       <br />
+	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
+	 * 가맹점 관리자 인증코드 수정    
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param 
+	 * @return 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/burn", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse burn(
+										   @RequestParam(required=true) Integer stampid,
+										   @RequestParam(required=true) String email,
+										   @RequestParam(required=true) Integer pid
+										  ) {
+		
+		logger.info(stampid+email+pid);
+		JsonResponse json = new JsonResponse();
+		try{
+			Stamp stamp = new Stamp();
+			stamp.getPlaceStamp().setStampid(stampid);
+			stamp.setPid(pid);
+			stamp.getUser().setEmail(email);
+			if(placeStampService.burnStamp(stamp,null)){
+				
+				json.setResult("스탬프를 소진하였습니다 !!");
+				json.setStatus("SUCCESS");
+			}else{
+				json.setResult("인증코드가 유효하지 않습니다");
+				json.setStatus("FAIL");
+			}
+		}catch(Exception e){
+			json.setResult("스탬프 소진에 실패하였습니다.");
+			json.setStatus("FAIL");
+		}
+			return json;
+	}
 }
