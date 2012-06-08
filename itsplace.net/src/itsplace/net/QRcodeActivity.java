@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 public class QRcodeActivity extends Activity {
+	protected static final String TAG = QRcodeActivity.class.getSimpleName();
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,7 @@ public class QRcodeActivity extends Activity {
               if(resultCode == RESULT_OK)
               {
                      String contents = intent.getStringExtra("SCAN_RESULT");
-                   
+                     Log.i(TAG,contents);
                      Intent _intent = new Intent(Intent.ACTION_VIEW, Uri.parse
                                           (contents));
                      startActivity(_intent);
