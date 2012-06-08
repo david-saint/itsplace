@@ -71,10 +71,10 @@ public class PlaceStampController {
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
 		//model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("fid", UserInfo.getFid());
+		//Map<String, Object> param = new HashMap<String, Object>();
+		//param.put("fid", UserInfo.getFid());
 		
-		model.addAttribute("placeStampList",placeStampService.getPlaceStampList(param));	
+		model.addAttribute("placeStampList",placeStampService.getPlaceStampList(UserInfo.getFid()));	
 		
 		return "place/stamp/list";
 	}
@@ -289,7 +289,7 @@ public class PlaceStampController {
 		//	model.addAttribute("stampid",stamppedListAll.get(0).getPlaceStamp().getStampid());// 적립할 최신 스탬프아이디
 		}else{
 		}
-		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampList(param);
+		List<PlaceStamp> placeStampList = placeStampService.getPlaceStampList(UserInfo.getFid());
 		model.addAttribute("stampid",placeStampList.get(0).getStampid());//현재 선택된 가맹점의 사용중인 스탬프 아이 
 		model.addAttribute("email",email);
 		return "place/stamp/stampped";

@@ -73,7 +73,7 @@ public class QrCodeService {
 	}
 	
 	/**
-	 * 가맹점  QR인증코드를   생성한다  앱에서 인식후 임의의 인즈언호입력창을 호출하고 인증번호를 입력하면 적립한다. <br />
+	 * 가맹점  QR인증코드를   생성한다  앱에서 인식후  적립한다. <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -88,7 +88,9 @@ public class QrCodeService {
 
 			QRCodeWriter qrCodeWriter = new QRCodeWriter();
 			logger.info("qrauthcode 생성:{}",Integer.toString(place.getFid()));
-			String qrText =Integer.toString(place.getFid());
+			
+			String qrText =Integer.toString(place.getFid())+"|"+place.getMcode();
+			
 			qrText = new String(qrText.getBytes("UTF-8"), "ISO-8859-1");
 			BitMatrix bitMatrix = qrCodeWriter.encode(qrText,BarcodeFormat.QR_CODE, 100, 100);
 

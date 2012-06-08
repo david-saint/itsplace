@@ -1,11 +1,15 @@
 package net.itsplace.web.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceStamp;
@@ -35,6 +39,9 @@ public class StampController {
 	
 	@Autowired
 	private PlaceStampService placeStampService;
+	
+	@Autowired
+	private AdminPlaceService adminPlaceService;
 	
 	/**
 	 *   적립된  스탬프 리스트  <br />
@@ -163,50 +170,98 @@ public class StampController {
 	}
 	
 	/**
-	 * //최신의 stampid를 조회하여 적힙한다 그러나 현재적립중인 슽탬프가 있다면(유효기간내에 적립중입 스틈프id가 존재한다면) 해당 stampid에 적립한다.
-	 * 
-	 * 가맹점 관리자 인증코드 수정    
+	 * 스마트폰 스탬프적립
+	 * 최신의 stampid를 조회하여 적힙한다 그러나 현재적립중인 슽탬프가 있다면(유효기간내에 적립중입 스틈프id가 존재한다면) 해당 stampid에 적립한다.
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
-	 * @param 
+	 * @param fid 가맹점 코드 
 	 * @return 
 	 * @throws 
 	 * @see 
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(@RequestParam(required=true) String authcode,
-										   @RequestParam(required=true) Integer stampid,
-										   @RequestParam(required=true) String email
+	public @ResponseBody JsonResponse save(@RequestParam(required=true) String mcode,
+										   @RequestParam(required=true) String email,
+										   @RequestParam(required=true) Integer fid
 										  ) {
 		JsonResponse json = new JsonResponse();
 		try{
 		
-			logger.info("authcode:{}",authcode);	
-			logger.info("선택된 가맹점 :{}",UserInfo.getFid());	
-			logger.info("로그인한 사용자 :{}",UserInfo.getEmail());	
+			logger.info("mcode:{}",mcode);	
+			logger.info("선택된 가맹점 :{}",fid);	
+			//logger.info("로그인한 사용자 :{}",UserInfo.getEmail());	
+			
+			String dbMcode = adminPlaceService.getMcode(fid);
+			logger.info("dbMcode :{}",dbMcode);	
+			Date today = new Date ( );
+			Timestamp currentDate=new Timestamp(today.getTime());
+			int newStampId=0;
+			int oldStampId=0;
+			int currentStampid = 0;
+			if(dbMcode.equals(mcode)){
+				List<PlaceStamp> placeStampList = placeStampService.getPlaceStampList(fid);
+				if(placeStampList.size()>1){
+					 Map<String, Object> param = new HashMap();
+					 param.put("fid", fid);
+					 param.put("email", fid);
+					 for(int i=0;i<placeStampList.size();i++){
+						 param.put("stampid", placeStampList.get(i).getStampid());
+						 long time = placeStampList.get(i).getEndDate().getTime() - currentDate.getTime(); 
+						 if(time>=0){//유효기간 유효할경우
+							 List<Stamp> stamppedList = placeStampService.getPlaceStampedListByEmail(param);
+							 int totalStamp = stamppedList.size();	 
+							 if(totalStamp>0){
+								 totalStamp =totalStamp % placeStampList.get(i).getStampType().getStampcount();
+								 if(totalStamp>0){
+									 oldStampId = placeStampList.get(i).getStampid(); 
+								 }
+								
+							 }else{
+								 newStampId = placeStampList.get(i).getStampid();
+							 }
+						 }
+						 
+						 //placeStampList.get(i).getStampType().getStampcount()
+					 }
+					
+					 if(oldStampId>0){
+						 currentStampid = oldStampId;
+					 }else{
+						 currentStampid = newStampId;
+					 }
+					 
+				}else{
+					currentStampid = placeStampList.get(0).getStampid();
+				}
+				json.setResult("스탬프를 적립하였습니다 !!: "+ currentStampid);
+				json.setStatus("SUCCESS");
+			}else{
+				json.setResult("유효한 코드가 아닙니다");
+				json.setStatus("FAIL");
+			}
 			
 			
 			Stamp stamp = new Stamp();
-			stamp.getPlaceStamp().setStampid(stampid);
+			stamp.getPlaceStamp().setStampid(currentStampid);
 			stamp.getUser().setEmail(email);
-			if(placeStampService.saveStamp(stamp,authcode)){
+			if(placeStampService.saveStamp(stamp)){
 				json.setResult("스탬프를 적립하였습니다 !!");
 				json.setStatus("SUCCESS");
 			}else{
-				json.setResult("인증코드가 유효하지 않습니다");
+				json.setResult("스탬프 적립에 실패하였습니다.");
 				json.setStatus("FAIL");
 			}
 		}catch(Exception e){
-			logger.info(e.getMessage());
-			json.setResult("스탬프 적립에 실패하였습니다.");
+			e.printStackTrace();
+			
+			json.setResult("스탬프 적립중 오류가 발생하였씁니다.");
 			json.setStatus("FAIL");
 		}
 			return json;
 	}
 	/**
 	 * 스탬프 소 진       <br />
-	 * ROLE_FRANCHISER 권한만 인증코드를 변경할 수 있습니다.
-	 * 가맹점 관리자 인증코드 수정    
+	 * 사용자가 직업  소진한다     
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
 	 * @param 
@@ -216,20 +271,18 @@ public class StampController {
 	 */
 	@RequestMapping(value = "/burn", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse burn(
-										   @RequestParam(required=true) Integer stampid,
-										   @RequestParam(required=true) String email,
+										   @RequestParam(required=true) Integer stampid,										  
 										   @RequestParam(required=true) Integer pid
 										  ) {
 		
-		logger.info(stampid+email+pid);
+		logger.info(stampid+UserInfo.getEmail()+pid);
 		JsonResponse json = new JsonResponse();
 		try{
 			Stamp stamp = new Stamp();
 			stamp.getPlaceStamp().setStampid(stampid);
 			stamp.setPid(pid);
-			stamp.getUser().setEmail(email);
-			if(placeStampService.burnStamp(stamp,null)){
-				
+			stamp.getUser().setEmail(UserInfo.getEmail());
+			if(placeStampService.burnStamp(stamp,null)){				
 				json.setResult("스탬프를 소진하였습니다 !!");
 				json.setStatus("SUCCESS");
 			}else{

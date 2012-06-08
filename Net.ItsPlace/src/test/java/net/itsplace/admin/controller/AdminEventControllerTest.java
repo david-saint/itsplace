@@ -104,10 +104,10 @@ public class AdminEventControllerTest extends TestApplicationContext {
 		 //DataTable<PlaceEvent> dd =	controller.getPlaceEventList( 1, 10, 1, "desc", "");
 		/// for(int i=0; i<dd.getiTotalRecords();i++){
 			
-			 List<PlaceEvent> ee = (List<PlaceEvent>) dd.getRows();
-			 for(int i=0; i<ee.size();i++){
-				 logger.info(i+""+ee.get(i).getEid()); 
-			 }
+//			 List<PlaceEvent> ee = (List<PlaceEvent>) dd.getRows();
+//			 for(int i=0; i<ee.size();i++){
+//				 logger.info(i+""+ee.get(i).getEid()); 
+//			 }
 			 
 		// }
 		

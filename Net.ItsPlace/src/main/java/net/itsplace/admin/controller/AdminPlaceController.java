@@ -344,7 +344,7 @@ public class AdminPlaceController {
 	}
 	/**
 	 * Ajax 가맹점 승인 하고 인증코드를 0000으로 초기화한다 <br />
-	 * 
+	 * qr인증코드 fid|md5(fid) 로 이미지를 생성하고 mcode를 md(fid)로 초기화한다.
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
 	 * @param fid 가맹점 pk

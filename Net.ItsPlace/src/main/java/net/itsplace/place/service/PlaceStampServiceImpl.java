@@ -60,6 +60,21 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 		return result;
 		
 	}
+	@SuppressWarnings("unused")
+	@Override
+	public boolean saveStamp(Stamp stamp) {
+		boolean result = false;
+		try{
+			placeStampDao.saveStamp(stamp);		
+			result = true;
+		}catch(Exception e){
+			e.printStackTrace();
+			result = false;
+		}
+	
+		return result;
+		
+	}
 
 	@Override
 	public boolean burnStamp(Stamp stamp,String authCode) {
@@ -115,7 +130,7 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 		List<PlaceStamp> placeStampList = placeStampDao.getPlaceStampListByEmail(param);
 		if(placeStampList.size()==0){
 			logger.info("가맹점 첫 스탬프 적립하는 회원임 ");
-			placeStampList = getPlaceStampList(param);
+			placeStampList = getPlaceStampList((Integer)param.get("fid"));
 		}
 		
 		List<Stamped> stamppedListAll = new ArrayList<Stamped>();
@@ -196,8 +211,8 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	}
 
 	@Override
-	public List<PlaceStamp> getPlaceStampList(Map<String, Object> param) {
-		return placeStampDao.getPlaceStampList(param);
+	public List<PlaceStamp> getPlaceStampList(int fid) {
+		return placeStampDao.getPlaceStampList(fid);
 	}
 
 

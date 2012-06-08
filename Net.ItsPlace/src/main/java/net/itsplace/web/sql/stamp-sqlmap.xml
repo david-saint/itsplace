@@ -71,5 +71,6 @@
 		GROUP BY A.STAMPID, A.FID, D.FNAME, A.STAMPTITLE, A.THEME, A.STARTDATE, A.ENDDATE , C.SID, C.STAMPCOUNT, C.EVENTDAY, C.REMARK
 		ORDER BY A.SAVEDATE  
 	</select>  
+	 <!-- 현재사용중인 스탬프 가져오기 -->
 	 
 </sqlMap>

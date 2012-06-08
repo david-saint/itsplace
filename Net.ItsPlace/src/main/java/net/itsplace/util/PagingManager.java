@@ -94,7 +94,7 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 	 * @param totalCount
 	 * @param pageGroupSize
 	 */
-	public void creatPaging(Integer currentPage, Integer pageSize, Integer totalCount,Integer pageGroupSize) {
+	public String creatPaging(Integer currentPage, Integer pageSize, Integer totalCount,Integer pageGroupSize) {
 		
 		
 			this.currentPage = currentPage;			
@@ -115,10 +115,10 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 		logger.info("pageGroupSize:"+pageGroupSize);
 		logger.info("totalCount(전체 개시물수):"+totalCount);
 		
-		generatePageHtml();
+		return generatePageHtml();
 	}
 	
-	public void generatePageHtml() {
+	public String generatePageHtml() {
 		
 		pageNo = new ArrayList<Integer>();
 		
@@ -152,7 +152,7 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 			next=currentGroup*pageGroupSize+1;
 		}
 		
-		createPageHtml();
+		return createPageHtml();
 	}
 	
 	
@@ -187,7 +187,7 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 		//firstHtml = "<a class='firstPage'>처음</a>";
 		
 		//*** 이전 페이지 ***//
-		if ( prev > 0 )
+		if ( prev >= 0 )
 			prevHtml = "<a class='prevPage' page='"+ prev +"'>이전&lt;</a>";
 		//else
 		//	prevHtml = prevSymbol;
@@ -201,7 +201,7 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 				currHtml += "<a class='pageNumber'" + " page='"+pageNo.get(i) + "'>" + pageNo.get(i) + "</a>";
 		}
 		//*** 다음 페이지 ***//
-		if ( next > 0 )
+		if ( next >= 0 )
 			nextHtml = "<a class='nextPage' page='"+ next +"'>다음&gt;</a>";
 	//	else
 		//	nextHtml = nextSymbol;

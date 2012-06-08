@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service("AdminPlaceService")
@@ -31,6 +32,15 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 	@Override
 	public void enablePlace(int fid) {
 		adminPlaceDao.enablePlace(fid);
+		QrCodeService qr = new QrCodeService();
+		Place place = new Place();
+		place.setFid(fid);
+		Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+		place.setMcode(md5.encodePassword(Integer.toString(fid),null));
+	    place = qr.makePlaceQrAuthCode(place);
+	    adminPlaceDao.editMcode(place);
+	    place.setAuthCode(md5.encodePassword("0000",null));
+	    adminPlaceDao.editAuthCode(place);
 	}
 
 	@Override
@@ -55,10 +65,15 @@ public class AdminPlaceServiceImpl implements AdminPlaceService{
 		place.setFid(adminPlaceDao.savePlace(place));
 		QrCodeService qr = new QrCodeService();
 		place = qr.makePlaceQrCode(place, "url");
-		place = qr.makePlaceQrAuthCode(place);
 		adminPlaceDao.editPlacerQrcode(place);
 		
 		return place.getFid();
+	}
+
+	@Override
+	public String getMcode(int fid) {
+		// TODO Auto-generated method stub
+		return adminPlaceDao.getMcode(fid);
 	}
 
 

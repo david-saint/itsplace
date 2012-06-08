@@ -26,5 +26,8 @@ public interface AdminPlaceDao {
 	/*가맹점 등록*/
 	public int savePlace(Place place) throws DataAccessException;
 	
-	public void editPlacerQrcode(Place place)throws DataAccessException ;
+	public void editPlacerQrcode(Place place) throws DataAccessException ;
+	public void editMcode(Place place) throws DataAccessException ;
+	public void editAuthCode(Place place) throws DataAccessException ;
+	public String getMcode(int fid) throws DataAccessException ;
 }

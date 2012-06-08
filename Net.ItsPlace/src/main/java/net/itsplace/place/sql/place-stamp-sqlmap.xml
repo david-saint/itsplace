@@ -120,7 +120,7 @@
     </select>
     
     <!-- 가맹점 사용중인 스탬프 타입 조회  -->
-    <select id="getPlaceStampList" parameterClass="java.util.Map" resultMap="PlaceStampMap"> 
+    <select id="getPlaceStampList" parameterClass="int" resultMap="PlaceStampMap"> 
 	   SELECT A.STAMPID, 
 	  		  A.FID,
 	  		  A.STAMPTITLE, 

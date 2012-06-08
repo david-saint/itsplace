@@ -68,7 +68,8 @@ public class Place {
 	private Date endDate; // 
 	private String qrcode; 
 	private String qrAuthCode;
-	
+	private String authCode;
+	private String mcode;
 	private String sido;
 	private String gugun;
 	private String dong;
@@ -82,6 +83,12 @@ public class Place {
 	private int start = 0;
 	
 	
+	public String getAuthCode() {
+		return authCode;
+	}
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
+	}
 	public String getQrAuthCode() {
 		return qrAuthCode;
 	}
@@ -151,6 +158,12 @@ public class Place {
 	}
 	
 	
+	public String getMcode() {
+		return mcode;
+	}
+	public void setMcode(String mcode) {
+		this.mcode = mcode;
+	}
 	public String getPlaceType() {
 		return placeType;
 	}

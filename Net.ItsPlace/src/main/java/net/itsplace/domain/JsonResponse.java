@@ -4,7 +4,7 @@ public class JsonResponse {
 
 	private String status = null;
 	private Object result = null;
-
+	private String paging = null;
 	public String getStatus() {
 		return status;
 	}
@@ -20,4 +20,13 @@ public class JsonResponse {
 	public void setResult(Object result) {
 		this.result = result;
 	}
+
+	public String getPaging() {
+		return paging;
+	}
+
+	public void setPaging(String paging) {
+		this.paging = paging;
+	}
+	
 }

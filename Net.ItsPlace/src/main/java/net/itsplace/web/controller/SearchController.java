@@ -31,8 +31,7 @@ public class SearchController {
 	private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	@Autowired
 	private SearchService searchService;
-	@Autowired
-	private Paging page;
+	
 	@Autowired
 	private PagingManager pagingManaer;
 	/**
@@ -44,6 +43,7 @@ public class SearchController {
 	@RequestMapping(value = "/place", method = RequestMethod.GET)
 	public String place(Locale locale, Model model, @ModelAttribute Place p) {
 		JSONArray array = new JSONArray();
+		Paging page = new Paging();
 		p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
 		array = JSONArray.fromObject(searchService.placeInfo(p));
 		String pageHTML = page.init(p.getCurrentPage(), p.getPageSize(), p.getPageBlock(), "PLACE", null);
@@ -112,16 +112,20 @@ public class SearchController {
 	 * @return
 	 */
 	@RequestMapping(value = "/event/list", method = RequestMethod.POST,  headers="Accept=application/json")
-	public @ResponseBody List<PlaceEvent>  eventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+	public @ResponseBody JsonResponse  eventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
 													 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
 													 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize 
 													){
 		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
-		 List<PlaceEvent> placeEventList = searchService.getPlaceEventList(param);
-		 pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
-		 pagingManaer.createPageHtml();
-	//	pagingManaer.creatPaging(currentPage,pageSize,pagingManaer.getFoundRows(),pageGroupSize);
+		List<PlaceEvent> placeEventList = searchService.getPlaceEventList(param);
 		
-		return searchService.getPlaceEventList(param);
+		String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
+		 //String paging = pagingManaer.createPageHtml();
+	//	pagingManaer.creatPaging(currentPage,pageSize,pagingManaer.getFoundRows(),pageGroupSize);
+		JSONArray array = new JSONArray();
+		 JsonResponse response = new JsonResponse();
+		 response.setResult(array.fromObject(placeEventList));
+		 response.setPaging(paging);
+		return response;
 	}
 }

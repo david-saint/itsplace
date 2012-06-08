@@ -64,6 +64,21 @@ public class AdminPlaceDaoImpl extends SqlMapClientDaoSupport implements AdminPl
 		
 	}
 
+	@Override
+	public void editMcode(Place place) throws DataAccessException {
+		getSqlMapClientTemplate().update("admin.editMcode",place);		
+	}
+
+	@Override
+	public void editAuthCode(Place place) throws DataAccessException {
+		getSqlMapClientTemplate().update("admin.editAuthCode",place);				
+	}
+
+	@Override
+	public String getMcode(int fid) throws DataAccessException {
+		return (String) getSqlMapClientTemplate().queryForObject("admin.getMcode",fid);
+	}
+
 	
 
 }

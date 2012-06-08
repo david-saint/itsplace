@@ -19,5 +19,5 @@ public interface AdminPlaceService {
 	/* 가맹점 수정*/
 	public void editPlace(Place place);
 	public int savePlace(Place place);
-	
+	public String getMcode(int fid);
 }

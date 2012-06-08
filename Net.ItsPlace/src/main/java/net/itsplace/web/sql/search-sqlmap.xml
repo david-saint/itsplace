@@ -69,7 +69,7 @@
          INNER JOIN
          	PLACE B
          		ON A.FID = B.FID
-         WHERE A.ISDELETE = 'N'  AND ISAUTH = 'Y' 
+         WHERE A.ISDELETE = 'N'  AND A.ISAUTH = 'Y' 
     	 <dynamic>
 	    	 <isNotEmpty property="search">
 	    	 	AND TITLE like CONCAT('%',#title#,'%')

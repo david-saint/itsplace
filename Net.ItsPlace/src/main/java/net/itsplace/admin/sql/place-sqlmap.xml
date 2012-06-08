@@ -140,9 +140,25 @@
     </update>
     <update id="editPlacerQrcode" parameterClass="Place">
          UPDATE PLACE 
-         SET QRCODE = #qrcode#,
-             QRAUTHCODE = #qrAuthCode#
+         SET QRCODE = #qrcode#            
          WHERE FID=#fid#
     </update>  
+    <update id="editMcode" parameterClass="Place">
+         UPDATE PLACE 
+         SET
+         	 MCODE = #mcode#,
+         	 AUTHCODE = #authCode#,
+             QRAUTHCODE = #qrAuthCode#
+         WHERE FID=#fid#
+    </update>
+    <update id="editAuthCode" parameterClass="Place">
+         UPDATE PLACE 
+         SET
+         	 AUTHCODE = #authCode#            
+         WHERE FID=#fid#
+    </update>  
+	<select id="getMcode" parameterClass="int" resultClass="String">
+		SELECT MCODE FROM PLACE WHERE FID = #fid# 
+	</select>   
   
 </sqlMap>
