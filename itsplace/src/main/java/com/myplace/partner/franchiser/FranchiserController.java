@@ -315,7 +315,7 @@ public class FranchiserController {
 		pagingManaer = new PagingManager();		
 		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
 	
-				
+		pagingManaer.creatPaging(currentPage,pageSize,commonService.getFoundRows(),pageGroupSize);
 		User user = (User)request.getSession().getAttribute("USERSESSION");
 		if (user != null){
 			param.put("ROLE",user.getRole());

@@ -167,7 +167,7 @@ public class TestRestUser {
            // Populate the headers in an HttpEntity object to use for the
            // request
            HttpEntity<?> requestEntity = new HttpEntity<Object>(requestHeaders);
-
+           
            // Create a new RestTemplate instance
            RestTemplate restTemplate = new RestTemplate();
 

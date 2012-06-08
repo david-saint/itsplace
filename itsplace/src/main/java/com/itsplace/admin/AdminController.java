@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.myplace.common.CommonService;
@@ -96,10 +97,31 @@ public class AdminController {
 
 		return "admin/index";
 	}
-	@RequestMapping(value = "/admin/dashboard", method = RequestMethod.GET)
-	public String dashboard() {
-
-		return "admin/dashboard";
-	}
+	@RequestMapping(value="/admin/table")
+    @ResponseBody
+    public DataTable2<User> table3(@RequestParam(required=false) Integer iDisplayStart, @RequestParam(required=false) Integer iDisplayLength, /* Pagination */
+                    @RequestParam(required=false) Integer iSortCol_0, @RequestParam(required=false) String sSortDir_0, /* Sorting */
+                    @RequestParam(required=false, defaultValue="") String sSearch /* Search */) {
+ 
+                    System.out.println("talbel:"+ iDisplayStart.toString());
+                    // Filter 
+                    // TODO Now its difficult to filter by columns. So there is a general filter and here we have to set the default column to filter.
+                    String filterBy = "name";
+                    String filterValue = sSearch;
+                    // End filter
+                    
+                    String columns[] = new String[]{"id", "name", "email"};
+                 /*   DataTable2<InternalUser> table = iDisplayLength != null ?
+                                    new DataTable2<InternalUser>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                                    new DataTable2<InternalUser>(columns, sSortDir_0, iDisplayStart);
+                    table.setRows(this.serviceLocator.getUserService().getUsersByRange(table.getOrdering(iSortCol_0), table.getStart(), table.getEnd())); // TODO add filter params to the service method, like in organizations.
+                    table.setiTotalDisplayRecords(this.serviceLocator.getUserService().countUsers());
+                    return table;
+            } catch(Exception e) {
+                    LOGGER.log(Level.SEVERE, StackTraceUtil.getStackTrace(e));
+                    return new DataTable2<InternalUser>();
+            }*/
+                    return new DataTable2<User>();
+    }       
 
 }

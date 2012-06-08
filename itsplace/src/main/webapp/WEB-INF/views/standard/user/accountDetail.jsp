@@ -38,7 +38,7 @@ function new_window(url){
 	<div id="main">
 		<div id="content">
 			<div> 
-				<form:form  action="accountDetail" commandName="user" method="post">
+				<form:form  a commandName="user" method="post">
 				<form:errors path="*" cssClass="errorblock" element="div" />
 				
 				<div class="field">
