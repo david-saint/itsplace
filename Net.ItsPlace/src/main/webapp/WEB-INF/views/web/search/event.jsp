@@ -37,7 +37,7 @@ $(document).ready(function() {
 				<section id="middle">
 					<div class="middle_inner">
 						<div class="headline">
-							<h3>One Column</h3>
+							<h3>이벤트</h3>
 						</div>
 						<div class="cont_nav">
 							<a href="index.html">Home</a>&nbsp; /&nbsp;<a href="portfolio_sort_four.html">Portfolio</a>&nbsp; /&nbsp;<a href="portfolio_four.html">Portfolio Without Sorting</a>&nbsp; /&nbsp;One Column
@@ -64,39 +64,7 @@ $(document).ready(function() {
 											</div>
 										</article>
 									</div>
-									<div class="fl">
-										<article class="portfolio">
-											<figure class="fl fullwidth">
-												<a href="album_four.html" class="preloader"><img src="/resources/images/img/fproject_1_2.jpg" alt="" class="fullwidth" /></a>
-											</figure>
-											<div class="port_text">
-												<header class="entry-header">
-													<h3 class="entry-title"><a href="album_four.html">Funny creatures</a></h3>
-												</header>
-												<footer class="post_category entry-meta"><a href="#">Artworks</a></footer>
-												<div class="entry-content">
-													<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque risus leo lacinia sapien, sed cursus massa risus</p>
-												</div>
-											</div>
-										</article>
-									</div>
-									<div class="fl">
-										<article class="portfolio">
-											<figure class="fl fullwidth">
-												<a href="album_four.html" class="preloader"><img src="/resources/images/img/fproject_1_3.jpg" alt="" class="fullwidth" /></a>
-											</figure>
-											<div class="port_text">
-												<header class="entry-header">
-													<h3 class="entry-title"><a href="album_four.html">These eyes</a></h3>
-												</header>
-												<footer class="post_category entry-meta"><a href="#">Web design</a></footer>
-												<div class="entry-content">
-													<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque risus leo lacinia sapien, sed cursus massa risus</p>
-												</div>
-											</div>
-										</article>
-									</div>
-									<div class="cl"></div>
+									<div class="fl"></div>
 								</section>
 							</div>
 						</section>
