@@ -111,7 +111,7 @@ public class SearchController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/event/list", method = RequestMethod.POST,  headers="Accept=application/json")
+	@RequestMapping(value = "/event/list", method = RequestMethod.GET)
 	public @ResponseBody JsonResponse  eventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
 													 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
 													 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize 
@@ -122,10 +122,10 @@ public class SearchController {
 		String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
 		 //String paging = pagingManaer.createPageHtml();
 	//	pagingManaer.creatPaging(currentPage,pageSize,pagingManaer.getFoundRows(),pageGroupSize);
-		JSONArray array = new JSONArray();
-		 JsonResponse response = new JsonResponse();
-		 response.setResult(array.fromObject(placeEventList));
-		 response.setPaging(paging);
-		return response;
+		//JSONArray array = new JSONArray();
+		 JsonResponse json = new JsonResponse();
+		 json.setResult(placeEventList);
+		 json.setPaging(paging);
+		return json;
 	}
 }
