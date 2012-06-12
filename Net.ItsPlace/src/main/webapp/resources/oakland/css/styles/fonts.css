@@ -1,9 +1,14 @@
+/*8bc9b4 테마색상*/
 body, 
 input, 
 textarea, 
 .cmsms-form-builder .check_parent input[type="checkbox"]+label, 
 .cmsms-form-builder input[type="radio"]+label {font:13px/18px Arial, Helvetica, "Nimbus Sans L", sans-serif;}
 
+#ci{
+	font-family: 'Chango', cursive;
+	font-size: 40px;
+}
 h1 {font:54px/54px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
 
 h2, .post .published {font:30px/36px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
@@ -69,7 +74,7 @@ h3 {color:#444444;}
 
 h4 {color:#444444;}
 
-h5 {color:#90cd67;}
+h5 {color:#8bc9b4;}
 
 h6 {color:#444444;}
 
@@ -82,7 +87,7 @@ blockquote:before,
 ul.p_filter li.current a, 
 ul.p_filter li a:hover, 
 .blog.short .post .entry-title a:hover, 
-.widgetinfo {color:#90cd67;}
+.widgetinfo {color:#8bc9b4;}
 
 code:before, 
 span.dropcap2, 
@@ -107,19 +112,19 @@ span.dropcap2,
 .cmsms_slider_parent ul.cmsms_slides_nav li:hover a, 
 .cmsms_content_slider_parent ul.cmsms_slides_nav li.active a, 
 .cmsms_content_slider_parent ul.cmsms_slides_nav li:hover a, 
-.logo img {background-color:#90cd67;}
+.logo img {background-color:#8bc9b4;}
 
 #navigation > li.current_page_item:hover > a, 
 #navigation ul li a,
 #navigation li:hover > a {background-color:#444444;}
 
 #header, 
-#navigation > li > ul > li:first-child > a {border-top-color:#90cd67;}
+#navigation > li > ul > li:first-child > a {border-top-color:#8bc9b4;}
 
 #navigation ul li.current_page_item:first-child > a:before, 
 #navigation ul li:first-child > a:hover:before, 
 #navigation ul li.current_page_item:first-child:hover > a:hover:before, 
-#navigation ul li:first-child > a:before {border-bottom-color:#90cd67;}
+#navigation ul li:first-child > a:before {border-bottom-color:#8bc9b4;}
 
 #navigation ul li.current_page_item:first-child:hover > a:before {border-bottom-color:#444444;}
 
@@ -128,4 +133,4 @@ span.dropcap2,
 input[type="text"]:focus, 
 textarea:focus, 
 .cmsmsLike:hover, 
-select.resp_navigation:focus {border-color:#90cd67;}
+select.resp_navigation:focus {border-color:#8bc9b4;}

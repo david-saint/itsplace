@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/jquery.prettyPhoto.css" />" type="text/css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.css" />" />
 		<link rel="stylesheet" href="<c:url value="/resources/common/common.css" />" type="text/css" media="screen" />
+		<link href='http://fonts.googleapis.com/css?family=Chango' rel='stylesheet' type='text/css'>
 		<!--[if lt IE 9]>
 			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie.css" />" type="text/css" />
 			<link rel="stylesheet" href="<c:url value="/resources/oakland/css/styles/ie_css3.css" />" type="text/css" media="screen" />

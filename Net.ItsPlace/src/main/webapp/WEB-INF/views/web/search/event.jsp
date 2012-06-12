@@ -45,20 +45,26 @@ $(document).ready(function() {
 
 <!-- __________________________________________________ Start Content -->
 						<section id="middle_content">
+						<c:forEach var="event" items="${placeEventList}">
+							
+						
 							<div class="entry">
 								<section class="portfolio_container one_block">
 									<div class="fl">
 										<article class="portfolio">
 											<figure class="fl fullwidth">
-												<a href="album_four.html" class="preloader"><img src="/resources/images/img/fproject_1_1.jpg" alt="" class="fullwidth" /></a>
+												<a href="album_four.html" ><img src="/resources/images/img/fproject_1_1.jpg" alt="" class="fullwidth" /></a>
 											</figure>
 											<div class="port_text">
 												<header class="entry-header">
-													<h3 class="entry-title"><a href="album_four.html">Gamer</a></h3>
+													<h3 class="entry-title"><a href="album_four.html">${event.title}</a></h3>
 												</header>
 												<footer class="post_category entry-meta"><a href="#">Advertising</a></footer>
 												<div class="entry-content">
-													<p>Duis semper nunc id metus sagittis nec ullamcorper justo consequat. Curabitur pharetra condimentum mattis. Cras venenatis, eros id congue pellentesque risus leo lacinia sapien, sed cursus massa risus</p>
+													<p>Duis semper nunc id metuque risus leo lacinia sapien, sed cursus majjj
+													jjjj
+													j
+													jssa risuskkkkkkkkkkkkkkkkkkkkkkkkkkkkk</p>
 												</div>
 												<a href="album_four.html" class="button"><span>View project</span></a>
 											</div>
@@ -67,7 +73,19 @@ $(document).ready(function() {
 									<div class="fl"></div>
 								</section>
 							</div>
+							</c:forEach>
 						</section>
+						<ul class="pagination">
+            	<li class="page">Page 2 of 10</li>
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#" class="active">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+                <li><a href="#">last</a></li>
+            </ul>
 <!-- __________________________________________________ Finish Content -->	
 
 

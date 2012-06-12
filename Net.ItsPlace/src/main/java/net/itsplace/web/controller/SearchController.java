@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/search")
 public class SearchController {
 	private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	@Autowired
@@ -40,7 +39,7 @@ public class SearchController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/place", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/place", method = RequestMethod.GET)
 	public String place(Locale locale, Model model, @ModelAttribute Place p) {
 		JSONArray array = new JSONArray();
 		Paging page = new Paging();
@@ -60,7 +59,7 @@ public class SearchController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/placeAjax", method = RequestMethod.POST,  headers="Accept=application/json")
+	@RequestMapping(value = "/search/placeAjax", method = RequestMethod.POST,  headers="Accept=application/json")
 	public @ResponseBody List<Place>  placeAjax(Locale locale, Model model, @ModelAttribute Place p) {
 		JSONArray array = new JSONArray();
 		p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
@@ -72,7 +71,7 @@ public class SearchController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/placeList", method = RequestMethod.POST)
+	@RequestMapping(value = "/search/placeList", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse  PlaceList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
 			 									@RequestParam(required=false, defaultValue="10") Integer pageSize ,
 			 									@RequestParam(required=false, defaultValue="10") Integer pageGroupSize ,
@@ -96,23 +95,20 @@ public class SearchController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/map", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/map", method = RequestMethod.GET)
 	public String map(Locale locale, Model model) {
 		return "web/search/map";
 	}
 	
-	@RequestMapping(value = "/event", method = RequestMethod.GET)
-	public String event(Locale locale, Model model) {
-		return "web/search/event";
-	}
+
 	/**
 	 * 주변검색
 	 * @param locale
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/event/list", method = RequestMethod.GET)
-	public @ResponseBody JsonResponse  eventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+	@RequestMapping(value = "/search/event/list", method = RequestMethod.GET)
+	public @ResponseBody JsonResponse  seventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
 													 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
 													 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize 
 													){
@@ -127,5 +123,25 @@ public class SearchController {
 		 json.setResult(placeEventList);
 		 json.setPaging(paging);
 		return json;
+	}
+	/**
+	 * 이벤트
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/search/event", method = RequestMethod.GET)
+	public String  eventList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+							 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
+							 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize,
+							 Model model
+							){
+		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+		List<PlaceEvent> placeEventList = searchService.getPlaceEventList(param);
+		
+		String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
+		model.addAttribute("placeEventList",placeEventList);
+		model.addAttribute("paging",paging);
+		return "web/search/event";
 	}
 }

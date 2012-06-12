@@ -29,7 +29,7 @@ menuSelected("나의스탬프");
 						
 						<c:forEach var="stamppedList" items="${stamppedListAll}">
 						<div 
-							class="${stamppedList.placeStamp.theme}"
+							class="stamps ${stamppedList.placeStamp.theme}"
 							stampid="${stamppedList.placeStamp.stampid}">
 			
 							<h5 class="stampTitle">${stamppedList.placeStamp.stampTitle}</h5>
@@ -42,7 +42,7 @@ menuSelected("나의스탬프");
 								<fmt:formatDate value="${stamppedList.placeStamp.endDate}" pattern="yyyy-MM-dd" />
 							</span>
 			
-							<ul style="display: block">
+							<ul class="stamp" style="display: block">
 								<c:forEach var="stamp" items="${ stamppedList.stampList}" varStatus="status">
 									<li class="${stamp.attribute}" pid="${stamp.pid}"
 										saveDate="<fmt:formatDate value="${stamp.saveDate}" pattern="yyyy-MM-dd" />">
