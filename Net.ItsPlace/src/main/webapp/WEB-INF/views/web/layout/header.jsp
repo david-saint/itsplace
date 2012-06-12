@@ -27,9 +27,9 @@ function menuSelected(name, sub)
 					<h1><a id="ci" class="logo" href="/">Its Place</a></h1>
 					<nav>
 						<ul id="navigation">
-							<li class="current_page_item"><a href="/">Home</a></li>
+							<li class="current_page_item"><a href="/">홈</a></li>
 							<li><a href="/feature">서비스소개</a></li>
-							<li><a href="/user/register">나의스템프</a>
+							<li><a href="/user/register">나의스탬프</a>
 								<ul>
 									<li><a href="/user/register">회원가입</a></li>
 									<li><a href="/stamp/list">스템프확인</a></li>
