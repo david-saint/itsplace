@@ -14,6 +14,7 @@
 		<result property="endDate" column="ENDDATE"></result>
 		<result property="editDate" column="EDITDATE"></result>
 		<result property="place.fname" column="FNAME"></result>
+		<result property="place.fullAddress" column="FULLADDRESS"></result>
 	</resultMap>
 	<!-- 가맹점 정보가져오기 -->
 	<select id="getPlaceInfo" parameterClass="place" resultClass="place">
@@ -64,7 +65,8 @@
             A.STARTDATE,
             A.ENDDATE,
             A.EDITDATE,
-            B.FNAME
+            B.FNAME,
+            B.FULLADDRESS
          FROM PLACEEVENT A
          INNER JOIN
          	PLACE B

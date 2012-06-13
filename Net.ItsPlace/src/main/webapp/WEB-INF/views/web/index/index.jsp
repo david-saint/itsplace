@@ -101,38 +101,16 @@ function main_event(d)
 				</div>
 				<div id="main_display">
 					<div>
+					<c:forEach var="place" items="${recentPlaceList}">
 						<div class="one_fourth">
 							<figure class="preloader">
 								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
 							</figure>
 							<br />
-							<h6>가맹점 1</h6>
-							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
+							<h6>${place.fname }</h6>
+							<p>${place.category} <br /> ${place.fullAddress }</p> 
 						</div>
-						<div class="one_fourth">
-							<figure class="preloader">
-								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
-							</figure>
-							<br />
-							<h6>가맹점 1</h6>
-							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
-						</div>
-						<div class="one_fourth">
-							<figure class="preloader">
-								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
-							</figure>
-							<br />
-							<h6>가맹점 1</h6>
-							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
-						</div>
-						<div class="one_fourth">
-							<figure class="preloader">
-								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
-							</figure>
-							<br />
-							<h6>가맹점 1</h6>
-							<p>커피 전문점 <br /> 대구광역시 달서구 여기동 1번지</p> 
-						</div>
+					</c:forEach>	
 					</div>										
 				</div>
 				
@@ -183,36 +161,19 @@ function main_event(d)
 					<div class="one_third last">
 						<h3>Latest news</h3>
 						<ul class="latest_news">
+						<c:forEach var="event" items="${recentEventList}">
 							<li>
 								<a href="#" class="alignleft">
 									<figure>
 										<img src="/resources/oakland/images/img/news_1.jpg" alt="" />
 									</figure>
 								</a>
-								<abbr title="01-04-2012" class="published">01-04-2012</abbr>
-								<a href="#">Duis semper nunc metus</a>
-								<p>sagittis nec ullamcorper justo consequat urabitur pharetra</p>
+								<abbr title=""  class="published"><fmt:formatDate value="${event.startDate}" pattern="yyyy-MM-dd"/> - <fmt:formatDate value="${event.endDate}" pattern="yyyy-MM-dd"/></abbr>
+								<a href="#">${event.title}</a>
+								<p>${event.place.fullAddress}</p>
+								<p>${event.content}</p>
 							</li>
-							<li>
-								<a href="#" class="alignleft">
-									<figure>
-										<img src="/resources/oakland/images/img/news_2.jpg" alt="" />
-									</figure>
-								</a>
-								<abbr title="01-04-2012" class="published">01-04-2012</abbr>
-								<a href="#">Duis semper nunc metus</a>
-								<p>sagittis nec ullamcorper justo consequat urabitur pharetra</p>
-							</li>
-							<li>
-								<a href="#" class="alignleft">
-									<figure>
-										<img src="/resources/oakland/images/img/news_3.jpg" alt="" />
-									</figure>
-								</a>
-								<abbr title="01-04-2012" class="published">01-04-2012</abbr>
-								<a href="#">Duis semper nunc metus</a>
-								<p>sagittis nec ullamcorper justo consequat urabitur pharetra</p>
-							</li>
+						</c:forEach>
 						</ul>
 					</div>
 				</div>

@@ -22,10 +22,41 @@ public class PlaceEvent {
 	private Date editDate;
 	private String isAuth;
 	private String isDelete;
+	
+	private String imageHost;
+	private String filePath;
+	
 	private int readCount;
 	public PlaceEvent(){
 		place = new Place();
 	}
+	
+	
+	
+	public String getImageHost() {
+		return imageHost;
+	}
+
+
+
+	public void setImageHost(String imageHost) {
+		this.imageHost = imageHost;
+	}
+
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+
 	public int getEid() {
 		return eid;
 	}

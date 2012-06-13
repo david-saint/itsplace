@@ -42,14 +42,17 @@
     	 SELECT  sql_calc_found_rows  
     	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
     	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
-    	 		A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
+    	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
     	 		P.BASNAME AS PLACETYPE,
 		   	 	A.FULLADDRESS,
 		   	 	A.SIDO,
 		   	 	A.GUGUN,
 		   	 	A.DONG,
-		   	 	A.NEWADDRESS
+		   	 	A.NEWADDRESS,
+		   	 	A.PAYINFO,
+		   	 	A.PARKINFO,
+		   	 	A.BLDINFO
 		 FROM 
 		 	PLACE A
 		 LEFT OUTER JOIN
@@ -91,7 +94,10 @@
 		   	   SIDO,
 		   	   GUGUN,
 		   	   DONG,
-		   	   NEWADDRESS
+		   	   NEWADDRESS,
+		   	   A.PAYINFO,
+		   	 	A.PARKINFO,
+		   	 	A.BLDINFO
         FROM PLACE
         WHERE FID = #fid#
         

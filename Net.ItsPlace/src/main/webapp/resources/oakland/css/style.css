@@ -274,8 +274,13 @@ h6 a {text-decoration:none;}
 	position:absolute;
 	left:25px;
 	top:21px;
+	font-family: 'Chango', cursive;
+	font-size: 40px;
+	text-decoration: none;	
 }
-
+.logo:hover{
+	color:highlight;
+}
 #header nav {
 	position:absolute;
 	top:-4px;

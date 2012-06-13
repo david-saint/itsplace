@@ -2,6 +2,7 @@ package net.itsplace.web.controller;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceComment;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceComment.AddPlaceComment;
 import net.itsplace.domain.Social;
 import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.place.service.PlaceCommentService;
+import net.itsplace.util.PagingManager;
 import net.itsplace.web.service.IndexService;
 import net.itsplace.web.service.PlaceService;
 
@@ -43,7 +46,8 @@ public class PlaceController {
 	
 	@Autowired
 	private PlaceCommentService placeCommentService;
-	
+	@Autowired
+	private PagingManager pagingManaer;
 	@Inject
 	private ConnectionRepository connectionRepository;
 
@@ -74,21 +78,26 @@ public class PlaceController {
 		List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(fid);
 		model.addAttribute("placeCommentList",placeCommentList);
 		model.addAttribute("placeCommentCount",placeCommentList.size());
-		
-		Connection<Facebook> facebook = connectionRepository.findPrimaryConnection(Facebook.class);
-		if (facebook == null) {
-			model.addAttribute("facebook", null);
-		}else{
-			model.addAttribute("facebook", facebook.getApi().userOperations().getUserProfile());
-			logger.info("getDisplayName:{}",facebook.getDisplayName());
-			logger.info("getImageUrl:{}",facebook.getImageUrl());
-			
-		}
-		Connection<Twitter> twitter = connectionRepository.findPrimaryConnection(Twitter.class);
-		if (twitter == null) {
-			model.addAttribute("twitter", null);
-		}else{
-			model.addAttribute("twitter", twitter.getApi().userOperations().getUserProfile());
+		try{					
+			Connection<Facebook> facebook = connectionRepository.findPrimaryConnection(Facebook.class);
+			if (facebook == null) {
+				logger.info("facebook null");
+				model.addAttribute("facebook", null);
+			}else{
+				model.addAttribute("facebook", facebook.getApi().userOperations().getUserProfile());
+				logger.info("getDisplayName:{}",facebook.getDisplayName());
+				logger.info("getImageUrl:{}",facebook.getImageUrl());
+				
+			}
+			Connection<Twitter> twitter = connectionRepository.findPrimaryConnection(Twitter.class);
+			if (twitter == null) {
+				logger.info("twitter null");
+				model.addAttribute("twitter", null);
+			}else{
+				model.addAttribute("twitter", twitter.getApi().userOperations().getUserProfile());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "web/place/view";
 	}
@@ -105,17 +114,18 @@ public class PlaceController {
 	 */
 	 @RequestMapping(value = "/place/addComment", method = RequestMethod.POST)
 	 public @ResponseBody JsonResponse addComment(@Validated({AddPlaceComment.class}) PlaceComment placeComment, BindingResult result, Model model){
+		 logger.info("comment:"+placeComment.getComment());
 		 JsonResponse json = new JsonResponse();
 		 if (result.hasErrors()) {
 				logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-				json.setResult("댓글 입력에 실패 하였습니다");
-				json.setResult("FAIL");
+				json.setResult(result.getFieldError().getDefaultMessage());
+				json.setStatus("FAIL");
 		 }else{
 			 placeCommentService.savePlaceComment(placeComment);			
 			 json.setResult("");
-			 json.setResult("SUCCESS");
+			 json.setStatus("SUCCESS");
 			 
-			 twitter.directMessageOperations().sendDirectMessage(placeComment.getEmail(),placeComment.getComment());
+			 //twitter.directMessageOperations().sendDirectMessage(placeComment.getEmail(),placeComment.getComment());
 		 }
 	    	return json;
 	 }
@@ -142,4 +152,27 @@ public class PlaceController {
 			
 		     return json;
 		 }
+		 /**
+			 * 주변검색
+			 * @param locale
+			 * @param model
+			 * @return
+			 */
+			@RequestMapping(value = "/place/GetPlaceCommentList", method = RequestMethod.GET)
+			public @ResponseBody JsonResponse  getPlaceCommentList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+															 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
+															 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize 
+															){
+				Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+				List<PlaceEvent> placeEventList = searchService.getPlaceEventList(param);
+				
+				String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
+				 //String paging = pagingManaer.createPageHtml();
+			//	pagingManaer.creatPaging(currentPage,pageSize,pagingManaer.getFoundRows(),pageGroupSize);
+				//JSONArray array = new JSONArray();
+				 JsonResponse json = new JsonResponse();
+				 json.setResult(placeEventList);
+				 json.setPaging(paging);
+				return json;
+			}
 }

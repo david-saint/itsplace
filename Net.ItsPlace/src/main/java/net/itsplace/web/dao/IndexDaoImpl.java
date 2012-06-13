@@ -1,11 +1,16 @@
 package net.itsplace.web.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.user.UserDaoImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +25,14 @@ public class IndexDaoImpl extends SqlMapClientDaoSupport implements IndexDao{
 	protected void init(SqlMapClient sqlMapClient) {
 		super.setSqlMapClient(sqlMapClient);
 	}
+
+	@Override
+	public List<Place> getRecentPlaceList(int limit) throws DataAccessException {
+		return  getSqlMapClientTemplate().queryForList("web.getRecentPlaceList", limit);
+	}
+
+	@Override
+	public List<PlaceEvent> getRecentEventList(int limit)
+			throws DataAccessException {
+		return getSqlMapClientTemplate().queryForList("web.getRecentEventList", limit);	}
 }

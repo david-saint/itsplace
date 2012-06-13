@@ -2,6 +2,9 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import net.itsplace.user.User.AddUser;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -19,6 +22,7 @@ public class PlaceComment {
 	public interface EditPlaceComment {}
 	
 		private String cid; /* 코멘트  */
+		@NotEmpty(message="코멘트를 입력하세요",groups={AddPlaceComment.class})
 		private String comment; /* 코멘트 */
 		private String email; /* 사용자 이메일  */
 		private String name; 
@@ -26,9 +30,16 @@ public class PlaceComment {
 		private int fid;
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 		private Date saveDate;
+		private String prettyDate;
 		private String profileImageUrl;
 		private String commentCount; // 코멘트갯수 
 		
+		public String getPrettyDate() {
+			return prettyDate;
+		}
+		public void setPrettyDate(String prettyDate) {
+			this.prettyDate = prettyDate;
+		}
 		public String getCommentCount() {
 			return commentCount;
 		}
@@ -84,6 +95,7 @@ public class PlaceComment {
 		public void setSaveDate(Date saveDate) {
 			this.saveDate = saveDate;
 		}
+		
 		@Override
 		public String toString() {
 			return "PlaceComment:[cid=" + cid + ", fid= " + fid + ", email= " + email + ", comment= " + comment  + "]"  ;

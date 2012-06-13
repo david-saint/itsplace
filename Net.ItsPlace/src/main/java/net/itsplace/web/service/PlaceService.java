@@ -10,4 +10,5 @@ import net.itsplace.domain.PlaceComment;
 public interface PlaceService {
 	public Place getPlace(int fid);
 	public List<PlaceComment> getPlaceCommentList(int fid) ;
+
 }

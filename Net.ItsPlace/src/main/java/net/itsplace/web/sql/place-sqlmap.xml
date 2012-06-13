@@ -10,25 +10,28 @@
 	
 	  <select id="getPlace" resultClass="Place"  parameterClass="int">
          SELECT A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-    	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SeTYPE, A.REMARK,
-    	 		A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
+    	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.REMARK,
+    	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
     	 		P.BASNAME AS PLACETYPE,
 		   	 	A.FULLADDRESS,
 		   	 	A.SIDO,
 		   	 	A.GUGUN,
 		   	 	A.DONG,
-		   	 	A.NEWADDRESS
+		   	 	A.NEWADDRESS,
+		   	 	A.PAYINFO,
+		   	 	A.PARKINFO,
+		   	 	A.BLDINFO
 		 FROM 
 		 	PLACE A
 		 LEFT OUTER JOIN
 		 	PBASCD S
          		ON A.SERVICETYPE = S.BASECD	
-         		AND PB.GRPCD = 'SERVICETYPE'
+         		AND S.GRPCD = 'SERVICETYPE'
 		 LEFT OUTER JOIN
 		 	PBASCD P
          		ON A.PLACETYPE = P.BASECD	
-         		AND PB.GRPCD = 'PLACETYPE'
+         		AND P.GRPCD = 'PLACETYPE'
          WHERE FID = #fid#
          	AND A.ISAUTH ='Y'         	
       </select>
@@ -39,12 +42,13 @@
 		 LEFT OUTER JOIN
 		 	  PLACECOMMENT C
          ON A.FID = C.FID        	
-         INNER JOIN
+         LEFT OUTER JOIN
          	  PUSER E
          ON E.EMAIL = C.EMAIL	
          WHERE A.FID = #fid#	
-         ORDER BY C.SAVEDATE DESC
-    	 	    	
+         		AND C.ISDELETE = 'N'
+         ORDER BY C.SAVEDATE DESC    	 	    	
     </select>
+    
 </sqlMap>
   

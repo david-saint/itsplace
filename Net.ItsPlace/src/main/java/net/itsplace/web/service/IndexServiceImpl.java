@@ -1,5 +1,9 @@
 package net.itsplace.web.service;
 
+import java.util.List;
+
+import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.user.UserServiceImpl;
 import net.itsplace.web.dao.IndexDao;
 
@@ -14,4 +18,14 @@ public class IndexServiceImpl implements IndexService{
 	
 	@Autowired
 	private IndexDao indexDao;
+
+	@Override
+	public List<Place> getRecentPlaceList(int limit) {
+		return indexDao.getRecentPlaceList(limit);
+	}
+
+	@Override
+	public List<PlaceEvent> getRecentEventList(int limit) {
+		return indexDao.getRecentEventList(limit);
+	}
 }

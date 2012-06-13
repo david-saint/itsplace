@@ -7,6 +7,7 @@ import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.admin.service.AdminBaseServiceImpl;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
+import net.itsplace.util.DurationFromNow;
 import net.itsplace.web.dao.PlaceDao;
 
 import org.slf4j.Logger;
@@ -28,8 +29,17 @@ public class PlaceServiceImpl  implements PlaceService{
 
 	@Override
 	public List<PlaceComment> getPlaceCommentList(int fid) {
-		return placeDao.getPlaceCommentList(fid);
+		List<PlaceComment> placeCommentList = placeDao.getPlaceCommentList(fid);
+		for(int i=0;i<placeCommentList.size();i++){
+			PlaceComment placeComment = placeCommentList.get(i);
+			
+			placeComment.setPrettyDate(DurationFromNow.getTimeDiffLabel(placeComment.getSaveDate()));
+			
+			placeCommentList.set(i, placeComment);
+		}
+		return placeCommentList;
 	}
-	
+
+
 
 }

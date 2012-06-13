@@ -44,7 +44,7 @@ menuSelected("가맹점검색", "주변검색");
 	<section id="middle">
 		<div class="middle_inner">
 			<div class="headline">
-				<h3>${place.fname}${ DurationFromNow.test2}</h3>
+				<h3>${place.fname}</h3>
 				
 			</div>
 			<section id="middle_content">
@@ -60,31 +60,31 @@ menuSelected("가맹점검색", "주변검색");
 							<ul>
 								<li>
 									<span class='title'>전화번호</span>
-									<span>053-555-5555</span>
+									<span>${place.phone1}</span>
 								</li>
 								<li>
 									<span class='title'>주소</span>
-									<span>대구시 서구 비산동 2312 번지</span>
+									<span>${place.fullAddress}</span>
 								</li>
 								<li>
 									<span class='title'>이용시간</span>
-									<span>상시(월~일) 10:00 ~ 00:00 </span>
+									<span>${place.openDay}</span>
 								</li>
 								<li>
 									<span class='title'>휴무일</span>
-									<span>연중무휴</span>
+									<span>${place.closeDay}</span>
 								</li>
 								<li>
 									<span class='title'>결제정보</span>
-									<span>카드가능</span>
+									<span>${place.payInfo}</span>
 								</li>
 								<li>
-									<span class='title'>영업정보</span>
-									<span>예약 가능, 배달 불가능, 포장 가능</span>
+									<span class='title'>주차정보</span>
+									<span>${place.parkInfo}</span>
 								</li>
 								<li>
 									<span class='title'>시설정보</span>
-									<span>지상 1개층 / 수용인원 300명 이하</span>
+									<span>${place.bldInfo}</span>
 								</li>
 							</ul>
 						</div>
@@ -94,7 +94,7 @@ menuSelected("가맹점검색", "주변검색");
 					</div>
 					<div style="width:64%;border:1px solid red;float: left;">
 						<div style="height:100px;">
-							여기에 가게 소개등이 들어가면 되겠죠??
+							${place.info }
 						</div>
 						<div style="height:150px;">
 							여기에 별표 한번 넣어 봅시다. 댓글
@@ -118,7 +118,9 @@ menuSelected("가맹점검색", "주변검색");
 									<img status="connected" src="<c:url value="/resources/images/social/32/facebook.png" />" />
 								</c:when>
 								<c:otherwise>
+								<a href="<c:url value="/connect/facebook" />">
 									<img status="connect" src="<c:url value="/resources/images/social/32/facebook2.png" />" />
+								</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -140,19 +142,21 @@ menuSelected("가맹점검색", "주변검색");
 					<div id="displayName" style="border:1px solid red;">
 					  kimdonghonn
 					</div>
-					<form action="" method="POST">
+					<form id="placeComment" >
 						<ul style="border:1px solid blue">
 							<li style="border:1px solid blue">
 								<img id="imageUrl" style="width:50px;height:50px" src=""/>
 							</li>
-							<li >
+							<li>
+								<intput type="hidden" name="fid" value="${place.fid}" />
 								<textarea name="comment" style="width:300px;height:50px"></textarea>
 							</li>
 							<li>
-								<button>코멘트 </button>
+								
 							</li>
 						</ul>
 					</form>
+					<button id="btnComment">코멘트 </button>
 					<c:if test="${!empty placeCommentList}">
 						<div id="comments">
 							<h3>리뷰(${placeCommentCount} )</h3>
@@ -184,7 +188,19 @@ menuSelected("가맹점검색", "주변검색");
 
 <script type="text/javascript">
 $(document).ready(function(){
-
+	 $('#btnComment').live('click',function() {
+			$.ajax({
+	            url: "/place/addComment",
+	            type:"POST",
+	            data:$('#placeComment').serialize(),
+	            success: function(response){
+	             console.log("s:"+response.result);
+	            },
+	            error: function(jqXHR, textStatus, errorThrown){
+	           	alert(textStatus+jqXHR+errorThrown); 
+	            }
+	       });
+		});
 	$('.dsocial').fancybox({//autodimensions false 후 width , height 가느
 			'autoDimensions':false,
 			'scrolling':'auto',
@@ -221,7 +237,9 @@ $(document).ready(function(){
 		}
 	}); 
 	
-});	
+	
+	
+});	//ready
 function chageSocialStatus(provider,status){
 	var img = $('#'+provider).find('img');
 	$(img).attr('status',status);

@@ -3,7 +3,69 @@
 	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="web">
-	<select id="getIndex">
-	    
-	</select>
+    <typeAlias type="net.itsplace.domain.Place" alias="place"/>
+    <typeAlias type="net.itsplace.domain.PlaceEvent" alias="placeEvent"/>
+    <resultMap id="PlaceEventJoinPlace" class="PlaceEvent" >
+		<result property="eid" column="EID"></result>
+		<result property="title" column="TITLE"></result>
+		<result property="content" column="CONTENT"></result>
+		<result property="isAuth" column="ISAUTH"></result>
+		<result property="startDate" column="STARTDATE"></result>
+		<result property="endDate" column="ENDDATE"></result>
+		<result property="editDate" column="EDITDATE"></result>
+		<result property="place.fname" column="FNAME"></result>
+		<result property="place.fullAddress" column="FULLADDRESS"></result>
+	</resultMap>
+	<select id="getRecentPlaceList"  resultClass="Place"  parameterClass="int">
+	    SELECT A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+	    	 		A.IMAGEHOST, A.FILENAME, 
+	    	 		C.BASNAME AS CATEGORY, 
+	    	 		A.REMARK,
+	    	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
+	    	 		S.BASNAME AS SERVICETYPE,
+	    	 		P.BASNAME AS PLACETYPE,
+			   	 	A.FULLADDRESS,
+			   	 	A.SIDO,
+			   	 	A.GUGUN,
+			   	 	A.DONG,
+			   	 	A.NEWADDRESS
+			 FROM 
+			 	PLACE A
+			 LEFT OUTER JOIN
+			 	PBASCD S
+	         		ON A.SERVICETYPE = S.BASECD	
+	         		AND S.GRPCD = 'SERVICETYPE'
+			 LEFT OUTER JOIN
+			 	PBASCD P
+	         		ON A.PLACETYPE = P.BASECD	
+	         		AND P.GRPCD = 'PLACETYPE'
+	         LEFT OUTER JOIN
+			 	PBASCD C
+	         		ON A.CATEGORY = C.BASECD	
+	         		AND C.GRPCD = 'CATEGORY'		
+	         WHERE  A.ISAUTH ='Y'
+	         ORDER BY A.FID DESC
+	         LIMIT 1 ,#limit#
+    </select>
+	    <select id="getRecentEventList" resultMap="PlaceEventJoinPlace" parameterClass="int" >
+    	 SELECT sql_calc_found_rows 
+    		A.EID, 
+        	A.TITLE,
+            A.CONTENT,
+            A.ISAUTH,           
+            A.STARTDATE,
+            A.ENDDATE,
+            A.EDITDATE,
+            A.IMAGEHOST,
+            A.FILEPATH,
+            B.FNAME,
+            B.FULLADDRESS
+         FROM PLACEEVENT A
+         INNER JOIN
+         	PLACE B
+         		ON A.FID = B.FID
+         WHERE A.ISDELETE = 'N'  AND A.ISAUTH = 'Y'     	
+    	 ORDER BY A.STARTDATE DESC
+    	 LIMIT 1,#limit#
+    </select>        
 </sqlMap>

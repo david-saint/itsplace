@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import net.itsplace.domain.Message;
 import net.itsplace.web.service.IndexService;
+import net.itsplace.web.service.PlaceService;
+import net.itsplace.web.service.SearchService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +28,17 @@ public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	@Autowired
 	private IndexService indexService;
+	@Autowired
+	private PlaceService placeService;
+	@Autowired
+	private SearchService searchService;
+		
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
-		
+		model.addAttribute("recentPlaceList",indexService.getRecentPlaceList(4));
+		model.addAttribute("recentEventList",indexService.getRecentEventList(4));
 		return "web/index/index";
 	}
 	  @RequestMapping(value = "/getmessage",  produces = "application/json")

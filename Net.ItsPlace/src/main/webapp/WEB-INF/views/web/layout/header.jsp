@@ -24,7 +24,7 @@ function menuSelected(name, sub)
 <!-- Start Header -->
 			<header id="header">
 				<div class="header">
-					<h1><a id="ci" class="logo" href="/">Its Place</a></h1>
+					<a id="ci" class="logo" href="/">Its Place</a>
 					<nav>
 						<ul id="navigation">
 							<li class="current_page_item"><a href="/">홈</a></li>

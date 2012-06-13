@@ -35,9 +35,9 @@ public class StampControllerTest extends TestApplicationContext {
 	}
 	@Test
 	public void eventList() {
-		JsonResponse j = sController.eventList(1,10, 10);
-		logger.info(j.getResult().toString());
-		logger.info(j.getPaging().toString());
+//		JsonResponse j = sController.eventList(1,10, 10);
+//		logger.info(j.getResult().toString());
+//		logger.info(j.getPaging().toString());
 	}
 
 }

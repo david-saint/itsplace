@@ -5,10 +5,7 @@ textarea,
 .cmsms-form-builder .check_parent input[type="checkbox"]+label, 
 .cmsms-form-builder input[type="radio"]+label {font:13px/18px Arial, Helvetica, "Nimbus Sans L", sans-serif;}
 
-#ci{
-	font-family: 'Chango', cursive;
-	font-size: 40px;
-}
+
 h1 {font:54px/54px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}
 
 h2, .post .published {font:30px/36px "Cambo", Georgia, Times, "Century Schoolbook L", serif;}

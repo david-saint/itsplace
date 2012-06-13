@@ -53,9 +53,9 @@ public class Place {
 	private String serviceType; // 서비스종류
 
 	private String email; // 가맹주 아이디
-	private String park; // 주차정보
-	private String closedday; // 휴무일
-	private String openday; // 영업시간
+
+	private String closeDay; // 휴무일
+	private String openDay; // 영업시간
 	private String website; // 영웹사이트
 	private String info; // 가맹점 상세설명
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -74,6 +74,9 @@ public class Place {
 	private String gugun;
 	private String dong;
 	private String newAddress;
+	private String payInfo;
+	private String bldInfo;
+	private String parkInfo;
 	
 	private int pageBlock = 10;
 	private int pageSize  = 5;
@@ -83,6 +86,24 @@ public class Place {
 	private int start = 0;
 	
 	
+	public String getPayInfo() {
+		return payInfo;
+	}
+	public void setPayInfo(String payInfo) {
+		this.payInfo = payInfo;
+	}
+	public String getBldInfo() {
+		return bldInfo;
+	}
+	public void setBldInfo(String bldInfo) {
+		this.bldInfo = bldInfo;
+	}
+	public String getParkInfo() {
+		return parkInfo;
+	}
+	public void setParkInfo(String parkInfo) {
+		this.parkInfo = parkInfo;
+	}
 	public String getAuthCode() {
 		return authCode;
 	}
@@ -138,26 +159,21 @@ public class Place {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPark() {
-		return park;
-	}
-	public void setPark(String park) {
-		this.park = park;
-	}
-	public String getClosedday() {
-		return closedday;
-	}
-	public void setClosedday(String closedday) {
-		this.closedday = closedday;
-	}
-	public String getOpenday() {
-		return openday;
-	}
-	public void setOpenday(String openday) {
-		this.openday = openday;
-	}
+
 	
 	
+	public String getCloseDay() {
+		return closeDay;
+	}
+	public void setCloseDay(String closeDay) {
+		this.closeDay = closeDay;
+	}
+	public String getOpenDay() {
+		return openDay;
+	}
+	public void setOpenDay(String openDay) {
+		this.openDay = openDay;
+	}
 	public String getMcode() {
 		return mcode;
 	}

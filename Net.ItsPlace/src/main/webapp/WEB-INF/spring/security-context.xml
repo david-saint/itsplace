@@ -22,6 +22,7 @@
 		<intercept-url pattern="/social/**" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/place*" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/place/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/place/view/**" access="permitAll"/>
 		<intercept-url pattern="/place/fbylocation/lat/*" access="permitAll" />
 		<intercept-url pattern="/place/fbylocation/lat/*/lot/*" access="permitAll" />
 		<!--  <intercept-url pattern="/user/**" access="permitAll"/>-->
