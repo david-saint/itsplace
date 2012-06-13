@@ -75,9 +75,13 @@ public class PlaceController {
 	@RequestMapping(value = "/place/view/{fid}", method = RequestMethod.GET)
 	public String view( @PathVariable Integer fid, Model model) {
 		model.addAttribute("place", placeService.getPlace(fid));
-		List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(fid);
+		Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
+		param.put("fid", fid);
+		List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
+		//List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(fid);
 		model.addAttribute("placeCommentList",placeCommentList);
-		model.addAttribute("placeCommentCount",placeCommentList.size());
+		//model.addAttribute("placeCommentCount",placeCommentList.size());
+	
 		try{					
 			Connection<Facebook> facebook = connectionRepository.findPrimaryConnection(Facebook.class);
 			if (facebook == null) {
@@ -152,27 +156,28 @@ public class PlaceController {
 			
 		     return json;
 		 }
-		 /**
-			 * 주변검색
-			 * @param locale
-			 * @param model
-			 * @return
-			 */
-			@RequestMapping(value = "/place/GetPlaceCommentList", method = RequestMethod.GET)
-			public @ResponseBody JsonResponse  getPlaceCommentList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
-															 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
-															 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize 
-															){
-				Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
-				List<PlaceEvent> placeEventList = searchService.getPlaceEventList(param);
-				
-				String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
-				 //String paging = pagingManaer.createPageHtml();
-			//	pagingManaer.creatPaging(currentPage,pageSize,pagingManaer.getFoundRows(),pageGroupSize);
-				//JSONArray array = new JSONArray();
-				 JsonResponse json = new JsonResponse();
-				 json.setResult(placeEventList);
-				 json.setPaging(paging);
-				return json;
-			}
+	 /**
+		 * 가맹점 코멘트 리스트 
+		 * @param currentPage
+		 * @param pageSize
+		 * @param pageGroupSize
+		 * @param fid
+		 * @return
+		 */
+		@RequestMapping(value = "/place/getPlaceCommentListJson", method = RequestMethod.GET)
+		public @ResponseBody JsonResponse  getPlaceCommentList(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+														 @RequestParam(required=false, defaultValue="10") Integer pageSize ,
+														 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize,
+														 @RequestParam(required=false, defaultValue="0") Integer fid
+														){
+			Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+			param.put("fid", fid);
+			List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
+			String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
+			
+			JsonResponse json = new JsonResponse();
+		    json.setResult(placeCommentList);
+			json.setPaging(paging);
+			return json;
+		}
 }

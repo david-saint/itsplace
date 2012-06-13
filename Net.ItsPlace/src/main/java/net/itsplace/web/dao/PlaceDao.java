@@ -11,6 +11,6 @@ import org.springframework.dao.DataAccessException;
 
 public interface PlaceDao {
 	public Place getPlace(int fid) throws DataAccessException;
-	public List<PlaceComment> getPlaceCommentList(int fid) throws DataAccessException;
+	public List<PlaceComment> getPlaceCommentList(Map<String, Object> param) throws DataAccessException;
 	
 }

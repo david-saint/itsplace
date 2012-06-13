@@ -34,9 +34,9 @@ public class PlaceDaoImpl extends SqlMapClientDaoSupport implements PlaceDao {
 	}
 
 	@Override
-	public List<PlaceComment> getPlaceCommentList(int fid)
+	public List<PlaceComment> getPlaceCommentList(Map<String, Object> param)
 			throws DataAccessException {
-		return getSqlMapClientTemplate().queryForList("web.getPlaceCommentList", fid);
+		return getSqlMapClientTemplate().queryForList("web.getPlaceCommentList", param);
 	}
 
 

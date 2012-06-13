@@ -1,6 +1,7 @@
 package net.itsplace.web.service;
 
 import java.util.List;
+import java.util.Map;
 
 import net.itsplace.admin.dao.AdminBaseDao;
 import net.itsplace.admin.service.AdminBaseService;
@@ -28,8 +29,8 @@ public class PlaceServiceImpl  implements PlaceService{
 	}
 
 	@Override
-	public List<PlaceComment> getPlaceCommentList(int fid) {
-		List<PlaceComment> placeCommentList = placeDao.getPlaceCommentList(fid);
+	public List<PlaceComment> getPlaceCommentList(Map<String, Object> param) {
+		List<PlaceComment> placeCommentList = placeDao.getPlaceCommentList(param);
 		for(int i=0;i<placeCommentList.size();i++){
 			PlaceComment placeComment = placeCommentList.get(i);
 			

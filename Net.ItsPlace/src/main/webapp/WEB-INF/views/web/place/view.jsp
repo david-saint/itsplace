@@ -13,22 +13,23 @@ menuSelected("가맹점검색", "주변검색");
 #text_box li span{display: block; float: left;}
 #text_box span.title{width:80px;padding-left:3px;}
 
-#comment li{
+/* #comment li{
 	list-style: none outside none;	
 	display:inline;
 }
 #comment a{
 	display:inline-block;
-}
+} */
 .social img{
 	width:23px;
 	height:23px;
 }
 .commentList{
-	border:1px solid black;
+	padding:10px;
+	border:1px solid blue;
 	clear: both;
 }
-.commentList img{
+/* .commentList img{
 	float: left;
 	border: 1px solid #CCC;
 	background: white;
@@ -37,7 +38,7 @@ menuSelected("가맹점검색", "주변검색");
 }
 .commentBody{
 	border:1px solid #CCC;
-}
+} */
 
 </style>
 <div class="container">
@@ -106,10 +107,6 @@ menuSelected("가맹점검색", "주변검색");
 				</div>
 			</section>
 			<section>
-				
-				
-				
-				
 				<div id="comment" style="border:1px solid blue">
 					<ul style="margin:0px">
 						<li id="facebook" class="social">
@@ -157,9 +154,9 @@ menuSelected("가맹점검색", "주변검색");
 						</ul>
 					</form>
 					<button id="btnComment">코멘트 </button>
-					<c:if test="${!empty placeCommentList}">
+					<%-- <c:if test="${!empty placeCommentList}">
 						<div id="comments">
-							<h3>리뷰(${placeCommentCount} )</h3>
+							<h3>리뷰( )</h3>
 							<ol>
 							<c:forEach var="placeComment" items="${placeCommentList}" >
 			  					 <li class="commentList">
@@ -179,8 +176,40 @@ menuSelected("가맹점검색", "주변검색");
 			  				</c:forEach>	
 							</ol>
 						</div><!--  comments -->
-					</c:if>		
+					</c:if>		 --%>
 				</div><!-- comment div end -->
+			</section>
+			
+			<section>
+			<aside id="comments">
+				<h3>Comments (6)</h3>
+				<ol id="commentList" class="commentlist">
+				<%-- <c:forEach var="placeComment" items="${placeCommentList}" >
+					<li>
+						<figure class="alignleft">
+							<img src="${placeComment.profileImageUrl}" alt="">
+						</figure>
+						<div class="comment-body">
+							<div class="com_box">
+								<div class="com_info">
+									<span class="fl"><strong>${placeComment.name}</strong> said</span>
+									<a href="#" class="fr">Edit</a>
+									<div class="cl"></div>
+								</div>
+								<p>${placeComment.comment}</p>
+								<span class="fl">${placeComment.prettyDate}</span>
+								<sec:authentication property="name" var="currentUserName"/>
+								<c:if test="${currentUserName == placeComment.email}">
+									<a href="#" class="fr">Delete</a>
+								</c:if>
+								<div class="cl"></div>
+							</div>
+						</div>
+					</li>
+				</c:forEach>	 --%>
+				</ol>
+				<div class="cl"></div>
+			</aside>
 			</section>
 		</div>
 	</section>
@@ -188,6 +217,7 @@ menuSelected("가맹점검색", "주변검색");
 
 <script type="text/javascript">
 $(document).ready(function(){
+	getCommentList();
 	 $('#btnComment').live('click',function() {
 			$.ajax({
 	            url: "/place/addComment",
@@ -265,6 +295,49 @@ function chageSocialStatus(provider,status){
             }
     	});
 	}
+}
+function getCommentList(){
+	var fid = '${place.fid}';
+	console.log("fid:"+fid);
+	var str = "";
+	$.ajax({
+        url: "/place/getPlaceCommentListJson" 
+        , type:"GET"
+        , data: ({currentPage : "1",pageSize : "10",pageGroupSize : "10",fid : fid}) 
+        , success: function(data) {
+        	console.log(data);
+        	$.each(data.result, function(i){
+        	str += '<li>';
+        	str += '<figure class="alignleft">';
+        	str += '<img src="'+this.profileImageUrl+'">';
+        	str += '</figure>';
+        	str += '<div class="comment-body">';
+        	str += '<div class="com_box">';
+        	str += '<div class="com_info">';
+        	str += '<span class="fl"><strong>'+this.name+'ffff</strong> said</span>';
+        	str += '<a href="#" class="fr">Edit</a>';
+        	str += '<div class="cl"></div>';
+        	str += '</div>';
+        	str += '<p>'+this.comment+'</p>';
+        	str += '<span class="fl">'+this.prettyDate+'</span>';
+        	str += '<a href="#" class="fr">Delete</a>';
+        	str += '<div class="cl"></div>';
+    		str += '</div>';
+        	str += '</div>';
+        	
+        	str += "</li>";
+        	$('#commentList').append(str);
+           	});  
+        	
+        	$('#paging').append(data.paging);
+        }
+ 		, error: function(data, status, err) {
+ 			alert(data+err+status);
+ 		}
+ 		, complete: function() {
+ 		
+ 		}
+	});
 }
 </script>
 			

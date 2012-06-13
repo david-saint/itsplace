@@ -35,19 +35,20 @@
          WHERE FID = #fid#
          	AND A.ISAUTH ='Y'         	
       </select>
-      <select id="getPlaceCommentList" resultClass="PlaceComment" parameterClass="int">
+      <select id="getPlaceCommentList" resultClass="PlaceComment" parameterClass="java.util.Map">
     	 SELECT sql_calc_found_rows A.FID,
     	  	    C.COMMENT, E.NAME, E.PROFILEIMAGEURL, C.EMAIL, C.SAVEDATE, C.CID 
 		 FROM PLACE A		 	
 		 LEFT OUTER JOIN
 		 	  PLACECOMMENT C
-         ON A.FID = C.FID        	
+        		 ON A.FID = C.FID        	
          LEFT OUTER JOIN
          	  PUSER E
-         ON E.EMAIL = C.EMAIL	
+        		 ON E.EMAIL = C.EMAIL	
          WHERE A.FID = #fid#	
          		AND C.ISDELETE = 'N'
          ORDER BY C.SAVEDATE DESC    	 	    	
+         LIMIT #startRow# , #endRow#		
     </select>
     
 </sqlMap>
