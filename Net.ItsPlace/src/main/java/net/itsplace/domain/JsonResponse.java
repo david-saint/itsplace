@@ -5,6 +5,7 @@ public class JsonResponse {
 	private String status = null;
 	private Object result = null;
 	private String paging = null;
+	private int totalCount;
 	public String getStatus() {
 		return status;
 	}
@@ -28,5 +29,14 @@ public class JsonResponse {
 	public void setPaging(String paging) {
 		this.paging = paging;
 	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
 	
 }

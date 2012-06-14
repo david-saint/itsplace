@@ -5,7 +5,7 @@ import java.util.Map;
 
 import net.itsplace.admin.dao.AdminPlaceDao;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 import net.itsplace.user.UserServiceImpl;
 import net.itsplace.util.QrCodeService;
 

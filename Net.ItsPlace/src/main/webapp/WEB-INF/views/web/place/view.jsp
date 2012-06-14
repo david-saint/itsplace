@@ -13,13 +13,13 @@ menuSelected("가맹점검색", "주변검색");
 #text_box li span{display: block; float: left;}
 #text_box span.title{width:80px;padding-left:3px;}
 
-/* #comment li{
+ #Comment li{
 	list-style: none outside none;	
 	display:inline;
 }
-#comment a{
+#Comment a{
 	display:inline-block;
-} */
+} 
 .social img{
 	width:23px;
 	height:23px;
@@ -29,16 +29,6 @@ menuSelected("가맹점검색", "주변검색");
 	border:1px solid blue;
 	clear: both;
 }
-/* .commentList img{
-	float: left;
-	border: 1px solid #CCC;
-	background: white;
-	margin: 0 10px;
-	padding: 3px;
-}
-.commentBody{
-	border:1px solid #CCC;
-} */
 
 </style>
 <div class="container">
@@ -50,8 +40,8 @@ menuSelected("가맹점검색", "주변검색");
 			</div>
 			<section id="middle_content">
 				<div class="entry">
-					<div style="width:35%;border:1px solid red;float: left;">
-						<div><img src="/resources/images/view/view.jpg" width="400" height="300" /></div>
+					<div style="width:30%;border:1px solid blue;float: left;">
+						<img src="/resources/images/view/view.jpg" height="300" />
 						<div style="height:30px;">이미지 슬라이드 넣을까?</div>
 						<div style="height:50px;padding-top:10px;">
 							음 여기는 평가 넣기 별표 점수 등등등
@@ -93,131 +83,103 @@ menuSelected("가맹점검색", "주변검색");
 							음 여기 지도가 들어가야하나??
 						</div>
 					</div>
-					<div style="width:64%;border:1px solid red;float: left;">
+					<!-- 본문 -->
+					<div style="width:50%;border:1px solid green;float: left;">
 						<div style="height:100px;">
 							${place.info }
 						</div>
 						<div style="height:150px;">
 							여기에 별표 한번 넣어 봅시다. 댓글
 						</div>
-						<div style="padding-top:5px;padding-bottom:5px;">
-							댓글 리스트
-						</div>
+						<section>
+							이벤트
+						</section>
+						<section>
+							가맹점 기타 사진
+						</section>
+						<div id="Comment" style="border:1px solid blue">
+							<ul style="margin:0px;margin-right:50px;">
+								<li id="commentCount">
+									리뷰(0) 
+								</li>
+								<li id="facebook" class="social">
+									<c:choose>
+										<c:when test="${not empty facebook}">
+											<img status="connected" src="<c:url value="/resources/images/social/32/facebook.png" />" />
+										</c:when>
+										<c:otherwise>
+										<a href="<c:url value="/connect/facebook" />">
+											<img status="connect" src="<c:url value="/resources/images/social/32/facebook2.png" />" />
+										</a>
+										</c:otherwise>
+									</c:choose>
+								</li>
+								<li id="twitter" class="social">
+									<c:choose>
+										<c:when test="${not empty twitter}">
+										<a href="<c:url value="/connect/twitter" />">
+											<img class="connected" src="<c:url value="/resources/images/social/32/twitter.png" />" />
+										</a>	
+										</c:when>
+										<c:otherwise>
+										<a href="<c:url value="/connect/twitter" />">
+											<img status="connect" src="<c:url value="/resources/images/social/32/twitter2.png" />" />
+										</a>	
+										</c:otherwise>
+									</c:choose>
+								</li>
+								
+							</ul>
+							
+							<div id="displayName" style="border:1px solid red;">
+							  kimdonghonn
+							</div>
+							<form id="placeComment" >
+								<ul style="border:1px solid blue">
+									<li style="border:1px solid blue">
+										<img id="imageUrl" style="width:70px;height:70px" src=""/>
+									</li>
+									<li>
+										<input type="hidden" name="fid" value="${place.fid}" />
+										<textarea name="comment" style="width:500px;height:70px"></textarea>
+										<a id="btnComment" class="button" style="height:70px;float:right;"><span>Add comment</span></a>
+									</li>
+									
+								</ul>						
+							</form>
+						</div><!-- comment div end -->
+						<section>			
+							<aside id="comments">								
+								<ol id="commentList" class="commentlist">				
+								</ol>
+							</aside>			
+							<div id="paging" class="wp-pagenavi"></div>
+							<div class="cl"></div>
+						</section>
+						<section>
+							리뷰 
+						</section>
+					</div>
+					<!-- 스탬프히스토리 -->
+					<div style="width:19%;border:1px solid green;float: left;">
+						<div>ddddddddddd</div>
 					</div>
 				</div>
 			</section>
-			<section>
-				<div id="comment" style="border:1px solid blue">
-					<ul style="margin:0px">
-						<li id="facebook" class="social">
-							<c:choose>
-								<c:when test="${not empty facebook}">
-									<img status="connected" src="<c:url value="/resources/images/social/32/facebook.png" />" />
-								</c:when>
-								<c:otherwise>
-								<a href="<c:url value="/connect/facebook" />">
-									<img status="connect" src="<c:url value="/resources/images/social/32/facebook2.png" />" />
-								</a>
-								</c:otherwise>
-							</c:choose>
-						</li>
-						<li id="twitter" class="social">
-							<c:choose>
-								<c:when test="${not empty twitter}">
-								<a href="<c:url value="/connect/twitter" />">
-									<img class="connected" src="<c:url value="/resources/images/social/32/twitter.png" />" />
-								</a>	
-								</c:when>
-								<c:otherwise>
-								<a href="<c:url value="/connect/twitter" />">
-									<img status="connect" src="<c:url value="/resources/images/social/32/twitter2.png" />" />
-								</a>	
-								</c:otherwise>
-							</c:choose>
-						</li>
-					</ul>
-					<div id="displayName" style="border:1px solid red;">
-					  kimdonghonn
-					</div>
-					<form id="placeComment" >
-						<ul style="border:1px solid blue">
-							<li style="border:1px solid blue">
-								<img id="imageUrl" style="width:50px;height:50px" src=""/>
-							</li>
-							<li>
-								<intput type="hidden" name="fid" value="${place.fid}" />
-								<textarea name="comment" style="width:300px;height:50px"></textarea>
-							</li>
-							<li>
-								
-							</li>
-						</ul>
-					</form>
-					<button id="btnComment">코멘트 </button>
-					<%-- <c:if test="${!empty placeCommentList}">
-						<div id="comments">
-							<h3>리뷰( )</h3>
-							<ol>
-							<c:forEach var="placeComment" items="${placeCommentList}" >
-			  					 <li class="commentList">
-			  						<div class="commentBody">
-			  							<img src="${placeComment.profileImageUrl}" width="50" height="50">
-			  							<span>${placeComment.name}</span>
-
-			  							<p>${placeComment.comment}</p>
-			  							<spring:eval expression="T(net.itsplace.util.DurationFromNow).getTimeDiffLabel(placeComment.saveDate)" var="saveDate" />
- 										<p>${saveDate}</p>
-			  							<sec:authentication property="name" var="currentUserName"/>
-										<c:if test="${currentUserName == placeComment.email}">
-										 <p>삭제버튼</p>
-										</c:if>
-			  						</div>
-			  					</li>
-			  				</c:forEach>	
-							</ol>
-						</div><!--  comments -->
-					</c:if>		 --%>
-				</div><!-- comment div end -->
-			</section>
 			
 			<section>
-			<aside id="comments">
-				<h3>Comments (6)</h3>
-				<ol id="commentList" class="commentlist">
-				<%-- <c:forEach var="placeComment" items="${placeCommentList}" >
-					<li>
-						<figure class="alignleft">
-							<img src="${placeComment.profileImageUrl}" alt="">
-						</figure>
-						<div class="comment-body">
-							<div class="com_box">
-								<div class="com_info">
-									<span class="fl"><strong>${placeComment.name}</strong> said</span>
-									<a href="#" class="fr">Edit</a>
-									<div class="cl"></div>
-								</div>
-								<p>${placeComment.comment}</p>
-								<span class="fl">${placeComment.prettyDate}</span>
-								<sec:authentication property="name" var="currentUserName"/>
-								<c:if test="${currentUserName == placeComment.email}">
-									<a href="#" class="fr">Delete</a>
-								</c:if>
-								<div class="cl"></div>
-							</div>
-						</div>
-					</li>
-				</c:forEach>	 --%>
-				</ol>
-				<div class="cl"></div>
-			</aside>
+				
 			</section>
-		</div>
+			
+			
+		</div><!-- middle inner -->
+		
 	</section>
 </div>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	getCommentList();
+	getCommentList(1);
 	 $('#btnComment').live('click',function() {
 			$.ajax({
 	            url: "/place/addComment",
@@ -296,46 +258,55 @@ function chageSocialStatus(provider,status){
     	});
 	}
 }
-function getCommentList(){
+function getCommentList(currentpage){
 	var fid = '${place.fid}';
 	console.log("fid:"+fid);
-	var str = "";
+	
 	$.ajax({
         url: "/place/getPlaceCommentListJson" 
         , type:"GET"
-        , data: ({currentPage : "1",pageSize : "10",pageGroupSize : "10",fid : fid}) 
+        , data: ({currentPage : currentpage, pageSize : "10", pageGroupSize : "10", fid : fid}) 
         , success: function(data) {
         	console.log(data);
+        	console.log(data.result.length);
+        	$('#commentList').empty();
         	$.each(data.result, function(i){
-        	str += '<li>';
-        	str += '<figure class="alignleft">';
-        	str += '<img src="'+this.profileImageUrl+'">';
-        	str += '</figure>';
-        	str += '<div class="comment-body">';
-        	str += '<div class="com_box">';
-        	str += '<div class="com_info">';
-        	str += '<span class="fl"><strong>'+this.name+'ffff</strong> said</span>';
-        	str += '<a href="#" class="fr">Edit</a>';
-        	str += '<div class="cl"></div>';
-        	str += '</div>';
-        	str += '<p>'+this.comment+'</p>';
-        	str += '<span class="fl">'+this.prettyDate+'</span>';
-        	str += '<a href="#" class="fr">Delete</a>';
-        	str += '<div class="cl"></div>';
-    		str += '</div>';
-        	str += '</div>';
-        	
-        	str += "</li>";
-        	$('#commentList').append(str);
+        		var str = "";
+	        	str += '<li>';
+	        	str += '<figure class="alignleft">';
+	        	str += '<img src="'+this.profileImageUrl+'">';
+	        	str += '</figure>';
+	        	str += '<div class="comment-body">';
+	        	str += '<div class="com_box">';
+	        	str += '<div class="com_info">';
+	        	str += '<span class="fl"><strong>'+this.name+'</strong> said</span>';
+	        	str += '<a href="#" class="fr">Edit</a>';
+	        	str += '<div class="cl"></div>';
+	        	str += '</div>';
+	        	str += '<p>'+this.comment+'</p>';
+	        	str += '<span class="fl">'+this.prettyDate+'</span>';
+	        	str += '<a href="#" class="fr">Delete</a>';
+	        	str += '<div class="cl"></div>';
+	    		str += '</div>';
+	        	str += '</div>';
+	        	str += "</li>";
+	        	$('#commentList').append(str);
            	});  
-        	
+        	$('#paging').empty();
         	$('#paging').append(data.paging);
+        	$('#commentCount').text("리뷰("+data.totalCount+")");
         }
  		, error: function(data, status, err) {
  			alert(data+err+status);
  		}
  		, complete: function() {
- 		
+ 			$('#paging').find('a').each(function(i){
+ 				var page = $(this).attr('page');
+ 				console.log(page);
+ 				$(this).live('click',function() {
+ 					getCommentList(page);
+ 				});
+ 			});
  		}
 	});
 }

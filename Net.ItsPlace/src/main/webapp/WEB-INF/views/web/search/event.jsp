@@ -75,7 +75,7 @@ $(document).ready(function() {
 							</div>
 							</c:forEach>
 						</section>
-						<ul class="pagination">
+				<ul class="pagination">
             	<li class="page">Page 2 of 10</li>
                 <li><a href="#">«</a></li>
                 <li><a href="#">1</a></li>

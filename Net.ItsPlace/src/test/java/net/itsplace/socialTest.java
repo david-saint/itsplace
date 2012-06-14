@@ -1,5 +1,7 @@
 package net.itsplace;
 
+import javax.inject.Inject;
+
 import net.itsplace.admin.controller.AdminEventControllerTest;
 import net.itsplace.init.TestApplicationContext;
 
@@ -13,11 +15,15 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 public class socialTest  extends TestApplicationContext {
 	  
 	private static final Logger logger = LoggerFactory.getLogger(socialTest.class);
+
+	//private final Twitter twitter;
 	
+	
+
 	@Test
 	public void testAdd() throws Exception {
 		Twitter twitter = new TwitterTemplate();
-		SearchResults results = twitter.searchOperations().search("안녕");
+		SearchResults results = twitter.searchOperations().search("chbfvgghgvgh");
 		for(int i=0;i<results.getTweets().size();i++){
 			logger.info(results.getTweets().get(i).getText());
 		}

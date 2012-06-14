@@ -17,6 +17,11 @@ package net.itsplace.social.twitter;
 
 import javax.inject.Inject;
 
+import net.itsplace.socialTest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.social.twitter.api.SearchResults;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +33,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TwitterSearchController {
 
 	private final Twitter twitter;
+	  
+	private static final Logger logger = LoggerFactory.getLogger(TwitterSearchController.class);
 	
 	@Inject
 	public TwitterSearchController(Twitter twitter) {
@@ -37,6 +44,11 @@ public class TwitterSearchController {
 	@RequestMapping(value="/twitter/search", method=RequestMethod.GET)
 	public String showTrends(@RequestParam("query") String query, Model model) {
 		model.addAttribute("timeline", twitter.searchOperations().search(query).getTweets());
+		
+		SearchResults results = twitter.searchOperations().search("안녕");
+		for(int i=0;i<results.getTweets().size();i++){
+			logger.info(results.getTweets().get(i).getText());
+		}
 		return "twitter/timeline";
 	}
 	

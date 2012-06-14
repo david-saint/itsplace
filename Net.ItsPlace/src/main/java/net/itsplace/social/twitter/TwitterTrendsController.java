@@ -35,7 +35,7 @@ public class TwitterTrendsController {
 
 	@RequestMapping(value="/twitter/trends/current", method=RequestMethod.GET)
 	public String showTrends(Model model) {
-		//model.addAttribute("trends", twitter.searchOperations().getCurrentTrends());
+		model.addAttribute("trends", twitter.searchOperations().getDailyTrends());
 		return "twitter/currentTrends";
 	} 
 	

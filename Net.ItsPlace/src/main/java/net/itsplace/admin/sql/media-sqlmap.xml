@@ -4,7 +4,7 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="admin">
 
-   	<typeAlias type="net.itsplace.domain.Pmedia" alias="Pmedia"/>
+   	<typeAlias type="net.itsplace.domain.PlaceMedia" alias="PlaceMedia"/>
    	<typeAlias type="net.itsplace.domain.Place" alias="Place"/>
 
    	<update id="updatePlaceImage" parameterClass="Place">
@@ -14,12 +14,12 @@
         
     </update>
     
-    <insert id="saveMedia" parameterClass="Pmedia">
+    <insert id="saveMedia" parameterClass="PlaceMedia">
         INSERT INTO PMEDIA(FID, MTITLE, MURL, MTYPE, SIZE, ISDELETE, SAVEDATE, EMAIL,DISPSEQ, HOST)
         VALUES(#fid#, #mTitle#, #mUrl#, #mType#, #size#, 'N', now(), #email#, #dispseq#, #host#)
     </insert>
   
-    <update id="updatePlaceMedia" parameterClass="Pmedia">
+    <update id="updatePlaceMedia" parameterClass="PlaceMedia">
         UPDATE 
         	PMEDIA 
         SET 

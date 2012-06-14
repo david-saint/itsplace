@@ -11,7 +11,7 @@ import net.itsplace.admin.dao.AdminPlaceDao;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.ImageService;
 
@@ -38,7 +38,7 @@ public class AdminMediaSeviceImpl implements AdminMediaService{
 			placeImagePath = imageService.convertToPng(file.getFile(),280,230);//대표 이미지(가맹점뷰어시) 
 			placeThumnailPath = imageService.convertToPng(file.getFile(),80,80);
 	
-			Pmedia media = new Pmedia();
+			PlaceMedia media = new PlaceMedia();
 			media.setFid(fid);
 			media.setEmail(UserInfo.getEmail());
 			media.setmType(commonService.getBasecd().getMediaImage());
@@ -83,7 +83,7 @@ public class AdminMediaSeviceImpl implements AdminMediaService{
 	 * @see 
 	 */
 	@Override
-	public void updatePlaceMedia(Pmedia media) throws DataAccessException {
+	public void updatePlaceMedia(PlaceMedia media) throws DataAccessException {
 		
 		if(media.getmType().equals("I")){
 			Place place = new Place();

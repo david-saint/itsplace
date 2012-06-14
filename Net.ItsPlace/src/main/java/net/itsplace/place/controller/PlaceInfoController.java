@@ -17,7 +17,7 @@ import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 import net.itsplace.place.service.PlaceInfoService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.FtpService;

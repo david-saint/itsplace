@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 
 public interface AdminPlaceService {
 	/* 가맹점을 검색하여 리스트로 보여준다*/

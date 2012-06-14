@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

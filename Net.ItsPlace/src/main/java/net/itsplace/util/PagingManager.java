@@ -55,7 +55,8 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 		int pageSizeTmp = pageSize;
 		int currentPageTmp = currentPage;
 		
-		int startRow = pageSizeTmp * currentPageTmp - (pageSizeTmp -1);
+//		int startRow = pageSizeTmp * currentPageTmp - (pageSizeTmp -1);
+		int startRow = pageSizeTmp * currentPageTmp - (pageSizeTmp);
 		int endRow =  pageSizeTmp;
 		//final int endRow = currentPage * pageSize;
 		if(startRow==1){
@@ -127,8 +128,8 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 		////int pageGroupSize = (Integer) param.get("pageGroupSize");				// 페이지 그룹의 페이지 갯수
 		//this.totalCount        = (Integer) param.get("totalCount")   ;
 
-		prev             = 0;
-		next             = 0;
+		prev             = 1;
+		next             = 2;
 		int pageCount    = (totalCount/pageSize)+(totalCount%pageSize==0?0:1);	// 총페이지수
 		last             = pageCount;
 		int currentGroup = (int) Math.ceil((double)currentPage/pageGroupSize);	// 현재그룹
@@ -178,38 +179,38 @@ public class PagingManager  extends SqlMapClientDaoSupport  {
 		String nextHtml   = "";
 		//String lastHtml   = "";
 		
-		//String firstSymbol = "";//<div id="<img src='images/board/frist.gif' alt='첫페이지' align='absmiddle'/>";
-		//String prevSymbol  = "&nbsp<img src='images/board/prev.gif' alt='이전' align='absmiddle'/>";
-		//String nextSymbol  = "&nbsp<img src='images/board/next.gif' alt='다음' align='absmiddle'/>";
-		//String lastSymbol  = "&nbsp<img src='images/board/end.gif' alt='끝페이지' align='absmiddle'/>";
+	
 		
 		//*** 첫 페이지 ***//
 		//firstHtml = "<a class='firstPage'>처음</a>";
 		
 		//*** 이전 페이지 ***//
 		if ( prev >= 0 )
-			prevHtml = "<a class='prevPage' page='"+ prev +"'>이전&lt;</a>";
-		//else
-		//	prevHtml = prevSymbol;
+			prevHtml =   "<a class='page' page='"+ prev +"'><span>«</span></a>";//"<a class='prevPage' page='"+ prev +"'>이전&lt;</a>";
+		else
+			prevHtml =  "<a class='page' page='1'><span>«</span></a>";
 		
 		//*** 현재 그룹 페이지 ***//
 		for ( int i = 0; pageNo.size() > i; i++ )
 		{
 			if(currentPage == pageNo.get(i).intValue())
-				currHtml += "<a class='pageNumber currentPage'" + " page='"+pageNo.get(i) + "'>"+pageNo.get(i)+"</a>";
+				//currHtml += "<a class='pageNumber currentPage'" + " page='"+pageNo.get(i) + "'>"+pageNo.get(i)+"</a>";
+				currHtml += "<span class='current'" + " page='"+pageNo.get(i) + "'>"+pageNo.get(i)+"</span>";
 			else
-				currHtml += "<a class='pageNumber'" + " page='"+pageNo.get(i) + "'>" + pageNo.get(i) + "</a>";
+				currHtml += "<a class='page' page='"+pageNo.get(i) + "'><span>"+pageNo.get(i)+"</span></a>";
+				//currHtml += "<a class='pageNumber'" + " page='"+pageNo.get(i) + "'>" + pageNo.get(i) + "</a>";
 		}
 		//*** 다음 페이지 ***//
 		if ( next >= 0 )
-			nextHtml = "<a class='nextPage' page='"+ next +"'>다음&gt;</a>";
-	//	else
-		//	nextHtml = nextSymbol;
+			//nextHtml = "<a class='nextPage' page='"+ next +"'>다음&gt;</a>";
+			nextHtml =  "<a page='"+ next +"'><span>»</span></a>";
+		else
+			nextHtml =  "<a page='2'><span>»</span></a>";
 		
 		//*** 마지막 페이지 ***//
 		//lastHtml = "<a href='javascript:doList(" + last + ")'>" + lastSymbol + "</a>";
 
-			pageHtml = prevHtml+currHtml+nextHtml;
+		pageHtml = prevHtml+currHtml+nextHtml;
 		logger.info("페이징:" +pageHtml);
 		return pageHtml;
 	}

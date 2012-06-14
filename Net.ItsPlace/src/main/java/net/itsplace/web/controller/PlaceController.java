@@ -77,9 +77,17 @@ public class PlaceController {
 		model.addAttribute("place", placeService.getPlace(fid));
 		Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
 		param.put("fid", fid);
-		List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
+		
+		
+		model.addAttribute("placeEventList",placeService.getPlaceEventListByPlace(fid));
+		model.addAttribute("placeMediaList",placeService.getPlaceMediaListt(fid));
+		model.addAttribute("placeMenuList",placeService.getPlaceMenuList(fid));
+		model.addAttribute("placeReviewList",placeService.getPlaceReviewList(fid));
+		model.addAttribute("placeStampList",placeService.getPlaceStampListByPlace(fid));
+		
+	//	List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
 		//List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(fid);
-		model.addAttribute("placeCommentList",placeCommentList);
+		//model.addAttribute("placeCommentList",placeCommentList);
 		//model.addAttribute("placeCommentCount",placeCommentList.size());
 	
 		try{					
@@ -173,11 +181,13 @@ public class PlaceController {
 			Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
 			param.put("fid", fid);
 			List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
-			String paging = pagingManaer.creatPaging(currentPage, pageSize, pagingManaer.getFoundRows(), pageGroupSize);
+			int totalCount = pagingManaer.getFoundRows();
+			String paging = pagingManaer.creatPaging(currentPage, pageSize, totalCount, pageGroupSize);
 			
 			JsonResponse json = new JsonResponse();
 		    json.setResult(placeCommentList);
 			json.setPaging(paging);
+			json.setTotalCount(totalCount);
 			return json;
 		}
 }

@@ -3,7 +3,7 @@ package net.itsplace.admin.dao;
 import javax.annotation.Resource;
 
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class AdminMediaDaoImpl extends SqlMapClientDaoSupport implements AdminMe
 		super.setSqlMapClient(sqlMapClient);
 	}
 	@Override
-	public void savePlaceMedia(Pmedia media) throws DataAccessException {
+	public void savePlaceMedia(PlaceMedia media) throws DataAccessException {
 		getSqlMapClientTemplate().insert("admin.saveMedia",media);
 	}
 	@Override
@@ -30,7 +30,7 @@ public class AdminMediaDaoImpl extends SqlMapClientDaoSupport implements AdminMe
 		getSqlMapClientTemplate().insert("admin.updatePlaceImage",place);		
 	}
 	@Override
-	public void updatePlaceMedia(Pmedia media) throws DataAccessException {
+	public void updatePlaceMedia(PlaceMedia media) throws DataAccessException {
 		getSqlMapClientTemplate().insert("admin.updatePlaceMedia",media);
 	}
 

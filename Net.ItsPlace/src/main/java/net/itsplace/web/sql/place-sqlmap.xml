@@ -5,8 +5,17 @@
 <sqlMap namespace="web">
     <typeAlias type="net.itsplace.domain.PlaceComment" alias="PlaceComment"/>	    		   
     <typeAlias type="net.itsplace.domain.Place" alias="Place"/>	    		   
+    <typeAlias type="net.itsplace.domain.PlaceEvent" alias="PlaceEvent"/>
+    <typeAlias type="net.itsplace.domain.PlaceMenu" alias="PlaceMenu"/>
+    <typeAlias type="net.itsplace.domain.PlaceReview" alias="PlaceReview"/>
+       	<typeAlias type="net.itsplace.domain.PlaceMedia" alias="PlaceMedia"/>
     
-      
+    <typeAlias type="net.itsplace.domain.Stamp" alias="Stamp"/>
+		<resultMap id="StampMap" class="Stamp" >
+		<result property="user.email" column="EMAIL"></result>	
+		<result property="user.profileImageUrl" column="profileImageUrl"></result>
+		<result property="saveDate" column="SAVEDATE"></result>
+	</resultMap>
 	
 	  <select id="getPlace" resultClass="Place"  parameterClass="int">
          SELECT A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
@@ -50,6 +59,53 @@
          ORDER BY C.SAVEDATE DESC    	 	    	
          LIMIT #startRow# , #endRow#		
     </select>
-    
+     
+    <select id="getPlaceEventListByPlace" resultClass="PlaceEvent" parameterClass="int" >
+    	 SELECT sql_calc_found_rows 
+    		A.EID, 
+        	A.TITLE,
+            A.CONTENT,
+            A.ISAUTH,           
+            A.STARTDATE,
+            A.ENDDATE,
+            A.EDITDATE,            
+         FROM PLACEEVENT A
+         WHERE A.ISDELETE = 'N'  AND A.ISAUTH = 'Y' 
+    	 	AND A.FID = #fid#
+    	 ORDER BY A.EID DESC
+    </select>    
+    <select id="getPlaceStampListByPlace"  resultMap="StampMap" parameterClass="int" > 
+	   SELECT B.EMAIL, B.SAVEDATE,e.PROFILEIMAGEURL
+		FROM PLACESTAMP A
+		INNER JOIN 
+			PSTAMP B
+				ON A.STAMPID = B.STAMPID
+		INNER JOIN 
+			PSTAMPTYPE C
+				ON A.SID = C.SID
+		INNER JOIN
+			PLACE D
+				ON A.FID = D.FID		
+		WHERE A.FID = #fid#	
+		<![CDATA[   AND B.STATUS <> 'C']]> 
+		ORDER BY B.SAVEDATE desc  
+		LIMIT 1, 10
+	</select>
+	
+	<select id="getPlaceMenuList"   resultClass="PlaceMenu" parameterClass="int"> 
+	    SELECT TITLE, CONTENT, PRICE, ISSALE, SALEPRICE
+		FROM PLACEMENU
+		WHERE FID = #fid#	
+	</select>    
+	<select id="getPlaceReviewList"   resultClass="PlaceReview" parameterClass="int"> 
+	    SELECT TITLE, CONTENT, SITEURL, FILEPATH
+		FROM PLACEREVIEW
+		WHERE FID = #fid#	
+	</select>
+	<select id="getPlaceMediaListt"   resultClass="PlaceMedia" parameterClass="int"> 
+	    SELECT FID, MTITLE, MURL, MTYPE, SIZE, ISDELETE, SAVEDATE, EMAIL,DISPSEQ, HOST
+		FROM PLACEMEDIA
+		WHERE FID = #fid#	
+	</select>
 </sqlMap>
   

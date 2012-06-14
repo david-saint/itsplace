@@ -2,7 +2,7 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
-public class Pmedia {
+public class PlaceMedia {
 	private int mid;
 	private int fid;
 	private String mTitle;

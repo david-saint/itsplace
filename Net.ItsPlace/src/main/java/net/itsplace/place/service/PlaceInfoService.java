@@ -2,7 +2,7 @@ package net.itsplace.place.service;
 
 import net.itsplace.domain.Authcode;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 
 import org.springframework.dao.DataAccessException;
 

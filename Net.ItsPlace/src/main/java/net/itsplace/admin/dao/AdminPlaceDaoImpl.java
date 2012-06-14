@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Pmedia;
+import net.itsplace.domain.PlaceMedia;
 import net.itsplace.user.UserDao;
 import net.itsplace.user.UserDaoImpl;
 
