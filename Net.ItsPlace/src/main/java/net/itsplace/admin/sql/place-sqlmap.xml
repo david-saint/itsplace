@@ -95,9 +95,9 @@
 		   	   GUGUN,
 		   	   DONG,
 		   	   NEWADDRESS,
-		   	   A.PAYINFO,
-		   	 	A.PARKINFO,
-		   	 	A.BLDINFO
+		   	   PAYINFO,
+		   	   PARKINFO,
+		   	   BLDINFO
         FROM PLACE
         WHERE FID = #fid#
         

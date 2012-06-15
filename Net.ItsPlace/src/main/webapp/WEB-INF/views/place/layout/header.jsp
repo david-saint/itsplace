@@ -106,11 +106,8 @@
                 <li class="limenu" ><a href="<c:url value="/place/stamp/q" />"><span class="ico gray shadow  file"></span><b>스탬프 적립 및 소진 </b></a></li>
                 <li class="limenu " ><a href="<c:url value="/place/getQrCode" />"><span class="ico gray shadow calendar"></span><b>QR코드 출력 </b></a></li>
                 <li class="limenu" ><a href="<c:url value="/place/event/list" />"><span class="ico gray  shadow paragraph_align_left"></span><b>이벤트관리</b></a></li>
-                <li class="limenu" ><a href="inelement.html"><span class="ico gray shadow abacus"></span><b>Interface elements </b></a></li>
-                <li class="limenu" ><a href="map.html"><span class="ico gray shadow  location"></span><b>Map location </b></a></li>
-                <li class="limenu" ><a href="icon.html"><span class="ico gray  shadow satellite"></span><b>Icon and Button </b></a></li>
- 			    <li class="limenu" ><a href="404.html"><span class="ico gray  shadow firewall"></span><b>Error Pages</b></a></li>
-                <li class="limenu" ><a href="doc.html"><span class="ico gray  notepad"></span><b>Documentation</b></a></li>
+                <li class="limenu" ><a href="<c:url value="/place/menu/list" />"><span class="ico gray shadow abacus"></span><b>메뉴  </b></a></li>
+               
             </ul>
          </div>
                

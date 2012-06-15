@@ -3,6 +3,8 @@ package net.itsplace.domain;
 import java.util.Date;
 
 public class PlaceMedia {
+	public interface AddPlaceMedia {}
+	public interface EditPlaceMedia {}
 	private int mid;
 	private int fid;
 	private String mTitle;

@@ -22,7 +22,11 @@
  		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/place/event/getPlaceEventList", 			
+ 			"sAjaxSource": "/admin/place/event/getPlaceEventList",
+ 			"fnServerParams": function (aoData, fnCallback) {
+ 				console.log("$('#places').val()"+$('#places').val());
+	              aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
+			},
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
  				  			{ "mDataProp": "title" },
@@ -35,23 +39,15 @@
  				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
  								return c.render_date(oObj.aData['saveDate'],'yyyy-MM-dd');
  							} },
- 				  	
+ 				  			{ "mDataProp": "editDate","fnRender"  :function ( oObj ) {
+ 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
+ 							} },
  							{ "mDataProp": "isAuth","fnRender" :function ( oObj ) {
- 								var result;
- 				  				var isAuth = oObj.aData['isAuth'];
- 								if(isAuth == "Y"){
- 									result = "승인"
- 								} else if(isAuth == "W"){
- 									result = "대기"
- 								}else{
- 									result = "미승인"
- 								}
+ 				  				c.log(oObj.aData['isAuth']);
+ 								return oObj.aData['isAuth'] == "Y" ? "승인" : "대기";
  							} },
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
- 			"fnServerParams": function (aoData, fnCallback) {
- 			     aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
- 			},
 	  		"fnInitComplete":function(){
  				$('.tip a ').tipsy({trigger: 'manual'});
  				$('.tip a ').tipsy("hide");
@@ -179,15 +175,16 @@
 	</div>
 	<div class="content">
 			<div class="tableName">
-			<span style="position:absolute"><a href="/place/event/add" class="fancy iframe uibutton icon large add ">이벤트 생성  </a></span>
+			<span style="position:absolute"><a href="/admin/place/event/add" class="fancy iframe uibutton icon large add ">이벤트 생성  </a></span>
 				<table class="display" id="datatable">
 				<thead>
 					<tr>
 						<th>이벤트명 </th>
-						<th>시작일자</th>
-						<th>종료일자</th>
-						<th>신청일자</th>
-						<th>승인여부</th>					
+						<th>StartDate</th>
+						<th>EndDate</th>
+						<th>SaveDate</th>
+						<th>EditDate</th>
+						<th>isAuth</th>
 						<th>Management</th>
 					</tr>
 				</thead>

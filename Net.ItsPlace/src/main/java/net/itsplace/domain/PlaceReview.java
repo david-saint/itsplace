@@ -1,8 +1,10 @@
 package net.itsplace.domain;
 
 public class PlaceReview {
-
+	public interface AddPlaceReview {}
+	public interface EditPlaceReview {}
 	private int rid;
+	private int fid;
 	private String title;
 	private String content;
 	private String siteURL;
@@ -10,7 +12,7 @@ public class PlaceReview {
 	public int getRid() {
 		return rid;
 	}
-	public void setRid(int rid) {
+	public void setRid(int rid) {  
 		this.rid = rid;
 	}
 	public String getTitle() {
@@ -36,6 +38,12 @@ public class PlaceReview {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	public int getFid() {
+		return fid;
+	}
+	public void setFid(int fid) {
+		this.fid = fid;
 	}
 	
 	

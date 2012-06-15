@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="place">
+	<typeAlias type="net.itsplace.domain.PlaceReview" alias="PlaceReview"/>	    		   
+    
+    <insert id="savePlaceReview" parameterClass="PlaceReview">
+         INSERT INTO PLACERREVIEW(FID, TITLE, CONTENT, SITEURL,  FILEPATH)
+         VALUES (#fid#, #title#, #content#, #siteURL#, #filePath#)
+    </insert>
+	<update id="editPlaceReview" parameterClass="PlaceReview">
+	         UPDATE  PLACERREVIEW
+	         	SET TITLE = #title#,
+	         		CONTENT = #content#,
+	         		SITEURL = #siteURL#,
+	         		FILEPATH = #filePath#
+	         	WHERE RID = #rid#	
+	</update>
+    <select id="getPlaceReviewList" resultClass="PlaceReview" parameterClass="java.util.Map">
+    	 SELECT sql_calc_found_rows C.FID, C.TITLE, C.CONTENT, C.SITEURL,  C.FILEPATH
+		 FROM PLACE A		 	
+		 INNER JOIN PlaceReview C
+        	ON A.FID = C.FID        	     
+         WHERE A.FID = #fid#	
+         ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow# , #endRow#		    	
+    </select>
+    <update id="deletePlaceReview" parameterClass="int">
+    	UPDATE PLACERREVIEW
+    	SET ISDELETE = 'Y'
+    	WHERE MNID = #mnid# 
+    </update>
+ 	<select id="getPlaceReview" resultClass="PlaceReview"  parameterClass="int">
+ 		SELECT rid, FID, TITLE, CONTENT, SITEURL,  FILEPATH
+ 		FROM 
+ 			PLACERREVIEW 
+ 		WHERE RID = #rid#;
+	</select>
+</sqlMap>

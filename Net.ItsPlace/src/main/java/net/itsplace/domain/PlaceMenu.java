@@ -1,6 +1,8 @@
 package net.itsplace.domain;
 
 public class PlaceMenu {
+	public interface AddPlaceMenu{}
+	public interface EditPlaceMenu {}
 	private int mnid;
 	private int fid;
 	private String title;

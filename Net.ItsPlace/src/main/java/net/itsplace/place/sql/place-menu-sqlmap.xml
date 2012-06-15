@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="place">
+	<typeAlias type="net.itsplace.domain.PlaceMenu" alias="PlaceMenu"/>	    		   
+    
+    <insert id="savePlaceMenu" parameterClass="PlaceMenu">
+         INSERT INTO PLACEMENU(FID, TITLE, CONTENT, PRICE, ISSALE, SALEPRICE, HOST, FILEPATH, MTYPE)
+         VALUES (#fid#, #title#, #content#, #price#, #isSale#, #host#, #filePath#, #mType#)
+    </insert>
+	<update id="editPlaceMenu" parameterClass="PlaceMenu">
+	         UPDATE  PLACEMENU
+	         	SET TITLE = #title#,
+	         		CONTENT = #content#,
+	         		PRICE = #price#,
+	         		ISSALE = #isSale#,
+	         		SALEPRICE = #salePrice#,
+	         		HOST = #host#,
+	         		FILEPATH = #filePath#,
+	         		MTYPE = #mType#,
+	         	WHERE MNID = #mnid#	
+	</update>
+    <select id="getPlaceMenuList" resultClass="PlaceMenu" parameterClass="java.util.Map">
+    	 SELECT sql_calc_found_rows C.FID, C.TITLE, C.CONTENT, C.PRICE, C.ISSALE, C.SALEPRICE, C.HOST, C.FILEPATH, C.MTYPE
+		 FROM PLACE A		 	
+		 INNER JOIN PlaceMenu C
+        	ON A.FID = C.FID        	     
+         WHERE A.FID = #fid#	
+         ORDER BY $sortColumn$ $sortDirection$
+    	 LIMIT #startRow# , #endRow#		    	
+    </select>
+    <update id="deletePlaceMenu" parameterClass="int">
+    	UPDATE PLACEMENU
+    	SET ISDELETE = 'Y'
+    	WHERE MNID = #mnid# 
+    </update>
+ 	<select id="getPlaceMenu" resultClass="PlaceMenu"  parameterClass="int">
+ 		SELECT FID, TITLE, CONTENT, PRICE, ISSALE, SALEPRICE, HOST, FILEPATH, MTYPE
+ 		FROM 
+ 			PLACEMENU 
+ 		WHERE MNID = #mnid#;
+	</select>
+</sqlMap>
