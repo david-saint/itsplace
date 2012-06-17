@@ -21,10 +21,10 @@
 	         		MTYPE = #mType#,
 	         	WHERE MNID = #mnid#	
 	</update>
-    <select id="getPlaceMenuList" resultClass="PlaceMenu" parameterClass="java.util.Map">
+    <select id="getMenuList" resultClass="PlaceMenu" parameterClass="java.util.Map">
     	 SELECT sql_calc_found_rows C.FID, C.TITLE, C.CONTENT, C.PRICE, C.ISSALE, C.SALEPRICE, C.HOST, C.FILEPATH, C.MTYPE
 		 FROM PLACE A		 	
-		 INNER JOIN PlaceMenu C
+		 INNER JOIN PLACEMENU C
         	ON A.FID = C.FID        	     
          WHERE A.FID = #fid#	
          ORDER BY $sortColumn$ $sortDirection$

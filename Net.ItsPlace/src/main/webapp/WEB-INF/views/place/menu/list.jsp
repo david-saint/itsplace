@@ -22,7 +22,7 @@
  		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/place/event/getPlaceEventList", 			
+ 			"sAjaxSource": "/place/getMenuList", 			
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
  				  			{ "mDataProp": "title" },
@@ -175,19 +175,20 @@
 
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 이벤트 리스트 - ${place.fname}</span>
+		<span><span class="ico gray home"></span> 메뉴 목록 - ${place.fname}</span>
 	</div>
 	<div class="content">
 			<div class="tableName">
-			<span style="position:absolute"><a href="/place/event/add" class="fancy iframe uibutton icon large add ">이벤트 생성  </a></span>
+			<span style="position:absolute"><a href="/place/menu/add" class="fancy iframe uibutton icon large add ">메뉴 생성  </a></span>
 				<table class="display" id="datatable">
 				<thead>
 					<tr>
-						<th>이벤트명 </th>
-						<th>시작일자</th>
-						<th>종료일자</th>
-						<th>신청일자</th>
-						<th>승인여부</th>					
+						<th>사 진 </th>
+						<th>메뉴명 </th>
+						<th>메뉴설명</th>
+						<th>가격 </th>
+						<th>세일여부 </th>
+						<th>세일가격 </th>					
 						<th>Management</th>
 					</tr>
 				</thead>

@@ -106,7 +106,7 @@
                 <li class="limenu" ><a href="<c:url value="/place/stamp/q" />"><span class="ico gray shadow  file"></span><b>스탬프 적립 및 소진 </b></a></li>
                 <li class="limenu " ><a href="<c:url value="/place/getQrCode" />"><span class="ico gray shadow calendar"></span><b>QR코드 출력 </b></a></li>
                 <li class="limenu" ><a href="<c:url value="/place/event/list" />"><span class="ico gray  shadow paragraph_align_left"></span><b>이벤트관리</b></a></li>
-                <li class="limenu" ><a href="<c:url value="/place/menu/list" />"><span class="ico gray shadow abacus"></span><b>메뉴  </b></a></li>
+                <li class="limenu" ><a href="<c:url value="/place/menu/list" />"><span class="ico gray shadow abacus"></span><b>메뉴관리  </b></a></li>
                
             </ul>
          </div>

@@ -64,7 +64,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/place/getMenuLList")
+	@RequestMapping(value="/place/getMenuList",method = RequestMethod.GET)
     @ResponseBody
     public DataTable<Stamp> getMenuLList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
@@ -142,7 +142,7 @@ public class PlaceMenuController {
 		PlaceMenu placeMenu = placeMenuService.getMenu(mnid);
 		model.addAttribute("placeMenu", placeMenu);
 
-		return "admin/place/event/edit";
+		return "place/menu/edit";
 	}
 	/**
 	 * 메뉴  수 <br />
@@ -154,7 +154,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/event/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/place/menu/edit", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse editSubmit(@Validated({EditPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();

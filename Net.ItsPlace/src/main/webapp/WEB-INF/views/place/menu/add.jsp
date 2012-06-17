@@ -19,13 +19,13 @@
 		});
  		$('#btnSubmit').live('click',function() {
  			c.log("submit Form");
- 			$('#placeEvent').submit();
+ 			$('#placeMenu').submit();
  		});
  		$('.cancel').live('click',function() {
  			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
- 		$('#placeEvent').validationEngine('attach', {
+ 		$('#placeMenu').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
@@ -68,7 +68,7 @@
 		<span><span class="ico gray home"></span> 이벤트 생성  - ${place.fname}  </span>
 	</div>
 	<div class="content">
-		<form:form commandName="placeEvent" method="post">
+		<form:form commandName="placeMenu" method="post">
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -84,44 +84,27 @@
 				이벤트 관리 
 			</div>
 			<div class="section">
-				<label> 이벤트명  <small></small></label>
+				<label> 메뉴명   <small></small></label>
 				<div>
 					<input id="title" name="title" type="text"
 						class="validate[required,maxSize[50]] medium "
-						value="${placeEvent.title}" /> 
+						value="" /> 
 						
 				</div>
 			</div>
 			<div class="section">
 				<label> 내용  <small></small></label>
 				<div>
-					<textarea name="content">${placeEvent.content}</textarea>
+					<textarea name="content"></textarea>
 				</div>
 			</div>
 			
-			<div class="section"> 
-				<label> 시작일 <small></small></label>
-				<div>
-					<input id="startDate" type="text" name="startDate"
-						class="validate[required,maxSize[50]] samll date"
-						value="<fmt:formatDate value="${placeEvent.startDate }" pattern="yyyy-MM-dd"/>" /> 
-						<span class="f_help"></span>
-				</div>
-			</div>
-			<div class="section">
-				<label> 종료일  <small></small></label>
-				<div>
-					<input id="endDate" type="text" name="endDate"
-						class="validate[required,maxSize[50]] small date"
-						value="<fmt:formatDate value="${placeEvent.endDate }" pattern="yyyy-MM-dd"/>" />  
-						<span class="f_help"></span>
-				</div>
-			</div>
+			
 			<div class="section" >
-               <label> 승인여부  <small></small></label>   
+               <label> 할인여부  <small></small></label>   
                <div> 
-               <form:radiobutton path="isAuth"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isAuth"  value="N" label="No"/> 
+               <form:radiobutton path="isSale"  value="Y" label="Yes"/> 
+               <form:radiobutton path="isSale"  value="N" label="No"/> 
                <span class="f_help"></span>
             </div> 
 			<div class="section last">
