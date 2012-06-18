@@ -7,7 +7,7 @@
     
     <insert id="savePlaceMenu" parameterClass="PlaceMenu">
          INSERT INTO PLACEMENU(FID, TITLE, CONTENT, PRICE, ISSALE, SALEPRICE, HOST, FILEPATH, MTYPE)
-         VALUES (#fid#, #title#, #content#, #price#, #isSale#, #host#, #filePath#, #mType#)
+         VALUES (#fid#, #title#, #content#, #price#, #isSale#, #salePrice#, #host#, #filePath#, #mType#)
     </insert>
 	<update id="editPlaceMenu" parameterClass="PlaceMenu">
 	         UPDATE  PLACEMENU
@@ -22,7 +22,7 @@
 	         	WHERE MNID = #mnid#	
 	</update>
     <select id="getMenuList" resultClass="PlaceMenu" parameterClass="java.util.Map">
-    	 SELECT sql_calc_found_rows C.FID, C.TITLE, C.CONTENT, C.PRICE, C.ISSALE, C.SALEPRICE, C.HOST, C.FILEPATH, C.MTYPE
+    	 SELECT sql_calc_found_rows C.MNID, C.FID, C.TITLE, C.CONTENT, C.PRICE, C.ISSALE, C.SALEPRICE, C.HOST, C.FILEPATH, C.MTYPE
 		 FROM PLACE A		 	
 		 INNER JOIN PLACEMENU C
         	ON A.FID = C.FID        	     

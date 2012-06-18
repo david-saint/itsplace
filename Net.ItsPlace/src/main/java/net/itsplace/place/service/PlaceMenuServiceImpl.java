@@ -44,7 +44,7 @@ public class PlaceMenuServiceImpl implements PlaceMenuService {
 	}
 
 	@Override
-	public DataTable getMenuList(String[] columns, 
+	public DataTable<PlaceMenu> getMenuList(String[] columns, 
 			Integer iDisplayStart,
 			Integer iDisplayLength, 
 			Integer iSortCol_0, 
@@ -62,7 +62,10 @@ public class PlaceMenuServiceImpl implements PlaceMenuService {
 		  param.put("search", sSearch);
 		  param.put("fid", fid);
 			
-		  List<PlaceMenu> placeMenuList= placeMenuDao.getMenuList(param);
+		  List<PlaceMenu> placeMenuList = placeMenuDao.getMenuList(param);
+		  logger.info("---------------->"+placeMenuList.get(0).getHost());
+		  logger.info("---------------->"+placeMenuList.get(0).getHost());
+		  logger.info("---------------->"+placeMenuList.get(0).getHost());
 		  
 		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
 			

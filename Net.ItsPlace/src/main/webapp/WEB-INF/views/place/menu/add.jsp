@@ -29,7 +29,7 @@
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:"/admin/place/event/add",
+ 	                     url:"/place/menu/add",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -65,7 +65,7 @@
 </script>
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 이벤트 생성  - ${place.fname}  </span>
+		<span><span class="ico gray home"></span> 메뉵 추가   - ${place.fname}  </span>
 	</div>
 	<div class="content">
 		<form:form commandName="placeMenu" method="post">
@@ -93,25 +93,39 @@
 				</div>
 			</div>
 			<div class="section">
-				<label> 내용  <small></small></label>
+				<label> 메뉴설명  <small></small></label>
 				<div>
 					<textarea name="content"></textarea>
 				</div>
 			</div>
-			
-			
+			<div class="section">
+				<label> 가격   <small></small></label>
+				<div>
+					<input id="price" name="price" type="text"
+						class="validate[required,maxSize[10]] medium "
+						value="" /> 
+				</div>
+			</div>
 			<div class="section" >
                <label> 할인여부  <small></small></label>   
                <div> 
                <form:radiobutton path="isSale"  value="Y" label="Yes"/> 
                <form:radiobutton path="isSale"  value="N" label="No"/> 
                <span class="f_help"></span>
+               </div>
             </div> 
+            <div class="section">
+				<label> 할인가격   <small></small></label>
+				<div>
+					<input id="salePrice" name="salePrice" type="text"
+						class="validate[required,maxSize[10]] medium "
+						value="" /> 
+				</div>
+			</div>
 			<div class="section last">
 				<div>
-					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
-					<a class="uibutton special clear_form">clear form</a>
-					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
+					<a id="btnSubmit" class="uibutton loading submit_form" title="저장" rel="1">저장</a> 			
+					<a class="uibutton loading  cancel" title="Checking" rel="0">취소</a>
 				</div>
 			</div>
 			                                 

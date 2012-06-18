@@ -19,39 +19,24 @@
  			"sPaginationType": "full_numbers",
  			"bProcessing": true,
  			"oLanguage": {
- 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/place/getMenuList", 			
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
+ 				  			{ "mDataProp": "filePath" },
  				  			{ "mDataProp": "title" },
- 				  			{ "mDataProp": "startDate", "fnRender"  :function ( oObj ) {
- 								return c.render_date(oObj.aData['startDate'],'yyyy-MM-dd');
+ 				  			{ "mDataProp": "content" }, 
+ 				  			{ "mDataProp": "price" },
+ 				  			{ "mDataProp": "isSale", "fnRender" :function ( oObj ) {
+ 								return oObj.aData['isSale'] == " Y" ? "세일중" : "";
  							} },
- 							{ "mDataProp": "endDate", "fnRender"  :function ( oObj ) {
- 								return c.render_date(oObj.aData['endDate'],'yyyy-MM-dd');
- 							} },
- 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
- 								return c.render_date(oObj.aData['saveDate'],'yyyy-MM-dd');
- 							} },
- 				  	
- 							{ "mDataProp": "isAuth","fnRender" :function ( oObj ) {
- 								var result;
- 				  				var isAuth = oObj.aData['isAuth'];
- 								if(isAuth == "Y"){
- 									result = "승인"
- 								} else if(isAuth == "W"){
- 									result = "대기"
- 								}else{
- 									result = "미승인"
- 								}
- 							} },
+ 							{ "mDataProp": "salePrice" },
+ 							
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
- 			"fnServerParams": function (aoData, fnCallback) {
- 			     aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
- 			},
+ 			
 	  		"fnInitComplete":function(){
  				$('.tip a ').tipsy({trigger: 'manual'});
  				$('.tip a ').tipsy("hide");
@@ -91,7 +76,7 @@
  	                });//ajax */
  				});
  			},	  		
- 			"aaSorting": [[ 2, "desc" ]]
+ 			"aaSorting": [[ 0, "desc" ]]
  		});//datatable
  		
  		$('.fancy').fancybox({//autodimensions false 후 width , height 가느
@@ -113,51 +98,14 @@
  			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
- 		$('#placeEvent').validationEngine('attach', {//서브밋 후에 밸리
- 			  onValidationComplete: function(form, status){
- 				 if(status==true){
- 					$.ajax({
- 	                     url:"/admin/place/event/add",
- 	                     type:"POST",
- 	                     data:$("form").serialize(),
- 	                     beforeSend :function(){
- 		                      var title = $('.loading').attr('title');
- 		   	 				  var overlay=$(this).attr('rel'); 
- 		   	 	 			  c.loading(title,overlay);
- 	                     },
- 	                     success: function(response){
- 	                    	c.log(response);
- 	                       if(response.status=="SUCCESS"){
- 	                    		//parent.$.fancybox.close();
- 	                    		c.showSuccess("이벤트를 등록하였습니다 !",1000);
-					
- 	                       }else{
- 	                    	   var errorInfo="";
- 	                    	   for(var i =0 ; i < response.result.length ; i++){
- 	                               errorInfo = "<br>" + (i + 1) +". " + response.result[i].defaultMessage;
- 	                           }
- 	                    	   c.log(errorInfo);
- 	                    	   c.showError(errorInfo,1000);
- 	                       }
- 	                     },
- 	                     error: function(jqXHR, textStatus, errorThrown){
- 	                    	alert(textStatus+jqXHR+errorThrown); 
- 	                     },
- 	                     complete:function(){
- 	                    	 setTimeout("c.unloading()",1500); 
- 	                    	 datatable.fnStandingRedraw();	                    
- 	                     }
- 	                  });//ajax
- 				 }
- 			  }
-	 	});//validation
+ 		
  		$(".dataTables_length select").addClass("small");
  	});//ready
 	function make_actions(oObj) {
- 		var id = oObj.aData['eid'];
- 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
- 		c.log(""+oObj.aData['placeStamp.sid']);
- 		var editAction = '<span class="tip"><a class="fancy iframe" href="/admin/place/event/edit?eid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+ 		var id = oObj.aData['mnid'];
+ 		c.log("id:"+id );
+ 		//c.log(""+oObj.aData['placeStamp.sid']);
+ 		var editAction = '<span class="tip"><a class="fancy iframe" href="/place/menu/edit?mnid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
  	
  		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
  		
@@ -167,7 +115,7 @@
  		if(status){
 	 		c.showSuccess(result,1500);
  		}else{
-			c.showError(result,1500);		 			
+			c.showError(result,1500);		 			 
  		}
  		datatable.fnStandingRedraw();
  	}

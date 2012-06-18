@@ -41,7 +41,7 @@ public class PlaceEventController {
 	@RequestMapping(value = "/place/event/list", method = RequestMethod.GET)
 	public String list( ModelMap model) {
 		
-		model.addAttribute("place",adminPlaceService.getPlace(UserInfo.getFid()));
+		model.addAttribute("place",getPlace());
 		//place = adminPlaceService.getPlace(fid);
 		//model.addAttribute("placeEvent", new PlaceEvent());
 		//model.addAttribute("placeEventList",adminEventService.getPlaceEventList(UserInfo.getFid()));
@@ -55,11 +55,9 @@ public class PlaceEventController {
 	 */
 	@RequestMapping(value = "/place/event/add", method = RequestMethod.GET)
 	public String add(ModelMap model) {
-		if(place == null){
-			model.addAttribute("place",adminPlaceService.getPlace(UserInfo.getFid()));
-		}else{
-			model.addAttribute("place",place);
-		}
+		
+		model.addAttribute("place",getPlace());
+		
 		model.addAttribute("placeEvent", new PlaceEvent());
 
 		return "place/event/add";
@@ -78,14 +76,20 @@ public class PlaceEventController {
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
+		
+		
 		if (result.hasErrors()) {
 			logger.info("place:"+placeEvent.toString());
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			json.setResult("이벤트를 추가할 수 없습니다");
 			json.setStatus("FAIL");
 		} else {	
-			placeEvent.setPlace(place);
-			logger.info("placeEvent:"+placeEvent.getTitle());
+			placeEvent.getPlace().setFid(UserInfo.getFid());
+
+			logger.info("place fid:"+placeEvent.getPlace().getFid());
+			logger.info("place fid:"+placeEvent.getPlace().getFid());
+			logger.info("place fid:"+placeEvent.getPlace().getFid());
+			
 			adminEventService.savePlaceEvent(placeEvent);
 			json.setResult("이벤트를 추가하였씁니다");
 			json.setStatus("SUCCESS");
@@ -195,5 +199,13 @@ public class PlaceEventController {
            
                    
     }   
-	
+	private Place getPlace(){
+		
+		if(place == null){
+			this.place = adminPlaceService.getPlace(UserInfo.getFid());
+		}else if(place.getFid() != UserInfo.getFid()){
+			this.place = adminPlaceService.getPlace(UserInfo.getFid());
+		}
+		return this.place;
+	}
 }

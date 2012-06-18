@@ -29,7 +29,7 @@
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:"/admin/place/event/add",
+ 	                     url:"/place/event/add",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){

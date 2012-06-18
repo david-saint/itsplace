@@ -1,7 +1,9 @@
 package net.itsplace.place.controller;
 
+import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceMenu.AddPlaceMenu;
@@ -30,7 +32,10 @@ public class PlaceMenuController {
 	
 	@Autowired
 	private PlaceMenuService placeMenuService;
-
+	
+	@Autowired
+	private AdminPlaceService adminPlaceService;
+	private Place place; // 선택된 가맹점 
 
 	/**
 	 * 가맹점 메뉴관리 <br> 
@@ -46,12 +51,13 @@ public class PlaceMenuController {
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
 		
+		model.addAttribute("place",getPlace());
 		
 		return "place/menu/list";
 	}
 	
 	/**
-	 * 가맹점 회원검색  <br />
+	 * 메뉴목록   <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -66,7 +72,7 @@ public class PlaceMenuController {
 	 */
 	@RequestMapping(value="/place/getMenuList",method = RequestMethod.GET)
     @ResponseBody
-    public DataTable<Stamp> getMenuLList(
+    public DataTable<PlaceMenu> getMenuLList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
     								@RequestParam(required=false) Integer iDisplayLength,
     								@RequestParam(required=false) Integer iSortCol_0, 
@@ -79,8 +85,7 @@ public class PlaceMenuController {
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
                   
-                    //B.stampedTotal, B.stampedLastDate, A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE
-                    String columns[] = new String[]{"profileImageUrl", "email", "name", "mobile", "stampedTotal", "stampedLastDate"};
+                    String columns[] = new String[]{"title", "price","isSale","salePrice"};
                     
                     
                  
@@ -99,7 +104,7 @@ public class PlaceMenuController {
 	 */
 	@RequestMapping(value = "/place/menu/add", method = RequestMethod.GET)
 	public String add(ModelMap model) {
-		
+		model.addAttribute("place",getPlace());
 		model.addAttribute("placeMenu", new PlaceMenu());
 
 		return "place/menu/add";
@@ -118,6 +123,9 @@ public class PlaceMenuController {
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
+		
+		placeMenu.setFid(UserInfo.getFid());
+		
 		if (result.hasErrors()) {
 			logger.info("place:"+placeMenu.toString());
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
@@ -141,7 +149,7 @@ public class PlaceMenuController {
 	public String edit(@RequestParam(required=true) Integer mnid, ModelMap model) {
 		PlaceMenu placeMenu = placeMenuService.getMenu(mnid);
 		model.addAttribute("placeMenu", placeMenu);
-
+		model.addAttribute("place",getPlace());
 		return "place/menu/edit";
 	}
 	/**
@@ -193,5 +201,15 @@ public class PlaceMenuController {
 		}
 		
 		return json;
+	}
+	
+	private Place getPlace(){
+			
+		if(place == null){
+			this.place = adminPlaceService.getPlace(UserInfo.getFid());
+		}else if(place.getFid() != UserInfo.getFid()){
+			this.place = adminPlaceService.getPlace(UserInfo.getFid());
+		}
+		return this.place;
 	}
 }
