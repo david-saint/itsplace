@@ -9,9 +9,10 @@ import org.springframework.dao.DataAccessException;
 
 public interface PlaceMenuDao {
 
-	public void saveMenu(PlaceMenu placeMenu) throws DataAccessException;
+	public int saveMenu(PlaceMenu placeMenu) throws DataAccessException;
 	public void editMenu(PlaceMenu placeMenu) throws DataAccessException;
 	public void deleteMenu(int mnid)  throws DataAccessException;
 	public PlaceMenu getMenu(int mnid)  throws DataAccessException;
+	public void editPlaceMenuImage(PlaceMenu placeMenu) throws DataAccessException;
 	public List<PlaceMenu> getMenuList(Map<String, Object> param)  throws DataAccessException;
 }

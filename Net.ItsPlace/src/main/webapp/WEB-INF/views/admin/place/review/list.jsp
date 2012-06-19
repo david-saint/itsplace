@@ -19,7 +19,7 @@
  			"sPaginationType": "full_numbers",
  			"bProcessing": true,
  			"oLanguage": {
- 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		         "sProcessing": "<div style='border:0px solid red'>리뷰 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/admin/place/event/getPlaceEventList",
@@ -125,7 +125,7 @@
  	                    	c.log(response);
  	                       if(response.status=="SUCCESS"){
  	                    		//parent.$.fancybox.close();
- 	                    		c.showSuccess("이벤트를 등록하였습니다 !",1000);
+ 	                    		c.showSuccess("리뷰를 등록하였습니다 !",1000);
 					
  	                       }else{
  	                    	   var errorInfo="";
@@ -171,15 +171,15 @@
 
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 이벤트 리스트 - ${place.fname}</span>
+		<span><span class="ico gray home"></span> 리뷰 리스트 - ${place.fname}</span>
 	</div>
 	<div class="content">
 			<div class="tableName">
-			<span style="position:absolute"><a href="/admin/place/event/add" class="fancy iframe uibutton icon large add ">이벤트 생성  </a></span>
+			<span style="position:absolute"><a href="/admin/place/event/add" class="fancy iframe uibutton icon large add ">리뷰 생성  </a></span>
 				<table class="display" id="datatable">
 				<thead>
 					<tr>
-						<th>이벤트명 </th>
+						<th>리뷰명 </th>
 						<th>StartDate</th>
 						<th>EndDate</th>
 						<th>SaveDate</th>

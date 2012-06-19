@@ -24,13 +24,15 @@
  			"bServerSide": true,		 			
  			"sAjaxSource": "/place/getMenuList", 			
  			"sAjaxDataProp": "rows",
- 			"aoColumns": [
- 				  			{ "mDataProp": "filePath" },
+ 			"aoColumns": [ 				  			
+ 				  			{ "mDataProp": "filePath", "fnRender" :function ( oObj ) {
+ 								return oObj.aData['host']+ oObj.aData['filePath'];
+ 							} },
  				  			{ "mDataProp": "title" },
  				  			{ "mDataProp": "content" }, 
  				  			{ "mDataProp": "price" },
  				  			{ "mDataProp": "isSale", "fnRender" :function ( oObj ) {
- 								return oObj.aData['isSale'] == " Y" ? "세일중" : "";
+ 								return oObj.aData['isSale'] == "Y" ? "세일중" : "";
  							} },
  							{ "mDataProp": "salePrice" },
  							
@@ -85,19 +87,7 @@
 			'autoScale':false,
 			'height':500,
 		});
- 		
- 		
- 		
- 		$('#btnSubmit').live('click',function() {
- 			c.log("submit Form");
- 		
-
- 			$('#placeEvent').submit();
- 		});
- 		$('.cancel').live('click',function() {
- 			c.log("cancel2");
- 			parent.$.fancybox.close();
- 		});
+ 		 		 	
  		
  		$(".dataTables_length select").addClass("small");
  	});//ready
@@ -117,6 +107,10 @@
  		}else{
 			c.showError(result,1500);		 			 
  		}
+ 		datatable.fnStandingRedraw();
+ 	}
+	function refresh(){
+ 		c.log("refresh");
  		datatable.fnStandingRedraw();
  	}
 </script>

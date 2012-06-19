@@ -6,28 +6,55 @@
 	<typeAlias type="net.itsplace.domain.PlaceMenu" alias="PlaceMenu"/>	    		   
     
     <insert id="savePlaceMenu" parameterClass="PlaceMenu">
-         INSERT INTO PLACEMENU(FID, TITLE, CONTENT, PRICE, ISSALE, SALEPRICE, HOST, FILEPATH, MTYPE)
-         VALUES (#fid#, #title#, #content#, #price#, #isSale#, #salePrice#, #host#, #filePath#, #mType#)
+         INSERT INTO PLACEMENU(FID, TITLE, CONTENT, PRICE, ISSALE, SALEPRICE, HOST, FILEPATH, MTYPE, SORT)
+         VALUES (#fid#, #title#, #content#, #price#, #isSale#, #salePrice#, #host#, #filePath#, #mType#, #sort#)
+         <selectKey resultClass="int">
+          SELECT LAST_INSERT_ID();
+     	 </selectKey>
     </insert>
+    
+	<update id="editPlaceMenuImage" parameterClass="PlaceMenu">
+	         UPDATE  PLACEMENU
+	         	SET 
+	         		HOST = #host#,
+	         		FILEPATH = #filePath#	,
+	         		MTYPE = #mType#         		
+	         	WHERE MNID = #mnid#	
+	</update>
 	<update id="editPlaceMenu" parameterClass="PlaceMenu">
 	         UPDATE  PLACEMENU
 	         	SET TITLE = #title#,
 	         		CONTENT = #content#,
 	         		PRICE = #price#,
 	         		ISSALE = #isSale#,
-	         		SALEPRICE = #salePrice#,
-	         		HOST = #host#,
-	         		FILEPATH = #filePath#,
-	         		MTYPE = #mType#,
+	         		SALEPRICE = #salePrice#,     
+	         		SORT = ##sort## 	         		
 	         	WHERE MNID = #mnid#	
 	</update>
     <select id="getMenuList" resultClass="PlaceMenu" parameterClass="java.util.Map">
-    	 SELECT sql_calc_found_rows C.MNID, C.FID, C.TITLE, C.CONTENT, C.PRICE, C.ISSALE, C.SALEPRICE, C.HOST, C.FILEPATH, C.MTYPE
+    	 SELECT sql_calc_found_rows 
+    	 C.MNID, 
+    	 C.FID,
+    	 C.TITLE, 
+    	 C.CONTENT, 
+    	 C.PRICE, 
+    	 C.ISSALE, 
+    	 C.SALEPRICE, 
+    	 I.BASNAME AS HOST, 
+    	 C.FILEPATH, 
+    	 C.MTYPE
 		 FROM PLACE A		 	
-		 INNER JOIN PLACEMENU C
-        	ON A.FID = C.FID        	     
+		 INNER JOIN 
+		 	PLACEMENU C
+        		ON A.FID = C.FID    
+         LEFT OUTER JOIN
+		 	PBASCD I
+         		ON A.IMAGEHOST = I.BASECD	
+         		AND I.GRPCD = 'MEDIA'		
+         		AND I.BASEKEY = 'IMAGEHOST'	    	     
          WHERE A.FID = #fid#	
-         ORDER BY $sortColumn$ $sortDirection$
+      <!--    ORDER BY $sortColumn$ $sortDirection$ -->
+      	ORDER BY C.SORT
     	 LIMIT #startRow# , #endRow#		    	
     </select>
     <update id="deletePlaceMenu" parameterClass="int">
@@ -36,9 +63,14 @@
     	WHERE MNID = #mnid# 
     </update>
  	<select id="getPlaceMenu" resultClass="PlaceMenu"  parameterClass="int">
- 		SELECT FID, TITLE, CONTENT, PRICE, ISSALE, SALEPRICE, HOST, FILEPATH, MTYPE
+ 		SELECT A.MNID, A.FID, A.TITLE, A.CONTENT, A.PRICE, A.ISSALE, A.SALEPRICE,  I.BASNAME AS HOST,  A.FILEPATH, A.MTYPE, A.SORT
  		FROM 
- 			PLACEMENU 
- 		WHERE MNID = #mnid#;
+ 			PLACEMENU A
+ 		   LEFT OUTER JOIN
+		 	PBASCD I
+         		ON A.HOST = I.BASECD	
+         		AND I.GRPCD = 'MEDIA'		
+         		AND I.BASEKEY = 'IMAGEHOST'	   	
+ 		WHERE MNID = #mnid#
 	</select>
 </sqlMap>

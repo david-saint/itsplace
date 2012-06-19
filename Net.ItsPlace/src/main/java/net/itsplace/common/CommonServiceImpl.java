@@ -45,10 +45,16 @@ public class CommonServiceImpl implements CommonService{
 	public void init(){
 		baseMap = new HashMap<String, String>();
 		List<Bascd> list = getBascdALL();
+		String imageHost="";
 		for(int i=0;i<list.size();i++){
-			baseMap.put(list.get(i).getGrpcd()+","+list.get(i).getBasekey(),list.get(i).getBasecd());
+			baseMap.put(list.get(i).getGrpcd()+","+list.get(i).getBasekey(), list.get(i).getBasecd());
+			if(list.get(i).getGrpcd().equals("MEDIA") && list.get(i).getBasekey().equals("IMAGEHOST")){
+				imageHost = list.get(i).getBasName();
+				logger.info(imageHost);
+			}
 		}
 		basecd = new Basecd(baseMap);
+		basecd.setImageHost(imageHost);
 	}
 	
 	/**

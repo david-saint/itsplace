@@ -1,7 +1,13 @@
 package net.itsplace.place.controller;
 
+import java.io.ByteArrayOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import net.itsplace.admin.service.AdminPlaceService;
+import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
@@ -33,6 +39,8 @@ public class PlaceMenuController {
 	@Autowired
 	private PlaceMenuService placeMenuService;
 	
+	@Autowired
+	private CommonService commonService;
 	@Autowired
 	private AdminPlaceService adminPlaceService;
 	private Place place; // 선택된 가맹점 
@@ -123,7 +131,7 @@ public class PlaceMenuController {
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
-		
+		//commonService.getBasecd().getMediaImageHost()+placeImagePath
 		placeMenu.setFid(UserInfo.getFid());
 		
 		if (result.hasErrors()) {
@@ -139,6 +147,7 @@ public class PlaceMenuController {
 		}
 		return json;
 	}
+	
 	/**
 	 * 가맹점 메뉴 수정 폼 
 	 * @param locale
@@ -148,6 +157,7 @@ public class PlaceMenuController {
 	@RequestMapping(value = "/place/menu/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer mnid, ModelMap model) {
 		PlaceMenu placeMenu = placeMenuService.getMenu(mnid);
+		placeMenu.setFilePath(placeMenu.getHost()+placeMenu.getFilePath());
 		model.addAttribute("placeMenu", placeMenu);
 		model.addAttribute("place",getPlace());
 		return "place/menu/edit";
@@ -202,9 +212,40 @@ public class PlaceMenuController {
 		
 		return json;
 	}
-	
-	private Place getPlace(){
+
+	/**
+	 * 관리자 가맹점 대표 사진 업로드  <br />
+	 * 이미지는 항상 새로 발생하고(업데이트없음) 대표이미지만 교체한다. 업데이트 없이 삭제로 함.
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/place/menuUpload", method = RequestMethod.POST)
+ 	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
+		logger.info("filename:{}",file.getFile().getOriginalFilename());
+		logger.info("mnid:{}",file.getMnid());
+		
+		String resultJson = "";
+		
+			file.setFid(UserInfo.getFid());
 			
+			PlaceMenu placeMenu = placeMenuService.savePlaceMenuImage(file);
+			logger.info(commonService.getBasecd().getImageHost()+placeMenu.getFilePath());
+			resultJson ="{mnid:'"+placeMenu.getMnid()+"',fileName:'"+commonService.getBasecd().getImageHost()+placeMenu.getFilePath()+"'}";	
+		
+		 response.setContentType("text/html");
+		 ByteArrayOutputStream out = new ByteArrayOutputStream();
+		 
+		 out.write(resultJson.getBytes());
+		 response.setContentLength(out.size());
+		 
+		 response.getOutputStream().write(out.toByteArray());
+		 response.getOutputStream().flush();
+	}
+	private Place getPlace(){			
 		if(place == null){
 			this.place = adminPlaceService.getPlace(UserInfo.getFid());
 		}else if(place.getFid() != UserInfo.getFid()){

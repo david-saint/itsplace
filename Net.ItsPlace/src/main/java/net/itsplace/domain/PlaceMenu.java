@@ -1,5 +1,7 @@
 package net.itsplace.domain;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class PlaceMenu {
 	public interface AddPlaceMenu{}
 	public interface EditPlaceMenu {}
@@ -10,9 +12,11 @@ public class PlaceMenu {
 	private int price;
 	private String isSale;
 	private int salePrice;
+	private int sort;
 	private String host;
 	private String filePath;
 	private String mType;
+	private CommonsMultipartFile file;
 	public int getMnid() {
 		return mnid;
 	}
@@ -21,6 +25,13 @@ public class PlaceMenu {
 	}
 	public int getFid() {
 		return fid;
+	}
+	
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 	public void setFid(int fid) {
 		this.fid = fid;
@@ -72,6 +83,12 @@ public class PlaceMenu {
 	}
 	public void setmType(String mType) {
 		this.mType = mType;
+	}
+	public CommonsMultipartFile getFile() {
+		return file;
+	}
+	public void setFile(CommonsMultipartFile file) {
+		this.file = file;
 	}
 	
 	

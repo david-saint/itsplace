@@ -25,11 +25,50 @@
  			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
+ 		
+ 		$("#file").change(function(){
+ 			var data ={mnid:$('#mnid').val()};
+ 			$.ajaxFileUpload({
+  			   url: "/place/menuUpload", 
+  			   data: data,
+  			   secureuri:false,
+  			   fileElementId:'file',
+  			   dataType: 'json',
+  			   beforeSend:function()
+  			   {
+  			   		$("#loading").show();
+  			   },
+  			   complete:function()
+  			   {
+  			   		$("#loading").hide();
+  			   },
+  			   success: function (data, status)
+  			   {
+  			      
+  			        c.log(data.fileName);
+  			        c.log("mnid:"+data.mnid);
+  			        $('#mnid').val(data.mnid);
+  			        $("#filepath").attr('src',data.fileName); 
+  			      	//parent.refresh();
+  			   },
+  			   error: function (data, status, e)
+  			   {
+  			    	alert("status : " + status + " error : " + e);    
+  			   }
+  			})
+ 		});
  		$('#placeMenu').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
  				 if(status==true){
+ 					 var url = "";
+ 					 var mnid =  $('#mnid').val();
+ 					 if(mnid==""){
+ 						 url = "/place/menu/add";
+ 					 }else{
+ 						 url = "/place/menu/edit";
+ 					 }
  					$.ajax({
- 	                     url:"/place/menu/add",
+ 	                     url:url,
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -69,6 +108,7 @@
 	</div>
 	<div class="content">
 		<form:form commandName="placeMenu" method="post">
+			<input type="hidden" id="mnid" name="mnid" />
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -81,7 +121,15 @@
 
 			</div>
 			<div class="boxtitle">
-				이벤트 관리 
+				메뉴 관리 
+			</div>
+			<div class="section">
+				<label> 메뉴사진 <small></small></label>
+				<img id="filePath" style="" src=""></img>
+				<div>
+					 <input id="file" type="file" name="file" class="fileupload" />
+					 <span class="f_help">가맹점명 필수 입력</span>
+				</div>
 			</div>
 			<div class="section">
 				<label> 메뉴명   <small></small></label>
@@ -118,6 +166,15 @@
 				<label> 할인가격   <small></small></label>
 				<div>
 					<input id="salePrice" name="salePrice" type="text"
+						class="validate[required,maxSize[10]] medium "
+						value="" /> 
+				</div>
+			</div>
+			</div> 
+            <div class="section">
+				<label> sort   <small></small></label>
+				<div>
+					<input id="sort" name="sort" type="text"
 						class="validate[required,maxSize[10]] medium "
 						value="" /> 
 				</div>

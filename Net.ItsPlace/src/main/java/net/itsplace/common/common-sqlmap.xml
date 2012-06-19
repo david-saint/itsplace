@@ -21,8 +21,9 @@
 		Where A.GRPCD =#grpCd#
 		</isNotEmpty>    			
     </select>
+    <!-- 초기화 기초코드 세팅값 -->
     <select id="getBascdALL" resultClass="Bascd" >
-    	Select A.GRPCD,B.BASEKEY, B.BASECD, B.BASEVAL 
+    	Select A.GRPCD,B.BASEKEY, B.BASECD, B.BASNAME 
     	From 
     		PGRPBASCD A
 		Inner Join 

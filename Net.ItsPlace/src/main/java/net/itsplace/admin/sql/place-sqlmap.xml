@@ -41,7 +41,7 @@
 	<select id="getPlaceList" resultClass="Place" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  
     	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-    	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
+    	 		I.BASNAME AS IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
     	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
     	 		P.BASNAME AS PLACETYPE,
@@ -63,6 +63,11 @@
 		 	PBASCD P
          		ON A.PLACETYPE = P.BASECD	
          		AND P.GRPCD = 'PLACETYPE'
+          LEFT OUTER JOIN
+		 	PBASCD I
+         		ON A.IMAGEHOST = I.BASECD	
+         		AND I.GRPCD = 'MEDIA'		
+         		AND I.BASEKEY = 'IMAGEHOST'
 		
          <dynamic>
 	    	 <isNotEmpty property="search">
@@ -75,32 +80,37 @@
     	 LIMIT #startRow# , #endRow#	
     </select>
     <select id="getPlace" resultClass="Place">
-        SELECT FID, 
-        	   FNAME, 
-        	   NAME,
-        	   MOBILE,
-         	   PHONE1, 
-         	   LATITUDE, 
-         	   LONGITUDE, 
-         	   NLDNO, 
-         	   IMAGEHOST, 
-         	   FILENAME, 
-         	   ISAUTH, 
-         	   REMARK, 
-         	   CATEGORY, 
-         	   SERVICETYPE,
-         	   PLACETYPE,
-         	   FULLADDRESS,
-		   	   SIDO,
-		   	   GUGUN,
-		   	   DONG,
-		   	   NEWADDRESS,
-		   	   PAYINFO,
-		   	   PARKINFO,
-		   	   BLDINFO
-        FROM PLACE
-        WHERE FID = #fid#
-        
+        SELECT A.FID, 
+        	   A.FNAME, 
+        	   A.NAME,
+        	   A.MOBILE,
+         	   A.PHONE1, 
+         	   A.LATITUDE, 
+         	   A.LONGITUDE, 
+         	   A.NLDNO, 
+         	   I.BASNAME AS IMAGEHOST, 
+         	   A.FILENAME, 
+         	   A.ISAUTH, 
+         	   A.REMARK, 
+         	   A.CATEGORY, 
+         	   A.SERVICETYPE,
+         	   A.PLACETYPE,
+         	   A.FULLADDRESS,
+		   	   A.SIDO,
+		   	   A.GUGUN,
+		   	   A.DONG,
+		   	   A.NEWADDRESS,
+		   	   A.PAYINFO,
+		   	   A.PARKINFO,
+		   	   A.BLDINFO
+        FROM PLACE A
+          LEFT OUTER JOIN
+		 	PBASCD I
+         		ON A.IMAGEHOST = I.BASECD	
+         		AND I.GRPCD = 'MEDIA'		
+         		AND I.BASEKEY = 'IMAGEHOST'
+        WHERE A.FID = #fid#
+      
     </select>
     <insert id="savePlace" parameterClass="Place">
          

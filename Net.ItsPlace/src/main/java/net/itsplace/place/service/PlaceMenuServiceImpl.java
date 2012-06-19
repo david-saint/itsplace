@@ -3,11 +3,16 @@ package net.itsplace.place.service;
 import java.util.List;
 import java.util.Map;
 
+import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.PlaceEvent;
+import net.itsplace.domain.PlaceMedia;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.place.dao.PlaceInfoDao;
 import net.itsplace.place.dao.PlaceMenuDao;
+import net.itsplace.user.UserInfo;
+import net.itsplace.util.ImageService;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -18,14 +23,17 @@ import org.springframework.stereotype.Service;
 @Service("placeMenuService")
 public class PlaceMenuServiceImpl implements PlaceMenuService {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceMenuServiceImpl.class);
-	
+	@Autowired
+	private CommonService commonService;
+	@Autowired
+	private ImageService imageService;
 	@Autowired
 	private PlaceMenuDao placeMenuDao;
 	@Autowired
 	private PagingManager pagingManaer;
 	@Override
-	public void saveMenu(PlaceMenu placeMenu) {
-		placeMenuDao.saveMenu(placeMenu);		
+	public int saveMenu(PlaceMenu placeMenu) {
+		return placeMenuDao.saveMenu(placeMenu);		
 	}
 
 	@Override
@@ -76,5 +84,35 @@ public class PlaceMenuServiceImpl implements PlaceMenuService {
 		  
 		  return table;
 	}
+	@Override
+	public PlaceMenu savePlaceMenuImage(ImageFileUpload file) {
+		
+		String orinalImagePath="";
+		PlaceMenu placeMenu = new PlaceMenu();
+		
+		try {
+			orinalImagePath = imageService.convertToPng(file.getFile(),280,230);
+			placeMenu.setFilePath(orinalImagePath);
+			placeMenu.setHost(commonService.getBasecd().getMediaImageHost());
+			placeMenu.setmType(commonService.getBasecd().getMediaImage());
+			placeMenu.setFid(file.getFid());
+			if(file.getMnid() <= 0 ){
+				int _mnid = saveMenu(placeMenu);				
+				logger.info("mnid:{}",_mnid);
+				placeMenu.setMnid(_mnid);
+		
+			}else{
+				placeMenu.setMnid(file.getMnid());
+				placeMenuDao.editPlaceMenuImage(placeMenu);
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return placeMenu;
+	}
+
 
 }

@@ -443,17 +443,14 @@ public class AdminPlaceController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
- 	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
+ 	public void placeFileUpload(ImageFileUpload file, HttpServletResponse response) throws Exception {
 		logger.info("filename:{}",file.getFile().getOriginalFilename());
 		logger.info("fid:{}",file.getFid());
 		String resultJson = "";
-		if (result.hasErrors()) {
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-		}else{	
-			
-			String placeImagePath = adminMediaService.savePlaceMedia(file,file.getFid());
-			resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
-		}
+	
+		String placeImagePath = adminMediaService.savePlaceMedia(file,file.getFid());
+		resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
+		
 		 response.setContentType("text/html");
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();
 		 

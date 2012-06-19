@@ -12,6 +12,8 @@ public class Basecd {
 	private String mediaImageHost;
 	private String mediaMovieHost;
 	
+	private String imageHost;
+	
 	private Map<String, String> baseMap;
 	
 	public Basecd(Map<String, String> baseMap) {
@@ -58,6 +60,18 @@ public class Basecd {
 	public String getMediaThumbnail() {
 		mediaThumbnail = baseMap.get("MEDIA,THUMBNAIL");
 		return mediaThumbnail;
+	}
+
+
+
+	public String getImageHost() {
+		return imageHost;
+	}
+
+
+
+	public void setImageHost(String imageHost) {
+		this.imageHost = imageHost;
 	}
 
 }

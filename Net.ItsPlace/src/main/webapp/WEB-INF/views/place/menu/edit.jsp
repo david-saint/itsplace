@@ -12,16 +12,49 @@
  			numberOfMonths: 1
  		});
  		$('#btnSubmit').live('click',function() {
- 			$('#placeEvent').submit();
+ 			c.log("submit Form");
+ 			$('#placeMenu').submit();
  		});
  		$('.cancel').live('click',function() {
+ 			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
- 		$('#placeEvent').validationEngine('attach', {//서브밋 후에 밸리
+ 		$("#file").change(function(){
+ 			var data ={mnid:$('#mnid').val()};
+ 			$.ajaxFileUpload({
+  			   url: "/place/menuUpload", 
+  			   data: data,
+  			   secureuri:false,
+  			   fileElementId:'file',
+  			   dataType: 'json',
+  			   beforeSend:function()
+  			   {
+  			   		$("#loading").show();
+  			   },
+  			   complete:function()
+  			   {
+  			   		$("#loading").hide();
+  			   },
+  			   success: function (data, status)
+  			   {
+  			        c.log(data.msg);
+  			        c.log(data.fileName);
+  			        c.log("mnid:"+data.mnid);
+  			        $('#mnid').val(data.mnid);
+  			        $("#filePath").attr('src',data.fileName); 
+  			      	parent.refresh();
+  			   },
+  			   error: function (data, status, e)
+  			   {
+  			    	alert("status : " + status + " error : " + e);    
+  			   }
+  			})
+ 		});
+ 		$('#placeMenu').validationEngine('attach', {//서브밋 후에 밸리
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:"/admin/place/event/edit",
+ 	                     url:"/place/menu/edit",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -55,6 +88,7 @@
 	</div>
 	<div class="content">
 		<form:form commandName="placeMenu" method="post">
+			<input type="text" id="mnid" name="mnid" value="${placeMenu.mnid }" />
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -67,7 +101,15 @@
 
 			</div>
 			<div class="boxtitle">
-				이벤트 관리 
+				메뉴 관리 
+			</div>
+			<div class="section">
+				<label> 메뉴사진 <small></small></label>
+				<img id="filePath" style="" src="${placeMenu.filePath}"></img>
+				<div>
+					 <input id="file" type="file" name="file" class="fileupload" />
+					 <span class="f_help"></span>
+				</div>
 			</div>
 			<div class="section">
 				<label> 메뉴명  <small></small></label>
@@ -110,6 +152,14 @@
 					<input id="salePrice" name="salePrice" type="text"
 						class="validate[required,maxSize[10]] medium "
 						value="${placeMenu.salePrice}" /> 
+				</div>
+			</div>
+			  <div class="section">
+				<label> sort   <small></small></label>
+				<div>
+					<input id="sort" name="sort" type="text"
+						class="validate[required,maxSize[10]] medium "
+						value="${placeMenu.sort}" /> 
 				</div>
 			</div>
 			<div class="section last">

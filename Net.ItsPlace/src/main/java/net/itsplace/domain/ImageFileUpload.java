@@ -5,6 +5,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public class ImageFileUpload {
 	 private CommonsMultipartFile file;
 	 private int fid;
+	 private int mnid;
 	 
 	 
 	public int getFid() {
@@ -22,5 +23,14 @@ public class ImageFileUpload {
 	public void setFile(CommonsMultipartFile file) {
 		this.file = file;
 	}
+
+	public int getMnid() {
+		return mnid;
+	}
+
+	public void setMnid(int mnid) {
+		this.mnid = mnid;
+	}
 	 
+	
 }

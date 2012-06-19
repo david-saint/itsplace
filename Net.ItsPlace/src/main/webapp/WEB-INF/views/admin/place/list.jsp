@@ -116,7 +116,7 @@
 		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="이벤트목록"><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
-		 		return  stampAction +"&nbsp;&nbsp;"+ eventAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
+		 		return   reviewAction +"&nbsp;&nbsp;"+stampAction +"&nbsp;&nbsp;"+ eventAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
 		 	function refresh(){
 		 		c.log("refresh");

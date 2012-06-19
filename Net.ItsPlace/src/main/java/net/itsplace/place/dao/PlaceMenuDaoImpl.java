@@ -26,8 +26,8 @@ public class PlaceMenuDaoImpl  extends SqlMapClientDaoSupport implements  PlaceM
 	}
 
 	@Override
-	public void saveMenu(PlaceMenu placeMenu) throws DataAccessException {
-		getSqlMapClientTemplate().insert("place.savePlaceMenu",placeMenu);		
+	public int saveMenu(PlaceMenu placeMenu) throws DataAccessException {
+		return (Integer) getSqlMapClientTemplate().insert("place.savePlaceMenu",placeMenu);		
 	}
 
 	@Override
@@ -48,6 +48,13 @@ public class PlaceMenuDaoImpl  extends SqlMapClientDaoSupport implements  PlaceM
 	@Override
 	public List<PlaceMenu> getMenuList(Map<String, Object> param) throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("place.getMenuList",param);
+	}
+
+	@Override
+	public void editPlaceMenuImage(PlaceMenu placeMenu)
+			throws DataAccessException {
+		getSqlMapClientTemplate().update("place.editPlaceMenuImage",placeMenu);	
+		
 	}
 
 }
