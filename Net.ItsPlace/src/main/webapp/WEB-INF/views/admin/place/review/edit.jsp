@@ -11,17 +11,22 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
+ 		$('.edit').fancybox({//autodimensions false 후 width , height 가느
+			'autoDimensions':false,
+			'scrolling':'auto',
+			'autoScale':false,
+			'height':500,
+		});
  		$('#btnSubmit').live('click',function() {
- 			$('#placeEvent').submit();
+ 			c.log("submit Form");
+ 			$('#placeReview').submit();
  		});
- 		$('.cancel').live('click',function() {
- 			parent.$.fancybox.close();
- 		});
- 		$('#placeEvent').validationEngine('attach', {//서브밋 후에 밸리
+ 		
+ 		$('#placeReview').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:"/admin/place/event/edit",
+ 	                     url:"/admin/place/review/edit",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -31,14 +36,13 @@
  	                     },
  	                     success: function(response){
  	                    	if(response.status=="SUCCESS"){
- 	                    	    parent.$.fancybox.close();
- 	                    	    parent.datatableRedraw(response.result,true);
+ 	                    		c.showSuccess(response.result,1000); 	                    	 
 	 	                    }else{
-	 	                   		parent.datatableRedraw(response.result,false);
+	 	                    	c.showError(response.result,1000); 	  
 	 	                    }
  	                     },
  	                     error: function(jqXHR, textStatus, errorThrown){
- 	                    	alert(jqXHR.status+":"+errorThrown); 
+ 	                    	alert(textStatus+jqXHR+errorThrown); 
  	                     },
  	                     complete:function(){
  	                    	 setTimeout("c.unloading()",1500); 
@@ -48,13 +52,19 @@
  			  }
 	 	});//validation
  	});//ready
+	
+ 	function refresh(){
+ 		c.log("refresh");
+ 		datatable.fnStandingRedraw();
+ 	}
 </script>
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 이벤트 수정  </span>
+		<span><span class="ico gray home"></span> 리뷰 수정   - ${place.fname} </span>
 	</div>
 	<div class="content">
-		<form:form commandName="placeEvent" method="post">
+		<form:form commandName="placeReview" method="post">
+			<input type="hidden" name="fid" value="${place.fid}" />
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -66,63 +76,50 @@
 	             </c:if>
 
 			</div>
-			<div class="boxtitle">
-				이벤트 관리 
-			</div>
+			
 			<div class="section">
-				<label> 이벤트명  <small></small></label>
+				<label> 리뷰제목  <small></small></label>
 				<div>
 					<input id="title" name="title" type="text"
 						class="validate[required,maxSize[50]] medium "
-						value="${placeEvent.title}" /> 
-					<input id="eid" name="eid" type="hidden"
-						class=""
-						value="${placeEvent.eid}" /> 	
+						value="${placeReview.title }" /> 
 						
 				</div>
 			</div>
 			<div class="section">
 				<label> 내용  <small></small></label>
 				<div>
-					<textarea name="content">${placeEvent.content}</textarea>
-				</div>
-			</div>
-			
-			<div class="section"> 
-				<label> 시작일 <small></small></label>
-				<div>
-					<input id="startDate" type="text" name="startDate"
-						class="validate[required,maxSize[50]] samll date"
-						value="<fmt:formatDate value="${placeEvent.startDate }" pattern="yyyy-MM-dd"/>" /> 
-						<span class="f_help"></span>
+					<textarea name="content">${placeReview.content }</textarea>
 				</div>
 			</div>
 			<div class="section">
-				<label> 종료일  <small></small></label>
+				<label> 리뷰링크주소  <small></small></label>
 				<div>
-					<input id="endDate" type="text" name="endDate"
-						class="validate[required,maxSize[50]] small date"
-						value="<fmt:formatDate value="${placeEvent.endDate }" pattern="yyyy-MM-dd"/>" />  
-						<span class="f_help"></span>
+					<input id="siteUrl" name="siteURL" type="text"
+						class="validate[required,maxSize[50]] medium "
+						value="${placeReview.siteURL }" /> 
+						
 				</div>
 			</div>
-			<div class="section" >
-               <label> 승인여부  <small></small></label>   
-               <div> 
-               <form:radiobutton path="isAuth"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isAuth"  value="N" label="No"/> 
-               <span class="f_help"></span>
-            </div> 
+			<div class="section">
+				<label> 섬네일이미지  <small></small></label>
+				<div>
+					<input id="filePath" name="filePath" type="text"
+						class="validate[required,maxSize[50]] medium "
+						value="${placeReview.filePath }" /> 
+						
+				</div>
+			</div>
 			<div class="section last">
 				<div>
-					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
-					<a class="uibutton special clear_form">clear form</a>
-					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
+					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">저장</a> 					
+					<a href="/admin/place/review/list?fid=${place.fid}" class="uibutton loading  cancel" title="Checking" rel="0">목록</a>
 				</div>
 			</div>
+			                                 
           </div>
 		</form:form>
 	</div>
-</div>
+
 
 

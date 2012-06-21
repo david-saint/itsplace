@@ -74,5 +74,15 @@ public class PlaceReviewServiceImpl implements PlaceReviewService {
 		  
 		  return table;
 	}
+
+	@Override
+	public List<PlaceReview> getPlaceReviewListAll(int fid) {
+		return placeReviewDao.getPlaceReviewListAll(fid);
+	}
+
+	@Override
+	public void recoveryPlaceReview(int rid) {
+		placeReviewDao.recoveryPlaceReview(rid)		;
+	}
 	
 }

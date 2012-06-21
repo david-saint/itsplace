@@ -1,5 +1,6 @@
 package net.itsplace.admin.controller;
 
+import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceReview;
@@ -30,10 +31,11 @@ public class AdminPlaceReviewController  {
 	
 	@Autowired
 	private PlaceReviewService placeReviewService;
-
+	@Autowired
+	private AdminPlaceService adminPlaceService;
 
 	/**
-	 * 리뷰 메뉴관리 <br> 
+	 * 리뷰 리뷰관리 <br> 
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -45,7 +47,8 @@ public class AdminPlaceReviewController  {
 	@RequestMapping(value = "/admin/place/review/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
-		
+		model.addAttribute("placeReviewList", placeReviewService.getPlaceReviewListAll(fid));
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		
 		return "admin/place/review/list";
 	}
@@ -91,20 +94,21 @@ public class AdminPlaceReviewController  {
     }       
 	
 	/**
-	 * 리뷰 메뉴관리
+	 * 리뷰 리뷰관리
 	 * @param locale
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/place/review/add", method = RequestMethod.GET)
-	public String add(ModelMap model) {
+	public String add(@RequestParam(required=false) Integer fid, ModelMap model) {
 		
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("placeReview", new PlaceReview());
 
-		return "place/menu/add";
+		return "admin/place/review/add";
 	}
 	/**
-	 * 메뉴  생성 <br />
+	 * 리뷰  생성 <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -125,13 +129,13 @@ public class AdminPlaceReviewController  {
 		} else {	
 			
 			placeReviewService.savePlaceReview(placeReview);
-			json.setResult("메뉴를 추가하였씁니다");
+			json.setResult("리뷰를 등록하였씁니다");
 			json.setStatus("SUCCESS");
 		}
 		return json;
 	}
 	/**
-	 * 리뷰 메뉴 수정 폼 
+	 * 리뷰 리뷰 수정 폼 
 	 * @param locale
 	 * @param model
 	 * @return
@@ -139,12 +143,12 @@ public class AdminPlaceReviewController  {
 	@RequestMapping(value = "/admin/place/review/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer rid, ModelMap model) {
 		PlaceReview placeReview = placeReviewService.getPlaceReview(rid);
-		model.addAttribute("placeReview", placeReview);
-
-		return "admin/place/event/edit";
+		model.addAttribute("placeReview", placeReview);		
+		model.addAttribute("place",adminPlaceService.getPlace(placeReview.getFid()));
+		return "admin/place/review/edit";
 	}
 	/**
-	 * 메뉴  수 <br />
+	 * 리뷰  수 <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -164,14 +168,14 @@ public class AdminPlaceReviewController  {
 			json.setStatus("FAIL");
 		} else {
 			placeReviewService.editPlaceReview(placeReview);
-			json.setResult("메뉴를 수정하였습니다");
+			json.setResult("리뷰를 수정하였습니다");
 			json.setStatus("SUCCESS");
 		}
 		return json;
 	}
 	
 	/**
-	 * 메뉴  삭제  <br />
+	 * 리뷰  삭제  <br />
 	 * 
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
@@ -180,12 +184,35 @@ public class AdminPlaceReviewController  {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/admin/place/review/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/place/review/delete", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse delete(@RequestParam(required=true) Integer rid, Model model) {
 		JsonResponse json = new JsonResponse();
 		try{
 			placeReviewService.deletePlaceReview(rid);
+			json.setStatus("SUCCESS");
+		}catch(Exception e){
+			json.setStatus("FAIL");
+		}
+		
+		return json;
+	}
+	/**
+	 * 리뷰  삭제  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/admin/place/review/recovery", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResponse recovery(@RequestParam(required=true) Integer rid, Model model) {
+		JsonResponse json = new JsonResponse();
+		try{
+			placeReviewService.recoveryPlaceReview(rid);
 			json.setStatus("SUCCESS");
 		}catch(Exception e){
 			json.setStatus("FAIL");

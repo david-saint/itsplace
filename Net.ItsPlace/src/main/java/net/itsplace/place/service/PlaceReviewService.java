@@ -11,6 +11,8 @@ public interface PlaceReviewService {
 	public void savePlaceReview(PlaceReview PlaceReview) ;
 	public void editPlaceReview(PlaceReview PlaceReview) ;
 	public void deletePlaceReview(int rid)  ;
+	public void recoveryPlaceReview(int rid) ;
 	public PlaceReview getPlaceReview(int rid)  ;
 	public DataTable getPlaceReviewList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch,int fid);
+	public List<PlaceReview> getPlaceReviewListAll(int fid);
 }

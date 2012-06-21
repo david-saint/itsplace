@@ -9,6 +9,7 @@ public class PlaceReview {
 	private String content;
 	private String siteURL;
 	private String filePath;
+	private String isDelete;
 	public int getRid() {
 		return rid;
 	}
@@ -44,6 +45,12 @@ public class PlaceReview {
 	}
 	public void setFid(int fid) {
 		this.fid = fid;
+	}
+	public String getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 	

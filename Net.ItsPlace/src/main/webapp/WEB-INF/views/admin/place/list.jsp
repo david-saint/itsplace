@@ -113,7 +113,7 @@
 		 		
 		 		var stampAction = '<span class="tip"><a class="" href="/admin/place/stamp/list?fid='+id+'" original-title="스탬프목록"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
 		 		var eventAction = '<span class="tip"><a class="" href="/admin/place/event/list?fid='+id+'" original-title="이벤트목록"><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
-		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="이벤트목록"><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
+		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="리뷰 "><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return   reviewAction +"&nbsp;&nbsp;"+stampAction +"&nbsp;&nbsp;"+ eventAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 

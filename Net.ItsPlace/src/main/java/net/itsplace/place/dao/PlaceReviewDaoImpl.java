@@ -28,7 +28,7 @@ public class PlaceReviewDaoImpl  extends SqlMapClientDaoSupport implements  Plac
 	@Override
 	public void savePlaceReview(PlaceReview placeReview)
 			throws DataAccessException {
-		getSqlMapClientTemplate().insert("savePlaceReview",placeReview);		
+		getSqlMapClientTemplate().insert("place.savePlaceReview",placeReview);		
 	}
 
 	@Override
@@ -39,18 +39,30 @@ public class PlaceReviewDaoImpl  extends SqlMapClientDaoSupport implements  Plac
 
 	@Override
 	public void deletePlaceReview(int rid) throws DataAccessException {
-		getSqlMapClientTemplate().update("place.deleteMenu", rid);		
+		getSqlMapClientTemplate().update("place.deletePlaceReview", rid);		
 	}
 
 	@Override
 	public PlaceReview getPlaceReview(int rid) throws DataAccessException {
-		return (PlaceReview) getSqlMapClientTemplate().queryForObject("place.getMenuList",rid);
+		return (PlaceReview) getSqlMapClientTemplate().queryForObject("place.getPlaceReview",rid);
 	}
 
 	@Override
 	public List<PlaceReview> getPlaceReviewList(Map<String, Object> param)
 			throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("place.getPlaceReviewList",param);
+	}
+
+	@Override
+	public List<PlaceReview> getPlaceReviewListAll(int fid)
+			throws DataAccessException {
+		return  getSqlMapClientTemplate().queryForList("place.getPlaceReviewListAll",fid);
+	}
+
+	@Override
+	public void recoveryPlaceReview(int rid) throws DataAccessException {
+		getSqlMapClientTemplate().update("place.recoveryPlaceReview", rid);	
+		
 	}
 
 

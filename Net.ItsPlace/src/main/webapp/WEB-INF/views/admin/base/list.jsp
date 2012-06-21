@@ -22,7 +22,7 @@
 					<form:options items="${grpBasCdList}" itemValue="grpcd" itemLabel="grpName" />
 				</form:select>
 				</div>
-			</div>
+		</div>
 
 		<script type="text/javascript">
 		 	$(document).ready(function(){
