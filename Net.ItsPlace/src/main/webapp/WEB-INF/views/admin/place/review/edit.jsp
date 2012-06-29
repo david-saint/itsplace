@@ -64,7 +64,7 @@
 	</div>
 	<div class="content">
 		<form:form commandName="placeReview" method="post">
-			<input type="hidden" name="fid" value="${place.fid}" />
+			<input type="hidden" name="rid" value="${placeReview.rid }" />
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />

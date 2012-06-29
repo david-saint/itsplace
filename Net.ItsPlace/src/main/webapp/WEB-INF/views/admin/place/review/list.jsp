@@ -95,9 +95,8 @@
 							<td>${placeReview.isDelete}</td>							
 							<td>
 								<span class="tip"><a class="edit" href="/admin/place/review/edit?rid=${placeReview.rid}" original-title="리뷰수정"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>
-								<span class="tip"><a class="edit" href="/admin/place/review/delete?rid=${placeReview.rid}" original-title="삭제"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>
-								<span class="tip"> <a id="1"  rid="${placeReview.rid}" class="delete" > <img src="/resources/admin/images/icon/icon_delete.png"></a></span>
-								<span class="tip"> <a id="1"  rid="${placeReview.rid}" class="recovery" > <img src="/resources/admin/images/icon/icon_delete.png"></a></span>
+								<span class="tip"><a class="delete"  original-title="삭제"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>								
+								<span class="tip"><a class="recovery" original-title="복원"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>								
 							</td>
 						</tr>
 					</c:forEach>

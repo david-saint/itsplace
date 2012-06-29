@@ -190,6 +190,7 @@ public class AdminPlaceReviewController  {
 		JsonResponse json = new JsonResponse();
 		try{
 			placeReviewService.deletePlaceReview(rid);
+			json.setResult("리뷰를 삭제하였습니다");
 			json.setStatus("SUCCESS");
 		}catch(Exception e){
 			json.setStatus("FAIL");
@@ -213,6 +214,7 @@ public class AdminPlaceReviewController  {
 		JsonResponse json = new JsonResponse();
 		try{
 			placeReviewService.recoveryPlaceReview(rid);
+			json.setResult("리뷰를 복원하였습니다");
 			json.setStatus("SUCCESS");
 		}catch(Exception e){
 			json.setStatus("FAIL");
