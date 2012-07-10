@@ -20,7 +20,9 @@
          
         INSERT INTO PLACEEVENT(TITLE, CONTENT, FID,  ISAUTH, ISDELETE, STARTDATE, SAVEDATE, ENDDATE)
         VALUES (#title#, #content#, #place.fid#,  #isAuth#, 'N', #startDate#, now(), #endDate#)
-         
+        <selectKey keyProperty="eid" resultClass="java.lang.Integer">
+	    	 SELECT last_insert_id()
+	    </selectKey>
     </insert>
     <update id="deletePlaceEvent" parameterClass="int">
         UPDATE PLACEEVENT

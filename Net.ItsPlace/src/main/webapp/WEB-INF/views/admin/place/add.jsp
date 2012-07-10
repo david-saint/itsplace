@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
  	$(document).ready(function(){
- 		$("#file").change(function(){
+ 		/* $("#file").change(function(){
  			$.ajaxFileUpload({
   			   url: "/place/upload",
   			   secureuri:false,
@@ -31,7 +31,7 @@
   			   }
   			})
  		});
- 		
+ 		 */
  		$("#upload").live('click',function() {
  			
  		});
@@ -143,14 +143,14 @@
 				</div>
 				
 			</div>
-			<div class="section">
+			<%-- <div class="section">
 				<label> 대표사진 <small></small></label>
 				<img id="fileName" style="" src="${place.imageHost}${place.fileName}"></img>
 				<div>
 					 <input id="file" type="file" name="file" class="fileupload" />
 					 <span class="f_help">가맹점명 필수 입력</span>
 				</div>
-			</div>
+			</div> --%>
 			<div class="section"> 
 				<label> 신청자 <small></small></label>
 				<div>

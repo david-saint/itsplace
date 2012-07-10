@@ -41,7 +41,12 @@
 	<select id="getPlaceList" resultClass="Place" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  
     	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-    	 		I.BASNAME AS IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
+    	 		I.BASNAME AS IMAGEHOST,
+    	 		A.FILENAME, 
+    	 		A.CATEGORY,  
+    	 		A.SERVICETYPE, 
+    	 		A.REMARK,
+    	 		A.ISAUTH,
     	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
     	 		P.BASNAME AS PLACETYPE,

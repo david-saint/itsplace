@@ -8,6 +8,9 @@
     <insert id="savePlaceReview" parameterClass="PlaceReview">
          INSERT INTO PLACEREVIEW(FID, TITLE, CONTENT, SITEURL,  FILEPATH)
          VALUES (#fid#, #title#, #content#, #siteURL#, #filePath#)
+         <selectKey keyProperty="rid" resultClass="java.lang.Integer">
+	    	 SELECT last_insert_id()
+	    </selectKey>
     </insert>
 	<update id="editPlaceReview" parameterClass="PlaceReview">
 	         UPDATE  PLACEREVIEW

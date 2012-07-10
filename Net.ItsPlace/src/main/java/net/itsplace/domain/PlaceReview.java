@@ -8,6 +8,7 @@ public class PlaceReview {
 	private String title;
 	private String content;
 	private String siteURL;
+	private String imageHost;
 	private String filePath;
 	private String isDelete;
 	public int getRid() {
@@ -51,6 +52,12 @@ public class PlaceReview {
 	}
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
+	}
+	public String getImageHost() {
+		return imageHost;
+	}
+	public void setImageHost(String imageHost) {
+		this.imageHost = imageHost;
 	}
 	
 	

@@ -58,8 +58,9 @@ public class AdminMediaSeviceImpl implements AdminMediaService{
 			media.setSize(commonService.getBasecd().getMediaMedium());
 			media.setmUrl(placeImagePath);			
 			logger.info("대표이미지 저장 ");
-			adminMediaDao.savePlaceMedia(media);//대표이미지 
-			updatePlaceMedia(media);//대표이미지 교체 
+			adminMediaDao.savePlaceMedia(media);//대표이미지
+			
+			updatePlaceMedia(media);//대표이미지 수정함 place 테이블 
 			
 
 		} catch (Exception e) {

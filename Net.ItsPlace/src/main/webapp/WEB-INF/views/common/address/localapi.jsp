@@ -100,8 +100,11 @@
 		 						c.log(this.localName_3);
 		 						//c.log(this.title);
 		 						 //this.title = this.title.replace(/<b>/g,"dddddddd");
-		 						 //c.log(this.title);//address,lat,lng,localName_1,localName_2,localName_3,newAddress
-		 						btn = '<span class="tip"><a title="선택" onclick="changeAddress(\''+this.title+'\',\''+this.lat+'\',\''+this.lng+'\',\''+this.localName_1+'\',\''+this.localName_2+'\',\''+this.localName_3+'\',\''+this.newAddress+'\')"><img src="/resources/admin/images/icon//color_18/location.png"></a></span>';
+		 						 c.log(this.localName_1 + this.localName_2 + this.localName_3 + this.mainAddress +"-"+ this.subAddress + this.newAddress);
+		 						
+		 						 var title =  this.localName_1 +" "+ this.localName_2  +" "+ this.localName_3  +" "+ this.mainAddress + "-" + this.subAddress  +" ["+ this.newAddress+"]";
+		 						
+		 						btn = '<span class="tip"><a title="선택" onclick="changeAddress(\''+title+'\',\''+this.lat+'\',\''+this.lng+'\',\''+this.localName_1+'\',\''+this.localName_2+'\',\''+this.localName_3+'\',\''+this.newAddress+'\')"><img src="/resources/admin/images/icon//color_18/location.png"></a></span>';
 		 						html = html +  '<tr><td align="left">'+this.title+'</td><td>'+btn+'</td></tr>';
 		 						
 		 						if(i==0){

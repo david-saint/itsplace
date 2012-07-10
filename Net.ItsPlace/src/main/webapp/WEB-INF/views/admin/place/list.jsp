@@ -42,7 +42,7 @@
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile", "sWidth": "150px"},
 		 				  			{ "mDataProp": "isAuth", "fnRender" :function ( oObj ) {
-		 								return oObj.aData['isAuth'] == " Y" ? "승인" : "미승인";
+		 								return oObj.aData['isAuth'] == "Y" ? "승인" : "미승인";
 		 							} },
 		 				  			{ "mDataProp": "dong" },
 		 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {
@@ -124,7 +124,7 @@
 		 	}
 		 </script>
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
-		 	<span style="position:absolute"><a href="/admin/place/add" class="uibutton icon large add ">가맹점 추가 </a></span>
+		 	<span style="position:absolute"><a href="/admin/place/add" class="uibutton icon large add ">가맹점 신청 </a></span>
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>

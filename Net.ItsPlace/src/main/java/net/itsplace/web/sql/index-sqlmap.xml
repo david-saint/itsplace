@@ -18,7 +18,8 @@
 	</resultMap>
 	<select id="getRecentPlaceList"  resultClass="Place"  parameterClass="int">
 	    SELECT A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-	    	 		A.IMAGEHOST, A.FILENAME, 
+	    	 	    D.BASNAME AS IMAGEHOST,
+	    	 	    A.FILENAME, 
 	    	 		C.BASNAME AS CATEGORY, 
 	    	 		A.REMARK,
 	    	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
@@ -42,7 +43,11 @@
 	         LEFT OUTER JOIN
 			 	PBASCD C
 	         		ON A.CATEGORY = C.BASECD	
-	         		AND C.GRPCD = 'CATEGORY'		
+	         		AND C.GRPCD = 'CATEGORY'
+	         LEFT OUTER JOIN
+        		PBASCD D             
+        		    ON A.IMAGEHOST = D.BASECD              
+            		AND D.GRPCD = 'MEDIA' 						
 	         WHERE  A.ISAUTH ='Y'
 	         ORDER BY A.FID DESC
 	         LIMIT 1 ,#limit#
@@ -56,7 +61,7 @@
             A.STARTDATE,
             A.ENDDATE,
             A.EDITDATE,
-            A.IMAGEHOST,
+            D.BASNAME AS IMAGEHOST,
             A.FILEPATH,
             B.FNAME,
             B.FULLADDRESS
@@ -64,6 +69,10 @@
          INNER JOIN
          	PLACE B
          		ON A.FID = B.FID
+         LEFT OUTER JOIN
+        	PBASCD D             
+        	    ON A.IMAGEHOST = D.BASECD              
+            	AND D.GRPCD = 'MEDIA' 				
          WHERE A.ISDELETE = 'N'  AND A.ISAUTH = 'Y'     	
     	 ORDER BY A.STARTDATE DESC
     	 LIMIT 1,#limit#

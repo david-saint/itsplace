@@ -104,7 +104,7 @@ function main_event(d)
 					<c:forEach var="place" items="${recentPlaceList}">
 						<div class="one_fourth">
 							<figure class="preloader">
-								<img src="/resources/images/main/main_list_1.jpg" alt="" class="fullwidth" />
+								<img src="${place.imageHost}${place.fileName }" alt="" class="fullwidth" />
 							</figure>
 							<br />
 							<h6>${place.fname }</h6>

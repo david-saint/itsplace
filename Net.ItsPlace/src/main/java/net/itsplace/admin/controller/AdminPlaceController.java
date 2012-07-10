@@ -449,7 +449,7 @@ public class AdminPlaceController {
 		String resultJson = "";
 	
 		String placeImagePath = adminMediaService.savePlaceMedia(file,file.getFid());
-		resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
+		resultJson ="{error: '',fileName:'"+commonService.getBasecd().getImageHost()+placeImagePath+"'}";	
 		
 		 response.setContentType("text/html");
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();
