@@ -16,8 +16,7 @@
 	         UPDATE  PLACEREVIEW
 	         	SET TITLE = #title#,
 	         		CONTENT = #content#,
-	         		SITEURL = #siteURL#,
-	         		FILEPATH = #filePath#
+	         		SITEURL = #siteURL#,	         		
 	         	WHERE RID = #rid#	
 	</update>
     <select id="getPlaceReviewList" resultClass="PlaceReview" parameterClass="java.util.Map">
@@ -53,4 +52,11 @@
  			PLACEREVIEW 
  		WHERE RID = #rid#;
 	</select>
+	<update id="editPlaceReviewImage" parameterClass="PlaceReview">
+	         UPDATE  PLACEREVIEW
+	         	SET 
+	         		IMAGEHOST = #imageHost#,
+	         		FILEPATH = #filePath#			
+	         	WHERE RID = #rid#	
+	</update>
 </sqlMap>

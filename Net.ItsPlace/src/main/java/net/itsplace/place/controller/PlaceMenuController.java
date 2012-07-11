@@ -135,7 +135,7 @@ public class PlaceMenuController {
 		placeMenu.setFid(UserInfo.getFid());
 		
 		if (result.hasErrors()) {
-			logger.info("place:"+placeMenu.toString());
+			
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			json.setResult(result.getFieldError().getDefaultMessage());
 			json.setStatus("FAIL");
@@ -214,8 +214,7 @@ public class PlaceMenuController {
 	}
 
 	/**
-	 * 관리자 가맹점 대표 사진 업로드  <br />
-	 * 이미지는 항상 새로 발생하고(업데이트없음) 대표이미지만 교체한다. 업데이트 없이 삭제로 함.
+	 *메뉴  사진 업로드  <br />
 	 * @author 김동훈
 	 * @version 1.0, 2011. 8. 24.
 	 * @param model
@@ -226,7 +225,7 @@ public class PlaceMenuController {
 	@RequestMapping(value = "/place/menuUpload", method = RequestMethod.POST)
  	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
 		logger.info("filename:{}",file.getFile().getOriginalFilename());
-		logger.info("mnid:{}",file.getMnid());
+		
 		
 		String resultJson = "";
 		

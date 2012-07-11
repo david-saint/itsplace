@@ -28,7 +28,7 @@
 	         		PRICE = #price#,
 	         		ISSALE = #isSale#,
 	         		SALEPRICE = #salePrice#,     
-	         		SORT = ##sort## 	         		
+	         		SORT = #sort# 	         		
 	         	WHERE MNID = #mnid#	
 	</update>
     <select id="getMenuList" resultClass="PlaceMenu" parameterClass="java.util.Map">
@@ -42,7 +42,8 @@
     	 C.SALEPRICE, 
     	 I.BASNAME AS HOST, 
     	 C.FILEPATH, 
-    	 C.MTYPE
+    	 C.MTYPE,
+    	 C.SORT
 		 FROM PLACE A		 	
 		 INNER JOIN 
 		 	PLACEMENU C

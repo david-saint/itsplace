@@ -48,7 +48,9 @@
   			        c.log(data.fileName);
   			        c.log("mnid:"+data.mnid);
   			        $('#mnid').val(data.mnid);
-  			        $("#filepath").attr('src',data.fileName); 
+  			        
+  			        $("#filePath").attr("src",data.fileName); 
+  			        
   			      	//parent.refresh();
   			   },
   			   error: function (data, status, e)
@@ -170,15 +172,16 @@
 						value="" /> 
 				</div>
 			</div>
-			</div> 
-            <div class="section">
-				<label> sort   <small></small></label>
+			<div class="section">
+				<label> sort  <small></small></label>
 				<div>
 					<input id="sort" name="sort" type="text"
 						class="validate[required,maxSize[10]] medium "
-						value="" /> 
+						value="0" /> 
 				</div>
 			</div>
+			 
+            
 			<div class="section last">
 				<div>
 					<a id="btnSubmit" class="uibutton loading submit_form" title="저장" rel="1">저장</a> 			

@@ -1,8 +1,15 @@
 package net.itsplace.admin.controller;
 
+import java.io.ByteArrayOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
 import net.itsplace.admin.service.AdminPlaceService;
+import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceReview;
 import net.itsplace.domain.PlaceReview.AddPlaceReview;
 import net.itsplace.domain.PlaceReview.EditPlaceReview;
@@ -28,7 +35,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class AdminPlaceReviewController  {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceReviewController.class);
-	
+	@Autowired
+	private CommonService commonService;
 	@Autowired
 	private PlaceReviewService placeReviewService;
 	@Autowired
@@ -221,6 +229,37 @@ public class AdminPlaceReviewController  {
 		}
 		
 		return json;
+	}
+	/**
+	 *메뉴  사진 업로드  <br />
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  list.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/admin/place/reviewImageUpload", method = RequestMethod.POST)
+ 	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
+		logger.info("filename:{}",file.getFile().getOriginalFilename());
+		
+		
+		String resultJson = "";
+		
+			file.setFid(UserInfo.getFid());
+			
+			PlaceReview placeReview = placeReviewService.savePlaceReviewImage(file);
+			logger.info(commonService.getBasecd().getImageHost()+placeReview.getFilePath());
+			resultJson ="{rid:'"+placeReview.getRid()+"',fileName:'"+commonService.getBasecd().getImageHost()+placeReview.getFilePath()+"'}";	
+		
+		 response.setContentType("text/html");
+		 ByteArrayOutputStream out = new ByteArrayOutputStream();
+		 
+		 out.write(resultJson.getBytes());
+		 response.setContentLength(out.size());
+		 
+		 response.getOutputStream().write(out.toByteArray());
+		 response.getOutputStream().flush();
 	}
 }
 

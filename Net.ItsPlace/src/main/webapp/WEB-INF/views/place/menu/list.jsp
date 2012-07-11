@@ -26,7 +26,7 @@
  			"sAjaxDataProp": "rows",
  			"aoColumns": [ 				  			
  				  			{ "mDataProp": "filePath", "fnRender" :function ( oObj ) {
- 								return oObj.aData['host']+ oObj.aData['filePath'];
+ 				  				return "<img src=\""+oObj.aData['host']+oObj.aData['filePath']+ "\" style=\"width:50px;\" />";
  							} },
  				  			{ "mDataProp": "title" },
  				  			{ "mDataProp": "content" }, 
@@ -35,6 +35,7 @@
  								return oObj.aData['isSale'] == "Y" ? "세일중" : "";
  							} },
  							{ "mDataProp": "salePrice" },
+ 							{ "mDataProp": "sort" },
  							
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
@@ -130,7 +131,8 @@
 						<th>메뉴설명</th>
 						<th>가격 </th>
 						<th>세일여부 </th>
-						<th>세일가격 </th>					
+						<th>세일가격 </th>
+						<th>순서 </th>							
 						<th>Management</th>
 					</tr>
 				</thead>

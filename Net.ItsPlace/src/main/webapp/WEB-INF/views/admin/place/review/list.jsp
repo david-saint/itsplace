@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <script type="text/javascript">
  	$(document).ready(function(){
+ 		
  		$('.delete').bind('click', function() {
 				$.ajax({
                   url: "/admin/place/review/delete",
@@ -69,7 +70,7 @@
 			</div>
 		<div class="section">
 			<div style="float:left">
-				<a href="/admin/place/review/add?fid=${place.fid}" class="uibutton icon large add ">리뷷등록</a>
+				<a href="/admin/place/review/add?fid=${place.fid}" class="fancy uibutton icon large add ">리뷷등록</a>
 			</div>			
 		</div>
 			<div class="setion">

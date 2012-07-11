@@ -71,18 +71,18 @@ public class PlaceMenuServiceImpl implements PlaceMenuService {
 		  param.put("fid", fid);
 			
 		  List<PlaceMenu> placeMenuList = placeMenuDao.getMenuList(param);
-		  logger.info("---------------->"+placeMenuList.get(0).getHost());
-		  logger.info("---------------->"+placeMenuList.get(0).getHost());
-		  logger.info("---------------->"+placeMenuList.get(0).getHost());
-		  
-		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+		
 			
-			
-		 
-		  table.setRows(placeMenuList); 
-		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+			  
+			  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+				
+					 
+			  table.setRows(placeMenuList); 
+			  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+			  
+			  return table;
 		  
-		  return table;
+	
 	}
 	@Override
 	public PlaceMenu savePlaceMenuImage(ImageFileUpload file) {
@@ -96,13 +96,13 @@ public class PlaceMenuServiceImpl implements PlaceMenuService {
 			placeMenu.setHost(commonService.getBasecd().getMediaImageHost());
 			placeMenu.setmType(commonService.getBasecd().getMediaImage());
 			placeMenu.setFid(file.getFid());
-			if(file.getMnid() <= 0 ){
+			if(file.getId() <= 0 ){
 				int _mnid = saveMenu(placeMenu);				
-				logger.info("mnid:{}",_mnid);
+				logger.info("savePlaceMenuImage mnid:{}",_mnid);
 				placeMenu.setMnid(_mnid);
 		
 			}else{
-				placeMenu.setMnid(file.getMnid());
+				placeMenu.setMnid(file.getId());
 				placeMenuDao.editPlaceMenuImage(placeMenu);
 			}
 			
