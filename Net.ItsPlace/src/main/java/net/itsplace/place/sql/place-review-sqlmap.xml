@@ -6,8 +6,8 @@
 	<typeAlias type="net.itsplace.domain.PlaceReview" alias="PlaceReview"/>	    		   
     
     <insert id="savePlaceReview" parameterClass="PlaceReview">
-         INSERT INTO PLACEREVIEW(FID, TITLE, CONTENT, SITEURL,  FILEPATH)
-         VALUES (#fid#, #title#, #content#, #siteURL#, #filePath#)
+         INSERT INTO PLACEREVIEW(FID, TITLE, CONTENT, SITEURL, IMAGEHOST, FILEPATH)
+         VALUES (#fid#, #title#, #content#, #siteURL#, #imageHost#, #filePath#)
          <selectKey keyProperty="rid" resultClass="java.lang.Integer">
 	    	 SELECT last_insert_id()
 	    </selectKey>
@@ -16,24 +16,34 @@
 	         UPDATE  PLACEREVIEW
 	         	SET TITLE = #title#,
 	         		CONTENT = #content#,
-	         		SITEURL = #siteURL#,	         		
+	         		SITEURL = #siteURL#	         		
 	         	WHERE RID = #rid#	
 	</update>
     <select id="getPlaceReviewList" resultClass="PlaceReview" parameterClass="java.util.Map">
-    	 SELECT sql_calc_found_rows C.FID, C.TITLE, C.CONTENT, C.SITEURL,  C.FILEPATH, C.ISDELETE
+    	 SELECT sql_calc_found_rows C.FID, C.TITLE, C.CONTENT, C.SITEURL, 	 I.BASNAME AS IMAGEHOST,  C.FILEPATH, C.ISDELETE
 		 FROM PLACE A		 	
 		 INNER JOIN PLACEREVIEW C
-        	ON A.FID = C.FID        	     
-         WHERE A.FID = #fid#	
+        	ON A.FID = C.FID    
+         LEFT OUTER JOIN
+		 	PBASCD I
+         		ON C.IMAGEHOST = I.BASECD	
+         		AND I.GRPCD = 'MEDIA'		
+         		AND I.BASEKEY = 'IMAGEHOST'	      	     
+         WHERE C.FID = #fid#	         
          ORDER BY $sortColumn$ $sortDirection$
     	 LIMIT #startRow# , #endRow#		    	
     </select>
      <select id="getPlaceReviewListAll" resultClass="PlaceReview" parameterClass="int">
-    	 SELECT sql_calc_found_rows C.RID, C.FID, C.TITLE, C.CONTENT, C.SITEURL,  C.FILEPATH, C.ISDELETE
+    	 SELECT sql_calc_found_rows C.RID, C.FID, C.TITLE, C.CONTENT, C.SITEURL,  I.BASNAME AS IMAGEHOST,  C.FILEPATH, C.ISDELETE
 		 FROM PLACE A		 	
 		 INNER JOIN PLACEREVIEW C
-        	ON A.FID = C.FID        	     
-         WHERE A.FID = #fid#	
+        	ON A.FID = C.FID    
+         LEFT OUTER JOIN
+		 	PBASCD I
+         		ON C.IMAGEHOST = I.BASECD	
+         		AND I.GRPCD = 'MEDIA'		
+         		AND I.BASEKEY = 'IMAGEHOST'	    	    	     
+         WHERE C.FID = #fid#	
          ORDER BY C.RID DESC    	   	
     </select>
     <update id="deletePlaceReview" parameterClass="int">

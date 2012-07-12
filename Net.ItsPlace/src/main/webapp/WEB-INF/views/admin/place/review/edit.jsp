@@ -21,7 +21,40 @@
  			c.log("submit Form");
  			$('#placeReview').submit();
  		});
- 		
+ 		$("#file").change(function(){
+ 			c.log("fid============="+ $('#fid').val());
+ 			var data ={id:$('#rid').val(), fid:$('#fid').val()};
+ 			$.ajaxFileUpload({
+  			   url: "/admin/place/reviewImageUpload", 
+  			   data: data,
+  			   secureuri:false,
+  			   fileElementId:'file',
+  			   dataType: 'json',
+  			   beforeSend:function()
+  			   {
+  			   		$("#loading").show();
+  			   },
+  			   complete:function()
+  			   {
+  			   		$("#loading").hide();
+  			   },
+  			   success: function (data, status)
+  			   {
+  			      
+  			        c.log(data.fileName);
+  			        c.log("rid:"+data.rid);
+  			        $('#rid').val(data.rid);
+  			        
+  			        $("#filePath").attr("src",data.fileName); 
+  			        
+  			      	//parent.refresh();
+  			   },
+  			   error: function (data, status, e)
+  			   {
+  			    	alert("status : " + status + " error : " + e);    
+  			   }
+  			})
+ 		});
  		$('#placeReview').validationEngine('attach', {
  			  onValidationComplete: function(form, status){
  				 if(status==true){
@@ -64,7 +97,8 @@
 	</div>
 	<div class="content">
 		<form:form commandName="placeReview" method="post">
-			<input type="hidden" name="rid" value="${placeReview.rid }" />
+			<input type="hidden" id="fid" name="fid" value="${place.fid}" />
+			<input type="hidden" id="rid"  name="rid" value="${placeReview.rid }" />
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -87,6 +121,14 @@
 				</div>
 			</div>
 			<div class="section">
+				<label> 리뷰섬네일 <small></small></label>
+				<img id="filePath" style="" src=""></img>
+				<div>
+					 <input id="file" type="file" name="file" class="fileupload" />
+					 <span class="f_help">리뷰 섬네일</span>
+				</div>
+			</div>
+			<div class="section">
 				<label> 내용  <small></small></label>
 				<div>
 					<textarea name="content">${placeReview.content }</textarea>
@@ -101,15 +143,7 @@
 						
 				</div>
 			</div>
-			<div class="section">
-				<label> 섬네일이미지  <small></small></label>
-				<div>
-					<input id="filePath" name="filePath" type="text"
-						class="validate[required,maxSize[50]] medium "
-						value="${placeReview.filePath }" /> 
-						
-				</div>
-			</div>
+			
 			<div class="section last">
 				<div>
 					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">저장</a> 					

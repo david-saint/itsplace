@@ -41,7 +41,7 @@ menuSelected("가맹점검색", "주변검색");
 			<section id="middle_content">
 				<div class="entry">
 					<div style="width:30%;border:1px solid blue;float: left;">
-						<img src="/resources/images/view/view.jpg" height="300" />
+						<img src="${place.imageHost}${place.fileName}" height="300" />
 						<div style="height:30px;">이미지 슬라이드 넣을까?</div>
 						<div style="height:50px;padding-top:10px;">
 							음 여기는 평가 넣기 별표 점수 등등등

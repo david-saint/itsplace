@@ -17,6 +17,15 @@ public class PlaceMedia {
 	private String email;
 	private String host;
 	private int dispseq;
+	private String isProfile;
+	
+	
+	public String getIsProfile() {
+		return isProfile;
+	}
+	public void setIsProfile(String isProfile) {
+		this.isProfile = isProfile;
+	}
 	public int getMid() {
 		return mid;
 	}

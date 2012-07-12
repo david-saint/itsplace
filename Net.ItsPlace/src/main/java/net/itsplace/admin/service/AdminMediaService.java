@@ -12,5 +12,7 @@ public interface AdminMediaService {
 	
 	/* 가맹점 미디어  수정 */
 	public void updatePlaceMedia(PlaceMedia media);
+	/* 가맹점 대표 이미지 삭제  */
+	public void deleteMediaProfile(PlaceMedia media);
 	
 }

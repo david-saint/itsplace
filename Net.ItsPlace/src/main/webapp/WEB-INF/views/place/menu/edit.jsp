@@ -20,7 +20,7 @@
  			parent.$.fancybox.close();
  		});
  		$("#file").change(function(){
- 			var data ={mnid:$('#mnid').val()};
+ 			var data ={id:$('#mnid').val()};
  			$.ajaxFileUpload({
   			   url: "/place/menuUpload", 
   			   data: data,

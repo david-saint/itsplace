@@ -33,5 +33,10 @@ public class AdminMediaDaoImpl extends SqlMapClientDaoSupport implements AdminMe
 	public void updatePlaceMedia(PlaceMedia media) throws DataAccessException {
 		getSqlMapClientTemplate().insert("admin.updatePlaceMedia",media);
 	}
+	@Override
+	public void deleteMediaProfile(PlaceMedia media) throws DataAccessException {
+		getSqlMapClientTemplate().update("admin.deleteMediaProfile",media);
+		
+	}
 
 }

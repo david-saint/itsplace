@@ -47,20 +47,32 @@ public class AdminMediaSeviceImpl implements AdminMediaService{
 			media.setHost(commonService.getBasecd().getMediaImageHost());
 			media.setIsDelete("N");
 			media.setmTitle("");
+			media.setIsProfile("Y"); //대표이미지 
 			logger.info("원본이미지 저장 size:"+commonService.getBasecd().getMediaLarge());
+			
+			adminMediaDao.deleteMediaProfile(media);
+			
 			adminMediaDao.savePlaceMedia(media);//원본 이미지
+			
+			
+			
+			media.setSize(commonService.getBasecd().getMediaMedium());
+			media.setmUrl(placeImagePath);			
+			logger.info("대표이미지 저장 ");
+			adminMediaDao.savePlaceMedia(media);
 			
 			media.setSize(commonService.getBasecd().getMediaThumbnail());//썸네일 이미지 
 			media.setmUrl(placeThumnailPath);			
 			logger.info("썸네일  저장");
 			adminMediaDao.savePlaceMedia(media);//썸네일 이미지
 			
-			media.setSize(commonService.getBasecd().getMediaMedium());
-			media.setmUrl(placeImagePath);			
-			logger.info("대표이미지 저장 ");
-			adminMediaDao.savePlaceMedia(media);//대표이미지
 			
-			updatePlaceMedia(media);//대표이미지 수정함 place 테이블 
+			Place place = new Place();
+			place.setImageHost(media.getHost());
+			place.setFid(media.getFid());
+			place.setFileName(media.getmUrl());
+			adminMediaDao.updatePlaceImage(place);
+			
 			
 
 		} catch (Exception e) {
@@ -95,6 +107,14 @@ public class AdminMediaSeviceImpl implements AdminMediaService{
 		}else{
 			adminMediaDao.updatePlaceMedia(media);
 		}
+		
+	}
+
+
+
+	@Override
+	public void deleteMediaProfile(PlaceMedia media) {
+		// TODO Auto-generated method stub
 		
 	}
 }

@@ -19,7 +19,7 @@
 	
 	  <select id="getPlace" resultClass="Place"  parameterClass="int">
          SELECT A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
-    	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.REMARK,
+    	 	    A.CATEGORY,  A.REMARK,
     	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
     	 		P.BASNAME AS PLACETYPE,
@@ -30,7 +30,9 @@
 		   	 	A.NEWADDRESS,
 		   	 	A.PAYINFO,
 		   	 	A.PARKINFO,
-		   	 	A.BLDINFO
+		   	 	A.BLDINFO,
+		   	 	B.BASNAME AS IMAGEHOST, 
+		   	 	M.MURL AS FILENAME
 		 FROM 
 		 	PLACE A
 		 LEFT OUTER JOIN
@@ -41,7 +43,16 @@
 		 	PBASCD P
          		ON A.PLACETYPE = P.BASECD	
          		AND P.GRPCD = 'PLACETYPE'
-         WHERE FID = #fid#
+          LEFT OUTER JOIN
+		  	 PMEDIA M
+					ON M.FID = A.FID			
+					AND M.ISPROFILE = 'Y' AND M.ISDELETE ='N' AND M.SIZE='L'
+		 LEFT OUTER JOIN
+		 	PBASCD B
+         		ON M.HOST = B.BASECD	
+         		AND B.GRPCD = 'MEDIA'		
+         		AND B.BASEKEY = 'IMAGEHOST'	  						
+         WHERE A.FID = #fid#
          	AND A.ISAUTH ='Y'         	
       </select>
       <select id="getPlaceCommentList" resultClass="PlaceComment" parameterClass="java.util.Map">
@@ -68,15 +79,18 @@
             A.ISAUTH,           
             A.STARTDATE,
             A.ENDDATE,
-            A.EDITDATE,            
+            A.EDITDATE          
          FROM PLACEEVENT A
          WHERE A.ISDELETE = 'N'  AND A.ISAUTH = 'Y' 
     	 	AND A.FID = #fid#
     	 ORDER BY A.EID DESC
     </select>    
     <select id="getPlaceStampListByPlace"  resultMap="StampMap" parameterClass="int" > 
-	   SELECT B.EMAIL, B.SAVEDATE,e.PROFILEIMAGEURL
-		FROM PLACESTAMP A
+	   SELECT 
+	   		B.EMAIL, 
+	   		B.SAVEDATE
+		FROM 
+			PLACESTAMP A
 		INNER JOIN 
 			PSTAMP B
 				ON A.STAMPID = B.STAMPID
@@ -93,19 +107,56 @@
 	</select>
 	
 	<select id="getPlaceMenuList"   resultClass="PlaceMenu" parameterClass="int"> 
-	    SELECT TITLE, CONTENT, PRICE, ISSALE, SALEPRICE
-		FROM PLACEMENU
-		WHERE FID = #fid#	
+	    SELECT 
+	    	A.TITLE, 
+	    	A.CONTENT, 
+	    	A.PRICE, 
+	    	A.ISSALE, 
+	    	A.SALEPRICE,
+	    	B.BASNAME AS IMAGEHOST,
+	    	A.FILEPATH
+	   FROM PLACEMENU A
+	    	LEFT OUTER JOIN
+		 	PBASCD B
+         		ON A.HOST = B.BASECD	
+         		AND B.GRPCD = 'MEDIA'		
+         		AND B.BASEKEY = 'IMAGEHOST'	  		
+		WHERE A.ISDELETE = 'N' AND FID = #fid#	
 	</select>    
 	<select id="getPlaceReviewList"   resultClass="PlaceReview" parameterClass="int"> 
-	    SELECT TITLE, CONTENT, SITEURL, FILEPATH
-		FROM PLACEREVIEW
-		WHERE FID = #fid#	
+	    SELECT 
+	     A. TITLE,
+	     A.CONTENT, 
+	     A.SITEURL, 
+	     B.BASNAME AS IMAGEHOST,
+	     A.FILEPATH
+		FROM PLACEREVIEW A
+		 LEFT OUTER JOIN
+		 	PBASCD B
+         		ON A.IMAGEHOST = B.BASECD	
+         		AND B.GRPCD = 'MEDIA'		
+         		AND B.BASEKEY = 'IMAGEHOST'	  
+		WHERE A.ISDELETE ='N' AND FID = #fid#	
 	</select>
 	<select id="getPlaceMediaListt"   resultClass="PlaceMedia" parameterClass="int"> 
-	    SELECT FID, MTITLE, MURL, MTYPE, SIZE, ISDELETE, SAVEDATE, EMAIL,DISPSEQ, HOST
-		FROM PLACEMEDIA
-		WHERE FID = #fid#	
+	    SELECT 
+		    A.FID, 
+		    A.MTITLE, 
+		    A.MURL, 
+		    A.MTYPE, 
+		    A.SIZE, 
+		    A.ISDELETE, 
+		    A.SAVEDATE, 
+		    A.EMAIL,
+		    A.DISPSEQ, 
+		    B.BASNAME AS HOST
+		FROM PMEDIA A
+		LEFT OUTER JOIN
+		 	PBASCD B
+         		ON A.HOST = B.BASECD	
+         		AND B.GRPCD = 'MEDIA'		
+         		AND B.BASEKEY = 'IMAGEHOST'	  
+		WHERE A.isdelete = 'N' AND A.FID = #fid#	
 	</select>
 </sqlMap>
   

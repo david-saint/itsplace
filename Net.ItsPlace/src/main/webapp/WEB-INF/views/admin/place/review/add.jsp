@@ -22,7 +22,8 @@
  			$('#placeReview').submit();
  		});
  		$("#file").change(function(){
- 			var data ={mnid:$('#rid').val()};
+ 			c.log("fid============="+ $('#fid').val());
+ 			var data ={id:$('#rid').val(), fid:$('#fid').val()};
  			$.ajaxFileUpload({
   			   url: "/admin/place/reviewImageUpload", 
   			   data: data,
@@ -100,7 +101,7 @@
 	</div>
 	<div class="content">
 		<form:form commandName="placeReview" method="post">
-			<input type="hidden" name="fid" value="${place.fid}" />
+			<input type="hidden" id="fid" name="fid" value="${place.fid}" />
 			<input type="hidden" id="rid" name="rid" value="" />
 			<div class="boxtitle">
 				<c:set var="errors">

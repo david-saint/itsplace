@@ -78,10 +78,11 @@
 				<table class="display staticBase" id="static">
 				<thead>
 					<tr>
+					    <th>이미지</th>
 						<th>리뷰제목</th>
 						<th>리뷰내용</th>
 						<th>사이트</th>
-						<th>이미지</th>					
+						
 						<th>삭제여부</th>					
 						<th>관리</th>
 					</tr>
@@ -89,10 +90,11 @@
 				 <tbody>
 					<c:forEach items="${placeReviewList}" var="placeReview">
 						<tr>
+							<td><img src='${placeReview.imageHost}${placeReview.filePath}' style="width:50px;"/></td>
 							<td>${placeReview.title}</td>
 							<td>${placeReview.content}</td>
 							<td>${placeReview.siteURL}</td>
-							<td>${placeReview.filePath}</td>
+							
 							<td>${placeReview.isDelete}</td>							
 							<td>
 								<span class="tip"><a class="edit" href="/admin/place/review/edit?rid=${placeReview.rid}" original-title="리뷰수정"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>

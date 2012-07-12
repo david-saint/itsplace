@@ -15,8 +15,8 @@
     </update>
     
     <insert id="saveMedia" parameterClass="PlaceMedia">
-        INSERT INTO PMEDIA(FID, MTITLE, MURL, MTYPE, SIZE, ISDELETE, SAVEDATE, EMAIL,DISPSEQ, HOST)
-        VALUES(#fid#, #mTitle#, #mUrl#, #mType#, #size#, 'N', now(), #email#, #dispseq#, #host#)
+        INSERT INTO PMEDIA(FID, MTITLE, MURL, MTYPE, SIZE, ISDELETE, SAVEDATE, EMAIL,DISPSEQ, HOST, ISPROFILE)
+        VALUES(#fid#, #mTitle#, #mUrl#, #mType#, #size#, 'N', now(), #email#, #dispseq#, #host#, #isProfile#)
     </insert>
   
     <update id="updatePlaceMedia" parameterClass="PlaceMedia">
@@ -27,5 +27,11 @@
 	        MURL = #mUrl#,
 	        ISDELETE = #isDelete#
         WHERE MID = #mid#
+    </update>
+    
+    <update id="deleteMediaProfile" parameterClass="PlaceMedia">
+        UPDATE PMEDIA SET ISDELETE = 'Y'      
+        WHERE FID = #fid# AND ISPROFILE = 'Y'
+        
     </update>
 </sqlMap>

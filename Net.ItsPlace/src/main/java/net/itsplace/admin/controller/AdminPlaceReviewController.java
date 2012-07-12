@@ -246,7 +246,7 @@ public class AdminPlaceReviewController  {
 		
 		String resultJson = "";
 		
-			file.setFid(UserInfo.getFid());
+			
 			
 			PlaceReview placeReview = placeReviewService.savePlaceReviewImage(file);
 			logger.info(commonService.getBasecd().getImageHost()+placeReview.getFilePath());
