@@ -6,4 +6,20 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
 	<import resource="infrastructure.xml" />	
+	<!-- 
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		  <property name="order" value="1" />
+		   <property name="mediaTypes">
+		    <map>
+		      <entry key="json" value="application/json" />
+		      <entry key="xml" value="application/xml" />
+		    </map>
+		  </property>
+		  <property name="defaultViews">
+		    <list>
+		       <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"            />
+		    </list>
+		  </property>
+		 <property name="ignoreAcceptHeader" value="true" />
+	</bean> -->
 </beans>

@@ -13,23 +13,42 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />			
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true" />
 				<property name="database" value="MYSQL" />
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/> 		 	   	                  	
+    	<property name="url" value="jdbc:sqlserver://localhost:1433;DatabaseName=RanWorldWeb"/>                	
+		<property name="username" value="RanWorldWeb"/>
+		<property name="password" value="RanWorldWeb@@"/>
+	</bean>
+
+
+<!-- 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/> 		 	   	                  	
     	<property name="url" value="jdbc:mysql://db.jdpp.net:3306/faya"/>                	
 		<property name="username" value="faya"/>
 		<property name="password" value="qp2apdx"/>
-	</bean>
-
+	</bean> 
+	
+ -->
 	
 
 </beans>

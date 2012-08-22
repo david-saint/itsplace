@@ -14,17 +14,23 @@
 		<org.slf4j-version>1.5.10</org.slf4j-version>
 			<mysql.connector.version>5.1.16</mysql.connector.version>
 		<hibernate.version>4.1.4.Final</hibernate.version>		
-	</properties>
+		<jackson-version>1.8.4</jackson-version>
+	</properties> 
 	<dependencies>
-	    	
-	<!--  MySQL Connector -->
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>${mysql.connector.version}</version>
-		<type>jar</type>
-		<scope>compile</scope>
-	</dependency>
+	 	<!-- MSSQL http://claude.betancourt.us/add-microsoft-sql-jdbc-driver-to-maven/ -->
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>sqljdbc4</artifactId>
+		    <version>4.0</version>
+		</dependency>   
+		<!--  MySQL Connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	
 	    <!-- JPA -->
 	    <dependency>
@@ -51,6 +57,27 @@
 			<scope>runtime</scope>
 		</dependency>
 		
+		<!-- json -->
+		<dependency>
+	          <groupId>net.sf.json-lib</groupId>
+	          <artifactId>json-lib</artifactId>
+	          <version>2.3</version>
+	          <classifier>jdk15</classifier>
+	          <type>jar</type>
+	          <optional>false</optional>
+    	</dependency>
+		<dependency>
+			<!-- Using Jackson for JSON marshaling -->
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson-version}</version>
+			<scope>compile</scope>
+		</dependency>
 		
 		<!-- Spring -->
 		<dependency>
@@ -64,6 +91,11 @@
 					<artifactId>commons-logging</artifactId>
 				 </exclusion>
 			</exclusions>
+		</dependency>
+		<dependency> 
+		   <groupId>org.springframework</groupId>
+		   <artifactId>spring-test</artifactId>
+		 <version>${org.springframework-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
