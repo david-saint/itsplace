@@ -21,6 +21,8 @@ public class StampServiceImplTest  extends TestApplicationContext {
 
 	@Autowired
 	StampService stampService;
+	
+	
 	@Before
 	public void setUp() throws Exception {
 	}

@@ -14,37 +14,7 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 		
 	<!-- Configures the Spring MVC @Controller programming model--> 
-
-	<annotation-driven>
-	
-		<argument-resolvers>
-			<beans:bean class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver" />
-			<beans:bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
-		</argument-resolvers>			
-		<message-converters>	        	       
-	    	<beans:bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-		    <beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
-					 <beans:property name="writeAcceptCharset" value="false" />
-					<beans:property name="supportedMediaTypes">
-						<beans:list>
-							<beans:value>text/plain;charset=UTF-8</beans:value>
-						</beans:list>
-					</beans:property>
-			</beans:bean>
-			<beans:bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
-			<beans:bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
-			<beans:bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
-			<beans:bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
- 			<beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-					<beans:property name="supportedMediaTypes" value="application/json;charset=UTF-8" />				
-			</beans:bean>
-	<!-- 		<beans:bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-					<beans:property name="supportedMediaTypes" value="application/xml;charset=UTF-8" />
-					<beans:property name="marshaller" ref="jaxb2Marshaller" />
-					<beans:property name="unmarshaller" ref="jaxb2Marshaller" />
-			</beans:bean> -->
-    	</message-converters>
-	</annotation-driven>
+		
 	
 	<!-- Interceptors that execute common control logic across multiple requests -->
 	<interceptors>
@@ -66,6 +36,6 @@
 	--> 
 	  
 	    
- 	<context:component-scan base-package="*" />
+ 	
 	
 </beans:beans>

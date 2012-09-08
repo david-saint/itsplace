@@ -1,5 +1,7 @@
 package net.itsplace.domain;
 
+import javax.persistence.Entity;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Authcode {

@@ -33,7 +33,7 @@ public class IndexController {
 	@Autowired
 	private SearchService searchService;
 		
-	
+
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {

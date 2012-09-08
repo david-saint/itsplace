@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="hibernatePersistenceUnit" transaction-type="RESOURCE_LOCAL">
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.format_sql" value="true" />
+      		<property name="hibernate.use_sql_comments" value="false" />
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" /> -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<!-- <property name="hibernate.show_sql" value="true"/> -->
+		</properties>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+	</persistence-unit>
+</persistence>
