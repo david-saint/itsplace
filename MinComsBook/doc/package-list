@@ -1,0 +1,8 @@
+com.mincoms.book.api
+com.mincoms.book.controller
+com.mincoms.book.domain
+com.mincoms.book.repository
+com.mincoms.book.security
+com.mincoms.book.service
+com.mincoms.book.util
+com.mincoms.validation

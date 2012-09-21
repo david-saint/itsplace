@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="book">
+	<typeAlias type="com.mincoms.book.domain.dto.DtoBookInfo" alias="DtoBookInfo"/>
+	<sql id="getBookInfoReservationList_WHERE">
+	    <dynamic prepend="WHERE">
+	        	A.ISDELETED = 0
+	        <isNotEmpty property="search" >
+	         	AND A.TITLE LIKE '%' + #search# + '%' OR A.AUTHORS LIKE '%' + #search# + '%'
+	        </isNotEmpty>
+	        <isNotEmpty property="bookCategoryRoot" >
+	            AND E.ID = #bookCategoryRoot#
+	        </isNotEmpty>
+	        <isNotEmpty property="bookCategory" >
+	            AND D.ID = #bookCategory#
+	        </isNotEmpty>
+	    </dynamic>
+    </sql>
+	<select id="getBookInfoReservationList" resultClass="DtoBookInfo"   parameterClass="java.util.Map">
+    	WITH LIST AS
+		(
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY $sortColumn$ $sortDirection$) AS ROWNUMBER, 
+				A.ISBN,
+				A.thumbnail,
+				E.NAME AS BOOKCATEGORYROOT,
+				D.NAME AS BOOKCATEGORY,
+				A.TITLE,
+				A.AUTHORS,
+				A.COUNT,
+				A.PUBLISHEDDATE,
+				A.RegDate,
+				COUNT(B.ISBN) AS RENTALCOUNT, 
+				 ISNULL(C.RESERVATIONCOUNT,0) AS RESERVATIONCOUNT
+			FROM BookInfo A
+			LEFT OUTER JOIN 
+				BookRental B
+				ON A.ISBN = B.ISBN
+				AND B.RETURNDATE IS NULL
+			LEFT OUTER JOIN (
+							select isbn , count(*) as RESERVATIONCOUNT from bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
+						    ) C
+				ON A.ISBN = C.ISBN
+			INNER JOIN BOOKCATEGORY D
+			ON A.CATEGORY = D.ID	
+			INNER JOIN BOOKCATEGORYROOT E
+			ON D.ROOTID = E.ID	
+			<include refid="getBookInfoReservationList_WHERE" />
+			GROUP BY A.ISBN,a.thumbnail, A.TITLE,D.NAME, E.NAME, A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, A.RegDate, C.RESERVATIONCOUNT
+		)
+		SELECT * FROM LIST 
+		WHERE ROWNUMBER BETWEEN  #startRow# AND #endRow#
+		
+    </select>  
+	<select id="getBookInfoReservationListCount" resultClass="long"  parameterClass="java.util.Map">
+	    SELECT
+				 ISNULL(COUNT(DISTINCT(A.TITLE)),0)
+			FROM BookInfo A
+			LEFT OUTER JOIN 
+				BookRental B
+				ON A.ISBN = B.ISBN
+				AND B.RETURNDATE IS NULL
+			LEFT OUTER JOIN (
+							select isbn , count(*) as RESERVATIONCOUNT from bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
+						) C
+				ON A.ISBN = C.ISBN
+			INNER JOIN BOOKCATEGORY D
+			ON A.CATEGORY = D.ID	
+			INNER JOIN BOOKCATEGORYROOT E
+			ON D.ROOTID = E.ID	
+			<include refid="getBookInfoReservationList_WHERE" />
+			GROUP BY A.ISBN,a.thumbnail,  A.TITLE, D.NAME, E.NAME, A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, C.RESERVATIONCOUNT
+	</select>
+  
+    
+</sqlMap>
