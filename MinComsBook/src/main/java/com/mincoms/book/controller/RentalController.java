@@ -85,6 +85,13 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	@RequestMapping(value = "/book/return", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse returnPost(@RequestParam(required=true) long id) throws Exception  {
 		JsonResponse json  = rentalService.returnBook(id);
+		logger.info(json.getResult().toString());
+		logger.info(json.getResult().toString());
+		logger.info(json.getResult().toString());
+		logger.info(json.getResult().toString());
+		logger.info(json.getResult().toString());
+		logger.info(json.getResult().toString());
+		logger.info(json.getResult().toString());
 		return json;
 	}
 	/**
@@ -183,8 +190,27 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	@RequestMapping(value = "/book/rentals", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse rentals() throws Exception  {
 		
+		//UserInfo userInfo = userService.findByUserId(47);
+		json.setResult(rentalService.findByUserInfoAndReturnDateIsNull(SignedUser.getUserInfo()));
+		json.setSuccess();
+		return json;
+		
+	}
+	/**
+	 * <b>사용자 도서 대출 목록(History) </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param ISBN 
+	 * @return JsonResponse 
+	 * @throws Exception 
+	 * @see 
+	 */
+	@RequestMapping(value = "/book/rentalHistory", method = RequestMethod.POST, headers="Accept=application/json")
+	public @ResponseBody JsonResponse rentalHistory() throws Exception  {
+		
 		UserInfo userInfo = userService.findByUserId(47);
-		json.setResult(rentalService.findByUserInfoAndReturnDateIsNull(userInfo));
+		json.setResult(rentalService.findByUserInfoAndReturnDateIsNotNull(userInfo));
 		json.setSuccess();
 		return json;
 		

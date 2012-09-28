@@ -17,7 +17,7 @@ public class EncryptTest extends TestApplicationContext {
 
 	@Test
 	public void test() {
-		logger.info(Encrypt.md5Encoding("tesT"));
+		logger.info(Encrypt.md5Encoding("1111"));
 	}
 
 }

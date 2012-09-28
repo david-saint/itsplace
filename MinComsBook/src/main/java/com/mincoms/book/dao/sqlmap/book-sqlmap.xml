@@ -4,6 +4,11 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="book">
 	<typeAlias type="com.mincoms.book.domain.dto.DtoBookInfo" alias="DtoBookInfo"/>
+	<sql id="getBookInfoReservationList_HAVING">
+	    <isEqual property="isRental" compareValue="1" >
+		    <![CDATA[ having (COUNT(B.ISBN) + C.RESERVATIONCOUNT ) < a.count ]]>
+		</isEqual>     
+	</sql>
 	<sql id="getBookInfoReservationList_WHERE">
 	    <dynamic prepend="WHERE">
 	        	A.ISDELETED = 0
@@ -11,7 +16,10 @@
 	         	AND A.TITLE LIKE '%' + #search# + '%' OR A.AUTHORS LIKE '%' + #search# + '%'
 	        </isNotEmpty>
 	        <isNotEmpty property="bookCategoryRoot" >
-	            AND E.ID = #bookCategoryRoot#
+	            AND F.ID = #bookCategoryRoot#
+	        </isNotEmpty>
+	        <isNotEmpty property="bookCategorySub" >
+	            AND E.ID = #bookCategorySub#
 	        </isNotEmpty>
 	        <isNotEmpty property="bookCategory" >
 	            AND D.ID = #bookCategory#
@@ -25,11 +33,12 @@
 				ROW_NUMBER() OVER (ORDER BY $sortColumn$ $sortDirection$) AS ROWNUMBER, 
 				A.ISBN,
 				A.thumbnail,
-				E.NAME AS BOOKCATEGORYROOT,
+				F.NAME AS BOOKCATEGORYROOT,
+				E.NAME AS BOOKCATEGORYSUB,
 				D.NAME AS BOOKCATEGORY,
 				A.TITLE,
 				A.AUTHORS,
-				A.COUNT,
+				ISNULL(A.COUNT,0) AS COUNT,
 				A.PUBLISHEDDATE,
 				A.RegDate,
 				COUNT(B.ISBN) AS RENTALCOUNT, 
@@ -44,34 +53,43 @@
 						    ) C
 				ON A.ISBN = C.ISBN
 			INNER JOIN BOOKCATEGORY D
-			ON A.CATEGORY = D.ID	
-			INNER JOIN BOOKCATEGORYROOT E
-			ON D.ROOTID = E.ID	
+				ON A.CATEGORY = D.ID	
+			INNER JOIN BOOKCATEGORYSUB E
+				ON D.SUB_ID = E.ID
+			INNER JOIN BOOKCATEGORYROOT F
+				ON E.ROOT_ID = F.ID		
 			<include refid="getBookInfoReservationList_WHERE" />
-			GROUP BY A.ISBN,a.thumbnail, A.TITLE,D.NAME, E.NAME, A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, A.RegDate, C.RESERVATIONCOUNT
+			GROUP BY A.ISBN,a.thumbnail, A.TITLE,D.NAME, E.NAME, F.NAME,  A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, A.RegDate, C.RESERVATIONCOUNT
+			<include refid="getBookInfoReservationList_HAVING" />
 		)
 		SELECT * FROM LIST 
 		WHERE ROWNUMBER BETWEEN  #startRow# AND #endRow#
 		
     </select>  
 	<select id="getBookInfoReservationListCount" resultClass="long"  parameterClass="java.util.Map">
-	    SELECT
-				 ISNULL(COUNT(DISTINCT(A.TITLE)),0)
-			FROM BookInfo A
-			LEFT OUTER JOIN 
-				BookRental B
-				ON A.ISBN = B.ISBN
-				AND B.RETURNDATE IS NULL
-			LEFT OUTER JOIN (
-							select isbn , count(*) as RESERVATIONCOUNT from bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
-						) C
-				ON A.ISBN = C.ISBN
-			INNER JOIN BOOKCATEGORY D
-			ON A.CATEGORY = D.ID	
-			INNER JOIN BOOKCATEGORYROOT E
-			ON D.ROOTID = E.ID	
-			<include refid="getBookInfoReservationList_WHERE" />
-			GROUP BY A.ISBN,a.thumbnail,  A.TITLE, D.NAME, E.NAME, A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, C.RESERVATIONCOUNT
+	    
+	    SELECT COUNT(A.TITLE) FROM ( 
+		    SELECT
+					 ISNULL(COUNT(DISTINCT(A.TITLE)),0) AS TITLE
+				FROM BookInfo A
+				LEFT OUTER JOIN 
+					BookRental B
+					ON A.ISBN = B.ISBN
+					AND B.RETURNDATE IS NULL
+				LEFT OUTER JOIN (
+								select isbn , count(*) as RESERVATIONCOUNT from bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
+							) C
+					ON A.ISBN = C.ISBN
+				INNER JOIN BOOKCATEGORY D
+					ON A.CATEGORY = D.ID		
+				INNER JOIN BOOKCATEGORYSUB E
+					ON D.SUB_ID = E.ID
+				INNER JOIN BOOKCATEGORYROOT F
+					ON E.ROOT_ID = F.ID	
+				<include refid="getBookInfoReservationList_WHERE" />
+				GROUP BY A.ISBN,a.thumbnail,  A.TITLE, D.NAME, E.NAME, F.NAME, A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, C.RESERVATIONCOUNT
+				<include refid="getBookInfoReservationList_HAVING" />
+		)  A		
 	</select>
   
     

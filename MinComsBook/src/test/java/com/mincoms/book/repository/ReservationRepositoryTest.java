@@ -45,6 +45,7 @@ public class ReservationRepositoryTest extends TestApplicationContext {
 		BookInfo book = new BookInfo();
 		book.setIsbn("9788996276593");
 		bookReservation.setBookInfo(book);
+		repo.findByReservationBook("9788956744964");
 		//repo.findByTest("9788996276593",47);
 	}
 	

@@ -34,6 +34,8 @@ import com.mincoms.book.domain.VoBookInfo;
 import com.mincoms.book.domain.dto.DtoBookInfo;
 import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.CategoryService;
+import com.mincoms.book.service.RentalService;
+import com.mincoms.book.service.ReservationService;
 
 @Controller
 public class BookController { 
@@ -42,7 +44,10 @@ public class BookController {
 	MessageSource messagesource;
 	@Autowired
 	BookService bookService;
-	
+	@Autowired
+	RentalService rentalService;
+	@Autowired
+	ReservationService reservationService;
 	@Autowired
 	CategoryService categoryService;
 	
@@ -54,6 +59,16 @@ public class BookController {
 	public String search(Model model) {
 		model.addAttribute("categoryRootList", categoryService.findByBookCategoryRoot());
 		return "book/search";
+	}
+	/**
+	 * <b>도서반납 예정일 및 예약자 정보</b> <br />
+	 */
+	@RequestMapping(value = "/book/info", method = RequestMethod.GET)
+	public String info(@RequestParam(required=true) String isbn, Model model) {
+		
+		model.addAttribute("rentalList", rentalService.findByIsbn(isbn));
+		model.addAttribute("reservationList", reservationService.findByReservationBook(isbn));
+		return "book/info";
 	}
 	
 	
@@ -85,7 +100,9 @@ public class BookController {
 									@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
 	                                @RequestParam(required=false, defaultValue="") String sSearch,
 	                                @RequestParam(required=false, defaultValue="0") Integer bookCategoryRoot,
-									@RequestParam(required=false, defaultValue="0") Integer bookCategory) {
+									@RequestParam(required=false, defaultValue="0") Integer bookCategorySub,
+									@RequestParam(required=false, defaultValue="0") Integer bookCategory,
+									@RequestParam(required=false, defaultValue="0") Integer isRental) {
 	
 	             
 	                logger.info("bookCategoryRoot:{}", bookCategoryRoot);
@@ -96,11 +113,12 @@ public class BookController {
 	                Map<String, Object> parameter = new HashMap<String, Object>();
 	                parameter.put("bookCategoryRoot", bookCategoryRoot);
 	                parameter.put("bookCategory", bookCategory);                           
+	                parameter.put("bookCategorySub", bookCategorySub);                           
+	                parameter.put("isRental", isRental);                           
 	                Paging paging = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
 	                paging.setParameter(parameter);
 	               
 	                logger.info(paging.toString());
-	                logger.info("ddddddddddddddd:"+paging.getCurrentPage());
 	                
 	               return bookService.getReservationGroupByBooks(paging);
 	       

@@ -31,6 +31,9 @@
 	 		$('#btnAll').click(function(){
 	 			 $('#isotope').isotope({ filter: '.item' });
 	 		});
+	 		$('#btnHistory').click(function(){
+	 			 $('#isotope').isotope({ filter: '.history' });
+	 		});
 	 		initialize();
 	 		/* $('#isotope').isotope({
 	 			itemSelector:'.item',
@@ -44,8 +47,11 @@
 	 	function initialize(){
 	 		$('#isotope').empty();
 	 		$('#isotope').isotope('destroy');
-	 		getRentalBooks();
+	    	getRentalBooks();
 	 		getReservationBooks();
+	 		
+	 		//$('#isotope').isotope({ filter: '.rental' });
+	 		
 	 	}
 	 	function removeItem(id){
 	 		c.log(id);
@@ -78,7 +84,7 @@
                 		   if(day==0){
                 			   message = "오늘 예약하였습니다";
                 		   }else if(day<0){
-                			   message = "반납 예정일이 지났습니다";
+                			   message = "예약중입니다";
                 		   }else{
                 			   message = day + "일 남았습니다";
                 		   }
@@ -121,19 +127,20 @@
                  },
                  success: function(response){
                    if(response.status=="SUCCESS"){
-                	  // c.log(response.result);
+                	  
                 	    var  html = new StringBuffer();
                 	    
                 	   $.each(response.result, function(i){
+                		   c.log(this.bookInfo.title);
                 		   var endDate = new Date(this.endDate);
                 		   var message = "";
-                		   var day = (this.endDate -  new Date().getTime()) /1000/60/60/24 ;
+                		   var day = (endDate.getTime() -  new Date().getTime()) /1000/60/60/24 ;
                 		   c.log(day);
                 		   day = parseInt(Math.round(day));
                 		   if(day==0){
                 			   message = "오늘은 반납일입니다";
                 		   }else if(day<0){
-                			   message = "반납 예정일이 지났습니다";
+                			   message = "반납 예정일이 "+ Math.abs(day) +"일 지났습니다";
                 		   }else{
                 			   message = day + "일 남았습니다";
                 		   }
@@ -141,6 +148,7 @@
                 		   html.append('<a class="mosaic-overlay iframe fancy"  id="'+this.id+'" href="/book/return?id='+this.id+'">');
                 		   html.append('<div class="details">');
                 		   html.append('<h4>'+message+'</h4>');
+                		   html.append('<p>'+this.bookInfo.title+'</p>');
                 		   html.append('</div>');
                 		   html.append('</a>');
                 		   html.append('<div class="mosaic-backdrop">');
@@ -155,24 +163,66 @@
                  },
                  
                  complete:function(){
+                	
+         	 		getRentalBookHistory();
+                 }
+               });//ajax
+		}
+		function getRentalBookHistory(){
+			var url = "/book/rentalHistory";
+ 			url += "?decorator=exception";
+ 			$.ajax({
+                 url: url,
+                 type:"POST",                                
+                 data:$("form").serialize(),
+                 beforeSend :function(xhr){
+                	 xhr.setRequestHeader("Accept", "application/json");
+                 },
+                 success: function(response){
+                   if(response.status=="SUCCESS"){
+                	  // c.log(response.result);
+                	    var  html = new StringBuffer();
+                	    
+                	   $.each(response.result, function(i){
+                		   var returnDate = new Date(this.returnDate);
+                		   var message = "";
+                		   var day = (   new Date().getTime() - this.returnDate) /1000/60/60/24 ;
+                		   day = parseInt(Math.round(day));
+                		   html.append('<div class="item history bar2">');
+                		   html.append('<a class="mosaic-overlay">');
+                		   html.append('<div class="details">');
+                		   html.append('<h4>'+day+'일 되었습니다</h4>');
+                		   html.append('</div>');
+                		   html.append('</a>');
+                		   html.append('<div class="mosaic-backdrop">');
+                		   html.append('<img src="'+this.bookInfo.thumbnail+'"/>');
+                		   html.append('</div>');
+                		   html.append('</div>');
+                	   });
+                	   $('#isotope').append(html.toString());
+                   }else{                    	  
+                	   c.log(response.result);   
+                   }
+                 },
+                 
+                 complete:function(){
+                	
                 	 $('#isotope').isotope({
-         	 			itemSelector:'.item',
-         	 			layoutMode:'fitRows'
-         	 		});
-         	 		$('.bar2').mosaic({
-         				animation	:	'slide'	
-         			});  
-         	 		
-         	 		$('.fancy').fancybox({
-    					'autoDimensions':false,
-    					'scrolling':'auto',
-    					'autoScale':false,
-    					'height':400,
-    					//'width':700,
-    					//'centerOnScroll':true
-    					//'title':'사용자 정보 수정'
-
-    				});
+           	 			itemSelector:'.item',
+           	 			layoutMode:'fitRows'
+           	 		});
+          	 		$('.bar2').mosaic({
+          				animation	:	'slide'	
+          			});  
+          	 		
+          	 		$('.fancy').fancybox({
+     					'autoDimensions':false,
+     					'scrolling':'auto',
+     					'autoScale':false,
+     					'height':400,
+     				});
+          	 		$('#isotope').isotope({ filter: '.rental' });
+          	 		
                  }
                });//ajax
 		}
@@ -235,29 +285,30 @@
 		.item{
 			width:198px;
 			height:286px;
-			border:1px solid red;
+			border:0px solid red;
 			margin-right:15px;
 		
 		}
-		.item:hover img{
-		
+		.item img{
+			width:198px;
+			height:286px;
 		}
-		.details{ margin:15px 20px; }	
-					h4{ font:300 13px 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height:160%; letter-spacing:0.15em; color:#fff; text-shadow:1px 1px 0 rgb(0,0,0); }
-					p{ font:300 12px 'Lucida Grande', Tahoma, Verdana, sans-serif; color:#aaa; text-shadow:1px 1px 0 rgb(0,0,0);}
-					a{ text-decoration:none; }
+		.details{ margin:18px 20px; }	
+		h4{ font:300 11px 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#fff; text-shadow:1px 1px 0 rgb(0,0,0); }
+		p{ margin-top:15px; font:300 12px 'Lucida Grande', Tahoma, Verdana, sans-serif; color:#aaa; text-shadow:1px 1px 0 rgb(0,0,0);}
+		a{ text-decoration:none; }
 	</style>
 </head>
 <body>
 	<div class="widget">
 		<div class="header">
-			<span class="ico gray home"></span><span>${title}</span>
+			<span><span class="ico gray brightness"></span>${title}</span>
 		</div>
 		<div class="content">		
 			<a id="btnAll" class="uibutton normal">전체</a>
 			<a id="btnRental" class="uibutton normal">대출목록</a>
 			<a id="btnReservation" class="uibutton normal">예약목록</a>
-			<a id="btnReservation" class="uibutton normal">History</a>
+			<a id="btnHistory" class="uibutton normal">대출이력</a>
 			<div id="isotope">
 			<%-- <c:forEach var="rentalBook" items="${rentalBookList}" varStatus="status">
 				<div class="item bar2">

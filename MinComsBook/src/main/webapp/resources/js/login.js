@@ -2,17 +2,17 @@
 			onfocus();
 			$(".on_off_checkbox").iphoneStyle();
 			$('.tip a ').tipsy({gravity: 'sw'});
-			$('#login').show().animate({   opacity: 1 }, 1000);
-			$('.logo').show().animate({   opacity: 1,top: '30%'}, 800,function(){			
-				$('.logo').show().delay(1200).animate({   opacity: 1,top: '0%' }, 300,function(){
-					$('.formLogin').animate({   opacity: 1,left: '0' }, 300);
-					$('.userbox').animate({ opacity: 0 }, 200).hide();
+			$('#login').show().animate({   opacity: 1 }, 500);
+			$('.logo').show().animate({   opacity: 1,top: '30%'}, 500,function(){			
+				$('.logo').show().delay(500).animate({   opacity: 1,top: '0%' }, 300,function(){
+					$('.formLogin').animate({   opacity: 1,left: '0' }, 100);
+					$('.userbox').animate({ opacity: 0 }, 100).hide();
 				 });		
 			});	
 		
 
 	    $('.userload').click(function(e){
-			$('.formLogin').animate({   opacity: 1,left: '0' }, 300);			    
+			$('.formLogin').animate({   opacity: 1,left: '0' }, 100);			    
 			  $('.userbox').animate({ opacity: 0 }, 200,function(){
 				  $('.userbox').hide();				
 			   });
@@ -47,7 +47,7 @@ function AdminLogin(){
     setTimeout( "window.location.href='admin'", 3000 );
 }
 function UserLogin(){
-$("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
+/*$("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
 	 $('.userbox').show().animate({ opacity: 1 }, 500);
 		$("#login").animate({   opacity: 0,top: '60%' }, 500,function(){
 			$(this).fadeOut(200,function(){
@@ -55,8 +55,8 @@ $("#login").animate({   opacity: 1,top: '49%' }, 200,function(){
 			  $("#successLogin").animate({opacity: 1,height: "200px"},500);   			     
 			});							  
 		 });	
- });	   
-setTimeout( "window.location.href='/'", 3000 );
+ });*/	   
+setTimeout( "window.location.href='/'", 100 );
 }
 function securityLogin(){
 	$.ajax({
@@ -69,18 +69,15 @@ function securityLogin(){
 	    success: function(result) {
     		 hideTop();
     		 loading('Checking',1);		
-    		 setTimeout( "unloading()", 2000 );    		
-	        if (result == "ROLE_ADMIN") {	        	
-	        	 setTimeout( "AdminLogin()", 2500 );	        	
-	        }else if(result == "ROLE_USER"){
-	        	 setTimeout( "UserLogin()", 2500 );	
-			} else if (result == "error") {
-	        	 showError("인증에 실패해씁니다");
-	           $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
+    		 setTimeout( "unloading()", 100 );
+			if (result == "error") {
+	        	 showError("인증에 실패하였습니다.");
+	              $('.inner').jrumble({ x: 4,y: 0,rotation: 0 });	
 				  $('.inner').trigger('startRumble');
 				  setTimeout('$(".inner").trigger("stopRumble")',500);
 				  setTimeout('hideTop()',5000);
-				 
+	        }else{
+	        	 setTimeout( "UserLogin()", 0 );
 	        }
 	    },
 	    error: function(data, status, err){

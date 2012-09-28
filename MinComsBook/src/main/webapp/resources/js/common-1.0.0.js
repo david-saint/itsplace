@@ -21,11 +21,12 @@ $.ajaxSetup({
 }); 
 $(document).ready(function() {
 	$('.clear_form').live('click',function() {
-		
-
 		c.clearForm();
 	});
 	
+	$('.cancel').live('click',function() {
+		history.back();
+	});
 	
 });
 

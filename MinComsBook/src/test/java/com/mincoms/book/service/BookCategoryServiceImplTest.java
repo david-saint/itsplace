@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 
 import com.mincoms.book.domain.BookCategory;
 import com.mincoms.book.domain.BookCategoryRoot;
+import com.mincoms.book.domain.BookCategorySub;
 import com.mincoms.book.repository.CategoryRepository;
 import com.mincoms.book.repository.CategoryRootRepository;
 import com.mincoms.test.TestApplicationContext;
@@ -43,10 +44,10 @@ public class BookCategoryServiceImplTest extends TestApplicationContext {
 		for(BookCategory category : list){
 			logger.info(category.getName());
 		}*/
-		List<BookCategory> list = repo.findByIsDeletedAndBookCategoryRoot(false, bookCategoryRoot ,new Sort(Sort.Direction.DESC,"dispSeq"));
-		for(BookCategory category : list){
+		/*List<BookCategorySub> list = repo.findByBookCategorySub(bookCategorySub)(false, bookCategoryRoot ,new Sort(Sort.Direction.DESC,"dispSeq"));
+		for(BookCategorySub category : list){
 			logger.info(category.getName());
-		}
+		}*/
 	}
 	@Ignore
 	public void test() {
@@ -54,7 +55,7 @@ public class BookCategoryServiceImplTest extends TestApplicationContext {
 		BookCategoryRoot bookRootCategory = new  BookCategoryRoot();
 		bookRootCategory.setName("전문서적");
 		bookRootCategory.setDispSeq(1);
-		bookRootCategory.setDeleted(false);
+	//	bookRootCategory.setDeleted(false);
 		
 	//	repo.save(bookRootCategory);
 		
@@ -62,8 +63,8 @@ public class BookCategoryServiceImplTest extends TestApplicationContext {
 		BookCategory bookCategory = new BookCategory();
 		bookCategory.setName("경영기획");
 		bookCategory.setDispSeq(1);
-		bookCategory.setDeleted(false);
-		bookCategory.setBookCategoryRoot(bookRootCategory);
+//		bookCategory.setDeleted(false);
+		//bookCategory.setBookCategoryRoot(bookRootCategory);
 		service.save(bookCategory);
 	}
 

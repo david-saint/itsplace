@@ -8,21 +8,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.mincoms.book.domain.BookInfo.AddBook;
+import com.mincoms.validation.IntTypeMiss;
+
 @Entity(name="BookCategory")
 public class BookCategory {
-
+	public interface AddBookCategory {}
+	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NotEmpty
 	private int id;
 	
+
 	@ManyToOne
-	@JoinColumn(name="rootid")	
-	private BookCategoryRoot bookCategoryRoot;
-	     
+	@JoinColumn(name="sub_id")	
+	private BookCategorySub bookCategorySub;
+	
+	@NotEmpty(groups={AddBookCategory.class}, message="도서제목을 입력하세요")    
 	private String name;
 	private int dispSeq;
 	private boolean isDeleted;
@@ -44,18 +50,21 @@ public class BookCategory {
 	public void setDispSeq(int dispSeq) {
 		this.dispSeq = dispSeq;
 	}
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-	public void setDeleted(boolean isDeleted) {
+	
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	public BookCategoryRoot getBookCategoryRoot() {
-		return bookCategoryRoot;
+	public BookCategorySub getBookCategorySub() {
+		return bookCategorySub;
 	}
-	public void setBookCategoryRoot(BookCategoryRoot bookCategoryRoot) {
-		this.bookCategoryRoot = bookCategoryRoot;
+	public void setBookCategorySub(BookCategorySub bookCategorySub) {
+		this.bookCategorySub = bookCategorySub;
 	}
+	public boolean getIsDeleted() {
+		return isDeleted;
+	}
+	
+	
 	
 	
 	

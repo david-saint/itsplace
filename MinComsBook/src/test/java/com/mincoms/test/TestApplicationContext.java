@@ -38,6 +38,7 @@ import com.mincoms.book.security.CustomUserDetails;
 "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
 "file:src/main/webapp/WEB-INF/spring/security-context.xml",
 "file:src/main/webapp/WEB-INF/spring/ibatis-context-test.xml",
+"file:src/main/webapp/WEB-INF/spring/task-context.xml",
 "file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public abstract class TestApplicationContext {
 

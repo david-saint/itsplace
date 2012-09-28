@@ -4,19 +4,37 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
-public class TestDate {
+import com.mincoms.book.BookUserDetailsServiceTest;
+import com.mincoms.book.domain.BookRental;
+import com.mincoms.book.domain.UserInfo;
+import com.mincoms.book.service.RentalService;
+import com.mincoms.book.service.UserService;
+import com.mincoms.test.TestApplicationContext;
 
+public class TestDate extends TestApplicationContext {
+	  
+	private static final Logger logger = LoggerFactory.getLogger(TestDate.class);
+	@Autowired
+	RentalService rentalService;
+	@Autowired
+	UserService userService;
+	@Scheduled(cron="*/5 * * * * ?")
 	@Test
 	public void test() {
 		Calendar calendar = java.util.Calendar.getInstance();
 		Calendar calendar2 = java.util.Calendar.getInstance();
 		Calendar calendar3 = java.util.Calendar.getInstance();
+		calendar.add(calendar.DATE,1);
 		Date d = calendar.getTime();
 		System.out.println(d.toString());
-		calendar.add(calendar.DATE, 7);
 		
 		System.out.println(calendar.getTime().toString());
 
@@ -31,13 +49,23 @@ public class TestDate {
 			System.out.println("이전");
 		}
 		
-		
-		Date endDate = new Date("2012-09-21 10:47:25");
-		calendar3.setTime(endDate);
-		System.out.println(calendar2.compareTo(calendar3));
-		
-		String temp ="ddddd\"";
-		temp = temp.replaceAll("[\"]","aaa");
+		UserInfo userInfo = userService.findByUserId(47);
+		List<BookRental> list = rentalService.findByUserInfoAndReturnDateIsNull(userInfo);
+		 System.out.println(list.get(1).getEndDate().toString()+"");
+		 
+		 long endDay =  ((list.get(1).getEndDate().getTime() - new Date().getTime()) /1000/60/60/24);
+		  System.out.println(endDay);
+         endDay = Math.round(endDay)+1;
+         System.out.println(endDay+"");
+        String returnMessage = "";
+        if(endDay<0){        	
+        	returnMessage = "반납일 "+endDay;
+        }else if(endDay == 0){
+        	returnMessage = "오늘은 반납일입니다";
+        }else{
+        	returnMessage = (endDay) + "일 남았습니다";
+        }
+        System.out.println(returnMessage);
 		
 	}
 

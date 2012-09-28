@@ -4,13 +4,14 @@
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
-<c:set var="title" value="도서목록"/>
+<c:set var="title" value="도서관리"/>
 <html>
 <head>
     <title>${title}</title>
 <script type="text/javascript">
 	var datatable; 
  	$(document).ready(function(){
+ 		
  		$( ".date" ).datepicker({ 
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
@@ -36,13 +37,14 @@
 									
 									return "<img src='"+oObj.aData['thumbnail']+ "' style=\"width:50px;\" />";
 							}},
-							{ "mDataProp": "bookCategory.bookCategoryRoot.name" },
+							{ "mDataProp": "bookCategory.bookCategorySub.bookCategoryRoot.name" },
+							{ "mDataProp": "bookCategory.bookCategorySub.name" },
 							{ "mDataProp": "bookCategory.name" },
 							{ "mDataProp": "title" },
  				  			{ "mDataProp": "authors" },
  				  			{ "mDataProp": "count", "bSortable": false },
  				  			{ "mDataProp": "isDeleted", "bSortable": false, "fnRender" :function ( oObj ) {
- 								return oObj.aData['isDeleted'] == "0" ? "승인" : "미승인";
+ 								return oObj.aData['isDeleted'] == "0" ? "등록됨" : "삭제됨";
  							} },
  				  			{ "mDataProp": "publishedDate" ,"bSortable": false},
  				  			
@@ -79,9 +81,9 @@
 		var isbn = oObj.aData['isbn'];
  		
  		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/book/edit?isbn='+isbn+'" original-title="수정"><img src="/resources/images/icon/gray_18/pencil.png"></a><span>';
- 		var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
+ 		//var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
  		
- 		return  editAction + "&nbsp;"+ rentalAction; 
+ 		return  editAction + "&nbsp;";
  	}
  	function bindAction(){
  		$('.rental').bind('click', function() {
@@ -118,7 +120,7 @@
 <body>
 	<div class="widget">
 		<div class="header">
-			<span class="ico gray home"></span><span>${title}</span>
+			<span><span class="ico gray spreadsheet"></span>${title}</span>
 		</div>
 		<div class="content">			
 			<div class="tableName">
@@ -126,14 +128,15 @@
 				<table class="display" id="datatable">
 					<thead>
 						<tr>
-							<th>이미지</th>
-							<th>분류</th>
-							<th>카테고리</th>
-							<th>제목</th>
+							<th width="100">이미지</th>
+							<th width="100">대분류</th>
+							<th width="100">중분류</th>
+							<th width="100">소분류</th>
+							<th width="300">제목</th>
 							<th>저자</th>
-							<th>수량</th>
-							<th>사용여부</th>
-							<th>출판일</th>
+							<th width="50">수량</th>
+							<th width="60">사용여부</th>
+							<th width="70">출판일</th>
 							<th>Management</th>
 						</tr>
 					</thead>

@@ -20,6 +20,7 @@ import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.News;
 import com.mincoms.book.domain.BookRental;
 import com.mincoms.book.domain.UserInfo;
+import com.mincoms.book.service.UserService;
 import com.mincoms.test.TestApplicationContext;
 
 public class RentalRepositoryTest extends TestApplicationContext {
@@ -31,7 +32,8 @@ public class RentalRepositoryTest extends TestApplicationContext {
 	
 	@Autowired
 	UserRepository userRepo;
-	
+	@Autowired
+	UserService userService;
 	@Autowired
 	BookRepository bookRepo;
 
@@ -48,7 +50,7 @@ public class RentalRepositoryTest extends TestApplicationContext {
 		
 		rental.setStartDate(new Date());
 		rental.setEndDate(calendar.getTime());
-		rental.setUser(user);
+		rental.setUserInfo(user);
 		rental.setBookInfo(book);
 		repo.save(rental);
 		
@@ -73,12 +75,13 @@ public class RentalRepositoryTest extends TestApplicationContext {
 	}
 	@Test
 	public void testFindBook(){
-		String isbn = "9788979145595";
+		String isbn = "9788996276593";
 		BookInfo book = new BookInfo();
 		book.setIsbn(isbn);
-		List<BookRental> rentals = repo.findByBookInfoAndReturnDateIsNull(book);
+		UserInfo user = userService.findByUserId(47);
+		List<BookRental> rentals = repo.findByUserInfoAndReturnDateIsNotNull(user);
 		for(BookRental rental: rentals){
-			logger.info("book:{}",rental.getBookInfo().getTitle() + rental.getStartDate());
+			logger.info("book:{}",rental.getBookInfo().getTitle() + rental.getStartDate()+ rental.getUserInfo().toString());
 		}
 	}
 	

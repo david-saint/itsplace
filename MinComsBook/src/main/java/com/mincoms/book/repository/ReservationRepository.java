@@ -42,13 +42,26 @@ public interface ReservationRepository extends JpaRepository<BookReservation, Lo
 	 * @param userId  
 	 * @return List<BookReservation> 예약리스트
 	 * @throws Exception 
-	 * @see 
+	 * @see bookRental is NUll은 예약중임을 의미하며 예약완료는 예약이되고 대출이 되었음을 말한다.
 	 */
 	@Query("select R from BookReservation R  Where R.bookInfo.isbn = ?1 AND R.userInfo.userId = ?2  AND R.isCanceled = 0 AND R.bookRental is Null")
 	BookReservation findByReservationBook(String isbn, int userId);
 	
 	/**
-	 * <b>사용자가 예약한 도서 모곩<b>	
+	 * <b> 예약중인 도서 찾기<b>	
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param isbn  
+	 * @return List<BookReservation> 예약리스트
+	 * @throws Exception 
+	 * @see 
+	 */
+	@Query("select R from BookReservation R  Where R.bookInfo.isbn = ?1 AND R.isCanceled = 0 AND R.bookRental is Null")
+	List<BookReservation> findByReservationBook(String isbn);
+	
+	/**
+	 * <b>사용자가 예약한 도서 목록<b>	
 	 * @author 김동훈
 	 * @version 1.0
 	 * @since 2012. 9. 6

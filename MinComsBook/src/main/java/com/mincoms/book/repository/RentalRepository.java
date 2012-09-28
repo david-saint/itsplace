@@ -17,11 +17,13 @@ public interface RentalRepository extends JpaRepository<BookRental, Long> {
 	@Query("SELECT R FROM BookRental R WHERE R.id = ?1")
 	BookRental findById(long id);
 	
-	@Query("select R from BookRental R join R.bookInfo B Where R.returnDate is Null And B.isbn = ?1")
+	@Query("select R from BookRental R Where R.bookInfo.isbn = ?1 And R.returnDate is Null")
 	List<BookRental> findByIsbn(String isbn);
 	
 	List<BookRental> findByBookInfoAndReturnDateIsNull(BookInfo book);
 	
 	List<BookRental> findByUserInfoAndReturnDateIsNull(UserInfo userInfo);
+	
+	List<BookRental> findByUserInfoAndReturnDateIsNotNull(UserInfo userInfo);
 	
 }

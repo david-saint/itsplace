@@ -11,14 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.BookRental;
+import com.mincoms.book.domain.BookReservation;
 import com.mincoms.book.domain.JsonResponse;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.repository.BookRepository;
 import com.mincoms.book.repository.RentalRepository;
+import com.mincoms.book.repository.ReservationRepository;
 import com.mincoms.book.security.SignedUser;
 import com.mincoms.book.util.DateUtil;
 
@@ -31,6 +34,11 @@ public class RentalServiceImpl implements RentalService {
 	RentalRepository rentalRepo;
 	@Autowired
 	BookService bookService;
+	@Autowired
+	ReservationService reservationService;
+	@Autowired
+	ReservationRepository reservationRepo;
+	
 	@Autowired
 	MessageSource messageSource;
 
@@ -45,15 +53,20 @@ public class RentalServiceImpl implements RentalService {
 				calendar.add(Calendar.DATE, day);
 				Date endDate = calendar.getTime();
 				
-				BookRental rental = new BookRental();
-				rental.setBookInfo(book);	
-				rental.setStartDate(startDate);			
-				rental.setEndDate(endDate);
-				rental.setUser(userInfo);
-				rental.setExtendcount(0);
-				rental = rentalRepo.save(rental);
+				BookRental bookRental = new BookRental();
+				bookRental.setBookInfo(book);	
+				bookRental.setStartDate(startDate);			
+				bookRental.setEndDate(endDate);
+				bookRental.setUserInfo(userInfo);
+				bookRental.setExtendcount(0);
+				bookRental = rentalRepo.save(bookRental);
 				
-				json.setResult(messageSource.getMessage("rentaled", new Object [] {rental.getBookInfo().getTitle()}, Locale.getDefault()));
+				BookReservation bookReservation = reservationService.findByReservationBook(isbn,userInfo.getUserId());
+				if(bookReservation != null){
+					bookReservation.setBookRental(bookRental);
+				}
+				
+				json.setResult(messageSource.getMessage("rentaled", new Object [] {bookRental.getBookInfo().getTitle()}, Locale.getDefault()));
 				json.setSuccess();
 				
 			}else{
@@ -62,7 +75,13 @@ public class RentalServiceImpl implements RentalService {
 			}
 			
 		}else{
-			json.setResult(messageSource.getMessage("can.not.find.rental.book",null, Locale.getDefault()));
+			List<BookReservation> reservationBooks = reservationRepo.findByReservationBook(isbn);
+			if(reservationBooks.size()>0){
+				json.setResult(messageSource.getMessage("can.not.find.rental.book.reserved",null, Locale.getDefault()));
+			}else{
+				json.setResult(messageSource.getMessage("can.not.find.rental.book",null, Locale.getDefault()));
+			}
+			
 			json.setFail();
 		}
 		
@@ -84,13 +103,33 @@ public class RentalServiceImpl implements RentalService {
 	public JsonResponse returnBook(long id) {
 		BookRental bookRental = rentalRepo.findById(id);
 		bookRental.setReturnDate(new Date());
+		
+		
 		rentalRepo.save(bookRental);
+		
+		List<BookReservation> list = reservationRepo.findByReservationBook(bookRental.getBookInfo().getIsbn());
+		if(list.size()>0){
+			logger.info("어신크 작동");
+			//reservationBookCancelAfter24(bookRental.getBookInfo().getIsbn());
+		}
 		JsonResponse json = new JsonResponse();
+		logger.info("반납성공"+messageSource.getMessage("returnBook", new Object [] {bookRental.getBookInfo().getTitle()}, Locale.getDefault()));
 		json.setResult(messageSource.getMessage("returnBook", new Object [] {bookRental.getBookInfo().getTitle()}, Locale.getDefault()));
 		json.setSuccess();
 		return json;
 	}
-
+	@Async
+	public void reservationBookCancelAfter24(String isbn){
+			try {
+				Thread.sleep(86400000);
+				List<BookReservation> list = reservationRepo.findByReservationBook(isbn);
+				for(BookReservation  bookReservation : list){
+					reservationService.reservationCancel(bookReservation.getId());
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	}
 	@Override
 	public JsonResponse extendBook(long id, int day, String extendReason) {
 		BookRental bookRental = rentalRepo.findById(id);
@@ -118,6 +157,17 @@ public class RentalServiceImpl implements RentalService {
 		}
 		
 		return json;
+	}
+
+	@Override
+	public List<BookRental> findByIsbn(String isbn) {
+		return rentalRepo.findByIsbn(isbn);
+	}
+
+	@Override
+	public List<BookRental> findByUserInfoAndReturnDateIsNotNull(
+			UserInfo userInfo) {
+		return rentalRepo.findByUserInfoAndReturnDateIsNotNull(userInfo);
 	}
 
 

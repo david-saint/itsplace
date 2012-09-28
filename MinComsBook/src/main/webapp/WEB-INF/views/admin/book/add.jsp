@@ -27,19 +27,41 @@
 	 		$('#bookCategoryRoot').selectmenu(2);
 	 		$('#bookCategoryRoot').change(function(){
 	 			  $.getJSON(
-	 		             "/book/getBookCategory?decorator=exception", 
-	 		             {rootid: $('#bookCategoryRoot').val()},
+	 		             "/book/getBookCategorySub?decorator=exception", 
+	 		             {root_id: $('#bookCategoryRoot').val()},
 	 		             function(data) {
 	 		                  var html = '';
 	 		                  var len = data.length;
-	 		                  for(var i=0; i<len; i++){
-	 		                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-	 		                   }
-	 		                  $('#bookCategory').children().remove();
-	 		                  $('#bookCategory').append(html);
-	 		                  $('#bookCategory').selectmenu('destroy');
-	 		                  $('#bookCategory').selectmenu();
-	 		                  console.log(html);
+	 		                  if(len>0){
+	 		                	 for(var i=0; i<len; i++){
+		 		                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+		 		                   }
+		 		                  $('#bookCategorySub').children().remove();
+		 		                  $('#bookCategory').children().remove();
+		 		                  $('#bookCategorySub').append(html);
+		 		                  $('#bookCategorySub').selectmenu('destroy');
+		 		                  $('#bookCategorySub').selectmenu();
+	 		                  }
+	 		                 
+	 		             });
+	 		});
+	 		$('#bookCategorySub').change(function(){
+	 			  $.getJSON(
+	 		             "/book/getBookCategory?decorator=exception", 
+	 		             {sub_id: $('#bookCategorySub').val()},
+	 		             function(data) {
+	 		                  var html = '';
+	 		                  var len = data.length;
+	 		                  if(len>0){
+	 		                	 for(var i=0; i<len; i++){
+		 		                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+		 		                   }
+		 		                  $('#bookCategory').children().remove();
+		 		                  $('#bookCategory').append(html);
+		 		                  $('#bookCategory').selectmenu('destroy');
+		 		                  $('#bookCategory').selectmenu();
+	 		                  }
+	 		                  
 	 		             });
 	 		});
 	 	   
@@ -95,7 +117,7 @@
 <body>	
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> ${title} </span>
+		<span><span class="ico gray pencil"></span> ${title} </span>
 	</div>	
 	<div class="content">
 		<form:form  action="add" commandName="bookInfo" method="post">
@@ -115,15 +137,18 @@
                </div>
           </div>  
           <div class="section" >
-               <label>분류 <small></small></label>   
+               <label>대분류 <small></small></label>   
                <div> 
-               		<form:select id="bookCategoryRoot" path="bookCategory.bookCategoryRoot.id" multiple="false">
+               		<form:select id="bookCategoryRoot" path="bookCategory.bookCategorySub.bookCategoryRoot.id" multiple="false">
 						<form:options items="${categoryRootList}" itemValue="id" itemLabel="name" />
 					</form:select>
-				 	<select id="bookCategory" name="bookCategory.id">
-				 		<option>하위분류</option>
+				 	<select id="bookCategorySub" name="bookCategory.bookCategorySub.id">
+				 		<option>중분류</option>
 				 	</select>		
-				 	<form:errors path="bookCategory.bookCategoryRoot.id" cssClass="error" />     	
+				 	<select id="bookCategory" name="bookCategory.id">
+				 		<option>소분류</option>
+				 	</select>
+				 	<form:errors path="bookCategory.bookCategorySub.id" cssClass="error" />     	
 				 	<form:errors path="bookCategory.id" cssClass="error" />     	
                	<span class="f_help"></span>
                	</div>                                  

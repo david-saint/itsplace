@@ -53,7 +53,7 @@ public class ReservationServiceImpl implements ReservationService {
 								 .limit(page.getiDisplayLength())
 								 .offset(page.getCurrentPage()*page.getiDisplayStart())
 								 .list(bookReservation.bookInfo.thumbnail,
-									   bookReservation.bookInfo.bookCategory.bookCategoryRoot,
+									   bookReservation.bookInfo.bookCategory.bookCategorySub,
 									   bookReservation.bookInfo.bookCategory,
 									   bookReservation.bookInfo.title,
 									   bookReservation.bookInfo.authors,
@@ -78,20 +78,25 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public JsonResponse reservation(String isbn) {
 		JsonResponse json = new JsonResponse();
-		
-		if(reservationRepository.findByReservationBook(isbn,SignedUser.getUserId()) == null){
-			BookReservation bookReservation = new BookReservation();
-			bookReservation.setBookInfo(bookService.findByIsbn(isbn));
-			bookReservation.setIsCanceled(false);
-			bookReservation.setReservationDate(new Date());
-			bookReservation.setUserInfo(new UserInfo(SignedUser.getUserId()));
-			bookReservation = reservationRepository.save(bookReservation);
-			json.setResult(messageSource.getMessage("reservationBook.success", new Object [] {bookReservation.getBookInfo().getTitle()}, Locale.getDefault()));
-			json.setSuccess();
-		}else{
-			json.setResult(messageSource.getMessage("reservationBook.already", null, Locale.getDefault()));
+		if(bookService.isRental(isbn)){			
+			json.setResult(messageSource.getMessage("rental.able", null, Locale.getDefault()));
 			json.setFail();
+		}else{
+			if(reservationRepository.findByReservationBook(isbn,SignedUser.getUserId()) == null){
+				BookReservation bookReservation = new BookReservation();
+				bookReservation.setBookInfo(bookService.findByIsbn(isbn));
+				bookReservation.setIsCanceled(false);
+				bookReservation.setReservationDate(new Date());
+				bookReservation.setUserInfo(new UserInfo(SignedUser.getUserId()));
+				bookReservation = reservationRepository.save(bookReservation);
+				json.setResult(messageSource.getMessage("reservationBook.success", new Object [] {bookReservation.getBookInfo().getTitle()}, Locale.getDefault()));
+				json.setSuccess();
+			}else{
+				json.setResult(messageSource.getMessage("reservationBook.already", null, Locale.getDefault()));
+				json.setFail();
+			}
 		}
+		
 		
 		
 		return json;
@@ -111,5 +116,15 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public List<BookReservation> findByReservationBooks(int userId) {
 		return reservationRepository.findByReservationBooks(userId);
+	}
+
+	@Override
+	public List<BookReservation> findByReservationBook(String isbn) {
+		return reservationRepository.findByReservationBook(isbn);
+	}
+
+	@Override
+	public BookReservation findByReservationBook(String isbn, int userId) {
+		return reservationRepository.findByReservationBook(isbn, userId);
 	}
 }

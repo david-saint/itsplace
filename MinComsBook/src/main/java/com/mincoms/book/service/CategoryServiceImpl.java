@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.mincoms.book.domain.BookCategory;
 import com.mincoms.book.domain.BookCategoryRoot;
+import com.mincoms.book.domain.BookCategorySub;
 import com.mincoms.book.repository.BookRepository;
 import com.mincoms.book.repository.CategoryRepository;
 import com.mincoms.book.repository.CategoryRootRepository;
+import com.mincoms.book.repository.CategorySubRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -21,6 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
 	CategoryRepository categoryRepo;
 	@Autowired
 	CategoryRootRepository categoryRootRepo;
+	@Autowired
+	CategorySubRepository categorySubRepo;
 	
 	@Override
 	public BookCategory save(BookCategory bookCategory) {
@@ -28,24 +32,84 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepo.save(bookCategory);
 	}
 
-	
+	@Override
+	public BookCategoryRoot save(BookCategoryRoot bookCategoryRoot) {
+		return categoryRootRepo.save(bookCategoryRoot);
+	}
+
+
+	@Override
+	public BookCategorySub save(BookCategorySub bookCategorySub) {
+		return categorySubRepo.save(bookCategorySub);
+	}
+
 	@Override
 	public List<BookCategoryRoot> findByBookCategoryRoot() {
 		return categoryRootRepo.findByIsDeleted(false);
 	}
 
 
-	@Override
-	public List<BookCategory> findByIsDeleted(
-			boolean isDeleted ,BookCategoryRoot bookCategoryRoot) {
-		
-		return categoryRepo.findByIsDeletedAndBookCategoryRoot(isDeleted, bookCategoryRoot, new Sort(Sort.Direction.ASC, "dispSeq"));
-	}
 
 
 	@Override
 	public BookCategoryRoot findByBookCategoryRoot(Integer rootid) {
 		return categoryRootRepo.findOne(rootid);
 	}
+	@Override
+	public BookCategory findByBookCategory(Integer id) {
+		return categoryRepo.findOne(id);
+	}
+
+
+	
+
+	@Override
+	public BookCategorySub findByBookCategorySub(Integer subid) {
+		return categorySubRepo.findOne(subid);
+	}
+
+
+	@Override
+	public List<BookCategory> findByIsDeleted(boolean isDeleted,BookCategorySub bookCategorySub) {
+		return categoryRepo.findByIsDeletedAndBookCategorySub(isDeleted, bookCategorySub, new Sort(Sort.Direction.ASC, "dispSeq"));
+	}
+
+
+	@Override
+	public List<BookCategorySub> findByIsDeletedBookCategorySub(boolean isDeleted,BookCategoryRoot bookCategoryRoot) {
+		return categorySubRepo.findByIsDeletedAndBookCategoryRoot(isDeleted, bookCategoryRoot, new Sort(Sort.Direction.ASC, "dispSeq"));
+	}
+
+	@Override
+	public List<BookCategoryRoot> findByBookCategoryRootAll() {
+		return categoryRootRepo.findAll();
+	}
+
+	
+
+	@Override
+	public List<BookCategorySub> findByBookCategorySubAll(Integer rootid) {
+		if(rootid == 0){
+			return categorySubRepo.findAll();
+		}else{
+			BookCategoryRoot bookCategoryRoot = categoryRootRepo.findOne(rootid);
+			return categorySubRepo.findByBookCategoryRoot(bookCategoryRoot, new Sort(Sort.Direction.ASC, "dispSeq"));
+		}
+		
+	}
+
+	@Override
+	public List<BookCategory> findByBookCategoryAll(Integer subid) {
+		if(subid == 0){
+			return categoryRepo.findAll();
+		}else{
+			BookCategorySub bookCategorySub = categorySubRepo.findOne(subid);
+			return categoryRepo.findByBookCategorySub(bookCategorySub, new Sort(Sort.Direction.ASC, "dispSeq"));
+		}
+	}
+
+	
+
+	
 
 }

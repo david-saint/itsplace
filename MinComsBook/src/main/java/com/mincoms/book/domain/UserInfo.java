@@ -31,7 +31,7 @@ public class UserInfo implements Serializable{
 	private int authlevel;
 	private Boolean isDeleted;	
 	private String password;
-
+	private String gcmId;
 
 	@OneToOne
 	@JoinColumn(name="deptcode",columnDefinition="")
@@ -105,6 +105,14 @@ public class UserInfo implements Serializable{
 
 	public String toString() { 
         return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE); 
+	}
+
+	public String getGcmId() {
+		return gcmId;
+	}
+
+	public void setGcmId(String gcmId) {
+		this.gcmId = gcmId;
 	}
 	
 	

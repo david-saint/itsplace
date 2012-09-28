@@ -1,7 +1,7 @@
 package com.mincoms.book.security;
 
 public enum Authority {
-	ADMIN(0), TEAMLEADER(1), WORKER(2);
+	ADMIN(0), TEAMLEADER(1), WORKER(2), BOOKMANAGER;
 	
 	private int value;
 	private Authority(){

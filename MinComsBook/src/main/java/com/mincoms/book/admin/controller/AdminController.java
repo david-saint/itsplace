@@ -34,6 +34,7 @@ import com.mincoms.book.api.Google;
 import com.mincoms.book.domain.AppException;
 import com.mincoms.book.domain.BookCategory;
 import com.mincoms.book.domain.BookCategoryRoot;
+import com.mincoms.book.domain.BookCategorySub;
 import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.BookInfo.AddBook;
 import com.mincoms.book.domain.BookInfo.EditBook;
@@ -59,7 +60,7 @@ import com.mincoms.book.service.CategoryService;
  */
 @Controller
 public class AdminController {
-private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Autowired
 	MessageSource messagesource;
 	@Autowired
@@ -73,12 +74,24 @@ private static final Logger logger = LoggerFactory.getLogger(AdminController.cla
 	
 	
 	
+	@RequestMapping(value = "/book/getBookCategoryRoot", method = RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody List<BookCategoryRoot> getBookCategoryRoot()  {
+		logger.info("류트카테고리");
+		return categoryService.findByBookCategoryRoot();
+	}
+	
 	@RequestMapping(value = "/book/getBookCategory", method = RequestMethod.GET, headers="Accept=application/json")
-	public @ResponseBody List<BookCategory> getBookCategory(
-			@RequestParam(value="rootid", required=true) Integer rootid)  {
+	public @ResponseBody List<BookCategory> getBookCategory(@RequestParam(value="sub_id", required=true) Integer sub_id)  {
 		
-		BookCategoryRoot bookCategoryRoot = categoryService.findByBookCategoryRoot(rootid);
-		return categoryService.findByIsDeleted(false, bookCategoryRoot);
+		BookCategorySub bookCategorySub = categoryService.findByBookCategorySub(sub_id);
+		return categoryService.findByIsDeleted(false, bookCategorySub);
+	}
+	
+	@RequestMapping(value = "/book/getBookCategorySub", method = RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody List<BookCategorySub> getBookCategorySub(@RequestParam(value="root_id", required=true) Integer root_id)  {
+		
+		BookCategoryRoot bookCategoryRoot = categoryService.findByBookCategoryRoot(root_id);
+		return categoryService.findByIsDeletedBookCategorySub(false, bookCategoryRoot);
 	}
 	
 	/**
@@ -97,23 +110,36 @@ private static final Logger logger = LoggerFactory.getLogger(AdminController.cla
 	 * @throws Exception 
 	 * @see 
 	 */
-	@RequestMapping(value = "/admin/book/add/google", method = RequestMethod.POST, headers="Accept=application/json")
+	@RequestMapping(value = "/book/add/google", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse google(BookInfo book, Model model) throws Exception  {
 		
 		logger.debug("안드로이드 콜:{}",book.getIsbn());
+		logger.debug("안드로이드 수량:{}",book.getCount());
+		logger.debug("안드로이드 콜 카테고리:{}",book.getBookCategory().getId());
+		
+		BookInfo scanBookInfo = null;
 		try{
-			book = Google.GetBookInfo(book.getIsbn());
+			scanBookInfo = Google.GetBookInfo(book.getIsbn());
 		}catch(Exception e){
 			json.setFail();
 		}
 		
 		if(book == null){
 		}else{
-			book.setRegDate(new Date());
-			bookService.save(book);
-			//test("1111111111111111111111111111111111111111111");
-			json.setSuccess();
-			json.setResult(book);
+			scanBookInfo.setRegDate(new Date());
+			scanBookInfo.setCount(book.getCount());
+			scanBookInfo.setBookCategory(book.getBookCategory());
+			if(bookService.findByIsbn(book.getIsbn()) == null){
+				bookService.save(scanBookInfo);
+				json.setSuccess();
+				json.setResult(scanBookInfo);
+			}else{
+				
+				json.setFail();
+				json.setResult("이미 등록되어있습니다");
+				
+			}
+		
 			
 		
 		}
@@ -174,6 +200,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminController.cla
 			 json =  json.getValidationErrorResult(result, json);
 			
 		}else{	
+			book.setRegDate(new Date());
 			BookInfo saved = bookService.save(book);
 			json.setSuccess();
 			json.setResult(messagesource.getMessage("register", new Object [] {saved.getTitle()} , Locale.getDefault()));
@@ -225,11 +252,12 @@ private static final Logger logger = LoggerFactory.getLogger(AdminController.cla
 	@RequestMapping(value = "/admin/book/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) String isbn, Model model) {
 		logger.info("isbn={}",isbn);
-		BookInfo book = bookService.findByIsbn(isbn);
-		model.addAttribute("book", book);
+		BookInfo bookInfo = bookService.findByIsbn(isbn);
+		model.addAttribute("bookInfo", bookInfo);
 		model.addAttribute("categoryRootList", categoryService.findByBookCategoryRoot());			
-		model.addAttribute("categoryList", categoryService.findByIsDeleted(false, book.getBookCategory().getBookCategoryRoot()));
-		return "book/edit";
+		model.addAttribute("categorySubList", categoryService.findByIsDeletedBookCategorySub(false, bookInfo.getBookCategory().getBookCategorySub().getBookCategoryRoot()));
+		model.addAttribute("categoryList", categoryService.findByIsDeleted(false, bookInfo.getBookCategory().getBookCategorySub()));
+		return "admin/book/edit";
 	}
 	/**
 	 * <b>도서등록</b> <br />
@@ -261,6 +289,8 @@ private static final Logger logger = LoggerFactory.getLogger(AdminController.cla
 			}
 			return "admin/book/edit";
 		} else {	
+			logger.info(bookInfo.toString());
+			logger.info(bookInfo.toString());
 			bookService.save(bookInfo);
 			
 			return "redirect:/admin/book/list";	
@@ -268,7 +298,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminController.cla
 		
 	}
 	
-	@RequestMapping(value = "/admin/book/listAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/book/list", method = RequestMethod.GET)
 	public String list(
 			@RequestParam (value = "grpcd", required = false, defaultValue = "") String grpcd,
 			Model model

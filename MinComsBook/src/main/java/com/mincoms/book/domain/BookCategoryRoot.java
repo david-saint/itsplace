@@ -5,13 +5,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.mincoms.validation.IntTypeMiss;
+
 @Entity(name="BookCategoryRoot")
 public class BookCategoryRoot {
-
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	@NotEmpty
 	private String name;
 	private int dispSeq;
 	private boolean isDeleted;
@@ -33,10 +37,10 @@ public class BookCategoryRoot {
 	public void setDispSeq(int dispSeq) {
 		this.dispSeq = dispSeq;
 	}
-	public boolean isDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 	

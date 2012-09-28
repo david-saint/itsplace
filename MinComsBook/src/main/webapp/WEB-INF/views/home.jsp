@@ -10,13 +10,13 @@
     });
 	</script>      
   </head>
-  <body>    
-    <script>
+  <body>    <a href="<c:url value="/logout" />" > Logout</a>
+   <!--  <script>
       function handleResponse(response) {
       for (var i = 0; i < response.items.length; i++) {
         var item = response.items[i];
-        console.log("dddddddddddddddd");
-        console.log(item);
+       // console.log("dddddddddddddddd");
+       // console.log(item);
         // in production code, item.text should have the HTML entities escaped.
         document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title
         + "<br>" + item.volumeInfo.authors
@@ -29,7 +29,7 @@
       }
     }
     </script>
-    <script src="https://www.googleapis.com/books/v1/volumes?q=9788979144086&callback=handleResponse"></script>
+    <script src="https://www.googleapis.com/books/v1/volumes?q=9788979144086&callback=handleResponse"></script> -->
   </body>
 </html>
       

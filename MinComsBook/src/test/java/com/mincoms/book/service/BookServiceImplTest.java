@@ -23,6 +23,7 @@ import com.mincoms.book.domain.DataTable;
 import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.QBookCategory;
 import com.mincoms.book.domain.QBookCategoryRoot;
+import com.mincoms.book.domain.QBookCategorySub;
 import com.mincoms.book.domain.QBookInfo;
 import com.mincoms.book.domain.QBookReservation;
 import com.mincoms.book.domain.Testvo;
@@ -83,6 +84,7 @@ public class BookServiceImplTest extends TestApplicationContext {
 		QBookInfo bookInfo = QBookInfo.bookInfo;
 		QBookReservation  bookReservation = QBookReservation.bookReservation;
 		QBookCategory  bookCategory = QBookCategory.bookCategory;
+		QBookCategorySub  bookCategorySub = QBookCategorySub.bookCategorySub;
 		QBookCategoryRoot  bookCategoryRoot = QBookCategoryRoot.bookCategoryRoot;
 		
 		String columns[]={"id"};
@@ -93,9 +95,9 @@ public class BookServiceImplTest extends TestApplicationContext {
 		List<Object[]> rs = query.from(bookInfo)
 								 .leftJoin(bookInfo.bookReservation, bookReservation)
 								 .join(bookInfo.bookCategory,bookCategory)
-								 .join(bookCategory.bookCategoryRoot,bookCategoryRoot)
+								 .join(bookCategory.bookCategorySub,bookCategorySub)
 								 .groupBy(bookInfo.thumbnail,
-										   bookCategory.bookCategoryRoot.name,
+										   bookCategory.bookCategorySub.name,
 										   bookInfo.bookCategory.name,
 										   bookInfo.title,
 										   bookInfo.authors,
@@ -105,7 +107,7 @@ public class BookServiceImplTest extends TestApplicationContext {
 								 .limit(page.getiDisplayLength())
 								 .offset(page.getCurrentPage()*page.getiDisplayLength())
 								 .list(bookInfo.thumbnail,
-									   bookCategory.bookCategoryRoot.name,
+									   bookCategory.bookCategorySub.name,
 									   bookInfo.bookCategory.name,
 									   bookInfo.title,
 									   bookInfo.authors,

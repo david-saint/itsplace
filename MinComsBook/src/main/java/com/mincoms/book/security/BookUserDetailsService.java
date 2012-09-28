@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import com.mincoms.book.admin.repository.BaseCodeRepository;
+import com.mincoms.book.domain.BaseCode;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.repository.UserRepository;
 import com.mincoms.book.service.UserService;
@@ -33,7 +35,8 @@ public class BookUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private BaseCodeRepository baseCodeRepository;
 
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException, DataAccessException {
 		
@@ -55,7 +58,7 @@ public class BookUserDetailsService implements UserDetailsService {
 						true,
 						true,
 						true,
-						getAuthorities(dbUser.getAuthlevel())					
+						getAuthorities(dbUser.getAuthlevel(), dbUser.getUserName())					
 					);
 
 		} catch (Exception e) {
@@ -68,7 +71,7 @@ public class BookUserDetailsService implements UserDetailsService {
 	}
 	
 	
-	 public Collection<GrantedAuthority> getAuthorities(int authlevel) {
+	 public Collection<GrantedAuthority> getAuthorities(int authlevel, String userName) {
 			// Create a list of grants for this user
 			List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(3);
 			//0 :  관리자
@@ -83,6 +86,11 @@ public class BookUserDetailsService implements UserDetailsService {
 				
 			}else if(authlevel == Authority.TEAMLEADER.ordinal()){		
 				authList.add(new GrantedAuthorityImpl(Authority.TEAMLEADER.name()));
+			}
+			
+			BaseCode baseCode = baseCodeRepository.findByBookManager(userName);
+			if(baseCode !=null){
+				authList.add(new GrantedAuthorityImpl(Authority.BOOKMANAGER.name()));
 			}
 			return authList;
 	 }	  

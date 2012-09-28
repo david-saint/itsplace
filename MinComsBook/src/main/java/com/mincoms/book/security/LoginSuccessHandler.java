@@ -68,7 +68,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         	 if(logger.isInfoEnabled()){//개발모드
         		 
         		 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
-        		 logger.info("Default Request Redirect URL: {}",request.getRequestURL() );
+        		 logger.info("request.x-requested-with: {}",request.getHeader("x-requested-with"));
         		
         		 
         		if(request.getHeader("X-Ajax-call")!=null && request.getHeader("X-Ajax-call").equals("true")){
@@ -88,7 +88,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         		 }else{
         			 System.out.println("onAuthenticationSuccess  getRedirectStrategy().sendRedirect");
         			 //리다이렉트 할경우 포스트로 전송중이었던 테이타는 자동 로그인후 전송이 안된다 //리다이렉트 이기때문
-        			 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
+        			 //getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
+        			 super.onAuthenticationSuccess(request, response, authentication); 
         			
         		 }
         	 }else{

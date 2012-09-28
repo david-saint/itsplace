@@ -111,7 +111,7 @@ public class BookServiceImpl implements BookService {
 		List<BookRental> rentaledBooks= rentalRepo.findByBookInfoAndReturnDateIsNull(bookInfo);
 		int retaledBookCount = rentaledBooks.size();
 		
-		List<BookReservation> reservationBooks = reservationRepo.findByIsCanceledAndBookRentalIsNull(false);
+		List<BookReservation> reservationBooks = reservationRepo.findByReservationBook(bookInfo.getIsbn());
 		int reservationBookCount = reservationBooks.size();
 		
 		logger.debug("도서총수량:{}",bookTotalCount);

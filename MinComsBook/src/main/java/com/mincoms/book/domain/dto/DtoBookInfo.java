@@ -11,6 +11,7 @@ public class DtoBookInfo {
 	  private int rownumber;
 	  private String thumbnail;
 	  private String bookCategoryRoot;
+	  private String bookCategorySub;
 	  private String bookCategory;
 	  private String isbn;
 	  private String title;
@@ -48,6 +49,16 @@ public class DtoBookInfo {
 
 	public int getRownumber() {
 		return rownumber;
+	}
+
+
+	public String getBookCategorySub() {
+		return bookCategorySub;
+	}
+
+
+	public void setBookCategorySub(String bookCategorySub) {
+		this.bookCategorySub = bookCategorySub;
 	}
 
 

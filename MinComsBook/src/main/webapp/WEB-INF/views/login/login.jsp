@@ -57,9 +57,9 @@
 <div class="text_success"><img src="<c:url value="/resources/images/loadder/loader_green.gif" />"  alt="ziceAdmin" /><span>Please wait</span></div>
 
 <div id="login" >
-  <div class="ribbon"></div>
+  <!-- <div class="ribbon"></div> -->
   <div class="inner">
-  <div class="logo" ><img src="<c:url value="/resources/images/logo/logo_login.png" />" alt="ziceAdmin" /></div>
+  <div class="logo" ><img src="<c:url value="/resources/images/logo/ci.png" />" alt="ziceAdmin" /></div>
   <div class="formLogin">
    <form name="formLogin"  id="formLogin" action="">
 
@@ -73,13 +73,13 @@
           <div class="loginButton">
             <div style="float:left; margin-left:-9px;">
 				<input type="checkbox" id="on_off" name="_spring_security_remember_me" class="on_off_checkbox"  value="1"   />
-				<span class="f_help">ID저장</span>
+				<span class="f_help">기억하기</span>
 			</div>
 			<div style="float:right; padding:3px 0; margin-right:-12px;">
               <div> 
                 <ul class="uibutton-group">
-                   <li><a class="uibutton normal" href="#" id="but_login" >로그인</a></li>
-				   <li><a class="uibutton normal" href="#" id="forgetpass">비밀번호찾기</a></li>
+                   <li><a class="uibutton normal large" href="#" id="but_login" >로그인</a></li>
+				   <!-- <li><a class="uibutton normal" href="#" id="forgetpass">비밀번호찾기</a></li> -->
                </ul>
               </div>
 			  

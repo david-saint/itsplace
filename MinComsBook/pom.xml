@@ -114,6 +114,12 @@
 		    <artifactId>sitemesh</artifactId> 
 		    <version>2.4.2</version> 
 		</dependency>
+		<!--  mvn install:install-file -Dfile=gcm-server.jar -Dpackaging=jar -DgroupId=gcm-server -DartifactId=gcm-server -Dversion=1.0 -->
+		<dependency>
+		    <groupId>gcm-server</groupId>
+		    <artifactId>gcm-server</artifactId>
+		    <version>1.0</version>
+		</dependency>   
 	 	<!--  MSSQL http://claude.betancourt.us/add-microsoft-sql-jdbc-driver-to-maven/ -->
 		<dependency>
 		    <groupId>com.microsoft.sqlserver</groupId>

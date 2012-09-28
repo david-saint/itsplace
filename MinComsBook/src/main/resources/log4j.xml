@@ -20,35 +20,35 @@
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	<logger name="org.hibernate.type">
-		<level value="info" />
+		<level value="error" />
 	</logger>
 	<logger name=" org.springframework.security">
-		<level value="info" />
+		<level value="error" />
 	</logger>
-	<logger name="java.sql.PreparedStatement">
+	<!-- <logger name="java.sql.PreparedStatement">
 		<level value="info" />
 	</logger>
 	<logger name="java.sql.Statement">
 		<level value="info" />
-	</logger>
+	</logger> -->
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
 	

@@ -11,7 +11,7 @@
 	</script>      
   </head>
   <body>    
-    <h2><div id="error">심플${exception.message}</div></h2>
+    <h2><div id="error">${exception.message}</div></h2>${exception}
     <error>${ajaxExceptionMessage}</error>
     <div>${ajaxExceptionMessage}</div>
   </body>

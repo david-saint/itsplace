@@ -8,6 +8,7 @@
 <html>
 <head>
     <title>${title}</title>
+
 <script type="text/javascript">
 	var datatable; 
  	$(document).ready(function(){
@@ -16,24 +17,59 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
+ 		$('input[type=radio]').live('change', function() {
+ 			datatable.fnStandingRedraw();
+ 		});
+ 		
  		$('#bookCategoryRoot').change(function(){
+ 			var rootid = $('#bookCategoryRoot').val();
+ 			if(rootid!=""){
 			  $.getJSON(
-		             "/book/getBookCategory?decorator=exception", 
-		             {rootid: $('#bookCategoryRoot').val()},
+		             "/book/getBookCategorySub?decorator=exception", 
+		             {root_id: $('#bookCategoryRoot').val()},
 		             function(data) {
 		                  var html = '';
 		                  var len = data.length;
 		                  html += '<option value="">전체</option>';
-		                  for(var i=0; i<len; i++){
-		                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
-		                   }
-		                  $('#bookCategory').children().remove();
-		                  $('#bookCategory').append(html);
-		                  $('#bookCategory').selectmenu('destroy');
-		                  $('#bookCategory').selectmenu();
-		             } );
-			  datatable.fnStandingRedraw();
+		                  if(len>0){
+		                	 for(var i=0; i<len; i++){
+	 		                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+	 		                   }
+	 		                  $('#bookCategorySub').children().remove();
+	 		                  $('#bookCategorySub').append(html);
+	 		                  $('#bookCategorySub').selectmenu('destroy');
+	 		                  $('#bookCategorySub').selectmenu();
+		                  }
+		                 
+		        });
+ 			}
+		    datatable.fnStandingRedraw();
 		});
+		$('#bookCategorySub').change(function(){
+			if($('#bookCategorySub').val()!=""){
+			  $.getJSON(
+		             "/book/getBookCategory?decorator=exception", 
+		             {sub_id: $('#bookCategorySub').val()},
+		             function(data) {
+		                  var html = '';
+		                  var len = data.length;
+		                  html += '<option value="">전체</option>';
+		                  if(len>0){
+		                	 for(var i=0; i<len; i++){
+	 		                       html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+	 		                   }
+	 		                  $('#bookCategory').children().remove();
+	 		                  $('#bookCategory').append(html);
+	 		                  $('#bookCategory').selectmenu('destroy');
+	 		                  $('#bookCategory').selectmenu();
+		                  }
+		                  
+		       });
+			}
+			datatable.fnStandingRedraw();
+		});
+	   
+	
  		$('#bookCategory').change(function(){
  			  datatable.fnStandingRedraw();
  		});
@@ -45,13 +81,15 @@
  			"sPaginationType": "full_numbers",
  			"bProcessing": true,
  			"oLanguage": {
- 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/book/getReservationGroupByBooks",
  			"fnServerParams": function (aoData, fnCallback) {
 	              aoData.push( { "name": "bookCategoryRoot", "value": $('#bookCategoryRoot option:selected').val()} );		 			               
+	              aoData.push( { "name": "bookCategorySub", "value": $('#bookCategorySub option:selected').val()} );		 			               
 	              aoData.push( { "name": "bookCategory", "value": $('#bookCategory option:selected').val()} );		 			               
+	              aoData.push( { "name": "isRental", "value": $('input[name=isRental]:checked').val()} );		 			               
 			},
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
@@ -60,12 +98,15 @@
 									return "<img src='"+oObj.aData['thumbnail']+ "' style=\"width:50px;\" />";
 							}},
 							{ "mDataProp": "bookCategoryRoot" },
+							{ "mDataProp": "bookCategorySub" },
 							{ "mDataProp": "bookCategory" },
-							{ "mDataProp": "title" },
- 				  			{ "mDataProp": "authors" },
+							{ "mDataProp": "title", sClass: "dtLeft" },
+ 				  			{ "mDataProp": "authors", sClass: "dtLeft" },
  				  			{ "mDataProp": "count", "bSortable": false },
  				  			{ "mDataProp": "publishedDate" ,"bSortable": false},
- 				  			{ "mDataProp": "reservationCount", "bSortable": false, "fnRender"  :function ( oObj ) {
+ 				  			{ "mDataProp": "reservationCount" ,"bSortable": false},
+ 				  			{ "mDataProp": "rentalCount" ,"bSortable": false},
+ 				  			{ "mDataProp": "regDate", "bSortable": false, "fnRender"  :function ( oObj ) {
 								var count = eval(oObj.aData['count']);
 								var total = eval(oObj.aData['reservationCount']) + eval(oObj.aData['rentalCount']);
 								if(count>total){
@@ -75,7 +116,8 @@
 								}
 								
 						    }},
- 				  			{ "mDataProp": "rentalCount" ,"bSortable": false},
+ 				  		
+ 				  			
  				  			
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
@@ -83,7 +125,8 @@
  				//$('.tip a ').tipsy({trigger: 'manual'});
  				//$('.tip a ').tipsy("hide");
  			},
- 			"fnDrawCallback": function () { 				
+ 			"fnDrawCallback": function () { 
+ 				
  				$('.fancy').fancybox({//autodimensions false 후 width , height 가느
 					'autoDimensions':false,
 					'scrolling':'auto',
@@ -123,11 +166,11 @@
 	function make_actions(oObj) {
 		var isbn = oObj.aData['isbn'];
  		
- 		//var editAction = '<span class="tip"><a class="edit iframe" href="/book/edit?isbn='+isbn+'" original-title="수정"><img src="/resources/images/icon/gray_18/pencil.png"></a><span>';
+ 		var infoAction = '<span class="tip"><a class="edit fancy iframe" href="/book/info?isbn='+isbn+'" original-title="반납및예약자"><img src="/resources/images/icon/gray_18/pencil.png"></a><span>';
  		var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
  		var reservationAction ='<span class="tip"><a class="reservation"  isbn="'+isbn+'" original-title="예약"><img src="/resources/images/icon/gray_18/bookmark.png"></a><span>';
  		
- 		return  rentalAction + "&nbsp;"+ reservationAction; 
+ 		return  rentalAction + "&nbsp;"+ reservationAction + "&nbsp;"+ infoAction; 
  	}
  	function bindAction(){
  		$('.rental').bind('click', function() {
@@ -164,11 +207,10 @@
 <body>
 	<div class="widget">
 		<div class="header">
-			<span class="ico gray home"></span><span>${title}</span>
+			<span><span class="ico gray spreadsheet"></span>${title}</span>
 		</div>
 		<div class="content">			
 			<div class="tableName">
-			<form>
 				<div style="position:absolute;z-index:100">
 					<form:select id="bookCategoryRoot" path="categoryRootList" multiple="false">
 						<option value="">전체</option>
@@ -176,23 +218,35 @@
 					</form:select>
 				</div>	
 				<div style="position:absolute;left:430px;z-index:100">
-				 	<select id="bookCategory" name="bookCategory.id">
-				 		<option value="">하위분류</option>
+				 	<select id="bookCategorySub" name="bookCategory.bookCategorySub.id">
+				 		<option value="">중분류</option>
 				 	</select>
 				</div>	
-			</form>	 		
+				<div style="position:absolute;left:600px;z-index:100">
+				 	<select id="bookCategory" name="bookCategory.id">
+				 		<option value="">소분류</option>
+				 	</select>
+				</div>	
+				<div style="position:absolute; ;right:200px">
+				<div class="radiorounded"> 
+               		<input id="isDeleted1" type="radio" name="isRental"  value="0" checked /><label for="isDeleted1" >전체</label>
+               		<input id="isDeleted2" type="radio" name="isRental"  value="1" /><label for="isDeleted2" >대출가능</label>
+               	</div>                        
+			</div>
 				<table class="display" id="datatable">
-					<thead>
+					<thead> 
 						<tr>
-							<th></th>
-							<th>분류</th>
-							<th>카테고리</th>
-							<th>제목</th>
+							<th width="100"></th>
+							<th width="100">대분류</th>
+							<th width="100">중분류</th>
+							<th width="100">소분류</th>
+							<th width="300">제목</th>
 							<th>저자</th>
 							<th>수량</th>
 							<th>출판일</th>
 							<th>예약</th>
 							<th>대여</th>
+							<th>대출여부</th>
 							<th>Action</th>
 						</tr>
 					</thead>

@@ -38,7 +38,7 @@ public class MincomsExceptionResolver extends SimpleMappingExceptionResolver {
 	protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		AppException appException = null;
 		MethodConstraintViolationException methodValidation = null;
-		
+	
 		if(ex.getClass().getName().equals("org.hibernate.validator.method.MethodConstraintViolationException")){
 			
 		    methodValidation = (MethodConstraintViolationException) ex;
