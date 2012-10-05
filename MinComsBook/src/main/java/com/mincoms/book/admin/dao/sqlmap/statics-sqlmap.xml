@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="statics">
+	<typeAlias type="com.mincoms.book.domain.dto.DtoRentalStatics" alias="DtoRentalStatics"/>
+	
+	<sql id="getRentalStatics_WHERE">
+	    <dynamic prepend="WHERE">
+	        	A.ISDELETED = 0
+	        <isNotEmpty property="search" >
+	         	AND A.TITLE LIKE '%' + #search# + '%' OR A.AUTHORS LIKE '%' + #search# + '%'
+	        </isNotEmpty>
+	        <isNotEmpty property="bookCategoryRoot" >
+	            AND F.ID = #bookCategoryRoot#
+	        </isNotEmpty>
+	        <isNotEmpty property="bookCategorySub" >
+	            AND E.ID = #bookCategorySub#
+	        </isNotEmpty>
+	        <isNotEmpty property="bookCategory" >
+	            AND D.ID = #bookCategory#
+	        </isNotEmpty>
+	         <isNotEmpty property="deptId" >
+	            AND G.deptId = #deptId#
+	        </isNotEmpty>
+	         <isNotEmpty property="userId" >
+	            AND C.userId = #userId#
+	        </isNotEmpty>
+	         <isNotEmpty property="isRental" >
+	              <isEqual property="isRental" compareValue="True" >
+	                  AND B.ReturnDate is Null
+	              </isEqual>	
+	              <isEqual property="isRental" compareValue="False" >
+	                  AND B.ReturnDate is Not Null
+	              </isEqual>
+	        </isNotEmpty>
+	        <isNotEmpty property="startDate" >
+	            <![CDATA[   AND B.startDate >= #startDate# And B.startDate <= #endDate# ]]>
+	        </isNotEmpty>
+	        <isEqual property="badGuys" compareValue="True" > <!-- 반납예정일 초과: 오늘이 반납일보다 크면 , 반납예정일이 오늘보다 작으면 -->
+	            <![CDATA[   AND B.endDate < GETDATE() ]]>
+	            			AND B.ReturnDate is Null
+	        </isEqual>
+	    </dynamic>
+    </sql>
+	<select id="getRentalStatics" resultClass="DtoRentalStatics"   parameterClass="java.util.Map">
+    	WITH LIST AS
+		(
+			SELECT
+				ROW_NUMBER() OVER (ORDER BY $sortColumn$ $sortDirection$) AS ROWNUMBER, 
+				A.isbn,
+				A.Thumbnail,
+				F.NAME AS CATEGORYROOT,
+				E.NAME AS CATEGORYSUB,
+				D.NAME AS CATEGORY,
+				A.TITLE,				
+				G.DeptName,
+				C.UserRname,
+				B.startDate,
+				B.endDate,
+				B.returnDate				
+			FROM Minwork.dbo.BookInfo A
+			INNER JOIN 
+				Minwork.dbo.BookRental B
+				ON A.ISBN = B.ISBN				
+			INNER JOIN
+				Minwork.dbo.UserInfo C
+				On B.userId = c.userId	
+			INNER JOIN BOOKCATEGORY D
+				ON A.CATEGORY = D.ID	
+			INNER JOIN BOOKCATEGORYSUB E
+				ON D.SUB_ID = E.ID
+			INNER JOIN BOOKCATEGORYROOT F
+				ON E.ROOT_ID = F.ID	
+		    INNER JOIN Minwork.dbo.DeptInfo G
+				ON G.deptid = C.deptCode	
+			<include refid="getRentalStatics_WHERE" />
+			
+		)
+		SELECT * FROM LIST 
+		WHERE ROWNUMBER BETWEEN  #startRow# AND #endRow#
+		
+    </select>  
+	<select id="getRentalStaticsCount" resultClass="long"  parameterClass="java.util.Map">
+		    SELECT
+					COUNT(A.isbn)
+							
+			FROM Minwork.dbo.BookInfo A
+			INNER JOIN 
+				Minwork.dbo.BookRental B
+				ON A.ISBN = B.ISBN				
+			INNER JOIN
+				Minwork.dbo.UserInfo C
+				On B.userId = c.userId	
+			INNER JOIN BOOKCATEGORY D
+				ON A.CATEGORY = D.ID	
+			INNER JOIN BOOKCATEGORYSUB E
+				ON D.SUB_ID = E.ID
+			INNER JOIN BOOKCATEGORYROOT F
+				ON E.ROOT_ID = F.ID	
+		    INNER JOIN Minwork.dbo.DeptInfo G
+				ON G.deptid = C.deptCode	
+			<include refid="getRentalStatics_WHERE" />
+	</select>
+  
+    
+</sqlMap>

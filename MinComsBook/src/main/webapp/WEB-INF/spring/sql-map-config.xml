@@ -7,8 +7,11 @@
 	<settings useStatementNamespaces="true"/>
 
 
-	<!-- SQL -->
+	<!-- 사용자 SQL -->
 	<sqlMap resource="com/mincoms/book/dao/sqlmap/book-sqlmap.xml" />
+	
+	<!-- 관리자 SQL -->
+	<sqlMap resource="com/mincoms/book/admin/dao/sqlmap/statics-sqlmap.xml" />
 	
 	
 </sqlMapConfig>

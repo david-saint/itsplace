@@ -9,8 +9,9 @@ import javax.persistence.Id;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Entity
+@Entity(name="BaseCode")
 public class BaseCode {
 
 	@Id	
@@ -21,11 +22,19 @@ public class BaseCode {
 	private String codeKey;
 	private String codeDesc;
 	private String codeDesc1;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date updateDate;
 	private String UpdateUser;
 	private boolean isDeleted;
 	private Integer dispSeq;
 	
+	
+	public BaseCode(){super();};
+	
+	public BaseCode(int codeId) {
+		super();
+		this.codeId = codeId;
+	}
 	public int getCodeId() {
 		return codeId;
 	}

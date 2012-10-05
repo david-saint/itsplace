@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -17,16 +18,16 @@ public class BookRestriction {
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private int id;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="userId")
 	private UserInfo userInfo;
 	
 	private Date regDate;
-	private Date updateDate;
+	private Date solveDate;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="reasonId")
 	private BaseCode basecode;
 	
@@ -47,7 +48,7 @@ public class BookRestriction {
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public UserInfo getUserInfo() {
@@ -62,11 +63,12 @@ public class BookRestriction {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
+	
+	public Date getSolveDate() {
+		return solveDate;
 	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
+	public void setSolveDate(Date solveDate) {
+		this.solveDate = solveDate;
 	}
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE);

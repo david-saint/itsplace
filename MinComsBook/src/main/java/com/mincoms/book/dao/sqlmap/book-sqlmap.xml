@@ -43,20 +43,20 @@
 				A.RegDate,
 				COUNT(B.ISBN) AS RENTALCOUNT, 
 				 ISNULL(C.RESERVATIONCOUNT,0) AS RESERVATIONCOUNT
-			FROM BookInfo A
+			FROM Minwork.dbo.BookInfo A
 			LEFT OUTER JOIN 
-				BookRental B
+				Minwork.dbo.BookRental B
 				ON A.ISBN = B.ISBN
 				AND B.RETURNDATE IS NULL
 			LEFT OUTER JOIN (
-							select isbn , count(*) as RESERVATIONCOUNT from bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
+							select isbn , count(*) as RESERVATIONCOUNT from Minwork.dbo.bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
 						    ) C
 				ON A.ISBN = C.ISBN
-			INNER JOIN BOOKCATEGORY D
+			INNER JOIN Minwork.dbo. BOOKCATEGORY D
 				ON A.CATEGORY = D.ID	
-			INNER JOIN BOOKCATEGORYSUB E
+			INNER JOIN Minwork.dbo.BOOKCATEGORYSUB E
 				ON D.SUB_ID = E.ID
-			INNER JOIN BOOKCATEGORYROOT F
+			INNER JOIN Minwork.dbo.BOOKCATEGORYROOT F
 				ON E.ROOT_ID = F.ID		
 			<include refid="getBookInfoReservationList_WHERE" />
 			GROUP BY A.ISBN,a.thumbnail, A.TITLE,D.NAME, E.NAME, F.NAME,  A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, A.RegDate, C.RESERVATIONCOUNT
@@ -71,7 +71,7 @@
 	    SELECT COUNT(A.TITLE) FROM ( 
 		    SELECT
 					 ISNULL(COUNT(DISTINCT(A.TITLE)),0) AS TITLE
-				FROM BookInfo A
+				FROM Minwork.dbo.BookInfo A
 				LEFT OUTER JOIN 
 					BookRental B
 					ON A.ISBN = B.ISBN
@@ -80,11 +80,11 @@
 								select isbn , count(*) as RESERVATIONCOUNT from bookreservation where ISCANCELED = 0 AND BOOKRENTAL_ID IS NULL  group by isbn
 							) C
 					ON A.ISBN = C.ISBN
-				INNER JOIN BOOKCATEGORY D
+				INNER JOIN Minwork.dbo.BOOKCATEGORY D
 					ON A.CATEGORY = D.ID		
-				INNER JOIN BOOKCATEGORYSUB E
+				INNER JOIN Minwork.dbo.BOOKCATEGORYSUB E
 					ON D.SUB_ID = E.ID
-				INNER JOIN BOOKCATEGORYROOT F
+				INNER JOIN Minwork.dbo.BOOKCATEGORYROOT F
 					ON E.ROOT_ID = F.ID	
 				<include refid="getBookInfoReservationList_WHERE" />
 				GROUP BY A.ISBN,a.thumbnail,  A.TITLE, D.NAME, E.NAME, F.NAME, A.AUTHORS, A.COUNT, A.PUBLISHEDDATE, C.RESERVATIONCOUNT

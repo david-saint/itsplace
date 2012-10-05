@@ -144,14 +144,20 @@
                       <li class="limenu" >
                       	<a href="<c:url value="/admin/book/list" />" ><span class="ico gray shadow   encrypt"></span><b>도서관리</b></a>                      	
                       </li>
-                      <li class="limenu" >
-                      	<a href="<c:url value="/admin/restriction/add" />" ><span class="ico gray shadow   encrypt"></span><b>대출정지</b></a>                      	
-                      </li>
+                      
                         </sec:authorize>
                       <li class="limenu" ><a href="<c:url value="/book/search" />"><span class="ico gray shadow  spreadsheet" ></span><b>도서목록</b></a></li>
                       <li class="limenu" ><a href="<c:url value="/book/rentals" />"><span class="ico gray  file" ></span><b>나의도서</b></a></li>
                       <sec:authorize ifAnyGranted="ADMIN">
-                      <li class="limenu" ><a href="<c:url value="/admin/exception/list" />"><span class="ico gray  dimensions" ></span><b>Exception</b></a></li>
+	                        <li class="limenu" >
+	                      		<a href="<c:url value="/admin/restriction/list" />" ><span class="ico gray shadow   encrypt"></span><b>대출정지</b></a>                      	
+	                        </li>
+                      		<li class="limenu" >
+                      			<a href="<c:url value="/admin/statics/rentals" />"><span class="ico gray  dimensions" ></span><b>대출현황</b></a>
+                      		</li>
+                      		<li class="limenu" >
+                      			<a href="<c:url value="/admin/exception/list" />"><span class="ico gray  dimensions" ></span><b>Exception</b></a>
+                        	</li>
                       </sec:authorize>
                       
                     </ul>

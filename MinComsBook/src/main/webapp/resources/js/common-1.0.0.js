@@ -72,23 +72,26 @@ var c = {
 			$('#preloader').fadeOut(400,function(){ $('#overlay').fadeOut();  }).remove();
 	   },
 	    render_date : function(column_date, type) {
-	 		var date = new Date(column_date);
-	 		
 	 		var str = "";
-	 		var month = date.getMonth()+1;
- 			var day = date.getDate();
- 			if (month < 10)
- 	            month = "0" + month;
- 	        if (day < 10)
- 	            day = "0" + day;
- 	        
-	 		if(type=="yyyy-MM-dd"){
-	 			str = date.getFullYear()+"-"+month+"-"+day;
-	 		}else{
-	 			var hour = date.getHours();
-	 			var minute = date.getMinutes();
-	 			str = date.getFullYear()+"-"+month+"-"+day + " " + JsCheckZero(hour) + ":" + JsCheckZero(minute);
+	    	if(column_date!=null){
+	    		var date = new Date(column_date);
+		 		
+		 		var month = date.getMonth()+1;
+	 			var day = date.getDate();
+	 			if (month < 10)
+	 	            month = "0" + month;
+	 	        if (day < 10)
+	 	            day = "0" + day;
+	 	        
+		 		if(type=="yyyy-MM-dd"){
+		 			str = date.getFullYear()+"-"+month+"-"+day;
+		 		}else{
+		 			var hour = date.getHours();
+		 			var minute = date.getMinutes();
+		 			str = date.getFullYear()+"-"+month+"-"+day + " " + JsCheckZero(hour) + ":" + JsCheckZero(minute);
+		    	}
 	    	}
+	 		
 	 		
 	 		return str;
 	 	},

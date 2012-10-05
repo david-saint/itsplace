@@ -18,7 +18,7 @@ import com.mincoms.book.domain.dto.DtoBookInfo;
 
 @Repository("BookDao")
 public class BookDaoImpl extends SqlMapClientDaoSupport implements BookDao{
-private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BookDaoImpl.class);
 	
 	@Resource(name="sqlMapClient")
 	protected void init(SqlMapClient sqlMapClient) {

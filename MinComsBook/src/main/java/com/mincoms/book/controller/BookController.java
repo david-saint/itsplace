@@ -24,6 +24,7 @@ import com.mincoms.book.admin.controller.AdminController;
 import com.mincoms.book.api.Google;
 import com.mincoms.book.domain.BookCategory;
 import com.mincoms.book.domain.BookCategoryRoot;
+import com.mincoms.book.domain.BookCategorySub;
 import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.DataTable;
 import com.mincoms.book.domain.JsonResponse;
@@ -124,5 +125,28 @@ public class BookController {
 	       
 	               
 	}   
+	
+	
+	
+	@RequestMapping(value = "/book/getBookCategoryRoot", method = RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody List<BookCategoryRoot> getBookCategoryRoot()  {
+		logger.info("류트카테고리");
+		return categoryService.findByBookCategoryRoot();
+	}
+	
+	@RequestMapping(value = "/book/getBookCategory", method = RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody List<BookCategory> getBookCategory(@RequestParam(value="sub_id", required=true) Integer sub_id)  {
+		
+		BookCategorySub bookCategorySub = categoryService.findByBookCategorySub(sub_id);
+		return categoryService.findByIsDeleted(false, bookCategorySub);
+	}
+	
+	@RequestMapping(value = "/book/getBookCategorySub", method = RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody List<BookCategorySub> getBookCategorySub(@RequestParam(value="root_id", required=true) Integer root_id)  {
+		
+		BookCategoryRoot bookCategoryRoot = categoryService.findByBookCategoryRoot(root_id);
+		return categoryService.findByIsDeletedBookCategorySub(false, bookCategoryRoot);
+	}
+	
 
 }

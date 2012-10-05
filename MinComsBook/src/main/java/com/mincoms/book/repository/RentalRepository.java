@@ -2,6 +2,9 @@ package com.mincoms.book.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,5 +28,5 @@ public interface RentalRepository extends JpaRepository<BookRental, Long> {
 	List<BookRental> findByUserInfoAndReturnDateIsNull(UserInfo userInfo);
 	
 	List<BookRental> findByUserInfoAndReturnDateIsNotNull(UserInfo userInfo);
-	
+
 }

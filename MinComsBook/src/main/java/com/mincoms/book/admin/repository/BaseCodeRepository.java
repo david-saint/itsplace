@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.mincoms.book.domain.AppException;
 import com.mincoms.book.domain.BaseCode;
 
-public interface BaseCodeRepository extends JpaRepository<AppException, Integer> {
+public interface BaseCodeRepository extends JpaRepository<BaseCode, Integer> {
 	@Query("select B from BaseCode B Where B.codeKey = ?1 And B.isDeleted = 0 And B.codeGroup='BookManager'")
 	BaseCode findByBookManager(String userName);
 	

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mincoms.book.domain.Authorities;
+import com.mincoms.book.domain.DeptInfo;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.repository.AuthoritiesRepository;
+import com.mincoms.book.repository.DeptRepository;
 import com.mincoms.book.repository.UserRepository;
 
 
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Autowired
+	private DeptRepository deptRepo;
 	@Autowired
 	private AuthoritiesRepository authRepo;
 	
@@ -48,6 +52,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfo findByUserName(String userName) {
 		return userRepo.findByUserName(userName);
+	}
+
+	@Override
+	public List<UserInfo> findByUserNameContaining(String userName) {
+		return userRepo.findByUserNameContaining(userName);
+	}
+
+	@Override
+	public List<UserInfo> findByDeptInfo(int deptId) {
+		DeptInfo deptInfo = deptRepo.findOne(deptId);
+		return userRepo.findByDeptInfo(deptInfo);
 	}
 
 }

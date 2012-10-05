@@ -4,8 +4,9 @@
 <%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<c:set var="title" value="예외"/>
 <html>
-<head>
+<head> 
     <title>도서목록</title>
 <script type="text/javascript">
 	var datatable;
@@ -134,7 +135,7 @@
 <body>
 	<div class="widget">
 		<div class="header">
-			<span class="ico gray home"></span><span>Exception</span>
+			<span><span class="ico gray spreadsheet"></span>${title}</span>
 		</div>
 		<div class="content">			
 			<div class="tableName">

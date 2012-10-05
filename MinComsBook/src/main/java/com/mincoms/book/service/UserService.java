@@ -2,6 +2,7 @@ package com.mincoms.book.service;
 
 import java.util.List;
 
+import com.mincoms.book.domain.DeptInfo;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.domain.Authorities;
 
@@ -49,4 +50,13 @@ public interface UserService {
 	 * @return
 	 */
 	UserInfo findByUserId(int userId);
+	/**
+	 * 유저 가져오기 유저정보,부서정보 조인  {@link UserInfo}.
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	List<UserInfo> findByUserNameContaining(String userName);
+	
+	List<UserInfo> findByDeptInfo(int deptId);
 }

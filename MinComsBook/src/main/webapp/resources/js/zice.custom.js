@@ -191,8 +191,8 @@ $(function() {
   	//datepicker
 	$("input.datepicker").datepicker({ 
 		autoSize: true,
-		appendText: '(dd-mm-yyyy)',
-		dateFormat: 'dd-mm-yy'
+		//appendText: '(yy-mm-dd)',
+		dateFormat: 'yy-mm-dd'
 	});
 	$( "div.datepickerInline" ).datepicker({ 
 		dateFormat: 'dd-mm-yy',

@@ -15,10 +15,57 @@
 	 	    $('#btnAdd').live('click',function() {
 	 	    	
 	 	    	//custominput 에서  name을 소수점으로 넣으면 에러남
-	 	    	$('input[type=radio]').attr('name',"basecode.codeId");
+	 	    	//$('input[type=radio]').attr('name',"basecode.codeId");
 	 	    	
 	 			$('form').submit();
 	 		}); 
+	 	      
+	 	    
+	 	  
+	 	   function split( val ) {
+				return val.split( /,\s*/ );
+			}
+			function extractLast( term ) {
+				return split( term ).pop();
+			}
+
+			$( "#restrictUsers" )
+				// don't navigate away from the field on tab when selecting an item
+				.bind( "keydown", function( event ) {
+					if ( event.keyCode === $.ui.keyCode.TAB &&
+							$( this ).data( "autocomplete" ).menu.active ) {
+						event.preventDefault();
+					}
+				})
+				.autocomplete({
+					source: function( request, response ) {
+						$.getJSON( "/user/getActiveUsers", {
+							term: extractLast( request.term )
+						}, response );
+					},
+					search: function() {
+						// custom minLength
+						var term = extractLast( this.value );
+						if ( term.length < 2 ) {
+							return false;
+						}
+					},
+					focus: function() {
+						// prevent value inserted on focus
+						return false;
+					},
+					select: function( event, ui ) {
+						var terms = split( this.value );
+						// remove the current input
+						terms.pop();
+						// add the selected item
+						terms.push( ui.item.value );
+						// add placeholder to get the comma-and-space at the end
+						terms.push( "" );
+						this.value = terms.join( ", " );
+						return false;
+					}
+				});
 	 	});
 	 	
 	 
@@ -31,7 +78,7 @@
 		<span><span class="ico gray pencil"></span> ${title} </span>
 	</div>	
 	<div class="content">
-		<form:form  action="add" commandName="bookRestriction" method="post">
+		<form:form  action="add" commandName="dtoBookRestriction" method="post">
            <div class="boxtitle">
 	           <c:set var="errors"><form:errors path="*" /></c:set>
 	           <c:if test="${not empty errors}">
@@ -41,55 +88,29 @@
            </div>
              
           <div class="section" >
-               <label>제재사유 <small></small></label>   
+               <label>정지사유 <small></small></label>   
                <div> 
                		<div class="radiorounded"> 
 				 	<c:forEach items="${restrictionList}" var="basecode">
-				 		<input type="radio" id="${basecode.codeId}" name="" value="${basecode.codeId}"  />
+				 		<input type="radio" id="${basecode.codeId}" name="restrictReason" value="${basecode.codeId}"  />
 				 		<label  for="${basecode.codeId}">${basecode.codeDesc} 정지기간:${basecode.codeKey}일</label>
-				 		<br>
-				 	</c:forEach>
+				 		<br>				 	   	
+				 	</c:forEach>				 		
 				 	</div>
-				 		
+				 		<form:errors path="restrictReason" cssClass="error" />  
                	<span class="f_help"></span>
                	</div>                                  
           </div>       
           
-                            <div class="section">
-                              <label>select With search<small>Fix width</small></label>   
-                              <div>
-                              	  <select data-placeholder="Choose a Country..." class="chzn-select" tabindex="2" name="d.d" >
-                                  <option value=""></option> 
-                                
-                                  <option value="Tokelau">Tokelau</option> 
-                                  <option value="Tonga">Tonga</option> 
-                                  <option value="Trinidad and Tobago">Trinidad and Tobago</option> 
-                                  <option value="Tunisia">Tunisia</option> 
-                                  <option value="Turkey">Turkey</option> 
-                                  <option value="Turkmenistan">Turkmenistan</option> 
-                                  <option value="Turks and Caicos Islands">Turks and Caicos Islands</option> 
-                                  <option value="Tuvalu">Tuvalu</option> 
-                                  <option value="Uganda">Uganda</option> 
-                                  <option value="Ukraine">Ukraine</option> 
-                                  <option value="United Arab Emirates">United Arab Emirates</option> 
-                                  <option value="United Kingdom">United Kingdom</option> 
-                                  <option value="United States">United States</option> 
-                                  <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option> 
-                                  <option value="Uruguay">Uruguay</option> 
-                                  <option value="Uzbekistan">Uzbekistan</option> 
-                                  <option value="Vanuatu">Vanuatu</option> 
-                                  <option value="Venezuela">Venezuela</option> 
-                                  <option value="Viet Nam">Viet Nam</option> 
-                                  <option value="Virgin Islands, British">Virgin Islands, British</option> 
-                                  <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option> 
-                                  <option value="Wallis and Futuna">Wallis and Futuna</option> 
-                                  <option value="Western Sahara">Western Sahara</option> 
-                                  <option value="Yemen">Yemen</option> 
-                                  <option value="Zambia">Zambia</option> 
-                                  <option value="Zimbabwe">Zimbabwe</option>
-                                </select>       
-                        </div>
-                        </div> 
+          <div class="section">
+          		<label>사용자 검색<small></small></label>   
+                <div class="ui-widget">
+					<label for="birds">사용자 아이디 </label>
+					<input type="text" id="restrictUsers" name="restrictUsers" />
+					<form:errors path="restrictUsers" cssClass="error" />     	
+				</div>              
+				<span class="f_help">예> bmkim, sckim, </span>
+          </div> 
         
            
            <div class="section last right">

@@ -23,30 +23,6 @@ public class DtoBookInfo {
 	  private long rentalCount;
 	  private Date regDate;
 	
-	
-	/*
-	public DtoBookInfo(String thumbnail, String bookCategoryRoot,
-			String bookCategory, String isbn, String title, String authors,
-			int count, String publisher, String publishedDate,
-			long reservationCount,long rentalCount) {
-		super();
-		this.thumbnail = thumbnail;
-		this.bookCategoryRoot = bookCategoryRoot;
-		this.bookCategory = bookCategory;
-		this.isbn = isbn;
-		this.title = title;
-		this.authors = authors;
-		this.count = count;
-		this.publisher = publisher;
-		this.publishedDate = publishedDate;
-		this.reservationCount = reservationCount;
-		this.rentalCount = rentalCount;
-	}
-
-*/
-
-
-
 	public int getRownumber() {
 		return rownumber;
 	}

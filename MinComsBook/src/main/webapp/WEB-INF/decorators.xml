@@ -10,6 +10,7 @@
 		<pattern>/book/rental</pattern>
 		<pattern>/book/return</pattern>
 		<pattern>/book/info</pattern>
+		<pattern>/admin/restriction/solve</pattern>
     </decorator> 
 	
 	<decorator name="empty" page="/WEB-INF/layouts/empty_layout.jsp" >
