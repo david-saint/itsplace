@@ -33,6 +33,7 @@ import com.mincoms.book.service.CategoryService;
 import com.mincoms.book.service.RentalService;
 import com.mincoms.book.service.ReservationService;
 import com.mincoms.book.service.UserService;
+import com.mincoms.book.util.Encrypt;
 
 @Controller
 public class UserController {
@@ -53,13 +54,14 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/user/getActiveUsers", method = RequestMethod.GET, headers="Accept=application/json")
-	public List<String> getActiveUsers(@RequestParam(required=true, defaultValue="1") String term){
+	public List<UserInfo> getActiveUsers(@RequestParam(required=true, defaultValue="1") String term){
 		logger.info("term:{}",term);
 		List<String> userNames = new ArrayList();
 		for(UserInfo userInfo: userService.findByUserNameContaining(term)){
 			userNames.add(userInfo.getUserName());
 		}
-		return userNames;
+//		return userNames;
+		return userService.findByUserNameContaining(term);
 	}
 	
 	
@@ -67,5 +69,28 @@ public class UserController {
 	public @ResponseBody List<UserInfo> getUsersByDept(@RequestParam(value="deptId", required=true) Integer deptId)  {
 		
 		return userService.findByDeptInfo(deptId);
+	}
+	//gcm 등록
+	@RequestMapping(value = "/user/getUser", method = RequestMethod.POST)
+	public  @ResponseBody  UserInfo getuser(UserInfo userInfo) {
+		logger.info("Android Call username:{}",userInfo.getUserName());
+		UserInfo signedUser = null;
+		
+		signedUser = userService.findByUserName(userInfo.getUserName());
+		signedUser.setGcmId(userInfo.getGcmId());
+		userService.save(signedUser);
+		
+		return signedUser;
+	}
+	//민워크 로그인시 패스워드 업데이트
+	@RequestMapping(value = "/user/setPassword", method = RequestMethod.POST)
+	public  @ResponseBody  UserInfo setuser(UserInfo userInfo) {
+		logger.info("Android Call username:{}",userInfo.getUserName());
+		UserInfo signedUser = null;
+		signedUser = userService.findByUserName(userInfo.getUserName());
+		signedUser.setPassword( Encrypt.md5Encoding(userInfo.getPassword()));
+		userService.save(signedUser);
+		
+		return signedUser;
 	}
 }

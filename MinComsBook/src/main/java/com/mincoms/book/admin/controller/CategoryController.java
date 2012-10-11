@@ -88,8 +88,14 @@ public class CategoryController {
 		return "redirect:/admin/category/root";
 	}
 	@RequestMapping(value = "/admin/category/root/delete", method = RequestMethod.GET)
-	public String root_delete(@RequestParam(required=true,defaultValue="0") int id, Model model)  {
-		rootRepo.delete(id);
+	public String root_delete(@RequestParam(required=true,defaultValue="0") int id, Model model){
+		try{
+			rootRepo.delete(id);
+			
+		}catch(TransactionSystemException e){
+			e.printStackTrace();
+			throw new MincomsException("대분류  카테고리를 사용중입니다 삭제할 수 없습니다");
+		}
 		return "redirect:/admin/category/root";
 	}
 	
@@ -124,7 +130,6 @@ public class CategoryController {
 		return "redirect:/admin/category/sub";
 	}
 
-
 	@RequestMapping(value = "/admin/category/sub/delete", method = RequestMethod.GET)
 	public String sub_delete(@RequestParam(required=true,defaultValue="0") int id, Model model)   {
 		try{
@@ -136,12 +141,9 @@ public class CategoryController {
 		return "redirect:/admin/category/sub";
 	}
 	
-	
 	public void test() throws Exception{
 		throw new Exception("ㅇㅇ");
 	}
-	
-	
 
 	@RequestMapping(value = "/admin/category", method = RequestMethod.GET)
 	public String add(@RequestParam(required=false,defaultValue="0") int id,
@@ -157,7 +159,6 @@ public class CategoryController {
 		}
 		
 		model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRootAll());
-		
 		model.addAttribute("bookCategoryList", categoryService.findByBookCategoryAll(subid));
 		model.addAttribute("rootid", rootid);
 		model.addAttribute("subid", subid);
@@ -179,7 +180,14 @@ public class CategoryController {
 	}
 	@RequestMapping(value = "/admin/category/delete", method = RequestMethod.GET)
 	public String delete(@RequestParam(required=true,defaultValue="0") int id, Model model)  {
-		repo.delete(id);
+		try{
+			repo.delete(id);
+			
+		}catch(TransactionSystemException e){
+			e.printStackTrace();
+			throw new MincomsException("소분류  카테고리를 사용중입니다 삭제할 수 없습니다");
+		}
+		
 		return "redirect:/admin/category";
 	}
 	

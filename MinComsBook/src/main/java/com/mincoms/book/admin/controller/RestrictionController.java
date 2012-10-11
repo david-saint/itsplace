@@ -1,6 +1,8 @@
 package com.mincoms.book.admin.controller;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
@@ -49,15 +51,18 @@ public class RestrictionController {
 	@Autowired
 	BaseCodeRepository baseCodeRepository;
 	
+	
 	@Autowired
 	RestrictionService restrictionService;
-	
+	@Autowired
+	JsonResponse json;
 	
 	@RequestMapping(value = "/admin/restriction/add", method = RequestMethod.GET)
-	public String add(Model model)  {
+	public String add(@RequestParam(required=false, defaultValue="") String userName, Model model)  {
 	
 		
 		model.addAttribute("dtoBookRestriction", new DtoBookRestriction());		
+		model.addAttribute("userName", userName);		
 		
 		model.addAttribute("restrictionList", baseCodeRepository.findByRestrictions());
 		
@@ -65,22 +70,24 @@ public class RestrictionController {
 	}
 	
 	
-	@RequestMapping(value = "/admin/restriction/add", method = RequestMethod.POST)
-	public String add(@Validated DtoBookRestriction dtoBookRestriction, BindingResult result, Model model)   {
+	@RequestMapping(value = "/admin/restriction/add",method = RequestMethod.POST, headers="Accept=application/json")
+	public @ResponseBody JsonResponse  add(@Validated DtoBookRestriction dtoBookRestriction, BindingResult result, Model model)   {
 		logger.debug("Post 콜"+dtoBookRestriction.toString());
 		
 		if(result.hasErrors()) {
 			logger.debug("필드에러발생:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
 			logger.debug("으아아:"+result.toString());
 			
-			model.addAttribute("restrictionList", baseCodeRepository.findByRestrictions());
-			return "admin/restriction/add";
+			//model.addAttribute("restrictionList", baseCodeRepository.findByRestrictions());
+			//return "admin/restriction/add";
+			json =  json.getValidationErrorResult(result, json);
 		}else{	
 			restrictionService.save(dtoBookRestriction);
-			
+			json.setSuccess();
+			json.setResult(messagesource.getMessage("registration.users", null , Locale.getDefault()));
 			
 		}		
-		return "admin/restriction/list";
+		return json;
 	}
 	@RequestMapping(value = "/admin/restriction/list", method = RequestMethod.GET)
 	public String list(Model model)  {
@@ -90,8 +97,8 @@ public class RestrictionController {
 	}
 	
 	/**
-	 * <b>도서대출 정지자 목록 Datatables</b> <br />
-	 * <pre>
+	 * <b>도서대출 정지자 목록 </b> <br />
+	 * <pre>Vo를 사용하는 이유 : BookRestriction으로 Json 생성시 Json 용량이 초과해 오류발생함, vo대안으로 @JsonIgnored 사용가능함 </pre>
 	 * <b>History:</b>
 	 *     version 1.0, 2012.9.3 검색
 	 * </pre>
@@ -126,7 +133,7 @@ public class RestrictionController {
                     logger.info("isSolved:{}", isSolved);
                   
                   
-                    String columns[]={"id","userRname","regDate", "solveDate"};
+                    String columns[]={"id","userRname","","regDate", "solveDate"};
                     //Paging page = new Paging(columns,0,10,0,"desc","");
                     Paging page = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
                 
@@ -180,5 +187,23 @@ public class RestrictionController {
 		bookRestriction.setSolveReason(solveReason);
 		
 		return restrictionService.save(bookRestriction);
+	}
+	/**
+	 * <b>도서대출 정지 이력 </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 8. 24
+	 * @param sSearch 검색
+	 * @return DataTables
+	 * @return book/add.jsp 
+	 * @throws Exception 
+	 * @see 
+	 */
+	@RequestMapping(value = "/admin/restriction/history", method = RequestMethod.GET)
+	public String restrictionHistory(@RequestParam(required=true) int userId, Model model)  {
+		List<BookRestriction> bookRestrictions = restrictionService.findByUserInfo(userId);
+		model.addAttribute("bookRestrictions",bookRestrictions);
+		
+		return "/admin/restriction/history";
 	}
 }

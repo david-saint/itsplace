@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import com.mincoms.book.admin.service.RestrictionService;
 import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.BookReservation;
 import com.mincoms.book.domain.DataTable;
@@ -36,6 +37,8 @@ public class ReservationServiceImpl implements ReservationService {
 	private EntityManager em;
 	@Autowired
 	BookService bookService;
+	@Autowired
+	RestrictionService restrictionService;
 	@Autowired
 	ReservationRepository reservationRepository;
 	@Autowired
@@ -78,26 +81,33 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public JsonResponse reservation(String isbn) {
 		JsonResponse json = new JsonResponse();
-		if(bookService.isRental(isbn)){			
+		if(bookService.isRental(isbn).getStatus() == json.SUCCEESS){			
 			json.setResult(messageSource.getMessage("rental.able", null, Locale.getDefault()));
 			json.setFail();
 		}else{
-			if(reservationRepository.findByReservationBook(isbn,SignedUser.getUserId()) == null){
-				BookReservation bookReservation = new BookReservation();
-				bookReservation.setBookInfo(bookService.findByIsbn(isbn));
-				bookReservation.setIsCanceled(false);
-				bookReservation.setReservationDate(new Date());
-				bookReservation.setUserInfo(new UserInfo(SignedUser.getUserId()));
-				bookReservation = reservationRepository.save(bookReservation);
-				json.setResult(messageSource.getMessage("reservationBook.success", new Object [] {bookReservation.getBookInfo().getTitle()}, Locale.getDefault()));
-				json.setSuccess();
-			}else{
-				json.setResult(messageSource.getMessage("reservationBook.already", null, Locale.getDefault()));
+			//대출중지중?
+			json = restrictionService.isRestriction(SignedUser.getUserInfo());
+			if(json.getStatus() == json.SUCCEESS){
 				json.setFail();
+				return json;
+			}else{
+				//예약가능함
+				if(reservationRepository.findByReservationBook(isbn,SignedUser.getUserId()) == null){
+					BookReservation bookReservation = new BookReservation();
+					bookReservation.setBookInfo(bookService.findByIsbn(isbn));
+					bookReservation.setIsCanceled(false);
+					bookReservation.setReservationDate(new Date());
+					bookReservation.setUserInfo(new UserInfo(SignedUser.getUserId()));
+					bookReservation = reservationRepository.save(bookReservation);
+					json.setResult(messageSource.getMessage("reservationBook.success", new Object [] {bookReservation.getBookInfo().getTitle()}, Locale.getDefault()));
+					json.setSuccess();
+				}else{
+					json.setResult(messageSource.getMessage("reservationBook.already", null, Locale.getDefault()));
+					json.setFail();
+				}
 			}
+			
 		}
-		
-		
 		
 		return json;
 	}

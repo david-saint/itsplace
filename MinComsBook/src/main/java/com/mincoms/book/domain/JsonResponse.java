@@ -19,8 +19,8 @@ import com.mincoms.book.admin.controller.AdminController;
 @Component
 public class JsonResponse {
 	private static final Logger logger = LoggerFactory.getLogger(JsonResponse.class);
-	protected final static String SUCCEESS = "SUCCESS";
-	protected final static String FAIL = "FAIL";
+	public final static String SUCCEESS = "SUCCESS";
+	public final static String FAIL = "FAIL";
 	
 	private String status;
 	private Object result;
@@ -35,7 +35,8 @@ public class JsonResponse {
 	    	String message=null;
 	    	for(int i=0; i<fieldError.getCodes().length; i++){
 	    		try{
-	    			 message = this.messageSource.getMessage(fieldError.getCodes()[i], fieldError.getArguments(), Locale.getDefault());
+//	    			 message = this.messageSource.getMessage(fieldError.getCodes()[i], fieldError.getArguments(), Locale.getDefault());
+	    			 message = this.messageSource.getMessage(fieldError.getCodes()[i],  new Object [] {fieldError.getRejectedValue()}, Locale.getDefault());
 		    		 if(message != null){
 		    			logger.info("fieldError:{}",fieldError.getCodes()[0]);
 		    		    logger.info("getArguments:{}",fieldError.getArguments());

@@ -1,5 +1,6 @@
 package com.mincoms.book.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,6 @@ public class BookController {
 	ReservationService reservationService;
 	@Autowired
 	CategoryService categoryService;
-	
 	@Autowired
 	JsonResponse json;
 	
@@ -74,7 +74,7 @@ public class BookController {
 	
 	
 	/**
-	 * <b>도서목록 Datatables</b> <br />
+	 * <b>도서목록 </b> <br />
 	 * <pre>
 	 * <b>History:</b>
 	 *     version 1.0, 2012.9.3 검색
@@ -108,8 +108,8 @@ public class BookController {
 	             
 	                logger.info("bookCategoryRoot:{}", bookCategoryRoot);
 	                logger.info("bookCategory:{}", bookCategory);
-	              
-	                String columns[] = new String[]{"regDate", "title", "authors"};
+	               
+	                String columns[] = new String[]{"", "F.NAME","E.NAME","D.NAME","title", "authors","regDate"};
 	             
 	                Map<String, Object> parameter = new HashMap<String, Object>();
 	                parameter.put("bookCategoryRoot", bookCategoryRoot);
@@ -126,24 +126,27 @@ public class BookController {
 	               
 	}   
 	
-	
+	 @RequestMapping("/book/excel")
+	 public String excelDownload(Model model){
+		 
+		 model.addAttribute("bookInfos", bookService.findAll());
+	  
+	  return "BookInfoListExcel";
+	 }
 	
 	@RequestMapping(value = "/book/getBookCategoryRoot", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<BookCategoryRoot> getBookCategoryRoot()  {
-		logger.info("류트카테고리");
 		return categoryService.findByBookCategoryRoot();
 	}
 	
 	@RequestMapping(value = "/book/getBookCategory", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<BookCategory> getBookCategory(@RequestParam(value="sub_id", required=true) Integer sub_id)  {
-		
 		BookCategorySub bookCategorySub = categoryService.findByBookCategorySub(sub_id);
 		return categoryService.findByIsDeleted(false, bookCategorySub);
 	}
 	
 	@RequestMapping(value = "/book/getBookCategorySub", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<BookCategorySub> getBookCategorySub(@RequestParam(value="root_id", required=true) Integer root_id)  {
-		
 		BookCategoryRoot bookCategoryRoot = categoryService.findByBookCategoryRoot(root_id);
 		return categoryService.findByIsDeletedBookCategorySub(false, bookCategoryRoot);
 	}

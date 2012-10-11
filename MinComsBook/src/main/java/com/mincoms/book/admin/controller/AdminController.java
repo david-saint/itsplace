@@ -65,13 +65,10 @@ public class AdminController {
 	MessageSource messagesource;
 	@Autowired
 	BookService bookService;
-	
 	@Autowired
 	CategoryService categoryService;
-	
 	@Autowired
 	JsonResponse json;
-	
 
 	/**
 	 * <b>도서등록 Json응답</b> <br />
@@ -118,20 +115,13 @@ public class AdminController {
 				json.setResult("이미 등록되어있습니다");
 				
 			}
-		
-			
-		
 		}
-				
 		return json;
 	}
 	
 	public void test(String num) {
-		//throw  new Exception(messagesource.getMessage("javax.validation.constraints.NotNull.message", null,null));
 		int x = 1* Integer.parseInt(num);
 	}
-	
-	
 
 	/*@ExceptionHandler(MincomsException.class)
 	@ResponseBody
@@ -171,8 +161,6 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/admin/book/add", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse addJson(@Validated({AddBook.class}) BookInfo book, BindingResult result, Model model) {
-		logger.debug("Json 콜");
-		//test("111111111111111111111111111");
 		if (result.hasErrors()) {
 			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
 			logger.debug("필드에러:"+result.toString());
@@ -227,10 +215,8 @@ public class AdminController {
 		return "admin/book/list";
 	}
 	
-	
 	@RequestMapping(value = "/admin/book/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) String isbn, Model model) {
-		logger.info("isbn={}",isbn);
 		BookInfo bookInfo = bookService.findByIsbn(isbn);
 		model.addAttribute("bookInfo", bookInfo);
 		model.addAttribute("categoryRootList", categoryService.findByBookCategoryRoot());			
@@ -254,7 +240,6 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/admin/book/edit", method = RequestMethod.POST)
 	public String editSubmit(@Validated({EditBook.class}) BookInfo bookInfo, BindingResult result, Model model) throws Exception  {
-		
 		if (result.hasErrors()) {
 			logger.debug("필드에러발생:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
 			logger.debug("으아아:"+result.toString());
@@ -274,16 +259,11 @@ public class AdminController {
 			
 			return "redirect:/admin/book/list";	
 		}		
-		
 	}
 	
 	@RequestMapping(value = "/admin/book/list", method = RequestMethod.GET)
-	public String list(
-			@RequestParam (value = "grpcd", required = false, defaultValue = "") String grpcd,
-			Model model
-			) {
-	/*	model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
-		model.addAttribute("basCdList", adminBaseService.getBascdList(grpcd));*/
+	public String list(Model model) {
+	
 		return "admin/book/list";
 	}
 	
@@ -314,24 +294,21 @@ public class AdminController {
     								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
     								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
                                     @RequestParam(required=false, defaultValue="") String sSearch,
-                                    @RequestParam(required=false, defaultValue="1") Integer fid) {
+                                    @RequestParam(required=false, defaultValue="") String isDeleted) {
 
-                  //  logger.info("languageHeader:{}", languageHeader.toString());
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
                     logger.info("sSortDir_0:{}", sSortDir_0);
                     logger.info("iSortCol_0:{}", iSortCol_0);
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
-                    logger.info("fid:{}", fid);
+                    logger.info("isDeleted:{}", isDeleted);
                   
-                    String columns[] = new String[]{"", "title", "authors","regDate"};
-                    
+                    String columns[] = new String[]{"", "bookCategory.bookCategorySub.bookCategoryRoot","bookCategory.bookCategorySub","bookCategory","title", "authors","regDate"};
                     
                     Paging page = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     logger.info(page.toString());
                     
-                   return bookService.findBookList(page);
-           
+                   return bookService.findBookList(page, isDeleted);
                    
     }   
 	

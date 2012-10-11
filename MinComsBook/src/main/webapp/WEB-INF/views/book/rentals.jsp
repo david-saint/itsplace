@@ -88,7 +88,7 @@
                 		   }else{
                 			   message = day + "일 남았습니다";
                 		   }
-                		   html.append('<div class="item reservation bar2 ">');
+                		   html.append('<div class=" item reservation bar2 ">');
                 		   html.append('<a class="mosaic-overlay reservationBook" id="'+this.id+'">');
                 		   html.append('<div class="details">');
                 		   html.append('<h4>'+message+'</h4>');
@@ -283,20 +283,23 @@
 	</script>
 	<style type="text/css">
 		.item{
+			float: left;
+			overflow:hidden;
 			width:198px;
 			height:286px;
 			border:0px solid red;
 			margin-right:15px;
-		
+			margin-top:15px;
 		}
 		.item img{
 			width:198px;
 			height:286px;
 		}
-		.details{ margin:18px 20px; }	
+
+		.details{ margin:18px 20px;  height:50px;}	
 		h4{ font:300 11px 'Helvetica Neue', Helvetica, Arial, sans-serif; color:#fff; text-shadow:1px 1px 0 rgb(0,0,0); }
 		p{ margin-top:15px; font:300 12px 'Lucida Grande', Tahoma, Verdana, sans-serif; color:#aaa; text-shadow:1px 1px 0 rgb(0,0,0);}
-		a{ text-decoration:none; }
+		a{ text-decoration:none; } 
 	</style>
 </head>
 <body>

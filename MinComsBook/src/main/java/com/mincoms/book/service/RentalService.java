@@ -48,6 +48,16 @@ public interface RentalService {
 	 * @see 
 	 */
 	public List<BookRental> findByUserInfoAndReturnDateIsNotNull(UserInfo userInfo);
+	/**
+	 * <b>전체 도서대출목록(History) </b>
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @return List BookRental 
+	 * @throws Exception 
+	 * @see 
+	 */
+	public List<BookRental> findByReturnDateIsNotNull();
 	
 	public BookRental findById(long id);
 	
@@ -85,4 +95,6 @@ public interface RentalService {
 	 * @see 
 	 */
 	public List<BookRental> findByIsbn(String isbn);
+	
+	
 }

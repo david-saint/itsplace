@@ -7,7 +7,7 @@
 <c:set var="title" value="카테고리 소분류"/>
 <html>
   <head>
-    <title>{$title}</title>
+    <title>${title}</title>
     
     <script  src="<c:url value="/resources/components/noty/jquery.noty.js" />" type="text/javascript"></script>
     <script  src="<c:url value="/resources/components/noty/layouts/center.js" />" type="text/javascript"></script>

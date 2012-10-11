@@ -7,7 +7,7 @@
 <c:set var="title" value="카테고리 중분류"/>
 <html>
   <head>
-    <title>{$title}</title>
+    <title>${title}</title>
     
     <script  src="<c:url value="/resources/components/noty/jquery.noty.js" />" type="text/javascript"></script>
     <script  src="<c:url value="/resources/components/noty/layouts/center.js" />" type="text/javascript"></script>
@@ -122,7 +122,7 @@
 					<th width="100">아이디</th>
 					<th width="100">대분류</th>
 					<th width="100">카테고리명</th>
-					<th width="100">사용여부</th>
+					<th width="100">삭제여부</th>
 					<th width="100">순서</th>
 					<th width="100">Actions</th>
 				</tr>	

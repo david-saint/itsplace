@@ -27,7 +27,7 @@
  			"sPaginationType": "full_numbers",
  			"bProcessing": true,
  			"oLanguage": {
- 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/admin/restriction/getRestrictionUserList",
@@ -74,10 +74,11 @@
  	});//ready
 	function make_actions(oObj) {
 		var id = oObj.aData['id'];  
- 		
+		var userId = oObj.aData['userId'];  
  		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/solve?id='+id+'" original-title="해제"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
+ 		var historyAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/history?userId='+userId+'" original-title="대출정지 이력"><img src="/resources/images/icon/gray_18/hourglass.png"></a><span>';
  		
- 		return  solveAction; 
+ 		return  solveAction + "&nbsp" + historyAction; 
  	}
  	
  
@@ -91,7 +92,7 @@
 		</div>
 		<div class="content">			
 			<div class="tableName">
-			<span style="position:absolute"><a href="/admin/restriction/add" class="uibutton icon large add ">대출 정지자 등록</a></span>
+			<span style="position:absolute"><a href="/admin/restriction/add" class="uibutton icon large add ">대출 정지 등록</a></span>
 			
 			<div style="position:absolute;right:250px">
 				<div class="radiorounded"> 
@@ -105,8 +106,8 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>정지자</th>
-							<th>정지사유</th>
+							<th>이름</th>
+							<th>사유</th>
 							<th>정지일자</th>
 							<th>해제일</th>
 							<th>해제사유</th>

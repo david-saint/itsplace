@@ -56,11 +56,11 @@ public class BookRepoTest extends TestApplicationContext {
 	public void testFindAll() {
 		//Page<Book> books = (Page<Book>)bookRepo.findAll(new PageRequest(page.getiDisplayStart(),page.getiDisplayLength()));
 		//Page<Book> books = (Page<Book>)repo.findAll(BookSpecs.titleEqual("11"),  new PageRequest(0,10));
-		Page<BookInfo> books = (Page<BookInfo>)repo.findAll(BookSpecs.titleIsLike("11"),  new PageRequest(0,10));
-		for(BookInfo book: books){
-			logger.info("title:{}",book.getTitle());
+		//Page<BookInfo> books = (Page<BookInfo>)repo.findAll(BookSpecs.titleIsLike("11"),  new PageRequest(0,10));
+		//for(BookInfo book: books){
+		//	logger.info("title:{}",book.getTitle());
 			
-		}
+		//}
 	}
 	@Test
 	public void testFindAll2() {

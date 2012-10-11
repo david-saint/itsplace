@@ -12,10 +12,11 @@
 	var datatable; 
  	$(document).ready(function(){
  		
- 		$( ".date" ).datepicker({ 
- 			dateFormat: 'yy-mm-dd',
- 			numberOfMonths: 1
+ 		
+ 		$('input[type=radio]').live('change', function() {
+ 			datatable.fnStandingRedraw();
  		});
+ 		
  	    datatable = $('#datatable').dataTable( {
  			"sDom": 'fCl<"clear">rtip', //컬럼숨김
  			"bFilter": true, //search
@@ -24,13 +25,13 @@
  			"sPaginationType": "full_numbers",
  			"bProcessing": true,
  			"oLanguage": {
- 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/admin/book/findBookList",
- 			//"fnServerParams": function (aoData, fnCallback) {
-	        //      aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
-			//},
+ 			"fnServerParams": function (aoData, fnCallback) {
+	              aoData.push( { "name": "isDeleted", "value":  $('input[name=isDeleted]:checked').val()} );		 			               
+			},
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
 							{ "mDataProp": "thumbnail", "bSortable": false, "fnRender"  :function ( oObj ) {
@@ -66,7 +67,7 @@
 
 				});
  			},	 			
- 			"aaSorting": [[ 3, "desc" ]]
+ 			"aaSorting": [[ 6, "desc" ]]
  		});//datatable
  		
  	
@@ -125,6 +126,13 @@
 		<div class="content">			
 			<div class="tableName">
 			<span style="position:absolute"><a href="/admin/book/add" class="uibutton icon large add ">도서등록</a></span>
+				<div style="position:absolute;right:250px">
+					<div class="radiorounded"> 
+	               		<input id="isDeleted1" type="radio" name="isDeleted"  value="" checked /><label for="isDeleted1" >전체</label>
+	               		<input id="isDeleted2" type="radio" name="isDeleted"  value="0" /><label for="isDeleted2" >등록</label>
+	               		<input id="isDeleted3" type="radio" name="isDeleted"  value="1" /><label for="isDeleted3" >삭제</label>
+	               	</div>                        
+				</div>
 				<table class="display" id="datatable">
 					<thead>
 						<tr>

@@ -30,6 +30,7 @@ import com.mincoms.book.security.SignedUser;
 import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.RentalService;
 import com.mincoms.book.service.UserService;
+import com.mincoms.validation.ExistIsbn;
 
 @Controller
 @Validated
@@ -85,13 +86,7 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	@RequestMapping(value = "/book/return", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse returnPost(@RequestParam(required=true) long id) throws Exception  {
 		JsonResponse json  = rentalService.returnBook(id);
-		logger.info(json.getResult().toString());
-		logger.info(json.getResult().toString());
-		logger.info(json.getResult().toString());
-		logger.info(json.getResult().toString());
-		logger.info(json.getResult().toString());
-		logger.info(json.getResult().toString());
-		logger.info(json.getResult().toString());
+		
 		return json;
 	}
 	/**
@@ -132,14 +127,11 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	 */
 	@RequestMapping(value = "/book/rental", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse rental(
-			@RequestParam(required=true) String isbn,
+			@RequestParam(required=true)  String isbn,
 			@RequestParam(defaultValue="7") Integer day,
 			Model model) throws Exception  {
-		
-		
 		logger.debug("isbn:{}",isbn);
 		logger.debug("day:{}",day);
-		
 		JsonResponse json = rentalService.saveRental(isbn, day, SignedUser.getUserInfo());
 		
 		return json;
@@ -164,13 +156,7 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 		logger.debug("isbn:{}",isbn);
 		BookInfo book = bookService.findByIsbn(isbn);
 		if(book != null){
-			 if(bookService.isRental(isbn)){
-				 json.setResult(book);
-				 json.setSuccess();
-			 }else{
-					json.setResult(messageSource.getMessage("can.not.find.rental.book",null, Locale.getDefault()));
-					json.setFail();
-			 }
+			json = bookService.isRental(isbn);
 		}else{
 			json.setResult(messageSource.getMessage("not.register.book",null, Locale.getDefault()));
 			json.setFail();
@@ -189,7 +175,6 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	 */
 	@RequestMapping(value = "/book/rentals", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse rentals() throws Exception  {
-		
 		//UserInfo userInfo = userService.findByUserId(47);
 		json.setResult(rentalService.findByUserInfoAndReturnDateIsNull(SignedUser.getUserInfo()));
 		json.setSuccess();
@@ -208,14 +193,12 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	 */
 	@RequestMapping(value = "/book/rentalHistory", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse rentalHistory() throws Exception  {
-		
 		UserInfo userInfo = userService.findByUserId(47);
 		json.setResult(rentalService.findByUserInfoAndReturnDateIsNotNull(userInfo));
 		json.setSuccess();
 		return json;
 		
 	}
-	
 	@RequestMapping(value = "/book/rentals", method = RequestMethod.GET)
 	public String list(Model model) {
 		UserInfo userInfo = userService.findByUserId(47);

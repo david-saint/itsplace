@@ -7,7 +7,7 @@
 <c:set var="title" value="대출현황"/>
 <html>
 <head>
-    <title>도서대출 정지 유저목록</title>
+    <title>${title}</title>
 <script type="text/javascript">
 	var datatable;
 	var arrayData;
@@ -22,7 +22,7 @@
  		$('form').find('select').live('change', function() {
  			datatable.fnStandingRedraw();
  		});
- 		$('.datepicker').live('click', function() {
+ 		$('.datepicker').live('change', function() {
  			datatable.fnStandingRedraw();
  		});
  		$('#badGuys').live('click',function(){
@@ -33,6 +33,7 @@
  			}
  			datatable.fnStandingRedraw();
  		});
+ 		
  		$('#dept').change(function(){
  			var deptId = $(this).val();
  			if(deptId!=""){
@@ -57,16 +58,39 @@
  			}
 		    datatable.fnStandingRedraw();
 		});
+ 		$('#btnRestriction').click(function(){
+ 			var userNames = "";
+ 			var table="datatable";
+			var id= this.id;
+			$( "table#"+table+" tbody tr td:first-child input:checkbox").each(function() {	  					
+				if (this.checked){
+					userNames = userNames + $(this).attr('username') + ",";
+				}
+			});	
+			
+			var href="/admin/restriction/add?decorator=fancy&userName=" +userNames; 
+ 			//$(this).attr('href',href);
+ 			
+ 			$.fancybox({
+				'type':'iframe',
+				'href':href,
+				'showCloseButton' :true,
+				'autoDimensions':false,
+				'scrolling':'auto',
+				'autoScale':false,
+				
+			});
  		
+ 		});
  	    datatable = $('#datatable').dataTable( {
- 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
- 			"bFilter": true, //search
+ 			"sDom": 'fCl<"clear">rtip', 
+ 			"bFilter": true, 
  			"bPaginate": true,
- 			"bLengthChange": true, //로우수
+ 			"bLengthChange": true, 
  			"sPaginationType": "full_numbers",
  			"bProcessing": true,
  			"oLanguage": {
- 		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
+ 		         "sProcessing": "<div style='border:0px solid red'>조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/admin/statics/getRentalList",
@@ -80,6 +104,10 @@
 			},
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
+							{ "mDataProp": "id" , "bSortable": false, "fnRender"  :function ( oObj ) {
+ 								return "<div class='checksquared'><input type='checkbox' id='"+oObj.aData['id']+"' username='"+oObj.aData['userName']+"' class='chk_restriction restriction' /><label for='"+oObj.aData['id']+"'></label></div>";
+ 								
+ 							} },
 							{ "mDataProp": "title" },
  				  			{ "mDataProp": "deptName", "bSortable": false },
  				  			{ "mDataProp": "userRname", "bSortable": false },
@@ -96,11 +124,25 @@
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
 	  		"fnInitComplete":function(){
- 				//$('.tip a ').tipsy({trigger: 'manual'});
- 				//$('.tip a ').tipsy("hide");
+	  			$('.restriction').live('click',function(){
+	  				 var table=$(this).parents('table').attr('id');
+	  				 var checkedStatus ;
+	  				 var id= this.id;
+	  				 $( "table#"+table+" tbody tr td:first-child input:checkbox").each(function() {	  					
+	  						if (this.checked) {
+	  							checkedStatus = this.checked;
+	  						}
+	  				});	 
+	  	 			if(checkedStatus){
+	  	 				$('#btnRestriction').show();
+	  	 			}else{
+	  	 				$('#btnRestriction').hide();
+	  	 			}
+	  	 		});
  			},
- 			"fnDrawCallback": function () { 				
-
+ 			"fnDrawCallback": function () { 		
+ 				
+ 				$('.chk_restriction').customInput();
  				$('.fancy').fancybox({//autodimensions false 후 width , height 가느
 					'autoDimensions':false,
 					'scrolling':'auto',
@@ -111,16 +153,16 @@
  			"fnAlert": function () { 				
  				alert("d");
  			},	
- 			"aaSorting": [[ 0, "desc" ]]
+ 			"aaSorting": [[ 4, "desc" ]]
  		});//datatable
  		 	
  		
  		$(".dataTables_length select").addClass("small");
  	});//ready
 	function make_actions(oObj) {
-		var id = oObj.aData['id'];  
+		var userName = oObj.aData['userName'];  
  		
- 		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/solve?id='+id+'" original-title="해제"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
+ 		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/add?decorator=fancy&userName='+userName+'"  original-title="대출정지"><img src="/resources/images/icon/gray_18/book.png" /></a><span>';
  		
  		return  solveAction; 
  	}
@@ -144,29 +186,34 @@
                		<input id="isRental3" type="radio" name="isRental"  value="0" /><label for="isRental3" >반납완료</label> 
                	</div>                        
 			</div>
-			<div style="position:absolute;left:500px;z-index:99 ">
+			<div style="position:absolute;left:450px;z-index:99 ">
+            	<a id="btnRestriction" class="uibutton  large  iframe"  style="display:none" rel="1" >대출정지</a>
+			</div>
+			<div style="position:absolute;left:650px;z-index:99 ">
                		<input id="badGuys" type="checkbox" name="badGuys"  value="0" class="chkbox"/><label for="badGuys">반납예정일 초과</label>
 			</div>
-			<div style="position:absolute;right:750px;z-index:999">
+			<div style="position:absolute;right:450px;z-index:999">
 				<form:select id="dept" path="deptList" multiple="false">
 					<form:option value="" label="전체" />
 					<form:options items="${deptList}" itemValue="deptid" itemLabel="deptName" />
 				</form:select>                      
-			</div>
-			<div style="position:absolute;right:580px;z-index:999">
 				<select id="user">
 					<option value="">전체</option>
 				</select>                      
 			</div>
 			<div style="position:absolute;right:200px;z-index:999">
-				대출기간<input type="text" id="startDate" name="startDate" class="datepicker meduim" />  ~                   
-				<input type="text" id="endDate" name="endDate" class="datepicker meduim" />                     
+				<span></span>
+				<input type="text" id="startDate" name="startDate" class="datepicker meduim" />  ~                   
+				<input type="text" id="endDate" name="endDate" class="datepicker meduim" />
+				   <!-- <a id="btnEdit" class="uibutton loading submit_form large" title="Saving" rel="1" >저장</a> -->                       
 			</div>
 			</form>
 			
 				<table class="display" id="datatable">
 					<thead>
 						<tr>
+							<th><div class=""><input type="checkbox"  id="checkAll"   class="checkAll restriction" /><label for="checkAll"></label></div>
+							</th>
 							<th width="400">제목</th>
 							<th>부서</th>
 							<th>대출자</th>

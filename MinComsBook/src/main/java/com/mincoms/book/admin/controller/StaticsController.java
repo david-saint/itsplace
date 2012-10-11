@@ -96,15 +96,11 @@ public class StaticsController {
                     logger.info("startDate:{}", startDate);
                     logger.info("endDate:{}", endDate);
                     logger.info("badGuys:{}", badGuys);
+                
                   
-                  
-                    String columns[]={"A.ISBN","userRname","regDate", "solveDate"};
-                    //Paging page = new Paging(columns,0,10,0,"desc","");
+                    String columns[]={"", "title", "G.DeptName", "userRname","B.startDate","B.endDate", "B.returnDate"};
                     Paging paging = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
                     Map<String, Object> parameter = new HashMap<String, Object>();
-                   /* parameter.put("bookCategoryRoot", bookCategoryRoot);
-	                parameter.put("bookCategory", bookCategory);                           
-	                parameter.put("bookCategorySub", bookCategorySub);    */ 
                     parameter.put("deptId", deptId);
                     parameter.put("userId", userId);
                     parameter.put("sSearch", sSearch);

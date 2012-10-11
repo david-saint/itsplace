@@ -99,6 +99,14 @@
 		}
 	</style>
 	<decorator:head />
+	<script type="text/javascript">
+ 	$(document).ready(function(){
+ 		$('.cancel').unbind('click');
+ 		$('.cancel').click(function() {
+ 			parent.$.fancybox.close();
+ 		});
+ 	});
+ 	</script>
 </head>
 <body class="">   
   

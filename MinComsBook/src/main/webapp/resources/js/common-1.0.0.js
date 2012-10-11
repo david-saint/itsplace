@@ -20,12 +20,12 @@ $.ajaxSetup({
      }
 }); 
 $(document).ready(function() {
-	$('.clear_form').live('click',function() {
+	$('.clear_form').bind('click',function() {
 		c.clearForm();
 	});
 	
-	$('.cancel').live('click',function() {
-		history.back();
+	$('.cancel').bind('click',function() {
+		history.back();		
 	});
 	
 });
@@ -75,7 +75,7 @@ var c = {
 	 		var str = "";
 	    	if(column_date!=null){
 	    		var date = new Date(column_date);
-		 		
+	    		
 		 		var month = date.getMonth()+1;
 	 			var day = date.getDate();
 	 			if (month < 10)

@@ -13,6 +13,7 @@ import com.mincoms.book.domain.UserInfo;
 
 public class VoBookRestriction {
 	private long id;	
+	private int userId;
 	private String userRname;
 	private String deptName;
 	private Date regDate;
@@ -21,6 +22,12 @@ public class VoBookRestriction {
 	private String solveReason;
 	
 	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public long getId() {
 		return id;
 	}

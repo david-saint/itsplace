@@ -21,5 +21,5 @@ public interface BookRepository extends JpaRepository<BookInfo, String> {
 	
 	BookInfo findByIsbn(String isbn);
 	
-	
+	List<BookInfo> findAll();
 }

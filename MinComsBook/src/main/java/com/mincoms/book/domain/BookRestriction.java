@@ -33,6 +33,7 @@ public class BookRestriction {
 	
 	private String solveReason;
 	
+	
 	public BaseCode getBasecode() {
 		return basecode;
 	}

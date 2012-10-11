@@ -152,7 +152,7 @@
  	                });//ajax
  				});
  			},	 			
- 			"aaSorting": [[ 0, "desc" ]]
+ 			"aaSorting": [[ 6, "desc" ]]
  		});//datatable
  		
  	 
@@ -166,11 +166,11 @@
 	function make_actions(oObj) {
 		var isbn = oObj.aData['isbn'];
  		
- 		var infoAction = '<span class="tip"><a class="edit fancy iframe" href="/book/info?isbn='+isbn+'" original-title="반납및예약자"><img src="/resources/images/icon/gray_18/pencil.png"></a><span>';
+ 		var infoAction = '<span class="tip"><a class="edit fancy iframe" href="/book/info?isbn='+isbn+'" original-title="반납 및 예약자"><img src="/resources/images/icon/gray_18/clipboard.png"></a><span>';
  		var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
- 		var reservationAction ='<span class="tip"><a class="reservation"  isbn="'+isbn+'" original-title="예약"><img src="/resources/images/icon/gray_18/bookmark.png"></a><span>';
+ 		var reservationAction ='<span class="tip"><a class="reservation"  isbn="'+isbn+'" original-title="예약"><img src="/resources/images/icon/gray_18/key.png"></a><span>';
  		
- 		return  rentalAction + "&nbsp;"+ reservationAction + "&nbsp;"+ infoAction; 
+ 		return  rentalAction + "&nbsp;&nbsp;"+ reservationAction + "&nbsp;&nbsp;"+ infoAction; 
  	}
  	function bindAction(){
  		$('.rental').bind('click', function() {
@@ -236,16 +236,16 @@
 				<table class="display" id="datatable">
 					<thead> 
 						<tr>
-							<th width="100"></th>
-							<th width="100">대분류</th>
-							<th width="100">중분류</th>
+							<th width="50"></th>
+							<th width="80">대분류</th>
+							<th width="80">중분류</th>
 							<th width="100">소분류</th>
-							<th width="300">제목</th>
+							<th width="500">제목</th>
 							<th>저자</th>
-							<th>수량</th>
+							<th width="30">수량</th>
 							<th>출판일</th>
-							<th>예약</th>
-							<th>대여</th>
+							<th width="30">예약</th>
+							<th width="30">대여</th>
 							<th>대출여부</th>
 							<th>Action</th>
 						</tr>

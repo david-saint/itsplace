@@ -14,8 +14,6 @@ import com.mincoms.book.domain.BookRental;
 import com.mincoms.book.domain.UserInfo;
 
 public interface RentalRepository extends JpaRepository<BookRental, Long> {
-	//Rental findById(int Id);
-	List<BookRental> findByReturnDateIsNull();
 	
 	@Query("SELECT R FROM BookRental R WHERE R.id = ?1")
 	BookRental findById(long id);
@@ -26,6 +24,8 @@ public interface RentalRepository extends JpaRepository<BookRental, Long> {
 	List<BookRental> findByBookInfoAndReturnDateIsNull(BookInfo book);
 	
 	List<BookRental> findByUserInfoAndReturnDateIsNull(UserInfo userInfo);
+	
+	List<BookRental> findByReturnDateIsNull();
 	
 	List<BookRental> findByUserInfoAndReturnDateIsNotNull(UserInfo userInfo);
 

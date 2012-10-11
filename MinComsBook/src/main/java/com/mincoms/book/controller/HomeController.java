@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -43,10 +44,14 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
+		//GcmApp gcm = new GcmApp();
+	//	gcm.sender("APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c",
+	//			"AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac", "홈이야");
+		
 /*		GcmApp.sender("APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c",
 					"AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac", "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
-		
-		test2();*/
+		*/
+		//test2();
 		model.addAttribute("serverTime", formattedDate );
 		return "home";
 	}
@@ -71,13 +76,12 @@ public class HomeController {
 		.collapseKey(MESSAGE_ID)
 		.delayWhileIdle(SHOW_ON_IDLE)
 		.timeToLive(LIVE_TIME)
-		.addData("message","PUSH!!!!54야후11")
+		.addData("message","PUSHssssssssssssss!!!54야후11")
 		.build();
-
 		
 //			MulticastResult result = sender.send(message,regid,RETRY);
+//			Result result = sender.send(message,"APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c",RETRY);
 			Result result = sender.send(message,"APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c",RETRY);
-			
 		
 			if (result.getMessageId() != null) {
 				 String canonicalRegId = result.getCanonicalRegistrationId();
@@ -97,5 +101,6 @@ public class HomeController {
 		}
 	}
 	
+
 
 }

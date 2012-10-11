@@ -26,7 +26,7 @@
 	         <isNotEmpty property="userId" >
 	            AND C.userId = #userId#
 	        </isNotEmpty>
-	         <isNotEmpty property="isRental" >
+	        <isNotEmpty property="isRental" >
 	              <isEqual property="isRental" compareValue="True" >
 	                  AND B.ReturnDate is Null
 	              </isEqual>	
@@ -48,6 +48,7 @@
 		(
 			SELECT
 				ROW_NUMBER() OVER (ORDER BY $sortColumn$ $sortDirection$) AS ROWNUMBER, 
+				B.ID,
 				A.isbn,
 				A.Thumbnail,
 				F.NAME AS CATEGORYROOT,
@@ -55,6 +56,7 @@
 				D.NAME AS CATEGORY,
 				A.TITLE,				
 				G.DeptName,
+				C.UserName,
 				C.UserRname,
 				B.startDate,
 				B.endDate,

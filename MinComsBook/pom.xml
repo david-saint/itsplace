@@ -20,6 +20,18 @@
 		<querydsl.version>2.7.3</querydsl.version>
 	</properties> 
 	<dependencies>
+	    <!-- excel poi -->
+	     <dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.8</version>
+		</dependency>
+	    <!-- velocity -->
+	    <dependency>
+		   <groupId>org.apache.velocity</groupId>
+		   <artifactId>velocity</artifactId>
+		   <version>1.6.2</version>
+		</dependency>
 	    <!-- ibatis apache -->
 		<dependency>
 			<groupId>org.apache.ibatis</groupId>
@@ -354,6 +366,11 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>        
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

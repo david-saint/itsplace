@@ -1,7 +1,10 @@
 package com.mincoms.book.domain.dto;
 
+import java.util.Date;
+
 public class DtoRentalStatics {
 	private int rownumber;
+	private int id;
 	private String isbn;
 	private String thumbnail;
 	private String categoryRoot;
@@ -10,14 +13,21 @@ public class DtoRentalStatics {
 	private String title;				
 	private String deptName;
 	private String userRname;
-	private String startDate;
-	private String endDate;
-	private String returnDate;
+	private Date startDate;
+	private Date endDate;
+	private Date returnDate;
+	private String userName;
 	public int getRownumber() {
 		return rownumber;
 	}
 	public void setRownumber(int rownumber) {
 		this.rownumber = rownumber;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getIsbn() {
 		return isbn;
@@ -67,23 +77,31 @@ public class DtoRentalStatics {
 	public void setUserRname(String userRname) {
 		this.userRname = userRname;
 	}
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public String getReturnDate() {
+	public Date getReturnDate() {
 		return returnDate;
 	}
-	public void setReturnDate(String returnDate) {
+	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	
 	
 }

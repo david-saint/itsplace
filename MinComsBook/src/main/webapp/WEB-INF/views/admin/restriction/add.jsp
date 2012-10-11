@@ -13,12 +13,39 @@
 	 		$(".chzn-select").chosen(); 
 		    
 	 	    $('#btnAdd').live('click',function() {
-	 	    	
-	 	    	//custominput 에서  name을 소수점으로 넣으면 에러남
-	 	    	//$('input[type=radio]').attr('name',"basecode.codeId");
-	 	    	
-	 			$('form').submit();
-	 		}); 
+	 			var url = "/admin/restriction/add";
+	 			url += "?decorator=exception";
+	 			$.ajax({
+                     url: url,
+                     type:"POST",                                
+                     data:$("form").serialize(),                   
+                     success: function(response){
+                       if(response.status=="SUCCESS"){
+                    	   var delay =1000;
+                    	   c.showSuccess(response.result,delay);
+                    	   setTimeout('c.location("/admin/restriction/list")',delay);
+                       }else{                    	  
+                    	   for(var i =0 ; i < response.result.length ; i++){
+                               var field = $("#"+response.result[i].field);                 
+                               
+                               if($(field).length <= 0 ){
+                            	   field =  $('input[name='+response.result[i].field+']').next()//label;
+                               }
+                               $(field).attr('original-title',response.result[i].message);
+                               $(field).tipsy({trigger: 'manual', gravity: 'w'});
+                               $(field).tipsy("show");
+                               $(field).bind('click',function(){
+                            	   $(this).tipsy("hide");
+                               });
+                           }
+                    	   
+                       }
+                     },
+                     complete:function(){
+                    	 //setTimeout("c.unloading()",1500); 
+                     }
+                   });//ajax
+	 		});
 	 	      
 	 	    
 	 	  
@@ -30,18 +57,34 @@
 			}
 
 			$( "#restrictUsers" )
-				// don't navigate away from the field on tab when selecting an item
 				.bind( "keydown", function( event ) {
-					if ( event.keyCode === $.ui.keyCode.TAB &&
-							$( this ).data( "autocomplete" ).menu.active ) {
+					if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "autocomplete" ).menu.active ) {
+						alert("s");
+						event.preventDefault();
+					}
+					if ( event.keyCode == 13){
 						event.preventDefault();
 					}
 				})
 				.autocomplete({
 					source: function( request, response ) {
-						$.getJSON( "/user/getActiveUsers", {
-							term: extractLast( request.term )
-						}, response );
+						//$.getJSON( "/user/getActiveUsers", { term: extractLast( request.term ) }, response );
+						$.ajax({
+		                    url: "/user/getActiveUsers",
+		                    dataType: "json",
+		                    data: {
+		                    	term: extractLast( request.term )
+		                    },
+		                    success: function( data ) {
+		                    	console.log(data);
+		                        response( $.map( data, function( item ) {
+		                            return {
+		                                label: item.userRname +" ( "+item.deptInfo.deptName +" : "+ item.userName+" ) ",
+		                                value: item.userName
+		                            }
+		                        }));
+		                    }
+		                });
 					},
 					search: function() {
 						// custom minLength
@@ -70,7 +113,58 @@
 	 	
 	 
 	</script>
+<style>
+* Autocomplete styles */
+.ac_results {
+        padding: 0px;
+        border: 1px solid black;
+        background-color: white;
+        overflow: hidden;
+        z-index: 99999;
+}
 
+.ac_results ul {
+        width: 100%;
+        list-style-position: outside;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+}
+
+.ac_results li {
+        margin: 0px;
+        padding: 2px 5px;
+        cursor: default;
+        display: block;
+        /*
+        if width will be 100% horizontal scrollbar will apear
+        when scroll mode will be used
+        */
+        /*width: 100%;*/
+        font: menu;
+        font-size: 12px;
+        /*
+        it is very important, if line-height not setted or setted
+        in relative units scroll will be broken in firefox
+        */
+        line-height: 16px;
+        overflow: hidden;
+}
+
+.ac_loading {
+        /* loader image */
+        background: white url('indicator.gif') right center no-repeat;
+}
+
+.ac_odd {
+        background-color: #eee;
+}
+
+.ac_over {
+        background-color: #0A246A;
+        color: white;
+}
+</style>
 </head>
 <body>	
 <div class="widget">
@@ -93,11 +187,11 @@
                		<div class="radiorounded"> 
 				 	<c:forEach items="${restrictionList}" var="basecode">
 				 		<input type="radio" id="${basecode.codeId}" name="restrictReason" value="${basecode.codeId}"  />
-				 		<label  for="${basecode.codeId}">${basecode.codeDesc} 정지기간:${basecode.codeKey}일</label>
+				 		<label for="${basecode.codeId}">${basecode.codeDesc} 정지기간:${basecode.codeKey}일</label>
 				 		<br>				 	   	
 				 	</c:forEach>				 		
-				 	</div>
-				 		<form:errors path="restrictReason" cssClass="error" />  
+				 	</div>				 	
+				 	<form:errors path="restrictReason" cssClass="error" />  
                	<span class="f_help"></span>
                	</div>                                  
           </div>       
@@ -105,9 +199,10 @@
           <div class="section">
           		<label>사용자 검색<small></small></label>   
                 <div class="ui-widget">
-					<label for="birds">사용자 아이디 </label>
-					<input type="text" id="restrictUsers" name="restrictUsers" />
-					<form:errors path="restrictUsers" cssClass="error" />     	
+					
+					<input type="text" id="restrictUsers" class="medium" name="restrictUsers" value="${userName }" />
+					<form:errors path="restrictUsers" cssClass="error" />    
+					<span class="f_help">두글자 이상 입력하세요 </span> 	
 				</div>              
 				<span class="f_help">예> bmkim, sckim, </span>
           </div> 
@@ -116,8 +211,6 @@
            <div class="section last right">
                <div>
                 <a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
-                <a id="btnAddAjax" class="uibutton loading submit_form" title="Saving" rel="1" >submit-aAjax</a> 
-                <a class="uibutton special clear_form"  >clear form</a> 
                 <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
                </div>
            </div>

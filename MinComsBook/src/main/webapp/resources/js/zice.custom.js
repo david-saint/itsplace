@@ -710,7 +710,7 @@ $('.searchAutocomplete').click(function() {
 	});
 
 
-	 // Checkbox  All in Data Table
+	// Checkbox  All in Data Table
 	$(".checkAll").live('click',function(){
 		  var table=$(this).parents('table').attr('id');
 		  var checkedStatus = this.checked;

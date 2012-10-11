@@ -73,7 +73,7 @@
 	<div class="content">
 		
            <div class="boxtitle">
-           		${rental.bookInfo.title }
+           		
 	           <c:set var="errors"><form:errors path="*" /></c:set>
 	           <c:if test="${not empty errors}">
 	           <span class="ico color lightbulb"></span><span>Exception:</span>
@@ -82,6 +82,9 @@
            </div>
            <form>
            <input type="hidden" id="rentalId" name="id" value="${rental.id}" />
+           <div class="section" >
+           		${rental.bookInfo.title }
+           </div>
            <div class="section" >
                <label> 연기 일수 <small></small></label>   
                <div>

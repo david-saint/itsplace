@@ -7,7 +7,7 @@
 <c:set var="title" value="카테고리 대분류"/>
 <html>
   <head>
-    <title>{$title}</title>
+    <title>${title}</title>
     
     <script  src="<c:url value="/resources/components/noty/jquery.noty.js" />" type="text/javascript"></script>
     <script  src="<c:url value="/resources/components/noty/layouts/center.js" />" type="text/javascript"></script>
@@ -86,7 +86,7 @@
                		<span class="f_help"></span>
                </div>                                  
           </div>
-           
+             
            <div class="section last right">
                <div>
                 	<a id="btnSave" class="uibutton loading submit_form large" title="Saving" rel="1" >저장</a>

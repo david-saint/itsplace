@@ -140,12 +140,14 @@
 		<div class="content">			
 			<div class="tableName">
 			<span style="position:absolute"><a href="/book/add" class="uibutton icon large add ">블라브라</a></span>
-			<form><div style="position:absolute;right:350px">
+			<form>
+				<div style="position:absolute;right:350px">
 				<div class="radiorounded"> 
                		<input id="isCompleted2" type="radio" name="isCompleted"  value="0" checked /><label for="isCompleted2" title="완료">미결</label>
                		<input id="isCompleted1" type="radio" name="isCompleted"  value="1" /><label for="isCompleted1" title="완료">완료</label>
                	</div>                        
-			</div></form>
+				</div>
+			</form>
 			<div style="position:absolute; ;right:200px">
 				<div class="radiorounded"> 
                		<input id="isDeleted1" type="radio" name="isDeleted"  value="0" checked /><label for="isDeleted1" >진행</label>

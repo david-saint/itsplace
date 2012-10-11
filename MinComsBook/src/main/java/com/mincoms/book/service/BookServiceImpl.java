@@ -2,6 +2,7 @@ package com.mincoms.book.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -12,20 +13,27 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mincoms.book.admin.controller.AdminController;
+import com.mincoms.book.admin.repository.ExceptionSpecs;
+import com.mincoms.book.admin.service.RestrictionService;
 import com.mincoms.book.dao.BookDao;
+import com.mincoms.book.domain.AppException;
 import com.mincoms.book.domain.BookCategory;
 import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.BookRental;
 import com.mincoms.book.domain.BookReservation;
+import com.mincoms.book.domain.BookRestriction;
 import com.mincoms.book.domain.DataTable;
+import com.mincoms.book.domain.JsonResponse;
 import com.mincoms.book.domain.News;
 import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.QBookCategory;
@@ -37,8 +45,10 @@ import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.domain.VoBookInfo;
 import com.mincoms.book.domain.dto.DtoBookInfo;
 import com.mincoms.book.repository.BookRepository;
+import com.mincoms.book.repository.BookSpecs;
 import com.mincoms.book.repository.RentalRepository;
 import com.mincoms.book.repository.ReservationRepository;
+import com.mincoms.book.security.SignedUser;
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.jpa.hibernate.HibernateSubQuery;
@@ -56,9 +66,13 @@ public class BookServiceImpl implements BookService {
 	RentalRepository rentalRepo;
 	@Autowired 
 	ReservationRepository reservationRepo;
-	
+	@Autowired
+	RestrictionService restrictionService;
 	@Autowired
 	BookDao bookDao;
+	
+	@Autowired
+	MessageSource messageSource;
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -71,19 +85,20 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
-	public DataTable<BookInfo> findBookList(Paging paging) {
+	public DataTable<BookInfo> findBookList(Paging paging,String  isDeleted) {
 		
-		    /*DataTable<Book> table = iDisplayLength != null ?
-                  new DataTable<Book>(paging.getColumns(), sSortDir_0, iDisplayStart, iDisplayLength) :
-                  new DataTable<Book>(columns, sSortDir_0, iDisplayStart);*/
           DataTable<BookInfo> table = new DataTable<BookInfo>(paging);
+          //Page<BookInfo> books = (Page<BookInfo>)bookRepo.findByTitleContainingOrAuthors(paging.getsSearch(),paging.getsSearch(), paging.getPageable());
+          
+          Specifications<BookInfo> spec = null;
        
-		
-			
-		  //List<Book> books= (List<Book>) bookRepo.findAll(new PageRequest(page.getiDisplayStart(),page.getiDisplayLength()));
-//          Page<Book> books = (Page<Book>)bookRepo.findAll(new PageRequest(page.getiDisplayStart(),page.getiDisplayLength()));
-          Page<BookInfo> books = (Page<BookInfo>)bookRepo.findByTitleContainingOrAuthors(paging.getsSearch(),paging.getsSearch(), paging.getPageable());
-      
+          spec = Specifications.where(BookSpecs.AuthorsContaining(paging.getsSearch()) );
+          spec = spec.or(BookSpecs.TitleContaining(paging.getsSearch()));
+          spec = spec.and(BookSpecs.IsDeleted(isDeleted));
+          
+    		
+    		
+          Page<BookInfo> books = bookRepo.findAll(spec, paging.getPageable());
           for(BookInfo book:books){
         	  logger.info(book.toString());
           }
@@ -104,8 +119,21 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public boolean isRental(String isbn) {
+	public JsonResponse isRental(String isbn) {
+		 
+		JsonResponse json =  restrictionService.isRestriction(SignedUser.getUserInfo());		
+		if(json.getStatus() == json.SUCCEESS){
+			json.setFail();
+			logger.info("제재중입니다");
+			return json;
+		}
 		BookInfo bookInfo = bookRepo.findByIsbn(isbn);
+		if( bookInfo == null){
+			json.setResult(messageSource.getMessage("not.register.book",null, Locale.getDefault()));
+			json.setFail();
+			return json;
+		}
+		
 		int bookTotalCount = bookInfo.getCount();
 		
 		List<BookRental> rentaledBooks= rentalRepo.findByBookInfoAndReturnDateIsNull(bookInfo);
@@ -119,10 +147,13 @@ public class BookServiceImpl implements BookService {
 		logger.debug("예약중수량:{}",reservationBookCount);
 		
 		if(bookTotalCount>retaledBookCount+reservationBookCount){
-			return true;
+			 json.setResult(bookInfo);
+			 json.setSuccess();
 		}else{
-			return false;
+			json.setResult(messageSource.getMessage("can.not.find.rental.book",null, Locale.getDefault()));
+			json.setFail();
 		}
+		return json;
 	}
 	@Override
 	public DataTable getReservationGroupByBooks(Paging paging) {
@@ -215,10 +246,10 @@ public class BookServiceImpl implements BookService {
 		
 	}*/
 
+
 	@Override
-	public DataTable findReservationGroupByBooks(Paging page) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BookInfo> findAll() {
+		return bookRepo.findAll();
 	}
 	
 /*	@Override

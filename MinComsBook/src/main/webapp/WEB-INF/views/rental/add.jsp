@@ -51,9 +51,7 @@
 		<span><span class="ico gray home"></span> ${title} </span>
 	</div>	
 	<div class="content">
-		
            <div class="boxtitle">
-           		${rental.bookInfo.title }
 	           <c:set var="errors"><form:errors path="*" /></c:set>
 	           <c:if test="${not empty errors}">
 	           <span class="ico color lightbulb"></span><span>Exception:</span>
@@ -62,6 +60,10 @@
            </div>
            <form>
            <input type="hidden" name="isbn" value="${rental.bookInfo.isbn }" />
+           <div class="section" >
+           		<label> <img src="${rental.bookInfo.thumbnail }" width="130" height="170" align=""/> <small></small></label>   
+           		<span>${rental.bookInfo.title }<span>
+           </div>
            <div class="section" >
                <label> 대여일수 <small></small></label>   
                <div>

@@ -13,11 +13,11 @@ import javax.net.ssl.SSLSession;
 
 public class GcmApp {
 
- static String gcmURL = "https://android.googleapis.com/gcm/send";
- static String gcmRegID = "APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c";
- static String gcmAuthToken = "AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac";
+  String gcmURL = "https://android.googleapis.com/gcm/send";
+  String gcmRegID = "APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c";
+  String gcmAuthToken = "AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac";
  
- public static void main(String[] args){
+ public  void main(){
   
   try {
    sender (gcmRegID,
@@ -30,7 +30,7 @@ public class GcmApp {
   }
  }
  
- public static void sender(String regId, String authToken, String msg) throws Exception { 
+ public  void sender(String regId, String authToken, String msg) throws Exception { 
         StringBuffer postDataBuilder = new StringBuffer();
         postDataBuilder.append("registration_id=" + regId); // 등록ID 
         postDataBuilder.append("&collapse_key=1"); 
@@ -54,13 +54,13 @@ public class GcmApp {
         conn.getInputStream();
         
         System.out.println("postData : " + postDataBuilder.toString());
- String reponseLine = new BufferedReader(new InputStreamReader(conn.getInputStream())).readLine();
+        String reponseLine = new BufferedReader(new InputStreamReader(conn.getInputStream())).readLine();
   
-  
-  System.out.println("responseLine : " + reponseLine);
+        conn.disconnect();
+        System.out.println("responseLine : " + reponseLine);
        }
  
- private static class FakeHostnameVerifier implements HostnameVerifier {
+ private  class FakeHostnameVerifier implements HostnameVerifier {
      public boolean verify(String hostname, SSLSession session) {
          return true;
      }

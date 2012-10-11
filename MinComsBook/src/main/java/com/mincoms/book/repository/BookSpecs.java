@@ -17,34 +17,57 @@ import com.mincoms.book.domain.BookRental;
 public class BookSpecs {
 	
 	
-	 public static Specification<BookInfo> titleEqual(final String keyword) {
+	 public static Specification<BookInfo> AuthorsContaining(final String keyword) {
 		 return new Specification<BookInfo>() {
 			 @Override
 			 public Predicate toPredicate(Root<BookInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				 
 				 Predicate predicate = cb.conjunction();
-				 final Path<BookInfo> title = root.<BookInfo> get("title");
+				 if(keyword.equals("")){
+					 return predicate;
+				 }else{
+					 String likePattern = SpecUtil.getLikePattern(keyword);
+					 return cb.like(cb.lower(root.<String>get(BookInfo_.authors)), likePattern); 
+				 }
 				 
-				 return cb.equal(root.get("title"), keyword); 
 			 }
 			 
 		 };
 	 }
 
-	 public static Specification<BookInfo> titleIsLike(final String keyword) {
+	 public static Specification<BookInfo> TitleContaining(final String keyword) {
 	        return new Specification<BookInfo>() {
 	            @Override
 	            public Predicate toPredicate(Root<BookInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-	            	String likePattern = getLikePattern(keyword);
-	            	  return cb.like(cb.lower(root.<String>get(BookInfo_.title)), likePattern);
+	            	 Predicate predicate = cb.conjunction();
+					 if(keyword.equals("")){
+						 return predicate;
+					 }else{
+		            	  String likePattern = SpecUtil.getLikePattern(keyword);
+		            	  return cb.like(cb.lower(root.<String>get(BookInfo_.title)), likePattern);
+					 }
 	            }
 	            
-	            private String getLikePattern(final String searchTerm) {
-	                StringBuilder pattern = new StringBuilder();
-	                pattern.append(searchTerm.toLowerCase());
-	                pattern.append("%");
-	                return pattern.toString();
-	            }
+	           
 	        };
 	  }
+	 public static Specification<BookInfo> IsDeleted(final String isDeleted) {
+		 return new Specification<BookInfo>() {
+			 @Override
+			 public Predicate toPredicate(Root<BookInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				 Predicate predicate = cb.conjunction();
+				 if(isDeleted.equals("")){
+					 return predicate;
+				 }else{
+					 final Path<BookInfo> title = root.<BookInfo> get("isDeleted");
+					 boolean result = false;
+					 if(isDeleted.equals("1")){
+						 result = true;
+					 }
+					 return cb.equal(root.get("isDeleted"), result); 
+				 }
+			 }
+			 
+		 };
+	 }
+	
 }

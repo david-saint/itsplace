@@ -11,9 +11,9 @@
 	</script>      
   </head>
   <body>    
-    <h2><div id="error">${exception.message}</div></h2>${exception}
-    <error>${ajaxExceptionMessage}</error>
-    <div>${ajaxExceptionMessage}</div>
+    <h2><div id="error"> ${exception.message}</div></h2>
+   <%-- ${exception} <error>${ajaxExceptionMessage}</error>
+    <div>${ajaxExceptionMessage}</div> --%>
   </body>
 </html>
       

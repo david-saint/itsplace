@@ -30,6 +30,9 @@
     }
     </script>
     <script src="https://www.googleapis.com/books/v1/volumes?q=9788979144086&callback=handleResponse"></script> -->
+    <form action="/sendAll" method="post">
+    <input type="submit" />
+    </form>
   </body>
 </html>
       

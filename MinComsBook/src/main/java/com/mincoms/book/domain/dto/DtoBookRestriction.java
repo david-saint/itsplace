@@ -9,6 +9,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.mincoms.book.domain.BookInfo.AddBook;
+import com.mincoms.validation.ExistUsers;
 
 public class DtoBookRestriction {
 
@@ -20,6 +21,7 @@ public class DtoBookRestriction {
 	
 	
 	@NotEmpty
+	@ExistUsers
 	private List<String> restrictUsers;
 	
 

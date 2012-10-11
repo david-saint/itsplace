@@ -19,6 +19,8 @@ public class DeptInfo implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int deptid;
 	private String deptName;
+	
+	
 	private Date updateDate;
 	private String updateUser;
 	private boolean isDeleted;

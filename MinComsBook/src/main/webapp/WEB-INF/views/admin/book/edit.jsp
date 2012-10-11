@@ -108,14 +108,16 @@
           <div class="section" >
                <label> 제목 <small></small></label>   
                <div> 
-               		<form:input path="title" /><form:errors path="title" cssClass="error" />
+               		<form:input path="title" cssClass="full"/>
+               		<form:errors path="title" cssClass="error" />
                		<span class="f_help"></span>
                </div>                                  
           </div>
           <div class="section" >
                <label> 작가 <small></small></label>   
                <div> 
-               		<form:input path="authors" />
+               		<form:input path="authors" cssClass="medium"/>
+               		<form:errors path="authors" cssClass="error" />
                		<span class="f_help">예> 홍길동, 이명박, 박근혜</span>
                </div>                                  
           </div>
@@ -129,7 +131,8 @@
           <div class="section" >
                <label>출판사 <small></small></label>   
                <div> 
-               		<form:input path="publisher" /><form:errors path="publisher" cssClass="error" />
+               		<form:input path="publisher" cssClass="medium"/>
+               		<form:errors path="publisher" cssClass="error" />
                		<span class="f_help"></span>
                </div>                                  
           </div>
@@ -144,7 +147,8 @@
           <div class="section" >
                <label>섬네일이미지 <small></small></label>   
                <div> 
-               		<form:input path="thumbnail" /><form:errors path="thumbnail" cssClass="error" />
+               		<form:input path="thumbnail" cssClass="medium"/>
+               		<form:errors path="thumbnail" cssClass="error" />
                		<span class="f_help">url 입력</span>
                </div>                                  
           </div>
