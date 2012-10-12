@@ -18,7 +18,7 @@
 		<jackson-version>1.8.4</jackson-version>
 		<gson-version>2.0</gson-version>
 		<querydsl.version>2.7.3</querydsl.version>
-		<jpametamodel.generated.dir>${basedir}target/generated-sources/jpametamodel</jpametamodel.generated.dir>
+		<jpametamodel.generated.dir>${basedir}/target/generated-sources/jpametamodel</jpametamodel.generated.dir>
 	</properties> 
 	<dependencies>
 	    <!-- excel poi -->
@@ -436,11 +436,6 @@
 		      </executions>
 		    </plugin>
 		    <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
- 
-        </plugins>
-        
-        
-        		    <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
   <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
         <plugin>
             <groupId>org.bsc.maven</groupId>
@@ -451,7 +446,7 @@
                     <goals>
                         <goal>process</goal>
                     </goals>
-                    <phase>targer/generate-sources</phase>
+                    <phase>generate-sources</phase>
                     <configuration>
                         <!-- source output directory -->
                         <outputDirectory>${jpametamodel.generated.dir}</outputDirectory>
@@ -477,7 +472,7 @@
             <executions>
                 <execution>
                     <id>add-source</id>
-                    <phase>target/generate-sources</phase>
+                    <phase>generate-sources</phase>
                     <goals>
                         <goal>add-source</goal>
                     </goals>
@@ -502,6 +497,10 @@
                 </filesets>
             </configuration>
         </plugin>
+        </plugins>
+        
+        
+        
     </build>
     <pluginRepositories>
     <!-- 플러그인 관련 리파지터리 -->
