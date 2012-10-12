@@ -12,6 +12,7 @@
 <script type="text/javascript">
 	var datatable; 
  	$(document).ready(function(){
+ 	
  		$( ".date" ).datepicker({ 
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
@@ -83,7 +84,7 @@
  		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/book/getReservationGroupByBooks",
+ 			"sAjaxSource": "<c:url value="/book/getReservationGroupByBooks" />",
  			"fnServerParams": function (aoData, fnCallback) {
 	              aoData.push( { "name": "bookCategoryRoot", "value": $('#bookCategoryRoot option:selected').val()} );		 			               
 	              aoData.push( { "name": "bookCategorySub", "value": $('#bookCategorySub option:selected').val()} );		 			               
