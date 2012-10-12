@@ -403,7 +403,9 @@
                     <target>1.6</target>
                     <encoding>UTF-8</encoding>
                     <compilerArgument>-Xlint:all</compilerArgument>
-                    <compilerArgument>-proc:none</compilerArgument>
+                   <compilerArguments>
+			            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+			        </compilerArguments>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
