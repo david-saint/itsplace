@@ -362,7 +362,6 @@
 			<version>1.2</version>
 		</dependency>
 	
-		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -374,6 +373,12 @@
 		    <artifactId>mail</artifactId>
 		    <version>1.4</version>
 		</dependency>
+		<dependency>
+	<groupId>org.codehaus.plexus</groupId>
+	<artifactId>plexus-utils</artifactId>
+	<version>3.0.4</version>
+</dependency>
+            
 	</dependencies>
 	
 
