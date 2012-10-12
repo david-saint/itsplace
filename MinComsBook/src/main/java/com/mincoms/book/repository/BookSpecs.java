@@ -6,12 +6,10 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
 import org.springframework.data.jpa.domain.Specification;
 
 import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.BookInfo_;
-import com.mincoms.book.domain.BookRental;
 
 
 public class BookSpecs {

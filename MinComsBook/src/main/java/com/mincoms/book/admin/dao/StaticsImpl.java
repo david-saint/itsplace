@@ -12,7 +12,6 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mincoms.book.dao.BookDaoImpl;
 import com.mincoms.book.domain.dto.DtoRentalStatics;
 
 @Repository("StaticsDao")

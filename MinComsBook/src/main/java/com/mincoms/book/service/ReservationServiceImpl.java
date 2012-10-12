@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Signed;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -23,12 +22,10 @@ import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.QBookReservation;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.domain.VoBookInfo;
-import com.mincoms.book.repository.ReservationPredicatesTest;
 import com.mincoms.book.repository.ReservationRepository;
 import com.mincoms.book.security.SignedUser;
 import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Predicate;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {

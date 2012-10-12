@@ -1,56 +1,25 @@
 package com.mincoms.book.admin.controller;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import javax.persistence.RollbackException;
-import javax.validation.Valid;
-import javax.validation.Validation;
-
-
-
-
-import org.apache.log4j.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.NoSuchMessageException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.mincoms.book.Exception.MincomsException;
-import com.mincoms.book.api.Google;
-import com.mincoms.book.domain.AppException;
 import com.mincoms.book.domain.BookCategory;
 import com.mincoms.book.domain.BookCategory.AddBookCategory;
 import com.mincoms.book.domain.BookCategoryRoot;
 import com.mincoms.book.domain.BookCategorySub;
-import com.mincoms.book.domain.BookInfo;
-import com.mincoms.book.domain.BookInfo.AddBook;
-import com.mincoms.book.domain.BookInfo.EditBook;
-import com.mincoms.book.domain.DataTable;
-import com.mincoms.book.domain.JsonResponse;
-import com.mincoms.book.domain.Paging;
 import com.mincoms.book.repository.CategoryRepository;
 import com.mincoms.book.repository.CategoryRootRepository;
 import com.mincoms.book.repository.CategorySubRepository;
-import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.CategoryService;
 @Controller
 public class CategoryController {
