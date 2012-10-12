@@ -54,7 +54,8 @@
 	   <bean class="com.mincoms.book.util.TestInterceptor"/>
 	  </mvc:interceptor> 
 	 </mvc:interceptors>
- 
+	 <!-- Junit 테스트시 Controller ServletContext사용하는경우 -->
+ 	<bean id="servletContext" class="org.springframework.mock.web.MockServletContext"/>
 	
     <!-- 예외처리 -->
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver" p:order="1" />
