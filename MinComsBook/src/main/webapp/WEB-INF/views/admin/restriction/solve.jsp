@@ -1,7 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="대출정지자 해제"/>
 <html>
   <head>
@@ -12,7 +10,7 @@
 	 			parent.$.fancybox.close();
 	 		});
 			$('#btnSolveBook').click(function(){
-	 			var url = "/admin/restriction/solve";
+	 			var url = "${context}/admin/restriction/solve";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,

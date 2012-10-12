@@ -1,7 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="도서 대출"/>
 <html>
   <head>
@@ -13,7 +11,7 @@
 	 		});
 			$('#btnRental').click(function(){
 				
-	 			var url = "/book/rental";
+	 			var url = "${context}/book/rental";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,

@@ -1,7 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="도서수정"/>
 <html>
   <head>
@@ -10,7 +8,7 @@
 	 	$(document).ready(function(){
 	 		$('#bookCategoryRoot').change(function(){
 	 			  $.getJSON(
-	 		             "/book/getBookCategorySub?decorator=exception", 
+	 		             "${context}/book/getBookCategorySub?decorator=exception", 
 	 		             {root_id: $('#bookCategoryRoot').val()},
 	 		             function(data) {
 	 		                  var html = '';
@@ -37,7 +35,7 @@
 	 		});
 	 		$('#bookCategorySub').change(function(){
 	 			  $.getJSON(
-	 		             "/book/getBookCategory?decorator=exception", 
+	 		             "${context}/book/getBookCategory?decorator=exception", 
 	 		             {sub_id: $('#bookCategorySub').val()},
 	 		             function(data) {
 	 		                  var html = '';

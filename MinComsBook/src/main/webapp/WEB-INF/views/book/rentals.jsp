@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="나의도서"/>
 <html>
 <head>
@@ -64,7 +60,7 @@
 	 	}
 	 	function getReservationBooks(){
 	 		
-	 		var url = "/book/reservations";
+	 		var url = "${context}/book/reservations";
  			url += "?decorator=exception";
  			$.ajax({
                  url: url,
@@ -113,7 +109,7 @@
                });//ajax
 	 	}
 		function getRentalBooks(){
-			var url = "/book/rentals";
+			var url = "${context}/book/rentals";
  			url += "?decorator=exception";
  			$.ajax({
                  url: url,
@@ -145,7 +141,7 @@
                 			   message = day + "일 남았습니다";
                 		   }
                 		   html.append('<div class="item rental bar2">');
-                		   html.append('<a class="mosaic-overlay iframe fancy"  id="'+this.id+'" href="/book/return?id='+this.id+'">');
+                		   html.append('<a class="mosaic-overlay iframe fancy"  id="'+this.id+'" href="${context}/book/return?id='+this.id+'">');
                 		   html.append('<div class="details">');
                 		   html.append('<h4>'+message+'</h4>');
                 		   html.append('<p>'+this.bookInfo.title+'</p>');
@@ -169,7 +165,7 @@
                });//ajax
 		}
 		function getRentalBookHistory(){
-			var url = "/book/rentalHistory";
+			var url = "${context}/book/rentalHistory";
  			url += "?decorator=exception";
  			$.ajax({
                  url: url,
@@ -239,7 +235,7 @@
 	 			  text: '예약 취소하시겠습니까?', 
 	 			  buttons: [
 	 			    {addClass: 'uibutton normal', text: '확 인', onClick: function($noty) {
-	 		 			var url = "/book/reservationCancel";
+	 		 			var url = "${context}/book/reservationCancel";
 	 		 			//url += "?decorator=exception";
 	 		 			$.ajax({
 	 	                     url: url,

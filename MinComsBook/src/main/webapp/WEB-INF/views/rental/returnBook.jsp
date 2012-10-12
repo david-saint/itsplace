@@ -1,7 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="도서 반납 및 연기"/>
 <html>
   <head>
@@ -12,7 +11,7 @@
 	 			parent.$.fancybox.close();
 	 		});
 			$('#btnReturnBook').click(function(){
-	 			var url = "/book/return";
+	 			var url = "${context}/book/return";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,
@@ -40,7 +39,7 @@
                    });//ajax
 	 		});
 			$('#btnExtendBook').click(function(){
-	 			var url = "/book/extend";
+	 			var url = "${context}/book/extend";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,

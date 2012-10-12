@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="예외"/>
 <html>
 <head> 
@@ -27,7 +23,7 @@
  		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/admin/exception/getExceptionList",
+ 			"sAjaxSource": "${context}/admin/exception/getExceptionList",
  			"fnServerParams": function (aoData, fnCallback) {
 	              aoData.push( 
 	            		  { "name": "isDeleted", "value": $('input[name=isDeleted]:checked').val()},
@@ -90,8 +86,8 @@
 	function make_actions(oObj) {
 		var isbn = oObj.aData['isbn'];
  		
- 		var editAction = '<span class="tip"><a class="edit iframe" href="/book/edit?isbn='+isbn+'" original-title="수정"><img src="/resources/images/icon/color_18/add.png"></a><span>';
- 		var rentalAction ='<span class="tip"><a class="rental" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/color_18/book.png"></a><span>';
+ 		var editAction = '<span class="tip"><a class="edit iframe" href="${context}/book/edit?isbn='+isbn+'" original-title="수정"><img src="${context}/resources/images/icon/color_18/add.png"></a><span>';
+ 		var rentalAction ='<span class="tip"><a class="rental" isbn="'+isbn+'" original-title="대출"><img src="${context}/resources/images/icon/color_18/book.png"></a><span>';
  		
  		return  editAction + "&nbsp;"+ rentalAction; 
  	}
@@ -139,7 +135,7 @@
 		</div>
 		<div class="content">			
 			<div class="tableName">
-			<span style="position:absolute"><a href="/book/add" class="uibutton icon large add ">블라브라</a></span>
+			<span style="position:absolute"><a href="${context}/book/add" class="uibutton icon large add ">블라브라</a></span>
 			<form>
 				<div style="position:absolute;right:350px">
 				<div class="radiorounded"> 

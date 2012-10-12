@@ -1,7 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="대출자 정지 등록"/>
 <html>
   <head>
@@ -13,7 +11,7 @@
 	 		$(".chzn-select").chosen(); 
 		    
 	 	    $('#btnAdd').live('click',function() {
-	 			var url = "/admin/restriction/add";
+	 			var url = "${context}/admin/restriction/add";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,
@@ -23,7 +21,7 @@
                        if(response.status=="SUCCESS"){
                     	   var delay =1000;
                     	   c.showSuccess(response.result,delay);
-                    	   setTimeout('c.location("/admin/restriction/list")',delay);
+                    	   setTimeout('c.location("${context}/admin/restriction/list")',delay);
                        }else{                    	  
                     	   for(var i =0 ; i < response.result.length ; i++){
                                var field = $("#"+response.result[i].field);                 
@@ -68,9 +66,9 @@
 				})
 				.autocomplete({
 					source: function( request, response ) {
-						//$.getJSON( "/user/getActiveUsers", { term: extractLast( request.term ) }, response );
+						//$.getJSON( "${context}/user/getActiveUsers", { term: extractLast( request.term ) }, response );
 						$.ajax({
-		                    url: "/user/getActiveUsers",
+		                    url: "${context}/user/getActiveUsers",
 		                    dataType: "json",
 		                    data: {
 		                    	term: extractLast( request.term )

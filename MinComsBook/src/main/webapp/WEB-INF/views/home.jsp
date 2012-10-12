@@ -10,7 +10,7 @@
     });
 	</script>      
   </head>
-  <body>    <a href="<c:url value="/logout" />" > Logout</a>
+  <body>    <a href="<c:url value="${context}/logout" />" > Logout</a>
    <!--  <script>
       function handleResponse(response) {
       for (var i = 0; i < response.items.length; i++) {
@@ -30,7 +30,7 @@
     }
     </script>
     <script src="https://www.googleapis.com/books/v1/volumes?q=9788979144086&callback=handleResponse"></script> -->
-    <form action="/sendAll" method="post">
+    <form action="${context}/sendAll" method="post">
     <input type="submit" />
     </form>
   </body>

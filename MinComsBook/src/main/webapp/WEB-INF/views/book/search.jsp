@@ -1,10 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="도서목록"/>
+
+
 <html>
 <head>
     <title>${title}</title>
@@ -25,7 +23,7 @@
  			var rootid = $('#bookCategoryRoot').val();
  			if(rootid!=""){
 			  $.getJSON(
-		             "<c:url value="/book/getBookCategorySub?decorator=exception" />",  
+		             "${context}/book/getBookCategorySub?decorator=exception",  
 		             {root_id: $('#bookCategoryRoot').val()},
 		             function(data) {
 		                  var html = '';
@@ -48,7 +46,7 @@
 		$('#bookCategorySub').change(function(){
 			if($('#bookCategorySub').val()!=""){
 			  $.getJSON(
-		             "/book/getBookCategory?decorator=exception", 
+		             "${context}/book/getBookCategory?decorator=exception", 
 		             {sub_id: $('#bookCategorySub').val()},
 		             function(data) {
 		                  var html = '';
@@ -84,7 +82,7 @@
  		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "<c:url value="/book/getReservationGroupByBooks" />",
+ 			"sAjaxSource": "${pageContext.request.contextPath}/book/getReservationGroupByBooks",
  			"fnServerParams": function (aoData, fnCallback) {
 	              aoData.push( { "name": "bookCategoryRoot", "value": $('#bookCategoryRoot option:selected').val()} );		 			               
 	              aoData.push( { "name": "bookCategorySub", "value": $('#bookCategorySub option:selected').val()} );		 			               
@@ -135,7 +133,7 @@
  				
  				$('.reservation').bind('click', function() {
  					c.log($(this).attr('isbn'));
- 					var url = "/book/reservation";
+ 					var url = "${context}/book/reservation";
  		 			url += "?decorator=exception";
  					$.ajax({
  	                     url: url,
@@ -166,9 +164,9 @@
 	function make_actions(oObj) {
 		var isbn = oObj.aData['isbn'];
  		
- 		var infoAction = '<span class="tip"><a class="edit fancy iframe" href="/book/info?isbn='+isbn+'" original-title="반납 및 예약자"><img src="/resources/images/icon/gray_18/clipboard.png"></a><span>';
- 		var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
- 		var reservationAction ='<span class="tip"><a class="reservation"  isbn="'+isbn+'" original-title="예약"><img src="/resources/images/icon/gray_18/key.png"></a><span>';
+ 		var infoAction = '<span class="tip"><a class="edit fancy iframe" href="${context}/book/info?isbn='+isbn+'" original-title="반납 및 예약자"><img src="${context}/resources/images/icon/gray_18/clipboard.png"></a><span>';
+ 		var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="${context}/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="${context}/resources/images/icon/gray_18/book.png"></a><span>';
+ 		var reservationAction ='<span class="tip"><a class="reservation"  isbn="'+isbn+'" original-title="예약"><img src="${pageContext.request.contextPath}/resources/images/icon/gray_18/key.png"></a><span>';
  		
  		return  rentalAction + "&nbsp;&nbsp;"+ reservationAction + "&nbsp;&nbsp;"+ infoAction; 
  	}
@@ -178,7 +176,7 @@
  		
  			$(this).append(popup);
 			/* $.ajax({
-            	url: "/book/rental",
+            	url: "${context}/book/rental",
                 type:"POST",
                 data:"fid="+$(this).attr('fid'),
                 beforeSend :function(){

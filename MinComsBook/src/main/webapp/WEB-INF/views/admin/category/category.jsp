@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="카테고리 소분류"/>
 <html>
   <head>
@@ -40,7 +36,7 @@
 		 			  text: '삭제 하시겠습니까?', 
 		 			  buttons: [
 		 			    {addClass: 'uibutton normal', text: '확 인', onClick: function($noty) {
-		 		 			var url = "/admin/category/delete?id=";
+		 		 			var url = "${context}/admin/category/delete?id=";
 		 		 			document.location.href=url+id;
 		 			      }
 		 			    },
@@ -55,7 +51,7 @@
 				var rootid = $('#bookCategoryRoot').val();
 				if(rootid!=""){
 	 			  $.getJSON(
-	 		             "/book/getBookCategorySub?decorator=exception", 
+	 		             "${context}/book/getBookCategorySub?decorator=exception", 
 	 		             {root_id: $('#bookCategoryRoot').val()},
 	 		             function(data) {
 	 		                  var html = '';
@@ -82,7 +78,7 @@
 		<span><span class="ico gray gear"></span> ${title} </span>
 	</div>	
 	<div class="content">
-		<form:form  action="/admin/category/save" commandName="bookCategory" method="post">
+		<form:form  action="${context}/admin/category/save" commandName="bookCategory" method="post">
 			<form:hidden path="id"  cssClass="small"/>
            <div class="boxtitle">
 	           <c:set var="errors"><form:errors path="*" /></c:set>
@@ -172,8 +168,8 @@
 					<td>${bookCategory.name}</td>
 					<td>${bookCategory.isDeleted}</td>
 					<td>${bookCategory.dispSeq}</td>
-					<td><span class="tip"><a class="edit iframe" href="/admin/category?id=${bookCategory.id}" original-title="수정"><img src="/resources/images/icon/gray_18/pencil.png"></a><span>
-					<span class="tip"><a class="delete iframe" id="${bookCategory.id}" original-title="삭제"><img src="/resources/images/icon/gray_18/delete.png"></a><span></td>
+					<td><span class="tip"><a class="edit iframe" href="${context}/admin/category?id=${bookCategory.id}" original-title="수정"><img src="${context}/resources/images/icon/gray_18/pencil.png"></a><span>
+					<span class="tip"><a class="delete iframe" id="${bookCategory.id}" original-title="삭제"><img src="${context}/resources/images/icon/gray_18/delete.png"></a><span></td>
 				</tr>
 				</c:forEach>
 			</tbody>	
