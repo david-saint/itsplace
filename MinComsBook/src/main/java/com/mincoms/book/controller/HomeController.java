@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.LocaleResolver;
 
 import com.mincoms.book.Exception.MincomsException;
 import com.mincoms.book.gcm.GcmApp;
@@ -36,6 +37,8 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired 
 	ServletContext servletContext;
+	@Autowired
+	LocaleResolver localeResolver;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -44,6 +47,7 @@ public class HomeController {
 		String appMode = InitApplication.AppMode;
 		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));
 		logger.info("Welcome home! the client locale is "+ locale.toString());
+		
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
