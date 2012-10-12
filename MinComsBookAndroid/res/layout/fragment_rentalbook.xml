@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/booklinear"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="4dip" >
+
+ 
+	
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="198dp"
+        android:layout_height="286dp"
+        android:background="#00000000"
+        android:contentDescription="temp"
+        android:layout_marginTop="10dp"
+        android:maxHeight="316dp"
+        android:maxWidth="287dp" 
+        />
+   
+ <!--    <LinearLayout       
+        android:id="@+id/stampLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@layout/shape_round"
+        android:orientation="vertical" >
+
+        	<Button android:id="@+id/btnReturn"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"                  
+                  android:text="반납"   android:background="@layout/shape_button" />
+			<Button android:id="@+id/btnStamUseActivity"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dp"                  
+                  android:text="사용"   android:background="@layout/shape_button" />
+	</LinearLayout> 
+	  -->
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp" />
+
+</LinearLayout>

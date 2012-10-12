@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" android:background="#000000" android:scrollbars="horizontal">
+ <LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dip"
+          android:id="@+id/aniLayout"
+          android:layout_below="@id/header" android:scrollbars="horizontal" >
+
+    <Spinner 
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/day_prompt"
+        />
+	 <TextView
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp" 
+        android:text="연기사유"/>
+    <EditText
+        android:id="@+id/editTextExtendReason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.03"
+        android:ems="10"
+        android:lines="3"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    
+    <Button android:id="@+id/btnExtend"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:layout_weight="0"
+        android:text="연 기"
+        android:textSize="13sp"
+        android:background="@layout/shape_button" 
+        /> 
+    <Button android:id="@+id/btnReturn"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:layout_marginTop="10dip"
+        android:layout_weight="0"
+        android:text="반 납"
+        android:background="@layout/shape_button" 
+        />
+   
+     <Button android:id="@+id/btnCancel"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_marginTop="10dip"
+        android:padding="10dip"
+        android:text="취 소"
+        android:textSize="14sp"
+        android:background="@layout/shape_button" 
+        />    
+    </LinearLayout>
+
+  </RelativeLayout>
