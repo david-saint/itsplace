@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:scrollbarSize="2040dip">
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" android:background="#000000" android:scrollbars="horizontal">
+ 
+ <!--  Header Starts-->
+	<LinearLayout android:id="@+id/header"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:paddingTop="5dip"
+	      android:paddingBottom="5dip">
+		      <TextView
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="도서등록" />
+	        
+   </LinearLayout>	           
+<!--  Header Ends-->
+
+
+
+
+ 
+<!-- Login Form -->
+        <LinearLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="10dip"
+          android:id="@+id/aniLayout"
+          android:layout_below="@id/header" android:scrollbars="horizontal" >
+		 
+          <TextView              
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"              
+              android:textColor="#D1D1D1" 
+              android:text="수량" />
+          <EditText android:id="@+id/bookCount"  
+              	  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="5dip"
+                  android:layout_marginBottom="20dip"   
+                  android:singleLine="true" android:padding="5dip"  android:background="@layout/shape_edittext"/>
+          <Spinner 
+		        android:id="@+id/spinnerBookCategoryRoot"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:prompt="@string/bookCategoryRoot"
+		        />
+          <Spinner 
+		        android:id="@+id/spinnerBookCategorySub"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:prompt="@string/bookCategorySub"
+		        />
+          <Spinner 
+		        android:id="@+id/spinnerBookCategory"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:prompt="@string/bookCategory"
+		        />
+
+          <!-- Login button -->
+          <Button android:id="@+id/btnRegister"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dip"  
+                  android:padding="10dp" 
+                  android:text="등 록"   android:background="@layout/shape_button"
+                 />
+       
+          <Button android:id="@+id/btnCancel"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dip"  
+                  android:padding="10dp" 
+                  android:text="취 소"   android:background="@layout/shape_button"
+                 />
+       
+ 
+     
+          <!-- Login Form Ends -->		           
+	</LinearLayout>
+
+  </RelativeLayout>
+
+   </ScrollView>
+
+

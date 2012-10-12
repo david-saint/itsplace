@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.mincoms.main" android:versionCode="1" android:versionName="0.0.1-SNAPSHOT">
+	
+	
+	<uses-feature android:name="android.hardware.camera"/>
+    <uses-sdk android:minSdkVersion="8"   />
+	<uses-permission android:name="android.permission.INTERNET"/>   
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.FLASHLIGHT"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<uses-permission android:name="com.google.android.c2dm.permission.SEND"/>
+	<uses-permission android:name="com.mincoms.main.permission.C2D_MESSAGE"/>	
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<permission android:name="com.mincoms.main.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+
+	<!-- getApplication 캐스팅을 위해 name에 Cast 클래스 지정 -->
+	
+	<application android:icon="@drawable/icon" 
+      			 android:label="MinComsBook"
+      			 android:theme="@style/Theme.Sherlock"
+      			 android:name=".MainApplication"
+      			 >
+      			 
+	    <activity android:name=".LoginActivity">
+	      <intent-filter>
+	        <action android:name="android.intent.action.MAIN" />
+	        <category android:name="android.intent.category.LAUNCHER" />
+	      </intent-filter>
+	    </activity>
+	    
+	    
+	    <activity android:name=".BookRegisterActivity"/>
+	    <activity android:name=".BookRentalActivity"/>
+	    <activity android:name=".BookRentalResultActivity"/>
+		<activity android:name=".LoginAsyncActivity"/>
+		<activity android:name=".MainActivity"/> 
+		<activity android:name=".TestActivity"/> 
+	    
+	    <!-- .CaptureActivity 의 isLibrary를 언체크하면 단독으로 실행가능 -->
+	   <activity android:name="net.itsplace.zxing.client.android.CaptureActivity"
+              android:screenOrientation="landscape"
+              android:clearTaskOnLaunch="true"
+              android:stateNotNeeded="true"
+              android:configChanges="orientation|keyboardHidden"
+              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+              android:windowSoftInputMode="stateAlwaysHidden">
+		     <!-- 런처 인텐트로 인해 아이콘이 두개 생김-->
+		     <!--  <intent-filter> 
+		        <action android:name="android.intent.action.MAIN"/>
+		        <category android:name="android.intent.category.DEFAULT"/>
+		      </intent-filter>  -->
+		      <intent-filter>
+		        <action android:name="net.itsplace.zxing.client.android.SCAN"/>
+		        <category android:name="android.intent.category.DEFAULT"/>
+		      </intent-filter>		     
+	</activity>
+	
+	<!--GCM Receiver 등록 -->
+	<receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" 
+	    	  android:permission="com.google.android.c2dm.permission.SEND">
+		<intent-filter>
+			<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+			<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+			<category android:name="com.mincoms.main" />
+		</intent-filter>
+	</receiver>
+	<service android:name=".GCMIntentService" />
+<!-- 
+	<receiver android:name=".Receiver">
+	    <intent-filter>
+	        <action android:name="com.mincoms.refresh" />
+	        <data android:scheme="sample" />
+	    </intent-filter>
+	</receiver> -->
+  </application>
+
+</manifest>
+
