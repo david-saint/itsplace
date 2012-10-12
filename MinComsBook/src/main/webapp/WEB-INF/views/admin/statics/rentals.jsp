@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="대출현황"/>
 <html>
 <head>
@@ -38,7 +34,7 @@
  			var deptId = $(this).val();
  			if(deptId!=""){
 			  $.getJSON(
-		             "/user/getUsersByDept?decorator=exception", 
+		             "${context}/user/getUsersByDept?decorator=exception", 
 		             {deptId: deptId},
 		             function(data) {
 		                  var html = '';
@@ -68,7 +64,7 @@
 				}
 			});	
 			
-			var href="/admin/restriction/add?decorator=fancy&userName=" +userNames; 
+			var href="${context}/admin/restriction/add?decorator=fancy&userName=" +userNames; 
  			//$(this).attr('href',href);
  			
  			$.fancybox({
@@ -93,7 +89,7 @@
  		         "sProcessing": "<div style='border:0px solid red'>조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/admin/statics/getRentalList",
+ 			"sAjaxSource": "${context}/admin/statics/getRentalList",
  			"fnServerParams": function (aoData, fnCallback) {
  				  aoData.push( { "name": "deptId", "value": $('#dept option:selected').val()} );		 			               
 	              aoData.push( { "name": "userId", "value": $('#user option:selected').val()} );		 			               
@@ -162,7 +158,7 @@
 	function make_actions(oObj) {
 		var userName = oObj.aData['userName'];  
  		
- 		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/add?decorator=fancy&userName='+userName+'"  original-title="대출정지"><img src="/resources/images/icon/gray_18/book.png" /></a><span>';
+ 		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="${context}/admin/restriction/add?decorator=fancy&userName='+userName+'"  original-title="대출정지"><img src="${context}/resources/images/icon/gray_18/book.png" /></a><span>';
  		
  		return  solveAction; 
  	}

@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <html>
 <head>
 	<title>로그인</title>
@@ -54,12 +51,12 @@
 <body>
 <div id="alertMessage" class="error"></div>
 <div id="successLogin"></div>
-<div class="text_success"><img src="<c:url value="/resources/images/loadder/loader_green.gif" />"  alt="ziceAdmin" /><span>Please wait</span></div>
+<div class="text_success"><img src="<c:url value="${context}/resources/images/loadder/loader_green.gif" />"  alt="ziceAdmin" /><span>Please wait</span></div>
 
 <div id="login" >
   <!-- <div class="ribbon"></div> -->
   <div class="inner">
-  <div class="logo" ><img src="<c:url value="/resources/images/logo/ci.png" />" alt="ziceAdmin" /></div>
+  <div class="logo" ><img src="<c:url value="${context}/resources/images/logo/ci.png" />" alt="ziceAdmin" /></div>
   <div class="formLogin">
    <form name="formLogin"  id="formLogin" action="">
 

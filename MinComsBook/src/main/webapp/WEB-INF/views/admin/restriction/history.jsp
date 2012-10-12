@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="대출정지이력"/>
 <html>
   <head>
@@ -15,7 +11,7 @@
 	 		});
 			$('#btnRental').click(function(){
 				
-	 			var url = "/book/rental";
+	 			var url = "${context}/book/rental";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,

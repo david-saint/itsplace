@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="대출정지"/>
 <html>
 <head>
@@ -30,7 +26,7 @@
  		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/admin/restriction/getRestrictionUserList",
+ 			"sAjaxSource": "${context}/admin/restriction/getRestrictionUserList",
  			"fnServerParams": function (aoData, fnCallback) {
 	              aoData.push( 
 	            		  { "name": "isSolved", "value": $('input[name=isSolved]:checked').val()}
@@ -75,8 +71,8 @@
 	function make_actions(oObj) {
 		var id = oObj.aData['id'];  
 		var userId = oObj.aData['userId'];  
- 		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/solve?id='+id+'" original-title="해제"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
- 		var historyAction ='<span class="tip"><a class="rental fancy iframe" href="/admin/restriction/history?userId='+userId+'" original-title="대출정지 이력"><img src="/resources/images/icon/gray_18/hourglass.png"></a><span>';
+ 		var solveAction ='<span class="tip"><a class="rental fancy iframe" href="${context}/admin/restriction/solve?id='+id+'" original-title="해제"><img src="${context}/resources/images/icon/gray_18/book.png"></a><span>';
+ 		var historyAction ='<span class="tip"><a class="rental fancy iframe" href="${context}/admin/restriction/history?userId='+userId+'" original-title="대출정지 이력"><img src="${context}/resources/images/icon/gray_18/hourglass.png"></a><span>';
  		
  		return  solveAction + "&nbsp" + historyAction; 
  	}
@@ -92,7 +88,7 @@
 		</div>
 		<div class="content">			
 			<div class="tableName">
-			<span style="position:absolute"><a href="/admin/restriction/add" class="uibutton icon large add ">대출 정지 등록</a></span>
+			<span style="position:absolute"><a href="${context}/admin/restriction/add" class="uibutton icon large add ">대출 정지 등록</a></span>
 			
 			<div style="position:absolute;right:250px">
 				<div class="radiorounded"> 

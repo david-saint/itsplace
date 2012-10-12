@@ -1,9 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="도서관리"/>
 <html>
 <head>
@@ -28,7 +24,7 @@
  		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/admin/book/findBookList",
+ 			"sAjaxSource": "${context}/admin/book/findBookList",
  			"fnServerParams": function (aoData, fnCallback) {
 	              aoData.push( { "name": "isDeleted", "value":  $('input[name=isDeleted]:checked').val()} );		 			               
 			},
@@ -81,8 +77,8 @@
 	function make_actions(oObj) {
 		var isbn = oObj.aData['isbn'];
  		
- 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/book/edit?isbn='+isbn+'" original-title="수정"><img src="/resources/images/icon/gray_18/pencil.png"></a><span>';
- 		//var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="/resources/images/icon/gray_18/book.png"></a><span>';
+ 		var editAction = '<span class="tip"><a class="edit iframe" href="${context}/admin/book/edit?isbn='+isbn+'" original-title="수정"><img src="${context}/resources/images/icon/gray_18/pencil.png"></a><span>';
+ 		//var rentalAction ='<span class="tip"><a class="rental fancy iframe" href="${context}/book/rental?isbn='+isbn+'" isbn="'+isbn+'" original-title="대출"><img src="${context}/resources/images/icon/gray_18/book.png"></a><span>';
  		
  		return  editAction + "&nbsp;";
  	}
@@ -92,7 +88,7 @@
  		
  			$(this).append(popup);
 			/* $.ajax({
-            	url: "/book/rental",
+            	url: "${context}/book/rental",
                 type:"POST",
                 data:"fid="+$(this).attr('fid'),
                 beforeSend :function(){
@@ -125,7 +121,7 @@
 		</div>
 		<div class="content">			
 			<div class="tableName">
-			<span style="position:absolute"><a href="/admin/book/add" class="uibutton icon large add ">도서등록</a></span>
+			<span style="position:absolute"><a href="${context}/admin/book/add" class="uibutton icon large add ">도서등록</a></span>
 				<div style="position:absolute;right:250px">
 					<div class="radiorounded"> 
 	               		<input id="isDeleted1" type="radio" name="isDeleted"  value="" checked /><label for="isDeleted1" >전체</label>

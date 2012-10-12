@@ -1,7 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <c:set var="title" value="도서 등록"/>
 <html>
   <head>
@@ -27,7 +25,7 @@
 	 		$('#bookCategoryRoot').selectmenu(2);
 	 		$('#bookCategoryRoot').change(function(){
 	 			  $.getJSON(
-	 		             "/book/getBookCategorySub?decorator=exception", 
+	 		             "${context}/book/getBookCategorySub?decorator=exception", 
 	 		             {root_id: $('#bookCategoryRoot').val()},
 	 		             function(data) {
 	 		                  var html = '';
@@ -47,7 +45,7 @@
 	 		});
 	 		$('#bookCategorySub').change(function(){
 	 			  $.getJSON(
-	 		             "/book/getBookCategory?decorator=exception", 
+	 		             "${context}/book/getBookCategory?decorator=exception", 
 	 		             {sub_id: $('#bookCategorySub').val()},
 	 		             function(data) {
 	 		                  var html = '';
@@ -67,7 +65,7 @@
 	 	   
 
 	 		$('#btnAddAjax').live('click',function() {
-	 			var url = "/admin/book/add";
+	 			var url = "${context}/admin/book/add";
 	 			url += "?decorator=exception";
 	 			$.ajax({
                      url: url,
@@ -77,7 +75,7 @@
                        if(response.status=="SUCCESS"){
                     	   var delay =1000;
                     	   c.showSuccess(response.result,delay);
-                    	   setTimeout('c.location("/")',delay);
+                    	   setTimeout('c.location("${context}")',delay);
                        }else{                    	  
                     	   for(var i =0 ; i < response.result.length ; i++){
                                var field = "#"+response.result[i].field;                               
