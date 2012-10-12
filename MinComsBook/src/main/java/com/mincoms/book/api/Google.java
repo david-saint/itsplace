@@ -63,9 +63,7 @@ public class Google {
 		                System.out.println(obj.get("volumeInfo"));
 		                
 		                JSONObject volumeInfo = (JSONObject) obj.get("volumeInfo");
-		                System.out.println("page:"+volumeInfo.get("pageCount"));
 		                
-		                System.out.println(volumeInfo.get("authors"));
 		                
 		                String authorList = "";
 		                JSONArray authors = (JSONArray) volumeInfo.get("authors");
