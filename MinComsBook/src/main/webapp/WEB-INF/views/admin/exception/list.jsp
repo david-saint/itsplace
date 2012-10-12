@@ -4,7 +4,7 @@
 <html>
 <head> 
     <title>도서목록</title>
-<script type="text/javascript">
+<script type="text/javascript"> 
 	var datatable;
 	var arrayData;
  	$(document).ready(function(){
