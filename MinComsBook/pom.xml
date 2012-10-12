@@ -436,34 +436,7 @@
 		      </executions>
 		    </plugin>
 		    <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
-  <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
-        <plugin>
-            <groupId>org.bsc.maven</groupId>
-            <artifactId>maven-processor-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>process</id>
-                    <goals>
-                        <goal>process</goal>
-                    </goals>
-                    <phase>generate-sources</phase>
-                    <configuration>
-                        <!-- source output directory -->
-                        <outputDirectory>${jpametamodel.generated.dir}</outputDirectory>
-                        <compilerArguments>-encoding UTF-8</compilerArguments> <!-- 소스 인코딩 지정 -->
-                    </configuration>
-                </execution>
-            </executions>
-            <!-- 하이버네이트의 JPA 모델 제너레이터를 사용하도록 한다. -->
-            <!-- jar 내부에 APT 에서 실행할 클래스가 이미 지정돼 있어 자동으로 수행한다. -->
-            <dependencies>
-                <dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-jpamodelgen</artifactId>
-                    <version>1.0.0.Final</version>
-                </dependency>
-            </dependencies>
-        </plugin>
+
 <!-- 소스코드 생성 후 소스를 컴파일 할때 src 디렉토리와 함께 자동 생성된 소스가 있는 디렉토리도 컴파일에 포함하도록 한다. -->
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
