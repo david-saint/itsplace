@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +44,14 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws Exception {
+	public String home(Locale locale, Model model,HttpServletRequest request) throws Exception {
 		String appMode = InitApplication.AppMode;
 		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));
 		logger.info("Welcome home! the client locale is "+ locale.toString());
-		
-		
+		logger.info("ccccccccccc");
+		locale.setDefault(locale) ;
+		logger.info("디폴트 로케일: "+ Locale.getDefault());
+		//request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE", new Locale(locale.toString()));*/
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
