@@ -40,17 +40,26 @@ public class HomeController {
 	ServletContext servletContext;
 	@Autowired
 	LocaleResolver localeResolver;
+
+
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * <b>인텍스 </b> <br />
+	
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 8. 24	
+	 * @param locale ?lang=ko,?lang=en  기본 로케일이 변경됨
+	 * @return home.jsp 
+	 * @throws Exception 
+	 * @see 
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpServletRequest request) throws Exception {
 		String appMode = InitApplication.AppMode;
 		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));
-		logger.info("Welcome home! the client locale is "+ locale.toString());
-		logger.info("ccccccccccc");
+		logger.info("기본 Locale"+ locale.toString());		
 		locale.setDefault(locale) ;
-		logger.info("디폴트 로케일: "+ Locale.getDefault());
+		logger.info("디폴트 로케일 설정: "+ Locale.getDefault());
 		//request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE", new Locale(locale.toString()));*/
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -67,7 +76,17 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		return "home";
 	}
-
+	
+	/*
+	 * ?lang=ko 기본 로케일 변경 
+	 * */
+	@RequestMapping(value = "/locale", method = RequestMethod.GET)
+	public String locale(Locale locale, Model model,HttpServletRequest request) throws Exception {				
+		logger.info("기본 Locale"+ locale.toString());		
+		locale.setDefault(locale) ;
+		logger.info("디폴트 로케일 설정: "+ Locale.getDefault());
+		return "home";
+	}
 	public void test() {
 		throw  new MincomsException("머야야야야양야양" +"{javax.validation.constraints.NotNull.message}");
 	}
