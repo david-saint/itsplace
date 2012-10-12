@@ -1,5 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/layouts/taglib.jsp" %>
 <%@ page session="false" %>
 <html>
   <head>
@@ -32,7 +32,9 @@
     <script src="https://www.googleapis.com/books/v1/volumes?q=9788979144086&callback=handleResponse"></script> -->
     <form action="${context}/sendAll" method="post">
     <input type="submit" />
+    
     </form>
+    <div><spring:message  code="save"/></div>
   </body>
 </html>
       
