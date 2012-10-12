@@ -18,6 +18,7 @@
 		<jackson-version>1.8.4</jackson-version>
 		<gson-version>2.0</gson-version>
 		<querydsl.version>2.7.3</querydsl.version>
+		<jpametamodel.generated.dir>${basedir}/generated-sources/jpametamodel</jpametamodel.generated.dir>
 	</properties> 
 	<dependencies>
 	    <!-- excel poi -->
@@ -374,6 +375,9 @@
 		    <version>1.4</version>
 		</dependency>
 	</dependencies>
+	
+
+
     <build>
         <plugins>
             <plugin>
@@ -429,6 +433,59 @@
 		        </execution>
 		      </executions>
 		    </plugin>
+		    <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
+        <plugin>
+            <groupId>org.bsc.maven</groupId>
+            <artifactId>maven-processor-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>process</id>
+                    <goals>
+                        <goal>process</goal>
+                    </goals>
+                    <phase>generate-sources</phase>
+                    <configuration>
+                        <!-- source output directory -->
+                        <outputDirectory>${jpametamodel.generated.dir}</outputDirectory>
+                        <compilerArguments>-encoding UTF-8</compilerArguments> <!-- 소스 인코딩 지정 -->
+                    </configuration>
+                </execution>
+            </executions>           
+        </plugin>
+        
+          <!-- 소스코드 생성 후 소스를 컴파일 할때 src 디렉토리와 함께 자동 생성된 소스가 있는 디렉토리도 컴파일에 포함하도록 한다. -->
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>1.3</version>
+            <executions>
+                <execution>
+                    <id>add-source</id>
+                    <phase>generate-sources</phase>
+                    <goals>
+                        <goal>add-source</goal>
+                    </goals>
+                    <configuration>
+                        <sources>
+                            <source>${jpametamodel.generated.dir}</source>
+                        </sources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <configuration>
+                <filesets>
+                    <fileset>
+                        <directory>${pom.build.directory}</directory>
+                    </fileset>
+                    <fileset>
+                        <directory>${jpametamodel.generated.dir}</directory>
+                    </fileset>
+                </filesets>
+            </configuration>
+        </plugin>
         </plugins>
     </build>
 </project>
