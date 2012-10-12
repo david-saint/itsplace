@@ -488,9 +488,6 @@
 				</configuration>
 			</plugin>
         </plugins>
-        
-        
-        
     </build>
     <pluginRepositories>
     <!-- 플러그인 관련 리파지터리 -->
