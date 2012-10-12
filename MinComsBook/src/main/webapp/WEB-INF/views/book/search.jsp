@@ -12,7 +12,6 @@
 <script type="text/javascript">
 	var datatable; 
  	$(document).ready(function(){
- 	
  		$( ".date" ).datepicker({ 
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
@@ -25,7 +24,7 @@
  			var rootid = $('#bookCategoryRoot').val();
  			if(rootid!=""){
 			  $.getJSON(
-		             "/book/getBookCategorySub?decorator=exception", 
+		             "<c:url value="/book/getBookCategorySub?decorator=exception" />",  
 		             {root_id: $('#bookCategoryRoot').val()},
 		             function(data) {
 		                  var html = '';
