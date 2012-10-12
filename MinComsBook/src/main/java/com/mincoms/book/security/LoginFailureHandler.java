@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginFailureHandler implements AuthenticationFailureHandler {
-    private Logger logger = Logger.getLogger(this.getClass());
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        logger.info("LoginFailureHander was Execute ..." + e.getMessage());
         e.printStackTrace();
         System.out.println("/user/login 실패시--------------------"+request.getHeader("X-Ajax-call"));
         

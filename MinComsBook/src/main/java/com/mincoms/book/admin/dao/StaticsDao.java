@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
-import com.mincoms.book.domain.dto.DtoBookInfo;
 import com.mincoms.book.domain.dto.DtoRentalStatics;
 
 public interface StaticsDao {

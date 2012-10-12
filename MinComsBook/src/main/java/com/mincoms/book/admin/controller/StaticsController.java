@@ -19,9 +19,7 @@ import com.mincoms.book.domain.DataTable;
 import com.mincoms.book.domain.JsonResponse;
 import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.dto.DtoRentalStatics;
-import com.mincoms.book.domain.vo.VoBookRestriction;
 import com.mincoms.book.repository.DeptRepository;
-import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.CategoryService;
 import com.mincoms.book.service.UserService;
 

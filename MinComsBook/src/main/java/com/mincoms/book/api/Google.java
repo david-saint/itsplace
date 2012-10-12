@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mincoms.book.domain.BookInfo;
-import com.mincoms.http.HttpClient;
 
 public class Google {
 	private static final Logger logger = LoggerFactory.getLogger(Google.class);

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mincoms.book.admin.service.ExceptionService;
 import com.mincoms.book.domain.AppException;
-import com.mincoms.book.domain.BookInfo;
 import com.mincoms.book.domain.DataTable;
 import com.mincoms.book.domain.Paging;
 
