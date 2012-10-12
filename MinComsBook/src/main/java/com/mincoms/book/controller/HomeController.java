@@ -34,15 +34,15 @@ import com.google.android.gcm.server.*;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@Autowired 
-	ServletContext servletContext;
+/*	@Autowired (required=true)
+	ServletContext servletContext;*/
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception {
-		String appMode = InitApplication.AppMode;
-		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));
+		/*String appMode = InitApplication.AppMode;
+		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));*/
 		logger.info("Welcome home! the client locale is "+ locale.toString());
 		
 		Date date = new Date();
