@@ -22,7 +22,19 @@ import com.mincoms.book.domain.dto.DtoRentalStatics;
 import com.mincoms.book.repository.DeptRepository;
 import com.mincoms.book.service.CategoryService;
 import com.mincoms.book.service.UserService;
-
+/**
+ * <b>대출현황 컨트롤러 </b> <br />
+ * <pre>
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24
+ * @return JsonResponse
+ * @Exception Exception 
+ * @throws 
+ * @see 
+ */
 @Controller
 public class StaticsController {
 	private static final Logger logger = LoggerFactory.getLogger(StaticsController.class);
@@ -50,7 +62,7 @@ public class StaticsController {
 	}
 	
 	/**
-	 * <b>도서대출 정지자 목록 Datatables</b> <br />
+	 * <b>도서 대출 현황</b> <br />
 	 * <pre>
 	 * <b>History:</b>
 	 *     version 1.0, 2012.9.3 검색
@@ -63,8 +75,13 @@ public class StaticsController {
 	 * @param iSortCol_0 sort할 컬럼 번호 
 	 * @param sSortDir_0 sort할 방향(asc/desc)
 	 * @param sSearch 검색
+	 * @param startDate 검색
+	 * @param endDate 검색
+	 * @param isRental 대출/반납
+	 * @param badGuys 반납예쩡일 초과 플래그
+	 * @param deptId 부서
+	 * @param userId 사용자아이디
 	 * @return DataTables
-	 * @return book/add.jsp 
 	 * @throws Exception 
 	 * @see 
 	 */

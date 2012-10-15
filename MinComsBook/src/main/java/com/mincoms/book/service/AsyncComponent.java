@@ -14,11 +14,22 @@ import com.mincoms.book.repository.BookRepository;
 import com.mincoms.book.repository.RentalRepository;
 import com.mincoms.book.repository.ReservationRepository;
 import com.mincoms.book.util.MailService;
-
+/**
+ * <b>비동기 컴포넌트 </b> <br />
+ * <pre>
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24  
+ * @throws 
+ * @see 
+ */
 @Component
 public class AsyncComponent {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger logger = LoggerFactory.getLogger(AsyncComponent.class);
+	
 	@Autowired
 	BookRepository bookRepo;
 	@Autowired
@@ -33,31 +44,49 @@ public class AsyncComponent {
 	MailService mailService;
 	@Autowired
 	MessageSource messageSource;
-	//24시간 지나면 예약 취소 
-		@Async
-		public void reservationBookCancelAfter24(String isbn){
-				try {
-					//Thread.sleep(86400000);//24시간
-					Thread.sleep(5000);//24시간
-					List<BookReservation> list = reservationRepo.findByReservationBook(isbn);
-					for(BookReservation  bookReservation : list){
-						reservationService.reservationCancel(bookReservation.getId());
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				logger.info("24시간뒤에실행");
-		}
-		@Async
-		public void reservationBookUserSendEmail(String isbn){
+	/**
+	 * <b>24시간후 예약취소 </b> <br />
+	 * 24시간 후에 예약이 존쟇하면 자동 취소
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param isbn 
+	 * @throws Exception 
+	 * @see 
+	 */
+	@Async
+	public void reservationBookCancelAfter24(String isbn){
+			try {
+				//Thread.sleep(86400000);//24시간
+				Thread.sleep(5000);//24시간
 				List<BookReservation> list = reservationRepo.findByReservationBook(isbn);
-				String subject="";
-				String body ="";
 				for(BookReservation  bookReservation : list){
-					subject = bookReservation.getBookInfo().getTitle() + "도서가 대출 가능합니다";
-					body = bookReservation.getBookInfo().getTitle() + "도서가 대출 가능합니다";
-					mailService.sendMail("faye12005@gmail.com",bookReservation.getUserInfo().getEmail(), subject, body, bookReservation.getUserInfo().getUserRname());
+					reservationService.reservationCancel(bookReservation.getId());
 				}
-				logger.info("메일발송 성공");
-		}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			logger.info("24시간뒤에실행");
+	}
+	
+	/**
+	 * <b>도서반난ㅂ시 예약자가 있으면 메일발송</b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param isbn 
+	 * @throws Exception 
+	 * @see 
+	 */
+	@Async
+	public void reservationBookUserSendEmail(String isbn){
+			List<BookReservation> list = reservationRepo.findByReservationBook(isbn);
+			String subject="";
+			String body ="";
+			for(BookReservation  bookReservation : list){
+				subject = bookReservation.getBookInfo().getTitle() + "도서가 대출 가능합니다";
+				body = bookReservation.getBookInfo().getTitle() + "도서가 대출 가능합니다";
+				mailService.sendMail("faye12005@gmail.com",bookReservation.getUserInfo().getEmail(), subject, body, bookReservation.getUserInfo().getUserRname());
+			}
+	}
 }

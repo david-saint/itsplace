@@ -34,7 +34,18 @@ import com.mincoms.book.service.RentalService;
 import com.mincoms.book.service.ReservationService;
 import com.mincoms.book.service.UserService;
 import com.mincoms.book.util.Encrypt;
-
+/**
+ * <b>도서 사용자 </b> <br />
+ * <pre>
+ * 도서목록, 카테고리 (Json) 
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24  
+ * @throws 
+ * @see 
+ */
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -52,6 +63,17 @@ public class UserController {
 	@Autowired
 	JsonResponse json;
 	
+	
+	/**
+	 * <b>사용자 목록 </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 21
+	 * @param term 사용자 아이디 
+	 * @return List<UserInfo> 사용자 리스트 
+	 * @throws Exception 
+	 * @see 
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/user/getActiveUsers", method = RequestMethod.GET, headers="Accept=application/json")
 	public List<UserInfo> getActiveUsers(@RequestParam(required=true, defaultValue="1") String term){
@@ -60,17 +82,35 @@ public class UserController {
 		for(UserInfo userInfo: userService.findByUserNameContaining(term)){
 			userNames.add(userInfo.getUserName());
 		}
-//		return userNames;
 		return userService.findByUserNameContaining(term);
 	}
 	
-	
+	/**
+	 * <b>사용자 목록 / 부서별  </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param deptId 부서 아이디 
+	 * @return List<UserInfo> 사용자 리스트  
+	 * @throws Exception 
+	 * @see 
+	 */
 	@RequestMapping(value = "/user/getUsersByDept", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<UserInfo> getUsersByDept(@RequestParam(value="deptId", required=true) Integer deptId)  {
 		
 		return userService.findByDeptInfo(deptId);
 	}
-	//gcm 등록
+	
+	/**
+	 * <b>사용자 정보 및 , GCM 안드로이드 기기 등록번호 등록  </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param UserInfo 사용자 정보
+	 * @return UserInfo 사용자 정보
+	 * @throws Exception 
+	 * @see 
+	 */
 	@RequestMapping(value = "/user/getUser", method = RequestMethod.POST)
 	public  @ResponseBody  UserInfo getuser(UserInfo userInfo) {
 		logger.info("Android Call username:{}",userInfo.getUserName());
@@ -82,7 +122,19 @@ public class UserController {
 		
 		return signedUser;
 	}
-	//민워크 로그인시 패스워드 업데이트
+	
+	
+	/**
+	 * <b>패스워드 수정 </b> <br />
+	 * 민워크에서 로그인시  자바 MD5 패스워드를 등록함 
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param UserInfo 사용자 정보
+	 * @return UserInfo 사용자 정보
+	 * @throws Exception 
+	 * @see 
+	 */
 	@RequestMapping(value = "/user/setPassword", method = RequestMethod.POST)
 	public  @ResponseBody  UserInfo setuser(UserInfo userInfo) {
 		logger.info("Android Call username:{}",userInfo.getUserName());

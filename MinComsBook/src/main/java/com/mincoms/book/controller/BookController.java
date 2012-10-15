@@ -38,7 +38,18 @@ import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.CategoryService;
 import com.mincoms.book.service.RentalService;
 import com.mincoms.book.service.ReservationService;
-
+/**
+ * <b>도서 컨트롤러 </b> <br />
+ * <pre>
+ * 도서목록, 카테고리 (Json) 
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24  
+ * @throws 
+ * @see 
+ */
 @Controller
 public class BookController { 
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
@@ -134,17 +145,24 @@ public class BookController {
 	  return "BookInfoListExcel";
 	 }
 	
+		/**
+		 * <b>대분류 카테고리</b> <br />
+		 */
 	@RequestMapping(value = "/book/getBookCategoryRoot", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<BookCategoryRoot> getBookCategoryRoot()  {
 		return categoryService.findByBookCategoryRoot();
 	}
-	
+	/**
+	 * <b>소분류 카테고리</b> <br />
+	 */
 	@RequestMapping(value = "/book/getBookCategory", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<BookCategory> getBookCategory(@RequestParam(value="sub_id", required=true) Integer sub_id)  {
 		BookCategorySub bookCategorySub = categoryService.findByBookCategorySub(sub_id);
 		return categoryService.findByIsDeleted(false, bookCategorySub);
 	}
-	
+	/**
+	 * <b>중분류 카테고리</b> <br />
+	 */
 	@RequestMapping(value = "/book/getBookCategorySub", method = RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody List<BookCategorySub> getBookCategorySub(@RequestParam(value="root_id", required=true) Integer root_id)  {
 		BookCategoryRoot bookCategoryRoot = categoryService.findByBookCategoryRoot(root_id);

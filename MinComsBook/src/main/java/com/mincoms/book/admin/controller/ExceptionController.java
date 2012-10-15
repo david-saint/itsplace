@@ -23,8 +23,6 @@ public class ExceptionController {
 	
 	@RequestMapping(value = "/admin/exception/list", method = RequestMethod.GET)
 	public String list(@RequestParam (value = "grpcd", required = false, defaultValue = "") String grpcd, Model model) {
-	/*	model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
-		model.addAttribute("basCdList", adminBaseService.getBascdList(grpcd));*/
 		return "admin/exception/list";
 	}
 	
@@ -58,7 +56,6 @@ public class ExceptionController {
                                     @RequestParam(required=false, defaultValue="") boolean isCompleted,
 									@RequestParam(required=false, defaultValue="") boolean isDeleted) {
 
-                  //  logger.info("languageHeader:{}", languageHeader.toString());
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
                     logger.info("sSortDir_0:{}", sSortDir_0);
                     logger.info("iSortCol_0:{}", iSortCol_0);
@@ -71,7 +68,6 @@ public class ExceptionController {
                     appException.setCompleted(isCompleted);
                     appException.setDeleted(isDeleted);
                     String columns[]={"id","message"};
-              		//Paging page = new Paging(columns,0,10,1,"desc","");
                     Paging page = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
                 
                     logger.info(page.toString());

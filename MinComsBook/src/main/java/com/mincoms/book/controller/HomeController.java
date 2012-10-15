@@ -44,7 +44,6 @@ public class HomeController {
 
 	/**
 	 * <b>인텍스 </b> <br />
-	
 	 * @author 김동훈
 	 * @version 1.0
 	 * @since 2012. 8. 24	
@@ -57,23 +56,10 @@ public class HomeController {
 	public String home(Locale locale, Model model,HttpServletRequest request) throws Exception {
 		String appMode = InitApplication.AppMode;
 		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));
-		logger.info("기본 Locale"+ locale.toString());		
+		logger.info("Locale"+ locale.toString());		
 		locale.setDefault(locale) ;
 		logger.info("디폴트 로케일 설정: "+ Locale.getDefault());
 		//request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE", new Locale(locale.toString()));*/
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		//GcmApp gcm = new GcmApp();
-	//	gcm.sender("APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c",
-	//			"AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac", "홈이야");
-		
-/*		GcmApp.sender("APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c",
-					"AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac", "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
-		*/
-		//test2();
-		model.addAttribute("serverTime", formattedDate );
 		return "home";
 	}
 	
@@ -87,9 +73,8 @@ public class HomeController {
 		logger.info("디폴트 로케일 설정: "+ Locale.getDefault());
 		return "home";
 	}
-	public void test() {
-		throw  new MincomsException("머야야야야양야양" +"{javax.validation.constraints.NotNull.message}");
-	}
+
+	
 	
 	public void test2(){
 		ArrayList<String> regid = new ArrayList<String>();

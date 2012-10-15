@@ -44,11 +44,11 @@ public class CategoryController {
 		model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRootAll());
 		return "admin/category/root";
 	}
+	
 	@RequestMapping(value = "/admin/category/root/save", method = RequestMethod.POST)
 	public  String root_add(@Validated BookCategoryRoot bookCategoryRoot, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			logger.debug("필드에러:"+result.toString());
 			model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRootAll());
 			return "admin/category/root";
 		}else{	
@@ -56,6 +56,7 @@ public class CategoryController {
 		}		
 		return "redirect:/admin/category/root";
 	}
+	
 	@RequestMapping(value = "/admin/category/root/delete", method = RequestMethod.GET)
 	public String root_delete(@RequestParam(required=true,defaultValue="0") int id, Model model){
 		try{
@@ -68,11 +69,7 @@ public class CategoryController {
 		return "redirect:/admin/category/root";
 	}
 	
-	
-	
-	
-	
-	
+
 	@RequestMapping(value = "/admin/category/sub", method = RequestMethod.GET)
 	public String sub_add(@RequestParam(required=false,defaultValue="0") int id,@RequestParam(required=false,defaultValue="0") int rootid, Model model)  {
 		if(id == 0){
@@ -133,11 +130,11 @@ public class CategoryController {
 		model.addAttribute("subid", subid);
 		return "admin/category/category";
 	}
+	
 	@RequestMapping(value = "/admin/category/save", method = RequestMethod.POST)
 	public  String add(@Validated({AddBookCategory.class})  BookCategory bookCategory, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			logger.debug("필드에러:"+result.toString());
 			model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRootAll());
 			model.addAttribute("bookCategorySubList", categoryService.findByBookCategorySubAll(0));
 			model.addAttribute("bookCategoryList", categoryService.findByBookCategoryAll(0));
@@ -147,16 +144,15 @@ public class CategoryController {
 		}		
 		return "redirect:/admin/category";
 	}
+	
 	@RequestMapping(value = "/admin/category/delete", method = RequestMethod.GET)
 	public String delete(@RequestParam(required=true,defaultValue="0") int id, Model model)  {
 		try{
 			repo.delete(id);
-			
 		}catch(TransactionSystemException e){
 			e.printStackTrace();
 			throw new MincomsException("소분류  카테고리를 사용중입니다 삭제할 수 없습니다");
 		}
-		
 		return "redirect:/admin/category";
 	}
 	

@@ -50,7 +50,7 @@ public class LoginController {
 
 	
 	/**
-	 * 로그인폼 호출<br>
+	 * 로그인폼 <br>
 	 * security-context.xml 참고할것
 	 * 인증에 실패하면 authentication-failure-url 에 정의된 에러 파라미터를 넘긴다
 	 * Validation 할것인지는 고려해볼것 				
@@ -59,11 +59,10 @@ public class LoginController {
 	 * @param 
 	 * @return  로그인페이지
 	 * @throws Exception 
-	 * @throws org.springframework.dao.DataAccessException if the query fails
 	 * @see 
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView loginForm(@RequestParam(value="error", required=false) boolean error,@RequestParam(value="test", required=false) String test, Model model,HttpServletRequest request) throws Exception {
+	public ModelAndView loginForm(@RequestParam(value="error", required=false) boolean error,Model model,HttpServletRequest request) throws Exception {
 		
 		System.out.println("ㅎ로그인 페이지 리다이렉트");
 		if(request.getHeader("user-agent")!=null){
@@ -94,36 +93,13 @@ public class LoginController {
 		         return m;
 			}
 		}
-		 
-		/* if(autoLogin("dhkim", "1111")){
-			 System.out.println("/login 개발 모드 자동로그인 성공");	 
-		 }else{
-			 System.out.println("/login 개발 모드 자동로그인 실패");
-		 }*/
-//		 if(net.itsplace.user.UserInfo.autoLogin("faye12005@gmail.com", "hoon1014")){
-//			 DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
-//			 System.out.println("자동로그인"+request.getRequestURI()+defaultSavedRequest);
-//			 //return request.getRequestURI();
-//			// new CustomUserDetailsService().loadUserByUsername(username)
-//			 model.addAttribute("back","back");
-//			 
-//		 }
-		
-		/*Map<String, Object> param;
-		param = new HashMap<String, Object>();		
-		List<User> userList= userService.getUserList(param);
-		model.addAttribute("userList",userList);
-		*/
+	
 		if (error == true) {
 			model.addAttribute("error", "이메일 또는 비밀번호가 잘못되었어요");
 		} else {
 			model.addAttribute("error", "");
 		}
-		//System.out.println("/user/login 실패시--------------------"+request.getHeader("X-Ajax-call"));
-		////ogger.info("/user/login 실패시");
-		
-		
-		//return "login/login";		
+			
 		return  new ModelAndView("/login/login");
 		
 	}

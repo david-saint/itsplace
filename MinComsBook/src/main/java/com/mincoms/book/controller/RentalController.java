@@ -31,7 +31,18 @@ import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.RentalService;
 import com.mincoms.book.service.UserService;
 import com.mincoms.validation.ExistIsbn;
-
+/**
+ * <b>도서 대출 및 반납 </b> <br />
+ * <pre>
+ * 도서목록, 카테고리 (Json) 
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24  
+ * @throws 
+ * @see 
+ */
 @Controller
 @Validated
 public class RentalController {
@@ -48,6 +59,14 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 	@Autowired
 	MessageSource messageSource;
 	
+	/**
+	 * <b>도서 대출 폼 </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 21
+	 * @param isbn 
+	 * @see 
+	 */
 	@RequestMapping(value = "/book/rental", method = RequestMethod.GET)
 	public String rental(@RequestParam(required=true) String isbn, Model model)  {
 		BookRental rental = new BookRental();
