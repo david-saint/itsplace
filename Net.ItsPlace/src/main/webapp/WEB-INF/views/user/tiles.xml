@@ -20,6 +20,22 @@
   		 	<add-attribute value="admin/components/tipsy/tipsy.css" />  		 
   		</put-list-attribute>
 	</definition>
+	<definition name="user/deniedpage" extends="empty_layout">
+		<put-attribute name="body"	 expression="/WEB-INF/views/user/login.jsp" />		
+		<put-list-attribute name="scripts">  
+		      <add-attribute value="admin/js/jquery.min.js" />    
+		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
+		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
+		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
+		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
+		      <add-attribute value="admin/js/login.js" />
+  		</put-list-attribute>  		
+  		<put-list-attribute name="styles">  	
+  		 	<add-attribute value="admin/css/zice.style.css" />		
+  		 	<add-attribute value="admin/css/icon.css" />
+  		 	<add-attribute value="admin/components/tipsy/tipsy.css" />  		 
+  		</put-list-attribute>
+	</definition>
     
 	<definition name="user/me2dayUpdate" extends="empty_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/user/me2dayUpdate.jsp" />

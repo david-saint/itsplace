@@ -63,7 +63,7 @@
 			<div style="float:right; padding:3px 0; margin-right:-12px;">
               <div> 
                 <ul class="uibutton-group">
-                   <li><a class="uibutton normal" href="#" id="but_login" >로그인</a></li>
+                   <li><a class="uibutton normal" href="#" id="but_login" >로그인ㄴ</a></li>
 				   <li><a class="uibutton normal" href="#" id="forgetpass">비밀번호찾기</a></li>
                </ul>
               </div>
