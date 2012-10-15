@@ -15,7 +15,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         e.printStackTrace();
-        System.out.println("/user/login 실패시--------------------"+request.getHeader("X-Ajax-call"));
         
         if(request.getHeader("X-Ajax-call")!=null){
         	 if (request.getHeader("X-Ajax-call").equals("true")) {

@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/isotope.css" />" />	
     <script  src="<c:url value="/resources/components/mosaic/js/mosaic.1.0.1.min.js" />" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/components/mosaic/css/mosaic.css" />" />	
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/components/mosaic/css/mosaic.css" />" />
 
     <script  src="<c:url value="/resources/components/noty/jquery.noty.js" />" type="text/javascript"></script>
     <script  src="<c:url value="/resources/components/noty/layouts/center.js" />" type="text/javascript"></script>
