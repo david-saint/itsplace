@@ -16,12 +16,7 @@
 		<result property="place.fname" column="FNAME"></result>
 		<result property="place.fullAddress" column="FULLADDRESS"></result>
 	</resultMap>
-	<!-- 가맹점 정보가져오기 -->
-	<select id="getPlaceInfo" parameterClass="place" resultClass="place">
-	    SELECT	*
-	    	FROM PLACE
-	    WHERE	FID LIMIT #start#, #pageSize#
-	</select>
+	
 	
 	<select id="getPlaceList" resultClass="Place" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  

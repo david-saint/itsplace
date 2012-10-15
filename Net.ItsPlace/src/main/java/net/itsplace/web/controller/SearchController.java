@@ -43,12 +43,12 @@ public class SearchController {
 	public String place(Locale locale, Model model, @ModelAttribute Place p) {
 		JSONArray array = new JSONArray();
 		Paging page = new Paging();
-		p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
-		array = JSONArray.fromObject(searchService.placeInfo(p));
-		String pageHTML = page.init(p.getCurrentPage(), p.getPageSize(), p.getPageBlock(), "PLACE", null);
-		
+//		p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
+//		array = JSONArray.fromObject(searchService.placeInfo(p));
+//		String pageHTML = page.init(p.getCurrentPage(), p.getPageSize(), p.getPageBlock(), "PLACE", null);
+//		
 		model.addAttribute("list", array);
-		model.addAttribute("page", pageHTML);
+	//	model.addAttribute("page", pageHTML);
 		model.addAttribute("place", p);
 		return "web/search/place";
 	}
@@ -62,7 +62,7 @@ public class SearchController {
 	@RequestMapping(value = "/search/placeAjax", method = RequestMethod.POST,  headers="Accept=application/json")
 	public @ResponseBody List<Place>  placeAjax(Locale locale, Model model, @ModelAttribute Place p) {
 		JSONArray array = new JSONArray();
-		p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
+	//	p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
 		return searchService.placeInfo(p);
 	}
 	/**

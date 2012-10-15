@@ -1,5 +1,25 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <script language="Javascript" type="text/javascript">
+
+$(document).ready(function(){
+	$.ajax({
+         url: "/test/ex",
+         type:"POST",
+         beforeSend :function(){
+         },
+         success: function(response){
+         },
+         error: function(jqXHR, textStatus, errorThrown){
+        	 console.log(jqXHR);
+        	alert(textStatus+jqXHR.status+jqXHR.responseText+errorThrown); 
+         },
+         complete:function(){
+         }
+       });//ajax
+});
+
+
+
 var obj = {
 	apikey: "3a8746bf6ea924e6cda4e5b54b78b89db61e85c2",
 	init : function()

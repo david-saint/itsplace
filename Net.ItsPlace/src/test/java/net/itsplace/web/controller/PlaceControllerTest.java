@@ -43,6 +43,6 @@ public class PlaceControllerTest  extends TestApplicationContext {
 	@Test
 	public void view(){
 		Place p= service.getPlace(2);
-			logger.info(p.getFname()+p.getAddress().getBupname());
+			//logger.info(p.getFname()+p.getAddress().getBupname());
 	}
 }

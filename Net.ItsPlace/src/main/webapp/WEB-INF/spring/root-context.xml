@@ -75,5 +75,22 @@
     
      
     <import resource="infrastructure.xml" />	 
-    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver" p:order="1" />
+
+    <bean id="handlerExceptionResolver" class="net.itsplace.exception.ExceptionHandler" p:order="2" >
+        <!-- from ExceptionHandler -->
+        <property name="ajaxErrorView" value="ajaxexception" />
+        <property name="ajaxDefaultErrorMessage" value="sksksksksksk" />
+        <property name="ajaxShowTechMessage" value="false" />
+
+        <!-- from SimpleMappingExceptionResolver -->
+        <property name="defaultErrorView" value="checked"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.RuntimeException" >
+                    unchecked
+                </prop>
+            </props>
+        </property>
+    </bean>
 </beans>

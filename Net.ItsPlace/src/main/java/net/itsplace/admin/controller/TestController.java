@@ -12,4 +12,21 @@ public class TestController {
 	
 		return "admin/test";
 	}
+	
+	
+	
+	 @RequestMapping(value="/test/ex", method= RequestMethod.POST)
+	    public String doException( String execptionType ) throws Exception {
+		 System.out.println("test");
+		 System.out.println("test");
+		 System.out.println("test");
+		 System.out.println("test");
+		 System.out.println("test");
+		 System.out.println("test");
+	        test();
+	        return "/index";
+	    }
+	public void test() throws Exception{
+		throw new Exception("jhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+	}
 }

@@ -2,6 +2,11 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import net.itsplace.user.User.AddUser;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,10 +22,13 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @throws 
  * @see 
  */
+
 public class PlaceComment {
 	public interface AddPlaceComment {}
 	public interface EditPlaceComment {}
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 		private String cid; /* 코멘트  */
 		@NotEmpty(message="코멘트를 입력하세요",groups={AddPlaceComment.class})
 		private String comment; /* 코멘트 */
