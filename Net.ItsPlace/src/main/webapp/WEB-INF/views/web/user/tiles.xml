@@ -4,7 +4,7 @@
 <tiles-definitions>
 
     
-	<definition name="user/**" extends="web_layout">		
+	<definition name="user/**" extends="admin_empty_layout">		
 		<put-attribute name="body" expression="/WEB-INF/views/web/user/{1}.jsp" />		
 	</definition>
 	

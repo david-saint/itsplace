@@ -1,13 +1,16 @@
-<%@ page language="java"   contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="도서목록"/>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	 $('.bar2').mosaic({animation	:	'slide'	});
-	
+	 $('.fancy').fancybox({
+			'autoDimensions':false,
+			'scrolling':'auto',
+			'autoScale':false,
+			'height':400,
+	});
 });
 </script>
 <style>
@@ -155,9 +158,9 @@ padding: 0;
 			<div id="header" class="clearfix">
 				<a class="home-sprite logo" href="/" title="Pulse">로고</a>
 				<nav>
-					<a href="javascript:void(0);" id="signin" title="Login">Login</a><a
-						href="javascript:void(0);" id="signup" title="Sign Up"><span
-						class="gray-button">Sign Up</span></a>
+					<a href="${context}/login" id="signin" class="fancy iframe">로그인</a>
+					<a href="${context}/signup" id="signup" class="fancy iframe"><span
+						class="gray-button">회원가입</span></a>
 				</nav>
 			</div>
 			<div class="headline" >
