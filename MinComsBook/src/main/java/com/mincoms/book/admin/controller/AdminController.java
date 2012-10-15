@@ -29,9 +29,8 @@ import com.mincoms.book.service.CategoryService;
 /**
  * <b>도서관리 컨트롤러 </b> <br />
  * <pre>
+ * 도서정보를 등록(구글API), 수정 
  * <b>History:</b>
- *     version 1.0, 2012.8.30  수정
- *     version 2.0, 2012.8.31 
  * </pre>
  * @author 김동훈
  * @version 2.0
@@ -39,7 +38,7 @@ import com.mincoms.book.service.CategoryService;
  * @return JsonResponse
  * @Exception Exception 
  * @throws 
- * @see ssss
+ * @see 
  */
 @Controller
 public class AdminController {
@@ -54,7 +53,7 @@ public class AdminController {
 	JsonResponse json;
 
 	/**
-	 * <b>도서등록 Json응답</b> <br />
+	 * <b>도서등록 </b> <br />
 	 * <pre>
 	 * <b>History:</b>
 	 *     version 0.1, 2012.8.24 
@@ -72,28 +71,29 @@ public class AdminController {
 	@RequestMapping(value = "/book/add/google", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse google(BookInfo book, Model model) throws Exception  {
 		
-		logger.debug("안드로이드 콜:{}",book.getIsbn());
-		logger.debug("안드로이드 수량:{}",book.getCount());
-		logger.debug("안드로이드 콜 카테고리:{}",book.getBookCategory().getId());
+		logger.debug("안드로이드 :{}",book.getIsbn());
+		logger.debug("안드로이드 :{}",book.getCount());
+		logger.debug("안드로이드  카테고리:{}",book.getBookCategory().getId());
 		
 		BookInfo scanBookInfo = null;
+		
 		try{
 			scanBookInfo = Google.GetBookInfo(book.getIsbn());
 		}catch(Exception e){
 			json.setFail();
 		}
 		
-		if(book == null){
-		}else{
+		if(book != null){		
 			scanBookInfo.setRegDate(new Date());
 			scanBookInfo.setCount(book.getCount());
 			scanBookInfo.setBookCategory(book.getBookCategory());
+			
 			if(bookService.findByIsbn(book.getIsbn()) == null){
 				bookService.save(scanBookInfo);
 				json.setSuccess();
 				json.setResult(scanBookInfo);
-			}else{
 				
+			}else{			
 				json.setFail();
 				json.setResult("이미 등록되어있습니다");
 				
@@ -102,27 +102,33 @@ public class AdminController {
 		return json;
 	}
 	
-	public void test(String num) {
+	/*public void test(String num) {
 		int x = 1* Integer.parseInt(num);
 	}
 
-	/*@ExceptionHandler(MincomsException.class)
+	@ExceptionHandler(MincomsException.class)
 	@ResponseBody
 	public String handleException(RuntimeException e) {
 		String test = messagesource.getMessage("javax.validation.constraints.NotNull.message", null,null);
 		return test;
 	}*/
 
+
+	/**
+	 * <b>도서등록 폼 </b> <br />
+	 * <pre>
+	 * </pre>
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 8. 24
+	 */
 	@RequestMapping(value = "/admin/book/add", method = RequestMethod.GET)
 	public String add(Model model)  {
 	
-		logger.info("sl4j---------------->info");
-		logger.warn("sl4j---------------->warn");
-		logger.debug("sl4j---------------->debug");
-		logger.error("sl4j---------------->error");
-		
 		model.addAttribute("bookInfo", new BookInfo());		
-		model.addAttribute("categoryRootList", categoryService.findByBookCategoryRoot());
+		model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRoot());
+		model.addAttribute("bookCategorySubList", null);
+		model.addAttribute("bookCategoryList", null);
 		
 		return "admin/book/add";
 	}
@@ -146,9 +152,10 @@ public class AdminController {
 	public @ResponseBody JsonResponse addJson(@Validated({AddBook.class}) BookInfo book, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			logger.debug("필드에러:"+result.toString());
 			 json =  json.getValidationErrorResult(result, json);
-			
+			 model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRoot());
+				model.addAttribute("bookCategorySubList", null);
+				model.addAttribute("bookCategoryList", null);
 		}else{	
 			book.setRegDate(new Date());
 			BookInfo saved = bookService.save(book);
@@ -178,7 +185,6 @@ public class AdminController {
 		logger.debug("Post 콜");
 		if (result.hasErrors()) {
 			logger.debug("필드에러발생:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			logger.debug("으아아:"+result.toString());
 			logger.debug(book.toString());
 			for(int i=0;i<result.getAllErrors().size();i++){
 				ObjectError oe = result.getAllErrors().get(i);
@@ -187,8 +193,10 @@ public class AdminController {
 				logger.debug("oe.getCodes()="+oe.getCodes()[0]);
 				
 			}
-			model.addAttribute("categoryRootList", categoryService.findByBookCategoryRoot());
-			return "book/add";
+			model.addAttribute("bookCategoryRootList", categoryService.findByBookCategoryRoot());
+			model.addAttribute("bookCategorySubList", null);
+			model.addAttribute("bookCategoryList", null);
+			return  "admin/book/add";
 		} else {	
 			book.setRegDate(new Date());
 			bookService.save(book);
@@ -198,6 +206,15 @@ public class AdminController {
 		return "admin/book/list";
 	}
 	
+
+	/**
+	 * <b>도서정보  수정 폼 </b> <br />
+	 * <pre>
+	 * </pre>
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 8. 24
+	 */
 	@RequestMapping(value = "/admin/book/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) String isbn, Model model) {
 		BookInfo bookInfo = bookService.findByIsbn(isbn);
@@ -225,7 +242,6 @@ public class AdminController {
 	public String editSubmit(@Validated({EditBook.class}) BookInfo bookInfo, BindingResult result, Model model) throws Exception  {
 		if (result.hasErrors()) {
 			logger.debug("필드에러발생:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			logger.debug("으아아:"+result.toString());
 			logger.debug(bookInfo.toString());
 			for(int i=0;i<result.getAllErrors().size();i++){
 				ObjectError oe = result.getAllErrors().get(i);
@@ -246,12 +262,11 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/book/list", method = RequestMethod.GET)
 	public String list(Model model) {
-	
 		return "admin/book/list";
 	}
 	
 	/**
-	 * <b>도서목록 Datatables</b> <br />
+	 * <b>도서목록 </b> <br />
 	 * <pre>
 	 * <b>History:</b>
 	 *     version 1.0, 2012.9.3 검색
@@ -285,9 +300,7 @@ public class AdminController {
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
                     logger.info("isDeleted:{}", isDeleted);
-                  
                     String columns[] = new String[]{"", "bookCategory.bookCategorySub.bookCategoryRoot","bookCategory.bookCategorySub","bookCategory","title", "authors","regDate"};
-                    
                     Paging page = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     logger.info(page.toString());
                     

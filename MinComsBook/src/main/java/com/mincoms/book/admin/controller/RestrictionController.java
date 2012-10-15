@@ -28,6 +28,22 @@ import com.mincoms.book.domain.dto.DtoBookRestriction;
 import com.mincoms.book.domain.vo.VoBookRestriction;
 import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.CategoryService;
+
+
+/**
+ * <b>사용자 정지 컨트롤러 </b> <br />
+ * <pre>
+ * 도서대출 정지, 기준정보의 대출정지사유에 따라 정지 일수가 정해지며 정지기간이 지나면 자동으로 해제되어 대출이 가능하다
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24
+ * @return JsonResponse
+ * @Exception Exception 
+ * @throws 
+ * @see ssss
+ */
 @Validated
 @Controller
 public class RestrictionController {
@@ -36,26 +52,29 @@ public class RestrictionController {
 	MessageSource messagesource;
 	@Autowired
 	BookService bookService;
-	
 	@Autowired
 	CategoryService categoryService;
-	
 	@Autowired
 	BaseCodeRepository baseCodeRepository;
-	
-	
 	@Autowired
 	RestrictionService restrictionService;
 	@Autowired
 	JsonResponse json;
 	
+
+	/**
+	 * <b>사용자 정지 폼 </b> <br />
+	 * <pre>
+	 * </pre>
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 8. 24
+	 */
 	@RequestMapping(value = "/admin/restriction/add", method = RequestMethod.GET)
 	public String add(@RequestParam(required=false, defaultValue="") String userName, Model model)  {
-	
 		
 		model.addAttribute("dtoBookRestriction", new DtoBookRestriction());		
 		model.addAttribute("userName", userName);		
-		
 		model.addAttribute("restrictionList", baseCodeRepository.findByRestrictions());
 		
 		return "admin/restriction/add";
@@ -64,14 +83,10 @@ public class RestrictionController {
 	
 	@RequestMapping(value = "/admin/restriction/add",method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse  add(@Validated DtoBookRestriction dtoBookRestriction, BindingResult result, Model model)   {
-		logger.debug("Post 콜"+dtoBookRestriction.toString());
 		
 		if(result.hasErrors()) {
 			logger.debug("필드에러발생:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			logger.debug("으아아:"+result.toString());
 			
-			//model.addAttribute("restrictionList", baseCodeRepository.findByRestrictions());
-			//return "admin/restriction/add";
 			json =  json.getValidationErrorResult(result, json);
 		}else{	
 			restrictionService.save(dtoBookRestriction);
@@ -83,8 +98,6 @@ public class RestrictionController {
 	}
 	@RequestMapping(value = "/admin/restriction/list", method = RequestMethod.GET)
 	public String list(Model model)  {
-	
-		
 		return "admin/restriction/list";
 	}
 	
@@ -102,8 +115,8 @@ public class RestrictionController {
 	 * @param iSortCol_0 sort할 컬럼 번호 
 	 * @param sSortDir_0 sort할 방향(asc/desc)
 	 * @param sSearch 검색
+	 * @param isSolved 대출정지 여부
 	 * @return DataTables
-	 * @return book/add.jsp 
 	 * @throws Exception 
 	 * @see 
 	 */
@@ -126,7 +139,6 @@ public class RestrictionController {
                   
                   
                     String columns[]={"id","userRname","","regDate", "solveDate"};
-                    //Paging page = new Paging(columns,0,10,0,"desc","");
                     Paging page = new Paging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
                 
                     logger.info(page.toString());
@@ -135,15 +147,11 @@ public class RestrictionController {
                     return restrictionService.getRestrictionUserList(page, isSolved);
     }   
 	/**
-	 * <b>도서대출 정지 래제 </b> <br />
+	 * <b>도서대출 정지 해제 폼 </b> <br />
 	 * @author 김동훈
 	 * @version 1.0
 	 * @since 2012. 8. 24
-	 * @param iSortCol_0 sort할 컬럼 번호 
-	 * @param sSortDir_0 sort할 방향(asc/desc)
-	 * @param sSearch 검색
-	 * @return DataTables
-	 * @return book/add.jsp 
+	 * @param id 대출정지자 PK 
 	 * @throws Exception 
 	 * @see 
 	 */
@@ -170,10 +178,6 @@ public class RestrictionController {
 	@RequestMapping(value = "/admin/restriction/solve", method = RequestMethod.POST, headers="Accept=application/json")
 	public @ResponseBody JsonResponse solvePost(@RequestParam(required=true) int id,
 												 @RequestParam(required=true) @NotEmpty(message="해제사유를 입력하세요") String solveReason)  {
-		
-		logger.info("id:{}",id);
-		logger.info("사유:{}",solveReason);
-		
 		BookRestriction bookRestriction = restrictionService.findByBookRestriction(id);
 		bookRestriction.setSolveDate(new Date());
 		bookRestriction.setSolveReason(solveReason);
@@ -184,10 +188,7 @@ public class RestrictionController {
 	 * <b>도서대출 정지 이력 </b> <br />
 	 * @author 김동훈
 	 * @version 1.0
-	 * @since 2012. 8. 24
-	 * @param sSearch 검색
-	 * @return DataTables
-	 * @return book/add.jsp 
+	 * @since 2012. 8. 24	 
 	 * @throws Exception 
 	 * @see 
 	 */

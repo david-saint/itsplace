@@ -22,7 +22,17 @@ import com.mincoms.book.domain.JsonResponse;
 import com.mincoms.book.security.SignedUser;
 import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.ReservationService;
-
+/**
+ * <b>도서 예약  </b> <br />
+ * <pre>
+ * <b>History:</b>
+ * </pre>
+ * @author 김동훈
+ * @version 2.0
+ * @since 2012. 8. 24  
+ * @throws 
+ * @see 
+ */
 @Controller
 public class ReservationController {
 private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);

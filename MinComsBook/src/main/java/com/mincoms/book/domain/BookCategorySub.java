@@ -27,6 +27,7 @@ public class BookCategorySub {
 	@ManyToOne
 	@JoinColumn(name="root_id")	
 	private BookCategoryRoot bookCategoryRoot;
+	
 	public BookCategoryRoot getBookCategoryRoot() {
 		return bookCategoryRoot;
 	}

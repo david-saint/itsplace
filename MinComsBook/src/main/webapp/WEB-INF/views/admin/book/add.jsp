@@ -76,9 +76,15 @@
                     	   var delay =1000;
                     	   c.showSuccess(response.result,delay);
                     	   setTimeout('c.location("${context}")',delay);
-                       }else{                    	  
+                       }else{                 
+                    	   c.log(response.result);
                     	   for(var i =0 ; i < response.result.length ; i++){
-                               var field = "#"+response.result[i].field;                               
+                               var field = "#"+response.result[i].field;     
+                               if($(field).length <= 0 ){
+                            	  field =  $('select[name='+response.result[i].field+']').next()//label;
+                            	   c.log(field);
+                               }
+                              
                                $(field).attr('original-title',response.result[i].message);
                                $(field).tipsy({trigger: 'manual', gravity: 'w'});
                                $(field).tipsy("show");
@@ -120,11 +126,11 @@
 	<div class="content">
 		<form:form  action="add" commandName="bookInfo" method="post">
            <div class="boxtitle">
-	           <c:set var="errors"><form:errors path="*" /></c:set>
+	         <%--   <c:set var="errors"><form:errors path="*" /></c:set>
 	           <c:if test="${not empty errors}">
 	           <span class="ico color lightbulb"></span><span>Exception:</span>
 	        	    ${errors }
-	           </c:if>
+	           </c:if> --%>
            </div>
            <div class="section" >
                <label> ISBN <small>ISBN 코드입력</small></label>   
@@ -137,16 +143,22 @@
           <div class="section" >
                <label>대분류 <small></small></label>   
                <div> 
-               		<form:select id="bookCategoryRoot" path="bookCategory.bookCategorySub.bookCategoryRoot.id" multiple="false">
-						<form:options items="${categoryRootList}" itemValue="id" itemLabel="name" />
+               	<form:select    id="bookCategoryRoot" path="bookCategory.bookCategorySub.bookCategoryRoot.id" multiple="false">
+						<option value="">대분류</option>
+						<form:options items="${bookCategoryRootList}" itemValue="id" itemLabel="name" />
 					</form:select>
-				 	<select id="bookCategorySub" name="bookCategory.bookCategorySub.id">
-				 		<option>중분류</option>
-				 	</select>		
-				 	<select id="bookCategory" name="bookCategory.id">
-				 		<option>소분류</option>
-				 	</select>
-				 	<form:errors path="bookCategory.bookCategorySub.id" cssClass="error" />     	
+				 	
+				 	<form:select  id="bookCategorySub" path="bookCategory.bookCategorySub.id" multiple="false">
+						<option >중분류</option>
+						<form:options items="${bookCategorySubList}" itemValue="id" itemLabel="name" />
+					</form:select>					
+				 	<form:select  id="bookCategory" path="bookCategory.id" multiple="false">
+						<option >소분류</option>
+						<form:options items="${bookCategoryList}" itemValue="id" itemLabel="name" />
+					</form:select>
+
+					<form:errors path="bookCategory.bookCategorySub.bookCategoryRoot.id" cssClass="error" />
+					<form:errors path="bookCategory.bookCategorySub.id" cssClass="error" />
 				 	<form:errors path="bookCategory.id" cssClass="error" />     	
                	<span class="f_help"></span>
                	</div>                                  

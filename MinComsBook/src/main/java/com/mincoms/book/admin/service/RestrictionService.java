@@ -12,6 +12,7 @@ import com.mincoms.book.domain.vo.VoBookRestriction;
 
 public interface RestrictionService {
 
+	
 	public void save(DtoBookRestriction dtoBookRestriction);
 	public JsonResponse save(BookRestriction BookRestriction);
 	public DataTable<VoBookRestriction> getRestrictionUserList(Paging page, Boolean isSolved);
