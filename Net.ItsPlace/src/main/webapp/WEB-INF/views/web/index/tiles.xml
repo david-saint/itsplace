@@ -3,22 +3,21 @@
 
 <tiles-definitions>
 
-	<definition name="web/index/index" extends="web_layout">		
-		<put-attribute name="body" expression="/WEB-INF/views/web/index/index.jsp" />		
-		<!-- 로그인 할때 필요한놈들 <put-list-attribute name="scripts">				
-		      <add-attribute value="admin/js/jquery.min.js" />    
-		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
+	<definition name="web/index/index" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/web/index/index.jsp" />
+    		
+	  <put-list-attribute name="scripts">				
+		      <add-attribute value="js/mosaic/js/mosaic.1.0.1.min.js" />
 		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
 		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
 		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
 		      <add-attribute value="admin/js/login.js" />
   		</put-list-attribute>  			
 		
-		<put-list-attribute name="styles">
-  			
-  			
+		<put-list-attribute name="styles">  		
+  			<add-attribute value="js/mosaic/css/mosaic.css" />
   		</put-list-attribute>
-  		 -->
+  		 
 	</definition>
 	
     
