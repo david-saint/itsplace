@@ -41,6 +41,7 @@
 		          
 		<script  src="<c:url value="/resources/admin/js/jquery.min.js" />" type="text/javascript"></script>
 		
+		
 		<script  src="<c:url value="/resources/admin/components/effect/jquery-jrumble.js" />" type="text/javascript"></script>
 		<script  src="<c:url value="/resources/admin/components/ui/jquery.ui.min.js" />" type="text/javascript"></script>		     
 		<script type="text/javascript" src="<c:url value="/resources/admin/components/ui/jquery.autotab.js"/>"></script>
@@ -52,8 +53,8 @@
         <script type="text/javascript" src="<c:url value="/resources/admin/components/datatables/ColVis.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/components/scrolltop/scrolltopcontrol.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/resources/admin/components/jscrollpane/mousewheel.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/resources/admin/components/jscrollpane/mwheelIntent.js"/>"></script>
+        <%-- <script type="text/javascript" src="<c:url value="/resources/admin/components/jscrollpane/mousewheel.js"/>"></script> 
+        <script type="text/javascript" src="<c:url value="/resources/admin/components/jscrollpane/mwheelIntent.js"/>"></script>--%>
         <script type="text/javascript" src="<c:url value="/resources/admin/components/jscrollpane/jscrollpane.min.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/components/spinner/ui.spinner.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/components/tipsy/jquery.tipsy.js"/>"></script>
@@ -85,12 +86,11 @@
         <script type="text/javascript" src="<c:url value="/resources/admin/components/highlightText/highlightText.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/admin/components/elastic/jquery.elastic.source.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/admin/js/jquery.cookie.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/resources/admin/js/zice.custom.js"/>"></script>    
+         <script type="text/javascript" src="<c:url value="/resources/admin/js/zice.custom.js"/>"></script>     
+ 
  
  		<script  src="<c:url value="/resources/common/common-1.0.0.js" />" type="text/javascript"></script>
  		<script  src="<c:url value="/resources/js/upload/ajaxfileupload.js" />" type="text/javascript"></script>
-		
- 
 		
 		<!-- 각 레이아웃별 CSS , JAVASCRIPT -->
 		<tiles:useAttribute id="styles" name="styles" classname="java.util.List" ignore="true" />
@@ -103,12 +103,9 @@
 		</c:forEach>
 		<title>ItsPlace Administrator</title>
 	</head>
-	<body class="dashborad">        
-        
+	<body>        
 
-		<tiles:insertAttribute name="header" />
 		<tiles:insertAttribute name="body" />
-		<tiles:insertAttribute name="footer" />
 
 	</body>
 </html>
