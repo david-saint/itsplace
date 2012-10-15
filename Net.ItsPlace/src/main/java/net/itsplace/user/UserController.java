@@ -30,27 +30,26 @@ import net.itsplace.user.User.AddUser;
 import net.itsplace.user.UserService;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(@RequestParam(value="error", required=false) boolean error,Device device,SitePreference sitePreference, Model model,HttpServletRequest request) {
-		
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public String signup( Model model,HttpServletRequest request) {
+		model.addAttribute("user",new User());
 		return "user/register";
 	}
 	
-	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
 	public String saveUser(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
 	{
 		logger.info("user.getEmail():{}",user.getEmail());
 		userService.saveUser(user);
 		return "redirect:/";
 	}
-	@RequestMapping(value = "/saveUserJson", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/saveUserJson", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveUserJson(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
 	{
 		JsonResponse json = new JsonResponse();
@@ -74,7 +73,7 @@ public class UserController {
 		return json;
 	}
 	
-	@RequestMapping(value = "/getUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/getUser", method = RequestMethod.POST)
 	public  @ResponseBody  User login(User user) {
 		logger.info("email:{}",user.getEmail());
 		return userService.getUser(user.getEmail());
