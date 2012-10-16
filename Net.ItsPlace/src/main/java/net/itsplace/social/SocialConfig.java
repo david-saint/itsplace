@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 
 import net.itsplace.social.facebook.PostToWallAfterConnectInterceptor;
 import net.itsplace.social.twitter.TweetAfterConnectInterceptor;
+import net.itsplace.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,8 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
@@ -48,6 +51,7 @@ import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+
 
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.social.twitter.api.impl.TwitterTemplate;
@@ -68,7 +72,13 @@ public class SocialConfig {
 
 	@Inject
 	private DataSource dataSource;
-
+	
+	@Inject
+	private UserService userService;
+	
+	@Inject
+	private RememberMeServices rememberMeServices;
+	
 	@Bean
 	@Scope(value="singleton", proxyMode=ScopedProxyMode.INTERFACES) 
 	public ConnectionFactoryLocator connectionFactoryLocator() {
@@ -110,8 +120,11 @@ public class SocialConfig {
 		return twitter != null ? twitter.getApi() : new TwitterTemplate();
 	}
 
-	
 
+	@Bean
+	public ProviderSignInController providerSignInController(RequestCache requestCache) {
+		return new ProviderSignInController(connectionFactoryLocator(), usersConnectionRepository(), new SimpleSignInAdapter(requestCache,userService,rememberMeServices));
+	}
 	@Bean
 	public ConnectController connectController() {
 		ConnectController connectController = new ConnectController(connectionFactoryLocator(), connectionRepository());

@@ -5,6 +5,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	 $('.bar2').mosaic({animation	:	'slide'	});
+	
 	 $('.fancy').fancybox({
 			'autoDimensions':false,
 			'scrolling':'auto',
@@ -158,9 +159,9 @@ padding: 0;
 			<div id="header" class="clearfix">
 				<a class="home-sprite logo" href="/" title="Pulse">로고</a>
 				<nav>
-					<a href="${context}/login" id="signin" class="fancy iframe">로그인</a>
-					<a href="${context}/signup" id="signup" class="fancy iframe"><span
-						class="gray-button">회원가입</span></a>
+					<a href="${context}/signin" id="signin" class="fancy iframe">로그인</a>
+					<a href="${context}/signup" id="signup" class="fancy iframe"><span class="gray-button">회원가입</span></a>
+					   <a href="<c:url value="${context}/logout" />" > Logout</a>
 				</nav>
 			</div>
 			<div class="headline" >
@@ -222,6 +223,15 @@ padding: 0;
 			Alphonso Labs</small>
 	</div>
 </footer>
+<div>ssssssss
+ <sec:authorize ifAnyGranted="ROLE_USER">
+ 	이미지: <sec:authentication property="principal.username" /> 
+ </sec:authorize>
+ <sec:authorize access="isAuthenticated()">
+  인증됨   <sec:authentication property="principal" />
+   <sec:authentication property="principal.User.profileImageUrl" />"
+ </sec:authorize>
+ </div>
 <!--Bar 2-->
 		
 

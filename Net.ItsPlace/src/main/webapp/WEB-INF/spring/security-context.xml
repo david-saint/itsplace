@@ -10,7 +10,10 @@
 	<!-- This is where we configure Spring-Security  -->
 	<http auto-config="true"   disable-url-rewriting="true" use-expressions="true" access-denied-page="/denied"    xmlns="http://www.springframework.org/schema/security">
 	
-		<intercept-url pattern="/login" access="permitAll"/>
+		<intercept-url pattern="/login*" access="permitAll"/>
+		<intercept-url pattern="/signin/**" access="permitAll" />
+		<intercept-url pattern="/signup/**" access="permitAll" />
+		<intercept-url pattern="/disconnect/facebook" access="permitAll" />
 		<!-- 최고 관리자 -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/admin/place/event/getPlaceEventList" access="hasRole('ROLE_USER')"/>
@@ -25,7 +28,7 @@
 		<intercept-url pattern="/place/view/**" access="permitAll"/>
 		<intercept-url pattern="/place/fbylocation/lat/*" access="permitAll" />
 		<intercept-url pattern="/place/fbylocation/lat/*/lot/*" access="permitAll" />
-		<!--  <intercept-url pattern="/user/**" access="permitAll"/>-->
+		 <intercept-url pattern="/user/**" access="permitAll"/>
 		<intercept-url pattern="/openapi/*" access="permitAll"/>
 		
 		<intercept-url pattern="/user/common" access="hasRole('ROLE_USER')"/>
@@ -42,7 +45,7 @@
 		<intercept-url pattern="/partner/franchiserList" access="permitAll"/>	
 		
 	<intercept-url pattern="/user/JqUserList" access="hasRole('ROLE_ADMIN')"/>	
-<!-- 		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>	 -->
+		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>	
 		<intercept-url pattern="/partner/franchiserListJson/**" access="permitAll"/>	
 		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>				
 		<intercept-url pattern="/signin/**" access="permitAll" />

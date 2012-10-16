@@ -8,14 +8,13 @@
     		
 	  <put-list-attribute name="scripts">				
 		      <add-attribute value="js/mosaic/js/mosaic.1.0.1.min.js" />
-		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
 		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
-		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
-		      <add-attribute value="admin/js/login.js" />
+		      <add-attribute value="admin/components/fancybox/jquery.fancybox.js" />
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">  		
   			<add-attribute value="js/mosaic/css/mosaic.css" />
+  			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
   		</put-list-attribute>
   		 
 	</definition>

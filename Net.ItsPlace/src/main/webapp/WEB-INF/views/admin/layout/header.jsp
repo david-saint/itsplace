@@ -6,9 +6,9 @@
 		<!-- Header -->
         <div id="header">
                 <div id="account_info"> 
-                    <img src="<sec:authentication property="Principal.User.profileImageUrl" />" alt="Online" class="avatar"/>
+                 <%--    <img src="<sec:authentication property="Principal.User.profileImageUrl" />" alt="Online" class="avatar"/>
 					<div class="setting" title="Profile Setting"><b>반갑습니다,</b> <b class="red"><sec:authentication property="Principal.User.Name" />님</b><img src="<c:url value="/resources/admin/images/gear.png" />" class="gear"  alt="Profile Setting" ></div>
-					<div class="logout" title="Disconnect"><b >Logout</b> <img src="<c:url value="/resources/admin/images/connect.png" />" name="connect" class="disconnect" alt="disconnect" ></div> 
+					<div class="logout" title="Disconnect"><b >Logout</b> <img src="<c:url value="/resources/admin/images/connect.png" />" name="connect" class="disconnect" alt="disconnect" ></div> --%> 
                 </div>
         </div><!-- End Header -->
 			<div id="shadowhead"></div>
