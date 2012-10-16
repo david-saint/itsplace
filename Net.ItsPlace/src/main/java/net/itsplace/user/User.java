@@ -1,5 +1,6 @@
 package net.itsplace.user;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -16,10 +17,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 
+
 import javax.validation.constraints.Size;
 
 
-public class User {
+public class User implements Serializable{
 	public interface AddUser {}
 	public interface EditUser {}
 	

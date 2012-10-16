@@ -70,7 +70,7 @@
 				logout-success-url="/login" 			
 				logout-url="/logout" />
 		
-		<remember-me key="itsplace" data-source-ref="dataSource"  authentication-success-handler-ref="loginSuccessHandler"/>		
+		<remember-me key="itsplace" data-source-ref="dataSource"   authentication-success-handler-ref="loginSuccessHandler" />		
 	
 	</http>
 	
@@ -81,6 +81,11 @@
 	        </authentication-provider>
 	</authentication-manager>
 
+	<!-- <bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+<property name="userDetailsService" ref="customUserDetailsService"/>
+<property name="key" value="rememberMeKey"/>
+<property name="alwaysRemember" value="true"/>	
+</bean> -->
 	<!-- Use a Md5 encoder since the user's passwords are stored as Md5 in the database -->
 	<bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
 	<!-- A custom service where Spring will retrieve users and their corresponding access levels  -->

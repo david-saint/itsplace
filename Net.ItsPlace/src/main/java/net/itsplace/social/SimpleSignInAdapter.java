@@ -15,6 +15,8 @@
  */
 package net.itsplace.social;
 
+import java.security.Principal;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +36,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -47,12 +50,12 @@ public class SimpleSignInAdapter implements SignInAdapter {
 
 	private final RequestCache requestCache;
 	
-	@Inject
-	private RememberMeServices rememberMeServices;
+	
+	private PersistentTokenBasedRememberMeServices rememberMeServices;
 	private UserService userService ;
 	
 	@Inject
-	public SimpleSignInAdapter(RequestCache requestCache, UserService userService,RememberMeServices rememberMeServices) {
+	public SimpleSignInAdapter(RequestCache requestCache, UserService userService,PersistentTokenBasedRememberMeServices rememberMeServices) {
 		this.requestCache = requestCache;
 		this.userService = userService;
 		this.rememberMeServices = rememberMeServices;
@@ -65,7 +68,7 @@ public class SimpleSignInAdapter implements SignInAdapter {
 		CustomUserDetailsService cuser = new CustomUserDetailsService();
 		
 		User user = userService.getUser(localUserId);
-		
+		// Principal principal = new Princip();
 		// UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(localUserId, "itsplace!@#$", cuser.getAuthorities("ROLE_USER"));
 		CustomUserDetails details = new CustomUserDetails(
 				user, 
@@ -76,13 +79,35 @@ public class SimpleSignInAdapter implements SignInAdapter {
 				true,
 				true,
 				cuser.getAuthorities("ROLE_USER"));
-		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, "itsplace!@#$");
+		System.out.println("password:"+details.getUser().getPassword());
+		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+		//	RememberMeAuthenticationToken newAuth = new RememberMeAuthenticationToken("itsplace",details,cuser.getAuthorities("ROLE_USER"));
+		//PersistentTokenBasedRememberMeServices d ; d.
 		HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);
 		HttpServletResponse nativeRes = request.getNativeResponse(HttpServletResponse.class);
-		SecurityContextHolder.getContext().setAuthentication(newAuth);
-		rememberMeServices.loginSuccess(nativeReq,nativeRes,SecurityContextHolder.getContext().getAuthentication());
-	//	RememberMeAuthenticationToken rememberMeAuthenticationToken = new RememberMeAuthenticationToken("itsplace",details,cuser.getAuthorities("ROLE_USER"));
+		nativeReq.setAttribute("_spring_security_remember_me", "1");
 		
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
+		//rememberMeServices.setKey("itsplace");
+		//rememberMeServices.setParameter("_spring_security_remember_me");
+		rememberMeServices.setAlwaysRemember(true);
+		if(rememberMeServices.autoLogin(nativeReq, nativeRes)==null){
+			
+			rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+			System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+			System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+			System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+			System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+		}else{
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+			System.out.println("cookey exit");
+		}
 
 //		SecurityContextHolder.getContext().setAuthentication(rememberMeAuthenticationToken);
 		
@@ -94,6 +119,7 @@ public class SimpleSignInAdapter implements SignInAdapter {
 		HttpServletResponse nativeRes = request.getNativeResponse(HttpServletResponse.class);
 		SavedRequest saved = requestCache.getRequest(nativeReq, nativeRes);
 		if (saved == null) {
+			System.out.println("saved null");
 			return null;
 		}
 		requestCache.removeRequest(nativeReq, nativeRes);

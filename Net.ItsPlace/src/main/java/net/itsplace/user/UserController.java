@@ -60,7 +60,7 @@ public class UserController {
 			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
 			UserProfile providerUser =	connection.fetchUserProfile();
 			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
-			
+			user.setPassword("itsplace");
 			user.setEmail(providerUser.getEmail());
 			user.setName(providerUser.getName());
 			user.setProfileImageUrl(connection.getProfileUrl());
