@@ -76,9 +76,9 @@
 		}
 		
 			.bar2 .mosaic-overlay:hover {
-				opacity:1;
-				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-				filter:alpha(opacity=100);
+				opacity:0.8;
+				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+				filter:alpha(opacity=80);
 			}
 		
 		.bar3 .mosaic-overlay {

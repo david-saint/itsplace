@@ -2,7 +2,6 @@ package net.itsplace.web.repository;
 
 import static org.junit.Assert.*;
 
-import net.itsplace.admin.dao.BascdRepositoryTest;
 import net.itsplace.init.TestApplicationContext;
 
 import org.junit.Test;

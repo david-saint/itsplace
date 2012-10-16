@@ -56,6 +56,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 			// Populate the Spring User object with details from the dbUser
 			// Here we just pass the username, password, and access level
 			// getAuthorities() will translate the access level to the correct role type
+		
 			user = new CustomUserDetails(
 						dbUser, 
 						dbUser.getEmail(),						

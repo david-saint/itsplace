@@ -60,8 +60,11 @@ public class UserServiceImpl implements UserService {
 			
 		
 	public void saveUser(User user) {	
+		logger.info("회원가입");
+		if(user.getPassword() !=null && !user.getPassword().equals("")){
+			user.setPassword(Encrypt.md5Encoding(user.getPassword()));
+		}
 		
-		user.setPassword(Encrypt.md5Encoding(user.getPassword()));
 		
 		try{
 			userDao.setUser(user);		

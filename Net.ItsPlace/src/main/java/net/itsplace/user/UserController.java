@@ -10,8 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.site.SitePreference;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
+
 
 
 
@@ -36,12 +45,53 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	@RequestMapping(value = "/signup2", method = RequestMethod.GET)
 	public String signup( Model model,HttpServletRequest request) {
 		model.addAttribute("user",new User());
 		return "user/register";
 	}
-	
+	@RequestMapping(value="/signup", method=RequestMethod.GET)
+	public String signupForm( Model model, WebRequest request) {
+		System.out.println("사인업");
+		User user = new User();
+		Connection<?> connection = ProviderSignInUtils.getConnection(request);
+		if (connection != null) {
+			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
+			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
+			UserProfile providerUser =	connection.fetchUserProfile();
+			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
+			
+			user.setEmail(providerUser.getEmail());
+			user.setName(providerUser.getName());
+			user.setProfileImageUrl(connection.getProfileUrl());
+			user.setRole("ROLE_USER");
+		
+			userService.saveUser(user);
+			CustomUserDetailsService cuser = new CustomUserDetailsService();
+			
+			
+				CustomUserDetails details = new CustomUserDetails(
+						user, 
+						user.getEmail(),						
+						user.getPassword().toLowerCase(),
+						true,
+						true,
+						true,
+						true,
+						null);
+				UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+			
+			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
+			//이미 회원가입했다면 사인어댑터 실행함
+			return "redirect:/";
+			//회원가입후 로그인 시키고 
+		} else {
+			//return new SignupForm();
+		}
+		model.addAttribute("user", user);
+		return "user/register";
+	}
 	@RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
 	public String saveUser(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
 	{

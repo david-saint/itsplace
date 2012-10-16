@@ -79,7 +79,13 @@ public class LoginController {
 	}
 	@RequestMapping(value = "/login1", method = RequestMethod.GET)
 	public String ttt(){
+		 System.out.println("개발 모login1login1드 자동로그인");
 		return "user/login";
+	}
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public String signin(){
+		 System.out.println("웹 사용자 로그인");
+		return "user/signin";
 	}
 	
 	

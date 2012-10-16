@@ -74,7 +74,6 @@
 	</bean>
     
      
-    <import resource="infrastructure.xml" />	 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver" p:order="1" />
 
     <bean id="handlerExceptionResolver" class="net.itsplace.exception.ExceptionHandler" p:order="2" >

@@ -31,7 +31,7 @@
 </script>
 <div class="widget">
 	<div class="header">
-		<span><span class="ico gray home"></span> 스탬프 타입 등록  </span>
+		<span><span class="ico gray home"></span> 등록  </span>
 	</div>
 	<div class="content">
 		<form:form  action="signup" commandName="user" method="post">
@@ -59,7 +59,7 @@
 	       <div class="section" >
 	       		<label> 비밀번호 <small></small></label>   
                 <div> 
-                	<form:input path="name" cssClass="small"/><form:errors path="name" cssClass="error" />
+                	<form:input path="password" cssClass="small"/><form:errors path="password" cssClass="error" />
                		<span class="f_help">기호없이 숫자만 입력하세요</span>
                 </div>                                  
 	       </div>
