@@ -41,7 +41,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		String requestUrl;
 		User user = userService.getUser(authentication.getName());
 		//request.getSession().setAttribute("USERSESSION",user);
-		
+		System.out.println("_spring_security_remember_me: "+request.getParameter("_spring_security_remember_me"));
+		System.out.println("_spring_security_remember_me: "+request.getParameter("_spring_security_remember_me"));
+		System.out.println("_spring_security_remember_me: "+request.getParameter("_spring_security_remember_me"));
+		System.out.println("_spring_security_remember_me: "+request.getParameter("_spring_security_remember_me"));
+		System.out.println("_spring_security_remember_me: "+request.getParameter("_spring_security_remember_me"));
 		 
 		 System.out.println("onAuthenticationSuccess user.getRole():"+user.getRole());
 		 
