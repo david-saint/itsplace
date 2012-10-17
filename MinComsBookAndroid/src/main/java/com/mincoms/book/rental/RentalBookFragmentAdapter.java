@@ -44,7 +44,12 @@ public class RentalBookFragmentAdapter extends FragmentStatePagerAdapter  {
         //return MyStampFragmentAdapter.CONTENT[position % CONTENT.length];
     	Log.i(TAG,"gettitle position:"+ position);
     	Log.i(TAG,"gettitle:"+ bookRentalList.get(position).getBookInfo().getTitle());
-    	return bookRentalList.get(position).getBookInfo().getTitle().substring(0, 10) + "...";
+    	if(bookRentalList.get(position).getBookInfo().getTitle().length()>10){
+    		
+    		return bookRentalList.get(position).getBookInfo().getTitle().substring(0, 10) + "...";
+    	}else{
+    		return bookRentalList.get(position).getBookInfo().getTitle();
+    	}
     
     }
     
