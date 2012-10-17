@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context-3.1.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+			
+<!-- 	<context:property-placeholder properties-ref="deployProperties" /> -->
+
+	<!-- Activates various annotations to be detected in bean classes -->
+	<context:annotation-config />
+
+	<!-- Scans the classpath for annotated components that will be auto-registered as Spring beans.
+	 For example @Controller and @Service. Make sure to set the correct base-package -->
+ 	<context:component-scan base-package="com.mincoms.book" />
+ 	
+ 	
+	<!-- Configures the annotation-driven Spring MVC Controller programming model.
+	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+	<mvc:annotation-driven /> 
+	
+	<import resource="infrastructure.xml" />
+	
+	
+	<bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>                
+                <value>/WEB-INF/locale/messages</value>
+                <value>/WEB-INF/locale/validationMessages</value>
+            </list>
+        </property>
+        <property name="cacheSeconds" value="1" />
+    </bean>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >
+        <property name="defaultLocale" value="ko" />
+    </bean>
+
+    <mvc:interceptors>
+       <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" >
+        	<property name="paramName" value="lang" />
+   	   </bean>
+        
+	  <mvc:interceptor>
+	   <mvc:mapping path="/*"/>
+	   <bean class="com.mincoms.book.util.TestInterceptor"/>
+	  </mvc:interceptor> 
+	 </mvc:interceptors>
+	 
+	 <!-- Junit 테스트시 Controller ServletContext사용하는경우 -->
+ 	<bean id="servletContext" class="org.springframework.mock.web.MockServletContext"/>
+	
+    <!-- 예외처리 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver" p:order="1" />
+      
+	<bean id="exceptionResolver" class="com.mincoms.book.Exception.MincomsExceptionResolver" p:order="2" >
+	    <!-- ajax ExceptionHandler -->
+        <property name="ajaxErrorView" value="/exception/ajax_exception" />       
+	    <!-- from SimpleMappingExceptionResolver -->
+	    <property name="exceptionMappings">
+			<props>
+				<prop key="com.mincoms.book.Exception.MincomsException" >/exception/mincoms_exception</prop>
+				<prop key="java.lang.Exception">/exception/error</prop>
+				<prop key="java.lang.NumberFormatException">/exception/error</prop>
+				<prop key="org.springframework.core.convert.ConversionFailedException">/exception/error</prop>
+				<prop key="org.hibernate.engine.jdbc.spi.SqlExceptionHelper">/exception/error</prop>
+			</props>
+		</property>
+		<property name="statusCodes">
+		     <props>    
+                 <prop key="/exception/MincomsException">5000</prop>    
+                 <prop key="/exception/error">500</prop>    
+             </props>   
+		</property>
+		<property name="defaultErrorView" value="/exception/error"></property>
+	</bean>	    	
+	
+	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+	
+
+ 
+  <!--  <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+       <property name="validationMessageSource" ref="messageSource" />
+   </bean>
+    -->
+  <!--    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+      <property name="webBindingInitializer">
+          Configures Spring MVC DataBinder instances
+          <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+              <property name="validator" ref="validator" />
+          </bean>
+      </property>
+  </bean> -->
+	<!-- 
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		  <property name="order" value="1" />
+		   <property name="mediaTypes">
+		    <map>
+		      <entry key="json" value="application/json" />
+		      <entry key="xml" value="application/xml" />
+		    </map>
+		  </property>
+		  <property name="defaultViews">
+		    <list>
+		       <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"            />
+		    </list>
+		  </property>
+		 <property name="ignoreAcceptHeader" value="true" />
+	</bean> -->
+</beans>
