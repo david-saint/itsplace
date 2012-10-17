@@ -101,7 +101,7 @@
            <div class="section last right">
                <div>
                 	<a id="btnSave" class="uibutton loading submit_form large" title="Saving" rel="1" >저장</a>
-                	<a class="uibutton  clear_form large">추가</a>  
+                	<!-- <a class="uibutton  clear_form large">추가</a> -->  
                </div>
            </div>
        </form:form>

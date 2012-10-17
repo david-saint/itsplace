@@ -34,7 +34,7 @@ import com.mincoms.book.domain.BookReservation;
 import com.mincoms.book.domain.BookRestriction;
 import com.mincoms.book.domain.DataTable;
 import com.mincoms.book.domain.JsonResponse;
-import com.mincoms.book.domain.News;
+
 import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.QBookCategory;
 import com.mincoms.book.domain.QBookCategoryRoot;
@@ -42,8 +42,8 @@ import com.mincoms.book.domain.QBookInfo;
 import com.mincoms.book.domain.QBookRental;
 import com.mincoms.book.domain.QBookReservation;
 import com.mincoms.book.domain.UserInfo;
-import com.mincoms.book.domain.VoBookInfo;
 import com.mincoms.book.domain.dto.DtoBookInfo;
+import com.mincoms.book.domain.vo.VoBookInfo;
 import com.mincoms.book.repository.BookRepository;
 import com.mincoms.book.repository.BookSpecs;
 import com.mincoms.book.repository.RentalRepository;

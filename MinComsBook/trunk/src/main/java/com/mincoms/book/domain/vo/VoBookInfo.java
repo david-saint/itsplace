@@ -1,4 +1,6 @@
-package com.mincoms.book.domain;
+package com.mincoms.book.domain.vo;
+
+import com.mincoms.book.domain.BookInfo;
 
 public class VoBookInfo {
 

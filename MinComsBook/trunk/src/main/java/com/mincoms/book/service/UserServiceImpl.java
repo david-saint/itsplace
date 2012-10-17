@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mincoms.book.domain.Authorities;
 import com.mincoms.book.domain.DeptInfo;
 import com.mincoms.book.domain.UserInfo;
-import com.mincoms.book.repository.AuthoritiesRepository;
 import com.mincoms.book.repository.DeptRepository;
 import com.mincoms.book.repository.UserRepository;
 
@@ -22,8 +20,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private DeptRepository deptRepo;
-	@Autowired
-	private AuthoritiesRepository authRepo;
 	
 	public UserInfo save(UserInfo user) {
 		UserInfo saved = userRepo.save(user);
@@ -34,10 +30,6 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public List<Authorities> findByAuthorities(String userName) {
-		UserInfo user = findByUserName(userName);
-		return authRepo.findByUser(user);
-	}
 
 	
 	public List<UserInfo> findActiveAll() {

@@ -130,7 +130,7 @@
            <div class="section last right">
                <div>
                 	<a id="btnSave" class="uibutton loading submit_form large" title="Saving" rel="1" >저장</a>
-                	<a id="btnCancel" class="uibutton special clear_form large">취소</a>  
+                	<!-- <a id="btnCancel" class="uibutton special clear_form large">취소</a>   -->
                </div>
            </div>
        </form:form>

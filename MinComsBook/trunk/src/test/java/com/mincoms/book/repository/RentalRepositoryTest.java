@@ -1,7 +1,5 @@
 package com.mincoms.book.repository;
 
-import static org.junit.Assert.*;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,11 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 import com.mincoms.book.domain.BookInfo;
-import com.mincoms.book.domain.News;
 import com.mincoms.book.domain.BookRental;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.service.UserService;

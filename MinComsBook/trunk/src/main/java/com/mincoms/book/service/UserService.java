@@ -2,9 +2,7 @@ package com.mincoms.book.service;
 
 import java.util.List;
 
-import com.mincoms.book.domain.DeptInfo;
 import com.mincoms.book.domain.UserInfo;
-import com.mincoms.book.domain.Authorities;
 
 /**
  * Service interface for {@link UserInfo}s.
@@ -21,13 +19,6 @@ public interface UserService {
 	 */
 	UserInfo save(UserInfo user);
 
-	/**
-	 * 유저 이름으로 권한리스트 가져오기 {@link UserInfo}.
-	 * 
-	 * @param userName
-	 * @return
-	 */
-	List<Authorities> findByAuthorities(String userName);
 	/**
 	 * 유저 이름으로 유조거죵ㅎ가 {@link UserInfo}.
 	 * 

@@ -118,7 +118,7 @@
                 <div id="account_info"> 
 					<div class="setting" title="Profile Setting">
 						 <%-- <b> <sec:authentication property="Principal.User.userRname" /></b> --%>
-						 <b class="red"></b><img src="<c:url value="/resources/images/gear.png" />" class="gear"  alt="Profile Setting" >
+						  <a href="<c:url value="${context}/logout" />" ><b class="red"></b><img src="<c:url value="/resources/images/gear.png" />" class="gear"  alt="로그아웃" /></a>
 				    </div>
 					<%-- <div class="logout" title="Disconnect"><b >Logout</b> <img src="<c:url value="/resources/images/connect.png" />" name="connect" class="disconnect" alt="disconnect" ></div> --%>  
                 </div>
@@ -130,7 +130,7 @@
                       <li class="limenu"><a href="http://work.mincoms.com:62560/"><span class="ico gray shadow home" ></span><b>MinWork</b></a></li>
                       <sec:authorize ifAnyGranted="BOOKMANAGER, ADMIN">
                       <li class="limenu" >
-                      	<a><span class="ico gray shadow window"></span><b>카테고리관리</b></a>
+                      	<a><span class="ico gray shadow window"></span><b>카테고리</b></a>
                       	<ul>
                       		<li class="subListmenu">
                       			<a href="<c:url value="/admin/category/root" />">대분류</a>
