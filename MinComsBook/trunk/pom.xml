@@ -404,6 +404,7 @@
                     <target>1.6</target>
                     <encoding>UTF-8</encoding>
                     <compilerArgument>-Xlint:all</compilerArgument>
+                    <skiptests>true</skiptests>
                    
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
