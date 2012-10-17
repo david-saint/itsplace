@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mincoms</groupId>
 	<artifactId>book</artifactId>
-	<name>book</name>
+	<name>MinComsBook</name>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<properties>
