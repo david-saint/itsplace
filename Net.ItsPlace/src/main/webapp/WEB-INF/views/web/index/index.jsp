@@ -5,13 +5,24 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	 $('.bar2').mosaic({animation	:	'slide'	});
-	
+	//
 	 $('.fancy').fancybox({
 			'autoDimensions':false,
 			'scrolling':'auto',
 			'autoScale':false,
 			'height':400,
 	});
+	 $('#signup').click(function(){
+		 if ($('#signinForm').is(":hidden")){
+			 
+			 $('#signinForm').slideDown("slow"); 
+		 }else{
+			 $('#signinForm').slideUp("fast");
+		 }
+	 });
+	 $('#close').click(function(){
+		 $('#signinForm').slideUp();
+	 });
 });
 </script>
 <style>
@@ -153,14 +164,23 @@ padding: 0;
 			height:230px;
 		}
 </style>
+<section id="signinForm" style="display:none;height:300px">
+ <form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
+        <input type="hidden" name="scope" value="publish_stream,user_photos,offline_access,email" />
+        <input type="checkbox" id="on_off" name="_spring_security_remember_me" value="1" /> 
+		<button type="submit">사인인 위드 페이스북</button>
+		<button id="close">클로</button>
+	</form>
+</section>
+	
 <section id="m">
 	<div id="m-container">
 		<div class="inner">
 			<div id="header" class="clearfix">
 				<a class="home-sprite logo" href="/" title="Pulse">로고</a>
 				<nav>
-					<a href="${context}/signin" id="signin" class="fancy iframe">로그인</a>
-					<a href="${context}/signup" id="signup" class="fancy iframe"><span class="gray-button">회원가입</span></a>
+					<a href="#signinForm" id="signin" class="fancy ">로그인</a>
+					<a  id="signup" ><span class="gray-button">회원가입</span></a>
 					   <a href="<c:url value="${context}/logout" />" > Logout</a>
 				</nav>
 			</div>
@@ -232,6 +252,7 @@ padding: 0;
    <sec:authentication property="principal.User.profileImageUrl" />"
  </sec:authorize>
  </div>
+
 <!--Bar 2-->
 		
 

@@ -30,11 +30,7 @@
  	
 </script>
 <div class="widget">
-<form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
-        <input type="hidden" name="scope" value="publish_stream,user_photos,offline_access,email" />
-        <input type="checkbox" id="on_off" name="_spring_security_remember_me" value="1" /> 
-		<button type="submit">사인인 위드 페이스북</button>
-	</form>
+
 
 </div>
 
