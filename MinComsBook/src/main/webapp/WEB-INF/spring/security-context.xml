@@ -8,12 +8,12 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 	<sec:global-method-security secured-annotations="enabled"  />
-	<!-- This is where we configure Spring-Security  -->
+	<!-- This is where we configure Spring-Security  BOOKMANAGER,-->
 	<http auto-config="true"   disable-url-rewriting="true" use-expressions="true" access-denied-page="/denied"    xmlns="http://www.springframework.org/schema/security">
 	
 		<intercept-url pattern="/login" access="permitAll"/>
 		<intercept-url pattern="/" access="permitAll"/>
-		<intercept-url pattern="/admin/**/**" access="hasRole('BOOKMANAGER, ADMIN')"/>
+		<intercept-url pattern="/admin/**/**" access="hasAnyRole('ADMIN','BOOKMANAGER')"/>
 		<intercept-url pattern="/book/**" access="hasRole('WORKER')"/>
 		
 		
