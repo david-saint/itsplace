@@ -1,12 +1,9 @@
 package com.mincoms.book.service;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -17,17 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-
 import com.mincoms.book.domain.BookInfo;
-import com.mincoms.book.domain.DataTable;
 import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.QBookCategory;
 import com.mincoms.book.domain.QBookCategoryRoot;
 import com.mincoms.book.domain.QBookCategorySub;
 import com.mincoms.book.domain.QBookInfo;
 import com.mincoms.book.domain.QBookReservation;
-import com.mincoms.book.domain.Testvo;
-import com.mincoms.book.domain.VoBookInfo;
 import com.mincoms.book.repository.BookRepository;
 import com.mincoms.test.TestApplicationContext;
 import com.mysema.query.jpa.JPQLQuery;

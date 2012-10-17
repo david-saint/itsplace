@@ -56,6 +56,8 @@ function UserLogin(){
 			});							  
 		 });	
  });*/	   
+
+	
 setTimeout( "window.location.href='/'", 100 );
 }
 function securityLogin(){

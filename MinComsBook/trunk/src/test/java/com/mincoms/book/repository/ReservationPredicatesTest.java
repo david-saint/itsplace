@@ -1,34 +1,28 @@
 package com.mincoms.book.repository;
 
-import static org.junit.Assert.*;
-
-
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import com.mincoms.book.domain.BookInfo;
-import com.mincoms.book.domain.BookReservation;
-import com.mincoms.book.domain.DataTable;
-import com.mincoms.book.domain.Paging;
-import com.mincoms.book.domain.QBookInfo;
-import com.mincoms.book.domain.QBookReservation;
-import com.mincoms.book.domain.Testvo;
-import com.mincoms.book.domain.VoBookInfo;
-import com.mincoms.test.TestApplicationContext;
-import com.mysema.query.jpa.JPQLQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.ConstructorExpression;
-import com.mysema.query.types.Predicate;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.mincoms.book.domain.BookInfo;
+import com.mincoms.book.domain.BookReservation;
+import com.mincoms.book.domain.Paging;
+import com.mincoms.book.domain.QBookInfo;
+import com.mincoms.book.domain.QBookReservation;
+import com.mincoms.book.domain.vo.VoBookInfo;
+import com.mincoms.test.TestApplicationContext;
+import com.mysema.query.jpa.JPQLQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.ConstructorExpression;
+import com.mysema.query.types.Predicate;
 
 
 public class ReservationPredicatesTest  extends TestApplicationContext {
@@ -54,7 +48,7 @@ public class ReservationPredicatesTest  extends TestApplicationContext {
 	}
 	@Test
 	public void test2(){
-		QBookReservation  bookReservation = QBookReservation.bookReservation;
+		/*QBookReservation  bookReservation = QBookReservation.bookReservation;
 		QBookInfo  bookInfo = QBookInfo.bookInfo;
 		String columns[]={"title","authors"};
 		Paging page = new Paging(columns,1,10,0,"desc","");
@@ -82,7 +76,7 @@ public class ReservationPredicatesTest  extends TestApplicationContext {
 		
 		// DataTable<BookReservation> table = new DataTable<BookReservation>(null);
 		// table.setRows(rs);
-	}
+*/	}
 	 @Ignore
 	public void test4(){
 		QBookReservation  bookReservation = QBookReservation.bookReservation;

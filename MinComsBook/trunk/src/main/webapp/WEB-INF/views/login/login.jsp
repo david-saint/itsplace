@@ -61,10 +61,10 @@
    <form name="formLogin"  id="formLogin" action="">
 
           <div class="tip">
-				<input name="j_username" type="text"  id="username_id"  title="Username" value="dhkim"  />
+				<input name="j_username" type="text"  id="username_id"  title="Username" value=""  />
           </div>
           <div class="tip">
-				<input name="j_password" type="password" id="password"   title="Password" value="1111"  />
+				<input name="j_password" type="password" id="password"   title="Password" value=""  />
           </div>
 
           <div class="loginButton">

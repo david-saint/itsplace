@@ -21,7 +21,7 @@ import com.mincoms.book.domain.JsonResponse;
 import com.mincoms.book.domain.Paging;
 import com.mincoms.book.domain.QBookReservation;
 import com.mincoms.book.domain.UserInfo;
-import com.mincoms.book.domain.VoBookInfo;
+import com.mincoms.book.domain.vo.VoBookInfo;
 import com.mincoms.book.repository.ReservationRepository;
 import com.mincoms.book.security.SignedUser;
 import com.mysema.query.jpa.JPQLQuery;

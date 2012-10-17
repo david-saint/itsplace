@@ -1,25 +1,15 @@
 package com.mincoms.book.repository;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.mincoms.book.domain.BookInfo;
-import com.mincoms.book.domain.BookReservation;
 import com.mincoms.book.domain.Paging;
-import com.mincoms.book.repository.BookRepository;
-import com.mincoms.book.repository.BookSpecs;
-import com.mincoms.book.repository.NewsRepository;
-import com.mincoms.book.repository.NewsRepositoryTest;
 import com.mincoms.test.TestApplicationContext;
 
 public class BookRepoTest extends TestApplicationContext {
