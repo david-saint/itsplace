@@ -51,12 +51,12 @@
 <body>
 <div id="alertMessage" class="error"></div>
 <div id="successLogin"></div>
-<div class="text_success"><img src="<c:url value="${context}/resources/images/loadder/loader_green.gif" />"  alt="ziceAdmin" /><span>Please wait</span></div>
+<div class="text_success"><img src="${context}/resources/images/loadder/loader_green.gif"  alt="ziceAdmin" /><span>Please wait</span></div>
 
 <div id="login" >
   <!-- <div class="ribbon"></div> -->
   <div class="inner">
-  <div class="logo" ><img src="<c:url value="${context}/resources/images/logo/ci.png" />" alt="ziceAdmin" /></div>
+  <div class="logo" ><img src="${context}/resources/images/logo/ci.png" alt="ziceAdmin" /></div>
   <div class="formLogin">
    <form name="formLogin"  id="formLogin" action="">
 

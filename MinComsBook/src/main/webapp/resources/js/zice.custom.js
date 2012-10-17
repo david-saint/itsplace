@@ -1372,7 +1372,7 @@ $('.searchAutocomplete').click(function() {
 					$('#main_menu li a').find('b').hide();	
 					$('#main_menu li ').find('ul').hide();
 		}else{
-			$('body').removeClass('nobg').addClass('dashborad');
+			//$('body').removeClass('nobg').addClass('dashborad');
 			$('#content').css({ marginLeft: "240px" });	
 			$('#main_menu').removeClass('iconmenu ').addClass('main_menu');
 			$('#main_menu li a').find('b').show();	

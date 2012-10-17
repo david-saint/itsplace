@@ -136,13 +136,13 @@ public class UserController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/user/setPassword", method = RequestMethod.POST)
-	public  @ResponseBody  UserInfo setuser(UserInfo userInfo) {
+	public  void setuser(UserInfo userInfo) {
 		logger.info("Android Call username:{}",userInfo.getUserName());
 		UserInfo signedUser = null;
 		signedUser = userService.findByUserName(userInfo.getUserName());
 		signedUser.setPassword( Encrypt.md5Encoding(userInfo.getPassword()));
 		userService.save(signedUser);
 		
-		return signedUser;
+		//return signedUser;
 	}
 }

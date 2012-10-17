@@ -13,8 +13,7 @@
 	
 		<intercept-url pattern="/login" access="permitAll"/>
 		<intercept-url pattern="/" access="permitAll"/>
-	
-		
+		<intercept-url pattern="/admin/**/**" access="hasRole('BOOKMANAGER, ADMIN')"/>
 		<intercept-url pattern="/book/**" access="hasRole('WORKER')"/>
 		
 		
