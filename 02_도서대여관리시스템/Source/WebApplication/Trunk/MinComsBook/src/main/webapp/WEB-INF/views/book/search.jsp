@@ -6,6 +6,11 @@
 <html>
 <head>
     <title>${title}</title>
+        <script  src="<c:url value="/resources/components/noty/jquery.noty.js" />" type="text/javascript"></script>
+    <script  src="<c:url value="/resources/components/noty/layouts/center.js" />" type="text/javascript"></script>
+    <script  src="<c:url value="/resources/components/noty/layouts/top.js" />" type="text/javascript"></script>
+    <script  src="<c:url value="/resources/components/noty/layouts/topRight.js" />" type="text/javascript"></script>
+    <script  src="<c:url value="/resources/components/noty/themes/default.js" />" type="text/javascript"></script>
 
 <script type="text/javascript">
 	var datatable; 
@@ -140,11 +145,13 @@
  	                     type:"POST",                                
  	                     data:"isbn="+$(this).attr('isbn'),
  	                     success: function(response){
+ 	                    	//noty({ layout: 'topRight', dismissQueue: true, timeout: 1000,text: response.result});
  	                       if(response.status=="SUCCESS"){
- 	                    	   c.showSuccess(response.result,1000);
+ 	                    	   c.showSuccess(response.result, 1000);
+ 	                    	   
  	                    	   datatable.fnStandingRedraw();
  	                       }else{                    	  
- 	                    	  c.showInfo(response.result,1000);
+ 	                    	  c.showInfo(response.result, 1000);
  	                       }
  	                     }
  	                });//ajax
