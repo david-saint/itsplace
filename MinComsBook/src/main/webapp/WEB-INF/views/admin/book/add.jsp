@@ -28,7 +28,7 @@
 	 		             "${context}/book/getBookCategorySub?decorator=exception", 
 	 		             {root_id: $('#bookCategoryRoot').val()},
 	 		             function(data) {
-	 		                  var html = '';
+	 		            	var html = '<option value="">중분류</option>';
 	 		                  var len = data.length;
 	 		                  if(len>0){
 	 		                	 for(var i=0; i<len; i++){
@@ -48,7 +48,7 @@
 	 		             "${context}/book/getBookCategory?decorator=exception", 
 	 		             {sub_id: $('#bookCategorySub').val()},
 	 		             function(data) {
-	 		                  var html = '';
+	 		            	var html ='<option value="">소분류</option>';
 	 		                  var len = data.length;
 	 		                  if(len>0){
 	 		                	 for(var i=0; i<len; i++){
@@ -174,7 +174,7 @@
                <label> Authors <small></small></label>   
                <div> 
                		<form:input path="authors"  cssClass="medium"/>
-               		<span class="f_help">예> 홍길동, 이명박, 박근혜</span>
+               		<span class="f_help">예> 홍길동, 홍길순</span>
                </div>                                  
           </div>
           <div class="section" >
@@ -211,8 +211,8 @@
            <div class="section last right">
                <div>
                 <a id="btnAdd" class="uibutton loading submit_form" title="Saving" rel="1" >submit</a> 
-                <a id="btnAddAjax" class="uibutton loading submit_form" title="Saving" rel="1" >submit-aAjax</a> 
-                <a class="uibutton special clear_form"  >clear form</a> 
+              <!--   <a id="btnAddAjax" class="uibutton loading submit_form" title="Saving" rel="1" >submit-aAjax</a>  -->
+                <!-- <a class="uibutton special clear_form"  >clear form</a>  -->
                 <a class="uibutton loading cancel" title="Checking" rel="0" >Cancel</a> 
                </div>
            </div>

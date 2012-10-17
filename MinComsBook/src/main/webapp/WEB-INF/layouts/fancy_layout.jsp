@@ -108,7 +108,7 @@
  	});
  	</script>
 </head>
-<body class="">   
+<body>   
   
 	<div id="alertMessage" class="error"></div>
 	<div class="clear"></div> 

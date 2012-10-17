@@ -73,6 +73,17 @@ public class HomeController {
 		logger.info("디폴트 로케일 설정: "+ Locale.getDefault());
 		return "home";
 	}
+	@RequestMapping(value = "/noty", method = RequestMethod.GET)
+	public String noty() throws Exception {				
+		String registrationId = "APA91bGqfoV52YG0prnAxjfUO_RSgtGFYNB3SVWhWN--G72P9GJHjorr8NyjcTxYpeW7sMGhwSx1SOV9cd2IdAFNABBVomyvp6t2710e_Ic1Ez65IBSuJxLNb8PB-E570y6_fzzh1R5c";
+		Sender sender = new Sender("AIzaSyBpTW07vNhjvRuDgsg3qZvdNQW89aOYgac");
+        Message message = new Message.Builder()
+        .addData("message","ssssssssssuhu!!!!").build();
+        Result result = sender.send(message, registrationId, 5);
+       String status = "Sent message to one device: " + result;
+        System.out.println(status);
+		return "home";
+	}
 
 	
 	
