@@ -64,6 +64,11 @@ padding: 0;
 width: 100%;
 height: 49px;
 }
+.Sketchetik-Light { 
+	font-family: Sketchetik-Light;
+	font-weight: normal;
+	font-style: normal;
+}
 #header .logo {
 float: left;
 }
@@ -76,7 +81,7 @@ z-index: 2;
 display: block;
 height: 49px;
 line-height: 49px;
-text-transform: uppercase;
+
 text-decoration: none;
 color: white;
 font-weight: 700;
@@ -171,21 +176,25 @@ padding: 0;
 		<button type="submit">사인인 위드 페이스북</button>
 		<button id="close">클로</button>
 	</form>
+	
+	<input type="text" name="email"/>
+	<input type="password" name="password"/>
+	<button>로그</button>
 </section>
 	
 <section id="m">
 	<div id="m-container">
 		<div class="inner">
 			<div id="header" class="clearfix">
-				<a class="home-sprite logo" href="/" title="Pulse">로고</a>
+				<h1 class="Sketchetik-Light logo" style="font-size:60px;color:green;" title="Pulse">place</h1>
 				<nav>
 					<a href="#signinForm" id="signin" class="fancy ">로그인</a>
 					<a  id="signup" ><span class="gray-button">회원가입</span></a>
-					   <a href="<c:url value="${context}/logout" />" > Logout</a>
+					   <%-- <a href="<c:url value="${context}/logout" />" > Logout</a> --%>
 				</nav>
 			</div>
 			<div class="headline" >
-				<h1>
+				<h1 class="Sketchetik-Light">
 					What do you want to read today? <span class="grey-text">Pick
 						a category to start.</span>
 				</h1>
