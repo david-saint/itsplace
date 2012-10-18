@@ -4,7 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">		
+
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/MyFontsWebfontsKit.css" /> ">		
 	<script src="<c:url value="/resources/oakland/js/jquery-1.7.1.min.js" />" type="text/javascript"></script>
 	<!--tiles별 레이아웃별 CSS , JAVASCRIPT -->
 	<tiles:useAttribute id="styles" name="styles" classname="java.util.List" ignore="true" />
