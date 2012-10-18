@@ -170,7 +170,7 @@ public class UserController {
 	 * @throws Exception 
 	 * @see 
 	 */
-	@RequestMapping(value = "/user/signin", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/signin", method = RequestMethod.GET)
 	public   @ResponseBody UserInfo signin(UserInfo userInfo) {
 		logger.info("CrossDomain username:{}",userInfo.getUserName());
 		
