@@ -17,14 +17,21 @@
         <!-- Link shortcut icon-->
         <link rel="shortcut icon" type="image/ico" href="<c:url value="/resources/images/favicon2.ico" />" /> 
         
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/datatables.css" />" />
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/zice.style.css" />" />
-		<link rel="stylesheet" type="text/css"href="<c:url value="/resources/css/icon.css" />"  />
-
-		<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/smoothness/jquery-ui.css" type="text/css" media="screen" />
-		 -->
-	    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/ui-custom.css" />" />
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/timepicker.css" />" />
+        <c:if test="${applicationScope.AppMode=='Development'}">
+        	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/datatables.css" />" />
+			<link rel="stylesheet" type="text/css"href="<c:url value="/resources/css/icon.css" />"  />
+	        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/zice.style.css" />" />
+		    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/ui-custom.css" />" />
+	        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/timepicker.css" />" />	        	
+        </c:if>
+     	<c:if test="${applicationScope.AppMode=='Published'}">
+     		<link rel="stylesheet" type="text/css"href="<c:url value="/resources/css/style.min.css" />"  />
+     	</c:if>
+       
+       
+        
+        
+        
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/components/colorpicker/css/colorpicker.css" />" />
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/components/elfinder/css/elfinder.css" />" />
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/components/datatables/dataTables.css" />" />
@@ -48,10 +55,13 @@
         <script type="text/javascript" src="<c:url value="/resources/components/colorpicker/js/colorpicker.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/components/checkboxes/iphone.check.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/components/elfinder/js/elfinder.full.js"/>"></script>
+    <%--     --%>
         <script type="text/javascript" src="<c:url value="/resources/components/datatables/dataTables.min.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/components/datatables/ColVis.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/resources/components/fancybox/jquery.fancybox.js"/>"></script> 
+        
+        
         <script type="text/javascript" src="<c:url value="/resources/components/scrolltop/scrolltopcontrol.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/resources/components/fancybox/jquery.fancybox.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/components/jscrollpane/mousewheel.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/components/jscrollpane/mwheelIntent.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/components/jscrollpane/jscrollpane.min.js"/>"></script>
@@ -85,8 +95,17 @@
         <script type="text/javascript" src="<c:url value="/resources/components/highlightText/highlightText.js"/>"></script>
 		<script type="text/javascript" src="<c:url value="/resources/components/elastic/jquery.elastic.source.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/resources/js/jquery.cookie.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/resources/js/zice.custom.js"/>"></script>    
- 		<script  src="<c:url value="/resources/js/common-1.0.0.js" />" type="text/javascript"></script>
+        
+         <c:if test="${applicationScope.AppMode=='Development'}">
+         	<script type="text/javascript" src="<c:url value="/resources/js/zice.custom.js"/>"></script>     		
+ 			<script  src="<c:url value="/resources/js/common-1.0.0.js" />" type="text/javascript"></script>
+         </c:if>
+        <c:if test="${applicationScope.AppMode=='Published'}">
+     		<script  src="<c:url value="/resources/js/script.min.js" />" type="text/javascript"></script> 
+     	</c:if>
+       
+ 		
+ 	<%-- 	--%>
  		
  		<%-- <script  src="<c:url value="/resources/common/common-1.0.0.js" />" type="text/javascript"></script>
  		<script  src="<c:url value="/resources/js/upload/ajaxfileupload.js" />" type="text/javascript"></script>
