@@ -1,4 +1,5 @@
 package com.mincoms.book.controller;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -167,16 +168,24 @@ public class UserController {
 	 * @since 2012. 9. 6
 	 * @param UserInfo 사용자 정보
 	 * @return UserInfo 사용자 정보
+	 * @throws IOException 
 	 * @throws Exception 
 	 * @see 
 	 */
 	@RequestMapping(value = "/user/signin", method = RequestMethod.GET)
-	public   void signin(UserInfo userInfo) {
-		logger.info("CrossDomain username:{}",userInfo.getUserName());
+	public  void   signin(@RequestParam(value="userName", required=true) String userName,
+										 @RequestParam(value="password", required=true) String password,
+										 @RequestParam(value="callback", required=true) String callback,
+										 HttpServletRequest request, HttpServletResponse response
+			) throws IOException {
+		logger.info("CrossDomain username:{}",userName);
+		logger.info("CrossDomain password:{}",password);
+		logger.info("CrossDomain callback:{}",callback);
 		
 		UserInfo signedUser = null;
-		signedUser = userService.findByUserName(userInfo.getUserName());
-		signedUser.setPassword( Encrypt.md5Encoding(userInfo.getPassword()));
+		signedUser = userService.findByUserName(userName);
+		
+		signedUser.setPassword( Encrypt.md5Encoding(password));
 		userService.save(signedUser);
 	
 		
@@ -197,6 +206,11 @@ public class UserController {
 		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(), getAuthorities(signedUser.getAuthlevel(), signedUser.getUserName()));
 		
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
+		response.getOutputStream().write(new String(callback+"(").getBytes());
+		response.getOutputStream().write(new String("true").getBytes());
+		response.getOutputStream().write(new String(");").getBytes());
+		
+		response.setContentType("application/javascript");
 	}
 	 private Collection<GrantedAuthority> getAuthorities(int authlevel, String userName) {
 			// Create a list of grants for this user
