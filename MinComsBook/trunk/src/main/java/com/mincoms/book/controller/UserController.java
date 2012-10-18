@@ -1,12 +1,22 @@
 package com.mincoms.book.controller;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +38,9 @@ import com.mincoms.book.domain.JsonResponse;
 import com.mincoms.book.domain.BookInfo.AddBook;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.domain.dto.DtoBookRestriction;
+import com.mincoms.book.security.Authority;
+import com.mincoms.book.security.BookUserDetailsService;
+import com.mincoms.book.security.CustomUserDetails;
 import com.mincoms.book.service.BookService;
 import com.mincoms.book.service.CategoryService;
 import com.mincoms.book.service.RentalService;
@@ -59,7 +72,8 @@ public class UserController {
 	ReservationService reservationService;
 	@Autowired
 	UserService userService;
-	
+	@Autowired
+	private BaseCodeRepository baseCodeRepository;
 	@Autowired
 	JsonResponse json;
 	
@@ -145,4 +159,67 @@ public class UserController {
 		
 		//return signedUser;
 	}
+	/**
+	 * <b>패스워드 수정 </b> <br />
+	 * 민워크에서 로그인시  자바 MD5 패스워드를 등록함 
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param UserInfo 사용자 정보
+	 * @return UserInfo 사용자 정보
+	 * @throws Exception 
+	 * @see 
+	 */
+	@RequestMapping(value = "/user/signin", method = RequestMethod.POST)
+	public  void signin(UserInfo userInfo) {
+		logger.info("CrossDomain username:{}",userInfo.getUserName());
+		
+		UserInfo signedUser = null;
+		signedUser = userService.findByUserName(userInfo.getUserName());
+		signedUser.setPassword( Encrypt.md5Encoding(userInfo.getPassword()));
+		userService.save(signedUser);
+	
+		
+		logger.info("signedUser :{}",signedUser.toString());
+		// Principal principal = new Princip();
+		// UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(localUserId, "itsplace!@#$", cuser.getAuthorities("ROLE_USER"));
+		CustomUserDetails details = new CustomUserDetails(
+				signedUser, 
+				signedUser.getUserName(),						
+				"",
+				true,
+				true,
+				true,
+				true,
+				getAuthorities(signedUser.getAuthlevel(), signedUser.getUserName()));
+		
+		System.out.println("password:"+details.getUser().getPassword());
+		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(), getAuthorities(signedUser.getAuthlevel(), signedUser.getUserName()));
+		
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
+	
+	}
+	 private Collection<GrantedAuthority> getAuthorities(int authlevel, String userName) {
+			// Create a list of grants for this user
+			List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(3);
+			//0 :  관리자
+			//1 : 팀장
+			//2 : 사원
+			
+			//모든 사용자는 일반사용자 권한도 가짐
+			authList.add(new GrantedAuthorityImpl(Authority.WORKER.name()));
+			
+			if(authlevel == Authority.ADMIN.ordinal()){							
+				authList.add(new GrantedAuthorityImpl(Authority.ADMIN.name()));
+				
+			}else if(authlevel == Authority.TEAMLEADER.ordinal()){		
+				authList.add(new GrantedAuthorityImpl(Authority.TEAMLEADER.name()));
+			}
+			
+			BaseCode baseCode = baseCodeRepository.findByBookManager(userName);
+			if(baseCode !=null){
+				authList.add(new GrantedAuthorityImpl(Authority.BOOKMANAGER.name()));
+			}
+			return authList;
+	 }	  
 }

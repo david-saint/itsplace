@@ -15,6 +15,7 @@
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/admin/**/**" access="hasAnyRole('ADMIN','BOOKMANAGER')"/>
 		<intercept-url pattern="/book/**" access="hasRole('WORKER')"/>
+		<intercept-url pattern="/user/setPassword" access="permitAll"/>
 		
 		
 			
