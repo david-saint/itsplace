@@ -433,11 +433,24 @@
 		    <!-- 컴파일시 어노테이션 프로세싱을 하도록 지정 -->
 
 <!-- 소스코드 생성 후 소스를 컴파일 할때 src 디렉토리와 함께 자동 생성된 소스가 있는 디렉토리도 컴파일에 포함하도록 한다. -->
-       
+       <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<configuration>
+				<skip>true</skip>
+			</configuration>				
+		</plugin>
         <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
+				<configuration>		
+				    <warSourceExcludes>**/button.css,**/common-1.0.0.js</warSourceExcludes>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                    </archive>		    
 					 <webResources>
 				        <resource>
 					       <directory>src/main/java</directory> 
@@ -449,28 +462,43 @@
 				      </webResources>
 				</configuration>
 			</plugin>
-			
         
-        <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>webminifier-maven-plugin</artifactId>
-        <version>1.0.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>minify-js</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <jsSplitPoints>
-            <property>
-              <name>resource/js/login.js</name>
-              <value>myframeworkfilename</value>
-            </property>
-          </jsSplitPoints>
-        </configuration>
-      </plugin>
+       <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>minify-maven-plugin</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <id>default-minify</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <cssSourceDir>resources</cssSourceDir>
+                            <cssSourceFiles>
+                                <cssSourceFile>/css/buttons.css</cssSourceFile>
+                                <cssSourceFile>/css/datatables.css</cssSourceFile>
+                                <cssSourceFile>/css/icon.css</cssSourceFile>
+                                <cssSourceFile>/css/isotope.css</cssSourceFile>
+                                <cssSourceFile>/css/timepicker.css</cssSourceFile>
+                                <cssSourceFile>/css/ui-custom.css</cssSourceFile>
+                                <cssSourceFile>/css/zice.style.css</cssSourceFile>
+                            </cssSourceFiles>
+                            <cssTargetDir>resources/css</cssTargetDir>
+                            <cssFinalFile>style.css</cssFinalFile>
+                            <jsSourceDir>resources</jsSourceDir>
+                            <jsSourceFiles>
+                                <jsSourceFile>/js/common-1.0.0.js</jsSourceFile>
+                                <jsSourceFile>/js/zice.custom.js</jsSourceFile>
+                                <jsSourceFile>/js/login.js</jsSourceFile>
+                            </jsSourceFiles>
+                            <jsTargetDir>resources/js</jsTargetDir>
+                            <jsFinalFile>script.js</jsFinalFile>
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         
         
         </plugins>

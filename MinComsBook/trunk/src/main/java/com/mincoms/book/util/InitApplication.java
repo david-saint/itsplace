@@ -21,9 +21,10 @@ public class InitApplication  implements ServletContextListener {
 
 	  public void contextInitialized(ServletContextEvent event) {
 	    String mode = getKey();
+	    
 	    event.getServletContext().setAttribute(AppMode, mode);
 	    if(mode.equals("Development")){
-	    	 System.out.println(mode);
+	    	 System.out.println("모드:"+mode);
 	 	    
 	    }
 	    

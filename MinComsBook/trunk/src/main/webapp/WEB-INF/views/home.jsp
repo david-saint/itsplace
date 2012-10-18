@@ -11,7 +11,8 @@
 	</script>      
   </head>
   <body>    <a href="<c:url value="${context}/logout" />" > Logout</a>
- 
+  <c:if test="${applicationScope.AppMode=='Development'}">ddddddd</c:if>
+ ${applicationScope.AppMode}
     <%-- <div><spring:message  code="save"/></div> --%>
   </body>
 </html>

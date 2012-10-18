@@ -36,8 +36,7 @@ import com.google.android.gcm.server.*;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@Autowired 
-	ServletContext servletContext;
+
 	@Autowired
 	LocaleResolver localeResolver;
 
@@ -55,7 +54,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpServletRequest request) throws Exception {
 		String appMode = InitApplication.AppMode;
-		logger.info("어플리케이션 모드:{}",servletContext.getAttribute(appMode));
+		logger.info("어플리케이션 모드:{}",request.getSession().getServletContext().getAttribute("AppMode"));
 		logger.info("Locale"+ locale.toString());		
 		locale.setDefault(locale) ;
 		logger.info("디폴트 로케일 설정: "+ Locale.getDefault());
