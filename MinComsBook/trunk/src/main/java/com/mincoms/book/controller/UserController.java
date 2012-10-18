@@ -171,7 +171,7 @@ public class UserController {
 	 * @see 
 	 */
 	@RequestMapping(value = "/user/signin", method = RequestMethod.POST)
-	public   @ResponseBody String signin(UserInfo userInfo) {
+	public   @ResponseBody UserInfo signin(UserInfo userInfo) {
 		logger.info("CrossDomain username:{}",userInfo.getUserName());
 		
 		UserInfo signedUser = null;
@@ -197,7 +197,7 @@ public class UserController {
 		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(), getAuthorities(signedUser.getAuthlevel(), signedUser.getUserName()));
 		
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
-	return "";
+	return signedUser;
 	}
 	 private Collection<GrantedAuthority> getAuthorities(int authlevel, String userName) {
 			// Create a list of grants for this user
