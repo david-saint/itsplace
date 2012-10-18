@@ -55,6 +55,14 @@ public class CustomUserDetails implements Serializable, UserDetails {
 	
 
 
+	public CustomUserDetails() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+
 	public int getFid() {
 		return fid;
 	}

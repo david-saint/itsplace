@@ -12,7 +12,7 @@
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<org.springframework.security-version>3.1.2.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.6.9</org.aspectj-version>
-		<org.slf4j-version>1.5.10</org.slf4j-version>
+		<org.slf4j-version>1.6.1</org.slf4j-version>
 	    <mysql.connector.version>5.1.16</mysql.connector.version>
 		<hibernate.version>4.1.4.Final</hibernate.version>		
 		<jackson-version>1.8.4</jackson-version>
@@ -53,11 +53,7 @@
   <version>${querydsl.version}</version>
 </dependency>
 
-<dependency>
-  <groupId>org.slf4j</groupId>
-  <artifactId>slf4j-log4j12</artifactId>
-  <version>1.6.1</version>
-</dependency> 
+
 	    <!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -404,8 +400,6 @@
                     <target>1.6</target>
                     <encoding>UTF-8</encoding>
                     <compilerArgument>-Xlint:all</compilerArgument>
-                    <skiptests>true</skiptests>
-                   
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
@@ -455,6 +449,30 @@
 				      </webResources>
 				</configuration>
 			</plugin>
+			
+        
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>webminifier-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>minify-js</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <jsSplitPoints>
+            <property>
+              <name>resource/js/login.js</name>
+              <value>myframeworkfilename</value>
+            </property>
+          </jsSplitPoints>
+        </configuration>
+      </plugin>
+        
+        
         </plugins>
     </build>
   
