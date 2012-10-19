@@ -197,8 +197,9 @@ ul,ol {
 	   	 	 			  //c.loading("title",1);
                      },
                      success: function(response){
+                    	 var delay =1000;
                        if(response.status=="SUCCESS"){
-                    	   var delay =1000;
+                    	   
                     	   c.showSuccess(response.result,delay);
                        }else{
                     	   c.showError(response.result,delay);
@@ -234,8 +235,9 @@ ul,ol {
 	   	 	 			  //c.loading("title",1);
                      },
                      success: function(response){
+                    	 var delay =1000;
                        if(response.status=="SUCCESS"){
-                    	   var delay =1000;
+                    	  
                     	   c.showSuccess(response.result,delay);
                        }else{
                     	   c.showError(response.result,delay);
