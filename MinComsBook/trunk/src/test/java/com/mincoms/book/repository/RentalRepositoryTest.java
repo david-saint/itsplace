@@ -32,22 +32,12 @@ public class RentalRepositoryTest extends TestApplicationContext {
 	@Autowired
 	BookRepository bookRepo;
 
-	@Ignore
+	@Test
 	public void testSAVE() {
 		UserInfo user = userRepo.findByUserName("dhkim");
 		BookInfo book = bookRepo.findByIsbn("9788979145595");
-		
-		Calendar calendar = java.util.Calendar.getInstance();
-		calendar.add(calendar.DATE, 7);
-		
-		
-		BookRental rental = new BookRental();
-		
-		rental.setStartDate(new Date());
-		rental.setEndDate(calendar.getTime());
-		rental.setUserInfo(user);
-		rental.setBookInfo(book);
-		repo.save(rental);
+	
+		repo.findByRentalId(user.getUserId(), "9780811866026");
 		
 		
 	}
@@ -68,7 +58,7 @@ public class RentalRepositoryTest extends TestApplicationContext {
 			logger.info("book:{}",rental.getBookInfo().getTitle() + rental.getStartDate());
 		}
 	}
-	@Test
+	@Ignore
 	public void testFindBook(){
 		String isbn = "9788996276593";
 		BookInfo book = new BookInfo();

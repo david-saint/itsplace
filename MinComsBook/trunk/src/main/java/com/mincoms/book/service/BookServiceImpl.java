@@ -119,9 +119,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public JsonResponse isRental(String isbn) {
+	public JsonResponse isRental(String isbn, UserInfo userInfo) {
 		 
-		JsonResponse json =  restrictionService.isRestriction(SignedUser.getUserInfo());		
+		JsonResponse json =  restrictionService.isRestriction(userInfo);		
 		if(json.getStatus() == json.SUCCEESS){
 			json.setFail();
 			logger.info("제재중입니다");

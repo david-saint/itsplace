@@ -18,6 +18,10 @@ public interface RentalRepository extends JpaRepository<BookRental, Long> {
 	@Query("SELECT R FROM BookRental R WHERE R.id = ?1")
 	BookRental findById(long id);
 	
+	@Query("SELECT R FROM BookRental R WHERE R.userInfo.userId = ?1 And R.bookInfo.isbn = ?2 And R.returnDate is Null" )
+	List<BookRental> findByRentalId(int userId, String isbn);
+	
+	
 	@Query("select R from BookRental R Where R.bookInfo.isbn = ?1 And R.returnDate is Null")
 	List<BookRental> findByIsbn(String isbn);
 	

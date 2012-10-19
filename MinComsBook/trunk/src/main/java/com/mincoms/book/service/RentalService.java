@@ -96,5 +96,7 @@ public interface RentalService {
 	 */
 	public List<BookRental> findByIsbn(String isbn);
 	
+	public List<BookRental> findByRentalId(int userid, String isbn);
+	
 	
 }

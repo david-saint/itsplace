@@ -13,7 +13,7 @@ public class TestInterceptor  extends HandlerInterceptorAdapter {
 	 
 	 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
 	  
-	  System.out.println("testInterceptor!!");
+	/*  System.out.println("testInterceptor!!");
 	  System.out.println("testInterceptor!!");
 	  System.out.println("testInterceptor!!");
 	  System.out.println("testInterceptor!!");
@@ -21,7 +21,7 @@ public class TestInterceptor  extends HandlerInterceptorAdapter {
 	  System.out.println("testInterceptor!!");
 	  System.out.println("testInterceptor!!");
 	  
-	  mav.addObject("msg", "1232355345");
+	  mav.addObject("msg", "1232355345");*/
 	  
 	  return true;
 	  
@@ -30,7 +30,7 @@ public class TestInterceptor  extends HandlerInterceptorAdapter {
 	 public void postHandle(HttpServletRequest request, HttpServletResponse response, 
 	   Object handler, ModelAndView mav) {
 	  
-	  System.out.println("postHandle testInterceptor!!");
+	/*  System.out.println("postHandle testInterceptor!!");
 	  System.out.println("postHandle testInterceptor!!");
 	  System.out.println("postHandle testInterceptor!!");
 	  System.out.println("postHandle testInterceptor!!");
@@ -41,7 +41,7 @@ public class TestInterceptor  extends HandlerInterceptorAdapter {
 	  System.out.println("postHandle testInterceptor!!");
 	  System.out.println("postHandle testInterceptor!!");
 	  
-	  mav.addObject("msg", "sdsddsdd");
+	  mav.addObject("msg", "sdsddsdd");*/
 	  
 	 }
 	}

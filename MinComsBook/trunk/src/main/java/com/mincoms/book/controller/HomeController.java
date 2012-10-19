@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +24,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.mincoms.book.Exception.MincomsException;
+import com.mincoms.book.domain.BookRental;
+import com.mincoms.book.domain.JsonResponse;
+import com.mincoms.book.domain.UserEtcInfo;
+import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.gcm.GcmApp;
+import com.mincoms.book.security.SignedUser;
+import com.mincoms.book.service.RentalService;
+import com.mincoms.book.service.UserService;
 import com.mincoms.book.util.InitApplication;
 import com.google.android.gcm.server.*;
 /**
@@ -40,7 +50,10 @@ public class HomeController {
 	@Autowired
 	LocaleResolver localeResolver;
 
-
+	@Autowired
+	UserService userService;
+	@Autowired
+	RentalService rentalService;
 	/**
 	 * <b>인텍스 </b> <br />
 	 * @author 김동훈
@@ -61,7 +74,80 @@ public class HomeController {
 		//request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE", new Locale(locale.toString()));*/
 		return "home";
 	}
-	
+	@RequestMapping(value = "/barcode", method = RequestMethod.GET)
+	public String barcode() throws Exception {
+		
+		return "barcode";
+	}
+	/**
+	 * <b>도서대여 </b> <br />
+	 * 도서 대출여부를 확인하고 도서를 대출한다
+	 * <pre>
+	 * <b>History:</b>
+	 * </pre>
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param ISBN 
+	 * @param Day  대출 일수
+	 * @return JsonResponse 
+	 * @throws Exception 
+	 * @see 
+	 */
+	@RequestMapping(value = "/rental", method = RequestMethod.POST, headers="Accept=application/json")
+	public @ResponseBody JsonResponse rental(
+			@RequestParam(required=true)  String userIdNumber,
+			@RequestParam(required=true)  String isbn,
+			@RequestParam(defaultValue="7") Integer day,
+			Model model) throws Exception  {
+		logger.debug("isbn:{}",isbn);
+		logger.debug("day:{}",day);
+		logger.debug("userIdNumber:{}",userIdNumber);
+		
+		JsonResponse json = new JsonResponse();
+	    UserEtcInfo user =	userService.findByUserIdNumber(userIdNumber);
+	    if(user == null){
+	    	json.setFail();
+	    	json.setResult("등록된  사용자가 아닙니다");
+	    }else{
+	    	UserInfo userInfo = userService.findByUserName(user.getUserName());
+		 json = rentalService.saveRental(isbn, day, userInfo);
+			
+	    }
+	    
+		return json;
+	}
+	/**
+	 * <b>도서반납 </b> <br />
+	 * @author 김동훈
+	 * @version 1.0
+	 * @since 2012. 9. 6
+	 * @param id 반납 id 
+	 * @return JsonResponse 
+	 * @throws Exception 
+	 * @see 
+	 */
+	@RequestMapping(value = "/return", method = RequestMethod.POST, headers="Accept=application/json")
+	public @ResponseBody JsonResponse returnPost(@RequestParam(required=true)  String userIdNumber,
+												 @RequestParam(required=true)  String isbn) throws Exception  {
+		UserEtcInfo user =	userService.findByUserIdNumber(userIdNumber);
+		JsonResponse json = new JsonResponse();
+		
+		if(user == null){
+			json.setFail();
+	    	json.setResult("등록된  사용자가 아닙니다");
+	    }else{
+	    	UserInfo userInfo = userService.findByUserName(user.getUserName());
+		    List<BookRental> rentals =  rentalService.findByRentalId(userInfo.getUserId(), isbn);		    
+		    for(BookRental rental : rentals){
+		    	json  = rentalService.returnBook(rental.getId());
+		    }
+		
+	    	
+	    }
+	    	
+		return json;
+	}
 	/*
 	 * ?lang=ko 기본 로케일 변경 
 	 * */
