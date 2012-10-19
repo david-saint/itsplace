@@ -78,7 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public JsonResponse reservation(String isbn) {
 		JsonResponse json = new JsonResponse();
-		if(bookService.isRental(isbn).getStatus() == json.SUCCEESS){			
+		if(bookService.isRental(isbn,SignedUser.getUserInfo()).getStatus() == json.SUCCEESS){			
 			json.setResult(messageSource.getMessage("rental.able", null, Locale.getDefault()));
 			json.setFail();
 		}else{

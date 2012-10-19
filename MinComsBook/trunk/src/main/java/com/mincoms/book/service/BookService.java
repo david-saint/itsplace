@@ -46,7 +46,7 @@ public interface BookService {
 	 * @throws Exception 
 	 * @see 
 	 */
-	public JsonResponse isRental(String isbn);	
+	public JsonResponse isRental(String isbn, UserInfo userInfo);	
 	
 	
 	/**

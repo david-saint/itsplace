@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mincoms.book.domain.DeptInfo;
+import com.mincoms.book.domain.UserEtcInfo;
 import com.mincoms.book.domain.UserInfo;
 import com.mincoms.book.repository.DeptRepository;
+import com.mincoms.book.repository.UserEtcInfoRepository;
 import com.mincoms.book.repository.UserRepository;
 
 
@@ -20,6 +22,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private DeptRepository deptRepo;
+	@Autowired
+	private UserEtcInfoRepository UserEtcInfoRepo;
 	
 	public UserInfo save(UserInfo user) {
 		UserInfo saved = userRepo.save(user);
@@ -55,6 +59,13 @@ public class UserServiceImpl implements UserService {
 	public List<UserInfo> findByDeptInfo(int deptId) {
 		DeptInfo deptInfo = deptRepo.findOne(deptId);
 		return userRepo.findByDeptInfo(deptInfo);
+	}
+
+
+
+	@Override
+	public UserEtcInfo findByUserIdNumber(String userIdNumber) {
+		return UserEtcInfoRepo.findByUserIdNumber(userIdNumber);
 	}
 
 }

@@ -175,7 +175,7 @@ private static final Logger logger = LoggerFactory.getLogger(RentalController.cl
 		logger.debug("isbn:{}",isbn);
 		BookInfo book = bookService.findByIsbn(isbn);
 		if(book != null){
-			json = bookService.isRental(isbn);
+			json = bookService.isRental(isbn, SignedUser.getUserInfo());
 		}else{
 			json.setResult(messageSource.getMessage("not.register.book",null, Locale.getDefault()));
 			json.setFail();

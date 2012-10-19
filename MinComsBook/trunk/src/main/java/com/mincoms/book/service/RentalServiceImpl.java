@@ -50,7 +50,7 @@ public class RentalServiceImpl implements RentalService {
 AsyncComponent asyncComponent;
 	@Override
 	public JsonResponse saveRental(String isbn, int day, UserInfo userInfo) {
-		JsonResponse json = bookService.isRental(isbn);
+		JsonResponse json = bookService.isRental(isbn, userInfo);
 		if(json.getStatus() == json.FAIL){
 			return json;
 		}else{
@@ -160,6 +160,12 @@ AsyncComponent asyncComponent;
 	@Override
 	public List<BookRental> findByReturnDateIsNotNull() {
 		return rentalRepo.findByReturnDateIsNull();
+	}
+
+	@Override
+	public List<BookRental> findByRentalId(int userId, String isbn) {
+		
+		return rentalRepo.findByRentalId(userId, isbn);
 	}
 
 	

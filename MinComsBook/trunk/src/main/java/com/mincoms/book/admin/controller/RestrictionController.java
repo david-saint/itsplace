@@ -48,6 +48,7 @@ import com.mincoms.book.service.CategoryService;
 @Controller
 public class RestrictionController {
 	private static final Logger logger = LoggerFactory.getLogger(RestrictionController.class);
+	
 	@Autowired
 	MessageSource messagesource;
 	@Autowired

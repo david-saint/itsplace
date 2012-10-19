@@ -2,6 +2,7 @@ package com.mincoms.book.service;
 
 import java.util.List;
 
+import com.mincoms.book.domain.UserEtcInfo;
 import com.mincoms.book.domain.UserInfo;
 
 /**
@@ -50,4 +51,6 @@ public interface UserService {
 	List<UserInfo> findByUserNameContaining(String userName);
 	
 	List<UserInfo> findByDeptInfo(int deptId);
+	
+	UserEtcInfo findByUserIdNumber(String userIdNumber);
 }
