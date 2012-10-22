@@ -56,7 +56,7 @@ public class PlaceIndexController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/place", method = RequestMethod.GET)
 	public String place(Model model,HttpServletRequest request) {
 		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
 
@@ -87,7 +87,7 @@ public class PlaceIndexController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/places", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/places", method = RequestMethod.GET)
 	public @ResponseBody JsonResponse places()  {
 		JsonResponse json = new JsonResponse();
 		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
@@ -115,7 +115,7 @@ public class PlaceIndexController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/changePlace", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/changePlace", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse changePlace(@RequestParam(required=true) Integer fid)  {
 		JsonResponse json = new JsonResponse();
 		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());		

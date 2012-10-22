@@ -18,6 +18,7 @@ import net.itsplace.place.service.PlaceCommentService;
 import net.itsplace.util.PagingManager;
 import net.itsplace.web.service.IndexService;
 import net.itsplace.web.service.PlaceService;
+import net.itsplace.web.service.SearchService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,11 @@ public class PlaceController {
 	private PlaceCommentService placeCommentService;
 	@Autowired
 	private PagingManager pagingManaer;
+	
+	@Autowired
+	private SearchService searchService;
+		
+	
 	@Inject
 	private ConnectionRepository connectionRepository;
 
@@ -59,7 +65,33 @@ public class PlaceController {
 		this.twitter = twitter;
 	}
 	
-	
+	@RequestMapping(value = "/places", method = RequestMethod.GET)
+	public String places(Model model) {
+		
+		return "web/place/list";
+	}
+	/**
+	 * 웹 가맹점 검색
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/search/place", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  places(@RequestParam(required=false, defaultValue="1") Integer currentPage,
+			 									@RequestParam(required=false, defaultValue="10") Integer pageSize ,
+			 									@RequestParam(required=false, defaultValue="10") Integer pageGroupSize ,
+			 									@RequestParam(required=false, defaultValue="") String searchWord 
+			 									){
+		logger.info("currentPage:{}",currentPage);
+		logger.info("pageSize:{}",pageSize);
+		logger.info("pageGroupSize:{}",pageGroupSize);
+		logger.info("searchWord:{}",searchWord);
+		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+		JsonResponse json = new JsonResponse();
+		json.setResult(searchService.getPlaceList(param));
+		json.setStatus("SUCCESS");
+		return json;
+	}
 	/**
 	 * 가맹점 상세보기  <br />
 	 * 

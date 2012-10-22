@@ -3,7 +3,9 @@ package net.itsplace.web.controller;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
+import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Message;
 import net.itsplace.web.service.IndexService;
 import net.itsplace.web.service.PlaceService;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -41,10 +44,14 @@ public class IndexController {
 		model.addAttribute("recentEventList",indexService.getRecentEventList(4));
 		return "web/index/index";
 	}
-	  @RequestMapping(value = "/getmessage",  produces = "application/json")
-	    public @ResponseBody Message getMessage() {
-	    	logger.info("Accessing protected resource");
-	    	return new Message(100, "Congratulations!", "itsplace getmessage");
-	    }
+	
+	
+	
+	
+	@RequestMapping(value = "/getmessage",  produces = "application/json")
+	public @ResponseBody Message getMessage() {
+	  	logger.info("Accessing protected resource");
+	   	return new Message(100, "Congratulations!", "itsplace getmessage");
+	}
 	
 }

@@ -7,7 +7,9 @@
 
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/MyFontsWebfontsKit.css" /> ">		
-	<script src="<c:url value="/resources/oakland/js/jquery-1.7.1.min.js" />" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+	<script  src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js" type="text/javascript"></script>
+	<script  src="http://cloud.github.com/downloads/thinkpixellab/tilesjs/tiles.js" type="text/javascript"></script>
 	<!--tiles별 레이아웃별 CSS , JAVASCRIPT -->
 	<tiles:useAttribute id="styles" name="styles" classname="java.util.List" ignore="true" />
 	<c:forEach var="style" items="${styles}">
