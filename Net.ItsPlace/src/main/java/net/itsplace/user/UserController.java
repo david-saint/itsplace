@@ -50,48 +50,8 @@ public class UserController {
 		model.addAttribute("user",new User());
 		return "user/register";
 	}
-	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String signupForm( Model model, WebRequest request) {
-		System.out.println("사인업");
-		User user = new User();
-		Connection<?> connection = ProviderSignInUtils.getConnection(request);
-		if (connection != null) {
-			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
-			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
-			UserProfile providerUser =	connection.fetchUserProfile();
-			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
-			user.setPassword("itsplace");
-			user.setEmail(providerUser.getEmail());
-			user.setName(providerUser.getName());
-			user.setProfileImageUrl(connection.getProfileUrl());
-			user.setRole("ROLE_USER");
-		
-			userService.saveUser(user);
-			CustomUserDetailsService cuser = new CustomUserDetailsService();
-			
-			
-				CustomUserDetails details = new CustomUserDetails(
-						user, 
-						user.getEmail(),						
-						user.getPassword().toLowerCase(),
-						true,
-						true,
-						true,
-						true,
-						null);
-				UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
-			SecurityContextHolder.getContext().setAuthentication(newAuth);
-			
-			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
-			//이미 회원가입했다면 사인어댑터 실행함
-			return "redirect:/";
-			//회원가입후 로그인 시키고 
-		} else {
-			//return new SignupForm();
-		}
-		model.addAttribute("user", user);
-		return "user/register";
-	}
+	
+	
 	@RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
 	public String saveUser(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
 	{
