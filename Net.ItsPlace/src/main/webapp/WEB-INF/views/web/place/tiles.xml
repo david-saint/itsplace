@@ -3,15 +3,10 @@
 
 <tiles-definitions>
 
-	<definition name="web/place/*" extends="web_layout">		
-		<put-attribute name="body" expression="/WEB-INF/views/web/place/{1}.jsp" />		
+	<definition name="web/place/list" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/web/place/list.jsp" />		
 		<put-list-attribute name="scripts">				
-		      <add-attribute value="admin/js/jquery.min.js" />    
-		      <add-attribute value="admin/components/effect/jquery-jrumble.js" />
-		      <add-attribute value="admin/components/ui/jquery.ui.min.js" />
-		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
-		      <add-attribute value="admin/components/checkboxes/iphone.check.js" />
-		      <add-attribute value="admin/js/login.js" />
+		      <add-attribute value="js/tiles/demo.js" />
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">
