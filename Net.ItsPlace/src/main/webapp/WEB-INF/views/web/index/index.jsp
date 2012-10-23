@@ -28,18 +28,7 @@ $(document).ready(function() {
 </script>
 <style>
 
-		
-html {
-font-size: 100%;
-}
-body {
-margin: 0;
-padding: 0;
-font-family: "proxima-nova","Helvetica-neue",helvetica,sans-serif;
-}
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
-display: block;
-}
+
 #m-container {
 position: relative;
 overflow: hidden;
@@ -203,16 +192,16 @@ z-index: 10;
 		
 		
 #signinForm input[type="email"], #signinForm input[type="text"] , #signinForm input[type="password"] {
-margin: 0 10px 0 0;
-padding: 12px 18px;
-background: #292929;
-font-family: "proxima-nova","Helvetica-neue",helvetica,sans-serif;
-font-weight: 200;
-font-size: 16px;
-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-color: #777;
-border: 1px solid #444;
-outline: 0;
+	margin: 0 10px 0 0;
+	padding: 12px 18px;
+	background: #292929;
+	font-family: "proxima-nova","Helvetica-neue",helvetica,sans-serif;
+	font-weight: 200;
+	font-size: 16px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+	color: #777;
+	border: 1px solid #444;
+	outline: 0;
 }
 #signinForm fieldset{
 float: left;
@@ -279,6 +268,7 @@ border: 0;
 -webkit-box-shadow: 0 4px 0 0 #854F15;
 -moz-box-shadow: 0 4px 0 0 #854F15;
 box-shadow: 0 4px 0 0 #854F15;
+
 }
 .border{
 border:1px solid blue;
@@ -288,8 +278,16 @@ position: absolute;
 top: 20px;
 right: 20px;
 }
+.border-box {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+fieldset{
+	border:none;
+}
 </style>
-<section id="signinForm" class="blackBack" style="display:none;height:300px"> 
+<section id="signinForm" class="blackBack" style="display:block;height:300px"> 
 	<div id="auth-container">
 		<div class="inner">
 		<hgroup>
@@ -327,7 +325,9 @@ right: 20px;
                             <fieldset>
                                 <label for="password" style="display: none; ">Password</label>
                                 <input id="password" class="border-box" type="password" name="password" placeholder="Password" tabindex="2"></fieldset>
-                            <button class="blueButton">로그인</button>
+                            <fieldset>
+	                            <button class="blueButton">로그인</button>
+                            </fieldset>
                             
                         
                         </form>

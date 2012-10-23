@@ -66,7 +66,7 @@ $(function() {
         });
         console.log("data:"+rows[tileId-1].fname);
         console.log("data:"+rows[tileId-1].fileName);
-        img = "<a href=\"\" class=\"story-bg iframe fancy\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
+        img = "<a href=\"/place/view/"+rows[tileId-1].fid+"\" class=\"story-bg iframe fancy\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
         img += "</a>";
         tile.$el.append(img);
         return tile;
