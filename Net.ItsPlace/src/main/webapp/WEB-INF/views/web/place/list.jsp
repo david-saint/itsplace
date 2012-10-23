@@ -11,7 +11,7 @@ $(document).ready(function() {
 		$('#search').effect( 'size', options, 100,mouseover );
 	});
 	$('#search').live('mouseout',function(){
-		$(this).blur();
+		//$(this).blur();
 		
 		//$('#search').effect('destrooy');
 		//var options = { to: { width: 100, height: 28 } };
