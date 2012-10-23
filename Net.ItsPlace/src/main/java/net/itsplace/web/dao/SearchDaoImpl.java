@@ -49,5 +49,11 @@ public class SearchDaoImpl extends SqlMapClientDaoSupport implements SearchDao{
 			throws DataAccessException {
 		return getSqlMapClientTemplate().queryForList("web.getPlaceEventList", param);
 	}
+
+	@Override
+	public List<Place> getPlaceListByTile(Map<String, Object> param) {
+		return getSqlMapClientTemplate().queryForList("web.getPlaceListByTile", param);
+	}
+
 	
 }

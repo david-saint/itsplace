@@ -1,0 +1,67 @@
+body {
+	background-color: #282828;
+	overflow: hidden;
+	
+}
+#header{
+	position: absolute;
+	left:0;
+	right:0;
+	border:1px solid red;
+	height: 67px;
+	
+}
+#header #search{
+	position:absolute;
+	display: block;
+	top:10px;
+	left: 20px;
+	
+	width: 100px;
+	height: 28px;
+	/*padding: 0 10px 0 32px; 이펙트 후에 패딩 추가*/
+	background: url(/resources/images/icon/search_icon.png) white 10px center no-repeat;
+	color: #202020;
+	outline: 0;
+	font-size: 16px;
+	font-weight: 600;
+	border: 1px solid silver;
+	border-radius: 3px;
+}
+
+.tileContainer{
+	position: absolute;
+	top: 167px;
+	left:0;
+	bottom: 0;
+	right: 0;
+	padding:10px;
+	border:1px solid red;
+}
+.grid {
+	border:1px solid blue;;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #ddd;
+   
+}
+
+.grid > div {
+    background-color: #fff;
+    position: absolute;
+    cursor: pointer;
+}
+.story-bg {
+background-size: cover;
+background-repeat: no-repeat;
+background-position: top center;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #282828;
+}

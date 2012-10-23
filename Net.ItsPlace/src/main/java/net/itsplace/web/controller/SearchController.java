@@ -66,6 +66,23 @@ public class SearchController {
 		return searchService.placeInfo(p);
 	}
 	/**
+	 * 웹 가맹점 검색
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/web/search/place", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  searchPlace(@RequestParam(required=false, defaultValue="") String searchWord ){
+		logger.info("searchWord:{}",searchWord);
+		JsonResponse json = new JsonResponse();
+		
+		Map<String, Object> param  =  new HashMap();
+		param.put("searchWord", searchWord);
+		json.setResult(searchService.getPlaceListByTile(param));
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	/**
 	 * 스마트폰 가맹점 검색
 	 * @param locale
 	 * @param model

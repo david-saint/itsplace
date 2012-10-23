@@ -13,6 +13,7 @@
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">  		
+  			<add-attribute value="common/normalize.css" />
   			<add-attribute value="js/mosaic/css/mosaic.css" />
   			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
   		</put-list-attribute>

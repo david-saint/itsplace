@@ -18,5 +18,6 @@ public interface SearchService {
 	 */
 	public List<Place> placeInfo(Place p);
 	public List<Place>  getPlaceList(Map<String, Object> param);
+	public List<Place>  getPlaceListByTile(Map<String, Object> param);
 	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param);
 }
