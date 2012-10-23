@@ -14,11 +14,9 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver {
     
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) {
+    	e.printStackTrace();
         if( isAjax(request) ) {
-        	System.out.println("예외발");
-        	System.out.println("예외발");
-        	System.out.println("예외발");
-        	System.out.println("예외발");
+        	
             String exceptionMessage = ajaxDefaultErrorMessage;
             if( ajaxShowTechMessage )
                 exceptionMessage += "\n" + getExceptionMessage(e);

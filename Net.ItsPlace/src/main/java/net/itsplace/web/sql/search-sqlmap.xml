@@ -22,7 +22,7 @@
     	 SELECT  sql_calc_found_rows  
     	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
     	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
-    	 		A.EMAIL,A.PARK, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
+    	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
     	 		P.BASNAME AS PLACETYPE,
 		   	 	A.FULLADDRESS,
@@ -49,6 +49,38 @@
 	    	 </isNotEmpty>
     	 </dynamic>
     	 LIMIT #startRow# , #endRow#	
+    </select>
+	<select id="getPlaceListByTile" resultClass="Place" parameterClass="java.util.Map">
+    	 SELECT  sql_calc_found_rows  
+    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
+    	 		A.EMAIL,  A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
+    	 		S.BASNAME AS SERVICETYPE,
+    	 		P.BASNAME AS PLACETYPE,
+		   	 	A.FULLADDRESS,
+		   	 	A.SIDO,
+		   	 	A.GUGUN,
+		   	 	A.DONG,
+		   	 	A.NEWADDRESS
+		 FROM 
+		 	PLACE A
+		 LEFT OUTER JOIN
+		 	PBASCD S
+         		ON A.SERVICETYPE = S.BASECD	
+         		AND S.GRPCD = 'SERVICETYPE'
+		 LEFT OUTER JOIN
+		 	PBASCD P
+         		ON A.PLACETYPE = P.BASECD	
+         		AND P.GRPCD = 'PLACETYPE'
+		WHERE A.ISAUTH = 'Y'
+         <dynamic>
+	    	 <isNotEmpty property="searchWord">
+	    	 	AND A.FNAME like CONCAT('%',#searchWord#,'%')
+	    	 	OR A.FULLADDRESS like CONCAT('%',#searchWord#,'%')
+	    	 	OR MOBILE like CONCAT('%',#searchWord#,'%')
+	    	 </isNotEmpty>
+    	 </dynamic>
+    	Order By A.Fid Desc
     </select>
     
     <select id="getPlaceEventList" resultMap="PlaceEventJoinPlace" parameterClass="java.util.Map" >

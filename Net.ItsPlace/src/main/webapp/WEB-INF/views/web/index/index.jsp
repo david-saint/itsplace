@@ -289,7 +289,7 @@ top: 20px;
 right: 20px;
 }
 </style>
-<section id="signinForm" class="blackBack" style="display:block;height:300px"> 
+<section id="signinForm" class="blackBack" style="display:none;height:300px"> 
 	<div id="auth-container">
 		<div class="inner">
 		<hgroup>

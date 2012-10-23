@@ -40,4 +40,10 @@ public class SearchServiceImpl implements SearchService{
 	public List<PlaceEvent> getPlaceEventList(Map<String, Object> param) {
 		return searchDao.getPlaceEventList(param);
 	}
+
+	@Override
+	public List<Place> getPlaceListByTile(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		return searchDao.getPlaceListByTile(param);
+	}
 }
