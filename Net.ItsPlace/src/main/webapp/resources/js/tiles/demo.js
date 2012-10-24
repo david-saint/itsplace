@@ -61,20 +61,26 @@ $(function() {
     	console.log("생성:");
         var tile = new Tiles.Tile(tileId);
         tile.$el.append('<div class="dev-tile-number">' + tileId + 'y</div>');
+        
         tile.$el.live('click',function() {
         	 console.log($(this).html());
+        	 $('#placeView').attr('src','/place/view/'+rows[tileId-1].fid);
+        	 $('#jqmWindow').jqmShow();
+        	 
         });
+        
         console.log("data:"+rows[tileId-1].fname);
         console.log("data:"+rows[tileId-1].fileName);
-        img = "<a href=\"/place/view/"+rows[tileId-1].fid+"\" class=\"story-bg iframe fancy\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
-        img += "</a>";
+//        img = "<a href=\"/place/view/"+rows[tileId-1].fid+"\" class=\"story-bg iframe fancy\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
+        img = "<div  class=\"story-bg\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
+        img += "</div>";
         tile.$el.append(img);
         return tile;
     };
 
     grid.setRows = function(data) {
     	rows = data;
-    }
+    };
     // update the template selection
     grid.init = function(rowCount) {
         // get the JSON rows for the selection
@@ -121,16 +127,16 @@ $(function() {
         	grid.setRows (data.result);
         	grid.init(data.result.length);
         	
-        	$('.fancy').fancybox({
-					'autoDimensions':false,
-					'scrolling':'auto',
-					'autoScale':false,
-					'height':400,
-					'speedIn':10,
-					'speedOut':10,
-					'changeSpeed':10,
-					
-			});
+//        	$('.fancy').fancybox({
+//					'autoDimensions':false,
+//					'scrolling':'auto',
+//					'autoScale':false,
+//					'height':400,
+//					'speedIn':10,
+//					'speedOut':10,
+//					'changeSpeed':10,
+//					
+//			});
         }
  		, error: function(data, status, err) {
  			console.log(data);
@@ -175,16 +181,16 @@ $(function() {
 		        	if(data.result.length>0){
 		        		console.log("count:"+data.result.length);
 		        		setTiles(data.result);
-		            	$('.fancy').fancybox({
-		    					'autoDimensions':false,
-		    					'scrolling':'auto',
-		    					'autoScale':false,
-		    					'height':400,
-		    					'speedIn':10,
-		    					'speedOut':10,
-		    					'changeSpeed':10,
-		    					
-		    			});
+//		            	$('.fancy').fancybox({
+//		    					'autoDimensions':false,
+//		    					'scrolling':'auto',
+//		    					'autoScale':false,
+//		    					'height':400,
+//		    					'speedIn':10,
+//		    					'speedOut':10,
+//		    					'changeSpeed':10,
+//		    					
+//		    			});
 		        	}
 		        	
 		        },
