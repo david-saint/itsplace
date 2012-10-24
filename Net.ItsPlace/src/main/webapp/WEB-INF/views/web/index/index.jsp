@@ -54,11 +54,7 @@ padding: 0;
 width: 100%;
 height: 49px;
 }
-.Sketchetik-Light { 
-	font-family: Sketchetik-Light;
-	font-weight: normal;
-	font-style: normal;
-}
+
 .gota { 
 	font-family: gotaregular;
 	font-weight: normal;
@@ -349,7 +345,9 @@ fieldset{
 	<div id="m-container">
 		<div class="inner">
 			<div id="header" class="clearfix">
-				<h1 class="gota logo">place</h1>
+				<h1 class="gota logo">place <div style="font-size: 24px;">
+  <i class="icon-camera-retro"></i> icon-camera-retro
+</div></h1>
 				<nav>
 					<a id="signin" class="fancy">로그인</a>
 					
