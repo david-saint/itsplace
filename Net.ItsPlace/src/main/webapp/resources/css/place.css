@@ -1,7 +1,7 @@
-#text_box li{list-style: none;clear: both;}
-#text_box li span{display: block; float: left;}
-#text_box span.title{width:80px;padding-left:3px;}
-
+body{
+	overflow: scroll;
+	background-color: #fff
+}
  #Comment li{
 	list-style: none outside none;	
 	display:inline;
