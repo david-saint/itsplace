@@ -1,0 +1,34 @@
+#text_box li{list-style: none;clear: both;}
+#text_box li span{display: block; float: left;}
+#text_box span.title{width:80px;padding-left:3px;}
+
+ #Comment li{
+	list-style: none outside none;	
+	display:inline;
+}
+#Comment a{
+	display:inline-block;
+} 
+.social img{
+	width:23px;
+	height:23px;
+}
+.commentList{
+	padding:10px;
+	border:1px solid blue;
+	clear: both;
+}
+.placeContent{
+	border:1px solid red;
+}
+#placeImage{
+	float:left;
+	margin:0px 15px 0px 0px;
+}
+#map{
+	float:left;
+	width:300px;
+	height:300px;
+	border:1px solid red;
+
+}

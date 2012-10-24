@@ -1,3 +1,29 @@
 .hint{color:#bbb;}
+@font-face {
+    font-family: 'gotaregular';
+    src: url('/resources/font/gota-webfont.eot');
+    src: url('/resources/font/gota-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/resources/font/gota-webfont.woff') format('woff'),
+         url('/resources/font/gota-webfont.ttf') format('truetype'),
+         url('/resources/font/gota-webfont.svg#gotaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: '/resources/font/gota_lightregular';
+    src: url('/resources/font/gota_light-webfont.eot');
+    src: url('/resources/font/gota_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/resources/font/gota_light-webfont.woff') format('woff'),
+         url('/resources/font/gota_light-webfont.ttf') format('truetype'),
+         url('/resources/font/gota_light-webfont.svg#gota_lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 

@@ -25,6 +25,7 @@
 		<put-list-attribute name="styles">
   			<add-attribute value="common/normalize.css" />
   			<add-attribute value="css/tiles.css" />
+  			<add-attribute value="css/place.css" />
   			
   		</put-list-attribute>
 	</definition>
