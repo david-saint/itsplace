@@ -59,9 +59,14 @@ height: 49px;
 	font-weight: normal;
 	font-style: normal;
 }
+.gota { 
+	font-family: gotaregular;
+	font-weight: normal;
+	font-style: normal;
+}
 #header .logo {
 float: left;
-font-size:40px;color:#EF8600
+color:#EF8600
 }
 #header #signin, #header #signup {
 position: relative;
@@ -344,7 +349,7 @@ fieldset{
 	<div id="m-container">
 		<div class="inner">
 			<div id="header" class="clearfix">
-				<h1 class="Sketchetik-Light logo"  title="Pulse">place</h1>
+				<h1 class="gota logo">place</h1>
 				<nav>
 					<a id="signin" class="fancy">로그인</a>
 					

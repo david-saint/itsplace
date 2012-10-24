@@ -100,6 +100,9 @@ $(function() {
     
     // wait until users finishes resizing the browser
     var debouncedResize = debounce(function() {
+    	//console.log("resize:"+$(window).width());
+    	//var width = $(window).width() - 200;
+    	//$('#jqmWindow').css("width",width+"px");
         grid.resize();
         grid.redraw(true);
     }, 200);
@@ -107,6 +110,7 @@ $(function() {
     
     // when the window resizes, redraw the grid
     $(window).resize(debouncedResize);
+    
     
     $.ajax({
         type: 'POST'
@@ -135,6 +139,31 @@ $(function() {
  		
  		}
 	});
+
+    enquire.register("screen and (max-width:1000px)", {
+
+	    match : function() {
+	        console.log("handler max-width 1000px");
+	        templateRows = DemoTemplateRows[1];
+	        grid.template = Tiles.Template.fromJSON(templateRows);  
+	        grid.isDirty = true;
+	        grid.resize();
+	        var ids = TILE_IDS.slice(0, grid.template.rects.length);        
+	        grid.updateTiles(ids);
+	        grid.redraw(true);
+	    },
+	 	unmatch : function() {
+	        console.log("unmatch 1000px");
+	        templateRows = DemoTemplateRows[0];
+	        grid.template = Tiles.Template.fromJSON(templateRows);  
+	        grid.isDirty = true;
+	        grid.resize();
+	        var ids = TILE_IDS.slice(0, grid.template.rects.length);        
+	        grid.updateTiles(ids);
+	        grid.redraw(true);
+	    }
+ 
+	}).listen();
     
     $('#search').live('keyup',function(){
 		console.log("sssss:"+$("form").serialize());
