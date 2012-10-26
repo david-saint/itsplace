@@ -10,6 +10,7 @@
 		      <add-attribute value="js/mosaic/js/mosaic.1.0.1.min.js" />
 		      <add-attribute value="admin/components/tipsy/jquery.tipsy.js" />
 		      <add-attribute value="admin/components/fancybox/jquery.fancybox.js" />
+		   
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">  		

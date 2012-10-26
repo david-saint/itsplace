@@ -1,5 +1,7 @@
 body{
-	overflow: scroll;
+	display:none;
+	overflow-y: auto;
+	overflow-x: hidden;
 	background-color: #fff
 }
  #Comment li{

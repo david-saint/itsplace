@@ -1,21 +1,9 @@
-.jqmWindow {
-    display: none;
-    
-    position: fixed;
-top: 0;
-bottom: 0;
-left: 0;
-right: 0;
-z-index: 500;
-   
 
-}
-.jqmOverlay { background-color: #000; }
 .container{
 
 }
 body {
-	background-color: #282828;
+	background-color: white;
 	overflow: hidden;
 	
 }
@@ -27,15 +15,33 @@ body {
 	height: 67px;
 	
 }
+#logo{
+	float: left;
+	padding:12px 0px 0px 20px;
+	margin:12px 40px 0px 0px;border:1px solid blue;
+}
+#menuBox{
+width: 108px;
+height: 24px;
+position: absolute;
+top: 21px;
+right: 160px;
+}
+#searchBox{
+	position: absolute;
+top: 21px;
+right: 10px;
+	
+}
 #header #search{
-	position:absolute;
+	
 	display: block;
 	top:10px;
 	left: 20px;
 	
-	width: 100px;
+	width: 180px;
 	height: 28px;
-	/*padding: 0 10px 0 32px; 이펙트 후에 패딩 추가*/
+	padding: 0 10px 0 32px; 
 	background: url(/resources/images/icon/search_icon.png) white 10px center no-repeat;
 	color: #202020;
 	outline: 0;
@@ -45,23 +51,48 @@ body {
 	border-radius: 3px;
 }
 
+#myPlace{
+	position: absolute;
+	width:100px;
+top: 67px;
+bottom: 56px;
+left: 0;
+overflow-x: hidden;
+overflow-y: scroll;
+border-right: 1px solid #101010;
+background: #282828;
+z-index:9999;
+}
+#myPlace .menu{
+	position: absolute;
+top: 0;
+left: 228px;
+width: 228px;
+margin: 0;
+}
+
+
 .tileContainer{
 	position: absolute;
-	top: 167px;
+	top: 67px;
+	
 	left:0;
 	bottom: 0;
 	right: 0;
-	padding:10px;
-	border:1px solid red;
+	padding:0px 0px 0px 10px;
+	border:0px solid red;
+}
+.showMenu{
+	margin-left:200px;
 }
 .grid {
-	border:1px solid blue;;
+	border:0px solid blue;
     width: 100%;
     height: 100%;
     position: relative;
     overflow-x: hidden;
-    overflow-y: scroll;
-    background-color: #ddd;
+    overflow-y: auto;
+    background-color:white;
    
 }
 
@@ -70,7 +101,7 @@ body {
     position: absolute;
     cursor: pointer;
 }
-.story-bg {
+.place-bg {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -81,29 +112,37 @@ body {
 	bottom: 0;
 	background-color: #282828;
 }
-
-.placeContainer{
-	 width: 100%;
-height: 100%;
+.place-title{
 position: absolute;
-overflow-y: hidden;
--webkit-transition: left 500ms cubic-bezier(0.645,0.045,0.355,1.000);
--moz-transition: left 500ms cubic-bezier(0.645,0.045,0.355,1.000);
--ms-transition: left 500ms cubic-bezier(0.645,0.045,0.355,1.000);
-transition: left 500ms cubic-bezier(0.645,0.045,0.355,1.000); 
-background-color: #EEE;
-	border: 1px solid red;
-position: relative;
-width: 100%;
-margin: 0 auto;
-padding: 35px 15px;
-max-width: 700px;
-overflow: hidden;
-box-sizing: border-box;
--webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
+left: 0;
+right: 0;
+bottom: 0;
+height: 60px;
+background: rgba(0, 0, 0, 0.7);
+padding: 5px;
+color:white;
+}
+.jqmWindow {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 500;
+}
 
+.jqmOverlay { background-color: #000; }
+.placeContainer{
+
+	background-color: #EEE;
+	border: 1px solid red;
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	max-width: 500px;
+	padding: 35px 15px;
+	overflow: hidden;
 }
 #placeView{
 	

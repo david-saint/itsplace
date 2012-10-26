@@ -5,12 +5,17 @@
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
 <script type="text/javascript">
-menuSelected("가맹점검색", "주변검색");
+$(document).ready(function() {
+	
+	$("body").fadeIn("slow");
+});
 
 </script>
 <style type="text/css">
 
+.title{
 
+}
 </style>
 
 <div class="title">
