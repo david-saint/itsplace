@@ -70,6 +70,11 @@ public class PlaceController {
 		
 		return "web/place/list";
 	}
+	@RequestMapping(value = "/place/test", method = RequestMethod.GET)
+	public String ptest(Model model) {
+		
+		return "web/place/test";
+	}
 	/**
 	 * 웹 가맹점 검색
 	 * @param locale

@@ -6,10 +6,9 @@
 <head>
 
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/MyFontsWebfontsKit.css" /> ">		
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
 	<script  src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js" type="text/javascript"></script>
-	<script  src="http://cloud.github.com/downloads/thinkpixellab/tilesjs/tiles.js" type="text/javascript"></script>
+	<!-- <script  src="http://cloud.github.com/downloads/thinkpixellab/tilesjs/tiles.js" type="text/javascript"></script> -->
 	<script type="text/javascript" src="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/matchMedia.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/enquire.min.js"/>"></script>

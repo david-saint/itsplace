@@ -6,7 +6,22 @@
 	<definition name="web/place/list" extends="empty_layout">		
 		<put-attribute name="body" expression="/WEB-INF/views/web/place/list.jsp" />		
 		<put-list-attribute name="scripts">				
+		       <add-attribute value="js/tiles/Tile.js" />
 		      <add-attribute value="js/tiles/demo.js" />
+		      <add-attribute value="js/nodejs/socket.io.js" />
+  		</put-list-attribute>  			
+		
+		<put-list-attribute name="styles">
+  			<add-attribute value="common/normalize.css" />
+  			<add-attribute value="css/tiles.css" />
+  			
+  		</put-list-attribute>
+	</definition>
+	<definition name="web/place/test" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/web/place/test.jsp" />		
+		<put-list-attribute name="scripts">				
+	
+		      <add-attribute value="js/nodejs/socket.io.js" />
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">
@@ -19,12 +34,11 @@
 	<definition name="web/place/view" extends="empty_layout">		
 		<put-attribute name="body" expression="/WEB-INF/views/web/place/view.jsp" />		
 		<put-list-attribute name="scripts">				
-		      <add-attribute value="js/tiles/demo.js" />
+		   
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">
-  			<add-attribute value="common/normalize.css" />
-  			<add-attribute value="css/tiles.css" />
+  			<add-attribute value="common/normalize.css" />  		
   			<add-attribute value="css/place.css" />
   			
   		</put-list-attribute>
