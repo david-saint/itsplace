@@ -5,22 +5,120 @@
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
 <script type="text/javascript">
+var socket = io.connect('http://localhost:8070');
 $(document).ready(function() {
+	socket.on('connect', function () {
+	    console.log("connected socket:"+'${place.fname}' + $('#userName').val());
+	    socket.emit('PlaceOn', { room: '${place.fname}',name:$('#userName').val()});
+	});
+	socket.on("PlaceOn", function (data) {
+		console.log("입장:"+data.room); 
+	});
+	socket.on('SetUserList', function (data) {
+	  	
+	  	console.log("유저목록:"+data);
+	    $('#onlineUsers').empty();
+	  	
+	  	 for(var i=0;i<data.length;i++){
+	  		 console.log("user name:"+data[i]);	       		
+	  		$('#onlineUsers').append('<div>'+data[i]+'</div>');
+	  	 }
+	  	
+	});
+	socket.on('message', function(data) {
+		console.log("message receive");
+        if (data.comment) {
+        	$('.message').last().after('<div class="message"><span>'+data.name + ":</span><span>" + data.comment+'</span></div>');
+        	$('#chatContainer').animate({scrollTop:999999}, 'slow');
+        }
+    });
+	socket.on('error', function(data) {
+		console.log("ddd");
+        if (data.error) {
+        	alert(data.error);
+        }
+    });
 	
+	
+	
+	 $('#btnMessage').live('click',function(){	
+		 //socket.emit('sendMessage', { room: $('#room').val(),userId: $('#userId').val(), message: $('#message').val()});
+		 socket.json.send({ room: '${place.fname}', name:$('#userName').val(), data: $('#message').val() });
+		 
+		// $('#content').append('<p style="color:blue;">'+$('#userId').val() +": " +$('#message').val()+'<p>');
+	 });
+	 $('#message').keyup(function (e) {
+			var keyCode = (event.which) ? event.which : event.keyCode;
+ 			//console.log(keyCode);
+ 			if(keyCode==13){
+ 				socket.json.send({ room: '${place.fname}', name:$('#userName').val(), data: $('#message').val() });
+ 				
+ 			}
+ 	 });
+	 
 	$("body").fadeIn("slow");
 });
 
+
 </script>
 <style type="text/css">
-
-.title{
-
+#placeOn{
+	border:0px solid red;
+}
+#chat{
+	border:0px solid gray;
+	width:80%;
+	height:300px;
+	float:left;
+}
+#chatContainer{
+ width:100%;
+ height:250px;
+ border:1px solid gray;
+ float:left;
+ overflow: auto;
+}
+#messageContainer{
+	width:100%;
+	height:50px;
+	border:1px solid gray; float:left;
+}
+.message{
+	margin:5px;
+}
+#message{
+	margin:5px;
+	padding:5px;
+	width:70%
+}
+#onlineUsers{
+	border:1px solid blue;
+	height:300px;
+	width:19%;
+	float:right;
 }
 </style>
+<input id="userName" type="hidden"  value="<sec:authentication property="principal.user.name" />"/>
+ 
+<div id="placeOn">
+	<div id="chat">
+		<div id="chatContainer">
+			<div class="message"><span></span><span></span></div>
+		</div>
+		<div id="messageContainer">
+			<input type="text" id="message"><button id="btnMessage">보내기</button>
+		</div>
+	</div>
+	<div id="onlineUsers">
+		<h1>online</h1>
+	</div>
+</div>
+<div style="display:none">
 
 <div class="title">
 	<h3>${place.fname}</h3>
 </div>
+  
 
 <section id="placeInfo" class="placeContent">
 	<div id="placeImage">
@@ -299,4 +397,4 @@ $(document).ready(function() {
 		});
 	}
 </script>
-			
+	</div>		
