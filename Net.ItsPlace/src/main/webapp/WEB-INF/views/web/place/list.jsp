@@ -3,30 +3,39 @@
 <c:set var="title" value="도서목록"/>
 
 <script type="text/javascript">
-var socket = io.connect('http://127.0.0.1:8090');
-
+var socket = io.connect('http://localhost:8070');
 socket.on('connect', function () {
-    console.log("connectedconnectedconnectedconnectedconnected");
-    socket.emit('Join', { userid: "gggggggggggggggggggggggggggggggg"});
-  });
-socket.on('user message', function (data) {
-	 console.log("newsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnews:");
+    console.log("connected socket");
+    socket.emit('PlaceOn', { room: 'waitRoom',name:$('#userName').val()});
+});
+socket.on("PlaceOn", function (data) {
+	console.log("입장:"+data.room);
+});
+socket.on('SetUserList', function (data) {
+  	
+  	console.log("유저목록:"+data);
+  //	$('#userList').empty();
+  	
+  	 for(var i=0;i<data.length;i++){
+  		 console.log("user name:"+data[i]);	       		
+  		//$('#userList').append('<p>'+data[i]+'</p>');
+  	 }
+  	
+});
+
 	
-	});
-
-socket.on('broad', message) ;
-
-function message (from, msg) {
-    alert(msg);
-  }
-socket.on('news', function (data) {
-	 console.log("newsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnewsnews:"+data.hello);
-//socket.emit('my other event', { my: 'data' });
+socket.on("SetRoomList", function (data) {
+		console.log("방목록:"+data);
+  //	$('#roomList').empty();
+  	
+  	 for(var i=0;i<data.length;i++){
+  		 console.log("user name:"+data[i]);	       		
+  		//$('#roomList').append('<p>'+data[i]+'</p>');
+  	 }
 });
 $(document).ready(function() {
 	 
 	  
-	 socket.emit('Join2', { userid: "gggggggggggggggggggggggggggggggg"});
 	$('#jqmWindow').jqm({onHide: function(h) { 
 		$('#placeView').contents().find("body").empty();
 		 h.o.remove(); // remove overlay
@@ -87,6 +96,11 @@ function mouseout() {
 
 	<div id="sample2-grid" class="grid" ></div>
 </div>
-   
-
+  
+  <input id="userName" type="hidden"  value="" <sec:authentication property="principal.user.name" />/> 
+ <sec:authorize ifAnyGranted="ROLE_USER">
+ 	이미지: <sec:authentication property="principal.user.name" /> 
+ 	이미지: <sec:authentication property="principal.username" /> 
+ 	이미지: <sec:authentication property="principal.user.profileImageUrl" /> 
+ </sec:authorize>
 

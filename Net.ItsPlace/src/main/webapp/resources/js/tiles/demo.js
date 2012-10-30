@@ -75,7 +75,7 @@ $(function() {
         //console.log("data:"+rows[tileId-1].fname);
         //console.log("data:"+rows[tileId-1].fileName);
 //        img = "<a href=\"/place/view/"+rows[tileId-1].fid+"\" class=\"story-bg iframe fancy\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
-        img = "<div  class=\"place-bg\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" ><div class=\"place-title\">"+rows[tileId-1].fname+"</div></div>";
+        img = "<div fid=\""+rows[tileId-1].fid+"\"  class=\"place-bg\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" ><div class=\"place-title\">"+rows[tileId-1].fname+"</div></div>";
  //       img += "<div class=\"place-title\">"+rows[tileId-1].fileName+"</div>";
   //      img += "</div>";
         tile.$el.append(img);

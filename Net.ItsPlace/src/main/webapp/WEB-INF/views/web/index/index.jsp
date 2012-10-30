@@ -397,7 +397,7 @@ fieldset{
 </section>
 <div style="border:1px solid red;color:white">ssssssss
  <sec:authorize ifAnyGranted="ROLE_USER">
- 	이미지: <sec:authentication property="principal.username" /> 
+ 	이미지: <sec:authentication property="principal.user.email" /> 
  </sec:authorize>
  <sec:authorize access="isAuthenticated()">
   인증됨   <sec:authentication property="principal" />
