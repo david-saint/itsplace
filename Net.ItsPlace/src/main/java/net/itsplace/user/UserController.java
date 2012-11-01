@@ -3,6 +3,7 @@ package net.itsplace.user;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -44,6 +46,11 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PersistentTokenBasedRememberMeServices rememberMeServices;
+	
+	@Autowired
+	private JsonResponse json;
 	
 	@RequestMapping(value = "/signup2", method = RequestMethod.GET)
 	public String signup( Model model,HttpServletRequest request) {
@@ -59,26 +66,57 @@ public class UserController {
 		userService.saveUser(user);
 		return "redirect:/";
 	}
-	@RequestMapping(value = "/user/saveUserJson", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse saveUserJson(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
-	{
-		JsonResponse json = new JsonResponse();
+	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse register(@Validated({AddUser.class}) User user, BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) {
+		logger.info("register--------------------->");
+		
 		if (result.hasErrors()) {
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			 List<ObjectError> errorList = result.getAllErrors();
-			 String errorMessages = "";
-	            for(int i=0; i< errorList.size();i++){
-	                ObjectError error = errorList.get(i);
-	                System.out.println(error.toString());
-	                errorMessages += error.toString();
-	            }
-			json.setResult(result.getFieldError().getDefaultMessage());
-			json.setStatus("FAIL");
+			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			json =  json.getValidationErrorResult(result, json);
 		} else {	
 			userService.saveUser(user);
 			json.setResult(user);
-			json.setStatus("SUCCESS");
+			json.setSuccess();
+			User dbUser = userService.getUser(user.getEmail());
+			CustomUserDetailsService cuser = new CustomUserDetailsService();
+			CustomUserDetails details = new CustomUserDetails(
+					dbUser, 
+					dbUser.getEmail(),						
+					dbUser.getPassword(),
+					true,
+					true,
+					true,
+					true,
+					cuser.getAuthorities("ROLE_USER"));
+			System.out.println("password:"+details.getUser().getPassword() + user.getEmail());
+			logger.info("가입완료");
+			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+			HttpServletRequest nativeReq = request;
+			HttpServletResponse nativeRes = response;
+			nativeReq.setAttribute("_spring_security_remember_me", "1");
 			
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+			rememberMeServices.setKey("itsplace");
+			rememberMeServices.setParameter("_spring_security_remember_me");
+			rememberMeServices.setAlwaysRemember(true);
+			rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+			/*if(rememberMeServices.autoLogin(nativeReq, nativeRes)==null){
+				
+				rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+				System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+				System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+				System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+				System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+			}else{
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+				System.out.println("cookey exit");
+			}*/
 		}		
 		return json;
 	}

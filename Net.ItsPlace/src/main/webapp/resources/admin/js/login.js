@@ -64,7 +64,7 @@ function securityLogin(){
 	    type: "POST",
 	    data: $("#formLogin").serialize(),
 	    beforeSend: function (xhr) {
-	        xhr.setRequestHeader("X-Ajax-call", "true");
+	       // xhr.setRequestHeader("X-Ajax-call", "true");  --> x-requested-with 대체
 	    },
 	    success: function(result) {
     		 hideTop();

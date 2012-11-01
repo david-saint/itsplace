@@ -94,7 +94,7 @@ public class PlaceController {
 		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
 		JsonResponse json = new JsonResponse();
 		json.setResult(searchService.getPlaceList(param));
-		json.setStatus("SUCCESS");
+		json.setSuccess();
 		return json;
 	}
 	/**
@@ -168,7 +168,7 @@ public class PlaceController {
 		 if (result.hasErrors()) {
 				logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 				json.setResult(result.getFieldError().getDefaultMessage());
-				json.setStatus("FAIL");
+				json.setFail();
 		 }else{
 			 placeCommentService.savePlaceComment(placeComment);			
 			 json.setResult("");

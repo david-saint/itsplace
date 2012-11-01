@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.itsplace.util.Encrypt;
+import net.itsplace.util.MailService;
 import net.itsplace.util.StringUtil;
+
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 
@@ -25,6 +27,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private MailService mailService;
 	
 	@Transactional(readOnly=true)
 	public User getUser(String email) {
@@ -181,6 +185,37 @@ public class UserServiceImpl implements UserService {
 	public User getUserByMobile(String mobile) {
 		// TODO Auto-generated method stub
 		return userDao.getUserByMobile(mobile);
+	}
+
+
+	@Override
+	public boolean updateUserPasswordLink(String url, String email){
+		// TODO Auto-generated method stub
+		User user = getUser(email);
+		if(user == null){
+			return false;
+		}
+		String link = Encrypt.md5Encoding(user.getEmail() + Math.random());
+		user.setPasswordLink(link);
+		link = url + "/" + link;
+		userDao.updateUserPasswordLink(user);
+		
+		mailService.sendMail("faye12005@gmail.com", user.getEmail(), "비밀번호 변경", "비번변경하세요 :" +link, user.getName());
+		return true;
+	}
+
+
+	@Override
+	public void updateUserPassword(User user) {
+		// TODO Auto-generated method stub
+		userDao.updateUserPassword(user);
+	}
+
+
+	@Override
+	public User getUserByPasswordLink(String passwordLInk) {
+		// TODO Auto-generated method stub
+		return userDao.getUserByPasswordLink(passwordLInk);
 	}
 
 

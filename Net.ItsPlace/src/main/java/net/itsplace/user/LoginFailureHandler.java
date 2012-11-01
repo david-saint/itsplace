@@ -17,18 +17,17 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         logger.info("LoginFailureHander was Execute ..." + e.getMessage());
-        System.out.println("/user/login 실패시--------------------"+request.getHeader("X-Ajax-call"));
-        
-        if(request.getHeader("X-Ajax-call")!=null){
-        	 if (request.getHeader("X-Ajax-call").equals("true")) {
-                 response.getWriter().print("Email 또는 비밀번호를 확인하세요");
-                 response.getWriter().flush();
-             }
-        }
-        else{
-        	response.sendRedirect(request.getContextPath() + "/login?error=true");
-        }
-        
+    	logger.info("실패:"+request.getHeader("x-requested-with"));
+    	
+        if(request.getHeader("x-requested-with")!=null){ 
+        	
+    		    //android
+                response.getWriter().print("LoginFailed");
+                response.getWriter().flush();
+            
+       }else{
+    	   response.sendRedirect(request.getContextPath() + "/?badCredential=true");
+       }
          
     }
 }

@@ -86,7 +86,10 @@ function mouseout() {
 <div id="header">
 	<div id="logo"> place </div>
 	<div id="searchBox"><form><input type="text" id="search" name="searchWord" /></form></div>
-	<div id="menuBox" ><a id="btnMyPlace" href="#">  메뉴</a></div>
+	<div id="menuBox">
+		<a id="btnMyPlace" href="#">  메뉴</a>
+		<a href="${context}/logout">로그아웃</a>
+	</div>
 	    <p><a id='customAlert' href="#" onclick='socket.send("customAlert")'>publish customAlert</a></p>
         <p><a id='customAlert2' href="#" onclick='socket.send("customAlert2")'>publish customAlert2</a></p>
 </div> 

@@ -34,6 +34,7 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
 "file:src/main/webapp/WEB-INF/spring/upload-context.xml",
 "file:src/main/webapp/WEB-INF/spring/mail-context.xml",
 "file:src/main/webapp/WEB-INF/spring/social-context.xml", 
+"file:src/main/webapp/WEB-INF/spring/task-context.xml", 
 "file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public abstract class TestApplicationContext {
 

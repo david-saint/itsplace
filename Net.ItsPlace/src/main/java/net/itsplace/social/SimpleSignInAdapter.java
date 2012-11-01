@@ -92,7 +92,8 @@ public class SimpleSignInAdapter implements SignInAdapter {
 		//rememberMeServices.setKey("itsplace");
 		//rememberMeServices.setParameter("_spring_security_remember_me");
 		rememberMeServices.setAlwaysRemember(true);
-		if(rememberMeServices.autoLogin(nativeReq, nativeRes)==null){
+		rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+		/*if(rememberMeServices.autoLogin(nativeReq, nativeRes)==null){
 			
 			rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
 			System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
@@ -109,10 +110,12 @@ public class SimpleSignInAdapter implements SignInAdapter {
 			System.out.println("cookey exit");
 			System.out.println("cookey exit");
 		}
-
+*/
 //		SecurityContextHolder.getContext().setAuthentication(rememberMeAuthenticationToken);
 		
-		return extractOriginalUrl(request);
+//		return extractOriginalUrl(request);
+		System.out.println("리다이텍트 소셜 로그인");
+		return "redirect:/places";
 	}
 
 	private String extractOriginalUrl(NativeWebRequest request) {

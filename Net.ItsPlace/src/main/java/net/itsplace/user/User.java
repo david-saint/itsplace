@@ -65,7 +65,14 @@ public class User implements Serializable{
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
 	private String sex;
+	private String passwordLink;
 	
+	public String getPasswordLink() {
+		return passwordLink;
+	}
+	public void setPasswordLink(String passwordLink) {
+		this.passwordLink = passwordLink;
+	}
 	public Date getSaveDate() {
 		return saveDate;
 	}

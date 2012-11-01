@@ -37,6 +37,57 @@
   		</put-list-attribute>
 	</definition>
     
+    <definition name="user/passwordreset" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/user/passwordreset.jsp" />
+  	  			
+		<put-list-attribute name="styles">  		
+  			<add-attribute value="common/common.css" />
+  			<add-attribute value="font/font-awesome.css" />
+  			<add-attribute value="common/normalize.css" />
+  			<add-attribute value="js/mosaic/css/mosaic.css" />
+  			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
+  			<add-attribute value="css/index.css" />
+  		</put-list-attribute>
+  		 
+	</definition>
+	 <definition name="user/passwordreset-send" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/user/passwordreset-send.jsp" />
+		<put-list-attribute name="styles">  		
+  			<add-attribute value="common/common.css" />
+  			<add-attribute value="font/font-awesome.css" />
+  			<add-attribute value="common/normalize.css" />
+  			<add-attribute value="js/mosaic/css/mosaic.css" />
+  			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
+  			<add-attribute value="css/index.css" />
+  		</put-list-attribute>
+	</definition>
+    <definition name="user/passwordchange" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/user/passwordchange.jsp" />
+  	  			
+		<put-list-attribute name="styles">  		
+  			<add-attribute value="common/common.css" />
+  			<add-attribute value="font/font-awesome.css" />
+  			<add-attribute value="common/normalize.css" />
+  			<add-attribute value="js/mosaic/css/mosaic.css" />
+  			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
+  			<add-attribute value="css/index.css" />
+  		</put-list-attribute>
+  		 
+	</definition>
+    <definition name="user/passwordchange-end" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/user/passwordchange-end.jsp" />
+  	  			
+		<put-list-attribute name="styles">  		
+  			<add-attribute value="common/common.css" />
+  			<add-attribute value="font/font-awesome.css" />
+  			<add-attribute value="common/normalize.css" />
+  			<add-attribute value="js/mosaic/css/mosaic.css" />
+  			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
+  			<add-attribute value="css/index.css" />
+  		</put-list-attribute>
+  		 
+	</definition>
+	
 	<definition name="user/me2dayUpdate" extends="empty_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/user/me2dayUpdate.jsp" />
 	</definition>
