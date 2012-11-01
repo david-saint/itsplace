@@ -123,6 +123,31 @@ public class UserDaoImpl extends SqlMapClientDaoSupport implements UserDao {
 	}
 
 
+
+	@Override
+	public void updateUserPasswordLink(User user) {
+		getSqlMapClientTemplate().update("user.setPasswordLink", user);
+		
+	}
+
+
+
+	@Override
+	public void updateUserPassword(User user) {
+		getSqlMapClientTemplate().update("user.setPassword", user);
+		
+	}
+
+
+
+	@Override
+	public User getUserByPasswordLink(String passwordLInk)
+			throws DataAccessException {
+		// TODO Auto-generated method stub
+		return (User)getSqlMapClientTemplate().queryForObject("user.getUserByPasswordLink",passwordLInk);
+	}
+
+
 	
 	
 

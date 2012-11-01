@@ -12,7 +12,10 @@
     	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, ISDELETE, MOBILE, ISEMAIL 
     	 FROM PUSER WHERE EMAIL = #email# 
     </select>
-    
+     <select id="getUserByPasswordLink" resultClass="User" parameterClass="String">
+    	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, ISDELETE, MOBILE, ISEMAIL 
+    	 FROM PUSER WHERE PASSWORDLINK = #email# 
+    </select>
     <select id="getUserEmailToken" resultClass="User" parameterClass="User">
     	 SELECT  EMAIL, PASSWORD, NAME, ROLE, PROFILEIMAGEURL, PROFILEIMAGETYPE, ISDELETE, MOBILE , ISEMAIL 
     	 FROM PUSER WHERE EMAIL = #email# And EMAILTOKEN = #emailToken#
@@ -54,6 +57,18 @@
     	UPDATE PUSER SET 	    
 	    	PROFILEIMAGETYPE = #profileImageType#,
 	    	PROFILEIMAGEURL  = #profileImageUrl#
+    	WHERE
+    		EMAIL = #email#     	
+    </update>
+    <update id="setPasswordLink" parameterClass="User">
+    	UPDATE PUSER SET 	    
+	    	PASSWORDLINK = #passwordLink#	    	
+    	WHERE
+    		EMAIL = #email#     	
+    </update>
+    <update id="setPassword" parameterClass="User">
+    	UPDATE PUSER SET 	    
+	    	PASSWORD = #password#
     	WHERE
     		EMAIL = #email#     	
     </update>

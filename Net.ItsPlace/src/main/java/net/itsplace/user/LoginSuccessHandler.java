@@ -39,6 +39,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		
 		System.out.println("onAuthenticationSuccess start");
 		String requestUrl;
+		userService.updateUserPasswordLink("","");
 		User user = userService.getUser(authentication.getName());
 		//request.getSession().setAttribute("USERSESSION",user);
 		System.out.println("_spring_security_remember_me: "+request.getParameter("_spring_security_remember_me"));
@@ -62,18 +63,19 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     	}
         if(user.getRole().equals("ROLE_FID") || user.getRole().equals("ROLE_FRANCHISER")){
         	List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
-
-     		if(UserInfo.getFid()==0){
-     			UserInfo.setFid(placeList.get(0).getFid());
-     		}
-     		UserInfo.setPlaceList(placeList);
+        	if(placeList.size()>0){
+        		if(UserInfo.getFid()==0){
+         			UserInfo.setFid(placeList.get(0).getFid());
+         		}
+         		UserInfo.setPlaceList(placeList);
+        	}
+     		
         }else{
         	List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
-
-     		if(UserInfo.getFid()==0){
-     			UserInfo.setFid(placeList.get(0).getFid());
-     		}
-     		UserInfo.setPlaceList(placeList);
+        	if(placeList.size()>0){
+         		UserInfo.setPlaceList(placeList);
+        	}
+     		
         }
        
 		
@@ -99,12 +101,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         	 logger.info("Default Request Redirect URL: {}",request.getRequestURL() );
            //getRedirectStrategy().sendRedirect(request, response, ");
         	 if(logger.isInfoEnabled()){//개발모
-        		 logger.info("Default Request Redirect URI: {}",request.getRequestURI() );
+        		
         		
         		 
-        		 if(request.getHeader("X-Ajax-call")!=null){
+        		 if(request.getHeader("x-requested-with")!=null){
         			 logger.info("ajax Login Success");
-        			 if (request.getHeader("X-Ajax-call").equals("true")) {
+        			 if (request.getHeader("x-requested-with").equals("true")) {
         				 if( UserInfo.getUser().getRole().equals("ROLE_ADMIN") ){
         		            response.getWriter().print("ROLE_ADMIN");
         		            response.getWriter().flush();
@@ -114,14 +116,18 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         		           
         		        }
         			 }
-        		 }else{        			 
-        			 getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
+        		 }else{        	
+        			 logger.info("리다이렉트리다이렉트리다이렉트리다이렉트리다이렉트");
+        			 getRedirectStrategy().sendRedirect(request, response, "/places");
+        			// getRedirectStrategy().sendRedirect(request, response, request.getRequestURL().toString());
         		 }
         	 }else{
-        		 super.onAuthenticationSuccess(request, response, authentication); 
+        		 logger.info("리다이렉트");
+        		 getRedirectStrategy().sendRedirect(request, response, "/places");
+        		// super.onAuthenticationSuccess(request, response, authentication); 
         	 }
             
-            
+        	 
         }			
         System.out.println("onAuthenticationSuccess end");
 	}

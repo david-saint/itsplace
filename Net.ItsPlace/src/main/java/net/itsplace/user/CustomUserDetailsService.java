@@ -50,7 +50,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 			logger.info("Login:{}","loadUserByUsername");
 			net.itsplace.user.User dbUser = (net.itsplace.user.User)getSqlMapClientTemplate().queryForObject("user.getUser",username);	 
 			
-			
+		
 			
 			
 			// Populate the Spring User object with details from the dbUser

@@ -11,12 +11,14 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 public interface UserDao {
 	/* 사용자 정보를 가져온다*/
 	public User getUser(String email) throws DataAccessException;
+	public User getUserByPasswordLink(String passwordLInk) throws DataAccessException;
 	public User getUser(String email,String token) throws DataAccessException;	
 	public User getUserByMobile(String mobile) throws DataAccessException;
 	
 	public void setUserEmailOn(User user) throws DataAccessException;
 	
-	
+	public void updateUserPasswordLink(User user);
+	public void updateUserPassword(User user);
 	/* 사용자 리스트를 가져온다*/
 	public List<User>  getUserList(Map<String, Object> param) throws DataAccessException;
 	/* 사용자를 저장한다*/

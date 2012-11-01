@@ -19,7 +19,7 @@
 		<intercept-url pattern="/admin/place/event/getPlaceEventList" access="hasRole('ROLE_USER')"/>
 		
 		
-		<intercept-url pattern="/" access="permitAll"/>
+		<intercept-url pattern="/**" access="permitAll"/>
 		<intercept-url pattern="/getmessage" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="*" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/social/**" access="hasRole('ROLE_USER')"/>
@@ -28,13 +28,12 @@
 		<intercept-url pattern="/place/view/**" access="permitAll"/>
 		<intercept-url pattern="/place/fbylocation/lat/*" access="permitAll" />
 		<intercept-url pattern="/place/fbylocation/lat/*/lot/*" access="permitAll" />
-		 <intercept-url pattern="/user/**" access="permitAll"/>
+	
 		<intercept-url pattern="/openapi/*" access="permitAll"/>
 		
 		<intercept-url pattern="/user/common" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/user/confirmEmail" access="hasRole('ROLE_USER')"/>			
-		
-		<intercept-url pattern="/user/newAccountJson/**" access="permitAll"/>
+		<intercept-url pattern="/user/register" access="permitAll"/>
 		<intercept-url pattern="/user/getUser" access="permitAll"/>
 		
 		<intercept-url pattern="/css/**" access="permitAll"/>
@@ -45,9 +44,9 @@
 		<intercept-url pattern="/partner/franchiserList" access="permitAll"/>	
 		
 	<intercept-url pattern="/user/JqUserList" access="hasRole('ROLE_ADMIN')"/>	
-		<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>	
 		<intercept-url pattern="/partner/franchiserListJson/**" access="permitAll"/>	
-		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>				
+		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>	
+					
 		<intercept-url pattern="/signin/**" access="permitAll" />
 		<intercept-url pattern="/signup/**" access="permitAll" />
 		<intercept-url pattern="/search/**" access="permitAll" />
@@ -57,7 +56,7 @@
 		
 		<intercept-url pattern="/stamp/*" access="permitAll"/>		
 		<form-login 
-				login-page="/login"
+				login-page="/"
 				login-processing-url="/signin/authenticate" 				
 				authentication-success-handler-ref="loginSuccessHandler"
 				authentication-failure-handler-ref="loginFailureHandler" 
@@ -67,7 +66,7 @@
 		
 		<logout 
 				invalidate-session="true" 
-				logout-success-url="/login" 			
+				logout-success-url="/" 			
 				logout-url="/logout" />
 		
 		<remember-me key="itsplace" data-source-ref="dataSource"   authentication-success-handler-ref="loginSuccessHandler" />		
