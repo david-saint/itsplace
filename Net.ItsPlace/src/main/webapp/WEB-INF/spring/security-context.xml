@@ -19,12 +19,12 @@
 		<intercept-url pattern="/admin/place/event/getPlaceEventList" access="hasRole('ROLE_USER')"/>
 		
 		
-		<intercept-url pattern="/**" access="permitAll"/>
+		
 		<intercept-url pattern="/getmessage" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="*" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/social/**" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/place*" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/place/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/places*" access="hasRole('ROLE_USER')"/>
+		
 		<intercept-url pattern="/place/view/**" access="permitAll"/>
 		<intercept-url pattern="/place/fbylocation/lat/*" access="permitAll" />
 		<intercept-url pattern="/place/fbylocation/lat/*/lot/*" access="permitAll" />
@@ -33,7 +33,7 @@
 		
 		<intercept-url pattern="/user/common" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/user/confirmEmail" access="hasRole('ROLE_USER')"/>			
-		<intercept-url pattern="/user/register" access="permitAll"/>
+		<intercept-url pattern="/user/register*" access="permitAll"/>
 		<intercept-url pattern="/user/getUser" access="permitAll"/>
 		
 		<intercept-url pattern="/css/**" access="permitAll"/>
@@ -43,7 +43,7 @@
 		<intercept-url pattern="/partner/*/*" access="permitAll"/>	
 		<intercept-url pattern="/partner/franchiserList" access="permitAll"/>	
 		
-	<intercept-url pattern="/user/JqUserList" access="hasRole('ROLE_ADMIN')"/>	
+     	<intercept-url pattern="/user/JqUserList" access="hasRole('ROLE_ADMIN')"/>	
 		<intercept-url pattern="/partner/franchiserListJson/**" access="permitAll"/>	
 		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>	
 					

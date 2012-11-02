@@ -19,24 +19,88 @@ body {
 	float: left;
 	padding:12px 0px 0px 20px;
 	margin:12px 40px 0px 0px;border:1px solid blue;
+	cursor: pointer;
 }
 #menuBox{
-width: 108px;
-height: 24px;
-position: absolute;
-top: 21px;
-right: 160px;
+	width: 108px;
+	height: 24px;
+	position: absolute;
+	top: 21px;
+	right: 420px;
 }
 #searchBox{
 	position: absolute;
-top: 21px;
-right: 10px;
+	top: 15px;
+	left: 80px;
 	
+}
+#userBox{
+	position: absolute;
+	top: 2px;
+	right: 10px;
+	border:0px solid red;
+	width: 52px;
+	cursor: pointer;
+}
+#userBox #name{
+	position: absolute;
+	left: 34px;
+	top: 12px;
+	font-size: 16px;
+	text-shadow: 0 0 1px black;
+	width: 130px;
+}
+#userBox img{
+	display: block;
+	height: 52px;
+	width: 52px;
+	border: 1px solid white;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+#userDetail{
+	position: absolute;
+	right: 5px;
+	top: 65px;
+	width:300px;
+	height:300px;
+  background-color:#EDEDED;
+  border:2px solid #666666;
+	
+}
+.userDetailNone{
+	display:none;
+
+}
+.userDetailBlock{
+   display:block;
+}
+.arrow-border {
+  border-color: transparent  transparent #666666 transparent  ;
+  border-style: solid;
+  border-width: 10px;
+  height:0;
+  width:0;
+  position:absolute;
+  top:-17px;
+  right:20px;
+}
+
+.arrow {
+  border-color: transparent  transparent #EDEDED transparent  ;
+  border-style: solid;
+  border-width: 10px;
+  height:0;
+  width:0;
+  position:absolute;
+ top:-17px;
+  right:20px;
 }
 #header #search{
 	
 	display: block;
-	top:10px;
+	top:-10px;
 	left: 20px;
 	
 	width: 180px;
@@ -52,13 +116,15 @@ right: 10px;
 }
 
 #myPlace{
+	border: 1px solid red;
 	position: absolute;
-	width:100px;
+	
+	height:100%;
 top: 67px;
-bottom: 56px;
+
 left: 0;
 overflow-x: hidden;
-overflow-y: scroll;
+overflow-y: hidden;
 border-right: 1px solid #101010;
 background: #282828;
 z-index:9999;
@@ -71,20 +137,22 @@ width: 228px;
 margin: 0;
 }
 
-
-.tileContainer{
+.showMyPlace{
+	width:220px;
+}
+.showMenu{
+	margin-left:220px;
+}
+#tileContainer{
 	position: absolute;
 	top: 67px;
-	
 	left:0;
 	bottom: 0;
 	right: 0;
 	padding:0px 0px 0px 10px;
 	border:0px solid red;
 }
-.showMenu{
-	margin-left:200px;
-}
+
 .grid {
 	border:0px solid blue;
     width: 100%;
@@ -111,8 +179,17 @@ margin: 0;
 	right: 0;
 	bottom: 0;
 	background-color: #282828;
+	
 }
-.place-title{
+.place-view{
+position: absolute;
+left: 0;
+right: 0;
+height: 100%;
+padding: 5px;
+color:white;	
+}
+.place-info{
 position: absolute;
 left: 0;
 right: 0;
@@ -121,6 +198,16 @@ height: 60px;
 background: rgba(0, 0, 0, 0.7);
 padding: 5px;
 color:white;
+}
+.user-count{
+
+color:white;	
+}
+.placeName{
+	margin: 0px;
+}
+.placeOn{
+	z-index: 999;
 }
 .jqmWindow {
 	display: none;
@@ -152,4 +239,57 @@ background: white;
 border: 0;
 z-index: 2;
 
+}
+
+/*채팅*/
+
+#chatClose{
+	float:right;
+	cursor: pointer;
+}
+
+#placeOn{
+	border:0px solid red;
+	position:absolute;
+	right:50px;
+	bottom:50px;
+	width:400px;
+	height:400px;
+}
+#chat{
+	border:0px solid gray;
+	width:80%;
+	height:300px;
+	float:left;
+}
+#chatContainer{
+ width:100%;
+ height:250px;
+ border:1px solid gray;
+ float:left;
+ overflow: auto;
+}
+#messageContainer{
+	width:100%;
+	height:50px;
+	border:1px solid gray; float:left;
+}
+.message{
+	margin:5px;
+}
+#message{
+	margin:5px;
+	padding:5px;
+	width:70%
+}
+#onlineUsers{
+	border:1px solid gray;
+	height:300px;
+	width:19%;
+	float:right;
+}
+#chatTilte{
+	border:1px solid gray;
+	height:15px;
+	width:100%;
 }

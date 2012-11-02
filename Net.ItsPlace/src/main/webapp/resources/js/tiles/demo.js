@@ -1,3 +1,46 @@
+var socket = io.connect('http://localhost:8070');
+socket.on('connect', function () {
+    console.log("connected socket:"+$('#userName').val());
+    socket.emit('PlaceOn', { room: 'waitRoom', name:$('#userName').val()});
+});
+socket.on("PlaceOn", function (data) {
+	console.log("입장:"+data.room); 
+	$('.message').last().after('<div class="message"><span>'+data.success + '</span></div>');
+});
+socket.on('SetUserList', function (data) {
+  	
+  	console.log("유저목록:"+data.room +"("+ data.userList.length+")");
+    $('#onlineUsers').empty();
+  	
+  	 for(var i=0;i<data.userList.length;i++){
+  		 console.log("user name:"+data.userList[i]);	       		
+  		$('#onlineUsers').append('<div>'+data.userList[i]+'</div>');
+  	 }
+  	
+});
+socket.on('message', function(data) {
+	console.log("message receive");
+    if (data.comment) {
+    	$('.message').last().after('<div class="message"><span>'+data.name + ":</span><span>" + data.comment+'</span></div>');
+    	$('#chatContainer').animate({scrollTop:999999}, 'slow');
+    }
+});
+socket.on('UserCountByRoom', function(data) {
+	console.log(data);
+	for(i=0;i<data.roomList.length;i++){
+		console.log("UserCountByRoom:"+data.roomList[i].fname+"count:"+data.roomList[i].userCount);
+		//console.log("UserCountByRoom:"+data.roomList[i].fname);
+		$('#'+data.roomList[i].fid).find('.user-count').text("Place On-"+data.roomList[i].userCount);
+		//$('#'+data.roomList[i].fid).remove();
+	}
+    
+});
+socket.on('error', function(data) {
+	console.log("ddd");
+	if (data.error) {
+		alert(data.error);
+	}
+});
 // The grid manages tiles using ids, which you can define. For our
 // examples we'll just use the tile number as the unique id.
 var TILE_IDS = [
@@ -48,7 +91,20 @@ var grid;
 var rows;
 var isMobile;
 $(function() {
-
+	$('#btnMessage').live('click',function(){	
+		 //socket.emit('sendMessage', { room: $('#room').val(),userId: $('#userId').val(), message: $('#message').val()});
+		 socket.json.send({ room: $('#currentRoom').val(), name:$('#userName').val(), data: $('#message').val() });
+		 
+		// $('#content').append('<p style="color:blue;">'+$('#userId').val() +": " +$('#message').val()+'<p>');
+	 });
+	 $('#message').keyup(function (event) {
+			var keyCode = (event.which) ? event.which : event.keyCode;
+			console.log("키코드:"+keyCode);
+			if(keyCode==13){
+				socket.json.send({ room: $('#currentRoom').val(), name:$('#userName').val(), data: $('#message').val() });
+				
+			}
+	 });
     var el = document.getElementById('sample2-grid'),
         grid = new Tiles.Grid(el);
 
@@ -65,25 +121,38 @@ $(function() {
         var tile = new Tiles.Tile(tileId);
        // tile.$el.append('<div class="dev-tile-number">' + tileId + 'y</div>');
         
-        tile.$el.live('click',function() {
+     /*   tile.$el.live('click',function() {
         	 console.log($(this).html());
         	 $('#placeView').attr('src','/place/view/'+rows[tileId-1].fid);
         	 $('#jqmWindow').jqmShow();
         	 
-        });
+        });*/
         
         //console.log("data:"+rows[tileId-1].fname);
         //console.log("data:"+rows[tileId-1].fileName);
 //        img = "<a href=\"/place/view/"+rows[tileId-1].fid+"\" class=\"story-bg iframe fancy\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >";
-        img = "<div fid=\""+rows[tileId-1].fid+"\"  class=\"place-bg\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" ><div class=\"place-title\">"+rows[tileId-1].fname+"</div></div>";
+        var html = new StringBuffer();
+        html.append("<div id=\""+rows[tileId-1].fid+"\"  class=\"place-bg\"");
+        html.append("style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >");
+        html.append("<div class=\"place-view\"></div>");
+        html.append("<div class=\"place-info\"><p class=\"placeName\">"+rows[tileId-1].fname+"</p>");
+//        html.append("<span class=\"user-count placeOn\">On-"+rows[tileId-1].placeOn+"</span>");
+        html.append("<span class=\"user-count placeOn\"></span>");
+        html.append("</div>");
+        html.append("</div>");
+        //img = "<div id=\""+rows[tileId-1].fid+"\"  class=\"place-bg\" style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" ><div class=\"place-title\">"+rows[tileId-1].fname+"</div></div>";
  //       img += "<div class=\"place-title\">"+rows[tileId-1].fileName+"</div>";
   //      img += "</div>";
-        tile.$el.append(img);
+        tile.$el.append(html.toString());
+       
         return tile;
     };
 
     grid.setRows = function(data) {
     	rows = data;
+    };
+    grid.getRows = function(data) {
+    	return rows;
     };
     // update the template selection
     grid.init = function(rowCount) {
@@ -141,6 +210,10 @@ $(function() {
         , success: function(data) {
         	//console.log(data);
         	console.log("count:"+data.result.length);
+        	for(i=0;i<data.result.length;i++){
+        		console.log( data.result[i].fname);
+        	}
+        	socket.emit('UserCountByRoom', { roomList:data.result});
         	grid.setRows (data.result);
         	grid.init(data.result.length);
         	
@@ -159,10 +232,33 @@ $(function() {
  			console.log(data);
  		}
  		, complete: function() {
- 		
+ 			 $('.place-info').live('click',function(e) {
+ 				socket.emit('PlaceChange', { prevRoom:$('#currentRoom').val(), room: $(this).find('p').text() ,'name':$('#userName').val()});
+ 				
+ 				console.log("방변경:"+ $('#currentRoom').val() +"--->"+$(this).find('p').text());
+ 				$('#currentRoom').val($(this).find('p').text());
+ 				socket.emit('UserCountByRoom', { roomList:grid.getRows()});
+ 				$('#placeOn').show();
+ 	        });
+ 			$('.place-view').live('click',function(e) {
+ 				 $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
+ 	        	 $('#jqmWindow').jqmShow();
+ 			});
+ 			 $('#chatClose').live('click',function(){
+ 				 //socket.disconnect();
+ 				 $('#placeOn').hide();
+ 				 socket.emit('PlaceChange', { prevRoom:$('#currentRoom').val(), room: 'waitRoom' ,'name':$('#userName').val()});
+ 				console.log("방변경:"+ $('#currentRoom').val() +"--->대길실로");
+ 				 socket.emit('UserCountByRoom', { roomList:grid.getRows()});
+ 				 $('#currentRoom').val('waitRoom');
+ 			});
  		}
 	});
 
+    //채팅
+   
+    
+    //미디어 쿼리
     enquire.register("screen and (max-width:468px)", {
 
 	    match : function() {

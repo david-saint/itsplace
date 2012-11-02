@@ -113,9 +113,10 @@ public class SimpleSignInAdapter implements SignInAdapter {
 */
 //		SecurityContextHolder.getContext().setAuthentication(rememberMeAuthenticationToken);
 		
-//		return extractOriginalUrl(request);
+//		
 		System.out.println("리다이텍트 소셜 로그인");
-		return "redirect:/places";
+		//return "redirect:/places";
+		return extractOriginalUrl(request);
 	}
 
 	private String extractOriginalUrl(NativeWebRequest request) {

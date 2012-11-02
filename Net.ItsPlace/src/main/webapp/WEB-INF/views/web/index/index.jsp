@@ -25,17 +25,15 @@ $(document).ready(function() {
 		 $('#signinForm').slideUp();
 	 });
 	 
-	 $('#register-form').submit(function() {
+	 $('#register-form').submit(function(){
 			var url = "${context}/user/register";
 			$.ajax({
               url: url,
               type:"POST",                                
-              data:$("#register").serialize(),                   
+              data:$("#register-form").serialize(),                   
               success: function(response){
                 if(response.status=="SUCCESS"){
-             	   
              	   document.location.href='${context}/places';
-             	   
                 }else{                 
              	 //  console.log("결과:"+response.result);
              	   
@@ -44,7 +42,6 @@ $(document).ready(function() {
                         
                         if($(field).length <= 0 ){
                      	  field =  $('select[name='+response.result[i].field+']').next()//label;
-                     	  
                      	  
                         }
                         console.log("필드:"+field);
@@ -58,8 +55,9 @@ $(document).ready(function() {
              	 //setTimeout("c.unloading()",1500); 
               }
             });//ajax
+            return false;
 		});
-	 $('#register').find('input').live('click',function() {
+	 $("#register-form").find('input').live('click',function() {
 		 $(this).next().text("");
 	 });
 	 
