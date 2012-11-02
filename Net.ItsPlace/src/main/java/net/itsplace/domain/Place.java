@@ -77,6 +77,7 @@ public class Place {
 	private String payInfo;
 	private String bldInfo;
 	private String parkInfo;
+	private int placeOn;
 	
 	private int pageBlock = 10;
 	private int pageSize  = 5;
@@ -86,6 +87,12 @@ public class Place {
 	private int start = 0;
 	
 	
+	public int getPlaceOn() {
+		return placeOn;
+	}
+	public void setPlaceOn(int placeOn) {
+		this.placeOn = placeOn;
+	}
 	public String getPayInfo() {
 		return payInfo;
 	}

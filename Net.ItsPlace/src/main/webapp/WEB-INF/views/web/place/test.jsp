@@ -3,13 +3,16 @@
 <c:set var="title" value="도서목록"/>
 
 <script type="text/javascript">
-var socket = io.connect('http://localhost:8070');
+
 //var socket = io.connect('http://test.faye12005.c9.io');
 
 
 $(document).ready(function() {
-	 
-	  
+	 for(i=0; i<1000;i++){
+		 console.log('c');
+		 var socket = io.connect('http://localhost:8070'); 
+	 }
+	
 	
 	 $('#waitRoom').live('click',function(){	
 		//대기실 입장
