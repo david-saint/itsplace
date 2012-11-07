@@ -82,7 +82,11 @@ $(document).ready(function() {
 		
 		return false;
 	});
-	
+	$('#chatUsers').live('click',function(){
+		$('.chatUsersOn').switchClass("chatUsersOn","chatUsersOff",100);
+		$('.chatUsersOff').switchClass("chatUsersOff","chatUsersOn",100);
+		return false;
+	});
 	
 });
 function showMenu() {
@@ -145,7 +149,11 @@ function mouseout() {
 	<div id="sample2-grid" class="grid" ></div>
 </div>
 <div id="placeOn">
-	<div id="chatTilte"><img id="chatClose" src="${context}/resources/images/icon/keyamoon/16px/cancel.png" /></div>
+	<div id="chatHeader">
+		<div id="roomTitle"></div>
+		<img id="chatClose" src="${context}/resources/images/icon/keyamoon/16px/cancel.png" />
+		<img id="chatUsers" src="${context}/resources/images/icon/keyamoon/16px/enter.png" />
+	</div>
 	<div id="chat">
 		<div id="chatContainer">
 			<div class="message"><span></span><span></span></div>
@@ -154,12 +162,12 @@ function mouseout() {
 			<input type="text" id="message"><button id="btnMessage">보내기</button>
 		</div>
 	</div>
-	<div id="onlineUsers">
-		<h1>online</h1>
+	<div id="onlineUsers" class="chatUsersOff">
+		<p>online</p>
 	</div>
 </div>
   
-<input id="userName" type="hidden"  value="<sec:authentication property="principal.user.name" />"/> 
+<input id="userName" type="hidden"  value="<img class='chatProfile' src='<sec:authentication property="principal.user.profileImageUrl" />'/><sec:authentication property="principal.user.name" />"/> 
 <input id="currentRoom" type="hidden"  value="waitRoom"/> 
 
 

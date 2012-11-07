@@ -242,25 +242,56 @@ z-index: 2;
 }
 
 /*채팅*/
-
+#chatHeader{
+	border:1px solid gray;
+	height:15px;
+	width:100%;
+	padding:5px;
+}
+#chatHeader #roomTitle{
+	float:left;
+}
 #chatClose{
 	float:right;
 	cursor: pointer;
 }
-
+#chatUsers{
+	float:right;
+	cursor: pointer;
+	margin:0 5px 0 0;
+}
+.chatUsersOn{
+	display:block;
+}
+.chatUsersOff{
+	display:none;
+}
+.chatProfile{
+	width:16px;
+	height:16px;
+	vertical-align:middle;
+}
 #placeOn{
 	border:0px solid red;
 	position:absolute;
-	right:50px;
-	bottom:50px;
-	width:400px;
-	height:400px;
+	right:20px;
+	bottom:60px;
+	width:300px;
+	height:300px;
 }
 #chat{
 	border:0px solid gray;
-	width:80%;
+	width:100%;
 	height:300px;
 	float:left;
+}
+#onlineUsers{
+	position:absolute;
+	border:1px solid gray;
+	padding:8px;
+	height:240px;	
+	top:27px;
+	right:0px;
 }
 #chatContainer{
  width:100%;
@@ -268,28 +299,31 @@ z-index: 2;
  border:1px solid gray;
  float:left;
  overflow: auto;
+ padding:5px;
+}
+#onlineUsers{
+	vertical-align:middle;
+	font-size:90%;
 }
 #messageContainer{
 	width:100%;
 	height:50px;
-	border:1px solid gray; float:left;
+	border:1px solid gray;
+	 float:left;
+	 padding:5px;
 }
 .message{
 	margin:5px;
+}
+.message .name{
+	font-size:100%;
+}
+.message {
+	font-size:75%;
 }
 #message{
 	margin:5px;
 	padding:5px;
 	width:70%
 }
-#onlineUsers{
-	border:1px solid gray;
-	height:300px;
-	width:19%;
-	float:right;
-}
-#chatTilte{
-	border:1px solid gray;
-	height:15px;
-	width:100%;
-}
+
