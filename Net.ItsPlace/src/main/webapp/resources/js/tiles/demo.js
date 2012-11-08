@@ -91,12 +91,7 @@ var DemoTemplateRows = [
 //var rows;
 var isMobile;
 $(function() {
-	$('#btnMessage').live('click',function(){	
-		 //socket.emit('sendMessage', { room: $('#room').val(),userId: $('#userId').val(), message: $('#message').val()});
-		 socket.json.send({ room: $('#currentRoom').val(), name:$('#userName').val(), data: $('#message').val() });
-		 
-		// $('#content').append('<p style="color:blue;">'+$('#userId').val() +": " +$('#message').val()+'<p>');
-	 });
+
 	 $('#message').keyup(function (event) {
 			var keyCode = (event.which) ? event.which : event.keyCode;
 			console.log("키코드:"+keyCode);

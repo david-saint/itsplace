@@ -43,7 +43,7 @@ public class IndexController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(@RequestParam(value="badCredential", required=false) boolean badCredential, Locale locale, Model model) {
-		
+		Locale.setDefault(locale) ;
 		logger.info("사용자 메인 페이지:"+badCredential);
 		
 	

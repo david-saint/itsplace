@@ -66,7 +66,7 @@ public class SearchController {
 		return searchService.placeInfo(p);
 	}
 	/**
-	 * 웹 가맹점 검색
+	 * Tile검색
 	 * @param locale
 	 * @param model
 	 * @return

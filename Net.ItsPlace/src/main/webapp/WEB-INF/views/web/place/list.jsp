@@ -159,7 +159,7 @@ function mouseout() {
 			<div class="message"><span></span><span></span></div>
 		</div>
 		<div id="messageContainer">
-			<input type="text" id="message"><button id="btnMessage">보내기</button>
+			<textarea  id="message"></textarea>
 		</div>
 	</div>
 	<div id="onlineUsers" class="chatUsersOff">

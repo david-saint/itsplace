@@ -2,6 +2,7 @@ package net.itsplace.web.service;
 
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import net.itsplace.domain.Place;
@@ -33,7 +34,19 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public List<Place> getPlaceList(Map<String, Object> param) {
-		return searchDao.getPlaceList(param);
+		System.out.println("기본로케일"+Locale.getDefault());
+		if(Locale.getDefault().equals("ko")){
+			return searchDao.getPlaceList(param);
+		}else{
+			List<Place> list = searchDao.getPlaceList(param);
+			for(int i=0;i<list.size();i++){
+				Place place =list.get(i);
+				place.setFname(place.getEname());
+				list.set(i, place);
+			}
+			return list;
+		}
+		
 	}
 
 	@Override
@@ -43,7 +56,17 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public List<Place> getPlaceListByTile(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-		return searchDao.getPlaceListByTile(param);
+		if(Locale.getDefault().equals("ko")){
+			return searchDao.getPlaceListByTile(param);
+		}else{
+			List<Place> list = searchDao.getPlaceListByTile(param);
+			for(int i=0;i<list.size();i++){
+				Place place =list.get(i);
+				place.setFname(place.getEname());
+				list.set(i, place);
+			}
+			return list;
+		}
+		
 	}
 }

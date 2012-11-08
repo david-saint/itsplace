@@ -297,6 +297,7 @@ z-index: 2;
  width:100%;
  height:250px;
  border:1px solid gray;
+ border-top:0px;
  float:left;
  overflow: auto;
  padding:5px;
@@ -307,23 +308,23 @@ z-index: 2;
 }
 #messageContainer{
 	width:100%;
-	height:50px;
+	
 	border:1px solid gray;
+	border-top:0px;
 	 float:left;
 	 padding:5px;
 }
-.message{
-	margin:5px;
-}
+
 .message .name{
 	font-size:100%;
 }
 .message {
+	margin:5px;
 	font-size:75%;
 }
 #message{
-	margin:5px;
-	padding:5px;
-	width:70%
+	border:0;
+	width:100%;
+	outline: 0;
 }
 
