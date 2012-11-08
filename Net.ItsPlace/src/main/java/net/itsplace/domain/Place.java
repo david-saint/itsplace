@@ -18,6 +18,8 @@ public class Place {
 	private int fid; //프랜차이저 고유키
 	@NotEmpty
 	private String fname; //가맹점명
+	
+	private String ename;
 	@NotEmpty
 	private String name; //신청자명
 	
@@ -87,6 +89,12 @@ public class Place {
 	private int start = 0;
 	
 	
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 	public int getPlaceOn() {
 		return placeOn;
 	}

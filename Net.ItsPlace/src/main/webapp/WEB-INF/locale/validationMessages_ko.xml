@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>validationMessages_ko.properties</comment>
+<entry key="NotEmpty.bookInfo.title">도서 제목이 없습니다</entry>
+<entry key="NotNull.bookInfo.count">도서 총 수량을 입력하세요!</entry>
+<entry key="NotEmpty">필수 입력입니다s</entry>
+<entry key="ExistUsers.dtoBookRestriction.restrictUsers">{0} 사용자가 존재하지 않습니다</entry>
+<entry key="typeMismatch.bookInfo.count">숫자만 가능합니다	</entry>
+<entry key="NotNull.dtoBookRestriction.restrictUsers">ssss</entry>
+<entry key="NotEmpty.dtoBookRestriction.restrictReason">정지 사유를 선택하세요</entry>
+<entry key="NotNull.dtoBookRestriction.restrictReason">정지 사유를 선택하세요</entry>
+<entry key="NotEmpty.bookInfo.authors">도서 저자가 없습니다</entry>
+<entry key="admin.error.message">서버오류가 발생하였습니다</entry>
+<entry key="UniqueIsbn">이미 등록된 코드입니다</entry>
+<entry key="ExistIsbn">등록되지 않은 도서입니다.</entry>
+<entry key="typeMismatch.dtoBookRestriction.restrictReason">ssss3333</entry>
+<entry key="typeMismatch.bookCategory.bookCategorySub.bookCategoryRoot.id">대분류를 선택하세요</entry>
+<entry key="typeMismatch.bookCategory.bookCategorySub.id">소분류를 선택하세요</entry>
+<entry key="NotEmpty.bookInfo.isbn">Isbn을 입력하세요</entry>
+<entry key="typeMismatch.bookInfo.bookCategory.id">카테고리를 선택하세요</entry>
+<entry key="NotEmpty.dtoBookRestriction.restrictUsers">사용자 아이디를 입력하세요</entry>
+<entry key="NotNull">{0}필수 항목입니다</entry>
+</properties>

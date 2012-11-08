@@ -20,7 +20,7 @@
 	
 	<select id="getPlaceList" resultClass="Place" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  
-    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		A.ISAUTH, A.FID, A.FNAME, A.ENAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
     	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
     	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
@@ -52,7 +52,7 @@
     </select>
 	<select id="getPlaceListByTile" resultClass="Place" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  
-    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		A.ISAUTH, A.FID, A.FNAME, A.ENAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
     	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
     	 		A.EMAIL,  A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,

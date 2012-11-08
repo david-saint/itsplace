@@ -66,8 +66,10 @@ public class PlaceController {
 	}
 	
 	@RequestMapping(value = "/places", method = RequestMethod.GET)
-	public String places(Model model) {
-		
+	public String places(Locale locale, Model model) {
+		Locale.setDefault(locale);
+		System.out.println("기본로케일"+locale.getDefault());
+		System.out.println("기본로케일"+Locale.getDefault());
 		return "web/place/list";
 	}
 	@RequestMapping(value = "/place/test", method = RequestMethod.GET)

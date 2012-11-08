@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>messages_ko.properties</comment>
+<entry key="register">{0} 등록되었습니다</entry>
+<entry key="registration.users">대출 정지되었습니다.</entry>
+<entry key="rental.able">대출가능합니다</entry>
+<entry key="reservationBook.cancel">{0} 예약 취소 되었스니다.</entry>
+<entry key="javax.validation.constraints.NotNull.message">Field must not be null</entry>
+<entry key="can.not.find.rental.book.reserved">예약자가 존재합니다.</entry>
+<entry key="not.register.book">등록된 도서가 아닙니다</entry>
+<entry key="returnBook">{0} 반납되었습니다.</entry>
+<entry key="delete.book">삭제되었습니다.</entry>
+<entry key="can.not.find.rental.book">대출 가능한 도서가 없습니다</entry>
+<entry key="reservationBook.success">{0} 예약되었습니다.</entry>
+<entry key="extendBook">{0} 연기되었습니다.</entry>
+<entry key="reservationBook.already">예약 되어 있습니다</entry>
+<entry key="can.not.extendBook.one">도서 대출 연장은 1회만 가능합니다</entry>
+<entry key="registration.user">{0} 대출 정지되었습니다.</entry>
+<entry key="JAVA.LANG.INTEGER">ddddddddddddd</entry>
+<entry key="save">저장되었스니다ee</entry>
+<entry key="solveUser">{0} 해제되었습니다</entry>
+<entry key="rentaled">{0} 대출되었습니다.</entry>
+<entry key="can.not.extendBook.needReturnBook">반납일이 지난 도서는 연기할 수 없습니다.</entry>
+</properties>

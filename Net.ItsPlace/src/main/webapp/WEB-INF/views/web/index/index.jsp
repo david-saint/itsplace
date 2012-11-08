@@ -106,7 +106,7 @@ $(document).ready(function() {
 				       </fieldset>
 				     
 				       <fieldset>
-				       	 <button id="btnRegister" class="blueButton">가입하기</button>
+				       	 <button id="btnRegister" class="blueButton"><spring:message  code="signup"/></button>
 				       </fieldset>
 					</form>  
 				  	  

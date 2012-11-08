@@ -70,12 +70,12 @@
             <list>                
                 <value>/WEB-INF/locale/messages</value>
                 <value>/WEB-INF/locale/validationMessages</value>
+                <value>/WEB-INF/locale/buttons</value>
             </list>
         </property>
         <property name="cacheSeconds" value="1" />
     </bean>
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >
-        <property name="defaultLocale" value="ko" />
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" >       
     </bean>
 
     <mvc:interceptors>
