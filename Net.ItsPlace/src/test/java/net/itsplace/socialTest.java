@@ -30,7 +30,7 @@ public class socialTest  extends TestApplicationContext {
 		
 		Twitter twitter = new TwitterTemplate();
 		
-		SearchResults results = twitter.searchOperations()..search("chbfvgghgvgh");
+		SearchResults results = twitter.searchOperations().search("chbfvgghgvgh");
 		for(int i=0;i<results.getTweets().size();i++){
 			logger.info(results.getTweets().get(i).getText());
 		}
