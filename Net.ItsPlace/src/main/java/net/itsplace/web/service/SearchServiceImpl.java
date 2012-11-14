@@ -34,10 +34,12 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public List<Place> getPlaceList(Map<String, Object> param) {
-		System.out.println("기본로케일"+Locale.getDefault());
+		//System.out.println("기본로케일"+Locale.getDefault());
 		if(Locale.getDefault().equals("ko")){
+			System.out.println("기본로케일"+Locale.getDefault());
 			return searchDao.getPlaceList(param);
 		}else{
+			System.out.println("로케일"+Locale.getDefault());
 			List<Place> list = searchDao.getPlaceList(param);
 			for(int i=0;i<list.size();i++){
 				Place place =list.get(i);
@@ -56,9 +58,15 @@ public class SearchServiceImpl implements SearchService{
 
 	@Override
 	public List<Place> getPlaceListByTile(Map<String, Object> param) {
-		if(Locale.getDefault().equals("ko")){
+		String locale = "ko";
+		if(locale.equals(Locale.getDefault().toString())){
+			System.out.println("기본로케일"+Locale.getDefault().toString());
 			return searchDao.getPlaceListByTile(param);
 		}else{
+			System.out.println("로케일"+Locale.getDefault());
+			System.out.println("로케일"+Locale.getDefault().toLanguageTag());
+			System.out.println("로케일"+Locale.getDefault().toString());
+			System.out.println("로케일"+Locale.getDefault().getDisplayLanguage());
 			List<Place> list = searchDao.getPlaceListByTile(param);
 			for(int i=0;i<list.size();i++){
 				Place place =list.get(i);
