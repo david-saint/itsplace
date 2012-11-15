@@ -223,12 +223,12 @@ color:white;
 .placeContainer{
 
 	background-color: #EEE;
-	border: 1px solid red;
+	border: 0px solid red;
 	position: relative;
 	width: 100%;
 	margin: 0 auto;
-	max-width: 500px;
-	padding: 35px 15px;
+	max-width: 800px;
+	padding: 0px 15px;
 	overflow: hidden;
 }
 #placeView{
@@ -240,7 +240,12 @@ border: 0;
 z-index: 2;
 
 }
-
+#placeHeader{
+	border:0px solid blue;	
+}
+#placeHeader #closeButton{
+	float:right;
+}
 /*채팅*/
 #chatHeader{
 	border:1px solid gray;

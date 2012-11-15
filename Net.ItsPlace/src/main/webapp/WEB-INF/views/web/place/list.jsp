@@ -111,7 +111,9 @@ function mouseout() {
 </style>
  <div class="jqmWindow" id="jqmWindow">
 	<div class="placeContainer">
-	<a id="closeButton" href="#" class="jqmClose">Close</a>
+		<div id="placeHeader">
+			<a id="closeButton" href="#" class="jqmClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel1.png" /></a>
+		</div>
 		<iframe id="placeView"></iframe>
 	</div>
 </div>
