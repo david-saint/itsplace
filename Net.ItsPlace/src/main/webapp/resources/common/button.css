@@ -1,0 +1,22 @@
+.blueButton {
+margin: 0;
+padding: 13px 20px;
+max-height: 40px;
+background: #EF8600;
+font-weight: 700;
+color: white;
+text-transform: uppercase;
+text-decoration: none;
+border: 0;
+-webkit-box-shadow: 0 4px 0 0 #854F15;
+-moz-box-shadow: 0 4px 0 0 #854F15;
+box-shadow: 0 4px 0 0 #854F15;
+
+}
+.gray-button{
+background: #404040;
+padding: 8px 14px;
+border-radius: 3px;
+line-height: 40px;
+height: 40px;
+}

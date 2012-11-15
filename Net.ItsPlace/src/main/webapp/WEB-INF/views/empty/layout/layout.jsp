@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/jqModal.js"/>"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.css" />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/button.css" />" />
 	 
 	<!--tiles별 레이아웃별 CSS , JAVASCRIPT -->
 	<tiles:useAttribute id="styles" name="styles" classname="java.util.List" ignore="true" />

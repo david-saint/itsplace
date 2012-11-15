@@ -4,116 +4,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
 <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
-<script type="text/javascript">
-var socket = io.connect('http://localhost:8070');
+<script type="text/javascript">;
 $(document).ready(function() {
-	socket.on('connect', function () {
-	    console.log("connected socket:"+'${place.fname}' + $('#userName').val());
-	    socket.emit('PlaceOn', { room: '${place.fname}',name:$('#userName').val()});
-	});
-	socket.on("PlaceOn", function (data) {
-		console.log("입장:"+data.room); 
-	});
-	socket.on('SetUserList', function (data) {
-	  	
-	  	console.log("유저목록:"+data);
-	    $('#onlineUsers').empty();
-	  	
-	  	 for(var i=0;i<data.length;i++){
-	  		 console.log("user name:"+data[i]);	       		
-	  		$('#onlineUsers').append('<div>'+data[i]+'</div>');
-	  	 }
-	  	
-	});
-	socket.on('message', function(data) {
-		console.log("message receive");
-        if (data.comment) {
-        	$('.message').last().after('<div class="message"><span>'+data.name + ":</span><span>" + data.comment+'</span></div>');
-        	$('#chatContainer').animate({scrollTop:999999}, 'slow');
-        }
-    });
-	socket.on('error', function(data) {
-		console.log("ddd");
-        if (data.error) {
-        	alert(data.error);
-        }
-    });
 	
-	
-	
-	 $('#btnMessage').live('click',function(){	
-		 //socket.emit('sendMessage', { room: $('#room').val(),userId: $('#userId').val(), message: $('#message').val()});
-		 socket.json.send({ room: '${place.fname}', name:$('#userName').val(), data: $('#message').val() });
-		 
-		// $('#content').append('<p style="color:blue;">'+$('#userId').val() +": " +$('#message').val()+'<p>');
-	 });
-	 $('#message').keyup(function (e) {
-			var keyCode = (event.which) ? event.which : event.keyCode;
- 			//console.log(keyCode);
- 			if(keyCode==13){
- 				socket.json.send({ room: '${place.fname}', name:$('#userName').val(), data: $('#message').val() });
- 				
- 			}
- 	 });
 	 
 	$("body").fadeIn("slow");
 });
 
 
 </script>
-<style type="text/css">
-#placeOn{
-	border:0px solid red;
-}
-#chat{
-	border:0px solid gray;
-	width:80%;
-	height:300px;
-	float:left;
-}
-#chatContainer{
- width:100%;
- height:250px;
- border:1px solid gray;
- float:left;
- overflow: auto;
-}
-#messageContainer{
-	width:100%;
-	height:50px;
-	border:1px solid gray; float:left;
-}
-.message{
-	margin:5px;
-}
-#message{
-	margin:5px;
-	padding:5px;
-	width:70%
-}
-#onlineUsers{
-	border:1px solid blue;
-	height:300px;
-	width:19%;
-	float:right;
-}
-</style>
-<input id="userName" type="hidden"  value="<sec:authentication property="principal.user.name" />"/>
- 
-<div id="placeOn">
-	<div id="chat">
-		<div id="chatContainer">
-			<div class="message"><span></span><span></span></div>
-		</div>
-		<div id="messageContainer">
-			<input type="text" id="message"><button id="btnMessage">보내기</button>
-		</div>
-	</div>
-	<div id="onlineUsers">
-		<h1>online</h1>
-	</div>
-</div>
-<div style="display:none">
 
 <div class="title">
 	<h3>${place.fname}</h3>
@@ -124,8 +23,12 @@ $(document).ready(function() {
 	<div id="placeImage">
 		<img src="${place.imageHost}${place.fileName}" height="300" />
 	</div>	
+	<c:forEach var="media" items="${placeMediaList}">
+		${media.mUrl}
+	</c:forEach>
+	
 	<div id="map" >
-	map
+		map
 	</div>
 	<div id="text_box">
 			상세정보
@@ -149,82 +52,81 @@ $(document).ready(function() {
 
 </section>
 <section class="placeContent">
-	
-					<div >
-						<div style="height:100px;">
-							${place.info }
-						</div>
-						<div style="height:150px;">
-							여기에 별표 한번 넣어 봅시다. 댓글
-						</div>
-						<section>
-							이벤트
-						</section>
-						<section>
-							가맹점 기타 사진
-						</section>
-						<div id="Comment" style="border:1px solid blue">
-							<ul style="margin:0px;margin-right:50px;">
-								<li id="commentCount">
-									리뷰(0) 
-								</li>
-								<li id="facebook" class="social">
-									<c:choose>
-										<c:when test="${not empty facebook}">
-											<img status="connected" src="<c:url value="/resources/images/social/32/facebook.png" />" />
-										</c:when>
-										<c:otherwise>
-										<a href="<c:url value="/connect/facebook" />">
-											<img status="connect" src="<c:url value="/resources/images/social/32/facebook2.png" />" />
-										</a>
-										</c:otherwise>
-									</c:choose>
-								</li>
-								<li id="twitter" class="social">
-									<c:choose>
-										<c:when test="${not empty twitter}">
-										<a href="<c:url value="/connect/twitter" />">
-											<img class="connected" src="<c:url value="/resources/images/social/32/twitter.png" />" />
-										</a>	
-										</c:when>
-										<c:otherwise>
-										<a href="<c:url value="/connect/twitter" />">
-											<img status="connect" src="<c:url value="/resources/images/social/32/twitter2.png" />" />
-										</a>	
-										</c:otherwise>
-									</c:choose>
-								</li>
-								
-							</ul>
-							
-							<div id="displayName" style="border:1px solid red;">
-							  kimdonghonn
-							</div>
-							<form id="placeComment" >
-								<ul style="border:1px solid blue">
-									<li style="border:1px solid blue">
-										<img id="imageUrl" style="width:70px;height:70px" src=""/>
-									</li>
-									<li>
-										<input type="hidden" name="fid" value="${place.fid}" />
-										<textarea name="comment" style="width:500px;height:70px"></textarea>
-										<a id="btnComment" class="button" style="height:70px;float:right;"><span>Add comment</span></a>
-									</li>
-									
-								</ul>						
-							</form>
-						</div><!-- comment div end -->
-						<section>			
-							<aside id="comments">								
-								<ol id="commentList" class="commentlist">				
-								</ol>
-							</aside>			
-							<div id="paging" class="wp-pagenavi"></div>
-							<div class="cl"></div>
-						</section>
-						<section>
-							리뷰 
-						</section>
+	<div>
+		<div style="height:100px;">
+			${place.info }
+		</div>
+		<div style="height:150px;">
+			여기에 별표 한번 넣어 봅시다. 댓글
+		</div>
+		<div>
+			진행중인 이벤트
+		</div>
+		<div>
+			가맹점 기타 사진
+		</div>
+		<div id="Comment" style="border:1px solid blue">
+			<ul style="margin:0px;margin-right:50px;">
+				<li id="commentCount">
+					리뷰(0) 
+				</li>
+				<li id="facebook" class="social">
+					<c:choose>
+						<c:when test="${not empty facebook}">
+							<img status="connected" src="<c:url value="/resources/images/social/32/facebook.png" />" />
+						</c:when>
+						<c:otherwise>
+						<a href="<c:url value="/connect/facebook" />">
+							<img status="connect" src="<c:url value="/resources/images/social/32/facebook2.png" />" />
+						</a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				<li id="twitter" class="social">
+					<c:choose>
+						<c:when test="${not empty twitter}">
+						<a href="<c:url value="/connect/twitter" />">
+							<img class="connected" src="<c:url value="/resources/images/social/32/twitter.png" />" />
+						</a>	
+						</c:when>
+						<c:otherwise>
+						<a href="<c:url value="/connect/twitter" />">
+							<img status="connect" src="<c:url value="/resources/images/social/32/twitter2.png" />" />
+						</a>	
+						</c:otherwise>
+					</c:choose>
+				</li>
+				
+			</ul>
+			
+			<div id="displayName" style="border:1px solid red;">
+			  kimdonghonn
+			</div>
+			<form id="placeComment" >
+				<ul style="border:1px solid blue">
+					<li style="border:1px solid blue">
+						<img id="imageUrl" style="width:70px;height:70px" src=""/>
+					</li>
+					<li>
+						<input type="hidden" name="fid" value="${place.fid}" />
+						<textarea name="comment" style="width:500px;height:70px"></textarea>
+						<button id="btnComment"  style="height:70px;float:right;"  class="blueButton">남기기</button>
+					</li>
+					
+				</ul>						
+			</form>
+		</div><!-- comment div end -->
+		<section>			
+			<aside id="comments">								
+				<ol id="commentList" class="commentlist">				
+				</ol>
+			</aside>			
+			<div id="paging" class="wp-pagenavi"></div>
+			<div class="cl"></div>
+		</section>
+		<section>
+			리뷰 
+		</section>
 </section>
 
 
@@ -397,4 +299,4 @@ $(document).ready(function() {
 		});
 	}
 </script>
-	</div>		
+	
