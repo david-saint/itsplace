@@ -1,0 +1,16 @@
+---
+applications:
+  .:
+    name: nodeplace
+    framework:
+      name: node
+      info:
+        mem: 64M
+        description: Node.js Application
+        exec: 
+    url: nodeplace.cloudfoundry.com
+    mem: 256M
+    instances: 1
+    services:
+      mysql-nodeplace:
+        type: mysql

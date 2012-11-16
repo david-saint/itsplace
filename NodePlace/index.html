@@ -1,1 +1,23 @@
-node app index.html 
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+	<script  src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+	<script  src="socket.io/socket.io.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		//$('#port').val(process.env.VMC_APP_PORT);
+		var socket = io.connect('http://nodeplace.cloudfoundry.com');
+		socket.on('connect', function () {
+		    console.log("connected socket");
+		   
+		});
+	});
+	</script>
+</head>
+<body>
+process.env.VMC_APP_PORT:<input id="port" type="text" />
+</body>
+</html>

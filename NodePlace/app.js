@@ -4,7 +4,7 @@ var app = require('http').createServer(handler)
 
 app.listen(8070);
 
- var mysql      = require('mysql');
+ var mysql = require('mysql');
 var client = mysql.createClient({
   host     : 'db.jdpp.net',
   user     : 'faya',
@@ -83,7 +83,7 @@ io.sockets.on('connection', function (socket) {
 		}
 		if(result == ""){		
         	room.connectUser(socket, data.name);
-        	result =  "place On " + data.name + "님 대기실입장" ;
+        	result =  "place On " + data.name  ;
         	room.emitAll('PlaceOn',  { success: result, room: data.room });
         	room.emitAll('SetUserList', { userList: room.getUserList(), room: data.room } );
 		}else{
@@ -139,7 +139,7 @@ io.sockets.on('connection', function (socket) {
 		}
 		if(result == ""){		
         	room.connectUser(socket, data.name);
-        	result =  "place On " + data.name + data.room +" 입장" ;
+        	result =  "place On " + data.name + data.room  ;
 //        	socket.emit('PlaceOn',  { success: result, room: data.room });
         	room.emitAll('PlaceOn',  { success: result, room: data.room });
         	room.emitAll('SetUserList',{ userList: room.getUserList(), room: data.room } );
