@@ -1,4 +1,7 @@
 //node socket.io 
+//var socket = io.connect('http://localhost:8070');
+//var socket = io.connect('http://211.229.107.73:8070');
+//var socket = io.connect('http://nodeplace.cloudfoundry.com');
 var socket = io.connect('http://localhost:8070');
 socket.on('connect', function () {
     console.log("connected socket:"+$('#userName').val());
@@ -97,7 +100,7 @@ $(function() {
 			console.log("키코드:"+keyCode);
 			if(keyCode==13){
 				socket.json.send({ room: $('#currentRoom').val(), name:$('#userName').val(), data: $('#message').val() });
-				
+				$(this).text('');
 			}
 	 });
   /*  var el = document.getElementById('sample2-grid'),

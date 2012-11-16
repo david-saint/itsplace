@@ -13,7 +13,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/matchMedia.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/enquire.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jqModal.js"/>"></script>
-	
+	<!--[if IE]><script type="text/javascript" src="<c:url value="/resources/js/excanvas.compiled.js"/>"></script><![endif]-->
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.css" />" />
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/button.css" />" />
 	 
