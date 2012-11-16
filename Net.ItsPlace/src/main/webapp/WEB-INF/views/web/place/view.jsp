@@ -9,6 +9,21 @@ $(document).ready(function() {
 	
 	 
 	$("body").fadeIn("slow");
+	
+
+	jQuery('#bannerscollection_kenburns_generous').bannerscollection_kenburns({
+		skin: 'generous',
+		responsive:true,
+		width: 934,
+		height: 414,
+		width100Proc:false,
+		numberOfThumbsPerScreen:7,
+		thumbsOnMarginTop:50,
+		thumbsWrapperMarginTop: -110,
+		autoHideBottomNav:false,
+		autoPlay:2
+	});		
+	
 });
 
 
@@ -24,8 +39,124 @@ $(document).ready(function() {
 		<img src="${place.imageHost}${place.fileName}" height="300" />
 	</div>	
 	<c:forEach var="media" items="${placeMediaList}">
-		${media.mUrl}
+		<img src="${place.imageHost}${media.mUrl}" height="100" />
 	</c:forEach>
+	
+	
+	
+	  <div id="bannerscollection_kenburns_generous">
+            	<div class="myloader"></div>
+                <!-- CONTENT -->
+                <ul class="bannerscollection_kenburns_list">
+	                <c:forEach var="media" items="${placeMediaList}">
+	                	<li data-initialZoom="1" data-finalZoom="0.71" data-text-id="#bannerscollection_kenburns_photoText1" data-bottom-thumb="${place.imageHost}${media.mUrl}" >
+               				<img src="${place.imageHost}${media.mUrl}" alt="" width="1350" height="610" />
+               			</li>
+						
+					</c:forEach>
+                    
+                </ul>    
+                
+                
+                
+               <!-- TEXTS -->
+              <div id="bannerscollection_kenburns_photoText1" class="bannerscollection_kenburns_texts">              
+               		<div class="bannerscollection_kenburns_text_line textElement12_generous" data-initial-left="480" data-initial-top="550" data-final-left="480" data-final-top="210" data-duration="0.5" data-fade-start="0" data-delay="0.23">Customizable with many <a href="http://codecanyon.net/user/LambertGroup" target="_blank">parameters</a></div>
+                    
+                    <div class="bannerscollection_kenburns_text_line textElement11_generous" data-initial-left="480" data-initial-top="10" data-final-left="480" data-final-top="175" data-duration="0.5" data-fade-start="0" data-delay="0.23">Ultra-Smoo야하하하t</div>
+               </div>       
+               
+                <div id="bannerscollection_kenburns_photoText2" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement21_generous" data-initial-left="500" data-initial-top="300" data-final-left="500" data-final-top="80" data-duration="0.5" data-fade-start="0" data-delay="0">For each image</div>
+                    <div class="bannerscollection_kenburns_text_line textElement22_generous" data-initial-left="503" data-initial-top="0" data-final-left="503" data-final-top="60" data-duration="0.5" data-fade-start="0" data-delay="0.3">You can define optional external link</div>
+                    <div class="bannerscollection_kenburns_text_line textElement23_generous" data-initial-left="200" data-initial-top="135" data-final-left="503" data-final-top="135" data-duration="0.5" data-fade-start="0" data-delay="0.3">What are you waiting for?<br /> Click on image!</div>
+               </div>
+               
+                         
+                <div id="bannerscollection_kenburns_photoText3" class="bannerscollection_kenburns_texts">
+                	<div class="bannerscollection_kenburns_text_line textElement31_generous" data-initial-left="550" data-initial-top="35" data-final-left="70" data-final-top="35" data-duration="0.5" data-fade-start="0" data-delay="0.5">Responsive<br /> design</div>  
+                    
+                	<div class="bannerscollection_kenburns_text_line textElement32_generous" data-initial-left="10" data-initial-top="140" data-final-left="73" data-final-top="140" data-duration="0.5" data-fade-start="0" data-delay="0">Available parameter<br /> to disable responsive behaviour</div>
+                    
+                    <div class="bannerscollection_kenburns_text_line textElement33_generous" data-initial-left="308" data-initial-top="2" data-final-left="308" data-final-top="23" data-duration="0.5" data-fade-start="0" data-delay="0.8"><a href="http://codecanyon.net/user/LambertGroup" target="_blank">YES!</a></div>
+               </div>   
+             
+             	<div id="bannerscollection_kenburns_photoText5" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement51_generous" data-initial-left="80" data-initial-top="60" data-final-left="80" data-final-top="60" data-duration="0.5" data-fade-start="0" data-delay="0">Fully Responsive<br /> slider</div>
+                    <div class="bannerscollection_kenburns_text_line textElement52_generous" data-initial-left="80" data-initial-top="142" data-final-left="80" data-final-top="142" data-duration="0.5" data-fade-start="0" data-delay="0.3">many optional parameters<br /> for each image</div>
+               </div>  
+               
+                <div id="bannerscollection_kenburns_photoText6" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement61_generous" data-initial-left="100" data-initial-top="50" data-final-left="465" data-final-top="50" data-duration="0.5" data-fade-start="0" data-delay="0">Certainly this is the collection of KenBurns sliders</div>
+ 					<div class="bannerscollection_kenburns_text_line textElement61_generous" data-initial-left="100" data-initial-top="70" data-final-left="465" data-final-top="70" data-duration="0.5" data-fade-start="0" data-delay="0.3">that you have longed for. Grab it now!</div>
+                    <div class="bannerscollection_kenburns_text_line textElement62_generous" data-initial-left="630" data-initial-top="100" data-final-left="575" data-final-top="100" data-duration="0.5" data-fade-start="0" data-delay="0">MORE<br />KeNBURNS<br />SKINS</div>
+                    <div class="bannerscollection_kenburns_text_line textElement63_generous" data-initial-left="460" data-initial-top="250" data-final-left="460" data-final-top="75" data-duration="1" data-fade-start="0" data-delay="0.5">2</div>
+                    <div class="bannerscollection_kenburns_text_line  textElement64_generous" data-initial-left="700" data-initial-top="241" data-final-left="577" data-final-top="241" data-duration="1" data-fade-start="0" data-delay="0.6"><a href="http://codecanyon.net/user/LambertGroup" target="_blank">Enjoy Them RIGHT HERE!</a></div>                 
+               </div>   
+               
+               <div id="bannerscollection_kenburns_photoText7" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement71_generous" data-initial-left="480" data-initial-top="223" data-final-left="50" data-final-top="223" data-duration="0.5" data-fade-start="0" data-delay="0">Animated text from any direction</div>
+                    <div class="bannerscollection_kenburns_text_line textElement72_generous" data-initial-left="0" data-initial-top="247" data-final-left="50" data-final-top="247" data-duration="0.5" data-fade-start="0" data-delay="0.3">top, bottom, left and right</div>
+                    <div class="bannerscollection_kenburns_text_line textElement73_generous" data-initial-left="50" data-initial-top="430" data-final-left="50" data-final-top="277" data-duration="1" data-fade-start="0" data-delay="0.5">Any color, CSS and HTML formated</div>                 
+               </div> 
+               
+
+               
+               
+               <!--       -->  
+               
+               
+               
+               <div id="bannerscollection_kenburns_photoText1b" class="bannerscollection_kenburns_texts">              
+               		<div class="bannerscollection_kenburns_text_line textElement12_generous" data-initial-left="480" data-initial-top="550" data-final-left="480" data-final-top="210" data-duration="0.5" data-fade-start="0" data-delay="0.23">Customizable with many <a href="http://codecanyon.net/user/LambertGroup" target="_blank">parameters</a></div>
+                    
+                    <div class="bannerscollection_kenburns_text_line textElement11_generous" data-initial-left="480" data-initial-top="10" data-final-left="480" data-final-top="175" data-duration="0.5" data-fade-start="0" data-delay="0.23">Ultra-Smooth Ken Burns Effect</div>
+               </div>       
+               
+                <div id="bannerscollection_kenburns_photoText2b" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement21_generous" data-initial-left="500" data-initial-top="300" data-final-left="500" data-final-top="80" data-duration="0.5" data-fade-start="0" data-delay="0">For each image</div>
+                    <div class="bannerscollection_kenburns_text_line textElement22_generous" data-initial-left="503" data-initial-top="0" data-final-left="503" data-final-top="60" data-duration="0.5" data-fade-start="0" data-delay="0.3">You can define optional external link</div>
+                    <div class="bannerscollection_kenburns_text_line textElement23_generous" data-initial-left="200" data-initial-top="135" data-final-left="503" data-final-top="135" data-duration="0.5" data-fade-start="0" data-delay="0.3">What are you waiting for?<br /> Click on image!</div>
+               </div>
+               
+                         
+                <div id="bannerscollection_kenburns_photoText3b" class="bannerscollection_kenburns_texts">
+                	<div class="bannerscollection_kenburns_text_line textElement31_generous" data-initial-left="550" data-initial-top="35" data-final-left="70" data-final-top="35" data-duration="0.5" data-fade-start="0" data-delay="0.5">Responsive<br /> design</div>  
+                    
+                	<div class="bannerscollection_kenburns_text_line textElement32_generous" data-initial-left="10" data-initial-top="140" data-final-left="73" data-final-top="140" data-duration="0.5" data-fade-start="0" data-delay="0">Available parameter<br /> to disable responsive behaviour</div>
+                    
+                    <div class="bannerscollection_kenburns_text_line textElement33_generous" data-initial-left="308" data-initial-top="2" data-final-left="308" data-final-top="23" data-duration="0.5" data-fade-start="0" data-delay="0.8"><a href="http://codecanyon.net/user/LambertGroup" target="_blank">YES!</a></div>
+               </div>   
+             
+             	<div id="bannerscollection_kenburns_photoText5b" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement51_generous" data-initial-left="80" data-initial-top="60" data-final-left="80" data-final-top="60" data-duration="0.5" data-fade-start="0" data-delay="0">Fully Responsive<br /> slider</div>
+                    <div class="bannerscollection_kenburns_text_line textElement52_generous" data-initial-left="80" data-initial-top="142" data-final-left="80" data-final-top="142" data-duration="0.5" data-fade-start="0" data-delay="0.3">many optional parameters<br /> for each image</div>
+               </div>  
+               
+                <div id="bannerscollection_kenburns_photoText6b" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement61_generous" data-initial-left="100" data-initial-top="50" data-final-left="465" data-final-top="50" data-duration="0.5" data-fade-start="0" data-delay="0">Certainly this is the collection of KenBurns sliders</div>
+ 					<div class="bannerscollection_kenburns_text_line textElement61_generous" data-initial-left="100" data-initial-top="70" data-final-left="465" data-final-top="70" data-duration="0.5" data-fade-start="0" data-delay="0.3">that you have longed for. Grab it now!</div>
+                    <div class="bannerscollection_kenburns_text_line textElement62_generous" data-initial-left="630" data-initial-top="100" data-final-left="575" data-final-top="100" data-duration="0.5" data-fade-start="0" data-delay="0">MORE<br />KeNBURNS<br />SKINS</div>
+                    <div class="bannerscollection_kenburns_text_line textElement63_generous" data-initial-left="460" data-initial-top="250" data-final-left="460" data-final-top="75" data-duration="1" data-fade-start="0" data-delay="0.5">2</div>
+                    <div class="bannerscollection_kenburns_text_line  textElement64_generous" data-initial-left="700" data-initial-top="241" data-final-left="577" data-final-top="241" data-duration="1" data-fade-start="0" data-delay="0.6"><a href="http://codecanyon.net/user/LambertGroup" target="_blank">Enjoy Them RIGHT HERE!</a></div>                 
+               </div>   
+               
+               <div id="bannerscollection_kenburns_photoText7b" class="bannerscollection_kenburns_texts">
+                    <div class="bannerscollection_kenburns_text_line textElement71_generous" data-initial-left="480" data-initial-top="223" data-final-left="50" data-final-top="223" data-duration="0.5" data-fade-start="0" data-delay="0">Animated text from any direction</div>
+                    <div class="bannerscollection_kenburns_text_line textElement72_generous" data-initial-left="0" data-initial-top="247" data-final-left="50" data-final-top="247" data-duration="0.5" data-fade-start="0" data-delay="0.3">top, bottom, left and right</div>
+                    <div class="bannerscollection_kenburns_text_line textElement73_generous" data-initial-left="50" data-initial-top="430" data-final-left="50" data-final-top="277" data-duration="1" data-fade-start="0" data-delay="0.5">Any color, CSS and HTML formated</div>                 
+               </div> 
+               <!--dfsdf-->  
+           </div>  
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<div id="map" >
 		map

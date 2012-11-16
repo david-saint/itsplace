@@ -34,13 +34,16 @@
 	
 	<definition name="web/place/view" extends="empty_layout">		
 		<put-attribute name="body" expression="/WEB-INF/views/web/place/view.jsp" />		
+		
 		<put-list-attribute name="scripts">				
-		       <add-attribute value="js/nodejs/socket.io.js" />
+		       <add-attribute value="js/slider/jquery.ui.touch-punch.min.js" />
+		       <add-attribute value="js/slider/bannerscollection_kenburns.js" />
   		</put-list-attribute>  			
 		
 		<put-list-attribute name="styles">
   			<add-attribute value="common/normalize.css" />  		
   			<add-attribute value="css/place.css" />
+  			<add-attribute value="js/slider/bannerscollection_kenburns.css" />
   			
   		</put-list-attribute>
 	</definition>
