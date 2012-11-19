@@ -5,48 +5,32 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.PendingIntent;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import com.mincoms.book.rental.RentalBookFragment;
 import com.mincoms.book.rental.RentalBookFragmentAdapter;
 import com.mincoms.domain.Authority;
-import com.mincoms.domain.BookInfo;
 import com.mincoms.domain.BookRental;
 import com.mincoms.domain.UserInfo;
-
 import com.mincoms.restful.RestClient;
 import com.mincoms.restful.RestClient.RequestMethod;
 import com.viewpagerindicator.PageIndicator;
