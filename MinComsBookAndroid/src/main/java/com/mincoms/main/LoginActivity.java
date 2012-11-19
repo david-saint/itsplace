@@ -1,40 +1,18 @@
 package com.mincoms.main;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.itsplace.zxing.client.android.CaptureActivity;
-
-import com.google.android.gcm.GCMRegistrar;
-import com.mincoms.domain.BookInfo;
-import com.mincoms.domain.UserInfo;
-
-
-
-
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mincoms.domain.UserInfo;
 
 public class LoginActivity  extends Activity  {
 	protected static final String TAG = LoginActivity.class.getSimpleName();
