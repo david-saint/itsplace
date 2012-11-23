@@ -5,6 +5,42 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	//window.AndroidCall.show("hi");
+	enquire.register("screen and (max-width:468px)", {
+
+	    match : function() {
+	    	
+	    		console.log("match 468px");
+		  
+	        
+	    },
+	    unmatch : function() {
+	  
+	        console.log("unmatch 468px");
+	      
+	    } 
+    }).register("screen and (max-width:900px)", {
+	    match : function() {
+	    	
+		        console.log("match 900px");
+		     
+	    },
+	}).register("screen and (max-width:1100px)", {
+
+		  match : function() {
+			  
+			
+				  console.log("match 1100px");
+				
+		        
+		    },
+		    unmatch : function() {
+		   
+					  console.log("unmatch 1100px");
+				
+		    }
+	}).listen();
+    
 	 $('.bar2').mosaic({animation	:	'slide'	});
 	//
 	 $('.fancy').fancybox({

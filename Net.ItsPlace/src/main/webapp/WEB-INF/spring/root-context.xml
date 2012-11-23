@@ -22,7 +22,12 @@
 
 	<!-- Configures the annotation-driven Spring MVC Controller programming model.
 	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
-	<mvc:annotation-driven /> 
+	<mvc:annotation-driven>
+    <mvc:argument-resolvers>
+        <bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+        <bean class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver" />  
+    </mvc:argument-resolvers>
+	</mvc:annotation-driven>
 	<!-- view name tanslator
 	뷰이름을 지정하지 않을때 자동으로 만들어줌 
 	<bean id="viewNameTranslator"

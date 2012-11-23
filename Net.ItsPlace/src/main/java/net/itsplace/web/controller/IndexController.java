@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -42,12 +44,20 @@ public class IndexController {
 
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(@RequestParam(value="badCredential", required=false) boolean badCredential, Locale locale, Model model) {
+	public String index(@RequestParam(value="badCredential", required=false) boolean badCredential, Locale locale, Model model, Device device,SitePreference sitePreference) {
 		Locale.setDefault(locale) ;
 		logger.info("사용자 메인 페이지:"+badCredential);
 		
-	
-		
+		if (device.isMobile()) {
+            logger.info("Hello mobile user!");      
+        } else {
+            logger.info("Hello desktop user!");         
+        }
+		if (sitePreference == SitePreference.MOBILE) {
+			 logger.info("sitePreference mobile user!");    
+        } else {
+        	 logger.info("sitePreference desktop user!");         
+        }
 		Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
 		logger.info("사용자 메인 페이지s:{}",auth.getName());
 		if(auth != null){
@@ -72,10 +82,10 @@ public class IndexController {
 	
 	
 	
-	@RequestMapping(value = "/getmessage",  produces = "application/json")
-	public @ResponseBody Message getMessage() {
+	@RequestMapping(value = "/getmessage", method = RequestMethod.GET)
+	public @ResponseBody String getMessage() {
 	  	logger.info("Accessing protected resource");
-	   	return new Message(100, "Congratulations!", "itsplace getmessage");
+	   	return "ssssssssss";
 	}
 	
 }
