@@ -43,21 +43,21 @@ $(document).ready(function() {
     
 	 $('.bar2').mosaic({animation	:	'slide'	});
 	//
-	 $('.fancy').fancybox({
+	/*  $('.fancy').fancybox({
 			'autoDimensions':false,
 			'scrolling':'auto',
 			'autoScale':false,
 			'height':400,
-	});
+	}); */
 	 $('#signup').click(function(){
 		 if ($('#signinForm').is(":hidden")){
 			 
 			 $('#signinForm').slideDown("slow"); 
 		 }else{
-			 $('#signinForm').slideUp("fast");
+			 $('#signinForm').slideUp("slow");
 		 }
 	 });
-	 $('#close').click(function(){
+	 $('#btnClose').click(function(){
 		 $('#signinForm').slideUp();
 	 });
 	 
@@ -114,13 +114,13 @@ $(document).ready(function() {
 
 
 </style>
-<section id="signinForm" class="blackBack" style="display:block;height:300px"> 
+<section id="signinForm" class="blackBack" style="display:none;height:300px"> 
 	<div id="auth-container">
 		<div class="inner">
 		<hgroup>
-        	<h2 id="create" class="headline">Place 들어가기</h2>
+        	<h2 id="create" class="headline">THE PLACE</h2>
         </hgroup>
-        <button id="closeButton">close</button>
+        <button id="btnClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel.png" /></button>
 			
 			<div id="left" class="">
 				<div id="leftContainer">
@@ -142,7 +142,7 @@ $(document).ready(function() {
 				       </fieldset>
 				     
 				       <fieldset>
-				       	 <button id="btnRegister" class="blueButton"><spring:message  code="signup"/></button>
+				       	 <button id="btnRegister" class="greenButton"><spring:message  code="signup"/></button>
 				       </fieldset>
 					</form>  
 				  	  
@@ -151,9 +151,7 @@ $(document).ready(function() {
 				
 			</div>
 			<div class="v-divider ">
-                    <div class="label-container">
-                        <span>or</span>
-                    </div>
+                    
             </div>
 			<div id="right" >
 				<div id="rightContainer">
@@ -168,16 +166,16 @@ $(document).ready(function() {
                                 <label for="password" style="display: none; ">Password</label>
                                 <input id="password" class="border-box" type="password" name="j_password" placeholder="Password" tabindex="2"></fieldset>
                             <fieldset>
-	                            <button  id="btnSignIn" class="blueButton">로그인</button>
+	                            <button  id="btnSignIn" class="grayButton">로그인</button>
                             </fieldset>
                         </form>
                         
                         <form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
+							
 							        <input type="hidden" name="scope" value="publish_stream,user_photos,offline_access,email" />
-							        <input type="hidden" id="on_off" name="_spring_security_remember_me" value="1" /> 
-							<fieldset>
-                            
-									<button type="submit" class="blueButton">페이스북으로 로그인 </button>
+							        <input type="hidden" id="on_off" name="_spring_security_remember_me" value="1" />
+							        <fieldset> 
+									<button  type="submit" class="grayButton facebook"><i class="icon-facebook"></i><span>페이스북 아이디로 로그인</span></button>
                             </fieldset>
 					    </form>
                         <a id="forgot-pass" href="/passwordreset" target="_blank">비밀번호가 기억 안나세요?</a>
@@ -193,9 +191,9 @@ $(document).ready(function() {
 	<div id="m-container">
 		<div class="inner">
 			<div id="header" class="clearfix">
-				<h1 class="gota logo">place <div style="font-size: 24px;">
-  <i class="icon-camera-retro"></i> icon-camera-retro
-</div></h1>
+				<h1 class="gota logo">THE PLACE <div style="font-size: 24px;">
+<!--   <i class="icon-camera-retro"></i> --></div>
+				</h1>
 				<nav>
 				<!-- 	<a id="signin" >로그인</a> -->
 					

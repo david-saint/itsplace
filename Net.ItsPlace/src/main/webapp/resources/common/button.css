@@ -13,10 +13,39 @@ border: 0;
 box-shadow: 0 4px 0 0 #854F15;
 
 }
+.grayButton {
+border: 0;
+background: #5E91CF;
+color: white;
+font-size: 14px;
+border-radius: 3px;
+padding: 0 11px;
+height: 40px;
+font-weight: 700;
+
+}
+.greenButton{
+	border: 0;
+background: #8CDBB2;
+color: white;
+font-size: 14px;
+border-radius: 3px;
+padding: 0 11px;
+height: 40px;
+font-weight: 700;
+	
+}
 .gray-button{
 background: #404040;
 padding: 8px 14px;
 border-radius: 3px;
 line-height: 40px;
 height: 40px;
+}
+.facebook{
+	background: -webkit-linear-gradient(top, #536A97, #3D5382);
+background: -moz-linear-gradient(top, #536A97, #3D5382);
+background: -o-linear-gradient(top, #536A97, #3D5382);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#536a97',endColorstr='#4f77a7');
+background-image: -ms-linear-gradient(#536A97, #3D5382);
 }
