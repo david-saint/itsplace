@@ -24,4 +24,6 @@
 	
 	<definition name="empty_layout" templateExpression="/WEB-INF/views/empty/layout/layout.jsp">			
 	</definition>
+	<definition name="mobile_layout" templateExpression="/WEB-INF/views/mobile/layout.jsp">			
+	</definition>
 </tiles-definitions>

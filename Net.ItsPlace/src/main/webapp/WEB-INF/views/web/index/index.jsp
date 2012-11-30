@@ -11,7 +11,7 @@ $(document).ready(function() {
 	    match : function() {
 	    	
 	    		console.log("match 468px");
-		  
+		  		
 	        
 	    },
 	    unmatch : function() {
@@ -256,7 +256,7 @@ $(document).ready(function() {
 		<nav>
 			<ul>
 				<li><a href="/about/">About</a></li>
-				<li><a href="/jobs">Jobs</a></li>
+				<li><a href="/?site_preference=Mobile">Mobile</a></li>
 				<li><a href="http://blog.pulse.me">Blog</a></li>
 				<li><a href="http://blog.pulse.me/faq">FAQ</a></li>
 				<li><a href="/about/#/contact">Contact</a></li>

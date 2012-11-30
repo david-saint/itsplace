@@ -9,15 +9,13 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
 	<script  src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
 	<!-- <script  src="http://cloud.github.com/downloads/thinkpixellab/tilesjs/tiles.js" type="text/javascript"></script> -->
-	<script type="text/javascript" src="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/matchMedia.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/enquire.min.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/resources/js/jqModal.js"/>"></script>
 	
-	<!--[if IE]><script type="text/javascript" src="<c:url value="/resources/js/excanvas.compiled.js"/>"></script><![endif]-->
-
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/normalize.css" />" />
-	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/fancybox/jquery.fancybox.css" />" />
+	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/m/css/mobile.css" />" />
+	<!--[if IE]><script type="text/javascript" src="<c:url value="/resources/js/excanvas.compiled.js"/>"></script><![endif]-->
 	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/button.css" />" />
 	 
 	<!--tiles별 레이아웃별 CSS , JAVASCRIPT -->
