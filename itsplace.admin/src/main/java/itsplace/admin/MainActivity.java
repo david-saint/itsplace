@@ -42,23 +42,23 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
         MenuItem item = menu.findItem(R.id.menu_search);
         SearchView searchView = (SearchView)item.getActionView();
         
-    if(searchView == null){
-    	Log.i(TAG,"널이다 서치뷰");
-    }else{
-    	Log.i(TAG,"널이 아니다 서치뷰");
-    	//searchView.setSubmitButtonEnabled(true);
-    	searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override public boolean onQueryTextSubmit(String s) {
-            	Log.i(TAG,"검색:"+s);
-                return true;
-              }
-
-              @Override public boolean onQueryTextChange(String s) {
-            	  Log.i(TAG,"검색 타이핑:"+s);
-                return false;
-              }
-            });
-    }
+	    if(searchView == null){
+	    	Log.i(TAG,"널이다 서치뷰");
+	    }else{
+	    	Log.i(TAG,"널이 아니다 서치뷰");
+	    	//searchView.setSubmitButtonEnabled(true);
+	    	searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+	            @Override public boolean onQueryTextSubmit(String s) {
+	            	Log.i(TAG,"검색:"+s);
+	                return true;
+	              }
+	
+	              @Override public boolean onQueryTextChange(String s) {
+	            	  Log.i(TAG,"검색 타이핑:"+s);
+	                return false;
+	              }
+	            });
+	    }
      
         menu.add("Refresh")
             .setIcon( R.drawable.ic_refresh)
