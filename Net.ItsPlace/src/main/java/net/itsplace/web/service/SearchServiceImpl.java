@@ -64,7 +64,7 @@ public class SearchServiceImpl implements SearchService{
 			return searchDao.getPlaceListByTile(param);
 		}else{
 			System.out.println("로케일"+Locale.getDefault());
-			System.out.println("로케일"+Locale.getDefault().toLanguageTag());
+			//System.out.println("로케일"+Locale.getDefault().toLanguageTag());
 			System.out.println("로케일"+Locale.getDefault().toString());
 			System.out.println("로케일"+Locale.getDefault().getDisplayLanguage());
 			List<Place> list = searchDao.getPlaceListByTile(param);

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.servlet.ServletContext;
+
 import net.itsplace.admin.dao.AdminUserDao;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.Bascd;
@@ -18,6 +20,7 @@ import net.itsplace.util.PagingManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +43,8 @@ public class CommonServiceImpl implements CommonService{
 	
 	private Basecd basecd;
 	
+	@Autowired 
+	protected ServletContext context;
 	
 	@javax.annotation.PostConstruct
 	public void init(){
@@ -55,6 +60,7 @@ public class CommonServiceImpl implements CommonService{
 		}
 		basecd = new Basecd(baseMap);
 		basecd.setImageHost(imageHost);
+		context.setAttribute("ImageHost", imageHost);
 	}
 	
 	/**

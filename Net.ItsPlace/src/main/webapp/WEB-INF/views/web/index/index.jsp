@@ -118,7 +118,7 @@ $(document).ready(function() {
 	<div id="auth-container">
 		<div class="inner">
 		<hgroup>
-        	<h2 id="create" class="headline">THE PLACE</h2>
+        	<h2 id="create" class="headline">THE PLACE ${applicationScope.ImgaeHost} </h2>
         </hgroup>
         <button id="btnClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel.png" /></button>
 			

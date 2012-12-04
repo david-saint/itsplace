@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import net.itsplace.common.CommonService;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Message;
 import net.itsplace.user.User;
@@ -42,6 +43,8 @@ public class IndexController {
 	@Autowired
 	private SearchService searchService;
 		
+	@Autowired
+	private CommonService commonService;
 
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
