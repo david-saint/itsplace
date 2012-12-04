@@ -130,11 +130,11 @@ function mouseout() {
 
 
 <div id="header">
-	<div id="logo"> place </div>
+	<div id="logo"> place  </div>
 	<div id="searchBox"><form><input type="text" id="search" name="searchWord" /></form></div>
 	<div id="menuBox">
 		<a id="btnMyPlace" href="#"> in places</a>
-		<a href="/?lang=ko">한글</a>
+		<a href="/?lang=ko">한글 ${applicationScope.ImageHost} </a>
 		<a href="/?lang=en">영어</a>
 	</div>
 	<div id="userBox">
