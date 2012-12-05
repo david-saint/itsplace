@@ -15,6 +15,7 @@ import com.actionbarsherlock.view.SubMenu;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
@@ -28,7 +29,7 @@ import android.widget.EditText;
 import com.actionbarsherlock.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import itsplace.library.util.*;
 public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListener, OnOptionsItemSelectedListener {
     ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this);
 	protected static final String TAG = MainActivity.class.getSimpleName();
@@ -78,7 +79,7 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
    
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {
-    	Toast.makeText(this, "Got click: " + item.getItemId(), Toast.LENGTH_SHORT).show();
+    	//Toast.makeText(this, "Got click: " + item.getItemId(), Toast.LENGTH_SHORT).show();
     	switch (item.getItemId()) {
         case 20:
         	Toast.makeText(this, "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
@@ -89,7 +90,7 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
          //   InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
          //   imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     	}
-        
+    	 startActivity(new Intent(this,(NfcActivity.class)));	
         return mSherlock.dispatchOptionsItemSelected(item);
     }
   
@@ -103,23 +104,39 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
         super.onCreate(savedInstanceState);
       //  EditText editText = (EditText)findViewById(R.id.search);
       //  editText.setText("dddd");
-        AndroidCall androidCall = new AndroidCall(this, super.appView); 
+     //   AndroidCall androidCall = new AndroidCall(this, super.appView); 
         //setContentView(R.layout.main);
         
     
-//      super.loadUrl("file:///android_asset/www/index.html");
-//        super.loadUrl("http://10.0.2.2:8080");
-        super.loadUrl("http://book.mincoms.com:62560/login");
+     super.loadUrl("file:///android_asset/www/index.html");
+     //   super.loadUrl("http://10.0.2.2:8080");
+      //  super.loadUrl("http://naver.com");
         super.appView.setVerticalScrollBarEnabled(true);
     	super.appView.setHorizontalScrollBarEnabled(false);
     	
-        super.appView.addJavascriptInterface(androidCall, "AndroidCall");
+       // super.appView.addJavascriptInterface(androidCall, "AndroidCall");
+        super.appView.addJavascriptInterface(this, "AndroidCall");
         
      //   mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // 안드로이드 버전이 낮으면 액션바가 화면화단에 붙는다 
         mSherlock.getActionBar().setHomeButtonEnabled(true);
         mSherlock.getActionBar().setDisplayShowTitleEnabled(false);
       
     }
+    public void show(String fid){
+		//Toast.makeText(mGap, message, Toast.LENGTH_LONG).show();
+    	try{
+    		  Intent intent = new Intent(this, NfcActivity.class);
+    	      intent.putExtra("nfckey", Encrypt.encrypt("itsplace",fid));
+    	      startActivityForResult(intent,1);
+    	      
+    	}catch(Exception e){
+    		
+    	}
+	
+    
+    	Toast.makeText(this, "Got click", Toast.LENGTH_SHORT).show();
+	    //  startActivity(new Intent(MainActivity.this,(NfcActivity.class)));	
+	}
 	
 
 }
