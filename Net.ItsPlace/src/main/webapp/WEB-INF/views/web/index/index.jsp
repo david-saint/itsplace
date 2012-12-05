@@ -49,7 +49,7 @@ $(document).ready(function() {
 			'autoScale':false,
 			'height':400,
 	}); */
-	 $('#signup').click(function(){
+	 $('#signup').click(function(){window.AndroidCall.show("hi");
 		 if ($('#signinForm').is(":hidden")){
 			 
 			 $('#signinForm').slideDown("slow"); 
