@@ -49,7 +49,7 @@ $(document).ready(function() {
 			'autoScale':false,
 			'height':400,
 	}); */
-	 $('#signup').click(function(){alert();alert();
+	 $('#signup').click(function(){
 		 if ($('#signinForm').is(":hidden")){
 			 
 			 $('#signinForm').slideDown("slow"); 
