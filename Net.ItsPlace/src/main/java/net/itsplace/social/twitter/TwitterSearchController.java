@@ -17,7 +17,7 @@ package net.itsplace.social.twitter;
 
 import javax.inject.Inject;
 
-import net.itsplace.socialTest;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
