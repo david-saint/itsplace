@@ -32,7 +32,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.NativeWebRequest;
 
