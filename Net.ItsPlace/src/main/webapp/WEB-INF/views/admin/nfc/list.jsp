@@ -5,10 +5,29 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	  $.ajax({
-	        type: 'POST'
-	        , url: "/web/search/place"
-	        , success: function(data) {
+	search("");
+	
+	
+	 
+});
+function StringBuffer() {
+	 this.buffer = [];
+} 
+StringBuffer.prototype.append = function append(string) {   
+	 this.buffer.push(string);
+	 return this;
+};
+StringBuffer.prototype.toString = function toString() {
+	return this.buffer.join(""); 
+};  
+ 
+function search(searchWord){
+	$('section').empty();
+	 $.ajax({
+	        type: 'POST',
+	        url: "/web/search/place",
+	        data: "searchWord="+searchWord,
+	        success: function(data) {
 	        	console.log(data.result);
 	        	var html = new StringBuffer();
 	        	$.each(data.result,function(i){
@@ -34,27 +53,18 @@ $(document).ready(function() {
 	 			
 	 		}
 	 		, complete: function() {
-	 		
+	 			$('.place-list').click(function(){
+	 				window.AndroidCall.nfcReady("hi");
+	 			});
 	 		}
 		});
-});
-function StringBuffer() {
-	 this.buffer = [];
 } 
-StringBuffer.prototype.append = function append(string) {   
-	 this.buffer.push(string);
-	 return this;
-};
-StringBuffer.prototype.toString = function toString() {
-	return this.buffer.join(""); 
-};  
- 
 </script>
 <header>
 
 </header>
 <section>
-	<div class="place-list ">
+	<div class="place-list">
 		<div class="post-preview">
 			<a href=""><img src="http://lorempixel.com/48/48/nightlife/3" /></a>
 		</div>
