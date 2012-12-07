@@ -7,9 +7,16 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="bin/classes" path="src"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="/Users/faye12005/Documents/workspace-2.9.1/abs4.0/libs/android-support-v4.jar"/>
-	<classpathentry kind="lib" path="/CaptureActivity/libs/core.jar"/>
+	<classpathentry kind="lib" path="D:/android-sdk/extras/android/support/v4/android-support-v4.jar"/>
+	<classpathentry kind="src" output="bin/classes" path="src">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

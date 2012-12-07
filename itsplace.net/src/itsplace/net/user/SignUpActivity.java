@@ -110,7 +110,7 @@ public class SignUpActivity extends AbstractAsyncActivity{
 			
 				
 				RestTemplate restTemplate = new RestTemplate();
-				String url = getString(R.string.base_uri)+"/user/saveUserJson";
+				String url = getString(R.string.base_uri)+"/user/register";
 				
 				Log.i(TAG, url);
 				List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();

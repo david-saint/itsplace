@@ -42,7 +42,8 @@ public class MyStampActivity extends FragmentActivity {
         Log.i(TAG, "MyStampActivity======================onCreate+new getStampedList().execute()");
 		Log.i(TAG, "MyStampActivity======================onCreate");
 		Log.i(TAG, "MyStampActivity======================onCreate");
-		Log.i(TAG, "MyStampActivity======================onCreate");
+		Log.i(TAG, "MyStam" +
+				"pActivity======================onCreate");
 		Log.i(TAG, "MyStampActivity======================onCreate");
         MainApplication main = (MainApplication) getApplication();			
 		if(main.isLogged()){

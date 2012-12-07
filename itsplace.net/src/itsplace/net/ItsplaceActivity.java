@@ -1,33 +1,18 @@
 package itsplace.net;
 
+import itsplace.net.user.LoginActivity;
+import itsplace.net.user.LoginAsyncActivity;
+import itsplace.net.util.Encrypt;
+import itsplace.net.util.L;
+import net.itsplace.domain.User;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
-
-import itsplace.net.common.TestMenu;
-import itsplace.net.user.LoginActivity;
-import itsplace.net.user.LoginAsyncActivity;
-import itsplace.net.user.SignUpActivity;
-
-import itsplace.net.util.Encrypt;
-import itsplace.net.util.L;
-
-import java.security.SecureRandom;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
-import net.itsplace.domain.User;
 
 public class ItsplaceActivity extends Activity {
  
