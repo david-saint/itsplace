@@ -1,58 +1,34 @@
 package itsplace.admin;
 
-import java.util.Date;
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.restful.RestClient;
+import itsplace.library.restful.RestClient.RequestMethod;
+import itsplace.library.util.Encrypt;
 
 import org.apache.cordova.DroidGap;
-import org.apache.http.cookie.Cookie;
 
-import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
-import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
-import com.actionbarsherlock.app.SherlockActivity;
-
-
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.ClipData.Item;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
-import android.widget.EditText;
-import com.actionbarsherlock.widget.SearchView;
-import com.google.android.gcm.GCMRegistrar;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import com.loopj.android.http.*;
-import itsplace.library.restful.RestClient;
-import itsplace.library.restful.RestClient.RequestMethod;
-import android.widget.TextView;
 import android.widget.Toast;
-import itsplace.library.util.*;
+
+import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListener, OnOptionsItemSelectedListener {
     ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this);
 	protected static final String TAG = MainActivity.class.getSimpleName();
 	//private ActionBarMenu actionBarMenu;
-	private static AsyncHttpClient client = new AsyncHttpClient();
+	private  AsyncHttpClient client = AsyncClient.getInstance();
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {        
 		MenuInflater inflater = new MenuInflater(this);
@@ -131,41 +107,32 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
 	       	 PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
 	       	
 	    	 client.setCookieStore(myCookieStore);*/
-	        	
-	        
-	        	//쿠키 가져오기
-	       	 PersistentCookieStore myCookieStore = new PersistentCookieStore(this);
-	       	 for( Cookie  c : myCookieStore.getCookies() ){
-	       	   	Log.i(TAG,"도메인============== :"+c.getDomain());
-	       	   	Log.i(TAG,c.getDomain()+"============== :"+c.getName());
-	       	   	Log.i(TAG,c.getDomain()+"도메인============== :"+c.getPath());
-	       	 Log.i(TAG,c.getDomain()+"도메인============== :"+c.getValue());
-	       	 Log.i(TAG,c.getDomain()+"도메인============== :"+c.getVersion());
-	       	 Log.i(TAG,c.getDomain()+"도메인============== :"+c.getPorts());
-	       	Log.i(TAG,c.getDomain()+"도메인============== :"+c.getExpiryDate());
-	       	 }
-	       	myCookieStore.addCookie(myCookieStore.getCookies().get(0));
-	       	client.setCookieStore(myCookieStore);
-	    
+	        	//AsyncClient.
+	        	if(AsyncClient.isValidCookie(this, "10.0.2.2")){
+	        		
+	        	}else{
+	        		
+	        	}
+	       	
 	        	client.get("http://10.0.2.2:8080/admin/nfc",new AsyncHttpResponseHandler() {
 	        		@Override
 	        	     public void onStart() {
-	        	         // Initiated the request
+	        		  	Log.i(TAG,"onStart");
 	        	     }
 
 	        	     @Override
 	        	     public void onSuccess(String response) {
-	        	         // Successfully got a response
+	        	    	 Log.i(TAG,"onSuccess");
 	        	     }
 	        	 
 	        	     @Override
 	        	     public void onFailure(Throwable e, String response) {
-	        	         // Response failed :(
+	        	    	 Log.i(TAG,"onFailure");
 	        	     }
 
 	        	     @Override
 	        	     public void onFinish() {
-	        	         // Completed the request (either success or failure)
+	        	    	 Log.i(TAG,"onFinish");
 	        	     }
 	        	 });
 	    	 
@@ -204,7 +171,7 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
      //   AndroidCall androidCall = new AndroidCall(this, super.appView); 
         //setContentView(R.layout.main);
         
-    
+ /*   
    //  super.loadUrl("file:///android_asset/www/index.html");
         super.loadUrl("http://10.0.2.2:8080/admin/nfc");
      //   super.loadUrl("http://place.cloudfoundry.com/admin/nfc");
@@ -216,7 +183,7 @@ public class MainActivity  extends DroidGap implements OnCreateOptionsMenuListen
         
      //   mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW); // 안드로이드 버전이 낮으면 액션바가 화면화단에 붙는다 
         mSherlock.getActionBar().setHomeButtonEnabled(true);
-        mSherlock.getActionBar().setDisplayShowTitleEnabled(false);
+        mSherlock.getActionBar().setDisplayShowTitleEnabled(false);*/
       
     }
     public void nfcReady(String fid){
