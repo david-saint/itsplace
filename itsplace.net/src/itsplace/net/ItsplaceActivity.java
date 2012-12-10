@@ -170,16 +170,22 @@ public class ItsplaceActivity extends Activity {
 		 
 	        @Override
 	        public void call(Session session, SessionState state, Exception exception) {
-	        	if(session.isOpened()){
-	        		Log.i(TAG,"페시으스북 로그인 성공:"+state.name());
-	        		Log.i(TAG,"페시으스북 로그인 성공:"+"https://graph.facebook.com/me/friends?access_token=" + session.getAccessToken());
-	        	}else{
-	        		Log.i(TAG,"콜백 로그인 실행");
-	        		loginForm();
-	        	}
+	        	onSessionStateChange( state,  exception);
+	        	
 	            //updateView();
 	        }
 	    }
+	 
+	 private void onSessionStateChange(SessionState state, Exception exception) {
+		    Session session = Session.getActiveSession();
+		    if(session.isOpened()){
+        		Log.i(TAG,"페시으스북 로그인 성공:"+state.name());
+        		Log.i(TAG,"페시으스북 로그인 성공:"+"https://graph.facebook.com/me/friends?access_token=" + session.getAccessToken());
+        	}else{
+        		Log.i(TAG,"콜백 로그인 실행");
+        		loginForm();
+        	}
+		}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
