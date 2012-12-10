@@ -19,7 +19,7 @@
 		    <groupId>google-gcm </groupId>
 		    <artifactId>gcm</artifactId>
 		    <version>1.0</version>
-		</dependency>
+		</dependency> 
 		
      <!--    <dependency>
 			<groupId>com.google.zxing</groupId>
