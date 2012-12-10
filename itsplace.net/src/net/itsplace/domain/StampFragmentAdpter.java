@@ -4,7 +4,9 @@ import itsplace.net.MainApplication;
 import itsplace.net.R;
 import itsplace.net.StampActivity;
 import itsplace.net.stamp.StampSaveActivity;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 
 
 import java.text.ParseException;

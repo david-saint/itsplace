@@ -1,9 +1,18 @@
 package itsplace.net;
 
+
+
+
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.loopj.android.http.AsyncHttpClient;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 import itsplace.net.user.LoginActivity;
 import itsplace.net.user.LoginAsyncActivity;
-import itsplace.net.util.Encrypt;
-import itsplace.net.util.L;
+
+
 import net.itsplace.domain.User;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,10 +24,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class ItsplaceActivity extends Activity {
- 
+  
 	protected static final String TAG = ItsplaceActivity.class.getSimpleName();
 	private User user;
 	public static Activity exitActiviry;
+	
+	private AsyncHttpClient client = AsyncClient.getInstance();
+	Session.StatusCallback statusCallback = new SessionStatusCallback();
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,9 +104,36 @@ public class ItsplaceActivity extends Activity {
 	}
 	
 	private void init(){
-		MainApplication main = (MainApplication) getApplication();
-		user = main.getUser();
-		Intent intent;
+	//	MainApplication main = (MainApplication) getApplication();
+	//	user = main.getUser();
+	//	Intent intent;
+		
+		if(AsyncClient.isValidCookie(this, "10.0.2.2")){
+			L.i(TAG, " 현재 로그인중입니다");
+			   
+		    startActivity( new Intent(this, MainActivity.class));
+		    finish();
+    	}else{// 페이스북  로그인 체크
+    		Session session = Session.getActiveSession();
+    		if (session == null) {
+	        	Log.i(TAG,"세션 생성");
+	            session = new Session(this);
+	           
+	            Session.setActiveSession(session);
+	    		if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+		           	Log.i(TAG,"세션 로그인폼");
+		          // 	session.open
+		         //   session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));    		    
+		        }
+	        }	         
+    		else{
+	        	
+	        	loginForm();
+	        }
+    		
+    	}
+		 	
+		/*
 		if(main.isLogged()){
 			L.i(TAG, " 현재 로그인중입니다");
 		}else{
@@ -121,8 +161,25 @@ public class ItsplaceActivity extends Activity {
 				intent = new Intent(this, LoginActivity.class);
 				startActivity(intent);
 			}
-		}
+		}*/
 	}
+	private void loginForm(){
+		startActivity( new Intent(this,LoginActivity.class));
+	}
+	 private class SessionStatusCallback implements Session.StatusCallback {
+		 
+	        @Override
+	        public void call(Session session, SessionState state, Exception exception) {
+	        	if(session.isOpened()){
+	        		Log.i(TAG,"페시으스북 로그인 성공:"+state.name());
+	        		Log.i(TAG,"페시으스북 로그인 성공:"+"https://graph.facebook.com/me/friends?access_token=" + session.getAccessToken());
+	        	}else{
+	        		Log.i(TAG,"콜백 로그인 실행");
+	        		loginForm();
+	        	}
+	            //updateView();
+	        }
+	    }
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {

@@ -5,7 +5,9 @@ import itsplace.net.R;
 import itsplace.net.common.AbstractAsyncActivity;
 import itsplace.net.common.AbstractAsyncListActivity;
 import itsplace.net.user.LoginAsyncActivity;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

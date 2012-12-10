@@ -1,7 +1,9 @@
 package itsplace.net.map;
 
 import itsplace.net.R;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 
 import java.io.IOException;
 import java.util.List;
