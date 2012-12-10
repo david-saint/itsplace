@@ -19,7 +19,9 @@ import itsplace.net.PlaceActivity;
 import itsplace.net.R;
 import itsplace.net.map.DaumMapActivity;
 import itsplace.net.place.PlaceViewActivity;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 
 import java.util.ArrayList;
 import java.util.List;

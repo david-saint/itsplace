@@ -5,7 +5,9 @@ package itsplace.net.common;
 import itsplace.net.PlaceActivity;
 import itsplace.net.MainActivity;
 import itsplace.net.R;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

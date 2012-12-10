@@ -15,6 +15,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.facebook.FacebookActivity;
+import com.facebook.LoggingBehaviors;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Settings;
+
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import net.itsplace.domain.User;
 
 import itsplace.net.ItsplaceActivity;
@@ -24,8 +35,9 @@ import itsplace.net.R;
 
 import itsplace.net.common.AbstractAsyncActivity;
 import itsplace.net.common.Tdialog;
-import itsplace.net.util.Encrypt;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,11 +60,14 @@ import android.widget.Toast;
 
 public class LoginActivity  extends Activity  {
 	protected static final String TAG = LoginActivity.class.getSimpleName();
-
+	 Session.StatusCallback statusCallback = new SessionStatusCallback();
+	private  AsyncHttpClient client = AsyncClient.getInstance();
 	public static Activity exitActiviry;
 	EditText emailEditText;
 	EditText passwordEditText ;
 	TextView signUpTextView;
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +82,47 @@ public class LoginActivity  extends Activity  {
 		emailEditText.setText("faye12005@gmail.com");
 		passwordEditText.setText("hoon1014");
 		// showLoadingProgressDialog();
+		Button btnFacebookLogin = (Button) findViewById(R.id.btnFacebookLogin);
+		Button btnFacebooklogout = (Button) findViewById(R.id.btnFacebooklogout);
+		btnFacebooklogout.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				onClickFaceBookLogout();
+				
+			}
+		});
+		btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				onClickFaceBookLogin();
+				/*String url = getString(R.string.base_uri) + "/signin/facebook";
+				RequestParams params = new RequestParams();
+	        	params.put("scope", "publish_stream,user_photos,offline_access,email");
+	        	params.put("_spring_security_remember_me","1");
+				client.post(url, params, new AsyncHttpResponseHandler() {
+		    		@Override
+		    	     public void onStart() {
+		    		  	Log.i(TAG,"onStart");
+		    	     }
+
+		    	     @Override
+		    	     public void onSuccess(String response) {
+		    	    	 Log.i(TAG,"onSuccess");
+		    	     }
+		    	 
+		    	     @Override
+		    	     public void onFailure(Throwable e, String response) {
+		    	    	 Log.i(TAG,"onFailure"+response);
+		    	    	 Log.i(TAG,e.getMessage());
+		    	     }
+
+		    	     @Override
+		    	     public void onFinish() {
+		    	    	 Log.i(TAG,"onFinish");
+		    	     }
+		    	 });*/
+			}
+		});
+		
+		
 		Button loginButton = (Button) findViewById(R.id.btnLogin);
 		final Intent intent = new Intent(this, (LoginAsyncActivity.class));
 		loginButton.setOnClickListener(new View.OnClickListener() {
@@ -97,9 +153,81 @@ public class LoginActivity  extends Activity  {
 				setLayoutAnim_slidedownfromtop(aniLayout);
 			}
 		});
-	}
+		
+		
+		
+		   Settings.addLoggingBehavior(LoggingBehaviors.INCLUDE_ACCESS_TOKENS);
 
-	@Override
+	        Session session = Session.getActiveSession();
+	        if (session == null) {
+	            if (savedInstanceState != null) {
+	            	Log.i(TAG,"세션 리스토어");
+	                session = Session.restoreSession(this, null, statusCallback, savedInstanceState);
+	            }
+	            if (session == null) {
+	            	Log.i(TAG,"세션 생성");
+	                session = new Session(this);
+	            }
+	            Session.setActiveSession(session);
+	            Log.i(TAG,"세션 액티브");
+	            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+	            	Log.i(TAG,"세션 로그인폼");
+	                session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+	            }
+	        }else{
+	        	Log.i(TAG,"세션널");
+	        }
+		
+	}
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+        	Log.i(TAG,"콜백 세션실행");
+        	if(session.isOpened()){
+        		Log.i(TAG,"페시으스북 로그인 성공:"+state.name());
+        		Log.i(TAG,"페시으스북 로그인 성공:"+"https://graph.facebook.com/me/friends?access_token=" + session.getAccessToken());
+        	}
+            //updateView();
+        }
+    }
+    private void onClickFaceBookLogin() {
+        Session session = Session.getActiveSession(); 
+        if (!session.isOpened() && !session.isClosed()) {
+        	Log.i(TAG,"페시으스북 로그인 아님");
+            session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+        } else {
+        	Log.i(TAG,"페시으스북 로그인중");
+            Session.openActiveSession(this, true, statusCallback);
+        }
+    }
+    private void onClickFaceBookLogout() {
+        Session session = Session.getActiveSession();
+        if (!session.isClosed()) {
+            session.closeAndClearTokenInformation();
+        }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+    	Log.i(TAG,"온스타트 콜백");
+        Session.getActiveSession().addCallback(statusCallback);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i(TAG,"온스탑콜백");
+        Session.getActiveSession().removeCallback(statusCallback);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG,"리절트 콜백");
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
+
+	/*@Override
 	public void onStart() {
 		super.onStart();
 		
@@ -119,7 +247,7 @@ public class LoginActivity  extends Activity  {
 		} catch (Exception e) {
 			L.i(TAG + "onStart", "onStart");
 		}
-	}
+	}*/
 
 //	private class LoginAsync extends AsyncTask<User, Void, User> {
 //

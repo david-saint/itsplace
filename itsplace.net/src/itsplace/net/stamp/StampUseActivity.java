@@ -6,7 +6,9 @@ import itsplace.net.R;
 import itsplace.net.common.AbstractAsyncActivity;
 import itsplace.net.common.AbstractAsyncListActivity;
 import itsplace.net.user.LoginAsyncActivity;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -93,7 +95,7 @@ public class StampUseActivity  extends AbstractAsyncActivity{
        		String result = restTemplate.postForObject(url ,mvm, String.class);
        		return result;
            } catch (Exception e) {
-               L.e(TAG, e.getMessage(), e);
+              // L.e(TAG, e.getMessage(), e);
               
            }
 

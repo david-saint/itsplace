@@ -1,7 +1,7 @@
 package itsplace.net;
-import itsplace.net.util.L;
-import itsplace.net.util.SharedPreference;
 
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 import net.itsplace.domain.User;
 import android.app.Application;
 import android.content.Intent;

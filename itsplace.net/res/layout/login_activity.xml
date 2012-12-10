@@ -75,6 +75,21 @@
                   android:padding="10dp" 
                   android:text="로긔인"   android:background="@layout/shape_button"
                  />
+           <!-- Login button -->
+          <Button android:id="@+id/btnFacebookLogin"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dip"  
+                  android:padding="10dp" 
+                  android:text="facebook login"   android:background="@layout/shape_button"
+                 />
+          <Button android:id="@+id/btnFacebooklogout"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="10dip"  
+                  android:padding="10dp" 
+                  android:text="facebook logout"   android:background="@layout/shape_button"
+                 />
           <!-- Link to Registration Screen -->
           <TextView android:id="@+id/signUp"
                   android:layout_width="fill_parent"

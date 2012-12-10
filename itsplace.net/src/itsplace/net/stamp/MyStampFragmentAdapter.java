@@ -5,7 +5,9 @@ import itsplace.net.StampActivity;
 import itsplace.net.common.DateDeserializer;
 import itsplace.net.connection.RestClient;
 import itsplace.net.connection.RestClient.RequestMethod;
-import itsplace.net.util.L;
+
+import itsplace.library.restful.AsyncClient;
+import itsplace.library.util.*;
 
 import java.util.ArrayList;
 import java.util.Date;

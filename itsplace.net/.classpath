@@ -7,7 +7,6 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/android-sdk/extras/android/support/v4/android-support-v4.jar"/>
 	<classpathentry kind="src" output="bin/classes" path="src">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -18,5 +17,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/itsplace.library/libs/android-async-http-1.4.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
