@@ -106,7 +106,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup( Model model, WebRequest request) {
-		System.out.println("sssssssssssssssss:사인업");
+		System.out.println("페이스북 최초 로그인시");
 		User user = new User();
 		Connection<?> connection = ProviderSignInUtils.getConnection(request);
 		if (connection != null) {
