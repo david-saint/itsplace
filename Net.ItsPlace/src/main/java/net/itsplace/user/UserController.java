@@ -53,11 +53,69 @@ public class UserController {
 	private JsonResponse json;
 	
 	@RequestMapping(value = "/signup2", method = RequestMethod.GET)
-	public String signup( Model model,HttpServletRequest request) {
+	public String signup2( Model model,HttpServletRequest request) {
 		model.addAttribute("user",new User());
 		return "user/register";
 	}
 	
+	/**
+	 * 소셜 로그인 최초등록일경
+	 * @author 김동훈
+	 * @version 1.0, 2011.8.15 
+	 * @param 
+	 * @return  접근권한 없음 페이지
+	 * @see 
+	 */
+	@RequestMapping(value="/signup", method=RequestMethod.GET)
+	public String signup( Model model, WebRequest request) {
+		System.out.println("facebook login");
+		User user = new User();
+		Connection<?> connection = ProviderSignInUtils.getConnection(request);
+		if (connection != null) {
+			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
+			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
+			UserProfile providerUser =	connection.fetchUserProfile();
+			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
+			user.setPassword("itsplace");
+			user.setEmail(providerUser.getEmail());
+			user.setName(providerUser.getName());
+			user.setProfileImageUrl(connection.getProfileUrl());
+			user.setRole("ROLE_USER");
+			
+//			userService.saveUser(user);
+//			User dbUser = userService.getUser(user.getEmail());
+//			CustomUserDetailsService cuser = new CustomUserDetailsService();
+//			CustomUserDetails details = new CustomUserDetails(
+//					dbUser, 
+//					dbUser.getEmail(),						
+//					dbUser.getPassword().toLowerCase(),
+//					true,
+//					true,
+//					true,
+//					true,
+//					cuser.getAuthorities("ROLE_USER"));
+//			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
+//			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+//			SecurityContextHolder.getContext().setAuthentication(newAuth);
+//			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
+//			return "redirect:/places";
+			model.addAttribute("user", user);
+			return "user/signup";
+		} else {
+			//return new SignupForm();
+			System.out.println("facebook login 회원가입으");
+			model.addAttribute("userForm", user);
+			model.addAttribute("user", user);
+			return "user/signup";
+		}
+	}
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String signup(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
+	{
+		logger.info("user.getEmail():{}",user.getEmail());
+		userService.saveUser(user);
+		return "redirect:/places";
+	}
 	
 	@RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
 	public String saveUser(@Validated({AddUser.class}) User user, BindingResult result, Model model) 

@@ -3,7 +3,19 @@
 
 <tiles-definitions>
 
-
+ <definition name="user/signup" extends="empty_layout">		
+		<put-attribute name="body" expression="/WEB-INF/views/user/signup.jsp" />
+  	  			
+		<put-list-attribute name="styles">  		
+  			<add-attribute value="common/common.css" />
+  			<add-attribute value="font/font-awesome.css" />
+  			<add-attribute value="common/normalize.css" />
+  			<add-attribute value="js/mosaic/css/mosaic.css" />
+  			<add-attribute value="admin/components/fancybox/jquery.fancybox.css" />
+  			<add-attribute value="css/index.css" />
+  		</put-list-attribute>
+  		 
+	</definition>
 	<definition name="user/login" extends="empty_layout">
 		<put-attribute name="body"	 expression="/WEB-INF/views/user/login.jsp" />		
 		<put-list-attribute name="scripts">  
