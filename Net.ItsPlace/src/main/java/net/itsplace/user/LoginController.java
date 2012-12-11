@@ -104,47 +104,47 @@ public class LoginController {
 	 * @return  접근권한 없음 페이지
 	 * @see 
 	 */
-	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String signup( Model model, WebRequest request) {
-		System.out.println("페이스북 최초 로그인시");
-		User user = new User();
-		Connection<?> connection = ProviderSignInUtils.getConnection(request);
-		if (connection != null) {
-			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
-			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
-			UserProfile providerUser =	connection.fetchUserProfile();
-			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
-			user.setPassword("itsplace");
-			user.setEmail(providerUser.getEmail());
-			user.setName(providerUser.getName());
-			user.setProfileImageUrl(connection.getProfileUrl());
-			user.setRole("ROLE_USER");
-			
-			userService.saveUser(user);
-			User dbUser = userService.getUser(user.getEmail());
-			CustomUserDetailsService cuser = new CustomUserDetailsService();
-			CustomUserDetails details = new CustomUserDetails(
-					dbUser, 
-					dbUser.getEmail(),						
-					dbUser.getPassword().toLowerCase(),
-					true,
-					true,
-					true,
-					true,
-					cuser.getAuthorities("ROLE_USER"));
-			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
-			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
-			SecurityContextHolder.getContext().setAuthentication(newAuth);
-			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
-			return "redirect:/places";
-		} else {
-			//return new SignupForm();
-			model.addAttribute("userForm", user);
-			model.addAttribute("user", user);
-			return "user/register";
-		}
-	}
-	
+//	@RequestMapping(value="/signup", method=RequestMethod.GET)
+//	public String signup( Model model, WebRequest request) {
+//		System.out.println("페이스북 최초 로그인시");
+//		User user = new User();
+//		Connection<?> connection = ProviderSignInUtils.getConnection(request);
+//		if (connection != null) {
+//			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
+//			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
+//			UserProfile providerUser =	connection.fetchUserProfile();
+//			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
+//			user.setPassword("itsplace");
+//			user.setEmail(providerUser.getEmail());
+//			user.setName(providerUser.getName());
+//			user.setProfileImageUrl(connection.getProfileUrl());
+//			user.setRole("ROLE_USER");
+//			
+//			userService.saveUser(user);
+//			User dbUser = userService.getUser(user.getEmail());
+//			CustomUserDetailsService cuser = new CustomUserDetailsService();
+//			CustomUserDetails details = new CustomUserDetails(
+//					dbUser, 
+//					dbUser.getEmail(),						
+//					dbUser.getPassword().toLowerCase(),
+//					true,
+//					true,
+//					true,
+//					true,
+//					cuser.getAuthorities("ROLE_USER"));
+//			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
+//			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+//			SecurityContextHolder.getContext().setAuthentication(newAuth);
+//			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
+//			return "redirect:/places";
+//		} else {
+//			//return new SignupForm();
+//			model.addAttribute("userForm", user);
+//			model.addAttribute("user", user);
+//			return "user/register";
+//		}
+//	}
+//	
 	
 	@RequestMapping(value = "/passwordreset", method = RequestMethod.GET)
 	public String passwordreset(){
