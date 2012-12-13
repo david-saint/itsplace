@@ -1,0 +1,13 @@
+.centered{
+position: absolute;
+height: 400px;
+width: 400px;
+margin: -100px 0px 0px -200px;
+top: 50%;
+left: 50%;
+text-align: left;
+padding: 0px;
+background-color: whiteSmoke;
+border: 1px dotted black;
+overflow: auto;
+}
