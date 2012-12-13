@@ -58,6 +58,10 @@ public class UserController {
 		return "user/register";
 	}
 	
+	@RequestMapping(value="/temp", method=RequestMethod.GET)
+	public String temp() {
+		return "user/temp";
+	}
 	/**
 	 * 소셜 로그인 최초등록일경
 	 * @author 김동훈
@@ -76,7 +80,7 @@ public class UserController {
 			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
 			UserProfile providerUser =	connection.fetchUserProfile();
 			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
-			user.setPassword("itsplace");
+			
 			user.setEmail(providerUser.getEmail());
 			user.setName(providerUser.getName());
 			user.setProfileImageUrl(connection.getProfileUrl());
@@ -97,7 +101,7 @@ public class UserController {
 //			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
 //			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
 //			SecurityContextHolder.getContext().setAuthentication(newAuth);
-//			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
+			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
 //			return "redirect:/places";
 			model.addAttribute("user", user);
 			return "user/signup";
@@ -110,10 +114,42 @@ public class UserController {
 		}
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signup(@Validated({AddUser.class}) User user, BindingResult result, Model model) 
-	{
-		logger.info("user.getEmail():{}",user.getEmail());
-		userService.saveUser(user);
+	public String signup(@Validated({AddUser.class}) User user, BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response){
+		logger.info("signup--------------------->");
+		
+		if (result.hasErrors()) {
+			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			//json =  json.getValidationErrorResult(result, json);
+			return "user/signup";
+		} else {	
+			userService.saveUser(user);
+			json.setResult(user);
+			json.setSuccess();
+			User dbUser = userService.getUser(user.getEmail());
+			CustomUserDetailsService cuser = new CustomUserDetailsService();
+			CustomUserDetails details = new CustomUserDetails(
+					dbUser, 
+					dbUser.getEmail(),						
+					dbUser.getPassword(),
+					true,
+					true,
+					true,
+					true,
+					cuser.getAuthorities("ROLE_USER"));
+			System.out.println("password:"+details.getUser().getPassword() + user.getEmail());
+			logger.info("가입완료");
+			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+			HttpServletRequest nativeReq = request;
+			HttpServletResponse nativeRes = response;
+			nativeReq.setAttribute("_spring_security_remember_me", "1");
+			
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+			rememberMeServices.setKey("itsplace");
+			rememberMeServices.setParameter("_spring_security_remember_me");
+			rememberMeServices.setAlwaysRemember(true);
+			rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+			
+		}
 		return "redirect:/places";
 	}
 	
@@ -124,6 +160,8 @@ public class UserController {
 		userService.saveUser(user);
 		return "redirect:/";
 	}
+	
+	// 안드로이드 Json용 회원가입	
 	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse register(@Validated({AddUser.class}) User user, BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) {
 		logger.info("register--------------------->");

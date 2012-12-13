@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 
@@ -19,6 +20,7 @@ import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
@@ -31,10 +33,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.itsplace.domain.JsonResponse;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.StandardOrMobile;
 
@@ -44,8 +48,78 @@ public class LoginController {
 	private static final Logger logger =  LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private UserService userService;
-
-	
+	@Autowired
+	private PersistentTokenBasedRememberMeServices rememberMeServices;
+	@Autowired
+	private JsonResponse json;
+	/**
+	 * 아늗로이드에서 로그인 
+	 * 안드로이드 페이스북 인증후  로그인한다. 
+	 * @return
+	 */
+	@RequestMapping(value = "/user/facebooklogin", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse socialLogin(HttpServletRequest request,HttpServletResponse response,
+												  @RequestParam(required=false, defaultValue="") String email,
+												  @RequestParam(required=false, defaultValue="") String token){
+		
+				System.out.println("소셜인증");
+				CustomUserDetailsService cuser = new CustomUserDetailsService();
+				
+				User user = userService.getUser(email);
+				if(user == null){
+					json.setFail();
+					
+					return json;
+				}
+				// Principal principal = new Princip();
+				// UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(localUserId, "itsplace!@#$", cuser.getAuthorities("ROLE_USER"));
+				CustomUserDetails details = new CustomUserDetails(
+						user, 
+						email,						
+						user.getPassword(),
+						true,
+						true,
+						true,
+						true,
+						cuser.getAuthorities("ROLE_USER"));
+				System.out.println("password:"+details.getUser().getPassword());
+				
+				UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+				//	RememberMeAuthenticationToken newAuth = new RememberMeAuthenticationToken("itsplace",details,cuser.getAuthorities("ROLE_USER"));
+				//PersistentTokenBasedRememberMeServices d ; d.
+				HttpServletRequest nativeReq = request;
+				HttpServletResponse nativeRes = response;
+				nativeReq.setAttribute("_spring_security_remember_me", "1");
+				
+				SecurityContextHolder.getContext().setAuthentication(newAuth);
+				//rememberMeServices.setKey("itsplace");
+				//rememberMeServices.setParameter("_spring_security_remember_me");
+				rememberMeServices.setAlwaysRemember(true);
+				rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+				/*if(rememberMeServices.autoLogin(nativeReq, nativeRes)==null){
+					
+					rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+					System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+					System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+					System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+					System.out.println("rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);");
+				}else{
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+					System.out.println("cookey exit");
+				}
+		*/
+//				SecurityContextHolder.getContext().setAuthentication(rememberMeAuthenticationToken);
+				
+//				
+				System.out.println("리다이텍트 소셜 로그인");
+				return json;
+	}
 	/**
 	 * 로그인폼 호출<br>
 	 * security-context.xml 참고할것
