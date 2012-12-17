@@ -3,8 +3,10 @@ package itsplace.net;
 
 
 
+import com.facebook.LoggingBehaviors;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.Settings;
 import com.loopj.android.http.AsyncHttpClient;
 
 import itsplace.library.restful.AsyncClient;
@@ -87,6 +89,7 @@ public class ItsplaceActivity extends Activity {
 				 */
 			}
 		});
+		init(savedInstanceState);
 	}
 
 	@Override
@@ -94,42 +97,54 @@ public class ItsplaceActivity extends Activity {
 		
 		super.onStart();
 		L.i(TAG, "onStart 흡니다");
-		init();
+		//init();
 	}
 	@Override
 	protected void onResume() {
 		super.onResume();
 		L.i(TAG, "onResume 합니다");
-		init();
+		//init();
 	}
 	
-	private void init(){
+	private void init(Bundle savedInstanceState){
 	//	MainApplication main = (MainApplication) getApplication();
 	//	user = main.getUser();
 	//	Intent intent;
 		
-		if(AsyncClient.isValidCookie(this, "10.0.2.2")){
+		if(AsyncClient.isValidCookie(getApplicationContext(), "10.0.2.2")){
 			L.i(TAG, " 현재 로그인중입니다");
 			   
 		    startActivity( new Intent(this, MainActivity.class));
 		    finish();
-    	}else{// 페이스북  로그인 체크
-    		Session session = Session.getActiveSession();
-    		if (session == null) {
-	        	Log.i(TAG,"세션 생성");
-	            session = new Session(this);
-	           
-	            Session.setActiveSession(session);
-	    		if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-		           	Log.i(TAG,"세션 로그인폼");
-		          // 	session.open
-		         //   session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));    		    
-		        }
+    	}else{
+    		loginForm();
+    		// 페이스북  로그인 체크
+    		/*L.i(TAG, "페이스북 로그인 체크");
+    		 	Settings.addLoggingBehavior(LoggingBehaviors.INCLUDE_ACCESS_TOKENS);
+
+    	        Session session = Session.getActiveSession();
+    	        if (session == null) {
+    	        	L.i(TAG, "페이스북 로그인 체크 1");
+    	            if (savedInstanceState != null) {
+    	            	L.i(TAG, "페이스북 로그인 체크 2");
+    	                session = Session.restoreSession(this, null, statusCallback, savedInstanceState);
+    	            }
+    	            if (session == null) {
+    	            	L.i(TAG, "페이스북 로그인 체크 3");
+    	                session = new Session(this);
+    	            }
+    	            Session.setActiveSession(session);
+    	            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+    	            	L.i(TAG, "페이스북 로그인 체크 4");
+    	                session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+    	            }else{
+    	            	 L.i(TAG, "페이스북 로그인 체크5");
+    	            	loginForm();
+    	            }
+    	           
+    	        }*/
 	        }	         
-    		else{
-	        	
-	        	loginForm();
-	        }
+    		
     		
     	}
 		 	
@@ -162,30 +177,29 @@ public class ItsplaceActivity extends Activity {
 				startActivity(intent);
 			}
 		}*/
-	}
+	
 	private void loginForm(){
 		startActivity( new Intent(this,LoginActivity.class));
 	}
-	 private class SessionStatusCallback implements Session.StatusCallback {
-		 
+	
+	private class SessionStatusCallback implements Session.StatusCallback {
 	        @Override
 	        public void call(Session session, SessionState state, Exception exception) {
-	        	onSessionStateChange( state,  exception);
-	        	
-	            //updateView();
+	            Log.i(TAG,"세션 콜백");
+	            updateView();
 	        }
 	    }
-	 
-	 private void onSessionStateChange(SessionState state, Exception exception) {
-		    Session session = Session.getActiveSession();
-		    if(session.isOpened()){
-        		Log.i(TAG,"페시으스북 로그인 성공:"+state.name());
-        		Log.i(TAG,"페시으스북 로그인 성공:"+"https://graph.facebook.com/me/friends?access_token=" + session.getAccessToken());
-        	}else{
-        		Log.i(TAG,"콜백 로그인 실행");
-        		loginForm();
-        	}
-		}
+	private void updateView() {
+        Session session = Session.getActiveSession();
+        if (session.isOpened()) {
+           
+            Log.i(TAG,"로그인성공:"+session.getAccessToken());
+        } else {
+        	
+        	Log.i(TAG,"로그인실패:");
+        	loginForm();
+        }
+}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
