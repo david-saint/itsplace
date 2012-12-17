@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script src="js/jquery-1.8.3.min.js"></script>
+        <title>Hello World</title>
+        <script>
+        $(document).ready(function() {
+        	$('form').submit();
+        })
+   
+        </script>
+    </head>
+    <body>
+      <!--  <form id="signin-form" method="post" action="http://10.0.2.2:8080/signin/authenticate">
+                            <input type="hidden" id="on_off" name="_spring_security_remember_me"  value="1"   />
+                            <fieldset>
+                                <label for="username" style="display: none; ">Email or Username</label>
+                                <input id="username" class="border-box" type="email" name="j_username" placeholder="Email or Username" tabindex="1" value="faye12005@gmail.com">
+                            </fieldset>
+                            
+                            <fieldset>
+                                <label for="password" style="display: none; ">Password</label>
+                                <input id="password" class="border-box" type="password" name="j_password" placeholder="Password" tabindex="2" value="1111"></fieldset>
+                            <fieldset>
+	                            <button  id="btnSignIn" class="blueButton">로그인</button>
+                            </fieldset>
+                        </form>
+                        <button id="move">이동</button> -->
+	
+	<form name="fb_signin" id="fb_signin" action="http://place.cloudfoundry.com/signin/facebook" method="POST">
+							
+							        <input type="hidden" name="scope" value="publish_stream,user_photos,offline_access,email" />
+							        <input type="hidden" id="on_off" name="_spring_security_remember_me" value="1" />
+							        <fieldset> 
+									<button  type="submit" class="grayButton facebook"><i class="icon-facebook"></i><span>페이스북 아이디로 로그인</span></button>
+                            </fieldset>
+					    </form>
+    </body>
+</html>

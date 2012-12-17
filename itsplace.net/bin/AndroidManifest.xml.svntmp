@@ -43,7 +43,6 @@
 		<activity android:name=".map.DaumMapActivity"/>
 		<activity android:name=".user.LoginActivity"/>
 		<activity android:name=".user.LoginAsyncActivity"/>
-		<activity android:name=".user.FacebookSignupActivity"/>
 		<activity android:name=".user.SignUpActivity"/>
 		<activity android:name=".place.PlaceViewActivity"/>
 		<activity android:name=".QRcodeActivity"/>

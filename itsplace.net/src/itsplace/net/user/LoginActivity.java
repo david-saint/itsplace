@@ -5,6 +5,9 @@ import java.util.List;
 
 
 
+import org.apache.http.cookie.Cookie;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,15 +18,19 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.facebook.FacebookActivity;
 import com.facebook.LoggingBehaviors;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.Settings;
+import com.facebook.model.GraphUser;
 
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.PersistentCookieStore;
 import com.loopj.android.http.RequestParams;
 
 import net.itsplace.domain.User;
@@ -31,6 +38,7 @@ import net.itsplace.domain.User;
 import itsplace.net.ItsplaceActivity;
 import itsplace.net.MainActivity;
 import itsplace.net.MainApplication;
+import itsplace.net.QRcodeActivity;
 import itsplace.net.R;
 
 import itsplace.net.common.AbstractAsyncActivity;
@@ -42,6 +50,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +67,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity  extends Activity  {
+public class LoginActivity  extends SherlockActivity  {
 	protected static final String TAG = LoginActivity.class.getSimpleName();
 	 Session.StatusCallback statusCallback = new SessionStatusCallback();
 	private  AsyncHttpClient client = AsyncClient.getInstance();
@@ -83,42 +92,16 @@ public class LoginActivity  extends Activity  {
 		passwordEditText.setText("hoon1014");
 		// showLoadingProgressDialog();
 		Button btnFacebookLogin = (Button) findViewById(R.id.btnFacebookLogin);
-		Button btnFacebooklogout = (Button) findViewById(R.id.btnFacebooklogout);
+		/*Button btnFacebooklogout = (Button) findViewById(R.id.btnFacebooklogout);
 		btnFacebooklogout.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				onClickFaceBookLogout();
 				
 			}
-		});
+		});*/
 		btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				onClickFaceBookLogin();
-				/*String url = getString(R.string.base_uri) + "/signin/facebook";
-				RequestParams params = new RequestParams();
-	        	params.put("scope", "publish_stream,user_photos,offline_access,email");
-	        	params.put("_spring_security_remember_me","1");
-				client.post(url, params, new AsyncHttpResponseHandler() {
-		    		@Override
-		    	     public void onStart() {
-		    		  	Log.i(TAG,"onStart");
-		    	     }
-
-		    	     @Override
-		    	     public void onSuccess(String response) {
-		    	    	 Log.i(TAG,"onSuccess");
-		    	     }
-		    	 
-		    	     @Override
-		    	     public void onFailure(Throwable e, String response) {
-		    	    	 Log.i(TAG,"onFailure"+response);
-		    	    	 Log.i(TAG,e.getMessage());
-		    	     }
-
-		    	     @Override
-		    	     public void onFinish() {
-		    	    	 Log.i(TAG,"onFinish");
-		    	     }
-		    	 });*/
 			}
 		});
 		
@@ -186,17 +169,128 @@ public class LoginActivity  extends Activity  {
         	if(session.isOpened()){
         		Log.i(TAG,"페시으스북 로그인 성공:"+state.name());
         		Log.i(TAG,"페시으스북 로그인 성공:"+"https://graph.facebook.com/me/friends?access_token=" + session.getAccessToken());
+        		String url = "https://graph.facebook.com/me/?access_token=" + session.getAccessToken();      
+        		final String token = session.getAccessToken();
+        		
+				client.get(url,  new AsyncHttpResponseHandler() {
+		    		@Override
+		    	     public void onStart() {
+		    		  	Log.i(TAG,"onStart");
+		    	     }
+
+		    	     @Override
+		    	     public void onSuccess(String response) {
+		    	    	 Log.i(TAG,"onSuccess:"+response);
+		    	    	 try {
+							JSONObject json =  new JSONObject(response);
+							String email = json.get("email").toString();
+							String name = json.get("name").toString();
+							
+							socialLogin(email, name, token);
+							 
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		    	     }
+		    	 
+		    	     @Override
+		    	     public void onFailure(Throwable e, String response) {
+		    	    	 Log.i(TAG,"onFailure"+response);
+		    	    	 Log.i(TAG,e.getMessage());
+		    	     }
+
+		    	     @Override
+		    	     public void onFinish() {
+		    	    	 Log.i(TAG,"onFinish");
+		    	     }
+		    	 });
+		    	 
+        		//최초가입시 회원 등록
+        		
+        		
+        	
         	}
+        	
             //updateView();
         }
+       
+        
+    }
+    private void socialLogin(final String email, final String name ,final String token){
+    	final Intent intent = new Intent(this, (FacebookSignupActivity.class));
+    	String url = getString(R.string.base_uri) + "/user/facebooklogin";
+		RequestParams params = new RequestParams();
+    	params.put("email", email);
+    	params.put("token", token);
+		client.post(url, params, new AsyncHttpResponseHandler() {
+    		@Override
+    	     public void onStart() {
+    		  	Log.i(TAG,"onStart");
+    	     }
+
+    	     @Override
+    	     public void onSuccess(String response) {
+    	    	 //회원이 아니면 회원가입 창
+    	    	 Log.i(TAG,"로그인 성공 "+response);
+    	    		JSONObject json;
+					try {
+						json = new JSONObject(response);
+						String status = json.get("status").toString();
+						Log.i(TAG,"결과:"+status);
+						if(status.equals("FAIL")){
+							
+							intent.putExtra("email", email);
+							intent.putExtra("name", name);
+							intent.putExtra("token", token);
+							startActivityForResult(intent,0);
+						}else{
+							 saveCookie();
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					
+    	    	
+    	    	
+    	     }
+    	 
+    	     @Override
+    	     public void onFailure(Throwable e, String response) {
+    	    	 Log.i(TAG,"onFailure"+response);
+    	    	 Log.i(TAG,e.getMessage());
+    	     }
+
+    	     @Override
+    	     public void onFinish() {
+    	    	 Log.i(TAG,"onFinish");
+    	     }
+    	 });
+		
+		
+    }
+    private void saveCookie(){
+    	Log.i(TAG,"쿠키저장");
+    	 PersistentCookieStore myCookieStore = new PersistentCookieStore(getApplicationContext());
+    	 client.setCookieStore(myCookieStore);
+    	/* for( Cookie  c : myCookieStore.getCookies() ){
+        	   	Log.i(TAG,"도메인============== :"+c.getDomain());
+        	   	Log.i(TAG,c.getDomain()+"==============getName :"+c.getName());
+        	   	Log.i(TAG,c.getDomain()+"==============getPath:"+c.getPath());
+        	   	Log.i(TAG,c.getDomain()+"==============getValue :"+c.getValue());
+        	   	Log.i(TAG,c.getDomain()+"==============getVersion :"+c.getVersion());
+        	   	Log.i(TAG,c.getDomain()+"==============getPorts :"+c.getPorts());
+        	   	Log.i(TAG,c.getDomain()+"==============getExpiryDate :"+c.getExpiryDate());
+        	        	   	
+        	 }*/
+    	 startActivity( new Intent(this, MainActivity.class));
+    	 finish();
     }
     private void onClickFaceBookLogin() {
         Session session = Session.getActiveSession(); 
         if (!session.isOpened() && !session.isClosed()) {
-        	Log.i(TAG,"페시으스북 로그인 아님");
             session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
         } else {
-        	Log.i(TAG,"페시으스북 로그인중");
             Session.openActiveSession(this, true, statusCallback);
         }
     }
@@ -219,12 +313,21 @@ public class LoginActivity  extends Activity  {
         Log.i(TAG,"온스탑콜백");
         Session.getActiveSession().removeCallback(statusCallback);
     }
-
+  
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG,"리절트 콜백");
-        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+        Log.i(TAG,"리절트 콜백 resultCode"+resultCode);
+        Log.i(TAG,"리절트 콜백 requestCode"+requestCode);
+        if(requestCode==RESULT_OK){
+        	//회원가입성공
+        	
+        	socialLogin(data.getStringExtra("email").toString(),data.getStringExtra("name").toString(), data.getStringExtra("token").toString());
+        }
+        //페이스북 로그인인증시 -1, 64206
+        //회원가입되어있는지  확인한다. 
+        // 회원가입은 페이스북 아이디로 회원가입하고 호그인을 거친다.
+       // Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
     }
 
 	/*@Override
