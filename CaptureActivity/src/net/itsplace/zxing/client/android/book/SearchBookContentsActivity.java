@@ -69,6 +69,14 @@ public final class SearchBookContentsActivity extends Activity {
   private final Handler handler = new Handler() {
     @Override
     public void handleMessage(Message message) {
+    	if(message.what == R.id.search_book_contents_succeeded){
+    		handleSearchResults((JSONObject) message.obj);
+            resetForNewQuery();
+    	}else if(message.what == R.id.search_book_contents_failed){
+    		  resetForNewQuery();
+              headerView.setText(R.string.msg_sbc_failed);
+    	}
+    	/*
       switch (message.what) {
         case R.id.search_book_contents_succeeded:
           handleSearchResults((JSONObject) message.obj);
@@ -79,6 +87,7 @@ public final class SearchBookContentsActivity extends Activity {
           headerView.setText(R.string.msg_sbc_failed);
           break;
       }
+      */
     }
   };
 
