@@ -518,7 +518,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   // Put up our own UI for how to handle the decoded contents.
   private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
-    statusView.setVisibility(View.GONE);
+	  //호출된 액티비티로 전달함..
+	  Intent intent = getIntent();
+	  intent.putExtra("SCAN_RESULT", resultHandler.getDisplayContents());
+	  setResult(RESULT_OK, intent);
+	    
+	  finish();
+   /* statusView.setVisibility(View.GONE);
     viewfinderView.setVisibility(View.GONE);
     resultView.setVisibility(View.VISIBLE);
 
@@ -564,6 +570,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     TextView contentsTextView = (TextView) findViewById(R.id.contents_text_view);
     CharSequence displayContents = resultHandler.getDisplayContents();
+    
+    
+    
+    
     contentsTextView.setText(displayContents);
     // Crudely scale betweeen 22 and 32 -- bigger font for shorter text
     int scaledSize = Math.max(22, 32 - displayContents.length() / 4);
@@ -598,7 +608,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     if (copyToClipboard && !resultHandler.areContentsSecure()) {
       ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
       clipboard.setText(displayContents);
-    }
+    }*/
   }
 
   // Briefly show the contents of the barcode, then handle the result outside Barcode Scanner.
