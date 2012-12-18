@@ -20,7 +20,7 @@ public class AdminMediaSeviceImpl implements AdminMediaService{
 	private static final Logger logger = LoggerFactory.getLogger(AdminMediaSeviceImpl.class);
 	
 	@Autowired
-	private CommonService commonService;
+	protected CommonService commonService;
 	@Autowired
 	private ImageService imageService;
 

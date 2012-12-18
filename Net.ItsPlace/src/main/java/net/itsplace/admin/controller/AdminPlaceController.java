@@ -46,11 +46,12 @@ public class AdminPlaceController {
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired
-	private AdminMediaService adminMediaService;
+	protected AdminMediaService adminMediaService;
 	@Autowired
 	private PagingManager pagingManaer;
+
 	@Autowired
-	private CommonService commonService;
+	protected CommonService commonService;
 	/**
 	 * 가맹점 승인관리
 	 * @param locale

@@ -104,7 +104,19 @@ public class SearchController {
 		json.setStatus("SUCCESS");
 		return json;
 	}
-	
+	/**
+	 * 스마트폰 가맹점 검색
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/search/test", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  test(){
+		JsonResponse json = new JsonResponse();
+		json.setSuccess();
+		json.setResult("aaaa");
+			return json;
+	}
 	
 	/**
 	 * 지도검색
