@@ -43,8 +43,8 @@ public class CommonServiceImpl implements CommonService{
 	
 	private Basecd basecd;
 	
-	@Autowired 
-	protected ServletContext context;
+/*	@Autowired 
+	protected ServletContext servletContext;
 	
 	@javax.annotation.PostConstruct
 	public void init(){
@@ -60,8 +60,8 @@ public class CommonServiceImpl implements CommonService{
 		}
 		basecd = new Basecd(baseMap);
 		basecd.setImageHost(imageHost);
-		context.setAttribute("ImageHost", imageHost);
-	}
+		servletContext.setAttribute("ImageHost", imageHost);
+	}*/
 	
 	/**
 	 * 그룹코드로 기초코드 리스트 가져오기  <br />
