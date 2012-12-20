@@ -28,6 +28,22 @@ ListView listView;
         list.add(new MyItem(1, "아도겐"));
         list.add(new MyItem(2, "나무1"));
         list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
+        list.add(new MyItem(3, "나무2"));
         
         //아답터 객체 생성하기
         MyAdapter adapter = new MyAdapter(this, R.layout.custom, list);
