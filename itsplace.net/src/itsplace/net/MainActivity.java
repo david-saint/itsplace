@@ -173,7 +173,10 @@ public class MainActivity extends BaseActivity {
 	    		@Override
 		  	    public void onStart() {
 		  		  	Log.i(TAG,"onStart place list");
-		  		  	lodingLayout.setVisibility(View.VISIBLE);
+		  		  	if(currentPage!=1){
+		  		  		lodingLayout.setVisibility(View.VISIBLE);
+		  		  	}
+		  		  	
 		  	    }
 	
 		  	    @Override
@@ -183,6 +186,7 @@ public class MainActivity extends BaseActivity {
 		  	    	try {
 						JSONObject jsonResponse = new JSONObject(response);
 						JSONArray placesJson = jsonResponse.getJSONArray("result");
+						
 						GsonBuilder gsonb = new GsonBuilder();
 						DateDeserializer ds = new DateDeserializer();
 						gsonb.registerTypeAdapter(Date.class, ds);
@@ -217,7 +221,7 @@ public class MainActivity extends BaseActivity {
 	}
 	private void refresh(List<Place> placeList) {
 	    if (placeList.isEmpty()) {
-	    	Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_LONG).show();
+	    	//Toast.makeText(this, "검색 결과가 없습니다", Toast.LENGTH_LONG).show();
 	    }else{
 	    	currentPage++;
 	    	//adapter.addStatesListAdapter(placeList);
