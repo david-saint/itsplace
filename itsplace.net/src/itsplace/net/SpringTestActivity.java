@@ -45,7 +45,7 @@ public class SpringTestActivity extends ListActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new StatesListAdapter(this);
-        mTestLayout = (LinearLayout) View.inflate(this, R.layout.mytext, null);
+        mTestLayout = (LinearLayout) View.inflate(this, R.layout.loading_list, null);
         mTestLayout.setVisibility(View.INVISIBLE);
       //  super.setContentView(mTestLayout);
       //  setContentView(R.layout.list);
@@ -60,7 +60,7 @@ public class SpringTestActivity extends ListActivity{
       //  Log.v(TAG, "Before " + totalListNum);
         
 
-        mTestLayout = (LinearLayout) View.inflate(this, R.layout.mytext, null);
+        mTestLayout = (LinearLayout) View.inflate(this, R.layout.loading_list, null);
         mTestLayout.setVisibility(View.INVISIBLE);
         
         getListView().addFooterView(mTestLayout);

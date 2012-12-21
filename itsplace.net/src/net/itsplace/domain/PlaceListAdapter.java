@@ -78,7 +78,7 @@ public class PlaceListAdapter extends BaseAdapter implements OnClickListener {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list, parent, false);
+            convertView = layoutInflater.inflate(R.layout.place_list, parent, false);
         }
         
         Place f = getItem(position);

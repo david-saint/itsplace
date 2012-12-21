@@ -26,7 +26,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.SubMenu;
 
 public class ActionBarMenu {
-	protected static final String TAG = PlaceActivity.class.getSimpleName();
+	protected static final String TAG = ActionBarMenu.class.getSimpleName();
 	private ActionMode actionMode;
 	private Context context;
 	public void createMenu(Menu menu){

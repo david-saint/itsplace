@@ -63,10 +63,10 @@ public class StatesListAdapter extends BaseAdapter {
         
         State state = getItem(position);
         if (state != null) {
-        	TextView t = (TextView) convertView.findViewById(R.id.state_name);
-            t.setText(state.getName()+"kk");
-            TextView t2 = (TextView) convertView.findViewById(R.id.state_name2);
-            t2.setText("t2t2");
+     //   	TextView t = (TextView) convertView.findViewById(R.id.state_name);
+       //     t.setText(state.getName()+"kk");
+       //     TextView t2 = (TextView) convertView.findViewById(R.id.state_name2);
+       //     t2.setText("t2t2");
         }
        
         return convertView;
