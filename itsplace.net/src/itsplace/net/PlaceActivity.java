@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -69,7 +70,7 @@ public class PlaceActivity  extends SherlockListActivity{
         adapter = new PlaceListAdapter(this);
         
         
-        mTestLayout = (LinearLayout) View.inflate(this, R.layout.mytext, null);
+        mTestLayout = (LinearLayout) View.inflate(this, R.layout.loading_list, null);
         mTestLayout.setVisibility(View.INVISIBLE);
       //  super.setContentView(mTestLayout);
       //  setContentView(R.layout.list);

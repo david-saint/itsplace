@@ -323,6 +323,9 @@ public class LoginActivity  extends SherlockActivity  {
         	//회원가입성공
         	
         	socialLogin(data.getStringExtra("email").toString(),data.getStringExtra("name").toString(), data.getStringExtra("token").toString());
+        }else{
+        	 Log.i(TAG,"페이스북 로그인 성공");
+        	Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
         }
         //페이스북 로그인인증시 -1, 64206
         //회원가입되어있는지  확인한다. 

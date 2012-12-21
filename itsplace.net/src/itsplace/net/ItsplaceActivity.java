@@ -46,49 +46,7 @@ public class ItsplaceActivity extends Activity {
 	//	TestMenu header = (TestMenu) findViewById(R.id.header);
 	 //   header.initHeader();
 		
-		Button btn = (Button) findViewById(R.id.btnCustomTab);
-		final Intent intent = new Intent(this, MainActivity.class);
-		btn.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				// Toast.makeText(getApplicationContext(), "작업이 끝났습니다.", Toast.LENGTH_LONG).show();
-				startActivity(intent);
-
-				// TODO Auto-generated method stub
-				// Toast.makeText(getApplicationContext(),
-				// main.getUser().getEmail(),1000).show();
-				/*
-				 * try { // The URL for making the GET request final String url
-				 * = getString(R.string.base_uri) + "/state/{abbreviation}";
-				 * 
-				 * Log.i("","유알엘i:"+url);
-				 * 
-				 * // Set the Accept header for "application/json" HttpHeaders
-				 * requestHeaders = new HttpHeaders(); List<MediaType>
-				 * acceptableMediaTypes = new ArrayList<MediaType>();
-				 * acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
-				 * requestHeaders.setAccept(acceptableMediaTypes);
-				 * 
-				 * // Populate the headers in an HttpEntity object to use for
-				 * the // request HttpEntity<?> requestEntity = new
-				 * HttpEntity<Object>(requestHeaders);
-				 * 
-				 * // Create a new RestTemplate instance RestTemplate
-				 * restTemplate = new RestTemplate();
-				 * 
-				 * ResponseEntity<State> responseEntity =
-				 * restTemplate.exchange(url, HttpMethod.GET, requestEntity,
-				 * State.class, "al");
-				 * 
-				 * 
-				 * Toast.makeText(getApplicationContext(),
-				 * responseEntity.getBody().toString(),
-				 * Toast.LENGTH_LONG).show(); // convert the array to a list and
-				 * return it // return Arrays.asList(responseEntity.getBody());
-				 * } catch (Exception e) { // Log.e(TAG, e.getMessage(), e); }
-				 */
-			}
-		});
+		
 		init(savedInstanceState);
 	}
 
@@ -117,7 +75,9 @@ public class ItsplaceActivity extends Activity {
 		    startActivity( new Intent(this, MainActivity.class));
 		    finish();
     	}else{
-    		loginForm();
+    		 startActivity( new Intent(this, MainActivity.class));
+ 		    finish();
+    		//loginForm();
     		// 페이스북  로그인 체크
     		/*L.i(TAG, "페이스북 로그인 체크");
     		 	Settings.addLoggingBehavior(LoggingBehaviors.INCLUDE_ACCESS_TOKENS);
