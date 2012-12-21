@@ -21,6 +21,7 @@ public class JsonResponse {
 	private String status = null;
 	private Object result = null;
 	private String paging = null;
+	
 	private int totalCount;
 	
 	@Autowired

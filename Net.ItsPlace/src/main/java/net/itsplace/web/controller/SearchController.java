@@ -101,6 +101,7 @@ public class SearchController {
 		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
 		JsonResponse json = new JsonResponse();
 		json.setResult(searchService.getPlaceList(param));
+		//json.setTotalCount(pagingManaer.getFoundRows());
 		json.setStatus("SUCCESS");
 		return json;
 	}
