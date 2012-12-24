@@ -113,7 +113,7 @@ public class ImageLoader {
         final Paint paint = new Paint();
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         final RectF rectF = new RectF(rect);
-        final float roundPx = 10;//round
+        final float roundPx = 1;//round
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
@@ -134,7 +134,8 @@ public class ImageLoader {
             BitmapFactory.decodeStream(new FileInputStream(f),null,o);
             
             //Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE=70;
+//            final int REQUIRED_SIZE=70;
+            final int REQUIRED_SIZE=100;
             int width_tmp=o.outWidth, height_tmp=o.outHeight;
             int scale=1;
             while(true){
