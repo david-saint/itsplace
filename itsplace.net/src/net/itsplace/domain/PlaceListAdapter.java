@@ -84,9 +84,9 @@ public class PlaceListAdapter extends BaseAdapter implements OnClickListener {
         Place f = getItem(position);
         if (f != null) {
         	TextView t = (TextView) convertView.findViewById(R.id.state_name);
-            t.setText(f.getFname()+"kk");
+            t.setText(f.getFname());
             TextView t2 = (TextView) convertView.findViewById(R.id.state_name2);
-            t2.setText("t2t2");
+            t2.setText(f.getImageHost()+f.getFileName());
             
             ImageView imageView=(ImageView)convertView.findViewById(R.id.image);        
             
