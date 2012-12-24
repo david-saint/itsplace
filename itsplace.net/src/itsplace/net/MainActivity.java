@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         setSlidingActionBarEnabled(false);
        
         listView = (ListView)findViewById(R.id.listView);
+        listView.setDivider(null); // 라인삭제
         adapter = new PlaceListAdapter(this);
         GetPlaceListAsyncTask();
    
