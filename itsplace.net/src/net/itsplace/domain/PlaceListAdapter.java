@@ -88,9 +88,10 @@ public class PlaceListAdapter extends BaseAdapter implements OnClickListener {
             TextView t2 = (TextView) convertView.findViewById(R.id.state_name2);
             t2.setText(f.getImageHost()+f.getFileName());
             
-            ImageView imageView=(ImageView)convertView.findViewById(R.id.image);        
-            
-            imageLoader.DisplayImage(f.getImageHost()+f.getFileName(), imageView);
+            ImageView imageView=(ImageView)convertView.findViewById(R.id.image);    
+            String url = f.getImageHost()+f.getFileName();
+            imageView.setImageDrawable(ImageUtil.LoadImageFromWebOperations(url));
+           // imageLoader.DisplayImage(url, imageView);
             
            // imageLoader.DisplayImage("http://a3.twimg.com/profile_images/670625317/aam-logo-v3-twitter.png", image);
         }
