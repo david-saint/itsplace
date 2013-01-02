@@ -461,4 +461,24 @@ public class AdminPlaceController {
 		 response.getOutputStream().write(out.toByteArray());
 		 response.getOutputStream().flush();
 	}
+	/**
+	 * 관리자가 가맹점 이미지 업로드  폼을 호출한다.   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2012. 12. 24.
+	 * @param fid
+	 * @return  imageUpload.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/imageUpload", method = RequestMethod.GET)
+	public String imageUpload(@RequestParam(required=true) Integer fid, Model model)  {
+	
+		model.addAttribute("place",adminPlaceService.getPlace(fid));
+		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
+		model.addAttribute("categoryList",commonService.getBascdList("CATEGORY"));
+		model.addAttribute("placeTypeList",commonService.getBascdList("PLACETYPE"));
+		model.addAttribute("serviceTypeList",commonService.getBascdList("SERVICETYPE"));
+		return "admin/place/imageUpload";
+	}
 }

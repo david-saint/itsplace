@@ -41,7 +41,7 @@
   			   {
   			    	alert("status : " + status + " error : " + e);    
   			   }
-  			})
+  			});
  		});
  		$('#btnEdit').live('click',function() {
  			c.log("submit Edit Form");
