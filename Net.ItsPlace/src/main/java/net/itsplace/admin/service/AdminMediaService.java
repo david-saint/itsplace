@@ -7,7 +7,12 @@ import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMedia;
 
 public interface AdminMediaService {
-	/* 가맹점 미디어  저장  */
+	/**
+	 * place 의 대표이미지를 업데이트하고 placeMedia에도 isProfile = 'Y' 로 저장
+	 * @param file
+	 * @param fid
+	 * @return
+	 */
 	public String savePlaceMedia(ImageFileUpload file,int fid);
 	
 	/* 가맹점 미디어  수정 */

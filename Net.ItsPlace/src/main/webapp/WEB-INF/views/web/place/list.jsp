@@ -1,7 +1,8 @@
 <%@ page  pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/taglib.jsp" %>
 <c:set var="title" value="도서목록"/>
-
+<html>
+<head>
 <script type="text/javascript">
 /* var socket = io.connect('http://localhost:8070');
 socket.on('connect', function () {
@@ -106,7 +107,8 @@ function mouseout() {
  
 };
 </script>
-
+</head>
+<body>
 <style type="text/css">
 </style>
  <div class="jqmWindow" id="jqmWindow">
@@ -173,4 +175,5 @@ function mouseout() {
 <input id="userName" type="hidden"  value="<img class='chatProfile' src='<sec:authentication property="principal.user.profileImageUrl" />'/><sec:authentication property="principal.user.name" />"/> 
 <input id="currentRoom" type="hidden"  value="waitRoom"/> 
 
-
+</body>
+</html>
