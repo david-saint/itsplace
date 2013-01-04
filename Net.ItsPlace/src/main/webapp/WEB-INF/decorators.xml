@@ -2,10 +2,15 @@
 
 <decorators defaultdir="">
    
-    <decorator name="layout" page="/WEB-INF/layouts/standard_layout.jsp">
+    <decorator name="web" page="/WEB-INF/layouts/web_layout.jsp">
        <pattern>/*</pattern>
     </decorator> 
-	
+    <decorator name="places" page="/WEB-INF/layouts/places_layout.jsp">
+       <pattern>/places</pattern>
+    </decorator>
+	 <decorator name="admin" page="/WEB-INF/layouts/admin_layout.jsp">
+       <pattern>/admin/*</pattern>
+    </decorator> 
 	<decorator name="fancy" page="/WEB-INF/layouts/fancy_layout.jsp" >
 		<pattern>/barcode</pattern>
 		<pattern>/book/rental</pattern>

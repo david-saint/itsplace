@@ -1,8 +1,8 @@
-
 <%@ page  pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/taglib.jsp" %>
 <c:set var="title" value="도서목록"/>
-
+<html>
+<head>
 <script type="text/javascript">
 $(document).ready(function() {
 	//window.AndroidCall.show("hi");
@@ -110,10 +110,8 @@ $(document).ready(function() {
 });
 
 </script>
-<style>
-
-
-</style>
+</head>
+<body>
 <section id="signinForm" class="blackBack" style="display:none;height:300px"> 
 	<div id="auth-container">
 		<div class="inner">
@@ -287,3 +285,5 @@ $(document).ready(function() {
 						</c:forEach>
 						</ul>
  --%>
+ </body>
+ </html>
