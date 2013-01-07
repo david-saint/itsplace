@@ -8,16 +8,11 @@
     <decorator name="places" page="/WEB-INF/layouts/places_layout.jsp">
        <pattern>/places</pattern>
     </decorator>
-	 <decorator name="admin" page="/WEB-INF/layouts/admin_layout.jsp">
+	<decorator name="admin" page="/WEB-INF/layouts/admin_layout.jsp">
        <pattern>/admin/*</pattern>
-    </decorator> 
-	<decorator name="fancy" page="/WEB-INF/layouts/fancy_layout.jsp" >
-		<pattern>/barcode</pattern>
-		<pattern>/book/rental</pattern>
-		<pattern>/book/return</pattern>
-		<pattern>/book/info</pattern>
-		<pattern>/admin/restriction/solve</pattern>
-		<pattern>/admin/restriction/history</pattern>
+    </decorator>
+     
+	<decorator name="fancy" page="/WEB-INF/layouts/fancy_layout.jsp" >		
     </decorator> 
 	
 	<decorator name="empty" page="/WEB-INF/layouts/empty_layout.jsp" >

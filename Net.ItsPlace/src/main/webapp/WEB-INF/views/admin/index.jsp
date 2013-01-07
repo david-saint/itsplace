@@ -331,6 +331,6 @@
 							</div><!-- End content -->
 						</div><!-- End full width -->
 
-				    </dssiv><!-- End column_right -->
+				    </div><!-- End column_right -->
                         
 				  

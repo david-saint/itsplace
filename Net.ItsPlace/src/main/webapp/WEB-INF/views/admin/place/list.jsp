@@ -109,7 +109,7 @@
 		 		var id = oObj.aData['fid'];
 		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
 		 		c.log(""+oObj.aData['placeStamp.sid']);
-		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?decorator=fancy&fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var stampAction = '<span class="tip"><a class="" href="/admin/place/stamp/list?fid='+id+'" original-title="스탬프목록"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
 		 		var eventAction = '<span class="tip"><a class="" href="/admin/place/event/list?fid='+id+'" original-title="이벤트목록"><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
 		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="리뷰 "><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';

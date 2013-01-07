@@ -15,7 +15,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 
 public class FtpService {
-	private final String FTPURL = "211.229.107.73";//211.229.107.73
+	private final String FTPURL = "211.229.107.74";//211.229.107.73
 	private final int FTPPORT=21;
 	private final String FTPUSER ="itsplace";
 	private final String FTPPASS = "itsplace";
