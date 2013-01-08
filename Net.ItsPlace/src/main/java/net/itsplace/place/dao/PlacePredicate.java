@@ -1,4 +1,4 @@
-package net.itsplace.repository;
+package net.itsplace.place.dao;
 
 
 import com.mysema.query.types.Predicate;

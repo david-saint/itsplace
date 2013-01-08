@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.Place;
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.place.dao.PlacePredicate;
+import net.itsplace.place.dao.PlaceRepository;
 import net.itsplace.web.repository.PlaceRepositoryTest;
 
 import org.junit.Test;
@@ -16,11 +18,11 @@ public class PlacePredicateTest extends TestApplicationContext {
 	private static final Logger logger  = LoggerFactory.getLogger(PlacePredicateTest.class); 
 	
 	@Autowired
-	PlaceRepo repo;
+	private PlaceRepository repo;
 
 	@Test
 	public void testIsAuth() {
-		Iterable<Place> places =  repo.findAll(PlacePredicate.isAuth("N"));
+		Iterable<Place> places =  repo.findAll();
 		for (Place place : places) {
 			logger.info("places:{}",place.getName());
 		}
