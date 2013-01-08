@@ -40,7 +40,7 @@
 	 -->
 	<select id="getPlaceList" resultClass="Place" parameterClass="java.util.Map">
     	 SELECT  sql_calc_found_rows  
-    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE,  A.MOBILE, A.PHONE1,
     	 		I.BASNAME AS IMAGEHOST,
     	 		A.FILENAME, 
     	 		A.CATEGORY,  
@@ -92,7 +92,6 @@
          	   A.PHONE1, 
          	   A.LATITUDE, 
          	   A.LONGITUDE, 
-         	   A.NLDNO, 
          	   I.BASNAME AS IMAGEHOST, 
          	   A.FILENAME, 
          	   A.ISAUTH, 
@@ -134,7 +133,6 @@
          	 FNAME = #fname# ,
              MOBILE = #mobile#,
              PHONE1 = #phone1#, 
-             NLDNO = #nldno#, 
              ISAUTH = #isAuth#,
              REMARK = #remark#,
              CATEGORY = #category#,

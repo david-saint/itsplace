@@ -3,6 +3,7 @@ package net.itsplace.web.repository;
 import static org.junit.Assert.*;
 
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.repository.PlaceRepo;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -14,10 +15,10 @@ public class PlaceRepositoryTest  extends TestApplicationContext {
 	private static final Logger logger  = LoggerFactory.getLogger(PlaceRepositoryTest.class); 
 	
 	@Autowired
-	PlaceRepository repo;
+	PlaceRepo placaeRepo;
 	@Test
 	public void test() {
-		repo.findAll();
+		placaeRepo.findAll();
 	}
 
 }

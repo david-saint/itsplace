@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-"file:src/main/webapp/WEB-INF/spring/db-context.test.xml", 
+"file:src/main/webapp/WEB-INF/spring/ibatis-context-test.xml", 
 "file:src/main/webapp/WEB-INF/spring/servlet-context.xml", 
 "file:src/main/webapp/WEB-INF/spring/root-context.xml",
 "file:src/main/webapp/WEB-INF/spring/view-context.xml",

@@ -17,7 +17,7 @@
     </select>
     <select id="getPlace" parameterClass="int" resultClass="Place">
           SELECT  sql_calc_found_rows  
-    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+    	 		A.ISAUTH, A.FID, A.FNAME, A.LATITUDE, A.LONGITUDE,  A.MOBILE, A.PHONE1,
     	 		A.IMAGEHOST, A.FILENAME, A.CATEGORY,  A.SERVICETYPE, A.REMARK,
     	 		A.EMAIL, A.CLOSEDDAY, A.OPENDAY, A.WEBSITE, A.INFO, A.QRCODE, A.SAVEDATE, A.EDITDATE,
     	 		S.BASNAME AS SERVICETYPE,
