@@ -17,7 +17,7 @@
 		<result property="place.fullAddress" column="FULLADDRESS"></result>
 	</resultMap>
 	<select id="getRecentPlaceList"  resultClass="Place"  parameterClass="int">
-	    SELECT A.ISAUTH, A.FID, A.FNAME, A.ENAME, A.LATITUDE, A.LONGITUDE, A.NLDNO, A.MOBILE, A.PHONE1,
+	    SELECT A.ISAUTH, A.FID, A.FNAME, A.ENAME, A.LATITUDE, A.LONGITUDE,  A.MOBILE, A.PHONE1,
 	    	 	    D.BASNAME AS IMAGEHOST,
 	    	 	    A.FILENAME, 
 	    	 		C.BASNAME AS CATEGORY, 

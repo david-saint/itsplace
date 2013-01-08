@@ -29,6 +29,8 @@
 	    </mvc:argument-resolvers> -->
 	</mvc:annotation-driven>
 	
+	<import resource="infrastructure.xml" />
+	
 	 <bean
     class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/views/" />

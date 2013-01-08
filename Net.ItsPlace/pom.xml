@@ -12,10 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework-version>3.1.2.RELEASE</org.springframework-version>
 		<org.springframework.roo-version>1.0.2.RELEASE</org.springframework.roo-version>
-		<org.springframework.security-version>3.1.0.RELEASE</org.springframework.security-version>
-		<!--<org.springframework.security-version>3.0.5.RELEASE</org.springframework.security-version>
-		 <org.springframework.security.crypto-version>3.1.0.RC2.crypto</org.springframework.security.crypto-version>
-		 -->
+		<org.springframework.security-version>3.1.0.RELEASE</org.springframework.security-version>	
 		<org.aspectj-version>1.6.9</org.aspectj-version>
 		<org.slf4j-version>1.6.1</org.slf4j-version>
 				
@@ -26,7 +23,8 @@
 		<org.springframework.social.twitter-version>1.1.0.BUILD-SNAPSHOT</org.springframework.social.twitter-version>
 		<org.springframework.social.linkedin-version>1.0.0.BUILD-SNAPSHOT</org.springframework.social.linkedin-version> -->
 		<!-- <hibernate.version>4.1.4.Final</hibernate.version> -->
-		<hibernate.version>4.0.1.Final</hibernate.version>
+		<hibernate.version>4.1.4.Final</hibernate.version>
+		<querydsl.version>2.9.0</querydsl.version>
 	</properties>
 	<dependencies>
 		<!--xxxx
@@ -128,29 +126,54 @@
     <version>0.7</version>
   </dependency>
  -->
- <!-- JPA -->
-	   <!-- Spring Data JPA -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>1.0.2.RELEASE</version>
-        </dependency>
-        <!-- Hibernate -->
-        <dependency>
+	    <!-- query dsl -->
+<dependency>
+  <groupId>com.mysema.querydsl</groupId>
+  <artifactId>querydsl-apt</artifactId>
+  <version>${querydsl.version}</version>
+  <scope>provided</scope>
+</dependency>    
+    
+<dependency>
+  <groupId>com.mysema.querydsl</groupId>
+  <artifactId>querydsl-jpa</artifactId>
+  <version>${querydsl.version}</version>
+</dependency>
+	    <!-- JPA -->
+	     <!-- Static Meta Model Generation -->
+	    <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>1.2.0.Final</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
+	    <!-- Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+	    <dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
 	   <dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
 			<version>1.1</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		
@@ -581,6 +604,24 @@
 	</repositories>
 	<build>
 		<plugins>
+		      <!-- query dsl -->
+            <plugin>
+		      <groupId>com.mysema.maven</groupId>
+		      <artifactId>maven-apt-plugin</artifactId>
+		      <version>1.0.4</version>
+		      <executions>
+		        <execution>
+		          <phase>generate-sources</phase>  
+		          <goals>
+		            <goal>process</goal>
+		          </goals>
+		          <configuration> 
+		            <outputDirectory>target/generated-sources</outputDirectory>
+		            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+		          </configuration>
+		        </execution>
+		      </executions>
+		    </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

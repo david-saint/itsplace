@@ -9,27 +9,53 @@ public class DataTable<T>{
         
         private Integer start;
         private Integer iDisplayLength;
-        private Integer iTotalDisplayRecords;
-        private Integer iTotalRecords;
+        private long iTotalDisplayRecords;
+        private long iTotalRecords;
         private Collection<T> rows;
         
         public DataTable() {
                 this.rows = new ArrayList<T>();
                 this.start = 0;         
-                this.iDisplayLength = 10; // By default there will be 10 elements in each page.
+                this.iDisplayLength = 10; 
                 this.iTotalRecords = 0;
                 this.iTotalDisplayRecords = 0;
                 this.sortCols = new String[]{};
                 this.sortDir = "";
         }
-        
+        /**
+    	 * <b>페이징</b> <br />
+    	 * <pre>
+    	 * <b>History:</b>
+    	 *     version 0.1, 2012.8.24 김동훈
+    	 * </pre>
+    	 * @author 김동훈
+    	 * @version 1.0
+    	 * @since 2012. 8. 24
+    	 * @deprecated 
+    	 * @return book/add.jsp 
+    	 * @throws AppException 
+    	 * @see 
+    	 */
         public DataTable(String[] sortCols, String sortDir, Integer start) {
                 this();
                 this.sortCols = sortCols;
                 this.sortDir = sortDir;
                 this.start = start;
         }
-        
+        /**
+    	 * <b>페이징</b> <br />
+    	 * <pre>
+    	 * <b>History:</b>
+    	 *     version 0.1, 2012.8.24 김동훈
+    	 * </pre>
+    	 * @author 김동훈
+    	 * @version 1.0
+    	 * @since 2012. 8. 24
+    	 * @deprecated 
+    	 * @return book/add.jsp 
+    	 * @throws AppException 
+    	 * @see 
+    	 */
         public DataTable(String[] sortCols, String sortDir, Integer start, Integer iDisplayLength) {
                 this();
                 this.sortCols = sortCols;
@@ -37,7 +63,20 @@ public class DataTable<T>{
                 this.start = start;
                 this.iDisplayLength = iDisplayLength;
         }
-        
+        public DataTable(Paging paging){
+        	this();
+            if(paging.getiDisplayLength() != null && paging.getiDisplayLength()>0){
+            	this.sortCols = paging.getColumns();
+                this.sortDir = paging.getsSortDiretion();
+                this.start = paging.getiDisplayStart();
+                this.iDisplayLength = paging.getiDisplayLength();
+            }else{
+            	this.sortCols = paging.getColumns();
+                this.sortDir = paging.getsSortDiretion();
+                this.start = paging.getiDisplayStart();
+            }
+                
+        }
         /*public DataTable2(String[] sortCols, String sortDir, Integer start, Long iTotalRecords, Integer iTotalDisplayRecords, Collection<T> rows) {
                 this(sortCols, sortDir, start, iTotalDisplayRecords);
                 this.iTotalRecords = iTotalRecords;
@@ -52,13 +91,7 @@ public class DataTable<T>{
                 this.start = start;
         }
 
-        public Integer getiTotalDisplayRecords() {
-                return iTotalDisplayRecords;
-        }
-
-        public void setiTotalDisplayRecords(int iTotalDisplayRecords) {
-                this.iTotalDisplayRecords = iTotalDisplayRecords;
-        }
+     
 
         public Collection<T> getRows() {
                 return rows;
@@ -92,14 +125,19 @@ public class DataTable<T>{
                 this.iDisplayLength = iDisplayLength;
         }
 
-        public Integer getiTotalRecords() {
+        public Long getiTotalRecords() {
                 return iTotalRecords != 0 ? this.iTotalRecords : this.iTotalDisplayRecords;
         }
-
         public void setiTotalRecords(int iTotalRecords) {
-                this.iTotalRecords = iTotalRecords;
+            this.iTotalRecords = iTotalRecords;
         }
-
+        public Long getiTotalDisplayRecords() {
+                return iTotalDisplayRecords;
+        }
+        public void setiTotalDisplayRecords(long iTotalDisplayRecords) {
+                this.iTotalDisplayRecords = iTotalDisplayRecords;
+        }
+     
         // FOR SERVICES
         public String getOrdering(int iSortCol_0) {
                 if(iSortCol_0 >= 0 && iSortCol_0 < this.sortCols.length) {
@@ -114,8 +152,9 @@ public class DataTable<T>{
                   return this.sortCols[iSortCol_0];
             }
             return "";
-    }
+        }
         public Integer getEnd() {
                 return this.getStart() + this.getiDisplayLength();
         }
+        
 }
