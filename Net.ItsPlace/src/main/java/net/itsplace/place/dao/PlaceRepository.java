@@ -1,18 +1,16 @@
-package net.itsplace.repository;
+package net.itsplace.place.dao;
 
-import net.itsplace.domain.Bascd;
 import net.itsplace.domain.Place;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface PlaceRepo extends JpaRepository<Place, Integer>, QueryDslPredicateExecutor<Place> {
+public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
 	/**
 	 * 
@@ -20,5 +18,5 @@ public interface PlaceRepo extends JpaRepository<Place, Integer>, QueryDslPredic
 	 * @param pageable
 	 * @return
 	 */
-	//Page<Place> findAll(Specification<Place> spec, Pageable pageable);
+	Page<Place> findAll(Specification<Place> spec, Pageable pageable);
 }
