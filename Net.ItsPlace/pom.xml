@@ -126,14 +126,14 @@
     <version>0.7</version>
   </dependency>
  -->
-	    
+<!-- 이게 머지 아마 Q클래스 생성하는것 같은데  맥에서만  빌드 오류난다   	    
 <dependency>
   <groupId>com.mysema.querydsl</groupId>
   <artifactId>querydsl-apt</artifactId>
   <version>${querydsl.version}</version>
   <scope>provided</scope>
 </dependency>    
-    
+     -->
 <dependency>
   <groupId>com.mysema.querydsl</groupId>
   <artifactId>querydsl-jpa</artifactId>
@@ -590,7 +590,7 @@
 	</repositories>
 	<build>
 		<plugins>
-		      <!-- query dsl 
+		      <!-- query dsl -->
             <plugin>
 		      <groupId>com.mysema.maven</groupId>
 		      <artifactId>maven-apt-plugin</artifactId>
@@ -608,7 +608,7 @@
 		        </execution>
 		      </executions>
 		    </plugin>
-		    -->
+		    
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
