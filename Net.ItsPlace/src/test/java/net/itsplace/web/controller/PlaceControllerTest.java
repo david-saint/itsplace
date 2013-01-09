@@ -7,6 +7,7 @@ import java.util.List;
 import net.itsplace.admin.service.AdminEventService;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
+import net.itsplace.domain.TestRepo;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.place.controller.PlaceCommentController;
 import net.itsplace.place.controller.PlaceCommentControllerTest;
@@ -27,22 +28,23 @@ public class PlaceControllerTest  extends TestApplicationContext {
 	PlaceService service;
 	@Autowired
 	PlaceController controller;
-
+	@Autowired
+	TestRepo testRepo;
 	@Test
 	public void test() {
-		PlaceComment placeComment = new PlaceComment();
+		/*PlaceComment placeComment = new PlaceComment();
 		placeComment.setComment("댁글내용 "); 
 		placeComment.setFid(2);
 		placeComment.setEmail("faye12005@gmail.com");
 		DataBinder result = new DataBinder(placeComment);
 		
-		controller.addComment(placeComment, result.getBindingResult() , null);
+		controller.addComment(placeComment, result.getBindingResult() , null);*/
 		
 	}
 
 	@Test
 	public void view(){
-		Place p= service.getPlace(2);
+		testRepo.findAll();
 			//logger.info(p.getFname()+p.getAddress().getBupname());
 	}
 }

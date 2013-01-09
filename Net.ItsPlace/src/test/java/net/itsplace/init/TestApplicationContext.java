@@ -27,16 +27,14 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"file:src/main/webapp/WEB-INF/spring/infrastructure.xml", 
+		"file:src/main/webapp/WEB-INF/spring/ibatis-context-test.xml", 
 		"file:src/main/webapp/WEB-INF/spring/servlet-context.xml", 
-"file:src/main/webapp/WEB-INF/spring/security-context.xml",
-"file:src/main/webapp/WEB-INF/spring/ibatis-context-test.xml", 
-"file:src/main/webapp/WEB-INF/spring/view-context.xml",
-"file:src/main/webapp/WEB-INF/spring/upload-context.xml",
-"file:src/main/webapp/WEB-INF/spring/mail-context.xml",
-"file:src/main/webapp/WEB-INF/spring/social-context.xml", 
-"file:src/main/webapp/WEB-INF/spring/task-context.xml", 
-"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
+		"file:src/main/webapp/WEB-INF/spring/root-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/view-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/upload-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/mail-context.xml",
+		"file:src/main/webapp/WEB-INF/spring/social-context.xml", 
+		"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public abstract class TestApplicationContext {
 
 	@Autowired protected ApplicationContext context;

@@ -8,10 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 
 
-public class Paging {
-	private static final Logger logger = LoggerFactory.getLogger(Paging.class);
+public class JpaPaging {
+	private static final Logger logger = LoggerFactory.getLogger(JpaPaging.class);
 	
 	private String[] columns; 
 	private Integer iDisplayStart;
@@ -20,11 +21,9 @@ public class Paging {
 	private String sSortDiretion;
 	private String sSearch;
 	private Integer currentPage;
-	private Integer startRow;
-	private Integer endRow;
-	
 	private Map<String, Object> parameter;
-	public Paging(){
+	
+	public JpaPaging(){
 		this.currentPage = 0;
 	}
 	/**
@@ -43,7 +42,7 @@ public class Paging {
 	 * @throws 
 	 * @see ssss
 	 */
-	public Paging(String[] columns,Integer iDisplayStart,Integer iDisplayLength,Integer iSortColumn, String sSortDiretion,String sSearch){
+	public JpaPaging(String[] columns,Integer iDisplayStart,Integer iDisplayLength,Integer iSortColumn, String sSortDiretion,String sSearch){
 		 this.iSortColumn = iSortColumn;
          this.sSortDiretion = sSortDiretion;
          this.iDisplayStart = iDisplayStart;
@@ -91,6 +90,10 @@ public class Paging {
 	public void setsSearch(String sSearch) {
 		this.sSearch = sSearch;
 	}
+	/**
+	 * DataTable용 JPA 페이징 객체 리턴
+	 * @return Pageable
+	 */
 	public Pageable getPageable(){
 		Sort sort = null;
 		String sortColumn = columns[getiSortColumn()];
@@ -109,7 +112,15 @@ public class Paging {
 		}
 		
 	}
-    
+
+	public Pageable getPageable(String sortColumn,Direction sortDirection,int currentPage, int displayLength){
+
+		return new PageRequest(currentPage, displayLength ,  new Sort(sortDirection, sortColumn));
+	}
+	public Pageable getPageable(int currentPage, int displayLength){
+
+		return new PageRequest(currentPage, displayLength);
+	}
 	
 	public Map<String, Object> getParameter() {
 		return parameter;

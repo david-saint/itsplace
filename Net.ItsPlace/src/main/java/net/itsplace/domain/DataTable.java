@@ -63,7 +63,7 @@ public class DataTable<T>{
                 this.start = start;
                 this.iDisplayLength = iDisplayLength;
         }
-        public DataTable(Paging paging){
+        public DataTable(JpaPaging paging){
         	this();
             if(paging.getiDisplayLength() != null && paging.getiDisplayLength()>0){
             	this.sortCols = paging.getColumns();

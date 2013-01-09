@@ -16,12 +16,12 @@
 	<!-- Configures the Spring MVC @Controller programming model--> 
 		
 	
-	<!-- Interceptors that execute common control logic across multiple requests
+	<!-- Interceptors that execute common control logic across multiple requests -->
 	<interceptors>
 		<beans:bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
 		<beans:bean class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" /> 		
 	</interceptors>
-	 -->
+	
 	
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />

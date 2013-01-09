@@ -4,8 +4,8 @@ import java.util.List;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.place.dao.PlacePredicate;
-import net.itsplace.place.dao.PlaceRepository;
+
+import net.itsplace.repository.PlaceRepo;
 import net.itsplace.user.UserServiceImpl;
 import net.itsplace.web.dao.IndexDao;
 
@@ -22,11 +22,13 @@ public class IndexServiceImpl implements IndexService{
 	@Autowired
 	private IndexDao indexDao;
 
+	@Autowired
+	PlaceRepo placeRepo;
 	
 	@Override
 	public List<Place> getRecentPlaceList(int limit) {
-		
-		return indexDao.getRecentPlaceList(limit);
+//		return placeRepo.findByRecentPalces(4);
+		return indexDao.getRecentPlaceList(4);
 	}
 
 	@Override

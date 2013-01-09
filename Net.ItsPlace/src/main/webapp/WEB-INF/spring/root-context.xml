@@ -25,7 +25,6 @@
 	Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
 	<mvc:annotation-driven /> 
 	
-	<import resource="infrastructure.xml" />
 	
 	
 	<bean id="messageSource"
@@ -48,7 +47,7 @@
  	<bean id="servletContext" class="org.springframework.mock.web.MockServletContext"/>
 	
    
-	
+	  <import resource="infrastructure.xml" />	
 
  
   <!--  <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
@@ -79,4 +78,5 @@
 		  </property>
 		 <property name="ignoreAcceptHeader" value="true" />
 	</bean> -->
+	
 </beans>
