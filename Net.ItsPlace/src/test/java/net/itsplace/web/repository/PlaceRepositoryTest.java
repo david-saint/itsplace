@@ -21,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
+
+import com.mysema.query.types.Predicate;
 public class PlaceRepositoryTest  extends TestApplicationContext {
 	  
 	private static final Logger logger  = LoggerFactory.getLogger(PlaceRepositoryTest.class); 
@@ -31,19 +33,22 @@ public class PlaceRepositoryTest  extends TestApplicationContext {
 	@Autowired
 	PlaceRepo placeRepo;
 	
-	
+	@Test
 	public void test() {
 		JpaPaging paging = new JpaPaging();
 		
-		Page<Place> places = repo.findAll(PlacePredicates.isAuth("Y"), paging.getPageable("fid",Sort.Direction.DESC, 0, 2));
+		Predicate predicate = PlacePredicates.isAuth("Y").and(PlacePredicates.likeFname("babo"));
+		
+		Page<Place> places = repo.findAll(predicate, paging.getPageable("fid",Sort.Direction.DESC, 0, 2));
 		//List<Place> places = repo.findAll();
 		for (Place place : places) {
 			logger.info(place.getFname());
 		}
 	}
 	
-	@Test
+	//@Test
 	public void test2(){
+		
 	for (Place place : placeRepo.findByRecentPalces(2)) {
 			logger.info(place.getFname());
 		}
