@@ -6,11 +6,20 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 	
     
-    <jpa:repositories base-package="net.itsplace.place" />
-    
- 
-	
+    <jpa:repositories base-package="net.itsplace" />
+   <!--   <bean class="net.itsplace.admin.dao.BascdRepository"></bean> 
+     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+    --> 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />			
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -18,7 +27,7 @@
 				<property name="database" value="MYSQL" />
 			</bean>
 		</property>
-	</bean>
+	</bean> -->
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -26,31 +35,20 @@
 
 	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/> 		 	   	                  	
-		<property name="driverClassName" value="core.log.jdbc.driver.Mssql2005Driver"/> 		 	   	                  	
-    	<property name="url" value="jdbc:sqlserver://59.23.229.219:37915;DatabaseName=MinWork"/>                	
-		<property name="username" value="MinWork"/>
-		<property name="password" value="MinWork@@"/>
+    	<property name="url" value="jdbc:sqlserver://localhost:1433;DatabaseName=RanWorldWeb"/>                	
+		<property name="username" value="RanWorldWeb"/>
+		<property name="password" value="RanWorldWeb@@"/>
 	</bean> -->
-	<bean id="dataSource" class="net.itsplace.util.ItsplaceBasicDataSource">	 	
-  		<property name="driverClassName" value="core.log.jdbc.driver.MysqlDriver"/> 		 	   	                  	
-    	<property name="url" value="jdbc:mysql://db.jdpp.net:3306/faya"/>                	
-		<property name="username" value="username"/>
-		<property name="password" value="password"/>
-		<property name="maxActive" value="5"/>
-		<property name="maxIdle" value="50"/>
-		<property name="maxWait" value="2000"/>
-		<property name="defaultAutoCommit" value="true"/>			
-	</bean>
 
 
-
-<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!-- 
+	<bean id="dataSourceJPA" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/> 		 	   	                  	
-    	<property name="url" value="jdbc:mysql://172.16.3.63:3306/MinComsBook?characterEncoding=UTF-8"/>                	
-		<property name="username" value="root"/>
-		<property name="password" value="mincoms!@12"/>
-	</bean>  -->
-	
+    	<property name="url" value="jdbc:mysql://db.jdpp.net:3306/faya"/>                	
+		<property name="username" value="faya"/>
+		<property name="password" value="qp2apdx"/>
+	</bean> 
+	 -->
 
 	
 
