@@ -3,6 +3,7 @@ package net.itsplace.admin.service;
 import java.util.List;
 
 import net.itsplace.admin.dao.AdminBaseDao;
+import net.itsplace.repository.BaseRepository;
 import net.itsplace.user.UserServiceImpl;
 
 import org.slf4j.Logger;
@@ -17,10 +18,14 @@ public class AdminBaseServiceImpl implements AdminBaseService{
 	private static final Logger logger = LoggerFactory.getLogger(AdminBaseServiceImpl.class);
 	
 	@Autowired
-	private AdminBaseDao adminBaseDao;
+	AdminBaseDao adminBaseDao;
 	
+	@Autowired
+	BaseRepository repo;
 	@Override
 	public List<Bascd> getGrpBascdList() {
+		 Select GRPCD,  GRPNAME  From PGRPBASCD Where ISDELETE='N';	    	
+		 repo.findAll(arg0, arg1)
 		return adminBaseDao.getGrpBascdList();
 	}
 
