@@ -18,9 +18,9 @@ package net.itsplace.social;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import net.itsplace.service.IUserService;
 import net.itsplace.social.facebook.PostToWallAfterConnectInterceptor;
 import net.itsplace.social.twitter.TweetAfterConnectInterceptor;
-import net.itsplace.user.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +75,7 @@ public class SocialConfig {
 	private DataSource dataSource;
 	
 	@Inject
-	private UserService userService;
+	private IUserService userService;
 	
 	@Inject
 	private PersistentTokenBasedRememberMeServices rememberMeServices;

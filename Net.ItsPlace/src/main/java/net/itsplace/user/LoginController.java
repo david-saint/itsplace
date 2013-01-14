@@ -39,6 +39,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.service.IUserService;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.StandardOrMobile;
 
@@ -47,7 +48,7 @@ public class LoginController {
         
 	private static final Logger logger =  LoggerFactory.getLogger(LoginController.class);
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	@Autowired
 	private PersistentTokenBasedRememberMeServices rememberMeServices;
 	@Autowired

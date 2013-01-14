@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import net.itsplace.domain.Bascd;
+import net.itsplace.domain.DataTable;
 import net.itsplace.domain.GroupBascd;
 
 public interface IBaseService {
@@ -16,4 +17,12 @@ public interface IBaseService {
 	public void saveBascd(Bascd bascd);
 	public void editBascd(Bascd bascd);
 	public Bascd getBascd(int fid);
+	
+	
+	
+	
+	
+	
+	
+	public DataTable getAddressList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch);
 }

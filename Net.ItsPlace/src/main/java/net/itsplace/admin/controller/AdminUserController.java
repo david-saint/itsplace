@@ -8,10 +8,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import net.itsplace.admin.service.AdminUserService;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.service.IUserService;
 import net.itsplace.user.User;
 import net.itsplace.user.User.AddUser;
 import net.itsplace.user.User.EditUser;
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminUserController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminUserController.class);
 	@Autowired
-	private AdminUserService adminUserService;
+	private IUserService userService;
 	
 
 	
@@ -89,7 +89,7 @@ public class AdminUserController {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			return "admin/user/add";
 		} else {	
-			adminUserService.saveUser(user);		
+			userService.saveUser(user);		
 			return "admin/user/list";
 		}
 	}
@@ -106,7 +106,7 @@ public class AdminUserController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) String email, Model model)  {
 	
-		model.addAttribute("user",adminUserService.getUser(email));
+		model.addAttribute("user",userService.getUser(email));
 		User user = null;
 		//user.setEmail("dd");
 		//int i = 66666*10343434000;		
@@ -132,7 +132,7 @@ public class AdminUserController {
 			json.setResult(result.getAllErrors());
 			json.setStatus("FAIL");
 		} else {	
-			adminUserService.editUser(user);
+			userService.updateUser(user);
 			json.setResult(user);
 			json.setStatus("SUCCESS");
 			
@@ -156,7 +156,7 @@ public class AdminUserController {
 		JsonResponse json = new JsonResponse();		
 		User user = new User();
 		user.setEmail(email);
-		adminUserService.deleteUser(user); 
+		userService.updateUserDisable(user); 
 			
 		json.setResult(user);
 		json.setStatus("SUCCESS");
@@ -203,7 +203,7 @@ public class AdminUserController {
                     
                  
                    
-                    return  adminUserService.getUserList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch,null);
+                    return  userService.getUserList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch,null);
            
                    
     }       

@@ -6,7 +6,7 @@ import java.util.Map;
 import net.itsplace.admin.dao.AdminStampDao;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
-import net.itsplace.user.UserServiceImpl;
+import net.itsplace.service.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

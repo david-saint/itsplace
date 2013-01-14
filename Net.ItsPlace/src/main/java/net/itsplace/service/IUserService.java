@@ -1,12 +1,16 @@
-package net.itsplace.user;
+package net.itsplace.service;
 
 import java.util.List;
 import java.util.Map;
 
+import net.itsplace.domain.DataTable;
+import net.itsplace.user.Social;
+import net.itsplace.user.User;
+
 import org.springframework.dao.DataAccessException;
 
 
-public interface UserService {
+public interface IUserService {
 	public User getUser(String email);
 	public User getUser(String email, String token);
 	public User getUserByPasswordLink(String passwordLInk);
@@ -22,11 +26,13 @@ public interface UserService {
 	public void updateUserDisable(User user) ;
 	public void updateUserEnable(User user) ;
 	
-	public List<User> getUserList(Map<String, Object> param) throws DataAccessException;
+//	public List<User> getUserList(Map<String, Object> param) throws DataAccessException;
 	
 	/* SOCIAL 사용자 인증 정보를 저장한다*/
 	public void saveSocial(Social social);
 	public void updateSocial(Social social);
 	public Social getSocial(Social social);
+	public DataTable getUserList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch, String role);
+	
 }
  

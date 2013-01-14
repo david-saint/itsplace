@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminEventController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminEventController.class);
 	@Autowired
-	private IPlaceEventService adminEventService;
+	private IPlaceEventService placeEventService;
 	
 	@Autowired
-	private  IPlaceService adminPlaceService;
+	private  IPlaceService placeService;
 	
 	
 	private Place place; // 선택된 가맹점 
@@ -42,10 +42,10 @@ public class AdminEventController {
 	@RequestMapping(value = "/admin/place/event/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=true) Integer fid, ModelMap model) {
 		
-		model.addAttribute("place",adminPlaceService.getPlace(fid));
-		place = adminPlaceService.getPlace(fid);
+		model.addAttribute("place",placeService.getPlace(fid));
+		place = placeService.getPlace(fid);
 		model.addAttribute("placeEvent", new PlaceEvent());
-		model.addAttribute("placeEventList",adminEventService.getPlaceEventList(fid));
+		model.addAttribute("placeEventList",placeEventService.getPlaceEventList(fid));
 		return "admin/place/event/list";
 	}
 	/**
@@ -69,7 +69,7 @@ public class AdminEventController {
 	@RequestMapping(value = "/admin/place/event/add", method = RequestMethod.GET)
 	public String add(@RequestParam(required=false) Integer fid, ModelMap model) {
 		if(place == null){
-			model.addAttribute("place",adminPlaceService.getPlace(fid));
+			model.addAttribute("place",placeService.getPlace(fid));
 		}else{
 			model.addAttribute("place",place);
 		}
@@ -99,7 +99,7 @@ public class AdminEventController {
 		} else {	
 			placeEvent.setPlace(place);
 			logger.info("placeEvent:"+placeEvent.getTitle());
-			adminEventService.savePlaceEvent(placeEvent);
+			placeEventService.savePlaceEvent(placeEvent);
 			json.setResult("이벤트를 추가하였씁니다");
 			json.setStatus("SUCCESS");
 		}
@@ -113,7 +113,7 @@ public class AdminEventController {
 	 */
 	@RequestMapping(value = "/admin/place/event/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer eid, ModelMap model) {
-		PlaceEvent placeEvent = adminEventService.getPlaceEvent(eid);
+		PlaceEvent placeEvent = placeEventService.getPlaceEvent(eid);
 		model.addAttribute("placeEvent", placeEvent);
 
 		return "admin/place/event/edit";
@@ -141,7 +141,7 @@ public class AdminEventController {
 			placeEvent.setPlace(place);
 			logger.info("placeEvent:"+placeEvent.getTitle());
 			placeEvent.setIsDelete(false);
-			adminEventService.editPlaceEvent(placeEvent);
+			placeEventService.editPlaceEvent(placeEvent);
 			json.setResult(placeEvent);
 			json.setStatus("SUCCESS");
 		}
@@ -163,7 +163,7 @@ public class AdminEventController {
  	public JsonResponse delete(@RequestParam(required=true) Integer eid, Model model) {
 		JsonResponse json = new JsonResponse();
 		try{
-			adminEventService.deletePlaceEvent(eid);
+			placeEventService.deletePlaceEvent(eid);
 			json.setStatus("SUCCESS");
 		}catch(Exception e){
 			json.setStatus("FAIL");
@@ -207,7 +207,7 @@ public class AdminEventController {
                     
                   //  service.findPlaceEventist(paging, true);
                    
-                    return  adminEventService.findPlaceEventist(paging, true);
+                    return  placeEventService.findPlaceEventist(paging, true);
            
                    
     }   

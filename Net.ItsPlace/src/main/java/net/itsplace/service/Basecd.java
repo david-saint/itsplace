@@ -1,4 +1,4 @@
-package net.itsplace.common;
+package net.itsplace.service;
 
 import java.util.Map;
 
