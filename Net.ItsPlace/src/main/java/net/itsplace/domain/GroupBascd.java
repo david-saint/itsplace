@@ -1,14 +1,19 @@
 package net.itsplace.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity(name="PGRPBASCD")
 public class GroupBascd {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String grpcd;
-	private String grpname;
+	private String grpName;
 	private String remark;
-	private Boolean isDeleted;
+	private Boolean isDelete;
 	
 	public String getGrpcd() {
 		return grpcd;
@@ -16,11 +21,12 @@ public class GroupBascd {
 	public void setGrpcd(String grpcd) {
 		this.grpcd = grpcd;
 	}
-	public String getGrpname() {
-		return grpname;
+	
+	public String getGrpName() {
+		return grpName;
 	}
-	public void setGrpname(String grpname) {
-		this.grpname = grpname;
+	public void setGrpName(String grpName) {
+		this.grpName = grpName;
 	}
 	public String getRemark() {
 		return remark;
@@ -28,11 +34,11 @@ public class GroupBascd {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public Boolean getIsDeleted() {
-		return isDeleted;
+	public Boolean getIsDelete() {
+		return isDelete;
 	}
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 	

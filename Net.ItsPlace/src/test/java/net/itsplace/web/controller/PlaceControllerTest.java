@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import net.itsplace.admin.service.AdminEventService;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.domain.TestRepo;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.place.controller.PlaceCommentController;
 import net.itsplace.place.controller.PlaceCommentControllerTest;
+import net.itsplace.service.IPlaceEventService;
 import net.itsplace.web.service.PlaceService;
 
 import org.junit.Test;

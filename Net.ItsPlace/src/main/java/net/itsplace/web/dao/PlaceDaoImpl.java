@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import net.itsplace.admin.dao.AdminBaseDao;
-import net.itsplace.admin.dao.AdminBaseDaoImpl;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.domain.PlaceEvent;

@@ -5,13 +5,9 @@ import net.itsplace.domain.QPlace;
 import com.mysema.query.types.Predicate;
 import com.mysema.query.types.expr.BooleanExpression;
 
-/**
- * A class which is used to create Querydsl predicates.
- * @author Petri Kainulainen
- */
 public class PlacePredicates {
 
-    public static BooleanExpression isAuth(final String isAuth) {
+    public static BooleanExpression isAuth(final Boolean isAuth) {
     	QPlace place = QPlace.place;
     	
         return place.isAuth.eq(isAuth);    	

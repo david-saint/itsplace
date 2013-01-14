@@ -55,7 +55,7 @@ public class Place {
 	private String phone2; //가맹전화번호2
 	
 	@NotEmpty
-	private String isAuth; //신청승인 여부	
+	private Boolean isAuth; //신청승인 여부	
 	private String remark; //신청 메세지
 
 	private String category; //가맹점 카테고리 기초코드
@@ -109,6 +109,14 @@ public class Place {
 	
 	private int placeOn;
 	
+	public Boolean getIsAuth() {
+		return isAuth;
+	}
+	public void setIsAuth(Boolean isAuth) {
+		this.isAuth = isAuth;
+	}
+
+
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date saveDate; // 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -179,12 +187,7 @@ public class Place {
 	public void setPhone2(String phone2) {
 		this.phone2 = phone2;
 	}
-	public String getIsAuth() {
-		return isAuth;
-	}
-	public void setIsAuth(String isAuth) {
-		this.isAuth = isAuth;
-	}
+	
 	public String getRemark() {
 		return remark;
 	}

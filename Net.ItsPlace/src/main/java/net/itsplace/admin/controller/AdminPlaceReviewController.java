@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
@@ -16,6 +15,7 @@ import net.itsplace.domain.PlaceReview.EditPlaceReview;
 import net.itsplace.domain.Stamp;
 import net.itsplace.place.service.PlaceReviewService;
 import net.itsplace.place.service.PlaceReviewService;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class AdminPlaceReviewController  {
 	@Autowired
 	private PlaceReviewService placeReviewService;
 	@Autowired
-	private AdminPlaceService adminPlaceService;
+	private IPlaceService adminPlaceService;
 
 	/**
 	 * 리뷰 리뷰관리 <br> 

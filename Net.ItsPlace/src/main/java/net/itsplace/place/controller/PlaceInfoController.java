@@ -5,9 +5,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.admin.service.AdminMediaService;
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
 
@@ -20,6 +18,8 @@ import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMedia;
 import net.itsplace.place.service.PlaceInfoService;
+import net.itsplace.service.IBaseService;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.FtpService;
 import net.itsplace.util.ImageService;
@@ -43,7 +43,7 @@ public class PlaceInfoController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PlaceInfoController.class);
 	@Autowired
-	private AdminPlaceService adminPlaceService;
+	private IPlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired

@@ -1,50 +1,66 @@
-package net.itsplace.admin.service;
+package net.itsplace.service;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import net.itsplace.admin.dao.AdminBaseDao;
-import net.itsplace.admin.dao.AdminEventDao;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.user.User;
+import net.itsplace.repository.PlaceEventPredicates;
+import net.itsplace.repository.PlaceEventRepository;
+import net.itsplace.repository.PlaceRepository;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.mysema.query.types.Predicate;
+
+
 @Service("AdminEventService")
-public class AdminEventServiceImpl implements AdminEventService{
-	private static final Logger logger = LoggerFactory.getLogger(AdminEventServiceImpl.class);
+public class PlaceEventService implements IPlaceEventService{
+	private static final Logger logger = LoggerFactory.getLogger(PlaceEventService.class);
 	@Autowired
 	private PagingManager pagingManaer;
-	@Autowired
-	private AdminEventDao adminEventeDao;
 	
+	
+	@Autowired
+	PlaceEventRepository repo;
+	@Autowired
+	PlaceRepository placeRepo;
 	@Override
 	public List<PlaceEvent> getPlaceEventList(int fid) {
-		return adminEventeDao.getPlaceEventList(fid);
+
+		Place place = new Place();
+		place.setFid(fid);
+		return repo.findByPlace(place);
 	}
 
 	@Override
 	public void savePlaceEvent(PlaceEvent placeEvent) {
 		
-		adminEventeDao.savePlaceEvent(placeEvent);
+		//adminEventeDao.savePlaceEvent(placeEvent);
+		repo.save(placeEvent);
 	}
 
 	@Override
 	public void editPlaceEvent(PlaceEvent placeEvent) {
-		adminEventeDao.editPlaceEvent(placeEvent);
+		repo.save(placeEvent);
 	}
 
 	@Override
 	public void deletePlaceEvent(int eid) {
-		adminEventeDao.deletePlaceEvent(eid);
+		PlaceEvent placeEvent = repo.findOne(eid);
+		placeEvent.setIsDelete(true);
+		placeEvent.setEditDate(new Date());
+		repo.save(placeEvent);
 	}
 
-	@Override
+	/*@Override
 	public DataTable getPlaceEventList(String[] columns, 
 			Integer iDisplayStart,
 			Integer iDisplayLength, 
@@ -74,13 +90,13 @@ public class AdminEventServiceImpl implements AdminEventService{
 		  
 		  return table;
 	}
-
+*/
 	@Override
 	public PlaceEvent getPlaceEvent(int eid) {
-		return adminEventeDao.getPlaceEvent(eid);
+		return repo.findOne(eid);
 	}
 
-	@Override
+	/*@Override
 	public DataTable getPlaceEventListAll(String[] columns,
 			Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0,
 			String sSortDir_0, String sSearch) {
@@ -105,8 +121,49 @@ public class AdminEventServiceImpl implements AdminEventService{
 		  
 		  return table;
 	}
+*/
 
-
-	
+	@Override
+	public DataTable<PlaceEvent> findPlaceEventist(JpaPaging paging, Boolean isDelete) {
+		
+          DataTable<PlaceEvent> table = new DataTable<PlaceEvent>(paging);
+          
+          Predicate predicate =  PlaceEventPredicates.isDelete(isDelete);
+          
+          Page<PlaceEvent> placeEvents = repo.findAll(predicate, paging.getPageable());
+          
+          for(PlaceEvent placeEvent:placeEvents){
+        	  logger.info(placeEvent.toString());
+          }
+						 
+          
+		  table.setRows(placeEvents.getContent()); 
+		  
+		  table.setiTotalDisplayRecords(placeEvents.getTotalElements());
+		  logger.info("결과:{}",table.getiDisplayLength());
+		  logger.info("결과:{}",table.getiTotalRecords());
+		  return table;
+	}
+	@Override
+	public DataTable<PlaceEvent> findByPlace(JpaPaging paging, int fid) {
+		
+          DataTable<PlaceEvent> table = new DataTable<PlaceEvent>(paging);
+          
+          
+          Predicate predicate =  PlaceEventPredicates.byPlace(placeRepo.findOne(fid));
+          
+          Page<PlaceEvent> placeEvents = repo.findAll(predicate, paging.getPageable());
+          
+          for(PlaceEvent placeEvent:placeEvents){
+        	  logger.info(placeEvent.toString());
+          }
+						 
+		  table.setRows(placeEvents.getContent()); 
+		  
+		  table.setiTotalDisplayRecords(placeEvents.getTotalElements());
+		  logger.info("결과:{}",table.getiDisplayLength());
+		  logger.info("결과:{}",table.getiTotalRecords());
+		  return table;
+	}
 
 }

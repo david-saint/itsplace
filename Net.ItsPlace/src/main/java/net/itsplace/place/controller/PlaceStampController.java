@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.Authcode;
@@ -20,6 +19,7 @@ import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
 import net.itsplace.place.service.PlaceStampService;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.User;
 import net.itsplace.user.UserInfo;
 import net.itsplace.user.User.EditUser;
@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PlaceStampController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceStampController.class);
 	@Autowired
-	private AdminPlaceService adminPlaceService;
+	private IPlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired

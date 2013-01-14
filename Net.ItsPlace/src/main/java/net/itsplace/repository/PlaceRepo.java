@@ -16,20 +16,20 @@ import com.mysema.query.types.Predicate;
 
 @Component
 public class PlaceRepo  {
-
+/*
 	@Autowired
 	PlaceRepository repo;
 	
-	/**
+	*//**
 	 * 최근 등록된 Place
 	 * @param limit 객수
 	 * @return
-	 */
+	 *//*
 	public List<Place> findByRecentPalces(int limit) {
 		JpaPaging paging = new JpaPaging();
 		Page<Place> places = repo.findAll(PlacePredicates.isAuth("Y"), paging.getPageable("fid",Sort.Direction.DESC, 0, limit));
 		
 		return places.getContent();
-	}
+	}*/
 
 }

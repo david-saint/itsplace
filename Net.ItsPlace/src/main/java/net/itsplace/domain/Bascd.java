@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity(name="bascd")
+@Entity(name="PBASCD")
 public class Bascd {
 	public interface AddBascd {}
 	public interface EditBascd {}
@@ -22,7 +22,7 @@ public class Bascd {
 	private String basName;
 	private String basecd;
 	private String remark;
-	private String isDelete;
+	private Boolean isDelete;
 	private String baseval;
 	private String basekey;
 	
@@ -75,13 +75,13 @@ public class Bascd {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getIsDelete() {
+	public Boolean getIsDelete() {
 		return isDelete;
 	}
-	public void setIsDelete(String isDelete) {
+	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
-	
+
 
 
 }

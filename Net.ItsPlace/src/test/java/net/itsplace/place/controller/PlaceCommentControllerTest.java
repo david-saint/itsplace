@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import net.itsplace.admin.controller.AdminPlaceControllerTest;
-import net.itsplace.admin.service.AdminEventService;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.service.IPlaceEventService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class PlaceCommentControllerTest  extends TestApplicationContext {
 	
 
 	@Autowired
-	AdminEventService service;
+	IPlaceEventService service;
 	@Autowired
 	PlaceCommentController controller;
  
