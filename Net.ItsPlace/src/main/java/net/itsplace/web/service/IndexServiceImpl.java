@@ -6,7 +6,7 @@ import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 
 import net.itsplace.repository.PlaceRepo;
-import net.itsplace.user.UserServiceImpl;
+import net.itsplace.service.UserService;
 import net.itsplace.web.dao.IndexDao;
 
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service("IndexService")
 public class IndexServiceImpl implements IndexService{
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 	
 	@Autowired
 	private IndexDao indexDao;

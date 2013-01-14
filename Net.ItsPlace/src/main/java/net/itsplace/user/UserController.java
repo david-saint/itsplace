@@ -37,15 +37,15 @@ import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Bascd.AddBascd;
 import net.itsplace.place.controller.PlaceCommentController;
+import net.itsplace.service.IUserService;
 import net.itsplace.user.User.AddUser;
-import net.itsplace.user.UserService;
 
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	@Autowired
 	private PersistentTokenBasedRememberMeServices rememberMeServices;
 	

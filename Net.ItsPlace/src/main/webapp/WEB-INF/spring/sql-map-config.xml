@@ -7,7 +7,6 @@
 	<settings useStatementNamespaces="true"/>
 
 	<!-- 사용자로그인 -->
-	<sqlMap resource="net/itsplace/user/user-sqlmap.xml" />
 	
 
 	

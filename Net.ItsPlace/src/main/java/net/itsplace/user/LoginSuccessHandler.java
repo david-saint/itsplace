@@ -8,8 +8,8 @@ import java.util.Map;
 
 import net.itsplace.domain.Place;
 import net.itsplace.place.service.PlaceUserService;
+import net.itsplace.service.IUserService;
 import net.itsplace.user.User;
-import net.itsplace.user.UserService;
 import net.itsplace.util.UrlTool;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	@Autowired
 	private PlaceUserService placeUserService;
 	

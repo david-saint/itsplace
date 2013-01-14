@@ -4,6 +4,7 @@ package net.itsplace.admin.controller;
 import java.util.List;
 import java.util.Locale;
 
+import net.itsplace.domain.Address;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Bascd.AddBascd;
@@ -175,4 +176,42 @@ public class AdminBasecontroller {
            
                    
     }    */   
+	
+	@RequestMapping(value = "/address/search", method = RequestMethod.GET)
+	public String search() {
+		
+		return "common/address/localapi";
+	}
+	
+	/**
+	 *  주소검색  <br />
+	 *  지번검색 : 동명 번지수 또는 도로명검색
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param iDisplayStart 페이지 번
+	 * @param iDisplayLength 페이지 로우수 (한페이지에 보여줄 로우수)
+	 * @param iSortCol_0 sort할 컬럼 번호 
+	 * @param sSortDir_0 sort할 방향(asc/desc)
+	 * @param sSearch 검색
+	 * @return DataTables
+	 * @throws 
+	 * @see 
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/address/list",method = RequestMethod.GET)
+    @ResponseBody
+    public DataTable<Address> list(
+    								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
+    								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
+    								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
+    								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
+                                    @RequestParam(required=false, defaultValue="") String sSearch ) {
+
+       String columns[] = new String[]{"sido", "gugun", "bupname"};
+       
+       return baseService.getAddressList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
+           
+                   
+    }   
 }

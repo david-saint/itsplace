@@ -1,5 +1,6 @@
-package net.itsplace.user;
+package net.itsplace.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.itsplace.domain.DataTable;
+import net.itsplace.repository.UserRepository;
+import net.itsplace.user.Social;
+import net.itsplace.user.User;
+import net.itsplace.user.UserDao;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.MailService;
 import net.itsplace.util.StringUtil;
@@ -22,30 +28,20 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 
 @Service("UserService")
-public class UserServiceImpl implements UserService {
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+public class UserService implements IUserService {
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 	
 	@Autowired
 	private UserDao userDao;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	UserRepository repo;
+	
 	
 	@Transactional(readOnly=true)
 	public User getUser(String email) {
-		
-		User dbUser = null;	
-		dbUser = userDao.getUser(email);		
-		if(dbUser != null){			
-			
-			return dbUser;
-		}else{
-			return null;
-			//throw new RuntimeException("User does not exist!");
-			
-			
-		}
-			
-		
+		return repo.findOne(email);
 	}
 
 
@@ -53,31 +49,17 @@ public class UserServiceImpl implements UserService {
 	public User getUser(String email, String token) {
 		
 		
-		User user =  userDao.getUser(email,token);
-		if(user != null){
-			userDao.getUser(email,token);
-		}
-		
-		return user;
+		return null;
 		
 	}
 			
 		
 	public void saveUser(User user) {	
-		logger.info("회원가입");
-		if(user.getPassword() !=null && !user.getPassword().equals("")){
-			user.setPassword(Encrypt.md5Encoding(user.getPassword()));
-		}
 		
 		
-		try{
-			userDao.setUser(user);		
-		}catch(Exception e){
-			logger.info("회원가입 에러 키 주");
-			logger.info("회원가입 에러 키 주"+e.toString());
-			logger.info("회원가입 에러 키 주:"+			e.getClass().toString());
-			logger.info(e.getMessage());
-		}
+		user.setPassword(Encrypt.md5Encoding(user.getPassword()));
+		user.setSaveDate(new Date());
+		repo.save(user);
 						
 	}
 
@@ -143,40 +125,24 @@ public class UserServiceImpl implements UserService {
 		if(user.getProfileImageUrl()==""){
 			user.setProfileImageUrl("http://localhost:8090/MyPlace/resources/images/whoami.png");
 		}		
-		userDao.updateUser(user);
+		user.setEditDate(new Date());
+		repo.save(user);
 	}
 
 
-	public void saveSocial(Social social) {
-		if (userDao.getSocial(social)==null){
-			userDao.saveSocial(social);
-		}else{
-			userDao.updateSocial(social);
-		}
-		
-	}
-
-
-	public void updateSocial(Social social) {
-		// TODO Auto-generated method stub
-		userDao.updateSocial(social);
-	}
-
-
-	public Social getSocial(Social social) {
-		// TODO Auto-generated method stub
-		return userDao.getSocial(social);
-	}
-
+	
 
 	public void updateUserDisable(User user) {
-		 userDao.updateUserDisable(user);
+		 //userDao.updateUserDisable(user);
+		user.setIsDelete(true);
+		repo.save(user);
 	}
 
 
 	@Override
 	public void updateUserEnable(User user) {
-		userDao.updateUserEnable(user);
+		user.setIsDelete(false);
+		repo.save(user);
 		
 	}
 
@@ -217,7 +183,29 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDao.getUserByPasswordLink(passwordLInk);
 	}
+	public DataTable getUserList(String columns[],Integer iDisplayStart,Integer iDisplayLength,Integer iSortCol_0,String sSortDir_0, String sSearch,String role){
+		  DataTable<User> table = iDisplayLength != null ?
+                new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+                new DataTable<User>(columns, sSortDir_0, iDisplayStart);
 
+		
+//		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+//		  param.put("sortDirection", sSortDir_0);
+//		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+//		  param.put("search", sSearch);
+//		  param.put("role", role);
+//			
+//		  List<User> userList= adminUserDao.getUserList(param);
+//		  
+//		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+//			
+//			
+//		 
+//		  table.setRows(userList); 
+//		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		  
+		  return table;
+	}
 
 	
 	

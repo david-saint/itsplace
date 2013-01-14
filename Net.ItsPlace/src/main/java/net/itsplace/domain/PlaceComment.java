@@ -6,7 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import net.itsplace.user.User;
 import net.itsplace.user.User.AddUser;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,6 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @see 
  */
 
+@Entity(name="PLACECOMMENT")
 public class PlaceComment {
 	public interface AddPlaceComment {}
 	public interface EditPlaceComment {}
@@ -30,53 +34,39 @@ public class PlaceComment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 		private String cid; /* 코멘트  */
+	@ManyToOne
+	@JoinColumn(name="fid")	
+		private Place place;
+	@ManyToOne
+	@JoinColumn(name="email")	
+		private User user; /* 사용자 이메일  */
+		
 		@NotEmpty(message="코멘트를 입력하세요",groups={AddPlaceComment.class})
 		private String comment; /* 코멘트 */
-		private String email; /* 사용자 이메일  */
-		private String name; 
-		private String fname;
-		private int fid;
+		
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 		private Date saveDate;
-		private String prettyDate;
-		private String profileImageUrl;
-		private String commentCount; // 코멘트갯수 
-		
-		public String getPrettyDate() {
-			return prettyDate;
-		}
-		public void setPrettyDate(String prettyDate) {
-			this.prettyDate = prettyDate;
-		}
-		public String getCommentCount() {
-			return commentCount;
-		}
-		public void setCommentCount(String commentCount) {
-			this.commentCount = commentCount;
-		}
-		public String getFname() {
-			return fname;
-		}
-		public void setFname(String fname) {
-			this.fname = fname;
-		}
-		public String getProfileImageUrl() {
-			return profileImageUrl;
-		}
-		public void setProfileImageUrl(String profileImageUrl) {
-			this.profileImageUrl = profileImageUrl;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
+		private Boolean isDelete;
+	//	private String prettyDate;
+		//private String profileImageUrl;
+		//private String commentCount; // 코멘트갯수 
 		public String getCid() {
 			return cid;
 		}
 		public void setCid(String cid) {
 			this.cid = cid;
+		}
+		public Place getPlace() {
+			return place;
+		}
+		public void setPlace(Place place) {
+			this.place = place;
+		}
+		public User getUser() {
+			return user;
+		}
+		public void setUser(User user) {
+			this.user = user;
 		}
 		public String getComment() {
 			return comment;
@@ -84,28 +74,18 @@ public class PlaceComment {
 		public void setComment(String comment) {
 			this.comment = comment;
 		}
-		public String getEmail() {
-			return email;
-		}
-		public void setEmail(String email) {
-			this.email = email;
-		}
-		
-		public int getFid() {
-			return fid;
-		}
-		public void setFid(int fid) {
-			this.fid = fid;
-		}
 		public Date getSaveDate() {
 			return saveDate;
 		}
 		public void setSaveDate(Date saveDate) {
 			this.saveDate = saveDate;
 		}
-		
-		@Override
-		public String toString() {
-			return "PlaceComment:[cid=" + cid + ", fid= " + fid + ", email= " + email + ", comment= " + comment  + "]"  ;
+		public Boolean getIsDelete() {
+			return isDelete;
 		}
+		public void setIsDelete(Boolean isDelete) {
+			this.isDelete = isDelete;
+		}
+		
+	
 }

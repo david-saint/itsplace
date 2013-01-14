@@ -1,6 +1,5 @@
 package net.itsplace.place.controller;
 
-import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.place.service.PlaceCommentService;
@@ -23,7 +22,6 @@ public class PlaceCommentController {
 	private PlaceCommentService placeCommentService;
 	
 	@Autowired
-	private CommonService commonService;
 	
 	
 	/**
