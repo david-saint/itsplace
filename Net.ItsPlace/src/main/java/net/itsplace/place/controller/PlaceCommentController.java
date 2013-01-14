@@ -2,8 +2,8 @@ package net.itsplace.place.controller;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
-import net.itsplace.place.service.PlaceCommentService;
 import net.itsplace.place.service.PlaceUserService;
+import net.itsplace.service.PlaceCommentService;
 import net.itsplace.user.User;
 
 import org.slf4j.Logger;

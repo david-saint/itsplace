@@ -1,29 +1,21 @@
 package net.itsplace.place.controller;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
 import net.itsplace.admin.service.AdminMediaService;
 import net.itsplace.admin.service.AdminStampService;
-import net.itsplace.common.CommonService;
-
 import net.itsplace.domain.Authcode;
-import net.itsplace.domain.Bascd;
+import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
-import net.itsplace.domain.PlaceStamp;
-import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.PlaceMedia;
-import net.itsplace.place.service.PlaceInfoService;
-import net.itsplace.service.IBaseService;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.IPlaceService;
+import net.itsplace.service.PlaceService;
 import net.itsplace.user.UserInfo;
-import net.itsplace.util.FtpService;
 import net.itsplace.util.ImageService;
-import net.itsplace.util.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +26,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Controller
 public class PlaceInfoController {
@@ -49,11 +39,11 @@ public class PlaceInfoController {
 	@Autowired
 	private AdminMediaService adminMediaService;
 	@Autowired
-	private CommonService commonService;
+	private BaseService commonService;
 	@Autowired
 	private ImageService imageService;
 	@Autowired
-	private PlaceInfoService placeInfoService;
+	private PlaceService placeInfoService;
 	
 	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
 	public String placeInfo(Model model) {
@@ -105,7 +95,7 @@ public class PlaceInfoController {
 		}else{	
 
 			String placeImagePath = adminMediaService.savePlaceMedia(file,UserInfo.getFid());
-			resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
+			//resultJson ="{error: '',fileName:'"+commonService.getBasecd().getMediaImageHost()+placeImagePath+"'}";	
 		}
 		 response.setContentType("text/html");
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();

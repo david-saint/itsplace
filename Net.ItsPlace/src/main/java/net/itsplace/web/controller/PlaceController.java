@@ -14,7 +14,7 @@ import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceComment.AddPlaceComment;
 import net.itsplace.domain.Social;
 import net.itsplace.domain.Bascd.EditBascd;
-import net.itsplace.place.service.PlaceCommentService;
+import net.itsplace.service.PlaceCommentService;
 import net.itsplace.util.PagingManager;
 import net.itsplace.web.service.IndexService;
 import net.itsplace.web.service.PlaceService;

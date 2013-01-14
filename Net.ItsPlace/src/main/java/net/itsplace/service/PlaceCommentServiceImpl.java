@@ -1,4 +1,4 @@
-package net.itsplace.place.service;
+package net.itsplace.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,6 +7,7 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.place.dao.PlaceCommentDao;
 import net.itsplace.repository.PlaceCommentRepository;
+import net.itsplace.user.UserInfo;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -24,26 +25,26 @@ public class PlaceCommentServiceImpl  implements PlaceCommentService {
 	PlaceCommentRepository repo;
 	@Override
 	public DataTable<PlaceComment> getPlaceCommentList(String columns[],Integer iDisplayStart,Integer iDisplayLength,Integer iSortCol_0,String sSortDir_0, String sSearch,int fid){
-		  DataTable<PlaceComment> table = iDisplayLength != null ?
-                  new DataTable<PlaceComment>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                  new DataTable<PlaceComment>(columns, sSortDir_0, iDisplayStart);
-		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-		  param.put("sortDirection", sSortDir_0);
-		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
-		  param.put("search", sSearch);
-			
-		  List<PlaceComment> userList= placeCommentDao.getPlaceCommentList(param);
-		  
-		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-		 
-		  table.setRows(userList); 
-		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
-		return table;
+//		  DataTable<PlaceComment> table = iDisplayLength != null ?
+//                  new DataTable<PlaceComment>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+//                  new DataTable<PlaceComment>(columns, sSortDir_0, iDisplayStart);
+//		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+//		  param.put("sortDirection", sSortDir_0);
+//		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+//		  param.put("search", sSearch);
+//			
+//		  List<PlaceComment> userList= placeCommentDao.getPlaceCommentList(param);
+//		  
+//		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+//		 
+//		  table.setRows(userList); 
+//		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		return null;
 	}
 
 	@Override
 	public void savePlaceComment(PlaceComment placeComment) {
-		placeCommentDao.savePlaceComment(placeComment);
+		repo.save(placeComment);
 	}
 
 	@Override
@@ -55,8 +56,12 @@ public class PlaceCommentServiceImpl  implements PlaceCommentService {
 		}
 		
 		placeComment.setIsDelete(true);
-		//placeComment.setUser();
-		repo.save(placeComment);
+		placeComment.setUser(UserInfo.getUser());
+		
+			repo.save(placeComment);
+			
+		
+		
 //		if(placeComment.getEmail().equals(UserInfo.getEmail()) || UserInfo.getUser().getRole().equals(commonService.getCode("ROLE","ADMIN"))){
 //			placeCommentDao.deletePlaceComment(cid);	
 //			result = true;
