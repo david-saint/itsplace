@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
@@ -25,4 +26,5 @@ public interface IPlaceService {
 	public int savePlace(Place place);
 	public String getMcode(int fid);
 	DataTable<Place> findPlaceList(JpaPaging paging, Boolean isDelete);
+	public boolean editAuthCode(Authcode authcode);
 }

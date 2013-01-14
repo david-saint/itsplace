@@ -2,11 +2,13 @@ package net.itsplace.service;
 
 import java.util.Date;
 
+import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
 import net.itsplace.repository.PlaceEventPredicates;
 import net.itsplace.repository.PlaceRepository;
+import net.itsplace.user.UserInfo;
 import net.itsplace.util.QrCodeService;
 
 import org.slf4j.Logger;
@@ -103,6 +105,28 @@ public class PlaceService implements IPlaceService{
 		return repo.findOne(fid).getMcode();
 	}
 
+	@Override
+	public boolean editAuthCode(Authcode authcode) {
+		boolean result = false;
+		authcode.setFid(UserInfo.getFid());
+		Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+		Place place = repo.findOne(UserInfo.getFid());
+		if( place.getAuthCode()==null){
+			//authcode.setNewAuthCode(md5.encodePassword(authcode.getNewAuthCode(), null));
+			repo.save(place);		
+			result = true;
+		}else{
+			//logger.info("현재인증코드:"+dbAuthcode.getAuthCode());
+			//logger.info("변경인증코드:"+authcode.getNewAuthCode());
+			//if(md5.isPasswordValid(dbAuthcode.getAuthCode(),authcode.getAuthCode(), null)){
+			//	authcode.setNewAuthCode(md5.encodePassword(authcode.getNewAuthCode(), null));
+			//	placeInfoDao.editAuthCode(authcode);		
+			//	result = true;
+			//}
+		}
+		
+		return result;
+	}
 
 	
 }
