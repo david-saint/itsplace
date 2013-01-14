@@ -1,22 +1,13 @@
 package net.itsplace.admin.controller;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.itsplace.admin.service.AdminBaseService;
-import net.itsplace.admin.service.AdminEventService;
-import net.itsplace.admin.service.AdminPlaceService;
-import net.itsplace.domain.Bascd;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceEvent.AddPlaceEvent;
-import net.itsplace.domain.PlaceStamp;
-import net.itsplace.domain.Bascd.AddBascd;
-import net.itsplace.user.User;
+import net.itsplace.service.IPlaceEventService;
+import net.itsplace.service.IPlaceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,10 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminEventController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminEventController.class);
 	@Autowired
-	private AdminEventService adminEventService;
+	private IPlaceEventService adminEventService;
 	
 	@Autowired
-	private  AdminPlaceService adminPlaceService;
+	private  IPlaceService adminPlaceService;
 	
 	
 	private Place place; // 선택된 가맹점 
@@ -150,7 +140,7 @@ public class AdminEventController {
 		} else {	
 			placeEvent.setPlace(place);
 			logger.info("placeEvent:"+placeEvent.getTitle());
-			placeEvent.setIsDelete("N");
+			placeEvent.setIsDelete(false);
 			adminEventService.editPlaceEvent(placeEvent);
 			json.setResult(placeEvent);
 			json.setStatus("SUCCESS");
@@ -181,48 +171,7 @@ public class AdminEventController {
 		
 		return json;
 	}
-	/**
-	 *   <br />
-	 * 
-	 * @author 김동훈
-	 * @version 1.0, 2011. 8. 24.
-	 * @param iDisplayStart 페이지 번
-	 * @param iDisplayLength 페이지 로우수 (한페이지에 보여줄 로우수)
-	 * @param iSortCol_0 sort할 컬럼 번호 
-	 * @param sSortDir_0 sort할 방향(asc/desc)
-	 * @param sSearch 검색
-	 * @return DataTables
-	 * @throws 
-	 * @see 
-	 */
-	//@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET, headers="Accept=application/xml, application/json")
-	@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET)
-    @ResponseBody
-    public DataTable<PlaceEvent> getPlaceEventList(
-    								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
-    								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
-    								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
-    								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
-                                    @RequestParam(required=false, defaultValue="") String sSearch,
-                                    @RequestParam(required=false, defaultValue="1") Integer fid) {
-
-                  //  logger.info("languageHeader:{}", languageHeader.toString());
-                    logger.info("iDisplayStart:{}", iDisplayStart.toString());
-                    logger.info("sSortDir_0:{}", sSortDir_0);
-                    logger.info("iSortCol_0:{}", iSortCol_0);
-                    logger.info("iDisplayLength:{}", iDisplayLength);
-                    logger.info("sSearch:{}", sSearch);
-                    logger.info("fid:{}", fid);
-                  
-                    String columns[] = new String[]{"title", "startDate", "endDate"};
-                    
-                    
-                 
-                   
-                    return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch, fid);
-           
-                   
-    }   
+	
 	/**
 	 *   <br />
 	 * 
@@ -247,19 +196,18 @@ public class AdminEventController {
     								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
                                     @RequestParam(required=false, defaultValue="") String sSearch ) {
 
-                  //  logger.info("languageHeader:{}", languageHeader.toString());
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
                     logger.info("sSortDir_0:{}", sSortDir_0);
                     logger.info("iSortCol_0:{}", iSortCol_0);
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
                   
-                    String columns[] = new String[]{"title", "startDate", "endDate"};
+                    String columns[] = new String[]{"title", "startDate", "endDate"};                                       
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
-                    
-                 
+                  //  service.findPlaceEventist(paging, true);
                    
-                    return  adminEventService.getPlaceEventListAll(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch);
+                    return  adminEventService.findPlaceEventist(paging, true);
            
                    
     }   

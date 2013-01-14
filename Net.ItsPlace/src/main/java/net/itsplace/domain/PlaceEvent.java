@@ -2,15 +2,29 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+
+
+@Entity(name="PLACEEVENT")
 public class PlaceEvent {
 	public interface AddPlaceEvent {}
 	public interface EditPlaceEvent {}
 	
+	@Id	
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eid;
 	private String title;
 	private String content;
+	@ManyToOne
+	@JoinColumn(name="fid")		
 	private Place place;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDate;
@@ -20,43 +34,11 @@ public class PlaceEvent {
 	private Date saveDate;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
-	private String isAuth;
-	private String isDelete;
-	
+	private Boolean isAuth;
+	private Boolean isDelete;
 	private String imageHost;
 	private String filePath;
-	
 	private int readCount;
-	public PlaceEvent(){
-		place = new Place();
-	}
-	
-	
-	
-	public String getImageHost() {
-		return imageHost;
-	}
-
-
-
-	public void setImageHost(String imageHost) {
-		this.imageHost = imageHost;
-	}
-
-
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
-
-
 	public int getEid() {
 		return eid;
 	}
@@ -105,17 +87,29 @@ public class PlaceEvent {
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
-	public String getIsAuth() {
+	public Boolean getIsAuth() {
 		return isAuth;
 	}
-	public void setIsAuth(String isAuth) {
+	public void setIsAuth(Boolean isAuth) {
 		this.isAuth = isAuth;
 	}
-	public String getIsDelete() {
+	public Boolean getIsDelete() {
 		return isDelete;
 	}
-	public void setIsDelete(String isDelete) {
+	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+	public String getImageHost() {
+		return imageHost;
+	}
+	public void setImageHost(String imageHost) {
+		this.imageHost = imageHost;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 	public int getReadCount() {
 		return readCount;

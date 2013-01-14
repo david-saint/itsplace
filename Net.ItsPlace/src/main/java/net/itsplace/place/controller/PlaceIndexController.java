@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
@@ -18,6 +17,7 @@ import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.place.service.PlaceUserService;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.User;
 import net.itsplace.user.UserInfo;
 import net.itsplace.user.User.EditUser;

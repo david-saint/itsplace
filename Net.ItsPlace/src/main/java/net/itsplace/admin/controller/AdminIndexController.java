@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.service.IBaseService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class AdminIndexController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminBasecontroller.class);
 	@Autowired
-	private AdminBaseService adminBaseService;
+	private IBaseService adminBaseService;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String administrator() {

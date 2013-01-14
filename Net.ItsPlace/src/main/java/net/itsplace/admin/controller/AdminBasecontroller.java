@@ -4,12 +4,12 @@ package net.itsplace.admin.controller;
 import java.util.List;
 import java.util.Locale;
 
-import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Bascd.AddBascd;
 import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.DataTable;
+import net.itsplace.service.IBaseService;
 import net.itsplace.user.User;
 import net.itsplace.user.User.AddUser;
 import net.itsplace.util.PagingManager;
@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminBasecontroller {
 	private static final Logger logger = LoggerFactory.getLogger(AdminBasecontroller.class);
 	@Autowired
-	private AdminBaseService adminBaseService;
+	private IBaseService adminBaseService;
 	@Autowired
 	private PagingManager pagingManaer;
 	

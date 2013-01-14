@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceUser;
 import net.itsplace.place.service.PlaceUserService;
+import net.itsplace.service.IBaseService;
 import net.itsplace.user.User;
 import net.itsplace.user.User.AddUser;
 import net.itsplace.util.PagingManager;

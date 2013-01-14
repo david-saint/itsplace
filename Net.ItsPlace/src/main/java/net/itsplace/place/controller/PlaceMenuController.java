@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
@@ -17,6 +16,7 @@ import net.itsplace.domain.PlaceMenu.EditPlaceMenu;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.PlaceEvent.AddPlaceEvent;
 import net.itsplace.place.service.PlaceMenuService;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;
@@ -42,7 +42,7 @@ public class PlaceMenuController {
 	@Autowired
 	private CommonService commonService;
 	@Autowired
-	private AdminPlaceService adminPlaceService;
+	private IPlaceService adminPlaceService;
 	private Place place; // 선택된 가맹점 
 
 	/**

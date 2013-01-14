@@ -37,7 +37,7 @@ public class PlaceRepositoryTest  extends TestApplicationContext {
 	public void test() {
 		JpaPaging paging = new JpaPaging();
 		
-		Predicate predicate = PlacePredicates.isAuth("Y").and(PlacePredicates.likeFname("babo"));
+		Predicate predicate = PlacePredicates.isAuth(true).and(PlacePredicates.likeFname("babo"));
 		
 		Page<Place> places = repo.findAll(predicate, paging.getPageable("fid",Sort.Direction.DESC, 0, 2));
 		//List<Place> places = repo.findAll();
@@ -49,10 +49,10 @@ public class PlaceRepositoryTest  extends TestApplicationContext {
 	//@Test
 	public void test2(){
 		
-	for (Place place : placeRepo.findByRecentPalces(2)) {
+	/*for (Place place : placeRepo.findByRecentPalces(2)) {
 			logger.info(place.getFname());
 		}
-		
+		*/
 	}
 
 }

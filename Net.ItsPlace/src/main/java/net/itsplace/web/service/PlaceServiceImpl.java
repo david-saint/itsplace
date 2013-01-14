@@ -3,9 +3,6 @@ package net.itsplace.web.service;
 import java.util.List;
 import java.util.Map;
 
-import net.itsplace.admin.dao.AdminBaseDao;
-import net.itsplace.admin.service.AdminBaseService;
-import net.itsplace.admin.service.AdminBaseServiceImpl;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.domain.PlaceEvent;
@@ -13,6 +10,8 @@ import net.itsplace.domain.PlaceMedia;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceReview;
 import net.itsplace.domain.Stamp;
+import net.itsplace.service.IBaseService;
+import net.itsplace.service.BaseService;
 import net.itsplace.util.DurationFromNow;
 import net.itsplace.web.dao.PlaceDao;
 

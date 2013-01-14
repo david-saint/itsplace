@@ -1,10 +1,10 @@
 package net.itsplace.common;
 
 import net.itsplace.admin.controller.AdminBasecontroller;
-import net.itsplace.admin.service.AdminBaseService;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceEvent;
+import net.itsplace.service.IBaseService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,12 +1,13 @@
 package net.itsplace.place.controller;
 
-import net.itsplace.admin.service.AdminEventService;
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceEvent.AddPlaceEvent;
+import net.itsplace.service.IPlaceEventService;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;
@@ -26,9 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PlaceEventController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceEventController.class);
 	@Autowired
-	private AdminEventService adminEventService;	
+	private IPlaceEventService placeEventService;	
 	@Autowired
-	private  AdminPlaceService adminPlaceService;
+	private  IPlaceService adminPlaceService;
 	
 	private Place place; // 선택된 가맹점 
 	
@@ -44,7 +45,7 @@ public class PlaceEventController {
 		model.addAttribute("place",getPlace());
 		//place = adminPlaceService.getPlace(fid);
 		//model.addAttribute("placeEvent", new PlaceEvent());
-		//model.addAttribute("placeEventList",adminEventService.getPlaceEventList(UserInfo.getFid()));
+		//model.addAttribute("placeEventList",placeEventService.getPlaceEventList(UserInfo.getFid()));
 		return "place/event/list";
 	}
 	/**
@@ -90,7 +91,7 @@ public class PlaceEventController {
 			logger.info("place fid:"+placeEvent.getPlace().getFid());
 			logger.info("place fid:"+placeEvent.getPlace().getFid());
 			
-			adminEventService.savePlaceEvent(placeEvent);
+			placeEventService.savePlaceEvent(placeEvent);
 			json.setResult("이벤트를 추가하였씁니다");
 			json.setStatus("SUCCESS");
 		}
@@ -104,7 +105,7 @@ public class PlaceEventController {
 	 */
 	@RequestMapping(value = "/place/event/edit", method = RequestMethod.GET)
 	public String edit(ModelMap model) {
-		PlaceEvent placeEvent = adminEventService.getPlaceEvent(UserInfo.getFid());
+		PlaceEvent placeEvent = placeEventService.getPlaceEvent(UserInfo.getFid());
 		model.addAttribute("placeEvent", placeEvent);
 
 		return "admin/place/event/edit";
@@ -131,8 +132,8 @@ public class PlaceEventController {
 		} else {	
 			placeEvent.setPlace(place);
 			logger.info("placeEvent:"+placeEvent.getTitle());
-			placeEvent.setIsDelete("N");
-			adminEventService.editPlaceEvent(placeEvent);
+			placeEvent.setIsDelete(false);
+			placeEventService.editPlaceEvent(placeEvent);
 			json.setResult(placeEvent);
 			json.setStatus("SUCCESS");
 		}
@@ -154,7 +155,7 @@ public class PlaceEventController {
  	public JsonResponse delete(@RequestParam(required=true) Integer eid, Model model) {
 		JsonResponse json = new JsonResponse();
 		try{
-			adminEventService.deletePlaceEvent(eid);
+			placeEventService.deletePlaceEvent(eid);
 			json.setStatus("SUCCESS");
 		}catch(Exception e){
 			json.setStatus("FAIL");
@@ -193,9 +194,10 @@ public class PlaceEventController {
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
                   
-                    String columns[] = new String[]{"title", "startDate", "endDate"};
+                    String columns[] = new String[]{"title", "startDate", "endDate"};                                       
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
-                    return  adminEventService.getPlaceEventList(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0, sSearch, UserInfo.getFid());
+                    return  placeEventService.findByPlace(paging,  UserInfo.getFid());
            
                    
     }   

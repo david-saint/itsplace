@@ -1,15 +1,16 @@
-package net.itsplace.admin.service;
+package net.itsplace.service;
 
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
 import net.itsplace.domain.Bascd;
+import net.itsplace.domain.GroupBascd;
 
-public interface AdminBaseService {
+public interface IBaseService {
 
 	/*기초코드 그룹 리스트 가져오*/
-	public List<Bascd> getGrpBascdList() ;
+	public List<GroupBascd> getGrpBascdList() ;
 	/*그룹별 기초코드 가져오기 */
 	public List<Bascd> getBascdList(String grpCd);
 	public void saveBascd(Bascd bascd);

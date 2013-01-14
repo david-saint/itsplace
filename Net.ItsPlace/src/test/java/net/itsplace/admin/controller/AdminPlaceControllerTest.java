@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import javax.inject.Inject;
 
-import net.itsplace.admin.service.AdminEventService;
 import net.itsplace.domain.Place;
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.service.IPlaceEventService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class AdminPlaceControllerTest  extends TestApplicationContext {
 	
 
 	@Autowired
-	AdminEventService service;
+	IPlaceEventService service;
 	@Autowired
 	AdminPlaceController controller;
 	@Before

@@ -8,11 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import net.itsplace.admin.service.AdminMediaService;
-import net.itsplace.admin.service.AdminPlaceService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.Place.AddPlace;
@@ -20,6 +20,7 @@ import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
+import net.itsplace.service.IPlaceService;
 import net.itsplace.user.User;
 import net.itsplace.user.UserInfo;
 import net.itsplace.user.User.EditUser;
@@ -42,7 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminPlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceController.class);
 	@Autowired
-	private AdminPlaceService adminPlaceService;
+	private IPlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired
@@ -417,21 +418,28 @@ public class AdminPlaceController {
 		String columns[] = new String[] { "fid", "fileName", "fname", "name",
 										  "mobile", "isAuth", "dong", "saveDate", "editDate" };
 
-		DataTable<Place> table = iDisplayLength != null ?
-                new DataTable<Place>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                new DataTable<Place>(columns, sSortDir_0, iDisplayStart);
-
-		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-        param.put("search", sSearch);
-        param.put("sortDirection", sSortDir_0);
-        param.put("sortColumn", table.getOrderColumn(iSortCol_0));
+	//	DataTable<Place> table = iDisplayLength != null ?
+      //          new DataTable<Place>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
+    //            new DataTable<Place>(columns, sSortDir_0, iDisplayStart);
+//
+		//Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
+       // param.put("search", sSearch);
+      ////  param.put("sortDirection", sSortDir_0);
+      //  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
 		
-		List<Place> franchiserList = adminPlaceService.getPlaceList(param);
-		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-		table.setRows(franchiserList);
-		table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+		//List<Place> franchiserList = adminPlaceService.getPlaceList(param);
+		//pagingManaer.setTotalCount(pagingManaer.getFoundRows());
+		//table.setRows(franchiserList);
+		//table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
 
-		return table;
+		
+		
+		
+	 //   String columns[] = new String[]{"title", "startDate", "endDate"};                                       
+        JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
+        
+       
+		return  adminPlaceService.findPlaceList(paging, true);
     }   
 	/**
 	 * 관리자 가맹점 대표 사진 업로드  <br />

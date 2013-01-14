@@ -3,7 +3,6 @@ package net.itsplace.place.service;
 import java.util.List;
 import java.util.Map;
 
-import net.itsplace.admin.dao.AdminBaseDao;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceUser;
 import net.itsplace.place.dao.PlaceUserDao;
