@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.PlaceComment;
-import net.itsplace.place.dao.PlaceCommentDao;
 import net.itsplace.repository.PlaceCommentRepository;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.PagingManager;
@@ -13,6 +13,7 @@ import net.itsplace.util.PagingManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service("placeCommentService")
@@ -20,7 +21,8 @@ public class PlaceCommentServiceImpl  implements PlaceCommentService {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceCommentServiceImpl.class);
 	@Autowired
 	PagingManager pagingManaer;
-	
+	@Autowired
+	PlaceService placeService;
 	@Autowired
 	PlaceCommentRepository repo;
 	@Override
@@ -41,7 +43,22 @@ public class PlaceCommentServiceImpl  implements PlaceCommentService {
 //		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
 		return null;
 	}
-
+	
+	public Page<PlaceComment> findPlaceCommentList(JpaPaging paging,int fid) {
+		
+		Page<PlaceComment> list = repo.findByPlace(placeService.getPlace(fid), paging.getPageable());
+		
+		List<PlaceComment> placeCommentList = list.getContent();
+		
+//		for(int i=0;i<placeCommentList.size();i++){
+//			PlaceComment placeComment = placeCommentList.get(i);
+//			
+//			//placeComment.setPrettyDate(DurationFromNow.getTimeDiffLabel(placeComment.getSaveDate()));
+//			
+//			placeCommentList.set(i, placeComment);
+//		}
+		return list;
+	}
 	@Override
 	public void savePlaceComment(PlaceComment placeComment) {
 		repo.save(placeComment);

@@ -9,7 +9,7 @@ import net.itsplace.domain.Address;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.IPlaceEventService;
+import net.itsplace.service.PlaceEventService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class PlaceCommentControllerTest  extends TestApplicationContext {
 	
 
 	@Autowired
-	IPlaceEventService service;
+	PlaceEventService service;
 	@Autowired
 	PlaceCommentController controller;
  

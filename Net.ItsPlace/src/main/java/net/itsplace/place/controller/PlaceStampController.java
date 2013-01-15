@@ -1,30 +1,22 @@
 package net.itsplace.place.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import net.itsplace.admin.service.AdminStampService;
-import net.itsplace.common.CommonService;
-import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
-import net.itsplace.domain.Place;
-import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
 import net.itsplace.place.service.PlaceStampService;
-import net.itsplace.service.IPlaceService;
-import net.itsplace.user.User;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.PlaceService;
 import net.itsplace.user.UserInfo;
-import net.itsplace.user.User.EditUser;
 import net.itsplace.util.PagingManager;
-import net.itsplace.util.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,13 +35,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PlaceStampController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceStampController.class);
 	@Autowired
-	private IPlaceService adminPlaceService;
+	private PlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired
 	private PagingManager pagingManaer;
 	@Autowired
-	private CommonService commonService;
+	private BaseServiceImpl commonService;
 	
 	@Autowired
 	private PlaceStampService placeStampService;

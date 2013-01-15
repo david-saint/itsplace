@@ -13,9 +13,8 @@ import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceReview;
 import net.itsplace.domain.Stamp;
 
-public interface PlaceService {
+public interface PlaceServicew {
 	public Place getPlace(int fid);
-	public List<PlaceComment> getPlaceCommentList(Map<String, Object> param) ;
 
 	public List<PlaceEvent> getPlaceEventListByPlace(int fid) throws DataAccessException;
 	public List<Stamp> getPlaceStampListByPlace(int fid) throws DataAccessException;

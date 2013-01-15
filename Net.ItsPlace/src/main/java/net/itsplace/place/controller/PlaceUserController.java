@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceUser;
-import net.itsplace.place.service.PlaceUserService;
-import net.itsplace.service.IBaseService;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
+import net.itsplace.domain.User;
+import net.itsplace.domain.User.AddUser;
+import net.itsplace.service.BaseService;
+import net.itsplace.service.PlaceServiceImpl;
+import net.itsplace.service.PlaceUserService;
+import net.itsplace.service.UserServiceImpl;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -31,10 +34,11 @@ public class PlaceUserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PlaceUserController.class);
 	@Autowired
-	private PlaceUserService placeUserService;
+	PlaceUserService placeUserService;
 	@Autowired
-	private PagingManager pagingManaer;
-	
+	UserServiceImpl userService;
+	@Autowired
+	PlaceServiceImpl placeService;
 	/**
 	 * 가맹 직원 리스트 <br />
 	 * @author 김동훈
@@ -78,8 +82,8 @@ public class PlaceUserController {
  	public String addSubmit(String[] email,Integer fid, Model model) {
 		for(int i=0;i<email.length;i++){
 			PlaceUser placeUser = new PlaceUser();
-			placeUser.setEmail(email[i]);
-			placeUser.setFid(fid);
+			placeUser.setUser(userService.getUser(email[i]));
+			placeUser.setPlace(placeService.getPlace(fid));
 			placeUserService.savePlaceUser(placeUser);
 		}
 		return "redirect:/place/user/list";
@@ -142,29 +146,10 @@ public class PlaceUserController {
                     String columns[] = new String[]{"uid", "profileImageUrl", "email", "name", "mobile", "isDelete",  "saveDate", "editDate"};
                     
                     
-                    //도메인이랑 대소문자 일치해야
-                    DataTable<PlaceUser> table = iDisplayLength != null ?
-                                    new DataTable<PlaceUser>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                                    new DataTable<PlaceUser>(columns, sSortDir_0, iDisplayStart);
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
-                    //logger.info("getOrderColumn:{}"+ table.getOrderColumn(iSortCol_0));
                    
-            		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-                    param.put("search", sSearch);
-                    param.put("fid", fid);
-                    param.put("sortDirection", sSortDir_0);
-                    param.put("sortColumn", table.getOrderColumn(iSortCol_0));
-            		
-                    List<PlaceUser> userList= placeUserService.getPlaceUserList(param);
-                    
-            		pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-            		
-            		
-                   
-                    table.setRows(userList); // TODO add filter params to the service method, like in organizations.
-                    table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
-                   
-                    return table;
+                    return placeUserService.findPlaceUserList(paging, fid);
            
                    
     }       

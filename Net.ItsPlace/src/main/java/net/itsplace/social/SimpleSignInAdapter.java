@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.itsplace.service.IUserService;
+import net.itsplace.domain.User;
+import net.itsplace.service.UserService;
 import net.itsplace.user.CustomUserDetails;
 import net.itsplace.user.CustomUserDetailsService;
-import net.itsplace.user.User;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,10 +43,10 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	
 	
 	private PersistentTokenBasedRememberMeServices rememberMeServices;
-	private IUserService userService ;
+	private UserService userService ;
 	
 	@Inject
-	public SimpleSignInAdapter(RequestCache requestCache, IUserService userService,PersistentTokenBasedRememberMeServices rememberMeServices) {
+	public SimpleSignInAdapter(RequestCache requestCache, UserService userService,PersistentTokenBasedRememberMeServices rememberMeServices) {
 		this.requestCache = requestCache;
 		this.userService = userService;
 		this.rememberMeServices = rememberMeServices;

@@ -6,8 +6,8 @@ import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceEvent.AddPlaceEvent;
-import net.itsplace.service.IPlaceEventService;
-import net.itsplace.service.IPlaceService;
+import net.itsplace.service.PlaceEventService;
+import net.itsplace.service.PlaceService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminEventController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminEventController.class);
 	@Autowired
-	private IPlaceEventService placeEventService;
+	private PlaceEventService placeEventService;
 	
 	@Autowired
-	private  IPlaceService placeService;
+	private  PlaceService placeService;
 	
 	
 	private Place place; // 선택된 가맹점 

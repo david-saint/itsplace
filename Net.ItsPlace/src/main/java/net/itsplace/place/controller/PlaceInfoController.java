@@ -4,16 +4,16 @@ import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.admin.service.AdminMediaService;
 import net.itsplace.admin.service.AdminStampService;
 import net.itsplace.domain.Authcode;
 import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
-import net.itsplace.service.BaseService;
-import net.itsplace.service.IPlaceService;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceService;
+import net.itsplace.service.PlaceServiceImpl;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.ImageService;
 
@@ -33,17 +33,17 @@ public class PlaceInfoController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PlaceInfoController.class);
 	@Autowired
-	private IPlaceService adminPlaceService;
+	private PlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired
-	private AdminMediaService adminMediaService;
+	private MediaService adminMediaService;
 	@Autowired
-	private BaseService commonService;
+	private BaseServiceImpl commonService;
 	@Autowired
 	private ImageService imageService;
 	@Autowired
-	private PlaceService placeInfoService;
+	private PlaceServiceImpl placeInfoService;
 	
 	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
 	public String placeInfo(Model model) {

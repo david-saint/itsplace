@@ -4,18 +4,17 @@ import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
-import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceReview;
 import net.itsplace.domain.PlaceReview.AddPlaceReview;
 import net.itsplace.domain.PlaceReview.EditPlaceReview;
 import net.itsplace.domain.Stamp;
-import net.itsplace.place.service.PlaceReviewService;
-import net.itsplace.place.service.PlaceReviewService;
-import net.itsplace.service.IPlaceService;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.PlaceService;
+import net.itsplace.service.PlaceReviewService;
 import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;
@@ -36,11 +35,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminPlaceReviewController  {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceReviewController.class);
 	@Autowired
-	private CommonService commonService;
+	private BaseServiceImpl commonService;
 	@Autowired
 	private PlaceReviewService placeReviewService;
 	@Autowired
-	private IPlaceService adminPlaceService;
+	private PlaceService adminPlaceService;
 
 	/**
 	 * 리뷰 리뷰관리 <br> 
@@ -55,7 +54,7 @@ public class AdminPlaceReviewController  {
 	@RequestMapping(value = "/admin/place/review/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
-		model.addAttribute("placeReviewList", placeReviewService.getPlaceReviewListAll(fid));
+		model.addAttribute("placeReviewList", placeReviewService.getPlaceReviewAll(fid));
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		
 		return "admin/place/review/list";
@@ -93,10 +92,10 @@ public class AdminPlaceReviewController  {
                     //B.stampedTotal, B.stampedLastDate, A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE
                     String columns[] = new String[]{"profileImageUrl", "email", "name", "mobile", "stampedTotal", "stampedLastDate"};
                     
-                    
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                  
                    
-                    return  placeReviewService.getPlaceReviewList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch,UserInfo.getFid());
+                    return  placeReviewService.getPlaceReviewList(paging,UserInfo.getFid());
            
                    
     }       
@@ -152,7 +151,7 @@ public class AdminPlaceReviewController  {
 	public String edit(@RequestParam(required=true) Integer rid, ModelMap model) {
 		PlaceReview placeReview = placeReviewService.getPlaceReview(rid);
 		model.addAttribute("placeReview", placeReview);		
-		model.addAttribute("place",adminPlaceService.getPlace(placeReview.getFid()));
+		model.addAttribute("place",adminPlaceService.getPlace(placeReview.getPlace().getFid()));
 		return "admin/place/review/edit";
 	}
 	/**
@@ -249,8 +248,8 @@ public class AdminPlaceReviewController  {
 			
 			
 			PlaceReview placeReview = placeReviewService.savePlaceReviewImage(file);
-			logger.info(commonService.getBasecd().getImageHost()+placeReview.getFilePath());
-			resultJson ="{rid:'"+placeReview.getRid()+"',fileName:'"+commonService.getBasecd().getImageHost()+placeReview.getFilePath()+"'}";	
+		//	logger.info(commonService.getBasecd().getImageHost()+placeReview.getFilePath());
+		//	resultJson ="{rid:'"+placeReview.getRid()+"',fileName:'"+commonService.getBasecd().getImageHost()+placeReview.getFilePath()+"'}";	
 		
 		 response.setContentType("text/html");
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();

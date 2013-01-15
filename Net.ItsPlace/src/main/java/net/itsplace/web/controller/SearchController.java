@@ -8,6 +8,8 @@ import java.util.Map;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
+import net.itsplace.repository.PlacePredicates;
+import net.itsplace.service.PlaceService;
 import net.itsplace.util.Paging;
 import net.itsplace.util.PagingManager;
 import net.itsplace.web.service.SearchService;
@@ -25,14 +27,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mysema.query.types.Predicate;
+
 @Controller
 public class SearchController {
 	private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
 	@Autowired
 	private SearchService searchService;
-	
+	@Autowired
+	PlaceService palceService;
 	@Autowired
 	private PagingManager pagingManaer;
+	/**
+	 * Tile검색
+	 * @param locale
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/web/search/place", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse  searchPlace(@RequestParam(required=false, defaultValue="") String searchWord ){
+		logger.info("searchWord:{}",searchWord);
+		JsonResponse json = new JsonResponse();
+		
+		Map<String, Object> param  =  new HashMap();
+		param.put("searchWord", searchWord);
+		
+		Predicate predicate = PlacePredicates.isAuth(true).and(PlacePredicates.likeFname(searchWord));
+		
+		
+		
+//		json.setResult(searchService.getPlaceListByTile(param));
+		json.setResult(palceService.findByAll(predicate));
+		json.setStatus("SUCCESS");
+		return json;
+	}
+	
 	/**
 	 * 주변검색
 	 * @param locale
@@ -65,23 +94,7 @@ public class SearchController {
 	//	p.setStart(p.getPageSize() * (p.getCurrentPage() - 1));
 		return searchService.placeInfo(p);
 	}
-	/**
-	 * Tile검색
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/web/search/place", method = RequestMethod.POST)
-	public @ResponseBody JsonResponse  searchPlace(@RequestParam(required=false, defaultValue="") String searchWord ){
-		logger.info("searchWord:{}",searchWord);
-		JsonResponse json = new JsonResponse();
-		
-		Map<String, Object> param  =  new HashMap();
-		param.put("searchWord", searchWord);
-		json.setResult(searchService.getPlaceListByTile(param));
-		json.setStatus("SUCCESS");
-		return json;
-	}
+	
 	/**
 	 * 스마트폰 가맹점 검색
 	 * @param locale

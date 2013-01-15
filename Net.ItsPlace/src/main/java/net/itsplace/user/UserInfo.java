@@ -3,6 +3,7 @@ package net.itsplace.user;
 import java.util.List;
 
 import net.itsplace.domain.Place;
+import net.itsplace.domain.User;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

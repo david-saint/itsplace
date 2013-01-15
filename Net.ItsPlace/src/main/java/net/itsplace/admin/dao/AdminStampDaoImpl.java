@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
-import net.itsplace.user.UserDao;
-import net.itsplace.user.UserDaoImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

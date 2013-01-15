@@ -5,26 +5,27 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
-import net.itsplace.domain.Bascd;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
-import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceComment.AddPlaceComment;
-import net.itsplace.domain.Social;
-import net.itsplace.domain.Bascd.EditBascd;
+import net.itsplace.repository.PlacePredicates;
+import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceCommentService;
+import net.itsplace.service.PlaceEventService;
+import net.itsplace.service.PlaceMenuService;
+import net.itsplace.service.PlaceReviewService;
+import net.itsplace.service.PlaceService;
 import net.itsplace.util.PagingManager;
-import net.itsplace.web.service.IndexService;
-import net.itsplace.web.service.PlaceService;
+import net.itsplace.web.service.PlaceServicew;
 import net.itsplace.web.service.SearchService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.site.SitePreference;
+import org.springframework.data.domain.Page;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
@@ -39,16 +40,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mysema.query.types.Predicate;
+
 @Controller
 public class PlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceController.class);
 	@Autowired
-	private PlaceService placeService;
+	PlaceService placeService;
+	@Autowired
+	PlaceReviewService placeReviewService;
+	@Autowired
+	PlaceCommentService placeCommentService;
+	@Autowired
+	PlaceEventService placeEventService;
+	@Autowired
+	MediaService mediaService;
 	
 	@Autowired
-	private PlaceCommentService placeCommentService;
-	@Autowired
-	private PagingManager pagingManaer;
+	PlaceMenuService placeMenuService;
 	
 	@Autowired
 	private SearchService searchService;
@@ -93,9 +102,15 @@ public class PlaceController {
 		logger.info("pageSize:{}",pageSize);
 		logger.info("pageGroupSize:{}",pageGroupSize);
 		logger.info("searchWord:{}",searchWord);
-		Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+		//Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
+		
+		JpaPaging paging = new JpaPaging();
+		Predicate predicate =PlacePredicates.isAuth(true);
+		
+		Page<Place> list = placeService.findByAll(predicate, paging);
+		
 		JsonResponse json = new JsonResponse();
-		json.setResult(searchService.getPlaceList(param));
+		json.setResult(list.getContent());
 		json.setSuccess();
 		return json;
 	}
@@ -114,15 +129,15 @@ public class PlaceController {
 	@RequestMapping(value = "/place/view/{fid}", method = RequestMethod.GET)
 	public String view( @PathVariable Integer fid, Model model) {
 		model.addAttribute("place", placeService.getPlace(fid));
-		Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
-		param.put("fid", fid);
+		//Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
+	//	param.put("fid", fid);
 		
 		
-		model.addAttribute("placeEventList",placeService.getPlaceEventListByPlace(fid));
-		model.addAttribute("placeMediaList",placeService.getPlaceMediaListt(fid));
-		model.addAttribute("placeMenuList",placeService.getPlaceMenuList(fid));
-		model.addAttribute("placeReviewList",placeService.getPlaceReviewList(fid));
-		model.addAttribute("placeStampList",placeService.getPlaceStampListByPlace(fid));
+		model.addAttribute("placeEventList", placeEventService.getPlaceEventList(fid));
+		model.addAttribute("placeMediaList",mediaService.findByPlace(fid));
+		model.addAttribute("placeMenuList", placeMenuService.findByPlace(fid));
+		model.addAttribute("placeReviewList",placeReviewService.getPlaceReviewAll(fid));
+//		model.addAttribute("placeStampList",placeService.getPlaceStampListByPlace(fid));
 		
 	//	List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
 		//List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(fid);
@@ -217,15 +232,17 @@ public class PlaceController {
 														 @RequestParam(required=false, defaultValue="10") Integer pageGroupSize,
 														 @RequestParam(required=false, defaultValue="0") Integer fid
 														){
-			Map<String, Object> param  = pagingManaer.createMysqlLimit(currentPage, pageSize);
-			param.put("fid", fid);
-			List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
-			int totalCount = pagingManaer.getFoundRows();
-			String paging = pagingManaer.creatPaging(currentPage, pageSize, totalCount, pageGroupSize);
+
+			String columns[] = new String[]{"title", "startDate", "endDate"};                                       
+            JpaPaging paging = new JpaPaging(columns, currentPage, pageGroupSize, 0, "desc", "");
+            
+			Page<PlaceComment> placeCommentList = placeCommentService.findPlaceCommentList(paging, fid);
+			int totalCount = (int) placeCommentList.getTotalElements();
+		//	String paging = pagingManaer.creatPaging(currentPage, pageSize, totalCount, pageGroupSize);
 			
 			JsonResponse json = new JsonResponse();
 		    json.setResult(placeCommentList);
-			json.setPaging(paging);
+			//json.setPaging(paging);
 			json.setTotalCount(totalCount);
 			return json;
 		}

@@ -9,7 +9,7 @@ public class PlaceEventPredicates {
 	   public static BooleanExpression isAuth(final  Boolean  isAuth) {
 		   QPlaceEvent placeEvent = QPlaceEvent.placeEvent;
 	    	
-	       return placeEvent.isAuth.eq(isAuth);    	
+	       return placeEvent.isAuth.eq(isAuth) 	;
 	    }
 	   
 	    public static BooleanExpression isDelete(final Boolean isDelete) {

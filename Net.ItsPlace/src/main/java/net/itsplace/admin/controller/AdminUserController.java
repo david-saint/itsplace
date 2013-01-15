@@ -11,10 +11,10 @@ import javax.validation.Valid;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
-import net.itsplace.service.IUserService;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
-import net.itsplace.user.User.EditUser;
+import net.itsplace.domain.User;
+import net.itsplace.domain.User.AddUser;
+import net.itsplace.domain.User.EditUser;
+import net.itsplace.service.UserService;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminUserController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminUserController.class);
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	
 
 	

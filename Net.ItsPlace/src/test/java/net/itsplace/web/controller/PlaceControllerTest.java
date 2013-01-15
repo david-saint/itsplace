@@ -10,8 +10,8 @@ import net.itsplace.domain.TestRepo;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.place.controller.PlaceCommentController;
 import net.itsplace.place.controller.PlaceCommentControllerTest;
-import net.itsplace.service.IPlaceEventService;
-import net.itsplace.web.service.PlaceService;
+import net.itsplace.service.PlaceEventService;
+import net.itsplace.web.service.PlaceServicew;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ public class PlaceControllerTest  extends TestApplicationContext {
 	
 
 	@Autowired
-	PlaceService service;
+	PlaceServicew service;
 	@Autowired
 	PlaceController controller;
 	@Autowired

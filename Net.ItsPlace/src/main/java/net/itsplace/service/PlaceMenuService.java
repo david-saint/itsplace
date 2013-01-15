@@ -1,9 +1,10 @@
-package net.itsplace.place.service;
+package net.itsplace.service;
 
 import java.util.List;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.PlaceMedia;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.user.UserInfo;
@@ -16,7 +17,7 @@ public interface PlaceMenuService {
 	public void editMenu(PlaceMenu placeMenu) ;
 	public void deleteMenu(int mnid)  ;
 	public PlaceMenu getMenu(int mnid)  ;
-	public DataTable getMenuList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch,int fid);
-	
+	DataTable<PlaceMenu> getMenuList(JpaPaging paging, int fid);
+	public List<PlaceMenu> findByPlace(int fid);
 	
 }

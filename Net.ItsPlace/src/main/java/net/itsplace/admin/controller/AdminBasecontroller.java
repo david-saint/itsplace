@@ -7,12 +7,12 @@ import java.util.Locale;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.User;
 import net.itsplace.domain.Bascd.AddBascd;
 import net.itsplace.domain.Bascd.EditBascd;
+import net.itsplace.domain.User.AddUser;
 import net.itsplace.domain.DataTable;
-import net.itsplace.service.IBaseService;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
+import net.itsplace.service.BaseService;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminBasecontroller {
 	private static final Logger logger = LoggerFactory.getLogger(AdminBasecontroller.class);
 	@Autowired
-	private IBaseService adminBaseService;
+	private BaseService baseService;
 	@Autowired
 	private PagingManager pagingManaer;
 	
@@ -41,8 +41,8 @@ public class AdminBasecontroller {
 			@RequestParam (value = "grpcd", required = false, defaultValue = "") String grpcd,
 			Model model
 			) {
-		model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
-		model.addAttribute("basCdList", adminBaseService.getBascdList(grpcd));
+		model.addAttribute("grpBasCdList",baseService.getGrpBascdList());
+		model.addAttribute("basCdList", baseService.getBascdList(grpcd));
 		return "admin/base/list";
 	}
 	
@@ -59,7 +59,7 @@ public class AdminBasecontroller {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String add(Model model) {
 		model.addAttribute("bascd",new Bascd());	
-		model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
+		model.addAttribute("grpBasCdList",baseService.getGrpBascdList());
 		return "admin/base/add";
 	}
 	/**
@@ -79,7 +79,7 @@ public class AdminBasecontroller {
 			
 			return "admin/base/add";
 		} else {	
-			adminBaseService.saveBascd(bascd);
+			baseService.saveBascd(bascd);
 			return "redirect:/admin/base/list";
 		}
 	
@@ -96,10 +96,10 @@ public class AdminBasecontroller {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer no, Model model)  {
-		Bascd b = adminBaseService.getBascd(no);
+		Bascd b = baseService.getBascd(no);
 		logger.info("dd:"+b.getBasName());
-		model.addAttribute("bascd",adminBaseService.getBascd(no));	
-		model.addAttribute("grpBasCdList",adminBaseService.getGrpBascdList());
+		model.addAttribute("bascd",baseService.getBascd(no));	
+		model.addAttribute("grpBasCdList",baseService.getGrpBascdList());
 		return "admin/base/edit";
 	}
 	/**
@@ -118,7 +118,7 @@ public class AdminBasecontroller {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			return "admin/base/edit";
 		} else {	
-			adminBaseService.editBascd(bascd);
+			baseService.editBascd(bascd);
 			return "redirect:/admin/base/list";
 		}
 	
@@ -164,11 +164,11 @@ public class AdminBasecontroller {
                     
                     
                     String columns[] = new String[]{"grpCd", "grpName", "basName", "baseCd"};
-                    List<Bascd> list = adminBaseService.getBascdList("");
+                    List<Bascd> list = baseService.getBascdList("");
                     DataTable<Bascd> table = iDisplayLength != null ?
                                     new DataTable<Bascd>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
                                     new DataTable<Bascd>(columns, sSortDir_0, iDisplayStart);
-                    table.setRows(adminBaseService.getBascdList(grpCd)); // TODO add filter params to the service method, like in organizations.
+                    table.setRows(baseService.getBascdList(grpCd)); // TODO add filter params to the service method, like in organizations.
                     table.setiTotalDisplayRecords( 100);
                     table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
                    

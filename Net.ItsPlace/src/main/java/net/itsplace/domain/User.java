@@ -1,4 +1,4 @@
-package net.itsplace.user;
+package net.itsplace.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,7 +7,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import net.itsplace.domain.Place;
 import net.itsplace.validation.UserPrimarykey;
 
 import org.apache.commons.lang.builder.ToStringBuilder;

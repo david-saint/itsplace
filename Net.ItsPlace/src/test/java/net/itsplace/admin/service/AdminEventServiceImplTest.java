@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.IPlaceEventService;
+import net.itsplace.service.PlaceEventService;
 import net.itsplace.web.repository.PlaceRepositoryTest;
 
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class AdminEventServiceImplTest extends TestApplicationContext {
 	private static final Logger logger  = LoggerFactory.getLogger(AdminEventServiceImplTest.class); 
 
 	@Autowired
-	IPlaceEventService service;
+	PlaceEventService service;
 	
 	@Test
 	public void test() {

@@ -1,40 +1,49 @@
 package net.itsplace.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+@Entity(name="PLACEMENU")
 public class PlaceMenu {
 	public interface AddPlaceMenu{}
 	public interface EditPlaceMenu {}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mnid;
-	private int fid;
+	
+	@ManyToOne
+	@JoinColumn(name="FID")	
+	private Place place;
+	
 	private String title;
 	private String content;
 	private int price;
-	private String isSale;
+	private Boolean isSale;
 	private int salePrice;
 	private int sort;
 	private String host;
 	private String filePath;
 	private String mType;
-	private CommonsMultipartFile file;
+	private Boolean isDelete;
 	public int getMnid() {
 		return mnid;
 	}
 	public void setMnid(int mnid) {
 		this.mnid = mnid;
 	}
-	public int getFid() {
-		return fid;
-	}
 	
-	public int getSort() {
-		return sort;
+	public Place getPlace() {
+		return place;
 	}
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
-	public void setFid(int fid) {
-		this.fid = fid;
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 	public String getTitle() {
 		return title;
@@ -54,10 +63,10 @@ public class PlaceMenu {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getIsSale() {
+	public Boolean getIsSale() {
 		return isSale;
 	}
-	public void setIsSale(String isSale) {
+	public void setIsSale(Boolean isSale) {
 		this.isSale = isSale;
 	}
 	public int getSalePrice() {
@@ -65,6 +74,12 @@ public class PlaceMenu {
 	}
 	public void setSalePrice(int salePrice) {
 		this.salePrice = salePrice;
+	}
+	public int getSort() {
+		return sort;
+	}
+	public void setSort(int sort) {
+		this.sort = sort;
 	}
 	public String getHost() {
 		return host;
@@ -84,11 +99,11 @@ public class PlaceMenu {
 	public void setmType(String mType) {
 		this.mType = mType;
 	}
-	public CommonsMultipartFile getFile() {
-		return file;
+	public Boolean getIsDelete() {
+		return isDelete;
 	}
-	public void setFile(CommonsMultipartFile file) {
-		this.file = file;
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 	

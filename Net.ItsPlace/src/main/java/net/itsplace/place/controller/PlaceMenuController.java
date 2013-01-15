@@ -4,19 +4,17 @@ import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceMenu.AddPlaceMenu;
 import net.itsplace.domain.PlaceMenu.EditPlaceMenu;
-import net.itsplace.domain.Stamp;
-import net.itsplace.domain.PlaceEvent.AddPlaceEvent;
-import net.itsplace.place.service.PlaceMenuService;
-import net.itsplace.service.IPlaceService;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.PlaceService;
+import net.itsplace.service.PlaceMenuService;
 import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;
@@ -40,9 +38,9 @@ public class PlaceMenuController {
 	private PlaceMenuService placeMenuService;
 	
 	@Autowired
-	private CommonService commonService;
+	private BaseServiceImpl commonService;
 	@Autowired
-	private IPlaceService adminPlaceService;
+	private PlaceService adminPlaceService;
 	private Place place; // 선택된 가맹점 
 
 	/**
@@ -95,10 +93,10 @@ public class PlaceMenuController {
                   
                     String columns[] = new String[]{"title", "price","isSale","salePrice"};
                     
-                    
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                  
                    
-                    return  placeMenuService.getMenuList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch,UserInfo.getFid());
+                    return  placeMenuService.getMenuList(paging, UserInfo.getFid());
            
                    
     }       
@@ -132,7 +130,8 @@ public class PlaceMenuController {
  	public JsonResponse addSubmit(@Validated({AddPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
 		//commonService.getBasecd().getMediaImageHost()+placeImagePath
-		placeMenu.setFid(UserInfo.getFid());
+		
+	
 		
 		if (result.hasErrors()) {
 			
@@ -232,8 +231,8 @@ public class PlaceMenuController {
 			file.setFid(UserInfo.getFid());
 			
 			PlaceMenu placeMenu = placeMenuService.savePlaceMenuImage(file);
-			logger.info(commonService.getBasecd().getImageHost()+placeMenu.getFilePath());
-			resultJson ="{mnid:'"+placeMenu.getMnid()+"',fileName:'"+commonService.getBasecd().getImageHost()+placeMenu.getFilePath()+"'}";	
+		//	logger.info(commonService.getBasecd().getImageHost()+placeMenu.getFilePath());
+		//	resultJson ="{mnid:'"+placeMenu.getMnid()+"',fileName:'"+commonService.getBasecd().getImageHost()+placeMenu.getFilePath()+"'}";	
 		
 		 response.setContentType("text/html");
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();

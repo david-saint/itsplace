@@ -2,14 +2,16 @@ package net.itsplace.user;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.Place;
-import net.itsplace.place.service.PlaceUserService;
-import net.itsplace.service.IUserService;
-import net.itsplace.user.User;
+import net.itsplace.domain.PlaceUser;
+import net.itsplace.domain.User;
+import net.itsplace.service.UserService;
+import net.itsplace.service.PlaceUserService;
 import net.itsplace.util.UrlTool;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	@Autowired
 	private PlaceUserService placeUserService;
 	
@@ -62,7 +64,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
  
     	}
         if(user.getRole().equals("ROLE_FID") || user.getRole().equals("ROLE_FRANCHISER")){
-        	List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
+        	List<PlaceUser>  users = placeUserService.getPlaceListByEmail(UserInfo.getEmail());
+    		List<Place> placeList = new ArrayList();
+    		
+    		for(PlaceUser u: users){
+    			placeList.add(u.getPlace());
+    		}
         	if(placeList.size()>0){
         		if(UserInfo.getFid()==0){
          			UserInfo.setFid(placeList.get(0).getFid());
@@ -71,7 +78,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         	}
      		
         }else{
-        	List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
+        	List<PlaceUser>  users = placeUserService.getPlaceListByEmail(UserInfo.getEmail());
+    		List<Place> placeList = new ArrayList();
+    		
+    		for(PlaceUser u: users){
+    			placeList.add(u.getPlace());
+    		}
         	if(placeList.size()>0){
          		UserInfo.setPlaceList(placeList);
         	}

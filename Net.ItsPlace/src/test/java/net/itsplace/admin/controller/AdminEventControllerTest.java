@@ -9,9 +9,9 @@ import javax.inject.Inject;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceEvent;
+import net.itsplace.domain.User;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.IPlaceEventService;
-import net.itsplace.user.User;
+import net.itsplace.service.PlaceEventService;
 
 
 import org.junit.Before;
@@ -45,7 +45,7 @@ public class AdminEventControllerTest extends TestApplicationContext {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	IPlaceEventService service;
+	PlaceEventService service;
 	
 	@Autowired
 	AdminEventController controller;

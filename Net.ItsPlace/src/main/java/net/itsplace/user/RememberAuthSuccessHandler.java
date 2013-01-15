@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.service.IUserService;
+import net.itsplace.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,7 +15,7 @@ import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 
 public class RememberAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	  
 	public void onAuthenticationSuccess(HttpServletRequest request,HttpServletResponse response, Authentication authentication) throws IOException,ServletException {
 		
