@@ -6,7 +6,6 @@ import net.itsplace.domain.User;
 import net.itsplace.service.BaseServiceImpl;
 import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceService;
-import net.itsplace.web.service.SearchService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,8 +32,6 @@ public class IndexController {
 	@Autowired
 	PlaceEventService placeEventService;
 	
-	@Autowired
-	private SearchService searchService;
 		
 	@Autowired
 	private BaseServiceImpl commonService;

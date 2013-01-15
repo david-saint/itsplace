@@ -1,8 +1,6 @@
 package net.itsplace.web.controller;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -18,9 +16,6 @@ import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceMenuService;
 import net.itsplace.service.PlaceReviewService;
 import net.itsplace.service.PlaceService;
-import net.itsplace.util.PagingManager;
-import net.itsplace.web.service.PlaceServicew;
-import net.itsplace.web.service.SearchService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +54,6 @@ public class PlaceController {
 	@Autowired
 	PlaceMenuService placeMenuService;
 	
-	@Autowired
-	private SearchService searchService;
 		
 	
 	@Inject

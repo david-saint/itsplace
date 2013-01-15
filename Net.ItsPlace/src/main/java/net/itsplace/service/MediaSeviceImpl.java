@@ -2,6 +2,9 @@ package net.itsplace.service;
 
 import java.util.List;
 
+import net.itsplace.basecode.Host;
+import net.itsplace.basecode.ImageSize;
+import net.itsplace.basecode.MediaType;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMedia;
@@ -48,10 +51,10 @@ public class MediaSeviceImpl implements MediaService{
 			PlaceMedia media = new PlaceMedia();
 			media.setPlace(place);
 			media.setUser(user);
-			//media.setmType(commonService.getBasecd().getMediaImage());
-			//media.setSize(commonService.getBasecd().getMediaLarge());
+			media.setmType(MediaType.Image.name());
+			media.setSize(ImageSize.Lagrge.name());
 			media.setmUrl(orinalImagePath);
-			//media.setHost(commonService.getBasecd().getMediaImageHost());
+			media.setHost(Host.Image.getUrl());
 			media.setIsDelete(false);
 			media.setmTitle("");
 			media.setIsProfile(true); //대표이미지 

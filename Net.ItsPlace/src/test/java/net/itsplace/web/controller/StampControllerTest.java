@@ -1,10 +1,7 @@
 package net.itsplace.web.controller;
 
-import static org.junit.Assert.*;
-
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.web.service.PlaceServicew;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,8 +15,6 @@ public class StampControllerTest extends TestApplicationContext {
 	private static final Logger logger = LoggerFactory.getLogger(StampControllerTest.class);
 	
 
-	@Autowired
-	PlaceServicew service;
 	@Autowired
 	 StampController controller;
 	@Autowired
