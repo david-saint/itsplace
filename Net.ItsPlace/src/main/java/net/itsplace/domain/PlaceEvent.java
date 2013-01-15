@@ -23,9 +23,11 @@ public class PlaceEvent {
 	private int eid;
 	private String title;
 	private String content;
+	
 	@ManyToOne
-	@JoinColumn(name="fid")		
+	@JoinColumn(name="FID")		
 	private Place place;
+	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDate;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -117,6 +119,7 @@ public class PlaceEvent {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
+	
 	
 	
 }

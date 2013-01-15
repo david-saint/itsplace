@@ -3,8 +3,8 @@ package net.itsplace.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import net.itsplace.user.User;
-import net.itsplace.user.UserDao;
+import net.itsplace.domain.User;
+import net.itsplace.repository.UserRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class UserMobileValidation implements ConstraintValidator<UserMobileUniqu
 	private static final Logger logger = LoggerFactory.getLogger(UserPrimaryKeyValidation.class);
 	
 	@Autowired
-	private UserDao userDao;
+	UserRepository repo;
 	
 	@Override
 	public void initialize(UserMobileUnique arg0) {
@@ -30,7 +30,7 @@ public class UserMobileValidation implements ConstraintValidator<UserMobileUniqu
 			logger.info("류대폰 번호가 없음" );
 			
 		}
-		User user = userDao.getUserByMobile(mobile);
+		User user = repo.findByMobile(mobile);
 		if (user == null){
 			logger.info("유저밸리데이션 통과" );
 			return true;

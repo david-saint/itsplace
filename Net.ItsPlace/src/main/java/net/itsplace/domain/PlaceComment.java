@@ -9,8 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
+import net.itsplace.domain.User.AddUser;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,10 +34,10 @@ public class PlaceComment {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 		private String cid; /* 코멘트  */
 	@ManyToOne
-	@JoinColumn(name="fid")	
+	@JoinColumn(name="FID")	
 		private Place place;
 	@ManyToOne
-	@JoinColumn(name="email")	
+	@JoinColumn(name="EMAIL")	
 		private User user; /* 사용자 이메일  */
 		
 		@NotEmpty(message="코멘트를 입력하세요",groups={AddPlaceComment.class})

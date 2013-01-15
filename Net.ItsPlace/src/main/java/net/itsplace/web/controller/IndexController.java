@@ -1,25 +1,16 @@
 package net.itsplace.web.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 
-import net.itsplace.common.CommonService;
-import net.itsplace.domain.JsonResponse;
-import net.itsplace.domain.Message;
-import net.itsplace.user.User;
-import net.itsplace.util.Mobile;
-import net.itsplace.web.service.IndexService;
-import net.itsplace.web.service.PlaceService;
+import net.itsplace.domain.User;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.PlaceEventService;
+import net.itsplace.service.PlaceService;
 import net.itsplace.web.service.SearchService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -36,15 +27,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IndexController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
 	@Autowired
-	private IndexService indexService;
+	PlaceService placeService;
 	@Autowired
-	private PlaceService placeService;
+	PlaceEventService placeEventService;
+	
 	@Autowired
 	private SearchService searchService;
 		
 	@Autowired
-	private CommonService commonService;
+	private BaseServiceImpl commonService;
 
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -68,8 +61,8 @@ public class IndexController {
 		}else{
 			model.addAttribute("error","");
 		}
-		model.addAttribute("recentPlaceList",indexService.getRecentPlaceList(4));
-		model.addAttribute("recentEventList",indexService.getRecentEventList(4));
+		model.addAttribute("recentPlaceList",placeService.findByRecentPalces(4));
+		model.addAttribute("recentEventList",placeEventService.getRecentEventList(4));
 		model.addAttribute("user",new User());
 		
 		

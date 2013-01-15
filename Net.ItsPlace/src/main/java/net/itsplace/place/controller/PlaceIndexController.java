@@ -1,35 +1,22 @@
 package net.itsplace.place.controller;
 
-import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.itsplace.admin.service.AdminStampService;
-import net.itsplace.common.CommonService;
-import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.Place.EditPlace;
-import net.itsplace.domain.PlaceStamp;
-import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
-import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
-import net.itsplace.place.service.PlaceUserService;
-import net.itsplace.service.IPlaceService;
-import net.itsplace.user.User;
+import net.itsplace.domain.PlaceUser;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.PlaceUserService;
 import net.itsplace.user.UserInfo;
-import net.itsplace.user.User.EditUser;
-import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +30,7 @@ public class PlaceIndexController {
 	private PlaceUserService placeUserService;
 	
 	@Autowired
-	private CommonService commonService;
+	private BaseServiceImpl commonService;
 	
 	/**
 	 * 가맹점 관리 <br />
@@ -58,7 +45,13 @@ public class PlaceIndexController {
 	 */
 	@RequestMapping(value = "/partner/place", method = RequestMethod.GET)
 	public String place(Model model,HttpServletRequest request) {
-		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
+		List<PlaceUser>  users = placeUserService.getPlaceListByEmail(UserInfo.getEmail());
+		
+		List<Place> placeList = new ArrayList();
+		
+		for(PlaceUser u: users){
+			placeList.add(u.getPlace());
+		}
 
 		if(UserInfo.getFid()==0){
 			UserInfo.setFid(placeList.get(0).getFid());
@@ -90,7 +83,12 @@ public class PlaceIndexController {
 	@RequestMapping(value = "/partner/places", method = RequestMethod.GET)
 	public @ResponseBody JsonResponse places()  {
 		JsonResponse json = new JsonResponse();
-		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());
+		List<PlaceUser>  users = placeUserService.getPlaceListByEmail(UserInfo.getEmail());
+		List<Place> placeList = new ArrayList();
+		
+		for(PlaceUser u: users){
+			placeList.add(u.getPlace());
+		}
 		
 		if(placeList.size()==1){
 			UserInfo.setFid(placeList.get(0).getFid());
@@ -118,7 +116,14 @@ public class PlaceIndexController {
 	@RequestMapping(value = "/partner/changePlace", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse changePlace(@RequestParam(required=true) Integer fid)  {
 		JsonResponse json = new JsonResponse();
-		List<Place> placeList = placeUserService.getFranchiserListByEmail(UserInfo.getEmail());		
+		
+		List<PlaceUser>  users = placeUserService.getPlaceListByEmail(UserInfo.getEmail());
+		List<Place> placeList = new ArrayList();
+		
+		for(PlaceUser u: users){
+			placeList.add(u.getPlace());
+		}
+		
 		UserInfo.setFid(fid); // 현재선택된 가맹ㅇ점 
 		UserInfo.setPlaceList(placeList);
 		

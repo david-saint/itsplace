@@ -2,67 +2,52 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name="PLACEUSER")
 public class PlaceUser {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int uid;
-	private String profileImageUrl;
-	private String email;
-	private String name;
-	private int fid;
-	private String fName;
-	private String mobile;
-	private String isDelete;
+	@ManyToOne
+	@JoinColumn(name="FID")	
+	private Place place;
+	@ManyToOne
+	@JoinColumn(name="EMAIL")	
+	private User user; 
+	private Boolean isDelete;
 	private Date saveDate;	
 	private Date editDate;
 	
 	
-	
-	public String getProfileImageUrl() {
-		return profileImageUrl;
-	}
-	public void setProfileImageUrl(String profileImageUrl) {
-		this.profileImageUrl = profileImageUrl;
-	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
 	public int getUid() {
 		return uid;
 	}
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
-	public String getEmail() {
-		return email;
+	public Place getPlace() {
+		return place;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPlace(Place place) {
+		this.place = place;
 	}
-	public String getName() {
-		return name;
+	public User getUser() {
+		return user;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	public int getFid() {
-		return fid;
-	}
-	public void setFid(int fid) {
-		this.fid = fid;
-	}
-	public String getfName() {
-		return fName;
-	}
-	public void setfName(String fName) {
-		this.fName = fName;
-	}
-	public String getIsDelete() {
+	public Boolean getIsDelete() {
 		return isDelete;
 	}
-	public void setIsDelete(String isDelete) {
+	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
 	public Date getSaveDate() {
@@ -76,7 +61,8 @@ public class PlaceUser {
 	}
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
-	}	
+	}
+	
 	
 	
 	

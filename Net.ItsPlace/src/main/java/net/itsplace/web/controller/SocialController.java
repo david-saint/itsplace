@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Social;
-import net.itsplace.web.service.PlaceService;
+import net.itsplace.web.service.PlaceServicew;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

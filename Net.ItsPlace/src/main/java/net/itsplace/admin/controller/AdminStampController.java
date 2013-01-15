@@ -9,11 +9,11 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.StampType;
+import net.itsplace.domain.User;
 import net.itsplace.domain.StampType.AddStampType;
 import net.itsplace.domain.StampType.EditStampType;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
-import net.itsplace.user.User.EditUser;
+import net.itsplace.domain.User.AddUser;
+import net.itsplace.domain.User.EditUser;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;

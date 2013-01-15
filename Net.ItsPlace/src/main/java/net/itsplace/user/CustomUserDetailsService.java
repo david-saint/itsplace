@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Resource;
+import net.itsplace.service.UserServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,23 +13,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.ibatis.sqlmap.client.SqlMapClient;
 
 public class CustomUserDetailsService extends SqlMapClientDaoSupport implements UserDetailsService {
 	
 	private static final Logger logger =  LoggerFactory.getLogger(CustomUserDetailsService.class);
 
-	@Resource(name="sqlMapClient")
-	protected void init(SqlMapClient sqlMapClient) {
-		super.setSqlMapClient(sqlMapClient);
-	}
+	@Autowired
+	private UserServiceImpl userService;
 	
 	
 	/**
@@ -42,13 +35,8 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 		
 		try {
 			
-			// Search database for a user that matches the specified username
-			// You can provide a custom DAO to access your persistence layer
-			// Or use JDBC to access your database
-			// DbUser is our custom domain user. This is not the same as Spring's User
 			
-			logger.info("Login:{}","loadUserByUsername");
-			net.itsplace.user.User dbUser = (net.itsplace.user.User)getSqlMapClientTemplate().queryForObject("user.getUser",username);	 
+			net.itsplace.domain.User dbUser = userService.getUser(username);	 
 			
 		
 			

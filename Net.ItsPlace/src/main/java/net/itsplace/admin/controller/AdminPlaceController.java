@@ -1,15 +1,11 @@
 package net.itsplace.admin.controller;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.itsplace.admin.service.AdminMediaService;
 import net.itsplace.admin.service.AdminStampService;
-import net.itsplace.common.CommonService;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JpaPaging;
@@ -20,10 +16,9 @@ import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
-import net.itsplace.service.IPlaceService;
-import net.itsplace.user.User;
-import net.itsplace.user.UserInfo;
-import net.itsplace.user.User.EditUser;
+import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.MediaService;
+import net.itsplace.service.PlaceService;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -43,16 +38,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminPlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceController.class);
 	@Autowired
-	private IPlaceService adminPlaceService;
+	private PlaceService adminPlaceService;
 	@Autowired
 	private AdminStampService adminStampService;
 	@Autowired
-	protected AdminMediaService adminMediaService;
+	protected MediaService adminMediaService;
 	@Autowired
 	private PagingManager pagingManaer;
 
 	@Autowired
-	protected CommonService commonService;
+	BaseServiceImpl commonService;
 	/**
 	 * 가맹점 승인관리
 	 * @param locale
@@ -458,7 +453,7 @@ public class AdminPlaceController {
 		String resultJson = "";
 	
 		String placeImagePath = adminMediaService.savePlaceMedia(file,file.getFid());
-		resultJson ="{error: '',fileName:'"+commonService.getBasecd().getImageHost()+placeImagePath+"'}";	
+	//	resultJson ="{error: '',fileName:'"+commonService.getBasecd().getImageHost()+placeImagePath+"'}";	
 		
 		 response.setContentType("text/html");
 		 ByteArrayOutputStream out = new ByteArrayOutputStream();

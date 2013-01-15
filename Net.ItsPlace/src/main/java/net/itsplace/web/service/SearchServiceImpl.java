@@ -56,6 +56,7 @@ public class SearchServiceImpl implements SearchService{
 		return searchDao.getPlaceEventList(param);
 	}
 
+	@Deprecated
 	@Override
 	public List<Place> getPlaceListByTile(Map<String, Object> param) {
 		String locale = "ko";

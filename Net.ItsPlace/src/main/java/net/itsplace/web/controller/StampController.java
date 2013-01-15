@@ -15,7 +15,7 @@ import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
 import net.itsplace.place.service.PlaceStampService;
-import net.itsplace.service.IPlaceService;
+import net.itsplace.service.PlaceService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.web.service.StampService;
 
@@ -41,7 +41,7 @@ public class StampController {
 	private PlaceStampService placeStampService;
 	
 	@Autowired
-	private IPlaceService adminPlaceService;
+	private PlaceService adminPlaceService;
 	
 	/**
 	 *   적립된  스탬프 리스트  <br />

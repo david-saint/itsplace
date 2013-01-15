@@ -3,8 +3,8 @@ package net.itsplace.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import net.itsplace.user.User;
-import net.itsplace.user.UserDao;
+import net.itsplace.domain.User;
+import net.itsplace.repository.UserRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class UserPrimaryKeyValidation implements ConstraintValidator<UserPrimary
 	private static final Logger logger = LoggerFactory.getLogger(UserPrimaryKeyValidation.class);
 	
 	@Autowired
-	private UserDao userDao;
+	UserRepository repo;
 	
 	@Override
 	public void initialize(UserPrimarykey arg0) {
@@ -25,7 +25,7 @@ public class UserPrimaryKeyValidation implements ConstraintValidator<UserPrimary
 
 	@Override
 	public boolean isValid(String email, ConstraintValidatorContext arg1) {
-		User user = userDao.getUser(email);
+		User user = repo.findOne(email);
 		if (user == null){
 			logger.info("유저밸리데이션 통과" );
 			return true;

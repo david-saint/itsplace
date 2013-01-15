@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.Valid;
 
-import net.itsplace.user.User;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -24,6 +23,7 @@ public class Place {
 	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	@Column(columnDefinition="COMMENT 'PK'")
 	private int fid; 
 	

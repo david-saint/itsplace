@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.user.UserDaoImpl;
-import net.sf.json.JSONArray;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -13,9 +13,14 @@ public class PlacePredicates {
         return place.isAuth.eq(isAuth);    	
     }
     public static BooleanExpression likeFname(final String fname) {
-    	QPlace place = QPlace.place;
     	
-        return place.ename.like(fname);
+    	QPlace place = QPlace.place;
+    	if(!fname.isEmpty()){
+    		return place.fname.contains(fname);
+    	}else{
+    		return null;
+    	}
+        
     	
     }
 }

@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.web.service.PlaceService;
+import net.itsplace.web.service.PlaceServicew;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ public class SearchControllerTest  extends TestApplicationContext {
 	
 
 	@Autowired
-	PlaceService service;
+	PlaceServicew service;
 	@Autowired
 	SearchController controller;
 

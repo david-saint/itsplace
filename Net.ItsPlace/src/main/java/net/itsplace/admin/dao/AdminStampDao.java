@@ -5,7 +5,7 @@ import java.util.Map;
 
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
-import net.itsplace.user.User;
+import net.itsplace.domain.User;
 
 import org.springframework.dao.DataAccessException;
 

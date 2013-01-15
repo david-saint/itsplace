@@ -4,31 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSourceAware;
-import org.springframework.dao.DataAccessException;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
-import net.itsplace.place.dao.PlaceInfoDao;
 import net.itsplace.place.dao.PlaceStampDao;
-import net.itsplace.user.User;
+import net.itsplace.service.PlaceServiceImpl;
 import net.itsplace.user.UserInfo;
-import net.itsplace.util.Encrypt;
 import net.itsplace.util.PagingManager;
-import net.itsplace.util.StringUtil;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 
 @Service("placeStampService")
@@ -39,24 +30,25 @@ public class PlaceStampServiceImpl implements PlaceStampService {
 	private PlaceStampDao placeStampDao;
 	@Autowired
 	private PagingManager pagingManaer;
-	@Autowired
-	private PlaceInfoDao placeInfoDao;
 	
+	@Autowired
+	PlaceServiceImpl placeService;
 	@Override
 	public boolean saveStamp(Stamp stamp,String authCode) {
 		boolean result = false;
-		Authcode dbAuthcode = placeInfoDao.getAuthCode(UserInfo.getFid());
-		if(dbAuthcode.getAuthCode()==null){
-			result = false;
-		}else{		
-			Md5PasswordEncoder md5 = new Md5PasswordEncoder();
-			if(md5.isPasswordValid(dbAuthcode.getAuthCode(),authCode, null)){
-				placeStampDao.saveStamp(stamp);		
-				result = true;
-			}else{
-				result = false;
-			}
-		}
+		Place place = placeService.getPlace(UserInfo.getFid());
+//		Authcode dbAuthcode = placeInfoDao.getAuthCode(UserInfo.getFid());
+//		if(dbAuthcode.getAuthCode()==null){
+//			result = false;
+//		}else{		
+//			Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+//			if(md5.isPasswordValid(dbAuthcode.getAuthCode(),authCode, null)){
+//				placeStampDao.saveStamp(stamp);		
+//				result = true;
+//			}else{
+//				result = false;
+//			}
+//		}
 		return result;
 		
 	}

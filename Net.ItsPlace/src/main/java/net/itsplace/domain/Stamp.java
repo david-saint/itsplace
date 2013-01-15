@@ -2,7 +2,6 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
-import net.itsplace.user.User;
 
 public class Stamp {
 	

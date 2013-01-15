@@ -2,41 +2,49 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name="PMEDIA")
 public class PlaceMedia {
 	public interface AddPlaceMedia {}
 	public interface EditPlaceMedia {}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mid;
-	private int fid;
+	@ManyToOne
+	@JoinColumn(name="FID")		
+	private Place place;
+	
 	private String mTitle;
 	private String mUrl;
 	private String mType;
+	private Boolean isDelete;
 	private String size;
-	private String isDelete;
 	private Date saveDate;
 	private Date editDate;
-	private String email;
+	@ManyToOne
+	@JoinColumn(name="EMAIL")		
+	private User user;
 	private String host;
 	private int dispseq;
-	private String isProfile;
-	
-	
-	public String getIsProfile() {
-		return isProfile;
-	}
-	public void setIsProfile(String isProfile) {
-		this.isProfile = isProfile;
-	}
+	private Boolean isProfile;
 	public int getMid() {
 		return mid;
 	}
 	public void setMid(int mid) {
 		this.mid = mid;
 	}
-	public int getFid() {
-		return fid;
+	public Place getPlace() {
+		return place;
 	}
-	public void setFid(int fid) {
-		this.fid = fid;
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 	public String getmTitle() {
 		return mTitle;
@@ -56,17 +64,17 @@ public class PlaceMedia {
 	public void setmType(String mType) {
 		this.mType = mType;
 	}
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 	public String getSize() {
 		return size;
 	}
 	public void setSize(String size) {
 		this.size = size;
-	}
-	public String getIsDelete() {
-		return isDelete;
-	}
-	public void setIsDelete(String isDelete) {
-		this.isDelete = isDelete;
 	}
 	public Date getSaveDate() {
 		return saveDate;
@@ -80,11 +88,11 @@ public class PlaceMedia {
 	public void setEditDate(Date editDate) {
 		this.editDate = editDate;
 	}
-	public String getEmail() {
-		return email;
+	public User getUser() {
+		return user;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getHost() {
 		return host;
@@ -98,7 +106,12 @@ public class PlaceMedia {
 	public void setDispseq(int dispseq) {
 		this.dispseq = dispseq;
 	}
-	
+	public Boolean getIsProfile() {
+		return isProfile;
+	}
+	public void setIsProfile(Boolean isProfile) {
+		this.isProfile = isProfile;
+	}
 	
 	
 }

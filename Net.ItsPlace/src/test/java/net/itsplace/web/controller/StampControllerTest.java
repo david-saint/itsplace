@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.web.service.PlaceService;
+import net.itsplace.web.service.PlaceServicew;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class StampControllerTest extends TestApplicationContext {
 	
 
 	@Autowired
-	PlaceService service;
+	PlaceServicew service;
 	@Autowired
 	 StampController controller;
 	@Autowired

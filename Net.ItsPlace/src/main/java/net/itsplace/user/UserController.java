@@ -35,17 +35,18 @@ import org.springframework.web.context.request.WebRequest;
 
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.User;
 import net.itsplace.domain.Bascd.AddBascd;
+import net.itsplace.domain.User.AddUser;
 import net.itsplace.place.controller.PlaceCommentController;
-import net.itsplace.service.IUserService;
-import net.itsplace.user.User.AddUser;
+import net.itsplace.service.UserService;
 
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	@Autowired
 	private PersistentTokenBasedRememberMeServices rememberMeServices;
 	
