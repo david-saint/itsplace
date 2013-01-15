@@ -1,10 +1,8 @@
 package net.itsplace.web.controller;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.fail;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.web.service.PlaceServicew;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -16,8 +14,6 @@ public class SearchControllerTest  extends TestApplicationContext {
 	private static final Logger logger = LoggerFactory.getLogger(SearchControllerTest.class);
 	
 
-	@Autowired
-	PlaceServicew service;
 	@Autowired
 	SearchController controller;
 

@@ -6,6 +6,9 @@ import java.util.List;
 
 import net.itsplace.admin.controller.AdminEventController;
 import net.itsplace.admin.controller.AdminEventControllerTest;
+import net.itsplace.basecode.Host;
+import net.itsplace.basecode.ImageSize;
+import net.itsplace.basecode.MediaType;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceEvent;
@@ -17,23 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CommonControllerTest extends TestApplicationContext {
-	  
-	private static final Logger logger = LoggerFactory.getLogger(CommonControllerTest.class);
-	//@Autowired
-	//CommonController controller;
-	@Before
-	public void setUp() throws Exception {
-	}
-
+public class CommonControllerTest{
 	@Test
 	public void testList() throws Exception {
-//		 DataTable<Address> address =	controller.list( 1, 10, 1, "desc", "진천동 52555");
-//			
-//			 List<Address> addressList = (List<Address>) address.getRows();
-//			 for(int i=0; i<addressList.size();i++){
-//				 logger.info(i+""+addressList.get(i).getSido()); 
-//			 }
+		System.out.println(Host.Image.getUrl());
+		System.out.println(Host.Movie);
+		System.out.println(MediaType.Image);
 			 
 	}
 

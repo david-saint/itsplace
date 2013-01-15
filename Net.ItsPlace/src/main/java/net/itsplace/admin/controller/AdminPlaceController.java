@@ -284,7 +284,7 @@ public class AdminPlaceController {
 		} else {	
 			logger.info(place.toString());
 			if(place.getFileName()==null|| place.getFileName().equals("")){
-				place.setImageHost("http://img.itsplace.net/img");
+				//place.setImageHost("http://img.itsplace.net/img");
 				place.setFileName("/empty.png");
 			}
 			int fid = adminPlaceService.savePlace(place)	;
