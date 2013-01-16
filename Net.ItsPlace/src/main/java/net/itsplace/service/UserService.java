@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.user.User;
 
 import org.springframework.dao.DataAccessException;
@@ -28,7 +29,6 @@ public interface UserService {
 //	public List<User> getUserList(Map<String, Object> param) throws DataAccessException;
 	
 	
-	public DataTable getUserList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch, String role);
-	
+	public DataTable getUserList(JpaPaging paging);	
 }
  

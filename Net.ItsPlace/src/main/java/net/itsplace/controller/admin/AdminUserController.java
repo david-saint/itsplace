@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.service.UserService;
 import net.itsplace.user.User;
@@ -200,10 +201,11 @@ public class AdminUserController {
                     }*/
                     String columns[] = new String[]{"profileImageUrl", "email", "name","role", "mobile", "isDelete", "isEmail", "saveDate", "editDate","dddd"};
                     
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
                  
                    
-                    return  userService.getUserList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch,null);
+                    return  userService.getUserList(paging);
            
                    
     }       
