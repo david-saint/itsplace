@@ -1,4 +1,4 @@
-package net.itsplace.user;
+package net.itsplace.domain;
 
 import java.io.Serializable;
 import java.util.Date;

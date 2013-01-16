@@ -39,6 +39,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.User;
 import net.itsplace.service.UserService;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.StandardOrMobile;

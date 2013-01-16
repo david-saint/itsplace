@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
 
@@ -27,4 +29,5 @@ public interface StampBaseService {
 	public PlaceStamp getPlaceStamp(int stampid);
 	public void deletePlaceStamp(PlaceStamp placeStamp);
 	public void restorePlaceStamp(PlaceStamp placeStamp);
+	DataTable<StampType> getStampTypeList(JpaPaging paging, Boolean isAuth);
 }

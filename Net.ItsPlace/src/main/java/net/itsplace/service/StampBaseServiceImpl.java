@@ -3,15 +3,22 @@ package net.itsplace.service;
 import java.util.Date;
 import java.util.List;
 
+import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
+import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.StampType;
+import net.itsplace.repository.PlacePredicates;
 import net.itsplace.repository.PlaceStampRepository;
 import net.itsplace.repository.StampTypeRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import com.mysema.query.types.Predicate;
 
 @Service("StampBaseService")
 public class StampBaseServiceImpl implements StampBaseService{
@@ -65,7 +72,22 @@ public class StampBaseServiceImpl implements StampBaseService{
 	}
 
 	
-
+	@Override
+	public DataTable<StampType> getStampTypeList(JpaPaging paging, Boolean isAuth) {
+		
+          DataTable<StampType> table = new DataTable<StampType>(paging);
+          
+         // Predicate predicate =  PlacePredicates.isAuth(isAuth);
+          
+          Page<StampType> list = stampTypeRepository.findAll( paging.getPageable());
+						 
+		  table.setRows(list.getContent()); 
+		  table.setiTotalDisplayRecords(list.getTotalElements());
+		  return table;
+	}
+	
+	
+	
 	@Override
 	public List<PlaceStamp> getPlaceStampAll(int fid){
 		

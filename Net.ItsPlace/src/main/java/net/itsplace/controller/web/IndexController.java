@@ -2,10 +2,10 @@ package net.itsplace.controller.web;
 
 import java.util.Locale;
 
+import net.itsplace.domain.User;
 import net.itsplace.service.BaseServiceImpl;
 import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceService;
-import net.itsplace.user.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!-- full width -->
+<!-- full width-->
 <div class="widget">
 	<div class="header">
 		<span><span class="ico gray home"></span> 기초코드 </span>

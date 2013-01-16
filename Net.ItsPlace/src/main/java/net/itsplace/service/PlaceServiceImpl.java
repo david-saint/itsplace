@@ -32,23 +32,16 @@ public class PlaceServiceImpl implements PlaceService{
 	PlaceRepository repo;
 	
 	@Override
-	public DataTable<Place> findPlaceList(JpaPaging paging, Boolean isDelete) {
+	public DataTable<Place> findPlaceList(JpaPaging paging, Boolean isAuth) {
 		
           DataTable<Place> table = new DataTable<Place>(paging);
           
-          Predicate predicate =  PlaceEventPredicates.isDelete(isDelete);
+          Predicate predicate =  PlacePredicates.isAuth(isAuth);
           
           Page<Place> places = repo.findAll(predicate, paging.getPageable());
-          
-          for(Place placeEvent:places){
-        	  logger.info(placeEvent.toString());
-          }
 						 
 		  table.setRows(places.getContent()); 
-		  
 		  table.setiTotalDisplayRecords(places.getTotalElements());
-		  logger.info("결과:{}",table.getiDisplayLength());
-		  logger.info("결과:{}",table.getiTotalRecords());
 		  return table;
 	}
 

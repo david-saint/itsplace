@@ -59,12 +59,7 @@ public class AdminPlaceController {
 		return "admin/place/request";
 	}
 	
-	/**
-	 * 가맹점 삭제/등록
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Locale locale, Model model) {
 		return "admin/place/list";
@@ -412,25 +407,7 @@ public class AdminPlaceController {
          
 		String columns[] = new String[] { "fid", "fileName", "fname", "name",
 										  "mobile", "isAuth", "dong", "saveDate", "editDate" };
-
-	//	DataTable<Place> table = iDisplayLength != null ?
-      //          new DataTable<Place>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-    //            new DataTable<Place>(columns, sSortDir_0, iDisplayStart);
-//
-		//Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-       // param.put("search", sSearch);
-      ////  param.put("sortDirection", sSortDir_0);
-      //  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
-		
-		//List<Place> franchiserList = adminPlaceService.getPlaceList(param);
-		//pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-		//table.setRows(franchiserList);
-		//table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
-
-		
-		
-		
-	 //   String columns[] = new String[]{"title", "startDate", "endDate"};                                       
+	                                     
         JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
         
        

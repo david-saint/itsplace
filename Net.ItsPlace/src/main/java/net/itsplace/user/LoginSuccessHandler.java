@@ -9,6 +9,7 @@ import java.util.Map;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceUser;
+import net.itsplace.domain.User;
 import net.itsplace.service.UserService;
 import net.itsplace.service.PlaceUserService;
 import net.itsplace.util.UrlTool;

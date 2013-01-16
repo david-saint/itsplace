@@ -8,12 +8,12 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceUser;
+import net.itsplace.domain.User;
+import net.itsplace.domain.User.AddUser;
 import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceServiceImpl;
 import net.itsplace.service.PlaceUserService;
 import net.itsplace.service.UserServiceImpl;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
