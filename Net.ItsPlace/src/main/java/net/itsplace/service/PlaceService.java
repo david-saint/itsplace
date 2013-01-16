@@ -34,7 +34,7 @@ public interface PlaceService {
 	 * @param isDelete
 	 * @return
 	 */
-	DataTable<Place> findPlaceList(JpaPaging paging, Boolean isDelete);
+	DataTable<Place> findPlaceList(JpaPaging paging, Boolean isAuth);
 	public boolean editAuthCode(Authcode authcode);
 
 	/**

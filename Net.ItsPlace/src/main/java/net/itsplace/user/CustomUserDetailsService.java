@@ -36,7 +36,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 		try {
 			
 			
-			net.itsplace.user.User dbUser = userService.getUser(username);	 
+			net.itsplace.domain.User dbUser = userService.getUser(username);	 
 			
 		
 			

@@ -5,15 +5,16 @@ import java.util.Locale;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.StampType;
+import net.itsplace.domain.User;
 import net.itsplace.domain.StampType.AddStampType;
 import net.itsplace.domain.StampType.EditStampType;
+import net.itsplace.domain.User.AddUser;
+import net.itsplace.domain.User.EditUser;
 import net.itsplace.service.StampBaseService;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
-import net.itsplace.user.User.EditUser;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminStampController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminStampController.class);
 	@Autowired
-	private StampBaseService adminStampService;
+	private StampBaseService stampBaseService;
 	@Autowired
 	private PagingManager pagingManaer;
 	/**
@@ -77,22 +78,10 @@ public class AdminStampController {
          
 		String columns[] = new String[] { "sid", "title", "stampcount", "eventday",
 										  "remark", "dispseq", "editDate", "isDelete" };
-//SID, TITLE, STAMPCOUNT, EVENTDAY, REMARK, DISPSEQ, EDITDATE
-		DataTable<StampType> table = iDisplayLength != null ?
-                new DataTable<StampType>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                new DataTable<StampType>(columns, sSortDir_0, iDisplayStart);
-
-		Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-        param.put("search", sSearch);
-        param.put("sortDirection", sSortDir_0);
-        param.put("sortColumn", table.getOrderColumn(iSortCol_0));
-		
-		//List<StampType> franchiserList = adminStampService.getStampTypeList(param);
-		//pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-		//table.setRows(franchiserList);
-		table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
-
-		return table;
+		JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
+        
+	       
+		return  stampBaseService.getStampTypeList(paging, true);
     }   
 	/**
 	 * 스탬프 타입 생성 폼을 호출한<br />
@@ -127,7 +116,7 @@ public class AdminStampController {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			return "admin/stamp/add";
 		} else {	
-			adminStampService.saveStampType(stampType);		
+			stampBaseService.saveStampType(stampType);		
 			return "admin/stamp/list";
 		}
 	
@@ -145,7 +134,7 @@ public class AdminStampController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer sid, Model model)  {
 	
-		model.addAttribute("stampType",adminStampService.getStampType(sid));
+		model.addAttribute("stampType",stampBaseService.getStampType(sid));
 			
 		
 		return "admin/stamp/edit";
@@ -168,7 +157,7 @@ public class AdminStampController {
 			json.setResult(result.getAllErrors());
 			json.setStatus("FAIL");
 		} else {	
-			adminStampService.editStampType(stampType);
+			stampBaseService.editStampType(stampType);
 			json.setResult(stampType);
 			json.setStatus("SUCCESS");
 		}		
@@ -189,7 +178,7 @@ public class AdminStampController {
 		logger.info("sid:{}",sid);
 		JsonResponse json = new JsonResponse();		
 		
-		adminStampService.deleteStampType(sid); 
+		stampBaseService.deleteStampType(sid); 
 			
 		json.setResult(null);
 		json.setStatus("SUCCESS");
@@ -210,7 +199,7 @@ public class AdminStampController {
 		logger.info("sid:{}",sid);
 		JsonResponse json = new JsonResponse();		
 		
-		adminStampService.deleteStampType(sid); 
+		stampBaseService.deleteStampType(sid); 
 			
 		json.setResult(null);
 		json.setStatus("SUCCESS");

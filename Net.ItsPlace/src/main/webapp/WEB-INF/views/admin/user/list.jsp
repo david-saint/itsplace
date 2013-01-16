@@ -133,7 +133,7 @@
 		 	function make_actions(oObj) {
 		 		var id = oObj.aData['email'];
 		 		
-		 		var editAction = '<span class="tip"><a class="userEdit iframe" href="/admin/user/edit?email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+		 		var editAction = '<span class="tip"><a class="userEdit iframe" href="/admin/user/edit?decorator=fancy&email='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="userDelete" email="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
 		 		
 		 		return  editAction + "&nbsp;&nbsp;" + deleteAction ; 

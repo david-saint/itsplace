@@ -2,9 +2,9 @@ package net.itsplace.controller.place;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
+import net.itsplace.domain.User;
 import net.itsplace.service.PlaceCommentService;
 import net.itsplace.service.PlaceUserService;
-import net.itsplace.user.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

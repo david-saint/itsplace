@@ -3,8 +3,8 @@ package net.itsplace.validation;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import net.itsplace.domain.User;
 import net.itsplace.repository.UserRepository;
-import net.itsplace.user.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -8,9 +8,9 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.Social;
+import net.itsplace.domain.User;
 import net.itsplace.repository.PlaceEventPredicates;
 import net.itsplace.repository.UserRepository;
-import net.itsplace.user.User;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.MailService;
 

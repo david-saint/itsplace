@@ -7,8 +7,8 @@ import net.itsplace.basecode.MediaType;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMedia;
+import net.itsplace.domain.User;
 import net.itsplace.repository.PlaceMediaRepository;
-import net.itsplace.user.User;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.ImageService;
 

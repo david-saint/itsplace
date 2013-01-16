@@ -7,12 +7,12 @@ import java.util.Locale;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
+import net.itsplace.domain.User;
 import net.itsplace.domain.Bascd.AddBascd;
 import net.itsplace.domain.Bascd.EditBascd;
+import net.itsplace.domain.User.AddUser;
 import net.itsplace.domain.DataTable;
 import net.itsplace.service.BaseService;
-import net.itsplace.user.User;
-import net.itsplace.user.User.AddUser;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
-import net.itsplace.user.User;
+import net.itsplace.domain.User;
 
 import org.springframework.dao.DataAccessException;
 
