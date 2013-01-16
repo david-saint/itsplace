@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.Social;
+import net.itsplace.repository.PlaceEventPredicates;
 import net.itsplace.repository.UserRepository;
 import net.itsplace.user.User;
 import net.itsplace.util.Encrypt;
@@ -14,8 +17,11 @@ import net.itsplace.util.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mysema.query.types.Predicate;
 
 
 @Service("UserService")
@@ -162,28 +168,22 @@ public class UserServiceImpl implements UserService {
 		return repo.findByPasswordLink(passwordLink);
 	}
 	
-	public DataTable getUserList(String columns[],Integer iDisplayStart,Integer iDisplayLength,Integer iSortCol_0,String sSortDir_0, String sSearch,String role){
-		  DataTable<User> table = iDisplayLength != null ?
-                new DataTable<User>(columns, sSortDir_0, iDisplayStart, iDisplayLength) :
-                new DataTable<User>(columns, sSortDir_0, iDisplayStart);
+	public DataTable getUserList(JpaPaging paging){
 
-		
-//		  Map<String, Object> param  = pagingManaer.createDataTableLimit(iDisplayStart, iDisplayLength);
-//		  param.put("sortDirection", sSortDir_0);
-//		  param.put("sortColumn", table.getOrderColumn(iSortCol_0));
-//		  param.put("search", sSearch);
-//		  param.put("role", role);
-//			
-//		  List<User> userList= adminUserDao.getUserList(param);
-//		  
-//		  pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-//			
-//			
-//		 
-//		  table.setRows(userList); 
-//		  table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
+        DataTable<User> table = new DataTable<User>(paging);
+        
+      //  Predicate predicate =  PlaceEventPredicates.isDelete(isDelete);
+        
+        Page<User> list = repo.findAll( paging.getPageable());
+        			 
+        
+		  table.setRows(list.getContent()); 
 		  
+		  table.setiTotalDisplayRecords(list.getTotalElements());
+		  logger.info("결과:{}",table.getiDisplayLength());
+		  logger.info("결과:{}",table.getiTotalRecords());
 		  return table;
+		  
 	}
 
 	

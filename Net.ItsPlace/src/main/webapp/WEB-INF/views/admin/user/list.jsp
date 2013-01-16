@@ -36,17 +36,19 @@
 		 			"sAjaxSource": "/admin/user/getUserList",
 		 			"sAjaxDataProp": "rows",
 		 			"aoColumns": [
-		 				  			{ "mDataProp": "profileImageUrl" },
+		 				  			{ "mDataProp": "profileImageUrl","fnRender" :function ( oObj ) {
+		 								return '<img src="' + oObj.aData['profileImageUrl'] +'"/>' ;
+		 							} },
 		 				  			{ "mDataProp": "email", "sClass": "left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "role", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile", "sClass":"left" },
 		 				  			{ "mDataProp": "isDelete","fnRender" :function ( oObj ) {
 		 				  				c.log(oObj.aData['isDelete']);
-		 								return oObj.aData['isDelete'] == "N" ? "사용" : "탈퇴";
+		 								return oObj.aData['isDelete']  ? "탈퇴" : "사용";
 		 							} },
 		 				  			{ "mDataProp": "isEmail","fnRender" :function ( oObj ) {
-		 								return oObj.aData['isEmail'] == "N" ? "사용" : "탈퇴";
+		 								return oObj.aData['isEmail'] ? "사용" : "미사용";
 		 							} },
 		 				  			{ "mDataProp": "saveDate" },
 		 				  			{ "mDataProp": "editDate","fnRender" : make_date },
