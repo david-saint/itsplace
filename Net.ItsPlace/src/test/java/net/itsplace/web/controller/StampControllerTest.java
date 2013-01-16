@@ -1,5 +1,7 @@
 package net.itsplace.web.controller;
 
+import net.itsplace.controller.web.SearchController;
+import net.itsplace.controller.web.StampController;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.init.TestApplicationContext;
 

@@ -189,7 +189,7 @@ $(document).ready(function() {
 	<div id="m-container">
 		<div class="inner">
 			<div id="header" class="clearfix">
-				<h1 class="gota logo">THE PLACE <div style="font-size: 24px;">
+				<h1 class="gota logo">THE PLACE "${applicationScope.ImageHost}${applicationScope.ActiveProfile}<div style="font-size: 24px;">
 <!--   <i class="icon-camera-retro"></i> --></div>
 				</h1>
 				<nav>
@@ -212,7 +212,7 @@ $(document).ready(function() {
 								</div>
 							</a>
 							<div class="mosaic-backdrop">
-								<img src="${place.imageHost}${place.fileName }"  />
+								<img src="${place.fileName }"  />
 							</div>
 							
 						</div>

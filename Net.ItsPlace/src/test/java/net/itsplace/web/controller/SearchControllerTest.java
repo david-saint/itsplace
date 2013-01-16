@@ -1,6 +1,7 @@
 package net.itsplace.web.controller;
 
 import static org.junit.Assert.fail;
+import net.itsplace.controller.web.SearchController;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.init.TestApplicationContext;
 

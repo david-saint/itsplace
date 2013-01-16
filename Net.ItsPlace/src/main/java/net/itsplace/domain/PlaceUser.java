@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import net.itsplace.user.User;
+
 @Entity(name="PLACEUSER")
 public class PlaceUser {
 

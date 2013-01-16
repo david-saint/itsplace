@@ -2,47 +2,33 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import net.itsplace.user.User;
+
+@Entity(name="PSTAMP")
 public class Stamp {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int pid ;//적립 스탬프 키
 	
+	@ManyToOne
+	@JoinColumn(name="STAMPID")	
 	private PlaceStamp placeStamp;	
+	@ManyToOne
+	@JoinColumn(name="EMAIL")	
 	private User user;
-	
-	private String mobile;
 	private String status;
 	private Date saveDate;
+	private String mobile;
 	private Date burnDate;
 	private String remark;
-	
-	private int stampedTotal;
-	private Date stampedLastDate;
-	private String attribute; // 스탬프 속성
-	
-	public Stamp(){
-		placeStamp = new PlaceStamp();
-		user = new User();
-	}
-	
-	public String getAttribute() {
-		return attribute;
-	}
-	public void setAttribute(String attribute) {
-		this.attribute = attribute;
-	}
-	public int getStampedTotal() {
-		return stampedTotal;
-	}
-	public void setStampedTotal(int stampedTotal) {
-		this.stampedTotal = stampedTotal;
-	}
-	public Date getStampedLastDate() {
-		return stampedLastDate;
-	}
-	public void setStampedLastDate(Date stampedLastDate) {
-		this.stampedLastDate = stampedLastDate;
-	}
 	public int getPid() {
 		return pid;
 	}
@@ -61,12 +47,6 @@ public class Stamp {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
 	public String getStatus() {
 		return status;
 	}
@@ -78,6 +58,12 @@ public class Stamp {
 	}
 	public void setSaveDate(Date saveDate) {
 		this.saveDate = saveDate;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 	public Date getBurnDate() {
 		return burnDate;
@@ -91,6 +77,14 @@ public class Stamp {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+	
+	
+//	private int stampedTotal;
+//	private Date stampedLastDate;
+//	private String attribute; // 스탬프 속성
+	
+	
+	
 	
 	
 }

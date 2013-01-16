@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import javax.inject.Inject;
 
+import net.itsplace.controller.admin.AdminPlaceController;
 import net.itsplace.domain.Place;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.service.PlaceEventService;

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.service.StampService;
 import net.itsplace.web.controller.PlaceControllerTest;
 
 import org.junit.Before;

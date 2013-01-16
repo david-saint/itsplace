@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-@Service("AdminBaseService")
+@Service("BaseService")
 public class BaseServiceImpl implements BaseService{
 	private static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
 	

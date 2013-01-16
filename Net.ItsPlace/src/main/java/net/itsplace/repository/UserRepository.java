@@ -1,7 +1,7 @@
 package net.itsplace.repository;
 
 import net.itsplace.domain.Bascd;
-import net.itsplace.domain.User;
+import net.itsplace.user.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

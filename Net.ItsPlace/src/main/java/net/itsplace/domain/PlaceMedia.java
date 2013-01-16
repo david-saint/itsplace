@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import net.itsplace.user.User;
+
 @Entity(name="PMEDIA")
 public class PlaceMedia {
 	public interface AddPlaceMedia {}
@@ -31,7 +33,6 @@ public class PlaceMedia {
 	@ManyToOne
 	@JoinColumn(name="EMAIL")		
 	private User user;
-	private String host;
 	private int dispseq;
 	private Boolean isProfile;
 	public int getMid() {
@@ -94,12 +95,7 @@ public class PlaceMedia {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public String getHost() {
-		return host;
-	}
-	public void setHost(String host) {
-		this.host = host;
-	}
+	
 	public int getDispseq() {
 		return dispseq;
 	}
