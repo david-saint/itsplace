@@ -7,11 +7,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import net.itsplace.controller.admin.AdminEventController;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.domain.User;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.service.PlaceEventService;
+import net.itsplace.user.User;
 
 
 import org.junit.Before;

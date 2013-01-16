@@ -2,14 +2,21 @@ package net.itsplace.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity(name="PSTAMPTYPE")
 public class StampType {
 	public interface AddStampType {}
 	public interface EditStampType {}
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int sid;
 	//@NotEmpty(message="Title 을 입력하세요",groups={AddStampType.class})
 	private String title;
@@ -24,23 +31,10 @@ public class StampType {
 	
 	private int dispseq;
 	
-	private String isDelete;
+	private Boolean isDelete;
 	
 	private Date saveDate;
 	private Date editDate;
-	
-	public Date getSaveDate() {
-		return saveDate;
-	}
-	public void setSaveDate(Date saveDate) {
-		this.saveDate = saveDate;
-	}
-	public Date getEditDate() {
-		return editDate;
-	}
-	public void setEditDate(Date editDate) {
-		this.editDate = editDate;
-	}
 	public int getSid() {
 		return sid;
 	}
@@ -77,12 +71,25 @@ public class StampType {
 	public void setDispseq(int dispseq) {
 		this.dispseq = dispseq;
 	}
-	public String getIsDelete() {
+	public Boolean getIsDelete() {
 		return isDelete;
 	}
-	public void setIsDelete(String isDelete) {
+	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
+	public Date getSaveDate() {
+		return saveDate;
+	}
+	public void setSaveDate(Date saveDate) {
+		this.saveDate = saveDate;
+	}
+	public Date getEditDate() {
+		return editDate;
+	}
+	public void setEditDate(Date editDate) {
+		this.editDate = editDate;
+	}
 	
+
 	
 }

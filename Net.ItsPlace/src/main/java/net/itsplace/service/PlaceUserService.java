@@ -8,7 +8,7 @@ import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceUser;
-import net.itsplace.domain.User;
+import net.itsplace.user.User;
 
 import org.springframework.dao.DataAccessException;
 

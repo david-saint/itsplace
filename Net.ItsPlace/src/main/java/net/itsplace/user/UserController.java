@@ -33,13 +33,12 @@ import org.springframework.web.context.request.WebRequest;
 
 
 
+import net.itsplace.controller.place.PlaceCommentController;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
-import net.itsplace.domain.User;
 import net.itsplace.domain.Bascd.AddBascd;
-import net.itsplace.domain.User.AddUser;
-import net.itsplace.place.controller.PlaceCommentController;
 import net.itsplace.service.UserService;
+import net.itsplace.user.User.AddUser;
 
 @Controller
 public class UserController {

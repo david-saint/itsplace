@@ -1,5 +1,6 @@
 package net.itsplace.web.controller;
 
+import net.itsplace.controller.web.PlaceController;
 import net.itsplace.domain.TestRepo;
 import net.itsplace.init.TestApplicationContext;
 

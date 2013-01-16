@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.inject.Named;
 
 import net.itsplace.domain.Place;
-import net.itsplace.domain.User;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.GrantedAuthority;

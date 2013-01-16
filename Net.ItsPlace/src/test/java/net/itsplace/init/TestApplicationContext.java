@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,15 +20,16 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
 
 /**
  * 
- * tiles-context는 제외함 테스트 코드에서 UI는 테스트하지않는다.				
+ * 			
  * 
  * @author 김동훈
  * @version 1.0, 2011. 8. 22.
  * @see 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles("Test")
 @ContextConfiguration(locations={
-		"file:src/main/webapp/WEB-INF/spring/ibatis-context-test.xml", 
+		"file:src/main/webapp/WEB-INF/spring/ibatis-context.xml", 
 		"file:src/main/webapp/WEB-INF/spring/servlet-context.xml", 
 		"file:src/main/webapp/WEB-INF/spring/root-context.xml",
 		"file:src/main/webapp/WEB-INF/spring/view-context.xml",

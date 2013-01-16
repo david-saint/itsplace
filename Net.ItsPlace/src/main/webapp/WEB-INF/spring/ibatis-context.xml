@@ -96,15 +96,26 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="commonServiceOperation"/>
 	</aop:config>
 	-->
+	<beans profile="Development">
+		<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+			<property name="configLocation" value="/WEB-INF/spring/sql-map-config.xml"></property>	
+			<property name="dataSource"><ref bean="dataSource" /></property>	
+		</bean>
+	</beans>
+	<beans profile="Deploy">
+		<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+			<property name="configLocation" value="/WEB-INF/spring/sql-map-config.xml"></property>	
+			<property name="dataSource"><ref bean="dataSource" /></property>	
+		</bean>
+	</beans>
+	<!-- <property name="configLocation" value="classpath:/sql-map-config.xml"></property> -->		
+	<beans profile="Test">
+		<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+			<property name="configLocation" value="file:src/main/webapp/WEB-INF/spring/sql-map-config.xml"></property>		
+			<property name="dataSource"><ref bean="dataSource" /></property>	
+		</bean>
+	</beans>
 	
-	
-	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<!--  <property name="configLocation"value="/WEB-INF/spring/sql-map-config.xml"></property>-->		
-		<property name="configLocation" value="/WEB-INF/spring/sql-map-config.xml"></property>		
-		<property name="dataSource"><ref bean="dataSource" /></property>	
-	</bean>
-
-
 </beans>
 	
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
-import net.itsplace.domain.User;
+import net.itsplace.user.User;
 
 import org.springframework.dao.DataAccessException;
 

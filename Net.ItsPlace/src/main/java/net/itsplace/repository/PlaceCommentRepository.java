@@ -2,7 +2,7 @@ package net.itsplace.repository;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
-import net.itsplace.domain.User;
+import net.itsplace.user.User;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
