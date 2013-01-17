@@ -24,7 +24,7 @@ public class AdminEventServiceImplTest extends TestApplicationContext {
 		String columns[] = new String[]{"title", "startDate", "endDate"};                                       
         JpaPaging paging = new JpaPaging(columns,0, 10, 0, "Desc","");
         
-		service.findPlaceEventist(paging, true);
+	//	service.findPlaceEventist(paging, true);
 	}
 
 }

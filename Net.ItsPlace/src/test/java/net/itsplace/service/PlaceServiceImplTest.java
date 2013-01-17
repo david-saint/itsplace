@@ -19,7 +19,7 @@ public class PlaceServiceImplTest extends TestApplicationContext {
 	private static final Logger logger  = LoggerFactory.getLogger(PlaceServiceImplTest.class); 
 	
 	@Autowired
-	PlaceServiceImpl service;
+	PlaceService service;
 
 	@Test
 	public void testFindByAllPredicateJpaPaging() {

@@ -12,7 +12,7 @@ import net.itsplace.domain.PlaceReview;
 import net.itsplace.domain.PlaceReview.AddPlaceReview;
 import net.itsplace.domain.PlaceReview.EditPlaceReview;
 import net.itsplace.domain.Stamp;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.service.PlaceReviewService;
 import net.itsplace.user.UserInfo;
@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminPlaceReviewController  {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceReviewController.class);
 	@Autowired
-	private BaseServiceImpl commonService;
+	private BaseService commonService;
 	@Autowired
 	private PlaceReviewService placeReviewService;
 	@Autowired

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceUser;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceUserService;
 import net.itsplace.user.UserInfo;
 
@@ -30,7 +30,7 @@ public class PlaceIndexController {
 	private PlaceUserService placeUserService;
 	
 	@Autowired
-	private BaseServiceImpl commonService;
+	private BaseService commonService;
 	
 	/**
 	 * 가맹점 관리 <br />

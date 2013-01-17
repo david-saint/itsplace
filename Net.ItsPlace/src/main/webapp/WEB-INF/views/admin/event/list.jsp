@@ -11,6 +11,9 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
+ 		$('input[type=radio]').live('change', function() {
+ 			datatable.fnStandingRedraw();
+ 		});
  	    datatable = $('#datatable').dataTable( {
  			"sDom": 'fCl<"clear">rtip', //컬럼숨김
  			"bFilter": true, //search
@@ -23,9 +26,9 @@
  		       },
  			"bServerSide": true,		 			
  			"sAjaxSource": "/admin/event/getPlaceEventListAll",
- 			//"fnServerParams": function (aoData, fnCallback) {
-	        //      aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
-			//},
+ 			"fnServerParams": function (aoData, fnCallback) {
+ 				 aoData.push( { "name": "isDelete", "value": $('input[name=isDelete]:checked').val()} );	 			               
+			},
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
 							{ "mDataProp": "place.fname" },
@@ -43,15 +46,9 @@
  								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
  							} },
  							{ "mDataProp": "isAuth","fnRender" :function ( oObj ) {
- 								var result;
- 				  				var isAuth = oObj.aData['isAuth'];
- 								if(isAuth == "Y"){
- 									result = "승인"
- 								} else if(isAuth == "W"){
- 									result = "대기"
- 								}else{
- 									result = "미승인"
- 								}
+ 								
+ 				  				return oObj.aData['isAuth'] ? "승인":"미승인";
+ 								
  							} },
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
@@ -182,6 +179,13 @@
 	</div>
 	<div class="content">
 			<div class="tableName">
+				<div style="position:absolute; ;right:200px">
+					<div class="radiorounded"> 
+	               		<input id="isDelete1"  type="radio" name="isDelete"  value="" checked /><label for="isDelete1" >전체</label>
+	               		<input id="isDelete2" type="radio" name="isDelete"  value="0" /><label for="isDelete2" >사용</label>
+	               		<input id="isDelete3" type="radio" name="isDelete"  value="1" /><label for="isDelete3" >삭제</label>
+	               	</div>  
+	            </div>   	
 				<table class="display" id="datatable">
 					<thead>
 						<tr>

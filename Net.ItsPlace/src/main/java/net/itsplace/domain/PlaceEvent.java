@@ -38,7 +38,7 @@ public class PlaceEvent {
 	private Date editDate;
 	private Boolean isAuth;
 	private Boolean isDelete;
-	private String imageHost;
+
 	private String filePath;
 	private int readCount;
 	public int getEid() {
@@ -101,12 +101,7 @@ public class PlaceEvent {
 	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
-	public String getImageHost() {
-		return imageHost;
-	}
-	public void setImageHost(String imageHost) {
-		this.imageHost = imageHost;
-	}
+	
 	public String getFilePath() {
 		return filePath;
 	}

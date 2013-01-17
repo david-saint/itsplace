@@ -185,7 +185,9 @@ public class PlaceEventController {
     								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
     								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
     								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
-                                    @RequestParam(required=false, defaultValue="") String sSearch ) {
+                                    @RequestParam(required=false, defaultValue="") String sSearch,
+                                    @RequestParam(required=false, defaultValue="") Boolean isDelete,
+                                    @RequestParam(required=false, defaultValue="") Boolean isAuth ) {
 
                   //  logger.info("languageHeader:{}", languageHeader.toString());
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
@@ -195,10 +197,9 @@ public class PlaceEventController {
                     logger.info("sSearch:{}", sSearch);
                   
                     String columns[] = new String[]{"title", "startDate", "endDate"};                                       
-                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
+                    JpaPaging paging = new JpaPaging(columns, iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
-                    return  placeEventService.findByPlace(paging,  UserInfo.getFid());
-           
+                    return  placeEventService.findPlaceEvenList(paging,  UserInfo.getFid(), isDelete, isAuth);
                    
     }   
 	private Place getPlace(){

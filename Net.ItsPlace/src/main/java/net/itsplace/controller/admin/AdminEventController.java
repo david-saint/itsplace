@@ -22,11 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 @Controller
 public class AdminEventController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminEventController.class);
 	@Autowired
-	private PlaceEventService placeEventService;
+	PlaceEventService placeEventService;
 	
 	@Autowired
 	private  PlaceService placeService;
@@ -194,20 +195,24 @@ public class AdminEventController {
     								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
     								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 
     								@RequestParam(required=false, defaultValue="DESC" ) String sSortDir_0, 
-                                    @RequestParam(required=false, defaultValue="") String sSearch ) {
+                                    @RequestParam(required=false, defaultValue="") String sSearch,
+                                    @RequestParam(required=false, defaultValue="0") Integer fid,
+                                    @RequestParam(required=false, defaultValue="") Boolean isDelete,
+                                    @RequestParam(required=false, defaultValue="") Boolean isAuth) {
 
                     logger.info("iDisplayStart:{}", iDisplayStart.toString());
                     logger.info("sSortDir_0:{}", sSortDir_0);
                     logger.info("iSortCol_0:{}", iSortCol_0);
                     logger.info("iDisplayLength:{}", iDisplayLength);
                     logger.info("sSearch:{}", sSearch);
+                    logger.info("isDelete:{}", isDelete);
                   
                     String columns[] = new String[]{"title", "startDate", "endDate"};                                       
                     JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
                   //  service.findPlaceEventist(paging, true);
                    
-                    return  placeEventService.findPlaceEventist(paging, true);
+                    return  placeEventService.findPlaceEvenList( paging, fid, isDelete, isAuth);
            
                    
     }   

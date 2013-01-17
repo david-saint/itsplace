@@ -24,7 +24,7 @@
 		<org.springframework.social.linkedin-version>1.0.0.BUILD-SNAPSHOT</org.springframework.social.linkedin-version> -->
 		<hibernate.version>4.1.4.Final</hibernate.version>	
 		
-		<querydsl.version>2.7.3</querydsl.version>
+		<querydsl.version>2.9.0</querydsl.version>
 	</properties>
 	<dependencies>
 		<!--xxxx
@@ -111,14 +111,14 @@
     <version>0.7</version>
   </dependency>
  -->
-<!-- 이게 머지 아마 Q클래스 생성하는것 같은데  맥에서만  빌드 오류난다     	    
+<!-- 이게 머지 아마 Q클래스 생성하는것 같은데  맥에서만  빌드 오류난다     	   -->  
 <dependency>
   <groupId>com.mysema.querydsl</groupId>
   <artifactId>querydsl-apt</artifactId>
   <version>${querydsl.version}</version>
   <scope>provided</scope>
 </dependency>    
-   -->
+  
 <dependency>
   <groupId>com.mysema.querydsl</groupId>
   <artifactId>querydsl-jpa</artifactId>
@@ -579,10 +579,11 @@
 	<build>
 		<plugins>
 		      <!-- query dsl -->
-            <plugin>
+            <!-- <plugin>
 		      <groupId>com.mysema.maven</groupId>
 		      <artifactId>maven-apt-plugin</artifactId>
 		      <version>1.0.4</version>
+		      <version>1.0.6</version>
 		      <executions>
 		        <execution>
 		          <phase>generate-sources</phase>  
@@ -595,7 +596,23 @@
 		          </configuration>
 		        </execution>
 		      </executions>
-		    </plugin>
+		    </plugin> -->
+		    <plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.0.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		    
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
