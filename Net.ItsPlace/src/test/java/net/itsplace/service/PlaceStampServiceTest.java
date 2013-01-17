@@ -30,11 +30,11 @@ public class PlaceStampServiceTest extends TestApplicationContext {
 
 	@Test
 	public void testGetPlaceStampUserList() {
-		  String columns[] = new String[]{"profileImageUrl", "user", "name", "mobile", "stampedTotal", "stampedLastDate"};
+		//  String columns[] = new String[]{"profileImageUrl", "user", "name", "mobile", "stampedTotal", "stampedLastDate"};
           
-          JpaPaging paging = new JpaPaging(columns,0, 10, 1, JpaPaging.DESC, "");
+        //  JpaPaging paging = new JpaPaging(columns,0, 10, 1, JpaPaging.DESC, "");
           
-		service.getPlaceStampUserList(paging);
+		//  service.getPlaceStampUserList(paging);
 	}
 
 	@Test
