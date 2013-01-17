@@ -3,7 +3,7 @@ package net.itsplace.controller.web;
 import java.util.Locale;
 
 import net.itsplace.domain.User;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceService;
 
@@ -34,7 +34,7 @@ public class IndexController {
 	
 		
 	@Autowired
-	private BaseServiceImpl commonService;
+	private BaseService commonService;
 
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)

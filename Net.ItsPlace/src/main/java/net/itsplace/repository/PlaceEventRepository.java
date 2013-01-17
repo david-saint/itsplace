@@ -16,7 +16,7 @@ public interface PlaceEventRepository extends JpaRepository<PlaceEvent, Integer>
 	
 	List<PlaceEvent> findByIsDelete(Boolean isDelete);
 	List<PlaceEvent> findByPlace(Place place);
-;
+
 	
 }
 

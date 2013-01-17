@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import net.itsplace.service.UserServiceImpl;
+import net.itsplace.service.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class CustomUserDetailsService extends SqlMapClientDaoSupport implements 
 	private static final Logger logger =  LoggerFactory.getLogger(CustomUserDetailsService.class);
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	
 	/**

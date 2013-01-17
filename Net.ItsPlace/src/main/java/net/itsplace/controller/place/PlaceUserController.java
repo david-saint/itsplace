@@ -11,9 +11,9 @@ import net.itsplace.domain.PlaceUser;
 import net.itsplace.domain.User;
 import net.itsplace.domain.User.AddUser;
 import net.itsplace.service.BaseService;
-import net.itsplace.service.PlaceServiceImpl;
+import net.itsplace.service.PlaceService;
 import net.itsplace.service.PlaceUserService;
-import net.itsplace.service.UserServiceImpl;
+import net.itsplace.service.UserService;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;
@@ -36,9 +36,9 @@ public class PlaceUserController {
 	@Autowired
 	PlaceUserService placeUserService;
 	@Autowired
-	UserServiceImpl userService;
+	UserService userService;
 	@Autowired
-	PlaceServiceImpl placeService;
+	PlaceService placeService;
 	/**
 	 * 가맹 직원 리스트 <br />
 	 * @author 김동훈

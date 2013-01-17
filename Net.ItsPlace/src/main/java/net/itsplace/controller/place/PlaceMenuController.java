@@ -12,7 +12,7 @@ import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceMenu.AddPlaceMenu;
 import net.itsplace.domain.PlaceMenu.EditPlaceMenu;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.service.PlaceMenuService;
 import net.itsplace.user.UserInfo;
@@ -38,7 +38,7 @@ public class PlaceMenuController {
 	private PlaceMenuService placeMenuService;
 	
 	@Autowired
-	private BaseServiceImpl commonService;
+	private BaseService commonService;
 	@Autowired
 	private PlaceService adminPlaceService;
 	private Place place; // 선택된 가맹점 

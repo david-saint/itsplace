@@ -23,6 +23,8 @@ public class JpaPaging {
 	private Integer currentPage;
 	private Map<String, Object> parameter;
 	
+	public static String DESC = "desc";
+	public static String ASC= "asc";
 	public JpaPaging(){
 		this.currentPage = 0;
 	}
@@ -42,7 +44,7 @@ public class JpaPaging {
 	 * @throws 
 	 * @see ssss
 	 */
-	public JpaPaging(String[] columns,Integer iDisplayStart,Integer iDisplayLength,Integer iSortColumn, String sSortDiretion,String sSearch){
+	public JpaPaging(String[] columns,Integer iDisplayStart, Integer iDisplayLength,Integer iSortColumn, String sSortDiretion,String sSearch){
 		 this.iSortColumn = iSortColumn;
          this.sSortDiretion = sSortDiretion;
          this.iDisplayStart = iDisplayStart;
@@ -105,7 +107,7 @@ public class JpaPaging {
 			}else{
 				sort = new Sort(Sort.Direction.ASC, sortColumn);
 			}
-			logger.info("소팅 커럼:"+sortColumn);	
+			logger.info("소팅 커럼:"+sortColumn+"소팅 커럼 Index:"+getiSortColumn());	
 			return new PageRequest(getCurrentPage(),getiDisplayLength(), sort);
 		}else{
 			return new PageRequest(getCurrentPage(),getiDisplayLength());

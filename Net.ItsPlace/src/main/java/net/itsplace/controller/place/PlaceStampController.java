@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import net.itsplace.domain.DataTable;
+import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.service.PlaceStampService;
 import net.itsplace.service.StampBaseService;
@@ -41,7 +42,7 @@ public class PlaceStampController {
 	@Autowired
 	private PagingManager pagingManaer;
 	@Autowired
-	private BaseServiceImpl commonService;
+	private BaseService commonService;
 	
 	@Autowired
 	private PlaceStampService placeStampService;
@@ -248,10 +249,11 @@ public class PlaceStampController {
                     //B.stampedTotal, B.stampedLastDate, A.PROFILEIMAGEURL, A.EMAIL, A.NAME, A.MOBILE
                     String columns[] = new String[]{"profileImageUrl", "email", "name", "mobile", "stampedTotal", "stampedLastDate"};
                     
+                    JpaPaging paging = new JpaPaging(columns,iDisplayStart, iDisplayLength, iSortCol_0, sSortDir_0,sSearch);
                     
                  
                    
-                    return  placeStampService.getPlaceStampUserList(columns,iDisplayStart,iDisplayLength,iSortCol_0,sSortDir_0,sSearch);
+                    return  placeStampService.getPlaceStampUserList(paging);
            
                    
     }       

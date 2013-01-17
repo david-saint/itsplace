@@ -9,10 +9,10 @@ import net.itsplace.domain.Bascd.EditBascd;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceService;
-import net.itsplace.service.PlaceServiceImpl;
+import net.itsplace.service.PlaceService;
 import net.itsplace.service.StampBaseService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.ImageService;
@@ -39,11 +39,11 @@ public class PlaceInfoController {
 	@Autowired
 	private MediaService adminMediaService;
 	@Autowired
-	private BaseServiceImpl commonService;
+	private BaseService commonService;
 	@Autowired
 	private ImageService imageService;
 	@Autowired
-	private PlaceServiceImpl placeInfoService;
+	private PlaceService placeInfoService;
 	
 	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
 	public String placeInfo(Model model) {

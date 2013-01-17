@@ -15,7 +15,7 @@ import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
-import net.itsplace.service.BaseServiceImpl;
+import net.itsplace.service.BaseService;
 import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.service.StampBaseService;
@@ -47,7 +47,7 @@ public class AdminPlaceController {
 	private PagingManager pagingManaer;
 
 	@Autowired
-	BaseServiceImpl commonService;
+	BaseService commonService;
 	/**
 	 * 가맹점 승인관리
 	 * @param locale
