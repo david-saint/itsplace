@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import java.io.ByteArrayOutputStream;
 
@@ -45,7 +45,7 @@ public class PlaceInfoController {
 	@Autowired
 	private PlaceService placeInfoService;
 	
-	@RequestMapping(value = "/place/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/edit", method = RequestMethod.GET)
 	public String placeInfo(Model model) {
 		model.addAttribute("place",adminPlaceService.getPlace(UserInfo.getFid()));
 		model.addAttribute("stampTypeList",adminStampService.getStampTypeListAll());
@@ -64,7 +64,7 @@ public class PlaceInfoController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/edit", method = RequestMethod.POST)
  	public String placeInfoEdit(@Validated({EditBascd.class}) Place place, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
@@ -86,7 +86,7 @@ public class PlaceInfoController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/upload", method = RequestMethod.POST)
  	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
 		logger.info("filename:"+file.getFile().getOriginalFilename());
 		String resultJson = "";
@@ -116,7 +116,7 @@ public class PlaceInfoController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/auth", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/auth", method = RequestMethod.GET)
 	public String auth(Model model) {
 		model.addAttribute("authcode", new Authcode());
 		return "place/auth";
@@ -132,7 +132,7 @@ public class PlaceInfoController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/auth", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/auth", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse authSubmit(Authcode authcode, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
 		if (result.hasErrors()) {
@@ -161,7 +161,7 @@ public class PlaceInfoController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/getQrCode", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/getQrCode", method = RequestMethod.GET)
 	public String list(Model model) {
 		
 		model.addAttribute("place",placeInfoService.getPlace(UserInfo.getFid()));	

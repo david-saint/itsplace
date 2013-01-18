@@ -1,8 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
 <script type="text/javascript">
  	$(document).ready(function(){
  		$('#fullAddress').fancybox({//autodimensions false 후 width , height 가느
@@ -148,10 +145,10 @@
 				</div>
 			</div>
 			<div class="section">
-				<label> 가맹점 타입    <small>  </small></label>
+				<label> 가맹점 타입   <spring:message  code="signup"/> <small>  </small></label>
 				<div>
 					<form:select id="placeType" path="placeType" multiple="placeType">
-						<form:options items="${placeTypeList}" itemValue="basecd"	itemLabel="basName" />
+						<form:options items="${placeTypeList}" 	itemLabel="description" />
 					</form:select>
 					<span class="f_help"></span>
 				</div>
@@ -161,14 +158,14 @@
 				<label> 가맹점 분류   <small>카테고리  </small></label>
 				<div>
 					<form:select id="category" path="category" multiple="category">
-						<form:options items="${categoryList}" itemValue="basecd"	itemLabel="basName" />
+						<form:options items="${categoryList}" itemValue="title"	itemLabel="title" />
 					</form:select>
 					<span class="f_help"></span>
 				</div>
 			</div>
 			<div class="section">
 				<label> 대표사진 <small></small></label>
-				<img id="fileName" style="" src="${place.imageHost}${place.fileName}"></img>
+				<img id="fileName" style="" src="${place.fileName}"></img>
 				<div>
 					 <input id="file" type="file" name="file" class="fileupload"  value="${place.fileName}"/>
 					 <span class="f_help"></span>
@@ -216,7 +213,7 @@
 				<label> 서비스  타입    <small>  </small></label>
 				<div>
 					<form:select id="serviceType" path="serviceType" multiple="serviceType">
-						<form:options items="${serviceTypeList}" itemValue="basecd"	itemLabel="basName" />
+						<form:options items="${serviceTypeList}"  itemLabel="description"/>
 					</form:select>
 					<span class="f_help"></span>
 				</div>
@@ -224,8 +221,8 @@
 			<div class="section">
 				<label> 승인여부 <small></small></label>
 				<div>
-					<form:radiobutton path="isAuth"  value="Y" label="승인"/> 
-               		<form:radiobutton path="isAuth"  value="N" label="미승인"/>
+					<form:radiobutton path="isAuth"  value="1" label="승인"/> 
+               		<form:radiobutton path="isAuth"  value="0" label="미승인"/>
                	</div>	 
 			</div>
 			<div class="section">

@@ -1,14 +1,19 @@
 package net.itsplace.basecode;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public enum ServiceType {
-	Normal("N"), Stamp("S"), Premier("P"); //가맹점 서비스종
+	Normal, Stamp, Premier; //가맹점 서비스종 // 
 	
-    private String type;
- 
-	ServiceType(String type) {
-        this.type = type;
-    }
-    public String getServiceType() {
-        return this.type;
-    }
+    private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+  
 }

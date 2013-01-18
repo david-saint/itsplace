@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
@@ -38,7 +38,7 @@ public class PlaceCommentController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/place/getPlaceCommentList")
+	@RequestMapping(value="/partner/getPlaceCommentList")
     @ResponseBody
     public DataTable<PlaceComment> getPlaceCommentList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,

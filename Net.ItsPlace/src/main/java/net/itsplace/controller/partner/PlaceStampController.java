@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +12,7 @@ import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
+import net.itsplace.domain.dto.PlaceCustomer;
 import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.service.PlaceStampService;
@@ -32,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/place/stamp")
 public class PlaceStampController {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceStampController.class);
 	@Autowired
@@ -60,7 +60,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see a
 	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/stamp/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
 		//model.addAttribute("placeStampList",adminStampService.getPlaceStampAll(fid));
@@ -82,7 +82,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/stamp/add", method = RequestMethod.GET)
 	public String placeStampAdd(Model model)  {
 		
 		model.addAttribute("place",adminPlaceService.getPlace(UserInfo.getFid()));
@@ -106,7 +106,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/stamp/add", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse placeStampAdd(@Validated({AddPlaceStamp.class}) PlaceStamp placeStamp,BindingResult result, Model model)  {
 		JsonResponse json = new JsonResponse();
 		if (result.hasErrors()) {
@@ -132,7 +132,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/stamp/edit", method = RequestMethod.GET)
 	public String placeStamp(@RequestParam(required=true) Integer fid,
 							 @RequestParam(required=true) Integer stampid,
 							 Model model)  {
@@ -164,7 +164,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/stamp/edit", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse placeStampSubmit(@Validated({EditPlaceStamp.class}) PlaceStamp placeStamp,BindingResult result, Model model)  {
 		JsonResponse json = new JsonResponse();
 		if (result.hasErrors()) {
@@ -191,7 +191,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/stamp/delete", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse placeStampDelete(@RequestParam(required=true) Integer stampid)  {
 		JsonResponse json = new JsonResponse();
 		PlaceStamp placeStamp = new PlaceStamp();
@@ -211,10 +211,10 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/q", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/stamp/customers", method = RequestMethod.GET)
 	public String save(Model model)  {
 		model.addAttribute("Stamp", new Stamp());
-		return "place/stamp/q";
+		return "place/stamp/customers";
 	}
 	
 	/**
@@ -231,9 +231,9 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/getPlaceStampUserList")
+	@RequestMapping(value="/partner/stamp/getPlaceCustomerList")
     @ResponseBody
-    public DataTable<Stamp> getPlaceStampUserList(
+    public DataTable<PlaceCustomer> getPlaceCustomerList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
     								@RequestParam(required=false) Integer iDisplayLength,
     								@RequestParam(required=false) Integer iSortCol_0, 
@@ -253,7 +253,7 @@ public class PlaceStampController {
                     
                  
                    
-                    return  placeStampService.getPlaceStampUserList(paging);
+                    return  placeStampService.getPlaceCustomerList(paging);
            
                    
     }       
@@ -268,7 +268,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/stampped", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/stamp/stampped", method = RequestMethod.GET)
 	public String burn(@RequestParam(required=true) String email,Model model)  {
 		
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -299,7 +299,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/stamp/save", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(@RequestParam(required=true) String authcode,
 										   @RequestParam(required=true) Integer stampid,
 										   @RequestParam(required=true) String email
@@ -340,7 +340,7 @@ public class PlaceStampController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/burn", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/stamp/burn", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse burn(
 										   @RequestParam(required=true) Integer stampid,
 										   @RequestParam(required=true) String email,

@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class PlaceIndexController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/partner/place", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner", method = RequestMethod.GET)
 	public String place(Model model,HttpServletRequest request) {
 		List<PlaceUser>  users = placeUserService.getPlaceListByEmail(UserInfo.getEmail());
 		

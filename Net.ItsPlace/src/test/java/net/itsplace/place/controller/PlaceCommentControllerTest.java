@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import net.itsplace.admin.controller.AdminPlaceControllerTest;
-import net.itsplace.controller.place.PlaceCommentController;
+import net.itsplace.controller.partner.PlaceCommentController;
 import net.itsplace.domain.Address;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
