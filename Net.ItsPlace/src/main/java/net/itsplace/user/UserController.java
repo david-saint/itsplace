@@ -33,7 +33,7 @@ import org.springframework.web.context.request.WebRequest;
 
 
 
-import net.itsplace.controller.place.PlaceCommentController;
+import net.itsplace.controller.partner.PlaceCommentController;
 import net.itsplace.domain.Bascd;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.User;

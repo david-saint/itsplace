@@ -1,23 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
-<!-- full width -->
-<div class="widget">
-	<div class="header">
-		<span><span class="ico gray home"></span> 스탬프 관리  </span>
-	</div>
-	<!-- End header -->
-	<div class="content">
-
-		<div class="section">
-			<div style="float:left">
-				<a href="/place/stamp/add" class="uibutton icon large add "> 스탬프 생성 </a>
-			</div>
-			
-
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="도서목록"/>
+<html>
+	<head>
+	
 		<script type="text/javascript">
 		 	$(document).ready(function(){
 		 		
@@ -91,6 +77,21 @@
                 });//ajax */
 		   }
 		 </script>
+</head>
+<body>
+<div class="widget">
+	<div class="header">
+		<span><span class="ico gray home"></span> 스탬프 관리  </span>
+	</div>
+	<!-- End header -->
+	<div class="content">
+
+		<div class="section">
+			<div style="float:left">
+				<a href="/place/stamp/add" class="uibutton icon large add "> 스탬프 생성 </a>
+			</div>
+			
+
 		 
 		<div class="tableName">	
 			<div class="setion">
@@ -112,7 +113,7 @@
 							<td><fmt:formatDate value="${placeStamp.endDate }" pattern="yyyy-MM-dd"/></td>
 							<td><fmt:formatDate value="${placeStamp.editDate }" pattern="yyyy-MM-dd"/></td>
 						    <td>
-						    	<span class="tip"><a class="edit" href="/place/stamp/edit?fid=${placeStamp.fid}&stampid=${placeStamp.stampid}" original-title="수정"><img src="/resources/admin/images/icon/icon_edit.png"></a></span>
+						    	<span class="tip"><a class="edit" href="/place/stamp/edit?fid=${placeStamp.place.fid}&stampid=${placeStamp.stampid}" original-title="수정"><img src="/resources/admin/images/icon/icon_edit.png"></a></span>
 						    	<span class="tip"><a class="delete" stampid="${placeStamp.stampid}" name="${placeStamp.stampTitle}" original-title="삭제"><img src="/resources/admin/images/icon/icon_delete.png"></a></span>
 						    </td>
 						</tr>
@@ -129,4 +130,5 @@
 	<!-- End content -->
 </div>
 <!-- End full width -->
-
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>basecode</comment>
+<entry key="Private">자영업</entry>
+<entry key="Franchiser">프랜차이즈</entry>
+
+<entry key="Normal">일반서비스</entry>
+<entry key="Stamp">스탬프서비스</entry>
+<entry key="Premier">고급서비스</entry>
+
+</properties>

@@ -1,10 +1,15 @@
 package net.itsplace.controller.admin;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.itsplace.basecode.BaseCodeService;
+import net.itsplace.basecode.PlaceType;
+import net.itsplace.basecode.ServiceType;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JpaPaging;
@@ -15,6 +20,7 @@ import net.itsplace.domain.Place.EditPlace;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.PlaceStamp.AddPlaceStamp;
 import net.itsplace.domain.PlaceStamp.EditPlaceStamp;
+import net.itsplace.repository.CategoryRepository;
 import net.itsplace.service.BaseService;
 import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceService;
@@ -45,7 +51,10 @@ public class AdminPlaceController {
 	protected MediaService adminMediaService;
 	@Autowired
 	private PagingManager pagingManaer;
-
+	@Autowired
+	CategoryRepository categoryRepo;
+	@Autowired
+	BaseCodeService baseCodeService;
 	@Autowired
 	BaseService commonService;
 	/**
@@ -302,9 +311,12 @@ public class AdminPlaceController {
 	
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",stampBaseService.getStampTypeListAll());
-		model.addAttribute("categoryList",commonService.getBascdList("CATEGORY"));
-		model.addAttribute("placeTypeList",commonService.getBascdList("PLACETYPE"));
-		model.addAttribute("serviceTypeList",commonService.getBascdList("SERVICETYPE"));
+	
+
+
+		model.addAttribute("categoryList", categoryRepo.findAll());
+		model.addAttribute("placeTypeList", baseCodeService.getPlaceTypes());
+		model.addAttribute("serviceTypeList",baseCodeService.getServiceTypes());
 		return "admin/place/edit";
 	}
 	/**

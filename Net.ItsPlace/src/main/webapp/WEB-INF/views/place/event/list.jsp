@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="도서목록"/>
+
+<html>
+<head>
 <script type="text/javascript">
 	var datatable; 
  	$(document).ready(function(){
@@ -22,7 +22,7 @@
  		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/place/event/getPlaceEventList", 			
+ 			"sAjaxSource": "/partner/event/getPlaceEventList", 			
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
  				  			{ "mDataProp": "title" },
@@ -127,6 +127,9 @@
  		datatable.fnStandingRedraw();
  	}
 </script>
+</head>
+<body>
+
 
 <div class="widget">
 	<div class="header">
@@ -166,5 +169,6 @@
 		</div>	
 </div>
 
-
+</body>
+</html>
 

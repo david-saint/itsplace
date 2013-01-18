@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>basecode</comment>
+<entry key="Private">Private</entry>
+<entry key="Franchiser">Franchiser</entry>
+
+<entry key="Normal">Normal</entry>
+<entry key="Stamp">Stamp</entry>
+<entry key="Premier">Premier</entry>
+</properties>

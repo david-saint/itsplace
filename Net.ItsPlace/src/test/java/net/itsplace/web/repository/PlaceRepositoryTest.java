@@ -1,26 +1,17 @@
 package net.itsplace.web.repository;
 
-import static org.junit.Assert.*;
-
-import java.util.Iterator;
-import java.util.List;
-
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
-import net.itsplace.domain.TestRepo;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.repository.PlacePredicates;
 import net.itsplace.repository.PlaceRepository;
-import net.itsplace.repository.PlaceRepo;
 
-import org.aspectj.weaver.Iterators;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 import com.mysema.query.types.Predicate;
 public class PlaceRepositoryTest  extends TestApplicationContext {
@@ -30,8 +21,7 @@ public class PlaceRepositoryTest  extends TestApplicationContext {
 	@Autowired
 	PlaceRepository repo;
 	
-	@Autowired
-	PlaceRepo placeRepo;
+
 	
 	@Test
 	public void test() {

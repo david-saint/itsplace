@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
@@ -39,7 +39,7 @@ public class PlaceEventController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/place/event/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/list", method = RequestMethod.GET)
 	public String list( ModelMap model) {
 		
 		model.addAttribute("place",getPlace());
@@ -54,7 +54,7 @@ public class PlaceEventController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/place/event/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/add", method = RequestMethod.GET)
 	public String add(ModelMap model) {
 		
 		model.addAttribute("place",getPlace());
@@ -73,7 +73,7 @@ public class PlaceEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/event/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/event/add", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
@@ -103,12 +103,12 @@ public class PlaceEventController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/place/event/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/edit", method = RequestMethod.GET)
 	public String edit(ModelMap model) {
 		PlaceEvent placeEvent = placeEventService.getPlaceEvent(UserInfo.getFid());
 		model.addAttribute("placeEvent", placeEvent);
 
-		return "admin/place/event/edit";
+		return "admin/partner/event/edit";
 	}
 	/**
 	 * 이벤트  수 <br />
@@ -120,7 +120,7 @@ public class PlaceEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/event/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/event/edit", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse editSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
@@ -150,7 +150,7 @@ public class PlaceEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/event/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/delete", method = RequestMethod.GET)
 	@ResponseBody
  	public JsonResponse delete(@RequestParam(required=true) Integer eid, Model model) {
 		JsonResponse json = new JsonResponse();
@@ -177,8 +177,8 @@ public class PlaceEventController {
 	 * @throws 
 	 * @see 
 	 */
-	//@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET, headers="Accept=application/xml, application/json")
-	@RequestMapping(value="/place/event/getPlaceEventList",method = RequestMethod.GET)
+	//@RequestMapping(value="/admin/partner/event/getPlaceEventList",method = RequestMethod.GET, headers="Accept=application/xml, application/json")
+	@RequestMapping(value="/partner/event/getPlaceEventList",method = RequestMethod.GET)
     @ResponseBody
     public DataTable<PlaceEvent> getPlaceEventList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,

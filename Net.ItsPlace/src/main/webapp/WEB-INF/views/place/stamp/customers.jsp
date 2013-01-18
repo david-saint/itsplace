@@ -1,22 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<style>
-.right{text-align:right;}
-.left{text-align:left;}
-.tableName th{text-align:center;}
-</style>
-
-<!-- full width -->
-<div class="widget">
-	<div class="header">
-		<span><span class="ico gray home"></span>   스탬프 적립 및 소진    </span>
-	</div>
-	<!-- End header -->
-	<div class="content">
-		
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="도서목록"/>
+<html>
+	<head>
+	
 		<script type="text/javascript">
 		var user_datatable;
 		
@@ -26,14 +13,14 @@
 		 			"sDom": 'fCl<"clear">rtip', //컬럼숨김
 		 			"bFilter": true, //search
 		 			"bPaginate": true,
-		 			"bLengthChange": true, //로우수
+		 			"bLengthChange": true, //로우수 
 		 			"sPaginationType": "full_numbers",
 		 			"bProcessing": true,
 		 			"oLanguage": {
 		 		         "sProcessing": "<div style='border:0px solid red'>User List Loading...</di>"
 		 		       },
 		 			"bServerSide": true,		 			
-		 			"sAjaxSource": "/place/stamp/getPlaceStampUserList",
+		 			"sAjaxSource": "/partner/stamp/getPlaceCustomerList",
 		 			"sAjaxDataProp": "rows",
 		 			"aoColumns": [
 		 				  			{ "mDataProp": "user.profileImageUrl" , "fnRender"  :function ( oObj ) {
@@ -42,7 +29,7 @@
 		 				  			{ "mDataProp": "user.email", "sClass": "left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "user.name", "sClass":"left" },
 		 				  			{ "mDataProp": "user.mobile", "sClass":"left" },		 				  		
-		 				  			{ "mDataProp": "stampedTotal" },
+		 				  			{ "mDataProp": "stampedTotalCount" },
 		 				  			{ "mDataProp": "stampedLastDate", "fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['stampedLastDate'],'yyyy-MM-dd');
 		 							} },
@@ -106,6 +93,24 @@
 		 		user_datatable.fnStandingRedraw();
 		 	}
 		 </script>
+		 <style>
+		.right{text-align:right;}
+		.left{text-align:left;}
+		.tableName th{text-align:center;}
+		</style>
+	</head>
+	<body>
+	
+
+
+<!-- full width -->
+<div class="widget">
+	<div class="header">
+		<span><span class="ico gray home"></span>   스탬프 적립 및 소진    </span>
+	</div>
+	<!-- End header -->
+	<div class="content">
+		
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
 		 	<span style="position:absolute"><a href="/admin/user/add" class="uibutton icon large add ">Add User</a></span>
 			 <table class="display" id="user_datatable">
@@ -135,4 +140,5 @@
 	<!-- End content -->
 </div>
 <!-- End full width -->
-
+</body>
+</html>

@@ -168,7 +168,7 @@
 			</div>
 			<div class="section">
 				<label> 대표사진 <small></small></label>
-				<img id="fileName" style="" src="${place.imageHost}${place.fileName}"></img>
+				<img id="fileName" style="" src="${place.fileName}"></img>
 				<div>
 					 <input id="file" type="file" name="file" class="fileupload"  value="${place.fileName}"/>
 					 <span class="f_help"></span>
@@ -224,8 +224,8 @@
 			<div class="section">
 				<label> 승인여부 <small></small></label>
 				<div>
-					<form:radiobutton path="isAuth"  value="Y" label="승인"/> 
-               		<form:radiobutton path="isAuth"  value="N" label="미승인"/>
+					<form:radiobutton path="isAuth"  value="1" label="승인"/> 
+               		<form:radiobutton path="isAuth"  value="0" label="미승인"/>
                	</div>	 
 			</div>
 			<div class="section">

@@ -35,14 +35,16 @@
 		 			"aoColumns": [
 		 				  			{ "mDataProp": "fid" },
 		 				  			{ "mDataProp": "fileName", "fnRender"  :function ( oObj ) {
-		 				  				c.log("imagehost:"+"<img src=\""+oObj.aData['imageHost']);
-		 								return "<img src=\""+oObj.aData['imageHost']+oObj.aData['fileName']+ "\" style=\"width:50px;\" />";
+		 				  				//c.log("imagehost:"+"<img src=\""+oObj.aData['imageHost']);
+		 								//return "<img src=\""+oObj.aData['imageHost']+oObj.aData['fileName']+ "\" style=\"width:50px;\" />";
+		 								return "";
+		 								
 		 							} },
 		 				  			{ "mDataProp": "fname", "sClass":"left", "sWidth": "150px"},
 		 				  			{ "mDataProp": "name", "sClass":"left" },
 		 				  			{ "mDataProp": "mobile", "sWidth": "150px"},
 		 				  			{ "mDataProp": "isAuth", "fnRender" :function ( oObj ) {
-		 								return oObj.aData['isAuth'] == "Y" ? "승인" : "미승인";
+		 								return oObj.aData['isAuth']  ? "승인" : "미승인";
 		 							} },
 		 				  			{ "mDataProp": "dong" },
 		 				  			{ "mDataProp": "saveDate", "fnRender"  :function ( oObj ) {

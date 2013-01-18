@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 
+
+import net.itsplace.basecode.PlaceType;
+import net.itsplace.basecode.ServiceType;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -43,9 +48,8 @@ public class Place {
 	private String longitude; //경도
 	
 	
-	@NotEmpty
-	@ManyToOne
-	@JoinColumn(name="PLACETYPE")	
+	@NotEmpty	
+	@Enumerated
 	private PlaceType placeType;  
 	
 	@NotEmpty
@@ -71,7 +75,9 @@ public class Place {
 	private String closeDay; // 휴무일
 	private String website; // 영웹사이트
 	private String info; // 가맹점 상세설명
-	private String serviceType; // place 서비스 종류  N:일반 , P:프리미어, S:스탬프
+	
+	@Enumerated(value=EnumType.STRING)
+	private ServiceType serviceType; // place 서비스 종류  N:일반 , P:프리미어, S:스탬프
 
 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -381,14 +387,14 @@ public class Place {
 
 
 
-	public String getServiceType() {
+	public ServiceType getServiceType() {
 		return serviceType;
 	}
 
 
 
 
-	public void setServiceType(String serviceType) {
+	public void setServiceType(ServiceType serviceType) {
 		this.serviceType = serviceType;
 	}
 

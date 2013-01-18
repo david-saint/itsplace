@@ -2,6 +2,7 @@ package net.itsplace.repository;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceStamp;
 import net.itsplace.domain.QPlaceStamp;
 import net.itsplace.domain.QStamp;
+import net.itsplace.domain.dto.PlaceCustomer;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.service.PlaceStampService;
 import net.itsplace.service.PlaceStampServiceTest;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.ConstructorExpression;
 
 public class StampRepositoryTest  extends TestApplicationContext {
 	  
@@ -48,11 +51,23 @@ public class StampRepositoryTest  extends TestApplicationContext {
 		QStamp stamp = QStamp.stamp;
 		QPlaceStamp placeStamp = QPlaceStamp.placeStamp;
 		JPQLQuery query = new JPAQuery(em);
-		List<Object[]> rs = query.from(stamp)
+		query = query.from(stamp)
 							.innerJoin(stamp.placeStamp, placeStamp)
 							.where(stamp.status.notIn("C").and(placeStamp.place.fid.eq(46)))
-							.groupBy(stamp.user.email)
-							.list(stamp.pid.count(), stamp.user.email, stamp.saveDate.max());
+							.groupBy(stamp.user.email);
+									
+		//List<Object[]> rs = query.list(stamp.pid.count(), stamp.saveDate.max());	
+				
+		List<PlaceCustomer> customers = new ArrayList<PlaceCustomer>();
+		customers = query.list(ConstructorExpression.create(PlaceCustomer.class
+							  , stamp.pid.count()
+							  , stamp.saveDate.max()
+							  , stamp.user
+							  ));
+							
+		for(PlaceCustomer c : customers){
+			logger.warn(c.toString());
+		}
 							
 		
 	}

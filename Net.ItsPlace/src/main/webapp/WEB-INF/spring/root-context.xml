@@ -32,6 +32,7 @@
         <property name="basenames">
             <list>                
                 <value>/WEB-INF/locale/messages</value>
+                <value>/WEB-INF/locale/basecode</value>
                 <value>/WEB-INF/locale/validationMessages</value>
                 <value>/WEB-INF/locale/buttons</value>
             </list>

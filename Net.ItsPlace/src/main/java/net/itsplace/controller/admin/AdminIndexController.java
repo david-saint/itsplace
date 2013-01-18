@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.context.MessageSource;
 @Controller
 public class AdminIndexController {
 
@@ -26,9 +26,13 @@ public class AdminIndexController {
 	@Autowired
 	private BaseService adminBaseService;
 	
+	@Autowired
+	MessageSource messageSource;
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String administrator() {
-
+		logger.info("로케일:"+ Locale.getDefault());
+		logger.info("로케일:"+messageSource.getMessage("signup", null, Locale.getDefault()));
 		return "admin/index";
 	}
 

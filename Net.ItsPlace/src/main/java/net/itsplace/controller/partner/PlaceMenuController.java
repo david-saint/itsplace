@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import java.io.ByteArrayOutputStream;
 
@@ -53,7 +53,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see a
 	 */
-	@RequestMapping(value = "/place/menu/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/menu/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
 		
@@ -76,7 +76,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/place/getMenuList",method = RequestMethod.GET)
+	@RequestMapping(value="/partner/getMenuList",method = RequestMethod.GET)
     @ResponseBody
     public DataTable<PlaceMenu> getMenuLList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
@@ -108,7 +108,7 @@ public class PlaceMenuController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/place/menu/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/menu/add", method = RequestMethod.GET)
 	public String add(ModelMap model) {
 		model.addAttribute("place",getPlace());
 		model.addAttribute("placeMenu", new PlaceMenu());
@@ -125,7 +125,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/menu/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/menu/add", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
@@ -153,7 +153,7 @@ public class PlaceMenuController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/place/menu/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/menu/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer mnid, ModelMap model) {
 		PlaceMenu placeMenu = placeMenuService.getMenu(mnid);
 		placeMenu.setFilePath(placeMenu.getHost()+placeMenu.getFilePath());
@@ -171,7 +171,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/menu/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/menu/edit", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse editSubmit(@Validated({EditPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
 		JsonResponse json = new JsonResponse();
@@ -198,7 +198,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/menu/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/menu/delete", method = RequestMethod.GET)
 	@ResponseBody
  	public JsonResponse delete(@RequestParam(required=true) Integer mnid, Model model) {
 		JsonResponse json = new JsonResponse();
@@ -221,7 +221,7 @@ public class PlaceMenuController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/place/menuUpload", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/menuUpload", method = RequestMethod.POST)
  	public void placeFileUpload(ImageFileUpload file, BindingResult result, Model model, HttpServletResponse response) throws Exception {
 		logger.info("filename:{}",file.getFile().getOriginalFilename());
 		

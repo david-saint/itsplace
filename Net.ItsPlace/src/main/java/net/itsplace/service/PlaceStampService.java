@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.ReportAsSingleViolation;
 
 import net.itsplace.domain.DataTable;
@@ -11,8 +13,12 @@ import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceStamp;
+import net.itsplace.domain.QPlaceStamp;
+import net.itsplace.domain.QStamp;
 import net.itsplace.domain.Stamp;
 import net.itsplace.domain.Stamped;
+import net.itsplace.domain.dto.PlaceCustomer;
+import net.itsplace.repository.PlaceStampRepository;
 import net.itsplace.repository.StampRepository;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.PagingManager;
@@ -23,6 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.mysema.query.jpa.JPQLQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.ConstructorExpression;
+
 
 
 
@@ -30,8 +40,12 @@ import org.springframework.stereotype.Service;
  class PlaceStampServiceImpl implements PlaceStampService {
 	private static final Logger logger = LoggerFactory.getLogger(PlaceStampService.class);
 	
+	@PersistenceContext
+	EntityManager em;
+	
 	@Autowired
-	private PagingManager pagingManaer;
+	PlaceStampRepository placeStampRepository;
+	
 	@Autowired
 	StampRepository stampRepo;
 	@Autowired
@@ -92,34 +106,36 @@ import org.springframework.stereotype.Service;
 	}
 
 	@Override
-	public DataTable<Stamp> getPlaceStampUserList(JpaPaging paging) {
-		 DataTable<Stamp> table = new DataTable<Stamp>(paging);
-         //Page<BookInfo> books = (Page<BookInfo>)bookRepo.findByTitleContainingOrAuthors(paging.getsSearch(),paging.getsSearch(), paging.getPageable());
-         
-     
-   		
-   		
-         Page<Stamp> list = stampRepo.findAll(paging.getPageable());
-        			 
-         
-		  table.setRows(list.getContent()); 
-		  
-		  table.setiTotalDisplayRecords(list.getTotalElements());
-		  logger.info("결과:{}",table.getiDisplayLength());
-		  logger.info("결과:{}",table.getiTotalRecords());
-		  return table;
-			
-		//  List<Stamp> userList=  placeStampDao.getPlaceStampUserList(param);
-		  
-		  //pagingManaer.setTotalCount(pagingManaer.getFoundRows());
-			
-			
-		 
-	//	  table.setRows(userList); 
-		 // table.setiTotalDisplayRecords(pagingManaer.getTotalCount());
-		  
-		//  return table;
+	public DataTable<PlaceCustomer> getPlaceCustomerList(JpaPaging paging) {
+		DataTable<PlaceCustomer> table = new DataTable<PlaceCustomer>(paging);
+		QStamp stamp = QStamp.stamp;
+		QPlaceStamp placeStamp = QPlaceStamp.placeStamp;
+		List<PlaceCustomer> customers = new ArrayList<PlaceCustomer>();
+		JPQLQuery query = new JPAQuery(em);
+		query = query.from(stamp)
+							.innerJoin(stamp.placeStamp, placeStamp)
+							.where(stamp.status.notIn("C").and(placeStamp.place.fid.eq(46)))
+							.groupBy(stamp.user.email)
+							.limit(paging.getiDisplayLength())
+							.offset(paging.getCurrentPage()*paging.getiDisplayLength());
 		
+		customers = query.list(ConstructorExpression.create(PlaceCustomer.class
+							  , stamp.pid.count()
+							  , stamp.saveDate.max()
+							  , stamp.user
+							  ));
+							
+		for(PlaceCustomer c : customers){
+			logger.warn(c.toString());
+		}
+				 
+         
+		  table.setRows(customers); 
+		  
+		  table.setiTotalDisplayRecords(query.count());
+		
+		  return table;
+	
 	}
 
 	@Override
@@ -209,7 +225,8 @@ import org.springframework.stereotype.Service;
 
 	@Override
 	public List<PlaceStamp> getPlaceStampList(int fid) {
-		return  null;// placeStampDao.getPlaceStampList(fid);
+		
+		return  placeStampRepository.findByPlace(placeService.getPlace(fid));// placeStampDao.getPlaceStampList(fid);
 	}
 
 
@@ -221,7 +238,12 @@ public interface PlaceStampService {
 	public boolean saveStamp(Stamp stamp,String authCode) ;
 	public boolean burnStamp(Stamp stamp,String authCode) ;	
 	
-	public DataTable<Stamp> getPlaceStampUserList(JpaPaging paging);
+	/**
+	 * 가맹점 회원 검색
+	 * @param paging
+	 * @return
+	 */
+	public DataTable<PlaceCustomer> getPlaceCustomerList(JpaPaging paging);
 	/* 회원 스탬프 타입 리스트  */
 	public List<Stamped> getPlaceStampListByEmail(Map<String, Object> param);
 	public List<Stamp> getPlaceStampedListByEmail(Map<String, Object> param);

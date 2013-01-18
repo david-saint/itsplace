@@ -1,4 +1,4 @@
-package net.itsplace.controller.place;
+package net.itsplace.controller.partner;
 
 import java.util.Date;
 import java.util.List;
@@ -27,9 +27,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+/**
+ * 가맹점 직원 관리
+ * @author dhkim
+ *
+ */
 @Controller
-@RequestMapping("/place/user")
+
 public class PlaceUserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PlaceUserController.class);
@@ -48,7 +52,7 @@ public class PlaceUserController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/user/list", method = RequestMethod.GET)
 	public String list(Model model) {
 	
 		return "place/user/list";
@@ -63,7 +67,7 @@ public class PlaceUserController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/user/add", method = RequestMethod.GET)
 	public String add(Model model) {
 		logger.info("직원등록폼  ");
 		return "place/user/add";
@@ -78,7 +82,7 @@ public class PlaceUserController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/user/add", method = RequestMethod.POST)
  	public String addSubmit(String[] email,Integer fid, Model model) {
 		for(int i=0;i<email.length;i++){
 			PlaceUser placeUser = new PlaceUser();
@@ -98,7 +102,7 @@ public class PlaceUserController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/user/delete", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse delete(@RequestParam(required=true) Integer uid)  {
 		logger.info("uid:{}",uid);
 		JsonResponse json = new JsonResponse();		
@@ -124,7 +128,7 @@ public class PlaceUserController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value="/getPlaceUserList")
+	@RequestMapping(value="/partner/user/getPlaceUserList")
     @ResponseBody
     public DataTable<PlaceUser> getPlaceUserList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
