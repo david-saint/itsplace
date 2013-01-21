@@ -1,15 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt"    uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="도서목록"/>
 <script type="text/javascript">
 	var datatable; 
  	$(document).ready(function(){
  		$( ".date" ).datepicker({ 
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
+ 		});
+ 		$('input[name=isDelete]').live('change', function() {
+ 			datatable.fnStandingRedraw();
+ 		});
+ 		$('input[name=isAuth]').live('change', function() {
+ 			datatable.fnStandingRedraw();
  		});
  	    datatable = $('#datatable').dataTable( {
  			"sDom": 'fCl<"clear">rtip', //컬럼숨김
@@ -22,10 +25,11 @@
  		         "sProcessing": "<div style='border:0px solid red'>이벤트 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/admin/place/event/getPlaceEventList",
+ 			"sAjaxSource": "/partner/event/getPlaceEventList",
  			"fnServerParams": function (aoData, fnCallback) {
- 				console.log("$('#places').val()"+$('#places').val());
-	              aoData.push( { "name": "fid", "value":  $('#places').val()} );		 			               
+	              aoData.push( { "name": "fid", "value":  ${place.fid}} );		 			               
+	              aoData.push( { "name": "isDelete", "value":   $('input[name=isDelete]:checked').val()} );		 			               
+	              aoData.push( { "name": "isAuth", "value":   $('input[name=isAuth]:checked').val()} );		 			               
 			},
  			"sAjaxDataProp": "rows",
  			"aoColumns": [
@@ -43,14 +47,16 @@
  								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
  							} },
  							{ "mDataProp": "isAuth","fnRender" :function ( oObj ) {
- 				  				c.log(oObj.aData['isAuth']);
- 								return oObj.aData['isAuth'] == "Y" ? "승인" : "대기";
+ 								return oObj.aData['isAuth']  ? "승인" : "대기";
+ 							} },
+ 							{ "mDataProp": "isDelete","fnRender" :function ( oObj ) {
+ 								return oObj.aData['isDelete']  ? "삭제" : "";
  							} },
  				  			{ "sDefaultContent": "", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
  				  		],
 	  		"fnInitComplete":function(){
- 				$('.tip a ').tipsy({trigger: 'manual'});
- 				$('.tip a ').tipsy("hide");
+ 				//$('.tip a ').tipsy({trigger: 'manual'});
+ 				//$('.tip a ').tipsy("hide");
  			},
  			"fnDrawCallback": function () {
  				
@@ -64,27 +70,57 @@
 
  				});
  				$('.delete').bind('click', function() {
- 					$.ajax({
- 	                     url: "/admin/place/disable",
- 	                     type:"POST",
- 	                     data:"fid="+$(this).attr('fid'),
- 	                     beforeSend :function(){
- 		   	 	 			  c.loading("delete",0);
- 	                     },
- 	                     success: function(response){
- 	                     	if(response.status=="SUCCESS"){
- 	                     		c.showSuccess("승인 취소되었습니",1000);
- 	                     	}
- 	                    	
- 	                     },
- 	                     error: function(jqXHR, textStatus, errorThrown){
- 	                    	c.showError(textStatus+"j"+jqXHR+"e:"+errorThrown);
- 	                     },
- 	                     complete:function(){
- 	                    	 setTimeout("c.unloading()",500); 
- 	                    	 datatable.fnStandingRedraw();
- 	                     }
- 	                });//ajax */
+ 					if(confirm("삭제하시겠습니까?")){
+ 						$.ajax({
+ 	 	                     url: "/partner/event/delete",
+ 	 	                     type:"POST",
+ 	 	                     data:"eid="+$(this).attr('eid'),
+ 	 	                     beforeSend :function(){
+ 	 		   	 	 			  c.loading("delete",0);
+ 	 	                     },
+ 	 	                     success: function(response){
+ 	 	                     	if(response.status=="SUCCESS"){
+ 	 	                     		c.showSuccess("삭제 되었습니다 ",1000);
+ 	 	                     		datatable.fnStandingRedraw();
+ 	 	                     	}
+ 	 	                    	
+ 	 	                     },
+ 	 	                     error: function(jqXHR, textStatus, errorThrown){
+ 	 	                    	c.showError(textStatus+"j"+jqXHR+"e:"+errorThrown);
+ 	 	                     },
+ 	 	                     complete:function(){
+ 	 	                    	 setTimeout("c.unloading()",500); 
+ 	 	                    	 
+ 	 	                     }
+ 	 	                });
+ 					}
+ 				});
+ 				$('.deleteRevoke').bind('click', function() {
+ 					if(confirm("복구하시겠습니까?")){
+ 						$.ajax({
+ 	 	                     url: "/partner/event/deleteRevoke",
+ 	 	                     type:"POST",
+ 	 	                     data:"eid="+$(this).attr('eid'),
+ 	 	                     beforeSend :function(){
+ 	 		   	 	 			  c.loading("delete",0);
+ 	 	                     },
+ 	 	                     success: function(response){
+ 	 	                     	if(response.status=="SUCCESS"){
+ 	 	                     		c.showSuccess("복구 되었습니다 ",1000);
+ 	 	                     		datatable.fnStandingRedraw();
+ 	 	                     	}
+ 	 	                    	
+ 	 	                     },
+ 	 	                     error: function(jqXHR, textStatus, errorThrown){
+ 	 	                    	console.log(jqXHR.responseText);
+ 	 	                  		c.showError(jqXHR.responseText);
+ 	 	                     },
+ 	 	                     complete:function(){
+ 	 	                    	 setTimeout("c.unloading()",500); 
+ 	 	                    	 
+ 	 	                     }
+ 	 	                });
+ 					}
  				});
  			},	  		
  			"aaSorting": [[ 2, "desc" ]]
@@ -113,7 +149,7 @@
  			  onValidationComplete: function(form, status){
  				 if(status==true){
  					$.ajax({
- 	                     url:"/admin/place/event/add",
+ 	                     url:"/partner/event/add",
  	                     type:"POST",
  	                     data:$("form").serialize(),
  	                     beforeSend :function(){
@@ -149,15 +185,17 @@
 	 	});//validation
  		$(".dataTables_length select").addClass("small");
  	});//ready
+ 	
 	function make_actions(oObj) {
  		var id = oObj.aData['eid'];
  		//c.log(oObj.aData[ oObj.iDataRow ][1] );
  		c.log(""+oObj.aData['placeStamp.sid']);
- 		var editAction = '<span class="tip"><a class="fancy iframe" href="/admin/place/event/edit?eid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+ 		var editAction = '<span class="tip"><a class="fancy iframe" href="/partnere/event/edit?eid='+id+'" original-title="Edit"><i class="icon-edit icon-large  icon-border"></i></a></span>';
  	
- 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+ 		var deleteAction = '<span class="tip"><a class="delete" eid="'+id+'" original-title="삭제"><i class="icon-trash icon-large  icon-border"></i></a></span>';
+ 		var deleteRevokeAction = '<span class="tip"><a class="deleteRevoke" eid="'+id+'" original-title="복구"><i class="icon-wrench icon-large  icon-border"></i></a></span>';
  		
- 		return   editAction + "&nbsp;&nbsp;" + deleteAction ; 
+ 		return   editAction  + deleteAction + deleteRevokeAction; 
  	}
 	function datatableRedraw(result,status){ 		
  		if(status){
@@ -175,7 +213,20 @@
 	</div>
 	<div class="content">
 			<div class="tableName">
-			<span style="position:absolute"><a href="/admin/place/event/add" class="fancy iframe uibutton icon large add ">이벤트 생성  </a></span>
+				<div style="position:absolute; ;right:200px">
+					<div class="radiorounded"> 
+	               		<input id="isDelete1"  type="radio" name="isDelete"  value="" checked /><label for="isDelete1" >전체</label>
+	               		<input id="isDelete2" type="radio" name="isDelete"  value="0" /><label for="isDelete2" >사용</label>
+	               		<input id="isDelete3" type="radio" name="isDelete"  value="1" /><label for="isDelete3" >삭제</label>
+	               	</div>  
+	            </div>   
+				<div style="position:absolute; ;right:500px">
+					<div class="radiorounded"> 
+	               		<input id="isAuth1"  type="radio" name="isAuth"  value="1"  /><label for="isAuth1" >승인</label>
+	               		<input id="isAuth2" type="radio" name="isAuth"  value="0" checked /><label for="isAuth2" >대기</label>
+	               	</div>  
+	            </div>   
+			<span style="position:absolute"><a href="/partner/event/add?fid=${place.fid}" class="uibutton icon large add ">이벤트 생성  </a></span>
 				<table class="display" id="datatable">
 				<thead>
 					<tr>
@@ -184,7 +235,8 @@
 						<th>EndDate</th>
 						<th>SaveDate</th>
 						<th>EditDate</th>
-						<th>isAuth</th>
+						<th>승인여부</th>
+						<th>삭제여부</th>
 						<th>Management</th>
 					</tr>
 				</thead>

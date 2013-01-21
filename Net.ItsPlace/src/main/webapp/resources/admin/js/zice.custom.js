@@ -305,7 +305,8 @@ $('.searchAutocomplete').click(function() {
 	 $('#wizard').smartWizard();
 	 
 	// Tipsy Tootip
-	$('.tip a ').tipsy({gravity: 's',live: true});	
+	 $('.tip a ').tipsy({gravity: 's',live: true});	
+	//$('.tip i').tipsy({gravity: 's',live: true});	
 	$('.ntip a ').tipsy({gravity: 'n',live: true});	
 	$('.wtip a ').tipsy({gravity: 'w',live: true});	
 	$('.etip a,.Base').tipsy({gravity: 'e',live: true});	

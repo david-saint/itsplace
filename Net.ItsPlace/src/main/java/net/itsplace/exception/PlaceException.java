@@ -1,11 +1,11 @@
 package net.itsplace.exception;
 
-public class ItsPlaceException extends RuntimeException{
+public class PlaceException extends RuntimeException{
 	private String message;
 	 
 	//getter and setter methods
  
-	public ItsPlaceException(String message) {
+	public PlaceException(String message) {
 		this.message = message;
 	}
 }

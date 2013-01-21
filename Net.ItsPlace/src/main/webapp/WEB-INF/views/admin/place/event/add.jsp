@@ -17,45 +17,50 @@
 			'autoScale':false,
 			'height':500,
 		});
- 		$('#btnSubmit').live('click',function() {
+ 		/* $('#btnSubmit').live('click',function() {
  			c.log("submit Form");
  			$('#placeEvent').submit();
- 		});
+ 		}); */
  		$('.cancel').live('click',function() {
  			c.log("cancel2");
  			parent.$.fancybox.close();
  		});
- 		$('#placeEvent').validationEngine('attach', {
- 			  onValidationComplete: function(form, status){
- 				 if(status==true){
- 					$.ajax({
- 	                     url:"/admin/place/event/add",
- 	                     type:"POST",
- 	                     data:$("form").serialize(),
- 	                     beforeSend :function(){
- 		                      var title = $('.loading').attr('title');
- 		   	 				  var overlay=$(this).attr('rel'); 
- 		   	 	 			  c.loading(title,overlay);
- 	                     },
- 	                     success: function(response){
- 	                    	if(response.status=="SUCCESS"){
- 	                    	    parent.$.fancybox.close();
- 	                    	    parent.datatableRedraw(response.result,true);
-	 	                    }else{
-	 	                   		parent.datatableRedraw(response.result,false);
-	 	                    }
- 	                     },
- 	                     error: function(jqXHR, textStatus, errorThrown){
- 	                    	alert(textStatus+jqXHR+errorThrown); 
- 	                     },
- 	                     complete:function(){
- 	                    	 setTimeout("c.unloading()",1500); 
- 	                    	 datatable.fnStandingRedraw();	                    
- 	                     }
- 	                  });//ajax
- 				 }
- 			  }
-	 	});//validation
+ 		$('#btnSubmit').live('click',function() {
+ 			var url = "${context}/partner/event/add";
+ 			
+ 			$.ajax({
+                 url: url,
+                 type:"POST",                                
+                 data:$("form").serialize(),                   
+                 success: function(response){
+                   if(response.status=="SUCCESS"){
+                	   var delay =1000;
+                	   c.showSuccess(response.result,delay);
+                	   setTimeout('c.location("${context}")',delay);
+                   }else{                 
+                	   c.log(response.result);
+                	   for(var i =0 ; i < response.result.length ; i++){
+                           var field = "#"+response.result[i].field;     
+                           if($(field).length <= 0 ){
+                        	  field =  $('select[name='+response.result[i].field+']').next()//label;
+                        	   c.log(field);
+                           }
+                          
+                           $(field).attr('original-title',response.result[i].message);
+                           $(field).tipsy({trigger: 'manual', gravity: 'w'});
+                           $(field).tipsy("show");
+                           $(field).bind('click',function(){
+                        	   $(this).tipsy("hide");
+                           });
+                       }
+                	   
+                   }
+                 },
+                 complete:function(){
+                	 //setTimeout("c.unloading()",1500); 
+                 }
+               });//ajax
+ 		});
  	});//ready
 	
  	function refresh(){
@@ -120,8 +125,8 @@
 			<div class="section" >
                <label> 승인여부  <small></small></label>   
                <div> 
-               <form:radiobutton path="isAuth"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isAuth"  value="N" label="No"/> 
+               <form:radiobutton path="isAuth"  value="1" label="Yes"/> 
+               <form:radiobutton path="isAuth"  value="0" label="No"/> 
                <span class="f_help"></span>
             </div> 
 			<div class="section last">

@@ -21,4 +21,5 @@
 <entry key="typeMismatch.bookInfo.bookCategory.id">카테고리를 선택하세요</entry>
 <entry key="NotEmpty.dtoBookRestriction.restrictUsers">사용자 아이디를 입력하세요</entry>
 <entry key="NotNull">{0}필수 항목입니다</entry>
+<entry key="typeMismatch.java.util.Date">필수 항목입니다</entry>
 </properties>

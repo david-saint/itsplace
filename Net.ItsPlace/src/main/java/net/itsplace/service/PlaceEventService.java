@@ -25,8 +25,9 @@ import com.mysema.query.types.Predicate;
 
 public interface PlaceEventService {
 	public List<PlaceEvent> getPlaceEventList(int fid);
+	void deleteRevokePlaceEvent(int eid) ;
 	public PlaceEvent getPlaceEvent(int eid) ;
-	public void savePlaceEvent(PlaceEvent placeEvent);
+	public PlaceEvent savePlaceEvent(PlaceEvent placeEvent);
 	public void editPlaceEvent(PlaceEvent placeEvent);
 	public void deletePlaceEvent(int eid);;
 	//public DataTable getPlaceEventList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch,int fid);
@@ -67,10 +68,10 @@ public interface PlaceEventService {
 	}
 
 	@Override
-	public void savePlaceEvent(PlaceEvent placeEvent) {
+	public PlaceEvent savePlaceEvent(PlaceEvent placeEvent) {
 		
 		//adminEventeDao.savePlaceEvent(placeEvent);
-		repo.save(placeEvent);
+		return repo.save(placeEvent);
 	}
 
 	@Override
@@ -85,7 +86,18 @@ public interface PlaceEventService {
 		placeEvent.setEditDate(new Date());
 		repo.save(placeEvent);
 	}
+	@Override
+	public void deleteRevokePlaceEvent(int eid) {
+		test("9999999999999999999999999");
+		PlaceEvent placeEvent = repo.findOne(eid);
+		placeEvent.setIsDelete(false);
+		placeEvent.setEditDate(new Date());
+		repo.save(placeEvent);
+	}
 
+	public void test(String num) {
+		int x = 100* Integer.parseInt(num);
+	}
 	/*@Override
 	public DataTable getPlaceEventList(String[] columns, 
 			Integer iDisplayStart,

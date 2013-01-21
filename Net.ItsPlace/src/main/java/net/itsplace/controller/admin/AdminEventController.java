@@ -1,5 +1,8 @@
 package net.itsplace.controller.admin;
 
+import java.util.Date;
+import java.util.Locale;
+
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
@@ -12,6 +15,9 @@ import net.itsplace.service.PlaceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Role;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,57 +29,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+
 @Controller
 public class AdminEventController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminEventController.class);
 	@Autowired
 	PlaceEventService placeEventService;
-	
+	@Autowired
+	MessageSource messageSource;
 	@Autowired
 	private  PlaceService placeService;
+	@Autowired
+	JsonResponse json;
 	
-	
-	private Place place; // 선택된 가맹점 
 	/**
 	 * 가맹점별 이벤트관리
 	 * @param locale
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/place/event/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/list", method = RequestMethod.GET)
 	public String list(@RequestParam(required=true) Integer fid, ModelMap model) {
 		
 		model.addAttribute("place",placeService.getPlace(fid));
-		place = placeService.getPlace(fid);
-		model.addAttribute("placeEvent", new PlaceEvent());
-		model.addAttribute("placeEventList",placeEventService.getPlaceEventList(fid));
+		
 		return "admin/place/event/list";
 	}
+	
 	/**
 	 * 가맹점 이벤트관리
 	 * @param locale
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/event/list", method = RequestMethod.GET)
-	public String list(ModelMap model) {
+	
+	@RequestMapping(value = "/partner/event/add", method = RequestMethod.GET)
+	public String add(@RequestParam(required=true) Integer fid, ModelMap model) {
+		model.addAttribute("place",placeService.getPlace(fid));
 		
-		
-		return "admin/event/list";
-	}
-	/**
-	 * 가맹점 이벤트관리
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/admin/place/event/add", method = RequestMethod.GET)
-	public String add(@RequestParam(required=false) Integer fid, ModelMap model) {
-		if(place == null){
-			model.addAttribute("place",placeService.getPlace(fid));
-		}else{
-			model.addAttribute("place",place);
-		}
 		model.addAttribute("placeEvent", new PlaceEvent());
 
 		return "admin/place/event/add";
@@ -88,23 +81,25 @@ public class AdminEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/admin/place/event/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/event/add", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
-		JsonResponse json = new JsonResponse();
+		
 		if (result.hasErrors()) {
-			logger.info("place:"+placeEvent.toString());
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			json.setResult("이벤트를 추가할 수 없습니다");
-			json.setStatus("FAIL");
-		} else {	
+			 logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			 json =  json.getValidationErrorResult(result, json);
+			
+		}else{	
+			Place place = placeService.getPlace(placeEvent.getPlace().getFid());
 			placeEvent.setPlace(place);
 			logger.info("placeEvent:"+placeEvent.getTitle());
-			placeEventService.savePlaceEvent(placeEvent);
-			json.setResult("이벤트를 추가하였씁니다");
-			json.setStatus("SUCCESS");
-		}
+			PlaceEvent saved = placeEventService.savePlaceEvent(placeEvent);
+			json.setSuccess();
+			json.setResult(messageSource.getMessage("register", new Object [] {saved.getTitle()} , Locale.getDefault()));
+		
+		}		
 		return json;
+	
 	}
 	/**
 	 * 가맹점 이벤트 수정 폼 
@@ -112,7 +107,7 @@ public class AdminEventController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/place/event/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/edit", method = RequestMethod.GET)
 	public String edit(@RequestParam(required=true) Integer eid, ModelMap model) {
 		PlaceEvent placeEvent = placeEventService.getPlaceEvent(eid);
 		model.addAttribute("placeEvent", placeEvent);
@@ -129,17 +124,16 @@ public class AdminEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/admin/place/event/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/event/edit", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse editSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
-		JsonResponse json = new JsonResponse();
 		if (result.hasErrors()) {
 			logger.info("place:"+placeEvent.toString());
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
 			json.setResult(result.getAllErrors());
 			json.setStatus("FAIL");
 		} else {	
-			placeEvent.setPlace(place);
+			placeEvent.setPlace(placeService.getPlace(placeEvent.getPlace().getFid()));
 			logger.info("placeEvent:"+placeEvent.getTitle());
 			placeEvent.setIsDelete(false);
 			placeEventService.editPlaceEvent(placeEvent);
@@ -159,16 +153,35 @@ public class AdminEventController {
 	 * @throws 
 	 * @see 
 	 */
-	@RequestMapping(value = "/admin/place/event/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/partner/event/delete", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse delete(@RequestParam(required=true) Integer eid, Model model) {
-		JsonResponse json = new JsonResponse();
 		try{
 			placeEventService.deletePlaceEvent(eid);
 			json.setStatus("SUCCESS");
 		}catch(Exception e){
 			json.setStatus("FAIL");
 		}
+		
+		return json;
+	}
+	/**
+	 * 이벤트  삭제  복구 <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2011. 8. 24.
+	 * @param model
+	 * @return  
+	 * @throws Exception 
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/partner/event/deleteRevoke", method = RequestMethod.POST)
+	@ResponseBody
+ 	public JsonResponse deleteRevoke(@RequestParam(required=true) Integer eid, Model model)  {
+		
+		placeEventService.deleteRevokePlaceEvent(eid);
+		json.setStatus("SUCCESS");
 		
 		return json;
 	}
@@ -188,9 +201,9 @@ public class AdminEventController {
 	 * @see 
 	 */
 	//@RequestMapping(value="/admin/place/event/getPlaceEventList",method = RequestMethod.GET, headers="Accept=application/xml, application/json")
-	@RequestMapping(value="/admin/event/getPlaceEventListAll",method = RequestMethod.GET)
+	@RequestMapping(value="/partner/event/getPlaceEventList",method = RequestMethod.GET)
     @ResponseBody
-    public DataTable<PlaceEvent> getPlaceEventListAll(
+    public DataTable<PlaceEvent> getPlaceEventList(
     								@RequestParam(required=false, defaultValue="1") Integer iDisplayStart,
     								@RequestParam(required=false, defaultValue="10") Integer iDisplayLength,
     								@RequestParam(required=false, defaultValue="1") Integer iSortCol_0, 

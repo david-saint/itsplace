@@ -11,12 +11,15 @@
 	<decorator name="admin" page="/WEB-INF/layouts/admin_layout.jsp">
        <pattern>/admin/*</pattern>
        <pattern>/admin</pattern>
-    </decorator>
-    
-    <decorator name="partner" page="/WEB-INF/layouts/partner_layout.jsp">
        <pattern>/partner/*</pattern>
        <pattern>/partner</pattern>
+       <pattern>/exception/*</pattern>
     </decorator>
+    
+  <!--   <decorator name="partner" page="/WEB-INF/layouts/partner_layout.jsp">
+       <pattern>/partner/*</pattern>
+       <pattern>/partner</pattern>
+    </decorator> -->
     
 	<decorator name="fancy" page="/WEB-INF/layouts/fancy_layout.jsp" >		
     </decorator> 

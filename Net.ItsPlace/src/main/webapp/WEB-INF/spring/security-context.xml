@@ -15,9 +15,12 @@
 		<intercept-url pattern="/signup/**" access="permitAll" />
 		<intercept-url pattern="/disconnect/facebook" access="permitAll" />
 		<!-- 최고 관리자 -->
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/admin/place/event/getPlaceEventList" access="hasRole('ROLE_USER')"/>
 		
+		
+		<intercept-url pattern="/partner/**" access="hasAnyRole('ROLE_FRANCHISER','ROLE_ADMIN')"/>	
+		<intercept-url pattern="/partner/mFranchiserList/*" access="permitAll"/>
 		
 		
 		<intercept-url pattern="/getmessage*" access="hasRole('ROLE_USER')"/>
@@ -37,21 +40,18 @@
 		<intercept-url pattern="/user/getUser" access="permitAll"/>
 		
 		<intercept-url pattern="/css/**" access="permitAll"/>
-		<intercept-url pattern="/partner/*" access="permitAll"/>	
-		<intercept-url pattern="/partner/mFranchiserList/*" access="permitAll"/>	
+			
 		<intercept-url pattern="/admin/franchiserImageUpload/*" access="hasRole('ROLE_ADMIN')"/>	
-		<intercept-url pattern="/partner/*/*" access="permitAll"/>	
-		<intercept-url pattern="/partner/franchiserList" access="permitAll"/>	
+	
 		
      	<intercept-url pattern="/user/JqUserList" access="hasRole('ROLE_ADMIN')"/>	
-		<intercept-url pattern="/partner/franchiserListJson/**" access="permitAll"/>	
-		<intercept-url pattern="/partner/getFranchiserListPaging" access="permitAll"/>	
+	
 					
 		<intercept-url pattern="/signin/**" access="permitAll" />
 		<intercept-url pattern="/signup/**" access="permitAll" />
 		<intercept-url pattern="/search/**" access="permitAll" />
 		<intercept-url pattern="/search/test" access="hasRole('ROLE_USER')"/>			
-		<intercept-url pattern="/partner/fid" access="hasRole('ROLE_FID')" />
+		
 		
 		
 		
