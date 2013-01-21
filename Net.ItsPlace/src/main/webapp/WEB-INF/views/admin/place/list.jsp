@@ -1,21 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<style>
-.right{text-align:right;}
-.left{text-align:left;}
-.tableName th{text-align:center;}
-</style>
-
-<!-- full width -->
-<div class="widget">
-	<div class="header">
-		<span><span class="ico gray home"></span> 가맹점관리   </span>
-	</div>
-	<div class="content">
-		<script type="text/javascript">
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="도서목록"/>
+<html>
+<head>
+<script type="text/javascript">
 			var datatable;
 		
 		 	$(document).ready(function(){
@@ -53,14 +41,14 @@
 		 				  			{ "mDataProp": "editDate","fnRender"  :function ( oObj ) {
 		 								return c.render_date(oObj.aData['editDate'],'yyyy-MM-dd');
 		 							} },
-		 				  			{ "sDefaultContent": "","sWidth": "150px", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
+		 				  			{ "sDefaultContent": "","sWidth": "160px", "fnRender" : make_actions, "bSortable": false, "bSearchable": false },
 		 				  		],
 		 			//"oLanguage": {
 		 			//                "sUrl": "/resources/common/datatables.txt"
 		 			//            },	  		
 			  		"fnInitComplete":function(){
-		 				$('.tip a ').tipsy({trigger: 'manual'});
-		 				$('.tip a ').tipsy("hide");
+		 				//$('.tip i ').tipsy({trigger: 'manual'});
+		 				//$('.tip i ').tipsy("hide");
 		 			},
 		 			"fnDrawCallback": function () {
 		 				
@@ -111,11 +99,12 @@
 		 		var id = oObj.aData['fid'];
 		 		//c.log(oObj.aData[ oObj.iDataRow ][1] );
 		 		c.log(""+oObj.aData['placeStamp.sid']);
-		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?decorator=fancy&fid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
-		 		var stampAction = '<span class="tip"><a class="" href="/admin/place/stamp/list?fid='+id+'" original-title="스탬프목록"><img src="/resources/admin/images/icon/color_18/notepad.png"></a><span>';
-		 		var eventAction = '<span class="tip"><a class="" href="/admin/place/event/list?fid='+id+'" original-title="이벤트목록"><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
-		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="리뷰 "><img src="/resources/admin/images/icon/color_18/bell.png"></a><span>';
-		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?decorator=fancy&fid='+id+'" original-title="Edit"><i class="icon-edit icon-large  icon-border"></i></a><span>';
+		 		var stampAction = '<span class="tip"><a class="" href="/admin/place/stamp/list?fid='+id+'" original-title="스탬프목록"><i class="icon-tag icon-large  icon-border"></i></a><span>';
+		 		var eventAction = '<span class="tip"><a class="" href="/admin/place/event/list?fid='+id+'" original-title="이벤트목록"><i class="icon-bullhorn icon-large  icon-border"></i></a><span>';
+		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="리뷰 "><i class=" icon-eye-open icon-large  icon-border"></i></a><span>';
+		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="삭제"><i class="icon-trash icon-large  icon-border"></i></a><span>';
+		 		
 		 		var imageUploadAction = '<span class="tip"><a class="edit iframe" href="/admin/place/imageUpload?fid='+id+'" original-title="가맹점 이미지"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
 		 		return   reviewAction +"&nbsp;&nbsp;"+stampAction +"&nbsp;&nbsp;"+ eventAction +"&nbsp;&nbsp;"+ editAction + "&nbsp;&nbsp;" + deleteAction ; 
 		 	}
@@ -124,13 +113,23 @@
 		 		datatable.fnStandingRedraw();
 		 	}
 		 </script>
+</head>
+<body>
+
+<!-- full width -->
+<div class="widget">
+	<div class="header">
+		<span><span class="ico gray home"></span> 가맹점관리   </span>
+	</div>
+	<div class="content">
+		
 		 <div class="tableName"><!--클래 tableName search box를 타이 이동험   -->
 		 	<span style="position:absolute"><a href="/admin/place/add" class="uibutton icon large add ">가맹점 신청 </a></span>
 			 <table class="display" id="datatable">
 				<thead>
 					<tr>
 						<th class="center">FID</th>
-						<th>대표사진</th>
+						<th>대표사진 </th>
 						<th>업체명</th>
 						<th>대표자</th>
 						<th>휴대폰</th>
@@ -157,3 +156,5 @@
 </div>
 <!-- End full width -->
 
+</body>
+</html>

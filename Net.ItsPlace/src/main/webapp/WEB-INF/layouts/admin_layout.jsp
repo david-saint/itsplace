@@ -37,6 +37,7 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/sourcerer/sourcerer.css" />" />
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/fullcalendar/fullcalendar.css" />" />
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/admin/components/Jcrop/jquery.Jcrop.css" />" />   
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/font/font-awesome.css" />" />
 		        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="<c:url value="/resources/admin/components/flot/excanvas.min.js" />"></script><![endif]-->
 		        
 		        
@@ -123,17 +124,32 @@
 			<div id="shadowhead"></div>
                  <div id="left_menu">
                     <ul id="main_menu" class="main_menu">
-                      <li class="limenu0 select"><a href="<c:url value="/admin/dashboard" />"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
-                      <li class="limenu1" ><a href="<c:url value="/admin/base/list" />" ><span class="ico gray shadow window"></span><b>기초코드</b></a>
-                      </li>
-                      <li class="limenu" ><a href="<c:url value="/admin/user/list" />"><span class="ico gray  dimensions" ></span><b>사용자관리</b></a>
-                      </li>
-                      <li class="limenu" ><a href="<c:url value="/admin/place/list" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
-                      <li class="limenu" ><a href="<c:url value="/admin/stamp/list" />"><span class="ico gray shadow pictures_folder"></span><b>스탬프관리  </b></a></li>
-                      <li class="limenu" ><a href="<c:url value="/admin/event/list" />"><span class="ico gray shadow stats_lines"></span><b>이벤트관리</b> </a>                       
-                      </li>
-                    
-
+                      <li class="limenu0 select"><a href="<c:url value="/admin" />"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
+                      <sec:authorize ifAnyGranted="ROLE_ADMIN">
+	                      <li class="limenu1" ><a href="<c:url value="/admin/base/list" />" ><span class="ico gray shadow window"></span><b>기초코드</b></a>
+	                      </li>
+	                      <li class="limenu" ><a href="<c:url value="/admin/user/list" />"><span class="ico gray  dimensions" ></span><b>사용자관리</b></a>
+	                      </li>
+	                      <li class="limenu" ><a href="<c:url value="/admin/place/list" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
+	                      <li class="limenu" ><a href="<c:url value="/admin/stamp/list" />"><span class="ico gray shadow pictures_folder"></span><b>스탬프관리  </b></a></li>
+	                      <li class="limenu" ><a href="<c:url value="/exception/list" />"><span class="ico gray shadow pictures_folder"></span><b>예외관리  </b></a></li>
+	                      </li>
+                      </sec:authorize>	
+					  <!-- 파트너 -->
+					   <sec:authorize ifAnyGranted="ROLE_FRANCHISER">
+			                <li class="limenu1" ><a href="<c:url value="/partner/stamp/list" />" ><span class="ico gray shadow window"></span><b>스탬프관리 </b></a>
+			                </li>
+			                <li class="limenu" ><a href="<c:url value="/partner/user/list" />"><span class="ico gray  dimensions" ></span><b>직원관리</b></a>
+			                </li>
+			                <li class="limenu" ><a href="<c:url value="/partner/edit" />"><span class="ico gray shadow  spreadsheet"></span><b>가맹점관리 </b> </a></li>
+			                <li class="limenu" ><a href="<c:url value="/partner/auth" />"><span class="ico gray shadow stats_lines"></span><b>인증코드 관리 </b> </a>
+			             
+			                </li>
+			                <li class="limenu" ><a href="<c:url value="/partner/stamp/customers" />"><span class="ico gray shadow  file"></span><b>스탬프 적립 및 소진 </b></a></li>
+			                <li class="limenu " ><a href="<c:url value="/partner/getQrCode" />"><span class="ico gray shadow calendar"></span><b>QR코드 출력 </b></a></li>
+			                <li class="limenu" ><a href="<c:url value="/partner/event/list" />"><span class="ico gray  shadow paragraph_align_left"></span><b>이벤트관리</b></a></li>
+			                <li class="limenu" ><a href="<c:url value="/partner/menu/list" />"><span class="ico gray shadow abacus"></span><b>메뉴관리  </b></a></li>
+		               	</sec:authorize> 
                         
                     </ul>
                </div>
@@ -141,6 +157,11 @@
 			<div id="content">
                 <div class="inner">
 					<div class="topcolumn" >
+					 <sec:authorize ifAnyGranted="ROLE_FRANCHISER">
+						<div  id="selectPlace" style="border:0px solid red;position:absolute;padding-top:15px">
+							<sec:authentication property="Principal.placeListSelect" htmlEscape="false"/>
+						</div>
+					</sec:authorize>
 						<div class=""></div>
                             <ul  id="shortcut" style="height:7px">
                              <%-- 	<li> <a href="#" title="Back To home"> <img  src="<c:url value="/resources/admin/images/icon/shortcut/home.png"/>" alt="home"/><strong>Home</strong> </a> </li>
