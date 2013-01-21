@@ -44,9 +44,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AdminPlaceController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminPlaceController.class);
 	@Autowired
-	private PlaceService adminPlaceService;
+	PlaceService adminPlaceService;
 	@Autowired
-	private StampBaseService stampBaseService;
+	StampBaseService stampBaseService;
 	@Autowired
 	protected MediaService adminMediaService;
 	@Autowired
@@ -118,6 +118,7 @@ public class AdminPlaceController {
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",stampBaseService.getStampTypeListAll());
 		model.addAttribute("themeList",commonService.getBascdList("STAMPTHEME"));
+		System.out.println("djjjjjjjjjjjjjjjjjjjjjjjjjjj");
 		//List<PlaceStamp> placeStampList = stampBaseService.getPlaceStampAll(fid);
 		/*if(placeStampList.size()<=0){
 			model.addAttribute("placeStampList",null);
@@ -265,9 +266,11 @@ public class AdminPlaceController {
 	public String add(Model model)  {
 	
 		model.addAttribute("place",new Place());
-		model.addAttribute("categoryList",commonService.getBascdList("CATEGORY"));
-		model.addAttribute("placeTypeList",commonService.getBascdList("PLACETYPE"));
-		model.addAttribute("serviceTypeList",commonService.getBascdList("SERVICETYPE"));
+		model.addAttribute("stampTypeList",stampBaseService.getStampTypeListAll());
+		model.addAttribute("categoryList", categoryRepo.findAll());
+		model.addAttribute("placeTypeList", baseCodeService.getPlaceTypes());
+		model.addAttribute("serviceTypeList",baseCodeService.getServiceTypes());
+		
 		return "admin/place/add";
 	}
 	/**
@@ -312,11 +315,12 @@ public class AdminPlaceController {
 		model.addAttribute("place",adminPlaceService.getPlace(fid));
 		model.addAttribute("stampTypeList",stampBaseService.getStampTypeListAll());
 	
-
+		
 
 		model.addAttribute("categoryList", categoryRepo.findAll());
 		model.addAttribute("placeTypeList", baseCodeService.getPlaceTypes());
 		model.addAttribute("serviceTypeList",baseCodeService.getServiceTypes());
+		
 		return "admin/place/edit";
 	}
 	/**

@@ -8,34 +8,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
-
-
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity(name="PLACEEVENT")
 public class PlaceEvent {
-	public interface AddPlaceEvent {}
-	public interface EditPlaceEvent {}
+
 	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int eid;
+	
+	@NotEmpty
 	private String title;
+	@NotEmpty
 	private String content;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name="FID")		
+	@JoinColumn(name="FID")
 	private Place place;
 	
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull
+	@DateTimeFormat(iso = ISO.DATE)//"yyyy-mm-dd
 	private Date startDate;
+	
+	@NotNull
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDate;
+	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date saveDate;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date editDate;
+	
+	
 	private Boolean isAuth;
 	private Boolean isDelete;
 

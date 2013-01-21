@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -40,7 +39,8 @@
                    }else{                 
                 	   c.log(response.result);
                 	   for(var i =0 ; i < response.result.length ; i++){
-                           var field = "#"+response.result[i].field;     
+                           var field = "#"+response.result[i].field;  
+                           console.log(field);
                            if($(field).length <= 0 ){
                         	  field =  $('select[name='+response.result[i].field+']').next()//label;
                         	   c.log(field);
@@ -74,6 +74,9 @@
 	</div>
 	<div class="content">
 		<form:form commandName="placeEvent" method="post">
+			
+			<input type="hidden" value="${place.fid}" id="place.fid" name="place.fid" />
+			
 			<div class="boxtitle">
 				<c:set var="errors">
 					<form:errors path="*" />
@@ -108,7 +111,7 @@
 				<label> 시작일 <small></small></label>
 				<div>
 					<input id="startDate" type="text" name="startDate"
-						class="validate[required,maxSize[50]] samll date"
+						class=" samll date"
 						value="<fmt:formatDate value="${placeEvent.startDate }" pattern="yyyy-MM-dd"/>" /> 
 						<span class="f_help"></span>
 				</div>
@@ -117,11 +120,12 @@
 				<label> 종료일  <small></small></label>
 				<div>
 					<input id="endDate" type="text" name="endDate"
-						class="validate[required,maxSize[50]] small date"
+						class=" small date"
 						value="<fmt:formatDate value="${placeEvent.endDate }" pattern="yyyy-MM-dd"/>" />  
 						<span class="f_help"></span>
 				</div>
 			</div>
+			<sec:authorize ifAnyGranted="ROLE_ADMIN">
 			<div class="section" >
                <label> 승인여부  <small></small></label>   
                <div> 
@@ -129,6 +133,7 @@
                <form:radiobutton path="isAuth"  value="0" label="No"/> 
                <span class="f_help"></span>
             </div> 
+			</sec:authorize>
 			<div class="section last">
 				<div>
 					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 

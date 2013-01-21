@@ -117,6 +117,7 @@
 						<span class="f_help"></span>
 				</div>
 			</div>
+			<sec:authorize ifAnyGranted="ROLE_ADMIN">
 			<div class="section" >
                <label> 승인여부  <small></small></label>   
                <div> 
@@ -124,6 +125,7 @@
                <form:radiobutton path="isAuth"  value="N" label="No"/> 
                <span class="f_help"></span>
             </div> 
+            </sec:authorize>
 			<div class="section last">
 				<div>
 					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 

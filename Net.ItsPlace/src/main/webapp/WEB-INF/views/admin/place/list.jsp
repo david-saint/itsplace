@@ -101,7 +101,7 @@
 		 		c.log(""+oObj.aData['placeStamp.sid']);
 		 		var editAction = '<span class="tip"><a class="edit iframe" href="/admin/place/edit?decorator=fancy&fid='+id+'" original-title="Edit"><i class="icon-edit icon-large  icon-border"></i></a><span>';
 		 		var stampAction = '<span class="tip"><a class="" href="/admin/place/stamp/list?fid='+id+'" original-title="스탬프목록"><i class="icon-tag icon-large  icon-border"></i></a><span>';
-		 		var eventAction = '<span class="tip"><a class="" href="/admin/place/event/list?fid='+id+'" original-title="이벤트목록"><i class="icon-bullhorn icon-large  icon-border"></i></a><span>';
+		 		var eventAction = '<span class="tip"><a class="" href="/partner/event/list?fid='+id+'" original-title="이벤트목록"><i class="icon-bullhorn icon-large  icon-border"></i></a><span>';
 		 		var reviewAction = '<span class="tip"><a class="" href="/admin/place/review/list?fid='+id+'" original-title="리뷰 "><i class=" icon-eye-open icon-large  icon-border"></i></a><span>';
 		 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="삭제"><i class="icon-trash icon-large  icon-border"></i></a><span>';
 		 		

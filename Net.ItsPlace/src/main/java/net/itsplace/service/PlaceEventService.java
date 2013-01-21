@@ -71,6 +71,9 @@ public interface PlaceEventService {
 	public PlaceEvent savePlaceEvent(PlaceEvent placeEvent) {
 		
 		//adminEventeDao.savePlaceEvent(placeEvent);
+		placeEvent.setSaveDate(new Date());
+		placeEvent.setIsDelete(false);
+		placeEvent.setEditDate(new Date());
 		return repo.save(placeEvent);
 	}
 

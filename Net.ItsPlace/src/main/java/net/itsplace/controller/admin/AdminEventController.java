@@ -8,9 +8,10 @@ import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.domain.PlaceEvent.AddPlaceEvent;
 import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceService;
+import net.itsplace.user.Authority;
+import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,9 +50,14 @@ public class AdminEventController {
 	 * @return
 	 */
 	@RequestMapping(value = "/partner/event/list", method = RequestMethod.GET)
-	public String list(@RequestParam(required=true) Integer fid, ModelMap model) {
-		
-		model.addAttribute("place",placeService.getPlace(fid));
+	public String list(@RequestParam(required=false) Integer fid, ModelMap model) {
+		if( Authority.ROLE_FRANCHISER.name().equals(UserInfo.getUser().getRole())){
+			model.addAttribute("place",placeService.getPlace(UserInfo.getFid()));
+
+		}else{
+			
+			model.addAttribute("place",placeService.getPlace(fid));
+		}
 		
 		return "admin/place/event/list";
 	}
@@ -64,9 +70,15 @@ public class AdminEventController {
 	 */
 	
 	@RequestMapping(value = "/partner/event/add", method = RequestMethod.GET)
-	public String add(@RequestParam(required=true) Integer fid, ModelMap model) {
-		model.addAttribute("place",placeService.getPlace(fid));
-		
+	public String add(@RequestParam(required=false) Integer fid, ModelMap model) {
+		//franchiser
+		 
+		if( Authority.ROLE_FRANCHISER.name().equals(UserInfo.getUser().getRole())){
+			model.addAttribute("place",placeService.getPlace(UserInfo.getFid()));
+		}else{
+			model.addAttribute("place",placeService.getPlace(fid));
+		}
+				
 		model.addAttribute("placeEvent", new PlaceEvent());
 
 		return "admin/place/event/add";
@@ -83,10 +95,10 @@ public class AdminEventController {
 	 */
 	@RequestMapping(value = "/partner/event/add", method = RequestMethod.POST)
 	@ResponseBody
- 	public JsonResponse addSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
+ 	public JsonResponse addSubmit(@Validated PlaceEvent placeEvent, BindingResult result, Model model) {
 		
 		if (result.hasErrors()) {
-			 logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			 logger.info("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
 			 json =  json.getValidationErrorResult(result, json);
 			
 		}else{	
@@ -126,7 +138,7 @@ public class AdminEventController {
 	 */
 	@RequestMapping(value = "/partner/event/edit", method = RequestMethod.POST)
 	@ResponseBody
- 	public JsonResponse editSubmit(@Validated({AddPlaceEvent.class}) PlaceEvent placeEvent, BindingResult result, Model model) {
+ 	public JsonResponse editSubmit(@Validated PlaceEvent placeEvent, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			logger.info("place:"+placeEvent.toString());
 			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
