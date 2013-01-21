@@ -31,7 +31,7 @@ public class AdminIndexController {
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String administrator() {
-		logger.info("로케일:"+ Locale.getDefault());
+		logger.info("locale:"+ Locale.getDefault());
 		logger.info("로케일:"+messageSource.getMessage("signup", null, Locale.getDefault()));
 		return "admin/index";
 	}

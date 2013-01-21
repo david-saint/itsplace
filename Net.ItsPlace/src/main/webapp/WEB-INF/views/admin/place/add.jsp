@@ -128,7 +128,7 @@
 				<label> 가맹점 타입    <small>  </small></label>
 				<div>
 					<form:select id="placeType" path="placeType" multiple="placeType">
-						<form:options items="${placeTypeList}" itemValue="basecd"	itemLabel="basName" />
+						<form:options items="${placeTypeList}" itemLabel="description"/>
 					</form:select>
 					<span class="f_help">sss</span>
 				</div>
@@ -137,7 +137,7 @@
 				<label> 가맹점 분류   <small>카테고리  </small></label>
 				<div>
 					<form:select id="category" path="category" multiple="category">
-						<form:options items="${categoryList}" itemValue="basecd"	itemLabel="basName" />
+						<form:options items="${categoryList}" itemValue="title"	itemLabel="title" />
 					</form:select>
 					<span class="f_help">sss</span>
 				</div>
@@ -185,7 +185,7 @@
 				<label> 서비스  타입    <small>  </small></label>
 				<div>
 					<form:select id="serviceType" path="serviceType" multiple="serviceType">
-						<form:options items="${serviceTypeList}" itemValue="basecd"	itemLabel="basName" />
+						<form:options items="${serviceTypeList}" itemLabel="description"/>
 					</form:select>
 					<span class="f_help">sss</span>
 				</div>
