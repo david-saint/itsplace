@@ -1,6 +1,7 @@
 package net.itsplace.controller.partner;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,9 +10,11 @@ import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.domain.PlaceMenu.AddPlaceMenu;
 import net.itsplace.domain.PlaceMenu.EditPlaceMenu;
+import net.itsplace.module.event.PlaceEventService;
 import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.service.PlaceMenuService;
@@ -20,6 +23,7 @@ import net.itsplace.user.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -38,9 +42,15 @@ public class PlaceMenuController {
 	private PlaceMenuService placeMenuService;
 	
 	@Autowired
-	private BaseService commonService;
+    BaseService commonService;
 	@Autowired
-	private PlaceService adminPlaceService;
+	MessageSource messageSource;
+	@Autowired
+	PlaceService placeService;
+	@Autowired
+	PlaceEventService placeEventService;
+	@Autowired
+	JsonResponse json;
 	private Place place; // 선택된 가맹점 
 
 	/**
@@ -57,7 +67,7 @@ public class PlaceMenuController {
 	public String list(@RequestParam(required=false) Integer fid, Model model) {
 		
 		
-		model.addAttribute("place",getPlace());
+		//model.addAttribute("place",getPlace());
 		
 		return "place/menu/list";
 	}
@@ -110,7 +120,7 @@ public class PlaceMenuController {
 	 */
 	@RequestMapping(value = "/partner/menu/add", method = RequestMethod.GET)
 	public String add(ModelMap model) {
-		model.addAttribute("place",getPlace());
+	//	model.addAttribute("place",getPlace());
 		model.addAttribute("placeMenu", new PlaceMenu());
 
 		return "place/menu/add";
@@ -128,22 +138,20 @@ public class PlaceMenuController {
 	@RequestMapping(value = "/partner/menu/add", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse addSubmit(@Validated({AddPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
-		JsonResponse json = new JsonResponse();
-		//commonService.getBasecd().getMediaImageHost()+placeImagePath
-		
-	
-		
+
 		if (result.hasErrors()) {
+			 logger.info("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			 json =  json.getValidationErrorResult(result, json);
 			
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			json.setResult(result.getFieldError().getDefaultMessage());
-			json.setStatus("FAIL");
-		} else {	
-			
-			placeMenuService.saveMenu(placeMenu);
-			json.setResult("메뉴를 추가하였씁니다");
-			json.setStatus("SUCCESS");
-		}
+		}else{	
+			Place place = placeService.getPlace(placeMenu.getPlace().getFid());
+			placeMenu.setPlace(place);
+			logger.info("placeEvent:"+placeMenu.getTitle());
+			PlaceMenu saved = placeMenuService.saveMenu(placeMenu);
+			json.setSuccess();
+			json.setResult(messageSource.getMessage("register", new Object [] {saved.getTitle()} , Locale.getDefault()));
+		
+		}		
 		return json;
 	}
 	
@@ -158,7 +166,7 @@ public class PlaceMenuController {
 		PlaceMenu placeMenu = placeMenuService.getMenu(mnid);
 		placeMenu.setFilePath(placeMenu.getHost()+placeMenu.getFilePath());
 		model.addAttribute("placeMenu", placeMenu);
-		model.addAttribute("place",getPlace());
+		//model.addAttribute("place",getPlace());
 		return "place/menu/edit";
 	}
 	/**
@@ -174,17 +182,23 @@ public class PlaceMenuController {
 	@RequestMapping(value = "/partner/menu/edit", method = RequestMethod.POST)
 	@ResponseBody
  	public JsonResponse editSubmit(@Validated({EditPlaceMenu.class}) PlaceMenu placeMenu, BindingResult result, Model model) {
-		JsonResponse json = new JsonResponse();
 		if (result.hasErrors()) {
-			logger.info("placeMenu:"+placeMenu.toString());
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			json.setResult(result.getAllErrors());
-			json.setStatus("FAIL");
-		} else {
-			placeMenuService.editMenu(placeMenu);
-			json.setResult("메뉴를 수정하였습니다");
-			json.setStatus("SUCCESS");
-		}
+			 logger.info("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			 json =  json.getValidationErrorResult(result, json);
+			
+		}else{	
+			Place place = placeService.getPlace(placeMenu.getPlace().getFid());
+			//placeEvent.setPlace(place);
+			//logger.info("placeEvent:"+placeEvent.getTitle());
+			PlaceMenu db = placeMenuService.getMenu(placeMenu.getMnid());
+		    db.setTitle(placeMenu.getTitle());
+		    db.setPrice(placeMenu.getPrice());
+		    db.setPlace(place);
+		    PlaceMenu saved = placeMenuService.editMenu(db);
+			json.setSuccess();
+			json.setResult(messageSource.getMessage("register", new Object [] {saved.getTitle()} , Locale.getDefault()));
+		
+		}		
 		return json;
 	}
 	
@@ -243,12 +257,12 @@ public class PlaceMenuController {
 		 response.getOutputStream().write(out.toByteArray());
 		 response.getOutputStream().flush();
 	}
-	private Place getPlace(){			
-		if(place == null){
-			this.place = adminPlaceService.getPlace(UserInfo.getFid());
-		}else if(place.getFid() != UserInfo.getFid()){
-			this.place = adminPlaceService.getPlace(UserInfo.getFid());
-		}
-		return this.place;
-	}
+//	private Place getPlace(){			
+//		if(place == null){
+//			this.place = adminPlaceService.getPlace(UserInfo.getFid());
+//		}else if(place.getFid() != UserInfo.getFid()){
+//			this.place = adminPlaceService.getPlace(UserInfo.getFid());
+//		}
+//		return this.place;
+//	}
 }

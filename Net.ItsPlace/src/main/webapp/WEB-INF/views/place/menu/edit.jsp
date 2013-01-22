@@ -11,13 +11,47 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
- 		$('#btnSubmit').live('click',function() {
- 			c.log("submit Form");
- 			$('#placeMenu').submit();
- 		});
+ 		
  		$('.cancel').live('click',function() {
- 			c.log("cancel2");
  			parent.$.fancybox.close();
+ 		});
+ 		$('#btnSubmit').live('click',function() {
+ 			var url = "${context}/partner/menu/edit";
+ 			
+ 			$.ajax({
+                 url: url,
+                 type:"POST",                                
+                 data:$("form").serialize(),                   
+                 success: function(response){
+                   if(response.status=="SUCCESS"){
+                	   var delay =1000;
+                	   c.showSuccess(response.result,delay);
+                	   parent.datatable.fnStandingRedraw();
+                	   setTimeout('parent.$.fancybox.close()',delay);
+                   }else{                 
+                	   c.log(response.result);
+                	   for(var i =0 ; i < response.result.length ; i++){
+                           var field = "#"+response.result[i].field;  
+                           console.log(field);
+                           if($(field).length <= 0 ){
+                        	  field =  $('select[name='+response.result[i].field+']').next()//label;
+                        	   c.log(field);
+                           }
+                          
+                           $(field).attr('original-title',response.result[i].message);
+                           $(field).tipsy({trigger: 'manual', gravity: 'w'});
+                           $(field).tipsy("show");
+                           $(field).bind('click',function(){
+                        	   $(this).tipsy("hide");
+                           });
+                       }
+                	   
+                   }
+                 },
+                 complete:function(){
+                	 //setTimeout("c.unloading()",1500); 
+                 }
+               });//ajax
  		});
  		$("#file").change(function(){
  			var data ={id:$('#mnid').val()};
@@ -50,36 +84,7 @@
   			   }
   			})
  		});
- 		$('#placeMenu').validationEngine('attach', {//서브밋 후에 밸리
- 			  onValidationComplete: function(form, status){
- 				 if(status==true){
- 					$.ajax({
- 	                     url:"/place/menu/edit",
- 	                     type:"POST",
- 	                     data:$("form").serialize(),
- 	                     beforeSend :function(){
- 		                      var title = $('.loading').attr('title');
- 		   	 				  var overlay=$(this).attr('rel'); 
- 		   	 	 			  c.loading(title,overlay);
- 	                     },
- 	                     success: function(response){
- 	                    	if(response.status=="SUCCESS"){
- 	                    	    parent.$.fancybox.close();
- 	                    	    parent.datatableRedraw(response.result,true);
-	 	                    }else{
-	 	                   		parent.datatableRedraw(response.result,false);
-	 	                    }
- 	                     },
- 	                     error: function(jqXHR, textStatus, errorThrown){
- 	                    	alert(jqXHR.status+":"+errorThrown); 
- 	                     },
- 	                     complete:function(){
- 	                    	 setTimeout("c.unloading()",1500); 
- 	                     }
- 	                  });//ajax
- 				 }
- 			  }
-	 	});//validation
+ 		
  	});//ready
 </script>
 <div class="widget">
@@ -141,8 +146,8 @@
 			<div class="section" >
                <label> 할인여부  <small></small></label>   
                <div> 
-               <form:radiobutton path="isSale"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isSale"  value="N" label="No"/> 
+               <form:radiobutton path="isSale"  value="1" label="Yes"/> 
+               <form:radiobutton path="isSale"  value="0" label="No"/> 
                <span class="f_help"></span>
                </div>
             </div> 
@@ -165,7 +170,6 @@
 			<div class="section last">
 				<div>
 					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
-					<a class="uibutton special clear_form">clear form</a>
 					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
 				</div>
 			</div>
