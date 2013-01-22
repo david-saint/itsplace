@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.PlaceEventService;
+import net.itsplace.module.event.PlaceEventService;
 import net.itsplace.web.repository.PlaceRepositoryTest;
 
 import org.junit.Test;

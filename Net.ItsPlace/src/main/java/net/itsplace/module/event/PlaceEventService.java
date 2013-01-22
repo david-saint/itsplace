@@ -1,4 +1,4 @@
-package net.itsplace.service;
+package net.itsplace.module.event;
 
 import java.util.Date;
 import java.util.List;
@@ -8,9 +8,8 @@ import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.QPlaceEvent;
-import net.itsplace.repository.PlaceEventPredicates;
-import net.itsplace.repository.PlaceEventRepository;
 import net.itsplace.repository.PlaceRepository;
+import net.itsplace.service.PlaceService;
 import net.itsplace.util.PagingManager;
 
 import org.slf4j.Logger;

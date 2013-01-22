@@ -1,6 +1,5 @@
-package net.itsplace.controller.admin;
+package net.itsplace.module.event;
 
-import java.util.Date;
 import java.util.Locale;
 
 import net.itsplace.domain.DataTable;
@@ -8,7 +7,6 @@ import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
-import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceService;
 import net.itsplace.user.Authority;
 import net.itsplace.user.UserInfo;
@@ -17,8 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Role;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,8 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class AdminEventController {
-	private static final Logger logger = LoggerFactory.getLogger(AdminEventController.class);
+public class EventController {
+	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 	@Autowired
 	PlaceEventService placeEventService;
 	@Autowired

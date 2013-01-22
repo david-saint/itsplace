@@ -1,4 +1,4 @@
-package net.itsplace.repository;
+package net.itsplace.module.event;
 
 import java.util.List;
 
