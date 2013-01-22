@@ -22,7 +22,7 @@
  		         "sProcessing": "<div style='border:0px solid red'> 조회중 ...</di>"
  		       },
  			"bServerSide": true,		 			
- 			"sAjaxSource": "/place/getMenuList", 			
+ 			"sAjaxSource": "/partner/getMenuList", 			
  			"sAjaxDataProp": "rows",
  			"aoColumns": [ 				  			
  				  			{ "mDataProp": "filePath", "fnRender" :function ( oObj ) {
@@ -96,7 +96,7 @@
  		var id = oObj.aData['mnid'];
  		c.log("id:"+id );
  		//c.log(""+oObj.aData['placeStamp.sid']);
- 		var editAction = '<span class="tip"><a class="fancy iframe" href="/place/menu/edit?mnid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+ 		var editAction = '<span class="tip"><a class="fancy iframe" href="/partner/menu/edit?decorator=fancy&mnid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
  	
  		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
  		

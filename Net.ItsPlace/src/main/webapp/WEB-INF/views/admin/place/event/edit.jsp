@@ -23,11 +23,11 @@
                  type:"POST",                                
                  data:$("form").serialize(),                   
                  success: function(response){
-                	 alert();
                    if(response.status=="SUCCESS"){
                 	   var delay =1000;
                 	   c.showSuccess(response.result,delay);
-                	   //setTimeout('c.location("${context}")',delay);
+                	   parent.datatable.fnStandingRedraw();
+                	   setTimeout('parent.$.fancybox.close()',delay);
                    }else{                 
                 	   c.log(response.result);
                 	   for(var i =0 ; i < response.result.length ; i++){

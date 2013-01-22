@@ -6,6 +6,7 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceMenu;
 import net.itsplace.repository.PlaceMenuRepository;
 import net.itsplace.repository.PlaceRepository;
@@ -19,9 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 public interface PlaceMenuService {
-	public int saveMenu(PlaceMenu placeMenu) ;
+	public PlaceMenu saveMenu(PlaceMenu placeMenu) ;
 	public PlaceMenu savePlaceMenuImage(ImageFileUpload file) ;
-	public void editMenu(PlaceMenu placeMenu) ;
+	public PlaceMenu editMenu(PlaceMenu placeMenu) ;
 	public void deleteMenu(int mnid)  ;
 	public PlaceMenu getMenu(int mnid)  ;
 	DataTable<PlaceMenu> getMenuList(JpaPaging paging, int fid);
@@ -42,15 +43,16 @@ public interface PlaceMenuService {
 	@Autowired
 	PlaceService placeService;
 	@Override
-	public int saveMenu(PlaceMenu placeMenu) {
-		placeMenu.setPlace(placeRepo.findOne(UserInfo.getFid()));
+	public PlaceMenu saveMenu(PlaceMenu placeMenu) {
+		placeMenu.setIsDelete(false);
+
 		PlaceMenu savedPlaceMenu = repo.save(placeMenu);
-		return savedPlaceMenu.getMnid();	
+		return savedPlaceMenu;	
 	}
 
 	@Override
-	public void editMenu(PlaceMenu placeMenu) {
-		repo.save(placeMenu);		
+	public PlaceMenu editMenu(PlaceMenu placeMenu) {
+		return repo.save(placeMenu);		
 	}
 
 	@Override
@@ -100,7 +102,7 @@ public interface PlaceMenuService {
 		//	placeMenu.setmType(commonService.getBasecd().getMediaImage());
 			placeMenu.setPlace(place);
 			if(file.getId() <= 0 ){
-				int _mnid = saveMenu(placeMenu);				
+				int _mnid = saveMenu(placeMenu).getMnid();				
 				logger.info("savePlaceMenuImage mnid:{}",_mnid);
 				placeMenu.setMnid(_mnid);
 		
