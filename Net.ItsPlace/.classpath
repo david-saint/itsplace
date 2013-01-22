@@ -34,7 +34,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/dhkim/Downloads/gdata-samples.java-1.47.1/gdata/java/lib/gdata-photos-2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/dhkim/Downloads/gdata-samples.java-1.47.1/gdata/java/lib/gdata-photos-meta-2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/faye12005/Downloads/gdata/java/lib/gdata-client-1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

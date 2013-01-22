@@ -27,7 +27,7 @@ public interface PlaceEventService {
 	void deleteRevokePlaceEvent(int eid) ;
 	public PlaceEvent getPlaceEvent(int eid) ;
 	public PlaceEvent savePlaceEvent(PlaceEvent placeEvent);
-	public void editPlaceEvent(PlaceEvent placeEvent);
+	public PlaceEvent editPlaceEvent(PlaceEvent placeEvent);
 	public void deletePlaceEvent(int eid);;
 	//public DataTable getPlaceEventList(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch,int fid);
 	//public DataTable getPlaceEventListAll(String columns[],  Integer iDisplayStart, Integer iDisplayLength, Integer iSortCol_0, String sSortDir_0, String sSearch);
@@ -72,13 +72,15 @@ public interface PlaceEventService {
 		//adminEventeDao.savePlaceEvent(placeEvent);
 		placeEvent.setSaveDate(new Date());
 		placeEvent.setIsDelete(false);
+		placeEvent.setIsAuth(false);
 		placeEvent.setEditDate(new Date());
 		return repo.save(placeEvent);
 	}
 
 	@Override
-	public void editPlaceEvent(PlaceEvent placeEvent) {
-		repo.save(placeEvent);
+	public PlaceEvent editPlaceEvent(PlaceEvent placeEvent) {
+		placeEvent.setEditDate(new Date());
+		return repo.save(placeEvent);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class PlaceEvent {
 	@NotEmpty
 	private String content;
 	
-	@NotNull
+	//@NotNull
 	@ManyToOne
 	@JoinColumn(name="FID")
 	private Place place;
