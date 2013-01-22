@@ -3,8 +3,8 @@ package net.itsplace.controller.web;
 import java.util.Locale;
 
 import net.itsplace.domain.User;
+import net.itsplace.module.event.PlaceEventService;
 import net.itsplace.service.BaseService;
-import net.itsplace.service.PlaceEventService;
 import net.itsplace.service.PlaceService;
 
 import org.slf4j.Logger;

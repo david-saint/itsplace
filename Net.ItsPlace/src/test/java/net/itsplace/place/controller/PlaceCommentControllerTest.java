@@ -10,7 +10,7 @@ import net.itsplace.domain.Address;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.PlaceEventService;
+import net.itsplace.module.event.PlaceEventService;
 
 import org.junit.Before;
 import org.junit.Test;

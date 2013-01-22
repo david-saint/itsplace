@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.Place;
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.module.event.PlaceEventRepository;
 
 import org.junit.Test;
 import org.slf4j.Logger;

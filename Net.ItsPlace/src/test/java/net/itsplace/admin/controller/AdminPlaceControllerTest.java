@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import net.itsplace.controller.admin.AdminPlaceController;
 import net.itsplace.domain.Place;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.PlaceEventService;
+import net.itsplace.module.event.PlaceEventService;
 
 import org.junit.Before;
 import org.junit.Test;

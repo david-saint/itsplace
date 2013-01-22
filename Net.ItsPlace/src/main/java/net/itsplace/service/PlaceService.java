@@ -8,7 +8,7 @@ import net.itsplace.domain.Authcode;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
-import net.itsplace.repository.PlaceEventPredicates;
+import net.itsplace.module.event.PlaceEventPredicates;
 import net.itsplace.repository.PlacePredicates;
 import net.itsplace.repository.PlaceRepository;
 import net.itsplace.user.UserInfo;

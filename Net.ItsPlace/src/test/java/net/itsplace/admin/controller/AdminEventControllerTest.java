@@ -7,12 +7,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import net.itsplace.controller.admin.AdminEventController;
 import net.itsplace.domain.DataTable;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.User;
 import net.itsplace.init.TestApplicationContext;
-import net.itsplace.service.PlaceEventService;
+import net.itsplace.module.event.EventController;
+import net.itsplace.module.event.PlaceEventService;
 
 
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class AdminEventControllerTest extends TestApplicationContext {
 	PlaceEventService service;
 	
 	@Autowired
-	AdminEventController controller;
+	EventController controller;
 	
 	private MockHttpServletRequest request;
 	private MockHttpServletResponse response;

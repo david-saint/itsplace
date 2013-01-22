@@ -6,6 +6,7 @@ import net.itsplace.domain.DataTable;
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.module.event.PlaceEventService;
 
 import org.junit.Test;
 import org.slf4j.Logger;
