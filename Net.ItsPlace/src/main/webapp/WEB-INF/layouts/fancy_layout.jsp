@@ -98,12 +98,7 @@
 		<script type="text/javascript">
 	
 	<script type="text/javascript">
- 	$(document).ready(function(){
- 		$('.cancel').unbind('click');
- 		$('.cancel').click(function() {
- 			parent.$.fancybox.close();
- 		});
- 	});
+ 	
  	</script>
 </head>
 <body>   

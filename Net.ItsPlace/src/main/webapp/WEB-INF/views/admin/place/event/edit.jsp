@@ -11,42 +11,48 @@
  			dateFormat: 'yy-mm-dd',
  			numberOfMonths: 1
  		});
- 		$('#btnSubmit').live('click',function() {
- 			$('#placeEvent').submit();
- 		});
+ 		
  		$('.cancel').live('click',function() {
  			parent.$.fancybox.close();
  		});
- 		$('#placeEvent').validationEngine('attach', {//서브밋 후에 밸리
- 			  onValidationComplete: function(form, status){
- 				 if(status==true){
- 					$.ajax({
- 	                     url:"/partner/event/edit",
- 	                     type:"POST",
- 	                     data:$("form").serialize(),
- 	                     beforeSend :function(){
- 		                      var title = $('.loading').attr('title');
- 		   	 				  var overlay=$(this).attr('rel'); 
- 		   	 	 			  c.loading(title,overlay);
- 	                     },
- 	                     success: function(response){
- 	                    	if(response.status=="SUCCESS"){
- 	                    	    parent.$.fancybox.close();
- 	                    	    parent.datatableRedraw(response.result,true);
-	 	                    }else{
-	 	                   		parent.datatableRedraw(response.result,false);
-	 	                    }
- 	                     },
- 	                     error: function(jqXHR, textStatus, errorThrown){
- 	                    	alert(jqXHR.status+":"+errorThrown); 
- 	                     },
- 	                     complete:function(){
- 	                    	 setTimeout("c.unloading()",1500); 
- 	                     }
- 	                  });//ajax
- 				 }
- 			  }
-	 	});//validation
+ 		$('#btnSubmit').live('click',function() {
+ 			var url = "${context}/partner/event/edit";
+ 			
+ 			$.ajax({
+                 url: url,
+                 type:"POST",                                
+                 data:$("form").serialize(),                   
+                 success: function(response){
+                	 alert();
+                   if(response.status=="SUCCESS"){
+                	   var delay =1000;
+                	   c.showSuccess(response.result,delay);
+                	   //setTimeout('c.location("${context}")',delay);
+                   }else{                 
+                	   c.log(response.result);
+                	   for(var i =0 ; i < response.result.length ; i++){
+                           var field = "#"+response.result[i].field;  
+                           console.log(field);
+                           if($(field).length <= 0 ){
+                        	  field =  $('select[name='+response.result[i].field+']').next()//label;
+                        	   c.log(field);
+                           }
+                          
+                           $(field).attr('original-title',response.result[i].message);
+                           $(field).tipsy({trigger: 'manual', gravity: 'w'});
+                           $(field).tipsy("show");
+                           $(field).bind('click',function(){
+                        	   $(this).tipsy("hide");
+                           });
+                       }
+                	   
+                   }
+                 },
+                 complete:function(){
+                	 //setTimeout("c.unloading()",1500); 
+                 }
+               });//ajax
+ 		});
  	});//ready
 </script>
 <div class="widget">
@@ -66,9 +72,7 @@
 	             </c:if>
 
 			</div>
-			<div class="boxtitle">
-				이벤트 관리 
-			</div>
+			
 			<div class="section">
 				<label> 이벤트명  <small></small></label>
 				<div>
@@ -109,15 +113,14 @@
 			<div class="section" >
                <label> 승인여부  <small></small></label>   
                <div> 
-               <form:radiobutton path="isAuth"  value="Y" label="Yes"/> 
-               <form:radiobutton path="isAuth"  value="N" label="No"/> 
+               <form:radiobutton path="isAuth"  value="1" label="승인"/> 
+               <form:radiobutton path="isAuth"  value="0" label="대기"/> 
                <span class="f_help"></span>
             </div> 
 			<div class="section last">
 				<div>
-					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">submit</a> 
-					<a class="uibutton special clear_form">clear form</a>
-					<a class="uibutton loading  cancel" title="Checking" rel="0">Cancel</a>
+					<a id="btnSubmit" class="uibutton loading submit_form" title="Saving" rel="1">저장 </a> 
+					<a class="uibutton loading  cancel" title="Checking" rel="0">취소</a>
 				</div>
 			</div>
           </div>

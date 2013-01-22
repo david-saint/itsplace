@@ -91,7 +91,7 @@ public class EventController {
 	 */
 	@RequestMapping(value = "/partner/event/add", method = RequestMethod.POST)
 	@ResponseBody
- 	public JsonResponse addSubmit(@Validated PlaceEvent placeEvent, BindingResult result, Model model) {
+ 	public JsonResponse addSubmit(@Validated PlaceEvent placeEvent, BindingResult result) {
 		
 		if (result.hasErrors()) {
 			 logger.info("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
@@ -134,20 +134,24 @@ public class EventController {
 	 */
 	@RequestMapping(value = "/partner/event/edit", method = RequestMethod.POST)
 	@ResponseBody
- 	public JsonResponse editSubmit(@Validated PlaceEvent placeEvent, BindingResult result, Model model) {
+ 	public JsonResponse editSubmit(@Validated PlaceEvent placeEvent, BindingResult result) {
 		if (result.hasErrors()) {
-			logger.info("place:"+placeEvent.toString());
-			logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-			json.setResult(result.getAllErrors());
-			json.setStatus("FAIL");
-		} else {	
-			placeEvent.setPlace(placeService.getPlace(placeEvent.getPlace().getFid()));
-			logger.info("placeEvent:"+placeEvent.getTitle());
-			placeEvent.setIsDelete(false);
-			placeEventService.editPlaceEvent(placeEvent);
-			json.setResult(placeEvent);
-			json.setStatus("SUCCESS");
-		}
+			 logger.info("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			 json =  json.getValidationErrorResult(result, json);
+			
+		}else{	
+		//	Place place = placeService.getPlace(placeEvent.getPlace().getFid());
+			//placeEvent.setPlace(place);
+			//logger.info("placeEvent:"+placeEvent.getTitle());
+			PlaceEvent db = placeEventService.getPlaceEvent(placeEvent.getEid());
+		    db.setTitle(placeEvent.getTitle());
+		    db.setContent(placeEvent.getContent());
+		    
+			PlaceEvent saved = placeEventService.editPlaceEvent(db);
+			json.setSuccess();
+			json.setResult(messageSource.getMessage("register", new Object [] {saved.getTitle()} , Locale.getDefault()));
+		
+		}		
 		return json;
 	}
 	

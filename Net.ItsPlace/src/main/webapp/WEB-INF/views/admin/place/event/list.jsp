@@ -64,7 +64,7 @@
  					'autoDimensions':false,
  					'scrolling':'auto',
  					'autoScale':false,
- 					'height':500,
+ 					'height':550,
  					//'centerOnScroll':true
  					//'title':'사용자 정보 수정'
 
@@ -190,7 +190,7 @@
  		var id = oObj.aData['eid'];
  		//c.log(oObj.aData[ oObj.iDataRow ][1] );
  		c.log(""+oObj.aData['placeStamp.sid']);
- 		var editAction = '<span class="tip"><a class="fancy iframe" href="/partnere/event/edit?eid='+id+'" original-title="Edit"><i class="icon-edit icon-large  icon-border"></i></a></span>';
+ 		var editAction = '<span class="tip"><a class="fancy iframe" href="/partner/event/edit?decorator=fancy&eid='+id+'" original-title="Edit"><i class="icon-edit icon-large  icon-border"></i></a></span>';
  	
  		var deleteAction = '<span class="tip"><a class="delete" eid="'+id+'" original-title="삭제"><i class="icon-trash icon-large  icon-border"></i></a></span>';
  		var deleteRevokeAction = '<span class="tip"><a class="deleteRevoke" eid="'+id+'" original-title="복구"><i class="icon-wrench icon-large  icon-border"></i></a></span>';
