@@ -10,10 +10,10 @@ import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.domain.PlaceComment.AddPlaceComment;
 import net.itsplace.module.event.PlaceEventService;
+import net.itsplace.module.menu.PlaceMenuService;
 import net.itsplace.repository.PlacePredicates;
 import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceCommentService;
-import net.itsplace.service.PlaceMenuService;
 import net.itsplace.service.PlaceReviewService;
 import net.itsplace.service.PlaceService;
 

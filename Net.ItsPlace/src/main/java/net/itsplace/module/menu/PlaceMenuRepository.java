@@ -1,4 +1,4 @@
-package net.itsplace.repository;
+package net.itsplace.module.menu;
 
 import java.util.List;
 

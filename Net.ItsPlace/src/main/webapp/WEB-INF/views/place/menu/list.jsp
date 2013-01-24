@@ -41,8 +41,8 @@
  				  		],
  			
 	  		"fnInitComplete":function(){
- 				$('.tip a ').tipsy({trigger: 'manual'});
- 				$('.tip a ').tipsy("hide");
+ 				//$('.tip a ').tipsy({trigger: 'manual'});
+ 				//$('.tip a ').tipsy("hide");
  			},
  			"fnDrawCallback": function () {
  				
@@ -96,9 +96,9 @@
  		var id = oObj.aData['mnid'];
  		c.log("id:"+id );
  		//c.log(""+oObj.aData['placeStamp.sid']);
- 		var editAction = '<span class="tip"><a class="fancy iframe" href="/partner/menu/edit?decorator=fancy&mnid='+id+'" original-title="Edit"><img src="/resources/admin/images/icon/icon_edit.png"></a><span>';
+ 		var editAction = '<span class="tip"><a class="fancy iframe" href="/partner/menu/edit?decorator=fancy&mnid='+id+'" original-title="Edit"><i class="icon-edit icon-large  icon-border"></i></a><span>';
  	
- 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><img src="/resources/admin/images/icon/icon_delete.png"></a><span>';
+ 		var deleteAction = '<span class="tip"><a class="delete" fid="'+id+'" original-title="Delete"><i class="icon-trash icon-large  icon-border"></i></a><span>';
  		
  		return   editAction + "&nbsp;&nbsp;" + deleteAction ; 
  	}
@@ -122,7 +122,7 @@
 	</div>
 	<div class="content">
 			<div class="tableName">
-			<span style="position:absolute"><a href="/place/menu/add" class="fancy iframe uibutton icon large add ">메뉴 생성  </a></span>
+			<span style="position:absolute"><a href="/partner/menu/add" class=" uibutton icon large add ">메뉴 생성  </a></span>
 				<table class="display" id="datatable">
 				<thead>
 					<tr>

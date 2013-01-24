@@ -1,4 +1,4 @@
-package net.itsplace.controller.partner;
+package net.itsplace.module.menu;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
@@ -17,7 +17,6 @@ import net.itsplace.domain.PlaceMenu.EditPlaceMenu;
 import net.itsplace.module.event.PlaceEventService;
 import net.itsplace.service.BaseService;
 import net.itsplace.service.PlaceService;
-import net.itsplace.service.PlaceMenuService;
 import net.itsplace.user.UserInfo;
 
 import org.slf4j.Logger;

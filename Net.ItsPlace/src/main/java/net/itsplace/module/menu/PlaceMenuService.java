@@ -1,4 +1,4 @@
-package net.itsplace.service;
+package net.itsplace.module.menu;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.domain.PlaceMenu;
-import net.itsplace.repository.PlaceMenuRepository;
 import net.itsplace.repository.PlaceRepository;
+import net.itsplace.service.BaseService;
+import net.itsplace.service.PlaceService;
 import net.itsplace.user.UserInfo;
 import net.itsplace.util.ImageService;
 import net.itsplace.util.PagingManager;
