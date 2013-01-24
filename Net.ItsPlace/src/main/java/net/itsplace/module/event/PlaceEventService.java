@@ -92,7 +92,7 @@ public interface PlaceEventService {
 	}
 	@Override
 	public void deleteRevokePlaceEvent(int eid) {
-		test("9999999999999999999999999");
+		//test("9999999999999999999999999");
 		PlaceEvent placeEvent = repo.findOne(eid);
 		placeEvent.setIsDelete(false);
 		placeEvent.setEditDate(new Date());

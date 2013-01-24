@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.init.TestApplicationContext;
+import net.itsplace.module.menu.PlaceMenuService;
 import net.itsplace.repository.GroupBaseRepository;
 import net.itsplace.repository.GroupBaseRepositoryTest;
-import net.itsplace.service.PlaceMenuService;
 
 import org.junit.Test;
 import org.slf4j.Logger;
