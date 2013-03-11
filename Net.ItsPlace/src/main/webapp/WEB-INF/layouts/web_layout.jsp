@@ -13,13 +13,19 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/matchMedia.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jqModal.js" />" ></script>
 		
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/normalize.css" />" />
+		<%-- <link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/normalize.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/common.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/button.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/font/font-awesome.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/mosaic/css/mosaic.css" />" />
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/index.css" />" />
-		  
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/index.css" />" /> --%>
+
+		<!-- bootstrap 전환 -->  
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/bootstrap.css" />" />
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/common/flat-ui.css" />" />
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/mosaic/css/mosaic.css" />" />
+
+    
 		<title><decorator:title default="place" /></title>
 		<decorator:head />
 	</head>
