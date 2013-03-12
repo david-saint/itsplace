@@ -23,6 +23,7 @@
     <script type='text/javascript' src='camera/jquery.mobile.customized.min.js'></script>
     <script type='text/javascript' src='camera/camera.min.js'></script> 
 
+    
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -37,10 +38,15 @@
     <div class="header">
       <div class="row">
         <div id="header">
-          <a href="#camera" class="nav-button">camera</span></a>
-          <a href="#howtouse" class="nav-button">How to Use</span></a>
-          <a href="#examples" class="nav-button">Examples</span></a>
-          <a href="#credits" class="nav-button">Credits</span></a>
+          <div id="logo">places</div>
+          <div class="nav-buttons">
+            <a href="#camera" class="nav-button">camera</span></a>
+            <a href="#howtouse" class="nav-button">How to Use</span></a>
+            <a href="#examples" class="nav-button">Examples</span></a>
+            <a href="#login" class="nav-button">로그인</span></a>
+            <a href="#credits" class="nav-button">회원가입</span></a>
+          </div>
+          
         </div>
       </div>
     </div>
@@ -105,7 +111,25 @@
       </div>
    </div>
    
-   <div class="container slide" id="credits">
+   <div class="container slide" id="login">
+     <div class="row " >
+      <h1>Login</h1>
+            <form action="" method="post">
+                <input type="text" name="username" class="username" placeholder="Username">
+                <input type="password" name="password" class="password" placeholder="Password">
+                <button type="submit">Sign me in</button>
+                <div class="error"><span>+</span></div>
+            </form>
+            <div class="connect">
+                <p>Or connect with:</p>
+                <p>
+                    <a class="facebook" href=""></a>
+                    <a class="twitter" href=""></a>
+                </p>
+            </div>   
+     </div>
+</div>
+    <div class="container slide" id="credits">
      <div class="row " >
         <div class="span7">
           <div class="test3">
@@ -118,6 +142,7 @@
           </div>
         </div>
      </div>
+   </div>
   </di> <!-- /container -->
 
    

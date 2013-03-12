@@ -10,6 +10,15 @@
 	padding: .5rem;
 	opacity: .9;
 }
+#logo{
+	float:left;
+	margin-left: 100px;
+}
+.nav-buttons{
+	padding:5px;
+	float:right;
+	margin-right: 100px;
+}
 .nav-button {
 	padding: 10px;
 	padding: 1rem;
@@ -36,6 +45,7 @@
 	background-color: #3ABEB4;
 	text-shadow: 1px 1px 0 #1F7A71 !important;
 }
+
 
 #camera{
 		width: 100%;
