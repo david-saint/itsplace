@@ -50,7 +50,7 @@
               <li><a href="#camera" class="nav-button">camera</span></a></li>
               <li><a href="#howtouse" class="nav-button">How to Use</span></a></li>
               <li><a href="#examples" class="nav-button">Examples</span></a></li>
-              <li><a href="#login" class="nav-button">sss</span></a></li>
+              <li><a href="#credit" class="nav-button">sss</span></a></li>
               <li><a href="#myModal" class="nav-login" >시작하기</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -59,7 +59,7 @@
     </div>
 
 
-    <div class="container clearfix slide" id="camera">
+    <div class="ccontainer-fluid clearfix slide" id="camera">
        <div class="row-fluid">
           <div id="camer_container">
             <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
@@ -137,18 +137,23 @@
             </div>   
      </div>
 </div>
-    <div class="container  slide" id="credits">
-     <div class="row-fluid " >   <p>Or connect with:555555555555555555555555555555555555555555555555555555555555555555</p>
-       <!--  <div class="span7">
-          <div class="test3">
+    <div class="container-fluid  slide" id="credit">
+     <div class="row" >   <p>Or connect with:555555555555555555555555555555555555555555555555555555555555555555</p>
+        <div class="span4">
+          <div >
             span77777777777777
           </div>
         </div>
-        <div class="span5">
-           <div class="test3">
+        <div class="span4">
+           <div class="">
             span566666666666666666
           </div>
-        </div> -->
+        </div>
+        <div class="span4">
+           <div class="">
+            span566666666666666666
+          </div>
+        </div> 
      </div>
    </div> 
 
@@ -194,11 +199,11 @@
               keyboard: false
             });
         });
-        $('.btn-navbar').toggle(function(){
-            $('.nav-buttons').slideDown();
-        },function(){
-            $('.nav-buttons').slideUp();
-        });
+        // $('.btn-navbar').toggle(function(){
+        //     $('.nav-buttons').slideDown();
+        // },function(){
+        //     $('.nav-buttons').slideUp();
+        // });
         
          //camera
         jQuery('#camera_wrap_1').camera({

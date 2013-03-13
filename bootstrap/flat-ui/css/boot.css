@@ -1,8 +1,64 @@
-
-
- a.nav-button:hover {
-	color:#3ABEB4 ;
+@media screen and (max-width: 800px) {  
+	/*.navbar-fixed-top, .navbar-fixed-bottom {
+		position: relative !important;
+	}*/
+	#camera{
+		position:relative !important;
+		top:0 !important;
+	}
+	.nav-collapse {
+		float:left !important;	
+		width:100%;
+	}
+}
+@media screen and (min-width: 800px) {  
 	
+	#camera{
+		position:relative !important;
+		top:0 !important;
+	}
+	.nav-collapse {
+
+	}
+
+}
+.navbar-inverse .brand,
+.navbar-inverse .nav > li > a {
+	color: #959db5;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.navbar-inverse .brand:hover,
+.navbar-inverse .nav > li > a:hover {
+	color:#3ABEB4 ;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom{
+	
+	border-bottom: solid 3px #959db5;
+}
+
+.navbar-inverse .navbar-inner {
+	background-color: #222438 !important;
+	opacity: .9;
+	background-image: none;
+
+}
+.nav-collapse {
+	float:right ;	
+}
+
+.nav-button, .nav-login {
+	padding: 10px;
+	padding: 1rem;
+	text-decoration: none;
+	color: #959db5;
+	font-size: 10px;
+	font-size: 1rem;
+	text-shadow: 0 -1px 1px #000;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-style: normal;
 }
 .current {
 	color: #fff !important;
@@ -14,6 +70,10 @@
 	text-shadow: 1px 1px 0 #1F7A71 !important;
 }
 
+.current :hover{
+	background-color: #fff;
+	color:red;
+}
 
 #camera{
 		width: 100%;
@@ -61,13 +121,14 @@
 	text-align: center;
 }
 .test2{
-	min-height: 500px;
-	
+	min-height: 100px;
+	min-width: 100px;
+	background-color: blue;
 	
 }
 .test3{
-	min-height: 500px;
-	
+	min-height: 100px;
+	min-width: 100px;
 	background-color: red;
 }
 
