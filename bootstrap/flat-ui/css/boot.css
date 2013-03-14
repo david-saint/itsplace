@@ -2,7 +2,7 @@
 	/*.navbar-fixed-top, .navbar-fixed-bottom {
 		position: relative !important;
 	}*/
-	#camera{
+	#camea_slider{
 		position:relative !important;
 		top:0 !important;
 	}
@@ -13,7 +13,7 @@
 }
 @media screen and (min-width: 800px) {  
 	
-	#camera{
+	#camea_slider{
 		position:relative !important;
 		top:0 !important;
 	}
@@ -75,7 +75,7 @@
 	color:red;
 }
 
-#camera{
+#camea_slider{
 		width: 100%;
 }
 #camer_container{
@@ -132,3 +132,15 @@
 	background-color: red;
 }
 
+.scrollup{
+    width:40px;
+    height:40px;
+    opacity:0.3;
+    position:fixed;
+    bottom:50px;
+    right:50px;
+    display:block;
+    text-indent:-9999px;
+    z-index:9999;
+    background: url('../images/icon_top.png') no-repeat;
+}
