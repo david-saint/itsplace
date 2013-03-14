@@ -2,30 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Flat UI</title>
+    <title>Its PLACE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Loading Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet"> 
     <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet"> 
     <link href="css/boot.css" rel="stylesheet"> 
-  <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="http://wbpreview.com/previews/WB0459130/css/parallax_style_1.1.3.css">
     <!-- Loading Flat UI -->
     <!-- <link href="css/flat-ui.css" rel="stylesheet"> -->
     <link rel="shortcut icon" href="images/favicon.ico">
     <script src="js/jquery-1.8.2.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-    <!-- scroll deck -->
-    <script src="main/jquery.scrollTo-1.4.3.1.min.js"></script>
-    <script src="main/jquery.scrollorama.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
     <script src="main/jquery.easing.1.3.js"></script>
-    <script src="main/jquery.scrolldeck.js"></script>
 
     <!--camera slider -->
-    <link rel='stylesheet' id='camera-css'  href='camera/camera.css' type='text/css' media='all'> 
+    <link rel='stylesheet' href='camera/camera.css' type='text/css' media='all'> 
     <script type='text/javascript' src='camera/jquery.mobile.customized.min.js'></script>
     <script type='text/javascript' src='camera/camera.min.js'></script> 
 
+    <!-- -->
+    <script src="main/jquery.scrollTo-1.4.3.1.min.js"></script>
+    <script type='text/javascript' src='http://wbpreview.com/previews/WB0459130/js/jquery.parallax-1.1.3.min.js'></script>
+    <script type='text/javascript' src='http://wbpreview.com/previews/WB0459130/js/jquery.localscroll-1.2.7-min.js'></script>
+    
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -38,9 +41,6 @@
     </script>
   </head>
   <body>
-
-   
-    
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -49,13 +49,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">ITS PLACE</a>
           <div class="nav-collapse in collapse" style="height: auto;">
-            <ul class="nav">
-              <li><a href="#camera" class="nav-button">camera</span></a></li>
+            <ul class="nav" >
+              <li><a href="#camea_slider" class="nav-button">PLACES</span></a></li>
               <li><a href="#howtouse" class="nav-button">How to Use</span></a></li>
-              <li><a href="#examples" class="nav-button">Examples</span></a></li>
-              <li><a href="#credit" class="nav-button">credis</span></a></li>
+              <li><a href="#about" class="nav-button">ABOUT</span></a></li>
+              <li><a href="#credit" class="nav-button">도움주신분</span></a></li>
               <li><a href="#myModal" class="nav-login" >시작하기</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -63,53 +63,55 @@
       </div>
     </div>
 
+      <div class="ccontainer-fluid clearfix Parallax" id="camea_slider">
+         <div class="row-fluid" >
+            <div id="camer_container">
+              <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+                <div data-thumb="camera/slides/thumbs/bridge.jpg" data-src="camera/slides/bridge.jpg">
+                    <div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>
+                </div>
+                <div data-thumb="camera/slides/thumbs/leaf.jpg" data-src="camera/slides/leaf.jpg">
+                    <div class="camera_caption fadeFromTop" style="position:absolute;top:100px;left:200px;background-color:transparent;width:300px;">
+                        It uses a light version of jQuery mobile, <em>아하하하하하</em>
+                    </div>
+                </div>
+                <div data-thumb="camera/slides/thumbs/road.jpg" data-src="camera/slides/road.jpg">
+                    <div class="camera_caption fadeFromBottom">
+                        <em>It's completely free</em> (even if a donation is appreciated)
+                    </div>
+                </div>
+                <div data-thumb="camera/slides/thumbs/sea.jpg" data-src="camera/slides/sea.jpg">
+                    <div class="camera_caption fadeFromRight">
+                        Camera slideshow provides many options <em>to customize your project</em> as more as possible
+                    </div>
+                </div>
+               
+                <div data-thumb="camera/slides/thumbs/tree.jpg" data-src="camera/slides/tree.jpg">
+                    <div class="camera_caption moveFromTop">
+                        Different color skins and layouts available, <em>fullscreen ready too</em>
+                    </div>
+                </div>
+              </div><!-- #camera_wrap_1 -->  
+            </div>     
+         </div>
+      </div>
+    <!-- 소개-->
+     <div class="container-fluid" id="howtouse">
 
-    <div class="ccontainer-fluid clearfix slide" id="camea_slider">
-       <div class="row-fluid" id="camera">
-          <div id="camer_container">
-            <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-              <div data-thumb="camera/slides/thumbs/bridge.jpg" data-src="camera/slides/bridge.jpg">
-                  <div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>
-              </div>
-              <div data-thumb="camera/slides/thumbs/leaf.jpg" data-src="camera/slides/leaf.jpg">
-                  <div class="camera_caption fadeFromTop" style="position:absolute;top:100px;left:200px;background-color:transparent;width:300px;">
-                      It uses a light version of jQuery mobile, <em>아하하하하하</em>
-                  </div>
-              </div>
-              <div data-thumb="camera/slides/thumbs/road.jpg" data-src="camera/slides/road.jpg">
-                  <div class="camera_caption fadeFromBottom">
-                      <em>It's completely free</em> (even if a donation is appreciated)
-                  </div>
-              </div>
-              <div data-thumb="camera/slides/thumbs/sea.jpg" data-src="camera/slides/sea.jpg">
-                  <div class="camera_caption fadeFromRight">
-                      Camera slideshow provides many options <em>to customize your project</em> as more as possible
-                  </div>
-              </div>
-             
-              <div data-thumb="camera/slides/thumbs/tree.jpg" data-src="camera/slides/tree.jpg">
-                  <div class="camera_caption moveFromTop">
-                      Different color skins and layouts available, <em>fullscreen ready too</em>
-                  </div>
-              </div>
-            </div><!-- #camera_wrap_1 -->  
-          </div>     
-       </div>
-    </div>
-
-   <div class="container  slide" id="howtouse">
-
-     <div class="row-fluid"> <p>Or connect with:555555555555555555555555555555555555555555555555555555555555555555</p>
-       <!--  <div class="span7">
-          <div class="test">11111111111111</div>
+      <div class="row"> 
+        <div class="span4">
+          <p class="">11111111111111</p>
         </div>
-        <div class="span5">
-          <div class="test">11111111111111</div>
-        </div> -->
+        <div class="span4">
+          <p class="">222222</p>
+        </div>
+        <div class="span4">
+          <p class="">222222</p>
+        </div>
      </div>
    </div>
 
-   <div class="container  slide" id="examples">
+   <div class="container" id="about" >
       <div class="row">
         <!-- <div class="span6">
           <div class="test2">
@@ -123,8 +125,7 @@
         </div> -->
       </div>
    </div>
-   
-   <div class="container  slide" id="login">
+   <div class="container" id="login">
      <div class="row " >
       <h1>Login</h1>
             <form action="" method="post">
@@ -214,6 +215,16 @@
  
     <script type="text/javascript">
       $(document).ready(function() {
+        $('.nav').localScroll(800);
+       $('#camea_slider').parallax("90%", 0.4);
+        $('#howtouse').parallax("50%", 0.4);
+
+        $('.nav a').click(function(){
+          $('.nav a').removeClass("active");
+          $(this).addClass("active")
+
+        });
+
         $('.nav-login').click(function(){
             $('#myModal').modal({
               keyboard: false
@@ -227,6 +238,7 @@
         
          //camera
         jQuery('#camera_wrap_1').camera({
+          //height: '41%',
             time:3000,
             loader: 'bar',//'bar'
             pagination: false,
@@ -236,21 +248,7 @@
             imagePath: '../images/'
          });
 
-
-        //scrolldesck
-        var deck = new $.scrolldeck({
-          buttons: '.nav-button',
-         // slides: '.slide',
-          duration: 1000,
-          easing: 'easeInOutExpo',
-         // offset: 0
-        });
         
-        // add other animations using the scrolldeck.controller (see Scrollorama plugin)
-       // console.log(deck.controller);
-        deck.controller.animate('#camera',{ duration: 500, property:'opacity', end: 0 });
-        
-
         //scroll to top
         $(window).scroll(function(){
                 if ($(this).scrollTop() > 100) {
@@ -264,7 +262,52 @@
             $("html, body").animate({ scrollTop: 0 }, 600);
             return false;
         });  
+
+        var buttons = $('.nav-button');
+        var scrollPoints = [];
+        for (i=0; i<buttons.length;i++){
+          var p = $($(buttons[i]).attr('href')).offset().top;
+          scrollPoints.push(p);//console.log(p);
+        }
+        $(window).scroll(function( ){  //스크롤이 움직일때마다 이벤트 발생 
+              var position = $(this).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
+
+              if($('#howtouse').offset().top>position){
+                //console.log("ss:"+position);
+              }
+              
+
+              for(i=0;i<scrollPoints.length;i++){
+                if(i == 0 && position <= scrollPoints[i]){
+                  $(buttons).removeClass('active');
+                    $(buttons[i]).addClass('active');
+                    console.log("처음 ");
+                    break;
+                }else{
+                  if( position >= scrollPoints[i-1]  && position <= scrollPoints[i] ){
+                    console.log(scrollPoints[i] );
+                    $(buttons).removeClass('active');
+                    $(buttons[i]).addClass('active');
+                  }
+                }
+              }
+         });
       });
+function test(curPosition){
+    var buttons = $('.nav-button');
+        for (i=0; i<buttons.length;i++){
+          var p = $($(buttons[i]).attr('href')).offset().top;
+          if(i == 0 && p <= curPosition){
+            return 0;
+          }else if(curPosition <= p ){
+             var bp = $($(buttons[i-1]).attr('href')).offset().top;
+            if(bp>=curPosition && p <= curPosition){
+              return i;
+            }
+            //console.log(postion);
+          }
+        }
+}
     </script>
   </body>
 </html>
