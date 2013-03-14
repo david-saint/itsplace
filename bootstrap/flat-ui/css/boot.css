@@ -60,7 +60,7 @@
 	font-weight: bold;
 	font-style: normal;
 }
-.current {
+.active {
 	color: #fff !important;
 	text-decoration: none;
 	-webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
@@ -70,20 +70,22 @@
 	text-shadow: 1px 1px 0 #1F7A71 !important;
 }
 
-.current :hover{
+.active :hover{
 	background-color: #fff;
 	color:red;
 }
 
 #camea_slider{
-		width: 100%;
+	width: 100%;
 }
+
 #camer_container{
-	min-height: 1024px;
+	min-height: 720px;
 	
 }
+
 #howtouse{
-		width: 100%;
+	
 	background: url(http://whiteboard.is/img/bg-about-color-2.jpg) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -91,9 +93,21 @@
 	background-size: cover;
 	min-height: 400px;
 	text-align: center;
+	border:1px solid red;
 }
 
-#howtouse2{
+#about{
+	width: 100%;
+	background: url(http://wbpreview.com/previews/WB0225S29/assets/img/mac.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 400px;
+	border:1px solid blue;
+}
+
+#patten{
 	position: absolute;
 	
 	top: 100;
@@ -109,16 +123,6 @@
 
 	min-height: 800px;
 	
-}
-#examples{
-	width: 100%;
-	background: url(http://wbpreview.com/previews/WB0225S29/assets/img/mac.jpg) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	min-height: 400px;
-	text-align: center;
 }
 .test2{
 	min-height: 100px;
