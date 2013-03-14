@@ -14,11 +14,13 @@
     <!-- <link href="css/flat-ui.css" rel="stylesheet"> -->
     <link rel="shortcut icon" href="images/favicon.ico">
     <script src="js/jquery-1.8.2.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     <!-- scroll deck -->
     <script src="main/jquery.scrollTo-1.4.3.1.min.js"></script>
     <script src="main/jquery.scrollorama.js"></script>
     <script src="main/jquery.easing.1.3.js"></script>
     <script src="main/jquery.scrolldeck.js"></script>
+
     <!--camera slider -->
     <link rel='stylesheet' id='camera-css'  href='camera/camera.css' type='text/css' media='all'> 
     <script type='text/javascript' src='camera/jquery.mobile.customized.min.js'></script>
@@ -36,6 +38,9 @@
     </script>
   </head>
   <body>
+
+   
+    
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -50,7 +55,7 @@
               <li><a href="#camera" class="nav-button">camera</span></a></li>
               <li><a href="#howtouse" class="nav-button">How to Use</span></a></li>
               <li><a href="#examples" class="nav-button">Examples</span></a></li>
-              <li><a href="#credit" class="nav-button">sss</span></a></li>
+              <li><a href="#credit" class="nav-button">credis</span></a></li>
               <li><a href="#myModal" class="nav-login" >시작하기</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -59,8 +64,8 @@
     </div>
 
 
-    <div class="ccontainer-fluid clearfix slide" id="camera">
-       <div class="row-fluid">
+    <div class="ccontainer-fluid clearfix slide" id="camea_slider">
+       <div class="row-fluid" id="camera">
           <div id="camer_container">
             <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
               <div data-thumb="camera/slides/thumbs/bridge.jpg" data-src="camera/slides/bridge.jpg">
@@ -129,62 +134,77 @@
                 <div class="error"><span>+</span></div>
             </form>
             <div class="connect">
-                <p>Or connect with:555555555555555555555555555555555555555555555555555555555555555555</p>
-                <p>
+                <p class="animate-in" data-animation="fly-in-left">ssshis paragraph will fly in from the left.</p>
+                <p>dddddddddddd
                     <a class="facebook" href=""></a>
                     <a class="twitter" href=""></a>
                 </p>
             </div>   
      </div>
 </div>
-    <div class="container-fluid  slide" id="credit">
-     <div class="row" >   <p>Or connect with:555555555555555555555555555555555555555555555555555555555555555555</p>
-        <div class="span4">
-          <div >
-            span77777777777777
-          </div>
-        </div>
-        <div class="span4">
-           <div class="">
-            span566666666666666666
-          </div>
-        </div>
-        <div class="span4">
-           <div class="">
-            span566666666666666666
-          </div>
-        </div> 
-     </div>
-   </div> 
+
+
+  <div class="container-fluid slide" id="credit">
+    <div class="row-fluid">
+            <ul class="thumbnails">
+              <li class="span4">
+                <div class="thumbnail">
+                  <img src="https://www.pulse.me/media/images/new_site/brands_hero_device-717a37a6e2bda681302dd6339ea965c0459a5833.jpg " alt="300x200">
+                  <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
+                </div>  
+              </li>
+              <li class="span4">
+                <div class="thumbnail">
+                  <img  alt="300x200" data-src="holder.js/300x200">
+                  <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
+                </div>
+              </li>
+              <li class="span4">
+                <div class="thumbnail">
+                  <a href="#" >
+                  <img src="http://www.springsource.org/files/homepage/home-video-big_WhatIsSpring_496.png" alt="300x200">
+                </a>
+                  <div class="caption">
+                    <h3>Thumbnail label</h3>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>   
+  </div> 
+
+
+
 
    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
-  <div class="modal-body">
-    <p>One fine body…</p>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Modal header</h3>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
 </div>
  
 
-  
+   <a  class="scrollup">Scroll</a>
 
     <!-- Load JS here for greater good =============================-->
 
-    <script src="js/jquery-ui-1.10.0.custom.min.js"></script>
-    <script src="js/jquery.dropkick-1.0.0.js"></script>
-    <script src="js/custom_checkbox_and_radio.js"></script>
-    <script src="js/custom_radio.js"></script>
-    <script src="js/jquery.tagsinput.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.placeholder.js"></script>
-    <script src="http://vjs.zencdn.net/c/video.js"></script>
-    <script src="js/application.js"></script>
   
     <!--[if lt IE 8]>
       <script src="js/icon-font-ie7.js"></script>
@@ -220,18 +240,30 @@
         //scrolldesck
         var deck = new $.scrolldeck({
           buttons: '.nav-button',
-          slides: '.slide',
+         // slides: '.slide',
           duration: 1000,
           easing: 'easeInOutExpo',
-          offset: 0
+         // offset: 0
         });
         
         // add other animations using the scrolldeck.controller (see Scrollorama plugin)
-        console.log(deck.controller);
+       // console.log(deck.controller);
         deck.controller.animate('#camera',{ duration: 500, property:'opacity', end: 0 });
         
 
-       
+        //scroll to top
+        $(window).scroll(function(){
+                if ($(this).scrollTop() > 100) {
+                    $('.scrollup').fadeIn();
+                } else {
+                    $('.scrollup').fadeOut();
+                }
+            });
+
+        $('.scrollup').click(function(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        });  
       });
     </script>
   </body>
