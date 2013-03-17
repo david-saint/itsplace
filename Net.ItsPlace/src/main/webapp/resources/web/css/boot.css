@@ -1,0 +1,165 @@
+@media screen and (max-width: 800px) {  
+	/*.navbar-fixed-top, .navbar-fixed-bottom {
+		position: relative !important;
+	}*/
+	#camea_slider{
+		position:relative !important;
+		top:0 !important;
+	}
+	.nav-collapse {
+		float:left !important;	
+		width:100%;
+	}
+}
+@media screen and (min-width: 800px) {  
+	
+	#camea_slider{
+		position:relative !important;
+		top:0 !important;
+	}
+	.nav-collapse {
+
+	}
+
+}
+.navbar-inverse .brand,
+.navbar-inverse .nav > li > a {
+	color: #959db5;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.navbar-inverse .brand:hover,
+.navbar-inverse .nav > li > a:hover {
+	color:#3ABEB4 ;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom{
+	
+	border-bottom: solid 3px #959db5;
+}
+
+.navbar-inverse .navbar-inner {
+	background-color: #222438 !important;
+	opacity: .9;
+	background-image: none;
+
+}
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+    }
+.nav-collapse {
+	float:right ;	
+}
+
+.nav-button, .nav-login {
+	padding: 10px;
+	padding: 1rem;
+	text-decoration: none;
+	color: #959db5;
+	font-size: 10px;
+	font-size: 1rem;
+	text-shadow: 0 -1px 1px #000;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-style: normal;
+}
+.active {
+	color: #fff !important;
+	text-decoration: none;
+	-webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.3);
+	background-color: #3ABEB4 !important;
+	text-shadow: 1px 1px 0 #1F7A71 !important;
+}
+
+.active :hover{
+	background-color: #fff;
+	color:red;
+}
+
+
+
+#howtouse{
+	
+	background: url(http://whiteboard.is/img/bg-about-color-2.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 400px;
+	text-align: center;
+	border:1px solid red;
+}
+
+#about{
+	
+	background: url(http://wbpreview.com/previews/WB0225S29/assets/img/mac.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 400px;
+	border:1px solid blue;
+}
+
+#patten{
+	position: absolute;
+	
+	top: 100;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 25;
+	background-image: url(http://whiteboard.is/img/dot-pattern.png);
+
+}
+
+.test{
+
+	min-height: 800px;
+	
+}
+.test2{
+	min-height: 100px;
+	min-width: 100px;
+	background-color: blue;
+	
+}
+.test3{
+	min-height: 100px;
+	min-width: 100px;
+	background-color: red;
+}
+
+.scrollup{
+    width:40px;
+    height:40px;
+    opacity:0.3;
+    position:fixed;
+    bottom:50px;
+    right:50px;
+    display:block;
+    text-indent:-9999px;
+    z-index:9999;
+    background: url('../images/icon_top.png') no-repeat;
+}
+
+/* 
+.login-form input[type="email"], #signinForm input[type="text"] , #signinForm input[type="password"] {
+	margin: 0 10px 0 0;
+	padding: 12px 18px;
+	
+	font-family: "proxima-nova","Helvetica-neue",helvetica,sans-serif;
+	font-weight: 200;
+	font-size: 16px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+	color: #777;
+	border: 1px solid #444;
+	outline: 0;
+	border-radius: 3px;
+	border: 1px solid #DFE0E4;
+	background-color: white;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+} */
