@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +40,9 @@ public class IndexController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(@RequestParam(value="badCredential", required=false) boolean badCredential, Locale locale, Model model) {
-		Locale.setDefault(locale) ;
+		Locale.setDefault(locale);
+		Locale.setDefault(Locale.ENGLISH);
+
 		logger.info("사용자 메인 페이지:"+badCredential);
 		
 	
@@ -67,10 +70,15 @@ public class IndexController {
 	}
 	
 	
-	@RequestMapping(value = "/getmessage", method = RequestMethod.GET)
-	public @ResponseBody String getMessage() {
-	  	logger.info("Accessing protected resource");
-	   	return "ssssssssss";
+	
+	@RequestMapping(value = "/locale/{locale}", method = RequestMethod.GET)
+	public String locale(@PathVariable String locale ) {
+		if(locale == "en"){
+			Locale.setDefault(Locale.ENGLISH);
+		}else{
+			Locale.setDefault(Locale.KOREAN);
+		}
+		return "web/index/index";
 	}
 	
 }
