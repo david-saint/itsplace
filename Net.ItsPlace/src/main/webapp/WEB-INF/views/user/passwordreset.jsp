@@ -32,7 +32,7 @@
 				<div class="row" style="border:0px solid gray">
 		          <div class="span8" style="padding-right: 16px;">
 		         
-		          		<input id="id_email" type="text" name="email" style="width:100%;padding-bottom: 11px;padding-top: 11px;">
+		          		<input id="id_email" type="email" name="email" style="width:100%;padding-bottom: 11px;padding-top: 11px;">
 		          
 		          </div>
 		          <div class="span4"><input type="submit" class="btn btn-large btn-block " value="Send Me"> <span>${error}</span>	</div>

@@ -1,7 +1,7 @@
-@media screen and (max-width: 800px) {  
-	/*.navbar-fixed-top, .navbar-fixed-bottom {
+/* @media screen and (max-width: 800px) {  
+	.navbar-fixed-top, .navbar-fixed-bottom {
 		position: relative !important;
-	}*/
+	}
 	#camea_slider{
 		position:relative !important;
 		top:0 !important;
@@ -21,7 +21,15 @@
 
 	}
 
-}
+} */
+
+ 
+ @media (max-width: 980px) {  
+      
+ 	.nav-collapse {
+		float: left !important;
+	 }
+  }
 .navbar-inverse .brand,
 .navbar-inverse .nav > li > a {
 	color: #959db5;

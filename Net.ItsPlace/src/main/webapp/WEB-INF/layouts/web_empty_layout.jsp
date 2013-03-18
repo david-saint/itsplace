@@ -12,21 +12,19 @@
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/bootstrap.css" />" />
 		<link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" /> 
  		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/font/font-awesome.css" />" />
- 			<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/flat-ui.css" />" />
+ 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/flat-ui.css" />" />
  	    <script type="text/javascript" src="<c:url value="/resources/web/js/jquery-1.8.2.min.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/web/js/bootstrap.min.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/web/js/common-1.0.0.js" />" ></script>
-		
-    
 		<title><decorator:title default="place" /></title>
 		<decorator:head />
 		<style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-      .nav-collapse {
-		float: right;
-	   }
+	      body {
+	        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	      }
+	      .nav-collapse {
+			float: right;
+		   }
        
        
        
@@ -62,7 +60,7 @@
 						<ul class="nav">
 							
 							
-							<li><a href="#myModal" class="nav-login">시작하기</a></li>
+							<li><a href="/sign-in" class="nav-login">시작하기</a></li>
 						</ul>
 					</div>
 					<!--/.nav-collapse -->
