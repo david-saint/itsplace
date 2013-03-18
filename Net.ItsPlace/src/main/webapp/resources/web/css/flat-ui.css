@@ -1522,44 +1522,44 @@ textarea,
     vertical-align: middle;
     width: 13px; }
 
-.share {
+.userDetail {
   background-color: #ecf0f5;
   border-radius: 6px;
   position: relative; }
-  .share:before {
+  .userDetail:before {
     content: "";
     border-style: solid;
     border-width: 0 9px 9px 9px;
     border-color: transparent transparent #ecf0f5 transparent;
     height: 0px;
     position: absolute;
-    left: 23px;
+    left: 253px;
     top: -9px;
     width: 0px;
     -webkit-transform: rotate(360deg); }
-  .share ul {
+  .userDetail ul {
     list-style-type: none;
     margin: 0;
     padding: 15px; }
-  .share li {
+  .userDetail li {
     padding-top: 11px;
     *zoom: 1; }
-    .share li:before, .share li:after {
+    .userDetail li:before, .userDetail li:after {
       display: table;
       content: ""; }
-    .share li:after {
+    .userDetail li:after {
       clear: both; }
-    .share li:first-child {
+    .userDetail li:first-child {
       padding-top: 0; }
-  .share .toggle {
+  .userDetail .toggle {
     float: right;
     margin: 0; }
-  .share .btn {
+  .userDetail .btn {
     -webkit-border-radius: 0 0 6px 6px;
     -moz-border-radius: 0 0 6px 6px;
     border-radius: 0 0 6px 6px; }
 
-.share-label {
+.userDetail-label {
   float: left;
   font-size: 15px;
   padding-top: 5px;

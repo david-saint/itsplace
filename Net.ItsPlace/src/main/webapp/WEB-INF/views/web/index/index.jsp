@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/boot.css" />" />
-		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/flat-ui.css" />" />
+		
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
   </head>
   <body>
@@ -27,7 +27,7 @@
               <li><a href="#camea_slider" class="nav-button">PLACES</span></a></li>
               <li><a href="#howtouse" class="nav-button">How to Use</span></a></li>
               <li><a href="#about" class="nav-button">ABOUT</span></a></li>
-              <li><a href="#credit" class="nav-button">도움주신분</span></a></li>
+              <li><a href="#credit" class="nav-button">도움주신</span></a></li>
                <li><a href="#" class="nav-login" ><%=request.getLocale().getDisplayLanguage(request.getLocale())%> </a>
                <ul>
                         <li><a href="?locale=en"><%=Locale.ENGLISH.getDisplayLanguage()%></a></li>
