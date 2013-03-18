@@ -5,6 +5,11 @@
     <decorator name="web" page="/WEB-INF/layouts/web_layout.jsp">
        <pattern>/*</pattern>
     </decorator> 
+    
+    <decorator name="web_empty" page="/WEB-INF/layouts/web_empty_layout.jsp">
+       <pattern>/passwordreset</pattern>
+    </decorator>
+    
     <decorator name="places" page="/WEB-INF/layouts/places_layout.jsp">
        <pattern>/places</pattern>
     </decorator>

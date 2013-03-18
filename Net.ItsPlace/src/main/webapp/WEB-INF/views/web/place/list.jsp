@@ -119,7 +119,8 @@ function mouseout() {
 		<iframe id="placeView"></iframe>
 	</div>
 </div>
- <div  id="userDetail" class="userDetailNone">
+<!-- 유저 상세정보 -->
+<%--  <div  id="userDetail" class="userDetailNone">
 	<sec:authorize ifAnyGranted="ROLE_USER">
  		 	<img src='<sec:authentication property="principal.user.profileImageUrl" />' alt='' /> 
  		 	<div id="name"><sec:authentication property="principal.user.name" /></div>
@@ -128,8 +129,36 @@ function mouseout() {
 	 <a href="${context}/logout">로그아웃</a>
 	  <div class="arrow-border"></div>
  	  <div class="arrow"></div>
-</div>
+</div> --%>
 
+<div  id="userDetail" class="userDetailNone">
+ 		<div class="userDetail mrl">
+            <ul>
+              <li>
+                 <a href="${context}/logout">로그아웃</a>
+              </li>
+              <li>
+                <label class="share-label" for="share-toggle4">Twitter</label>
+                <div class="toggle">
+                  <label class="toggle-radio" for="share-toggle4">ON</label>
+                  <input type="radio" name="share-toggles2" id="share-toggle4" value="toggle1" checked="checked">
+                  <label class="toggle-radio" for="share-toggle3">OFF</label>
+                  <input type="radio" name="share-toggles2" id="share-toggle3" value="toggle2">
+                </div>
+              </li>
+              <li>
+                <label class="share-label" for="share-toggle6">Pinterest</label>
+                <div class="toggle">
+                  <label class="toggle-radio" for="share-toggle6">ON</label>
+                  <input type="radio" name="share-toggles3" id="share-toggle6" value="toggle1">
+                  <label class="toggle-radio" for="share-toggle5">OFF</label>
+                  <input type="radio" name="share-toggles3" id="share-toggle5" value="toggle2" checked="checked">
+                </div>
+              </li>
+            </ul>
+            <a href="#" class="btn btn-primary btn-block btn-large">Share</a>
+          </div> <!-- /share -->
+</div>          
 
 <div id="header">
 	<div id="logo"> place  </div>
