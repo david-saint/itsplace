@@ -9,7 +9,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/boot.css" />" />
-		
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
   </head>
   <body>
@@ -263,7 +262,7 @@
          // $(this).addClass("active")
 
         });
-		if(!util.empty('${error}')){
+		if(!util.empty('${errorcode}')){
 			$('#myModal').modal({
 	              keyboard: false
 	            });

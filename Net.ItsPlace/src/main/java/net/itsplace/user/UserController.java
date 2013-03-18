@@ -64,7 +64,7 @@ public class UserController {
 		return "user/temp";
 	}
 	/**
-	 * 소셜 로그인 최초등록일경
+	 * 소셜 로그인 최초등록(회원가입시 비밀번호가 공백임) 그리고 이메일 회원가입 
 	 * @author 김동훈
 	 * @version 1.0, 2011.8.15 
 	 * @param 
@@ -86,26 +86,28 @@ public class UserController {
 			user.setName(providerUser.getName());
 			user.setProfileImageUrl(connection.getProfileUrl());
 			user.setRole("ROLE_USER");
-			
-//			userService.saveUser(user);
-//			User dbUser = userService.getUser(user.getEmail());
-//			CustomUserDetailsService cuser = new CustomUserDetailsService();
-//			CustomUserDetails details = new CustomUserDetails(
-//					dbUser, 
-//					dbUser.getEmail(),						
-//					dbUser.getPassword().toLowerCase(),
-//					true,
-//					true,
-//					true,
-//					true,
-//					cuser.getAuthorities("ROLE_USER"));
-//			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
-//			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
-//			SecurityContextHolder.getContext().setAuthentication(newAuth);
+			user.setPassword(Math.random()+"itsplace");
+			userService.saveUser(user);
+			User dbUser = userService.getUser(user.getEmail());
+			CustomUserDetailsService cuser = new CustomUserDetailsService();
+			CustomUserDetails details = new CustomUserDetails(
+					dbUser, 
+					dbUser.getEmail(),						
+					dbUser.getPassword().toLowerCase(),
+					true,
+					true,
+					true,
+					true,
+					cuser.getAuthorities("ROLE_USER"));
+			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
+			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
 			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
-//			return "redirect:/places";
-			model.addAttribute("user", user);
-			return "user/signup";
+			return "redirect:/places";
+			
+			
+			//model.addAttribute("user", user);
+			//return "user/signup";
 		} else {
 			//return new SignupForm();
 			System.out.println("facebook login 회원가입으");

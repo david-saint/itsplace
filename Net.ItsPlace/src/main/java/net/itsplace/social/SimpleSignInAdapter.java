@@ -72,7 +72,7 @@ public class SimpleSignInAdapter implements SignInAdapter {
 				cuser.getAuthorities("ROLE_USER"));
 		System.out.println("password:"+details.getUser().getPassword());
 		
-		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+		UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(), cuser.getAuthorities("ROLE_USER"));
 		//	RememberMeAuthenticationToken newAuth = new RememberMeAuthenticationToken("itsplace",details,cuser.getAuthorities("ROLE_USER"));
 		//PersistentTokenBasedRememberMeServices d ; d.
 		HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);

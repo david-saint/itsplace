@@ -57,9 +57,8 @@ public class IndexController {
 			}
 		}
 		if(badCredential == true){
+			model.addAttribute("errorcode","001");
 			model.addAttribute("error","이메일 또는 비밀번호가 잘못되었어요");
-		}else{
-			model.addAttribute("error","");
 		}
 		model.addAttribute("recentPlaceList",placeService.findByRecentPalces(4));
 		model.addAttribute("recentEventList",placeEventService.getRecentEventList(4));
@@ -69,7 +68,11 @@ public class IndexController {
 		return "web/index/index";
 	}
 	
-	
+	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+	public String signin(Model model) {
+		model.addAttribute("errorcode","002");
+		return "web/user/sign-in";
+	}
 	
 	@RequestMapping(value = "/locale/{locale}", method = RequestMethod.GET)
 	public String locale(@PathVariable String locale ) {
