@@ -1,6 +1,7 @@
 package net.itsplace.util;
 
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,4 +79,61 @@ public class StringUtil{
 		 }
 		 return result;
 	 }
+	 
+	 public static boolean patternMatch(String pattern, String str){
+
+		 boolean okPattern = false;
+		 String patternRegex = null;
+
+		 pattern = pattern.trim().toLowerCase();
+
+		 //숫자
+		 if("num".equals(pattern)){ 
+		 patternRegex = "^[0-9]*$";
+
+		 //영어 
+		 }else if("eng".equals(pattern)){ 
+		 patternRegex = "^[a-zA-Z]*$";
+
+		 //한글 
+		 }
+		 else if("kor".equals(pattern)){
+		 patternRegex = "^[ㄱ-ㅎ가-힣]*$";
+
+		 //영숫자 
+		 }else if("eng_num".equals(pattern) || "num_eng".equals(pattern)){
+		 patternRegex = "^[a-zA-Z0-9]*$";
+
+		 //한숫자
+		 }else if("kor_num".equals(pattern) || "num_kor".equals(pattern)){
+		 patternRegex = "^[ㄱ-ㅎ가-힣0-9]*$"; 
+
+		 //이메일
+		 }else if("email".equals(pattern)){
+		 patternRegex = "^[_0-9a-zA-Z-]+@[0-9a-zA-Z]+(.[_0-9a-zA-Z-]+)*$";
+
+		 //핸드폰
+		 }else if("hp".equals(pattern)){
+		 patternRegex = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+
+		 //전화 
+		 }else if("tel".equals(pattern)){
+		 patternRegex = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
+
+		 //주민번호
+		 }else if("ssn".equals(pattern)){
+		 patternRegex = "^\\d{7}-[1-4]\\d{6}";
+
+		 //아이피 
+		 }else if("ip".equals(pattern)){
+		 patternRegex = "([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})";
+
+		 }
+
+		 okPattern = Pattern.matches(patternRegex, str);
+
+		 return okPattern;
+		 }
+		
+
 }

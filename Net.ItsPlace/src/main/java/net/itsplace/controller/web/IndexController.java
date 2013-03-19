@@ -68,11 +68,7 @@ public class IndexController {
 		return "web/index/index";
 	}
 	
-	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
-	public String signin(Model model) {
-		model.addAttribute("errorcode","002");
-		return "web/user/sign-in";
-	}
+
 	
 	@RequestMapping(value = "/locale/{locale}", method = RequestMethod.GET)
 	public String locale(@PathVariable String locale ) {

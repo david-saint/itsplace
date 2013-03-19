@@ -26,7 +26,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                 response.getWriter().flush();
             
        }else{
-    	   response.sendRedirect(request.getContextPath() + "/?badCredential=true");
+    	   response.sendRedirect(request.getContextPath() + "/sign-in/badCredential");
        }
          
     }

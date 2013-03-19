@@ -55,7 +55,7 @@
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="brand" href="#">ITS PLACE</a>
+					<a class="brand" href="/">ITS PLACE</a>
 					<div class="nav-collapse in collapse" style="height: auto;">
 						<ul class="nav">
 							

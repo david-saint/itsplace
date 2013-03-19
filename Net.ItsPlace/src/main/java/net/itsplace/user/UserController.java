@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import com.google.gdata.util.common.base.StringUtil;
+
 
 
 
@@ -66,28 +68,73 @@ public class UserController {
 	/**
 	 * 소셜 로그인 최초등록(회원가입시 비밀번호가 공백임) 그리고 이메일 회원가입 
 	 * @author 김동훈
-	 * @version 1.0, 2011.8.15 
+	 * @version 1.0, 2013.3.19  
 	 * @param 
 	 * @return  접근권한 없음 페이지
 	 * @see 
 	 */
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
-	public String signup( Model model, WebRequest request) {
-		System.out.println("facebook login");
+	public String signup( Model model, WebRequest request,User signupEmail) {
+		
+		System.out.println("social login");
+		
 		User user = new User();
 		Connection<?> connection = ProviderSignInUtils.getConnection(request);
 		if (connection != null) {
 			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
 			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
 			UserProfile providerUser =	connection.fetchUserProfile();
-			System.out.println("사인업"+providerUser.getEmail()+providerUser.getName()+providerUser.getUsername());
+			System.out.println("사인업:email:"+providerUser.getEmail()+" name:"+providerUser.getName()+ "username:"+providerUser.getUsername()+connection.getProfileUrl());
+			String userEmail = "";
+			if(signupEmail.getEmail()!=null){
+				System.out.println("email:" +signupEmail.getEmail());
+				if(net.itsplace.util.StringUtil.patternMatch("email", signupEmail.getEmail())){
+					user.setName(providerUser.getName());
+					userEmail = signupEmail.getEmail();
+					if(userService.getUser(userEmail) != null){
+						model.addAttribute("error","email은 이미 사용중입니다.");	
+						model.addAttribute("user", user);
+						return "forward:/signup-email";
+					}
+				}else{
+					user.setName(providerUser.getName());
+					model.addAttribute("error","email을 잘못입력하셧습니다.");	
+					model.addAttribute("user", user);
+					return "forward:/signup-email";
+				}
+			}else{
+				if(providerUser.getEmail() == null || providerUser.getEmail().isEmpty()){
+					
+					//개인정보에서 이메일 공개하지않을겨우
+					
+					user.setName(providerUser.getName());
+//				    user.setProfileImageUrl(connection.getProfileUrl());
+//				    user.setPassword(Math.random()+"itsplace");
+					model.addAttribute("user", user);
+				
+					//이메일 입력후 가입 계속 진행
+					return "forward:/signup-email";
+					//return  "forward:/signup-email";
+				}
+				
+			}
+			if(userEmail.isEmpty()){
+				userEmail = providerUser.getEmail();
+			}
 			
-			user.setEmail(providerUser.getEmail());
+			user.setEmail(userEmail);
 			user.setName(providerUser.getName());
 			user.setProfileImageUrl(connection.getProfileUrl());
 			user.setRole("ROLE_USER");
 			user.setPassword(Math.random()+"itsplace");
+			
+			if(userService.getUser(userEmail) != null){
+				model.addAttribute("error","email은 이미 사용중입니다.");	
+				model.addAttribute("user", user);
+				return "forward:/signup-email";
+			}
 			userService.saveUser(user);
+			
 			User dbUser = userService.getUser(user.getEmail());
 			CustomUserDetailsService cuser = new CustomUserDetailsService();
 			CustomUserDetails details = new CustomUserDetails(
@@ -102,7 +149,8 @@ public class UserController {
 			//UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, null);
 			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
 			SecurityContextHolder.getContext().setAuthentication(newAuth);
-			ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
+			//ProviderSignInUtils.handlePostSignUp(providerUser.getEmail(), request);
+			ProviderSignInUtils.handlePostSignUp(userEmail, request);
 			return "redirect:/places";
 			
 			
@@ -110,50 +158,26 @@ public class UserController {
 			//return "user/signup";
 		} else {
 			//return new SignupForm();
-			System.out.println("facebook login 회원가입으");
-			model.addAttribute("userForm", user);
+			//System.out.println("facebook login 회원가입으");
+			//model.addAttribute("userForm", user);
 			model.addAttribute("user", user);
-			return "user/signup";
+			return "web/user/sign-in";
 		}
 	}
-	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signup(@Validated({AddUser.class}) User user, BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response){
-		logger.info("signup--------------------->");
-		
-		if (result.hasErrors()) {
-			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
-			//json =  json.getValidationErrorResult(result, json);
-			return "user/signup";
-		} else {	
-			userService.saveUser(user);
-			json.setResult(user);
-			json.setSuccess();
-			User dbUser = userService.getUser(user.getEmail());
-			CustomUserDetailsService cuser = new CustomUserDetailsService();
-			CustomUserDetails details = new CustomUserDetails(
-					dbUser, 
-					dbUser.getEmail(),						
-					dbUser.getPassword(),
-					true,
-					true,
-					true,
-					true,
-					cuser.getAuthorities("ROLE_USER"));
-			System.out.println("password:"+details.getUser().getPassword() + user.getEmail());
-			logger.info("가입완료");
-			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
-			HttpServletRequest nativeReq = request;
-			HttpServletResponse nativeRes = response;
-			nativeReq.setAttribute("_spring_security_remember_me", "1");
-			
-			SecurityContextHolder.getContext().setAuthentication(newAuth);
-			rememberMeServices.setKey("itsplace");
-			rememberMeServices.setParameter("_spring_security_remember_me");
-			rememberMeServices.setAlwaysRemember(true);
-			rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
-			
-		}
-		return "redirect:/places";
+	
+	/**
+	 * facebook/트위터 개인계정에서 이메일 허용을 하지 않았을경우 이메일을 입력한다.
+	 * @author 김동훈
+	 * @version 1.0, 2013.3.19 
+	 * @param 
+	 * @return  접근권한 없음 페이지
+	 * @see 
+	 * @return
+	 */
+	@RequestMapping(value="/signup-email", method=RequestMethod.GET)
+	public String signupemail( Model model, WebRequest request) {
+		model.addAttribute("user",model);
+		return "user/signup";
 	}
 	
 	@RequestMapping(value = "/user/saveUser", method = RequestMethod.POST)
