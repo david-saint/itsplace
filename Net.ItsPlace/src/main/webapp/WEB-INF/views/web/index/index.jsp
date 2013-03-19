@@ -38,6 +38,7 @@
               <li>
               	<!-- <a href="#myModal" class="nav-login" >시작하기</a> -->
               	 <a href="sign-in" class="nav-login" >시작하기</a> 
+              	 <a  class="nav-login2" >modal</a> 
               </li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -270,7 +271,7 @@
 	              keyboard: false
 	            });
 		}
-        $('.nav-login').click(function(){
+        $('.nav-login2').click(function(){
             $('#myModal').modal({
               keyboard: false
             });
