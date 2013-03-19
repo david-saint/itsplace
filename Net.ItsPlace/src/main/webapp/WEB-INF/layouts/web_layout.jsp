@@ -2,7 +2,6 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <%@include file="/WEB-INF/views/common/taglib.jsp" %>
-
 <!DOCTYPE html>
 <html>
   <head>

@@ -16,13 +16,9 @@ $(document).ready(function(){
 	
 			
 		
-					<form:form   commandName="user" method="post">
+					<form:form   commandName="user" method="get">
            <div class="boxtitle">
-	           <c:set var="errors"><form:errors path="*" /></c:set>
-	           <c:if test="${not empty errors}">
-	           <span class="ico color lightbulb"></span><span>Exception:</span>
-	        	    ${errors }
-	           </c:if>
+	          ${error }
            </div>
 			           <fieldset>
 			                <div>
@@ -34,11 +30,7 @@ $(document).ready(function(){
 			                	<form:input path="email" cssClass="border-box"/><form:errors path="email" cssClass="error" />	
 			                </div>                                  
 			           </fieldset>
-				       <fieldset>
-			                <div> 
-			                	<form:password path="password" cssClass="border-box"/><form:errors path="password" cssClass="error" />
-			                </div>                                  
-				       </fieldset>
+				      	
 				     
 				       <fieldset>
 				       	 <button id="btnRegister" class="greenButton"><spring:message  code="signup"/></button>

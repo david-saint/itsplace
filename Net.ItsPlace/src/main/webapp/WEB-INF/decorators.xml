@@ -7,7 +7,9 @@
     </decorator> 
     
     <decorator name="web_empty" page="/WEB-INF/layouts/web_empty_layout.jsp">
+       <pattern>/signup</pattern>
        <pattern>/sign-in</pattern>
+       <pattern>/sign-in/*</pattern>
        <pattern>/passwordreset</pattern>
     </decorator>
     

@@ -49,24 +49,44 @@
 							</button>
 						</fieldset>
 					</form>
-					<form name="fb_signin" id="fb_signin" action="<c:url value="/signin/facebook"/>" method="POST">
-						<input type="hidden" name="scope"
-							value="publish_stream,user_photos,offline_access,email" /> <input
-							type="hidden" id="on_off" name="_spring_security_remember_me"
-							value="1" />
-						<fieldset>
-							<button type="submit" class="btn btn-large facebook">
-								<i class="icon-facebook"></i><span>트위터  아이디로 로그인</span>
+					<form id="tw_signin" action="<c:url value="/signin/twitter"/>" method="POST">
+						<button type="submit" class="btn btn-large facebook">
+								<i class="icon-facebook"></i><span>트위터 아이디로 로그인</span>
 							</button>
-						</fieldset>
 					</form>
 							${error}    
 		            <a id="forgot-pass" href="/passwordreset" class="login-link" href="#">Lost your password?</a>
 		            <a id="forgot-pass" href="/passwordreset" class="login-link" href="#">Email로 가입하기 </a>
 		            
-		                        
+		            
+		            <!-- signup -->
+		            <form:form   commandName="user" method="post" action="/sign-in">
+			            <div class="control-group">
+			             <!--  <input type="text" name="name" class="login-field" value="" placeholder="Enter your name" id="signup-name"> -->
+			              <form:input path="name" cssClass="login-field" id="signup-name"/>
+			              <form:errors path="name" cssClass="error" />		
+			              <label class="login-field-icon fui-man-16" for="login-name"></label>
+			            </div>
+						<div class="control-group">
+			              <!-- <input type="email" name="email" class="login-field" value="" placeholder="Enter your email" id="signup-email"> -->
+			              <form:input path="email" cssClass="login-field" id="signup-email"/>
+			              <form:errors path="email" cssClass="error" />
+			              <label class="login-field-icon fui-man-16" for="login-name"></label>
+			            </div>
+			            <div class="control-group">
+			              <!-- <input type="password" name="password" class="login-field" value="" placeholder="Password" id="signup--pass"> -->
+			              <form:input path="password" cssClass="login-field" id="signup-password"/>
+			              <form:errors path="password" cssClass="error" />
+			              <label class="login-field-icon fui-lock-16" for="signup-password"></label>
+			            </div>
+			
+			            <button class="btn btn-primary btn-large btn-block">signup</button>
+		            </form:form>
 	          	</div>
 			</div>
+		</div>
+		<div class="row">
+			
 		</div>
 		
 	</div>

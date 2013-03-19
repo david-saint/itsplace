@@ -35,7 +35,10 @@
                        
                       </ul> <!-- /Sub menu --> 
                   </li>
-              <li><a href="#myModal" class="nav-login" >시작하기</a></li>
+              <li>
+              	<!-- <a href="#myModal" class="nav-login" >시작하기</a> -->
+              	 <a href="sign-in" class="nav-login" >시작하기</a> 
+              </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

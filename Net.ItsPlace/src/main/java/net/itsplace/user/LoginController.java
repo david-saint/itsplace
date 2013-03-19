@@ -29,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.User;
+import net.itsplace.domain.User.AddUser;
 import net.itsplace.service.UserService;
 import net.itsplace.util.Encrypt;
 import net.itsplace.util.StandardOrMobile;
@@ -275,13 +277,88 @@ public class LoginController {
 		}
 		
 	}
+	
+	@Deprecated
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String signin(){
 		 System.out.println("웹 사용자 로그인");
 		return "user/signin";
 	}
 	
-	
+	/**
+	 * 웹사용자 로그인 및 회원가입
+	 * @param model
+	 * @version 1.0, 2013.03.19
+	 * @return
+	 */
+	@RequestMapping(value = "/sign-in", method = RequestMethod.GET)
+	public String signin(Model model ) {
+		
+		model.addAttribute("user",new User());
+		return "web/user/sign-in";
+	}
+	/**
+	 * 웹사용자 로그인 및 회원가입
+	 * @param model
+	 * @version 1.0, 2013.03.19
+	 * @return
+	 */
+	@RequestMapping(value = "/sign-in/{badCredential}", method = RequestMethod.GET)
+	public String signin(@PathVariable String badCredential, Model model ) {
+		if(!badCredential.isEmpty()){
+			//model.addAttribute("errorcode","001");
+			model.addAttribute("error","이메일 또는 비밀번호가 잘못되었어요");
+		}
+		//model.addAttribute("errorcode","002");
+		model.addAttribute("user",new User());
+		return "web/user/sign-in";
+	}
+	/**
+	 * 웹사용자 로그인 및 회원가입
+	 * @param model
+	 * @version 1.0, 2013.03.19
+	 * @return
+	 */
+	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
+	public String signin(@Validated({AddUser.class}) User user, BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response){
+		logger.info("signup--------------------->");
+		
+		if (result.hasErrors()) {
+			logger.debug("필드에러:"+result.getObjectName() +": "+ result.getFieldError().getDefaultMessage());
+			//json =  json.getValidationErrorResult(result, json);
+			//model.addAttribute("user",new User());
+			return "web/user/sign-in";
+		} else {	
+			userService.saveUser(user);
+			json.setResult(user);
+			json.setSuccess();
+			User dbUser = userService.getUser(user.getEmail());
+			CustomUserDetailsService cuser = new CustomUserDetailsService();
+			CustomUserDetails details = new CustomUserDetails(
+					dbUser, 
+					dbUser.getEmail(),						
+					dbUser.getPassword(),
+					true,
+					true,
+					true,
+					true,
+					cuser.getAuthorities("ROLE_USER"));
+			System.out.println("password:"+details.getUser().getPassword() + user.getEmail());
+			logger.info("가입완료");
+			UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(details, details.getUser().getPassword(),cuser.getAuthorities("ROLE_USER"));
+			HttpServletRequest nativeReq = request;
+			HttpServletResponse nativeRes = response;
+			nativeReq.setAttribute("_spring_security_remember_me", "1");
+			
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+			rememberMeServices.setKey("itsplace");
+			rememberMeServices.setParameter("_spring_security_remember_me");
+			rememberMeServices.setAlwaysRemember(true);
+			rememberMeServices.loginSuccess(nativeReq,nativeRes,newAuth);
+			
+		}
+		return "redirect:/places";
+	}
 	/**
 	 * 접근권한이 없을시에 페이지 호출 security-context.xml의 access-denied-page="/denied" 정의함
 	 * 	<http auto-config="true" use-expressions="true" access-denied-page="/denied" >
