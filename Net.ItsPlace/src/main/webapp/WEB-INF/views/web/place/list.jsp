@@ -37,14 +37,14 @@ socket.on("SetRoomList", function (data) {
 $(document).ready(function() {
 	 
 	  
-	$('#jqmWindow').jqm({onHide: function(h) { 
+	/* $('#jqmWindow').jqm({onHide: function(h) { 
 		$('#placeView').contents().find("body").empty();
 		 h.o.remove(); // remove overlay
 		 //h.w.hide();
 		 h.w.slideUp('fast');
 	      //h.w.fadeOut(888); // hide window
 		} 
-	}); 
+	});  */
 	$('#userDetail').jqm({modal: false, overlay: 0});
 	
 	/* $('#search').live('mouseover',function(){	
@@ -109,9 +109,8 @@ function mouseout() {
 </script>
 </head>
 <body>
-<style type="text/css">
-</style>
- <div class="jqmWindow" id="jqmWindow">
+
+ <div  id="jqmWindow" class="jqmWindow modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
 	<div class="placeContainer">
 		<div id="placeHeader">
 			<a id="closeButton" href="#" class="jqmClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel1.png" /></a>
@@ -135,7 +134,12 @@ function mouseout() {
  		<div class="userDetail mrl">
             <ul>
               <li>
-                 <a href="${context}/logout">로그아웃</a>
+                 <img src="<sec:authentication property='principal.user.profileImageUrl' />" />
+                 <sec:authentication property="principal.user.name" />
+                 
+              </li>
+              <li>
+                 <sec:authentication property="principal.user.email" />
               </li>
               <li>
                 <label class="share-label" for="share-toggle4">Twitter</label>
@@ -156,18 +160,21 @@ function mouseout() {
                 </div>
               </li>
             </ul>
-            <a href="#" class="btn btn-primary btn-block btn-large">Share</a>
+            <a href="${context}/logout" class="btn btn-primary btn-block btn-large">로그아웃</a>
           </div> <!-- /share -->
 </div>          
+
+
+
 
 <div id="header">
 	<div id="logo"> place  </div>
 	<div id="searchBox"><form><input type="text" id="search" name="searchWord" /></form></div>
-	<div id="menuBox">
+	<%-- <div id="menuBox">
 		<a id="btnMyPlace" href="#"> in places</a>
 		<a href="/?lang=ko">한글 ${applicationScope.ImageHost} </a>
 		<a href="/?lang=en">영어</a>
-	</div>
+	</div> --%>
 	<div id="userBox">
 		 <sec:authorize ifAnyGranted="ROLE_USER">
  		 	<img src='<sec:authentication property="principal.user.profileImageUrl" />' alt='<sec:authentication property="principal.user.name" />' /> 

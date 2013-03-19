@@ -8,6 +8,7 @@ body {
 	
 }
 #header{
+	background-color:#282828;
 	position: absolute;
 	left:0;
 	right:0;
@@ -160,14 +161,14 @@ margin: 0;
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color:white;
+    background-color:#282828;
    
 }
 
 .grid > div {
     background-color: #fff;
     position: absolute;
-    cursor: pointer;
+    
 }
 .place-bg {
 	background-size: cover;
@@ -182,12 +183,13 @@ margin: 0;
 	
 }
 .place-view{
-position: absolute;
-left: 0;
-right: 0;
-height: 100%;
-padding: 5px;
-color:white;	
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 100%;
+	padding: 5px;
+	color:white;	
+	cursor: pointer;
 }
 .place-info{
 position: absolute;

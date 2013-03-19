@@ -413,11 +413,19 @@ var debounce = function(func, wait, immediate) {
 			socket.emit('UserCountByRoom', { roomList:rows});
 			$('#placeOn').show();
     });
+		
+		
 		$('.place-view').die();
-	$('.place-view').live('click',function(e) {
-		 $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
-		 $('#jqmWindow').jqmShow();
-	});
+		$('.place-view').live('click',function(e) {
+			 $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
+			 //$('#jqmWindow').jqmShow();
+			 
+			 $('#jqmWindow').modal({
+	              keyboard: true
+	            });
+		});
+		
+		
 	$('#chatClose').die();
 	$('#chatClose').live('click',function(){
 		 //socket.disconnect();
@@ -436,7 +444,7 @@ function makePlace(rows, tileId){
      html.append("<div id=\""+rows[tileId-1].fid+"\"  class=\"place-bg\"");
      html.append("style=\"background-image: url(http://itsplace.sungwon-it.com/img/"+ rows[tileId-1].fileName + ")\" >");
      html.append("<div class=\"place-view\"></div>");
-     html.append("<div class=\"place-info\"><p class=\"placeName\">"+rows[tileId-1].fname+"</p>");
+     html.append("<div class=\"place-info\"><p class=\"placeName\">"+rows[tileId-1].fname+"</p><a href=\"#\">test</a>");
      html.append("<span class=\"user-count placeOn\"></span>");
      html.append("</div>");
      html.append("</div>");
