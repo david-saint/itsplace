@@ -37,14 +37,14 @@ socket.on("SetRoomList", function (data) {
 $(document).ready(function() {
 	 
 	  
-	/* $('#jqmWindow').jqm({onHide: function(h) { 
+	 $('#jqmWindow').jqm({onHide: function(h) { 
 		$('#placeView').contents().find("body").empty();
 		 h.o.remove(); // remove overlay
 		 //h.w.hide();
 		 h.w.slideUp('fast');
 	      //h.w.fadeOut(888); // hide window
 		} 
-	});  */
+	});  
 	$('#userDetail').jqm({modal: false, overlay: 0});
 	
 	/* $('#search').live('mouseover',function(){	
@@ -110,7 +110,7 @@ function mouseout() {
 </head>
 <body>
 
- <div  id="jqmWindow" class="jqmWindow modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">>
+ <div  id="jqmWindow" class="jqmWindow">
 	<div class="placeContainer">
 		<div id="placeHeader">
 			<a id="closeButton" href="#" class="jqmClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel1.png" /></a>
