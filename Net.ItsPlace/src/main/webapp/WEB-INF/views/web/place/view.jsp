@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 <section id="placeInfo" class="placeContent">
 	<div id="placeImage">
-		<img src="${place.imageHost}${place.fileName}" height="300" />
+		<img sr${applicationScope.ImageHost}${place.fileName}" height="300" />
 	</div>	
 	<%-- <c:forEach var="media" items="${placeMediaList}">
 		<img src="${place.imageHost}${media.mUrl}" height="100" />
@@ -49,8 +49,8 @@ $(document).ready(function() {
                 <!-- CONTENT -->
                 <ul class="bannerscollection_kenburns_list">
 	                <c:forEach var="media" items="${placeMediaList}">
-	                	<li data-initialZoom="1" data-finalZoom="0.71" data-text-id="#bannerscollection_kenburns_photoText1" data-bottom-thumb="${place.imageHost}${media.mUrl}" >
-               				<img src="${place.imageHost}${media.mUrl}" alt="" width="1350" height="610" />
+	                	<li data-initialZoom="1" data-finalZoom="0.71" data-text-id="#bannerscollection_kenburns_photoText1" data-bottom-thumb="${applicationScope.ImageHost}${media.mUrl}" >
+               				<img src="${applicationScope.ImageHost}${media.mUrl}" alt="" width="1350" height="610" />
                			</li>
 					</c:forEach>
                 </ul>    

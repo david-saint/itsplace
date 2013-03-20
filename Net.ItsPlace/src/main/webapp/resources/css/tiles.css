@@ -211,17 +211,32 @@ color:white;
 .placeOn{
 	z-index: 999;
 }
+
 .jqmWindow {
-	display: none;
+	/* display: none;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
-	right: 0;
-	z-index: 500;
+	right: 0; */
+	display: none;
+position: fixed;
+top: 0;
+left: 40%;
+margin-left: -300px;
+background-color: #EEE;
+color: #333;
+border: 1px solid black;
+padding: 12px;
+width: 60%;
+border:1px solid red;
+	
 }
 
-.jqmOverlay { background-color: #000; }
+.jqmOverlay { 
+	background-color: #000;
+	 }
+
 .placeContainer{
 
 	background-color: #EEE;
