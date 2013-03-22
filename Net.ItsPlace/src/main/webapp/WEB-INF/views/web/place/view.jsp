@@ -8,9 +8,9 @@
 $(document).ready(function() {
 	
 	 
-	$("body").fadeIn("slow");
+	$("body").fadeIn("3000");
 	
-
+/* 
 	jQuery('#bannerscollection_kenburns_generous').bannerscollection_kenburns({
 		skin: 'generous',
 		responsive:true,
@@ -22,7 +22,7 @@ $(document).ready(function() {
 		thumbsWrapperMarginTop: -110,
 		autoHideBottomNav:false,
 		autoPlay:2
-	});		
+	});		 */
 	
 });
 
@@ -179,7 +179,7 @@ $(document).ready(function() {
 		</section>
 </section>
 
-
+<!-- 
 
 <script type="text/javascript">
 	$(document)
@@ -349,4 +349,4 @@ $(document).ready(function() {
 		});
 	}
 </script>
-	
+	 -->

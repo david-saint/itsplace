@@ -37,15 +37,24 @@ socket.on("SetRoomList", function (data) {
 $(document).ready(function() {
 	 
 	  
-	 $('#jqmWindow').jqm({onHide: function(h) { 
-		$('#placeView').contents().find("body").empty();
-		 h.o.remove(); // remove overlay
-		 //h.w.hide();
-		 h.w.slideUp('fast');
-	      //h.w.fadeOut(888); // hide window
-		} 
+	 $('#jqmWindow').jqm({
+		 onShow: function(h) {
+		        /* callback executed when a trigger click. Show notice */
+		      //  h.w.css('opacity',0.92).slideDown(); 
+		        //h.w.show();
+		        h.w.fadeIn("slow");
+		        
+		      //  h.w.animate( { width: "90%" }, { queue: false, duration: 3000 })
+		        },
+		 onHide: function(h) { 
+			$('#placeView').contents().find("body").empty();
+			 h.o.remove(); // remove overlay
+			 //h.w.hide();
+			 h.w.fadeOut("fast");
+		      //h.w.fadeOut(888); // hide window
+		}
 	});  
-	$('#userDetail').jqm({modal: false, overlay: 0});
+	$('#userDetail').jqm();
 	
 	/* $('#search').live('mouseover',function(){	
 		var options = { to: { width: 183, height: 28 } };
