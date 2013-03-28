@@ -212,13 +212,14 @@ color:white;
 	z-index: 999;
 }
 
-.jqmWindow {
-	/* display: none;
+/* .jqmWindow {
+	display: none;
 	position: fixed;
 	top: 0;
-	bottom: 0;
+	bottom: 0;left: 50%;margin-left: -300px;width: 800px;
 	left: 0;
-	right: 0; */
+	right: 0; 
+	
 	display: none;
 position: fixed;
 top: 0;
@@ -231,18 +232,29 @@ padding: 12px;
 width: 60%;
 border:1px solid red;
 	
+} */
+ .modal{
+margin-bottom: 20px !important;
+bottom: 0  !important;
+
+}/*
+.modal.fade.in {
+	top: 20px !important;
+}
+.modal-body{
+	max-height: 760px !important;
 }
 
 .jqmOverlay { 
 	background-color: #000;
 	 }
-
+ */
 .placeContainer{
 
 	background-color: #EEE;
 	border: 0px solid red;
 	position: relative;
-	width: 100%;
+	width: 760px;
 	margin: 0 auto;
 	max-width: 800px;
 	padding: 0px 15px;
@@ -251,11 +263,10 @@ border:1px solid red;
 #placeView{
 	
 width: 100%;
-height: 100%;
+height: 2045px;
 background: white;
 border: 0;
 z-index: 2;
-
 }
 #placeHeader{
 	border:0px solid blue;	

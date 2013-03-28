@@ -34,17 +34,21 @@ socket.on("SetRoomList", function (data) {
   		//$('#roomList').append('<p>'+data[i]+'</p>');
   	 }
 }); */
+$.fn.modal.defaults.maxHeight = function(){
+    // subtract the height of the modal header and footer
+    return $(window).height() - 205; 
+}
 $(document).ready(function() {
 	 
-	  
+	/*   
 	 $('#jqmWindow').jqm({
 		 onShow: function(h) {
-		        /* callback executed when a trigger click. Show notice */
+		       
 		      //  h.w.css('opacity',0.92).slideDown(); 
 		        //h.w.show();
-		        h.w.fadeIn("slow");
-		        
-		      //  h.w.animate( { width: "90%" }, { queue: false, duration: 3000 })
+		        //h.w.fadeIn("slow");
+		        h.w.show();
+		      //  h.w.animate( { width: "30%" }, { queue: false, duration: 0 })
 		        },
 		 onHide: function(h) { 
 			$('#placeView').contents().find("body").empty();
@@ -53,7 +57,7 @@ $(document).ready(function() {
 			 h.w.fadeOut("fast");
 		      //h.w.fadeOut(888); // hide window
 		}
-	});  
+	});   */
 	$('#userDetail').jqm();
 	
 	/* $('#search').live('mouseover',function(){	
@@ -119,13 +123,25 @@ function mouseout() {
 </head>
 <body>
 
- <div  id="jqmWindow" class="jqmWindow">
-	<div class="placeContainer">
-		<div id="placeHeader">
+ <div  id="jqmWindow"   class=" modal hide fade " data-width="1260">
+	<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body" >
+    <div class="">
+		<%-- <div id="placeHeader">
 			<a id="closeButton" href="#" class="jqmClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel1.png" /></a>
-		</div>
-		<iframe id="placeView"></iframe>
+		</div> --%>
+		<iframe id="placeView" ></iframe>
 	</div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+		
+	
 </div>
 <!-- 유저 상세정보 -->
 <%--  <div  id="userDetail" class="userDetailNone">
