@@ -1,34 +1,63 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form"  %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"  %>
-<%@ taglib prefix="sec"    uri="http://www.springframework.org/security/tags"%>
-<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
-<script type="text/javascript">;
-$(document).ready(function() {
-	
-	 
-	$("body").fadeIn("3000");
-	
-/* 
-	jQuery('#bannerscollection_kenburns_generous').bannerscollection_kenburns({
-		skin: 'generous',
-		responsive:true,
-		width: 934,
-		height: 414,
-		width100Proc:false,
-		numberOfThumbsPerScreen:7,
-		thumbsOnMarginTop:50,
-		thumbsWrapperMarginTop: -110,
-		autoHideBottomNav:false,
-		autoPlay:2
-	});		 */
-	
-});
+<%@page import="java.util.Locale"%>
+<%@ page  pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
+<c:set var="title" value="메인페이지 "/>
 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/boot.css" />" />
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
+		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			
+			 
+			$("body").fadeIn("3000");
+			
+		/* 
+			jQuery('#bannerscollection_kenburns_generous').bannerscollection_kenburns({
+				skin: 'generous',
+				responsive:true,
+				width: 934,
+				height: 414,
+				width100Proc:false,
+				numberOfThumbsPerScreen:7,
+				thumbsOnMarginTop:50,
+				thumbsWrapperMarginTop: -110,
+				autoHideBottomNav:false,
+				autoPlay:2
+			});		 */
+			
+		});
+		
+		
+		</script>
+		<style>
+		/* html{
+		height:100%;
+		}
+		body{
+		overflow:hidden;
+		height:100%;
+		} */
+		</style>		
+</head>
+<body>
 
-</script>
-
+<div class="container-fluid" >
+      <div class="row-fluid" > 
+        <div class="span8">
+          <p class="">11111111111111</p>
+        </div>
+        <div class="span4">
+          <p class="">222222</p>
+        </div>
+       
+     </div>
+   </div>
 <div class="title">
 	<h3>${place.fname}</h3>
 </div>
@@ -350,3 +379,6 @@ $(document).ready(function() {
 	}
 </script>
 	 -->
+	 <h1>푸헤헤헤 마지막</h1>
+</body>
+</html>	 
