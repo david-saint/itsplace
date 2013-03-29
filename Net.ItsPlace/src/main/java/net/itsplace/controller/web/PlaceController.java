@@ -242,14 +242,13 @@ public class PlaceController {
 			json.setTotalCount(totalCount);
 			return json;
 		}
-		@RequestMapping(value = "/place/hellowWorld", method = RequestMethod.GET, produces = "application/json")
-		
+		@RequestMapping(value = "/place/hellowWorld", method = RequestMethod.GET)
 		public @ResponseBody List<HellowWorld> HellowWorld(){
 			logger.info("헬로우");
 			List<HellowWorld> list = new ArrayList();
 			HellowWorld h = new HellowWorld();
 			h.setPart1("j part1");
-			h.setPart2("34  ap2");
+			h.setPart2("34 sssssssss ap2");
 			list.add(h);
 			list.add(h);
 			return list;

@@ -8,11 +8,11 @@
   });      
   
   // **List class**: A collection of `Item`s. Basically an array of Model objects with some helper functions.
-  var lists = [{part1:'aaaaa',part2:'dddd'},
-  				{part1:'aaDASDaaa',part2:'ddSADdd'}
+  var lists = [{'part1':'aaaaa',part2:'dddd'},
+  				{'part1':'aaDASDaaa',part2:'ddSADdd'}
   			  ];
   			  
-   var lists = [];
+  // var lists = [];
   var List = Backbone.Collection.extend({
     model: Item,
     url:'/place/hellowWorld'
@@ -34,7 +34,8 @@
       this.collection.bind('remove', this.removeItem); // collection event binder
 
       this.counter = 0;
-      this.render();      
+  //    this.render();   
+      this.collection.on("reset",this.render,this);   
     },
     render: function(){
       // Save reference to `this` so it can be accessed from within the scope of the callback below
