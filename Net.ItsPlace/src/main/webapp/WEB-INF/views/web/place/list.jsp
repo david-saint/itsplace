@@ -129,11 +129,9 @@ function mouseout() {
     <h3 id="myModalLabel">Modal header</h3>
   </div>
   <div class="modal-body" >
-    <div class="">
-		<%-- <div id="placeHeader">
-			<a id="closeButton" href="#" class="jqmClose"><img src="${context}/resources/images/icon/keyamoon/32px/cancel1.png" /></a>
-		</div> --%>
-		<iframe id="placeView" ></iframe>
+    <div id="modal-test">
+		
+		<!-- <iframe id="placeView" ></iframe> -->
 	</div>
   </div>
   <div class="modal-footer">
@@ -236,5 +234,8 @@ function mouseout() {
 <input id="userName" type="hidden"  value="<img class='chatProfile' src='<sec:authentication property="principal.user.profileImageUrl" />'/><sec:authentication property="principal.user.name" />"/> 
 <input id="currentRoom" type="hidden"  value="waitRoom"/> 
 
+	<script type="text/javascript" src="<c:url value="/resources/web/js/underscore.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/resources/web/js/backbone.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/resources/web/js/place/places.js" />" ></script>
 </body>
 </html>

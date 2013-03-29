@@ -1,5 +1,7 @@
 package net.itsplace.controller.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.mysema.query.types.Predicate;
 
@@ -239,4 +242,37 @@ public class PlaceController {
 			json.setTotalCount(totalCount);
 			return json;
 		}
+		@RequestMapping(value = "/place/hellowWorld", method = RequestMethod.GET, produces = "application/json")
+		
+		public @ResponseBody List<HellowWorld> HellowWorld(){
+			logger.info("헬로우");
+			List<HellowWorld> list = new ArrayList();
+			HellowWorld h = new HellowWorld();
+			h.setPart1("j part1");
+			h.setPart2("34  ap2");
+			list.add(h);
+			list.add(h);
+			return list;
+		}
+		public class HellowWorld{
+			private String part1;
+			private String part2;
+			public String getPart1() {
+				return part1;
+			}
+			public void setPart1(String part1) {
+				this.part1 = part1;
+			}
+			public String getPart2() {
+				return part2;
+			}
+			public void setPart2(String part2) {
+				this.part2 = part2;
+			}
+			
+			
+		}
 }
+
+
+
