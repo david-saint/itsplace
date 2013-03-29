@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="<c:url value="/resources/js/nodejs/socket.io.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/tiles/placeon.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/tiles/Tile.js" />" ></script>
-		<script type="text/javascript" src="<c:url value="/resources/js/tiles/demo.js" />" ></script>
+		<script type="text/javascript" src="<c:url value="/resources/js/tiles/demo.js" />" ></script> 
 		<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/enquire.min.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/mediaquery/matchMedia.js" />" ></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/jqModal.js" />" ></script>
@@ -26,6 +26,7 @@
 		<script type="text/javascript" src="<c:url value="/resources/web/js/bootstrap-modalmanager.js" />" ></script>
  		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/bootstrap-modal.css" />" />
 		<script type="text/javascript" src="<c:url value="/resources/web/js/common-1.0.0.js" />" ></script>
+	
 		
 		<title><decorator:title default="place" /></title>
 		<decorator:head />

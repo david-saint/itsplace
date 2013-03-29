@@ -417,13 +417,13 @@ var debounce = function(func, wait, immediate) {
 		
 		$('.place-view').die();
 		$('.place-view').live('click',function(e) {
-			 $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
+			// $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
 			// $('#jqmWindow').jqmShow();
 			 
 			 $('#jqmWindow').modal({
 			        backdrop: true,
 			        keyboard: true
-			    });
+			  });
 			// $('.modal-body').css('height',$(document).height()+'px');
 		});
 		
