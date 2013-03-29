@@ -3,6 +3,7 @@
 <c:set var="title" value="도서목록"/>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
 <script type="text/javascript">
 /* var socket = io.connect('http://localhost:8070');
 socket.on('connect', function () {
@@ -234,8 +235,7 @@ function mouseout() {
 <input id="userName" type="hidden"  value="<img class='chatProfile' src='<sec:authentication property="principal.user.profileImageUrl" />'/><sec:authentication property="principal.user.name" />"/> 
 <input id="currentRoom" type="hidden"  value="waitRoom"/> 
 
-	<script type="text/javascript" src="<c:url value="/resources/web/js/underscore.js" />" ></script>
-	<script type="text/javascript" src="<c:url value="/resources/web/js/backbone.js" />" ></script>
-	<script type="text/javascript" src="<c:url value="/resources/web/js/place/places.js" />" ></script>
+
+<script type="text/javascript" src="${context}/resources/web/js/camera.min.js"></script>	
 </body>
 </html>

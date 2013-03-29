@@ -10,107 +10,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/boot.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/isotope.css" />" />
 		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
-		<script type="text/javascript">
-		$(document).ready(function() {
-			
-			 
-			$("body").fadeIn("3000");
-			
-		/* 
-			jQuery('#bannerscollection_kenburns_generous').bannerscollection_kenburns({
-				skin: 'generous',
-				responsive:true,
-				width: 934,
-				height: 414,
-				width100Proc:false,
-				numberOfThumbsPerScreen:7,
-				thumbsOnMarginTop:50,
-				thumbsWrapperMarginTop: -110,
-				autoHideBottomNav:false,
-				autoPlay:2
-			});		 */
-			
-		});
 		
-		
-		</script>
 		<style>
-		/* html{
-		height:100%;
-		}
-		body{
-		overflow:hidden;
-		height:100%;
-		} */
+		.short_headline {
+			border-bottom: 1px solid #d8dfe5;
+			margin: 0 0 1em 0;
+			text-transform: lowercase;
+			padding-bottom: 9px;
+			line-height: normal;
+			}
+		.short_headline span {
+			border-bottom: 5px solid #d8dfe5;
+			padding-bottom: 10px;
+			color: #758694;
+			}
+			.sidebar{
+				background-image: url(http://bombdiggitydesign.com/crisp/Crisp-cool/assets/images/rule.png);
+				/* background-position: 54.5% 0; */
+				background-repeat: repeat-y;
+				padding:10px;
+			text-shadow: 0px 1px 0px #fff;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: 0px 1px 1px rgba(0,0,0,.15), 0px 2px 1px rgba(0,0,0,.10), 0px 3px 1px rgba(0,0,0,.05);
+-moz-box-shadow: 0px 1px 1px rgba(0,0,0,.15), 0px 2px 1px rgba(0,0,0,.10), 0px 3px 1px rgba(0,0,0,.05);
+box-shadow: 0px 1px 1px rgba(0,0,0,.15), 0px 2px 1px rgba(0,0,0,.10), 0px 3px 1px rgba(0,0,0,.05);
+			}
 		</style>		
 </head>
 <body>
 
-<div class="container-fluid" >
+<div class="container" >
       <div class="row-fluid" > 
         <div class="span8">
-          <p class="">11111111111111</p>
+          <h3>${place.fname} ${place.info }</h3>
+        
         </div>
         <div class="span4">
-          <p class="">222222</p>
+          	네이게이션메뉴
         </div>
-       
      </div>
-   </div>
-<div class="title">
-	<h3>${place.fname}</h3>
-</div>
-  
-
-<section id="placeInfo" class="placeContent">
-	<div id="placeImage">
-		<img sr${applicationScope.ImageHost}${place.fileName}" height="300" />
-	</div>	
-	<%-- <c:forEach var="media" items="${placeMediaList}">
-		<img src="${place.imageHost}${media.mUrl}" height="100" />
-	</c:forEach>
-	 --%>
-	
-	
-	  <div id="bannerscollection_kenburns_generous">
-            	<div class="myloader"></div>
-                <!-- CONTENT -->
-                <ul class="bannerscollection_kenburns_list">
-	                <c:forEach var="media" items="${placeMediaList}">
-	                	<li data-initialZoom="1" data-finalZoom="0.71" data-text-id="#bannerscollection_kenburns_photoText1" data-bottom-thumb="${applicationScope.ImageHost}${media.mUrl}" >
-               				<img src="${applicationScope.ImageHost}${media.mUrl}" alt="" width="1350" height="610" />
-               			</li>
-					</c:forEach>
-                </ul>    
-              <!-- TEXTS -->
-              <div id="bannerscollection_kenburns_photoText1" class="bannerscollection_kenburns_texts">              
-               		<div class="bannerscollection_kenburns_text_line textElement12_generous" data-initial-left="480" data-initial-top="550" data-final-left="480" data-final-top="210" data-duration="0.5" data-fade-start="0" data-delay="0.23">Customizable with many <a href="http://codecanyon.net/user/LambertGroup" target="_blank">parameters</a></div>
-                    <div class="bannerscollection_kenburns_text_line textElement11_generous" data-initial-left="480" data-initial-top="10" data-final-left="480" data-final-top="175" data-duration="0.5" data-fade-start="0" data-delay="0.23">Ultra-Smoo야하하하t</div>
-               </div>       
+     
+     <div class="row-fluid" style="border-bottom: 1px solid #ff5821;">
+     	<div class="span8">
+         	<%--  <img src="${applicationScope.ImageHost}${place.fileName}" height="300" /> --%>
+         	 <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+                <div data-thumb="${context}/resources/web/js/slides/thumbs/bridge.jpg" data-src="${context}/resources/web/js/slides/bridge.jpg">
+                    <div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>
+                </div>
+                <div data-thumb="${context}/resources/web/js/slides/thumbs/leaf.jpg" data-src="${context}/resources/web/js/slides/leaf.jpg">
+                    <div class="camera_caption fadeFromTop" style="position:absolute;top:100px;left:200px;background-color:transparent;width:300px;">
+                        It uses a light version of jQuery mobile, <em>아하하하하하</em>
+                    </div>
+                </div>
+                <div data-thumb="${context}/resources/web/js/slides/thumbs/road.jpg" data-src="${context}/resources/web/js/slides/road.jpg">
+                    <div class="camera_caption fadeFromBottom">
+                        <em>It's completely free</em> (even if a donation is appreciated)
+                    </div>
+                </div>
+                <div data-thumb="${context}/resources/web/js/slides/thumbs/sea.jpg" data-src="${context}/resources/web/js/slides/sea.jpg">
+                    <div class="camera_caption fadeFromRight">
+                        Camera slideshow provides many options <em>to customize your project</em> as more as possible
+                    </div>
+                </div>
                
-               <!--       -->  
-               <div id="bannerscollection_kenburns_photoText1b" class="bannerscollection_kenburns_texts">              
-               		<div class="bannerscollection_kenburns_text_line textElement12_generous" data-initial-left="480" data-initial-top="550" data-final-left="480" data-final-top="210" data-duration="0.5" data-fade-start="0" data-delay="0.23">난 머<a href="http://codecanyon.net/user/LambertGroup" target="_blank">parameters</a></div>
-                    <div class="bannerscollection_kenburns_text_line textElement11_generous" data-initial-left="480" data-initial-top="10" data-final-left="480" data-final-top="175" data-duration="0.5" data-fade-start="0" data-delay="0.23">이펙투인</div>
-               </div>       
-                
-           </div>  
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div id="map" >
-		map
-	</div>
-	<div id="text_box">
-			상세정보
+                <div data-thumb="${context}/resources/web/js/slides/thumbs/tree.jpg" data-src="${context}/resources/web/js/slides/tree.jpg">
+                    <div class="camera_caption moveFromTop">
+                        Different color skins and layouts available, <em>fullscreen ready too</em>
+                    </div>
+                </div>
+              </div><!-- #camera_wrap_1 -->  
+              
+        </div>
+        <div class="span4 sidebar">
+        <h5 class="short_headline"><span>Blog Categories</span></h5>
+        <h5 class="short_headline"><span>상세정보</span></h5>
+          	상세정보
 			<ul>
 				<li><span class='title'>전화번호</span> <span>${place.phone1}</span>
 				</li>
@@ -127,25 +105,87 @@
 				<li><span class='title'>시설정보</span> <span>${place.bldInfo}</span>
 				</li>
 			</ul>
-	</div>
+        </div>
+       
+     	
+     </div>
+     <div class="row-fluid" style="border: 1px solid #ff5821;">
+     	<button id="btnFilter">필터</button>
+     <div id="isotope">
+      <ul class="thumbnails">
+      	<li class="span4">
+		    <div class="thumbnail">
+		      <img data-src="${context}/resources/web/js/slides/thumbs/tree.jpg" alt="">
+		      <h3>Thumbnail label</h3>
+		      <p>Thumbnail caption...</p>
+		    </div>
+		  </li>  
+      </ul>
+     </div>
+     </div>
+     <div class="row-fluid" style="border: 1px solid #ff5821;">
+     	<div class="span8">
+     	
+     	 <ul class="thumbnails">
+     	    <c:forEach var="media" items="${placeMediaList}">
+	                	
+               			<li class="span3">
+			                <a href="#" class="thumbnail">
+			                  <img data-src="${applicationScope.ImageHost}${media.mUrl}" alt="260x180" style="width: 260px; height: 180px;" src="${applicationScope.ImageHost}${media.mUrl}">
+			                </a>
+			              </li>
+					</c:forEach>
+              
+            </ul>
+	    </div>
+	    <div class="span4">
+	    sss
+	    </div>
+                    
+     </div>
+     <div class="row-fluid">
+     	<div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABM0lEQVR4Xu2YQQ4CIQxFZ+7GsTkTV9C4IKlYoATQRt6sJhls6ee3L3KnlB7Xwc+NADiAFmAGHDwDL4YgFIACUAAKQIGDFQCDYBAMgkEweDAE+DMEBsEgGASDYBAMTigQY3z7dQjhI1peo32rpd4Vt8w3hcGyMK1QWYhVgF1xNbGXCqAlWCHAqrhfF6Bm494J91rG0h7Wrl7iAJlM2nxWgNG41qLluiUC5KLlydXec/LWKbYc0os7KsLPBHhttGb1vxKgPJHSLfm71jotZ9XiunGA3Mjo0OutL9vIitflFJA21k6ytlFLgZZJ36OFxQ1TM8CSwPsaBOBChAsRLkS4EPE+qXfuDwpAASgABaDAzinrPTYUgAJQAApAAe+Teuf+oAAUgAJQAArsnLLeY0MBKHA4BZ4dA7WQLRJORAAAAABJRU5ErkJggg==">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+        </div>     	
+     	<div class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABM0lEQVR4Xu2YQQ4CIQxFZ+7GsTkTV9C4IKlYoATQRt6sJhls6ee3L3KnlB7Xwc+NADiAFmAGHDwDL4YgFIACUAAKQIGDFQCDYBAMgkEweDAE+DMEBsEgGASDYBAMTigQY3z7dQjhI1peo32rpd4Vt8w3hcGyMK1QWYhVgF1xNbGXCqAlWCHAqrhfF6Bm494J91rG0h7Wrl7iAJlM2nxWgNG41qLluiUC5KLlydXec/LWKbYc0os7KsLPBHhttGb1vxKgPJHSLfm71jotZ9XiunGA3Mjo0OutL9vIitflFJA21k6ytlFLgZZJ36OFxQ1TM8CSwPsaBOBChAsRLkS4EPE+qXfuDwpAASgABaDAzinrPTYUgAJQAApAAe+Teuf+oAAUgAJQAArsnLLeY0MBKHA4BZ4dA7WQLRJORAAAAABJRU5ErkJggg==">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+        </div>     	
+     </div>
+     <div class="row-fluid">
+     		<div id="displayName" style="border:1px solid red;">
+			  kimdonghonn
+			</div>
+			<form id="placeComment" >
+				<ul style="border:1px solid blue">
+					<li style="border:1px solid blue">
+						<img id="imageUrl" style="width:70px;height:70px" src=""/>
+					</li>
+					<li>
+						<input type="hidden" name="fid" value="${place.fid}" />
+						<textarea name="comment" style="width:500px;height:70px"></textarea>
+						<button id="btnComment"  style="height:70px;float:right;"  class="blueButton">남기기</button>
+					</li>
+					
+				</ul>						
+			</form>
+     </div>
+</div>
 
-</section>
-<section class="placeContent">
-	<div>
-		<div style="height:100px;">
-			${place.info }
-		</div>
-		<div style="height:150px;">
-			여기에 별표 한번 넣어 봅시다. 댓글
-		</div>
-		<div>
-			진행중인 이벤트
-		</div>
-		<div>
-			가맹점 기타 사진
-		</div>
-		<div id="Comment" style="border:1px solid blue">
-			<ul style="margin:0px;margin-right:50px;">
+
+<!-- 
+<ul style="margin:0px;margin-right:50px;">
 				<li id="commentCount">
 					리뷰(0) 
 				</li>
@@ -178,38 +218,6 @@
 				
 			</ul>
 			
-			<div id="displayName" style="border:1px solid red;">
-			  kimdonghonn
-			</div>
-			<form id="placeComment" >
-				<ul style="border:1px solid blue">
-					<li style="border:1px solid blue">
-						<img id="imageUrl" style="width:70px;height:70px" src=""/>
-					</li>
-					<li>
-						<input type="hidden" name="fid" value="${place.fid}" />
-						<textarea name="comment" style="width:500px;height:70px"></textarea>
-						<button id="btnComment"  style="height:70px;float:right;"  class="blueButton">남기기</button>
-					</li>
-					
-				</ul>						
-			</form>
-		</div><!-- comment div end -->
-		<section>			
-			<aside id="comments">								
-				<ol id="commentList" class="commentlist">				
-				</ol>
-			</aside>			
-			<div id="paging" class="wp-pagenavi"></div>
-			<div class="cl"></div>
-		</section>
-		<section>
-			리뷰 
-		</section>
-</section>
-
-<!-- 
-
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -380,5 +388,52 @@
 </script>
 	 -->
 	 <h1>푸헤헤헤 마지막</h1>
+	 
+	 <!-- camera slider -->
+	 <script type="text/javascript" src="${context}/resources/web/js/camera.min.js"></script>
+	 <script type="text/javascript" src="${context}/resources/web/js/jquery.easing.1.3.js" ></script>
+	 <script type="text/javascript" src="${context}/resources/web/js/jquery.isotope.min.js" ></script>
+	 <!-- camera slider -->
+	 <script type="text/javascript">
+		$(document).ready(function() {
+			   //camera
+	        jQuery('#camera_wrap_1').camera({
+	        	fx: 'random', time: 2000, loader: 'none', playPause: false,
+	            pagination: true,
+	            thumbnails: true,
+	            hover: false,
+	            opacityOnGrid: true
+	          
+	         });
+			   
+	        $('#isotope').isotope({
+   	 			itemSelector:'.item',
+   	 			layoutMode:'fitRows'
+   	 		});
+	        $('#btnFilter').click(function(){  
+	 			 $('#isotope').isotope({ filter: '.rental' });
+	 		});
+	        
+			 //.camera({ fx: 'random', time: 2000, loader: 'none', playPause: false, height: '65%', pagination: true });
+			$("body").fadeIn("3000");
+			
+		/* 
+			jQuery('#bannerscollection_kenburns_generous').bannerscollection_kenburns({
+				skin: 'generous',
+				responsive:true,
+				width: 934,
+				height: 414,
+				width100Proc:false,
+				numberOfThumbsPerScreen:7,
+				thumbsOnMarginTop:50,
+				thumbsWrapperMarginTop: -110,
+				autoHideBottomNav:false,
+				autoPlay:2
+			});		 */
+			
+		});
+		
+		
+		</script>
 </body>
 </html>	 
