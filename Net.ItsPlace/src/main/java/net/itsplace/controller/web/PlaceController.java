@@ -1,8 +1,10 @@
 package net.itsplace.controller.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -162,6 +164,54 @@ public class PlaceController {
 			e.printStackTrace();
 		}
 		return "web/place/view";
+	}
+	/**
+	 * 가맹점 상세보기  <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2012. 5. 18.
+	 * @param fid
+	 * @param model
+	 * @return view.jsp
+	 * @throws 
+	 * @see 
+	 */
+
+	@RequestMapping(value = "/place/{fid}", method = RequestMethod.GET)
+	public @ResponseBody Map place( @PathVariable Integer fid, Model model) {
+		
+		Map<String, Object> map  = new HashMap();
+		
+		map.put("place", placeService.getPlace(fid));
+	
+		
+		map.put("placeEventList", placeEventService.getPlaceEventList(fid));
+		map.put("placeMediaList",mediaService.findByPlace(fid));
+		map.put("placeMenuList", placeMenuService.findByPlace(fid));
+		map.put("placeReviewList",placeReviewService.getPlaceReviewAll(fid));
+
+		try{					
+			Connection<Facebook> facebook = connectionRepository.findPrimaryConnection(Facebook.class);
+			if (facebook == null) {
+				logger.info("facebook null");
+				model.addAttribute("facebook", null);
+			}else{
+				model.addAttribute("facebook", facebook.getApi().userOperations().getUserProfile());
+				logger.info("getDisplayName:{}",facebook.getDisplayName());
+				logger.info("getImageUrl:{}",facebook.getImageUrl());
+				
+			}
+			Connection<Twitter> twitter = connectionRepository.findPrimaryConnection(Twitter.class);
+			if (twitter == null) {
+				logger.info("twitter null");
+				model.addAttribute("twitter", null);
+			}else{
+				model.addAttribute("twitter", twitter.getApi().userOperations().getUserProfile());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 	/**
 	 * 가맹점 댓글 저장  <br />
