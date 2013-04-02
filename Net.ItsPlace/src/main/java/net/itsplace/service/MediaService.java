@@ -7,6 +7,7 @@ import net.itsplace.basecode.MediaType;
 import net.itsplace.domain.ImageFileUpload;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMedia;
+import net.itsplace.domain.QPlaceMedia;
 import net.itsplace.domain.User;
 import net.itsplace.repository.PlaceMediaRepository;
 import net.itsplace.user.UserInfo;
@@ -17,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import com.mysema.query.types.Predicate;
 public interface MediaService {
 	/**
 	 * place 의 대표이미지를 업데이트하고 placeMedia에도 isProfile = 'Y' 로 저장
@@ -30,7 +33,7 @@ public interface MediaService {
 	/* 가맹점 대표 이미지 삭제  */
 	public void deleteMediaProfile(PlaceMedia media);
 	
-	public List<PlaceMedia> findByPlace(int fid);
+	public Iterable<PlaceMedia> findByPlace(int fid);
 }
 
 @Service("MediaService")
@@ -141,8 +144,11 @@ class MediaSeviceImpl implements MediaService{
 
 
 	@Override
-	public List<PlaceMedia> findByPlace(int fid) {
-		
-		return repo.findByPlace(placeService.getPlace(fid));
+	public Iterable<PlaceMedia> findByPlace(int fid) {
+		QPlaceMedia placeMedia = QPlaceMedia.placeMedia;
+		Place place = placeService.getPlace(fid);
+		Predicate predicate = placeMedia.size.eq("L").and(placeMedia.isDelete.eq(false)).and(placeMedia.place.eq(place));
+        return repo.findAll(predicate);
+		//return repo.findByPlace(placeService.getPlace(fid));
 	}
 }

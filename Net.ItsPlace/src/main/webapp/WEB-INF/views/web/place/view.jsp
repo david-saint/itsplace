@@ -137,6 +137,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
      		
          	<%--  <img src="${applicationScope.ImageHost}${place.fileName}" height="300" /> --%>
          	 <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+               <%-- 
                 <div data-thumb="${context}/resources/web/js/slides/thumbs/bridge.jpg" data-src="${context}/resources/web/js/slides/bridge.jpg">
                     <div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>
                 </div>
@@ -160,7 +161,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
                     <div class="camera_caption moveFromTop">
                         Different color skins and layouts available, <em>fullscreen ready too</em>
                     </div>
-                </div>
+                </div> --%>
               </div><!-- #camera_wrap_1 -->  
               
         </div>
@@ -214,7 +215,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 						</ul>
 						     <div id="isotope">
 						      <ul class="thumbnails" >
-						      	<c:forEach var="media" items="${placeMediaList}">
+						      	<c:forEach var="media" items="${placeMedias}">
 					             <li class="span3 userMedias">
 								     <div class="thumbnail">
 								    <a class="fancybox" href="${applicationScope.ImageHost}${media.mUrl}" data-fancybox-group="gallery" title="Etiam quis mi eu elit temp">
@@ -724,7 +725,37 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 	
 	 <script type="text/javascript">
 		$(document).ready(function() {
-			
+			//view ajax
+			$.ajax({
+				url : "/place/46",
+				type : "GET",				
+				success : function(response) {
+					util.log(response);
+					util.log(response.placeMedias);
+					var placeMedias = "";
+					$.each(response.placeMedias, function(i){
+						util.log('${applicationScope.ImageHost}' +this.mUrl);
+						placeMedias +='<div data-thumb="" data-src="${applicationScope.ImageHost}'+this.mUrl+'">'+
+				                      '<div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>'+
+		   		                      '</div>';
+					});
+					$('#camera_wrap_1').append(placeMedias);
+					 jQuery('#camera_wrap_1').camera({
+				        	fx: 'random', time: 2000, loader: 'none', playPause: false,
+				            pagination: true,
+				            thumbnails: false,
+				            hover: false,
+				            opacityOnGrid: true
+				          
+				         });
+				
+				},
+				error : function(jqXHR,textStatus,errorThrown) {
+					console.log(textStatus
+							+ jqXHR
+							+ errorThrown);
+				}
+			});
 			
 			
 			$('.fancybox').fancybox({
@@ -834,8 +865,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 
 			    
 				
-			//$(".collapse").collapse();
-			   //camera
+			/* //camera slider
 	        jQuery('#camera_wrap_1').camera({
 	        	fx: 'random', time: 2000, loader: 'none', playPause: false,
 	            pagination: true,
@@ -843,7 +873,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 	            hover: false,
 	            opacityOnGrid: true
 	          
-	         });
+	         });//camera slider */
 			   
 	       /* $('#isotope').isotope({
    	 			itemSelector:'.item',

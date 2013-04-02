@@ -7,8 +7,9 @@ import net.itsplace.domain.PlaceMedia;
 import net.itsplace.domain.PlaceMenu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
-public interface PlaceMediaRepository  extends JpaRepository<PlaceMedia, Integer> {
+public interface PlaceMediaRepository  extends JpaRepository<PlaceMedia, Integer>, QueryDslPredicateExecutor<PlaceMedia>  {
 
 	List<PlaceMedia> findByPlace(Place place);
 	

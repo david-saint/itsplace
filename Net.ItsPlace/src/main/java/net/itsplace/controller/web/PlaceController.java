@@ -149,7 +149,7 @@ public class PlaceController {
 		//Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
 	//	param.put("fid", fid);
 		
-		model.addAttribute("placeMediaList",mediaService.findByPlace(fid));
+		model.addAttribute("placeMedias",mediaService.findByPlace(fid));
 		model.addAttribute("placeEventList", placeEventService.getPlaceEventList(fid));
 		
 		
@@ -209,15 +209,15 @@ public class PlaceController {
 		
 		Map<String, Object> map  = new HashMap();
 		
-		map.put("place", placeService.getPlace(fid));
+		//map.put("place", placeService.getPlace(fid));
 		
 		//카메라슬라이더 // 가맹점 이미지
-		map.put("placeMediaList",mediaService.findByPlace(fid,));
+		map.put("placeMedias",mediaService.findByPlace(fid));
 		
-		map.put("placeEventList", placeEventService.getPlaceEventList(fid));
+		//map.put("placeEventList", placeEventService.getPlaceEventList(fid));
 		
-		map.put("placeMenuList", placeMenuService.findByPlace(fid));
-		map.put("placeReviewList",placeReviewService.getPlaceReviewAll(fid));
+		//map.put("placeMenuList", placeMenuService.findByPlace(fid));
+		//map.put("placeReviewList",placeReviewService.getPlaceReviewAll(fid));
 
 		try{					
 			Connection<Facebook> facebook = connectionRepository.findPrimaryConnection(Facebook.class);
