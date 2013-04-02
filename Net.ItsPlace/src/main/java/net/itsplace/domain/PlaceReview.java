@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 @Entity(name="PLACEREVIEW")
 public class PlaceReview {
 	public interface AddPlaceReview {}
@@ -72,5 +75,7 @@ public class PlaceReview {
 	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
-	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

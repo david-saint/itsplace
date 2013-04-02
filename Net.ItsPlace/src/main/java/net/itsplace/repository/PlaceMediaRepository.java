@@ -11,4 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PlaceMediaRepository  extends JpaRepository<PlaceMedia, Integer> {
 
 	List<PlaceMedia> findByPlace(Place place);
+	
+	List<PlaceMedia> findByPlaceAndIsDelete(Place place, boolean isDelete);
 }

@@ -14,8 +14,8 @@
 		<intercept-url pattern="/signin/**" access="permitAll" />
 		<intercept-url pattern="/signup/**" access="permitAll" />
 		<intercept-url pattern="/disconnect/facebook" access="permitAll" />
-		<!-- 최고 관리자 -->
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<!-- 최고 관리자 
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
 		<intercept-url pattern="/admin/place/event/getPlaceEventList" access="hasRole('ROLE_USER')"/>
 		
 		

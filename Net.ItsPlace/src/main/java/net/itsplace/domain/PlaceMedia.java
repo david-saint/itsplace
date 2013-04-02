@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 
 @Entity(name="PMEDIA")
 public class PlaceMedia {
@@ -107,6 +110,8 @@ public class PlaceMedia {
 	public void setIsProfile(Boolean isProfile) {
 		this.isProfile = isProfile;
 	}
-	
+	public String toString(){
+		return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE);
+	}
 	
 }
