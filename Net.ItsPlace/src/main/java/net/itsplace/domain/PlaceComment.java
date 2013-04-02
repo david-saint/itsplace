@@ -34,7 +34,7 @@ public class PlaceComment {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-		private String cid; /* 코멘트  */
+		private int cid; /* 코멘트  */
 	@ManyToOne
 	@JoinColumn(name="FID")	
 		private Place place;
@@ -51,10 +51,10 @@ public class PlaceComment {
 	//	private String prettyDate;
 		//private String profileImageUrl;
 		//private String commentCount; // 코멘트갯수 
-		public String getCid() {
+		public int getCid() {
 			return cid;
 		}
-		public void setCid(String cid) {
+		public void setCid(int cid) {
 			this.cid = cid;
 		}
 		public Place getPlace() {

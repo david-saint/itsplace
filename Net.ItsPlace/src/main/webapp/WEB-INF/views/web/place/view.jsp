@@ -736,7 +736,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 					$.each(response.placeMedias, function(i){
 						util.log('${applicationScope.ImageHost}' +this.mUrl);
 						placeMedias +='<div data-thumb="" data-src="${applicationScope.ImageHost}'+this.mUrl+'">'+
-				                      '<div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>'+
+				                      '<div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">'+this.mTitle+'</div>'+
 		   		                      '</div>';
 					});
 					$('#camera_wrap_1').append(placeMedias);
