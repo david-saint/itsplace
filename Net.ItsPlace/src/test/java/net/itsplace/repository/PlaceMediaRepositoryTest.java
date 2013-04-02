@@ -6,13 +6,17 @@ import java.util.List;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceMedia;
+import net.itsplace.domain.QPlaceMedia;
 import net.itsplace.init.TestApplicationContext;
 import net.itsplace.module.event.PlaceEventRepository;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.mysema.query.types.Predicate;
 
 public class PlaceMediaRepositoryTest extends TestApplicationContext {
 	  
@@ -21,7 +25,7 @@ public class PlaceMediaRepositoryTest extends TestApplicationContext {
 	@Autowired
 	PlaceMediaRepository repo;
 	
-	@Test
+	@Ignore
 	public void testFindByPlace() {
 		Place p = new Place();
 		p.setFid(46);
@@ -34,6 +38,16 @@ public class PlaceMediaRepositoryTest extends TestApplicationContext {
 		//	logger.warn("dd");
 		}
 		
+		
+	}
+	@Test
+	public void testFindAll(){
+		QPlaceMedia placeMedia = QPlaceMedia.placeMedia;
+		Place place = new Place();
+		place.setFid(46);
+		Predicate predicate = placeMedia.size.eq("L").and(placeMedia.isDelete.eq(false)).and(placeMedia.place.eq(place));
+    	Iterable<PlaceMedia> list = repo.findAll(predicate);
+	
 	}
 
 }

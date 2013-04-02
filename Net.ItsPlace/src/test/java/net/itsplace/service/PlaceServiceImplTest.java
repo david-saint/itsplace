@@ -25,8 +25,7 @@ public class PlaceServiceImplTest extends TestApplicationContext {
 	@Autowired
 	PlaceService service;
 
-	
-	@Test
+	@Ignore
 	public void testFindByAllPredicateJpaPaging() {
 		for(Place p : service.findByRecentPalces(5)){
 			
@@ -37,7 +36,7 @@ public class PlaceServiceImplTest extends TestApplicationContext {
 		//logger.warn(ServiceType.Normal.name());
 	}
 
-	@Ignore
+	@Test
 	public void testFindByAllPredicate() {
 		Predicate predicate = PlacePredicates.isAuth(true).and(PlacePredicates.likeFname("미스터"));
 		service.findByAll(predicate);
