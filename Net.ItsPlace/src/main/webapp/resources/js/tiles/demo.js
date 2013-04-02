@@ -418,12 +418,16 @@ var debounce = function(func, wait, immediate) {
 		$('.place-view').die();
 		$('.place-view').live('click',function(e) {
 			// $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
-			// $('#jqmWindow').jqmShow();
+			// $('#`Window').jqmShow();
 			 
+			makeView($(this).parent().attr('id'));
+			
 			 $('#jqmWindow').modal({
 			        backdrop: true,
 			        keyboard: true
 			  });
+			 
+			 
 			// $('.modal-body').css('height',$(document).height()+'px');
 		});
 		
@@ -441,6 +445,27 @@ var debounce = function(func, wait, immediate) {
 
  }
  
+function makeView(fid){console.log("makeview");
+	$('.modal-body').empty();
+	 $.ajax({
+	        type: 'GET'
+	        , url: "/place/"+fid
+	        , success: function(data) {
+	        	console.log(data.place.fname);
+	        	/*console.log("count:"+data.result.length);
+	        	for(i=0;i<data.result.length;i++){
+	        		console.log( data.result[i].fname);
+	        	}*/
+	        	
+	        }
+	 		, error: function(data, status, err) {
+	 			console.log(data);
+	 		}
+	 		, complete: function() {
+	 			
+	 		}
+	 });
+} 
 function makePlace(rows, tileId){
 	 var html = new StringBuffer();
      html.append("<div id=\""+rows[tileId-1].fid+"\"  class=\"place-bg\"");
