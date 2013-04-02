@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 
 import net.itsplace.domain.User.AddUser;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -86,5 +88,7 @@ public class PlaceComment {
 			this.isDelete = isDelete;
 		}
 		
-	
+		public String toString(){
+			return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE);
+		}
 }

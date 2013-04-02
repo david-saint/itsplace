@@ -1,5 +1,6 @@
 package net.itsplace.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ public interface PlaceCommentService {
 	public PlaceComment getPlaceComment(int cid);
 	public boolean deletePlaceComment(int cid) ;
 	public Page<PlaceComment> findPlaceCommentList(JpaPaging paging,int fid);
+	public List<PlaceComment> findPlaceCommentList(int fid);
 }
 
 @Service("placeCommentService")
@@ -69,6 +71,9 @@ class PlaceCommentServiceImpl  implements PlaceCommentService {
 	}
 	@Override
 	public void savePlaceComment(PlaceComment placeComment) {
+		placeComment.setSaveDate(new Date());
+		placeComment.setUser(UserInfo.getUser());
+			
 		repo.save(placeComment);
 	}
 
@@ -101,6 +106,13 @@ class PlaceCommentServiceImpl  implements PlaceCommentService {
 	@Override
 	public PlaceComment getPlaceComment(int cid) {
 		return repo.findOne(cid);
+	}
+
+	@Override
+	public List<PlaceComment> findPlaceCommentList(int fid) {
+		// TODO Auto-generated method stub
+		
+		return repo.findByPlace(placeService.getPlace(fid));
 	}
 
 }

@@ -23,6 +23,13 @@ var util = {
 			console.log(message);
 		}
 	    
-	},		
+	},	
+	status : function(response){
+		 if(response.status=="SUCCESS"){
+			 return true;
+		 }else{
+			 return false;
+		 }
+	}
 };	
 

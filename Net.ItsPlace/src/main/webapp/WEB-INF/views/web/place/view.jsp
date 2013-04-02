@@ -8,12 +8,22 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/boot.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/isotope.css" />" />
 		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
 		
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/fancybox/jquery.fancybox.css?v=2.1.4" />" media="screen" />
+			
 		<style>
+		#placeTab a{
+			text-decoration: none;
+		}
+		.accordion-heading  a {
+			text-decoration: none;
+		}
+		.accordion-group {
+			border: 0px solid #e5e5e5 !important;
+		}
 		.short_headline {
 			border-bottom: 1px solid #d8dfe5;
 			margin: 0 0 1em 0;
@@ -121,8 +131,8 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
           	네이게이션메뉴
         </div>
      </div>
-     
-     <div class="row-fluid" style="border-bottom: 1px solid #ff5821;">
+     <!-- 가맹점사진  medialist -->
+     <div class="row-fluid" style="">
      	<div class="span8">
      		
          	<%--  <img src="${applicationScope.ImageHost}${place.fileName}" height="300" /> --%>
@@ -155,9 +165,15 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
               
         </div>
         <div class="span4 sidebar">
-        <h5 class="short_headline"><span>Blog Categories</span></h5>
+        <h5 class="short_headline"><span>공유하기</span></h5>
+        	<ul>
+				<li>좋아요 조회수 공유버튼
+				</li>
+				<li>리뷰횟수</li>
+		
+			</ul>
+        
         <h5 class="short_headline"><span>상세정보</span></h5>
-          	상세정보
 			<ul>
 				<li><span class='title'>전화번호</span> <span>${place.phone1}</span>
 				</li>
@@ -180,129 +196,240 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
      </div>
      <!-- 사용자 미디어 -->
      <div class="row-fluid" style="border: 0px solid #ff5821;background-color: #fff;">
-     	<button id="btnFilter">좋아요</button>
-     	<ul class="nav nav-pills nav-justified">
-		  <li class="active"><a href="#">Home</a></li>
-		  <li><a href="#">Profile</a></li>
-		  <li><a href="#">Messages</a></li>
-		</ul>
-		     <div id="isotope">
-		      <ul class="thumbnails" >
-		      	<c:forEach var="media" items="${placeMediaList}">
-	             <li class="span3 userMedias">
-				     <div class="thumbnail">
-				    <a href="#">
-				    <figure class="thumbnail-figure">
-		            <img data-src="${applicationScope.ImageHost}${media.mUrl}" alt="260x180" style="width: 260px; height: 180px;" src="${applicationScope.ImageHost}${media.mUrl}">
-		            
-		            <figcaption class="thumbnail-title">
-		             
-		              <p>
-		                <span>오늘. 홍길동</span>
-		              </p>
-		            </figcaption>
-		            </figure>
-				    </a>  
-				      <p>Thumbnail caption..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
-				    </div>
-				  </li>    	
-               			
-				</c:forEach>
-				
-		      	 <li class="span3 userMedias rental " >
-		      	    <div class="thumbnail review-text">
-				    <p  class="text">안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-				    </p>
-				    <div class="caption-text">
-		              <p>
-		                <span>Managing director</span>
-		              </p>
-		            </div>
-		            </div>
-				  </li> 
-				  
-				   <li class="span3 userMedias rental review-text" style="border:0px solid blue;">
-				   		<div class="thumbnail review-text">
-					    <p  class="text">dfxfxfxdfxdf요
-					    </p>
-					    <div class="caption-text">
-			              <p>
-			                <span>Managing director</span>
-			              </p>
-			            </div>
-			            </div>
-				  </li> 
-				  
-				   <li class="span3 userMedias renta review-text" style="border:0px solid red;">
-				    <div class="thumbnail review-text">
-					    <p  class="text">하하하하하하하하하하하하하하하하하하하하
-					    </p>
-					    <div class="caption-text">
-			              <p>
-			                <span>Managing director</span>
-			              </p>
-			            </div>
-			            </div>
-				  </li> 
-				  
-				  
-				   <li class="span3 userMedias">
-				     <div class="thumbnail">
-					    <a href="#">
-					    <div class="thumbnail-figure">
-			            <img style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg">
-			            
-			            <div class="thumbnail-title">
-			              
-			              <p>
-			                <span>Managing director</span>
-			              </p>
-			            </div>
-			            </div>
-					    </a>  
-					      <h3>Thumbnail label</h3>
-					      <p>Thumbnail 안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
-					    </div>
-				  </li>    	
-				  <li class="span3 userMedias rental review-text" style="border:0px solid blue;">
-				   		<div class="thumbnail review-text">
-					    <p  class="text">xxxxxxxxxxxxxxxxxxxxxxxxxxx
-					    </p>
-					    <div class="caption-text">
-			              <p>
-			                <span>Managing director</span>
-			              </p>
-			            </div>
-			            </div>
-				  </li> 
-				  
-				  <li class="span3 userMedias">
-				     <div class="thumbnail">
-				    <a href="#">
-				    <figure class="thumbnail-figure">
-		            <img style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg">
-		            
-		            <figcaption class="thumbnail-title">
-		              <h3>
-		                <span>Betty Doe</span>
-		              </h3>
-		              <p>
-		                <span>Managing director</span>
-		              </p>
-		            </figcaption>
-		            </figure>
-				    </a>  
-				      <h3>Thuail label</h3>
-				      <p>Thumbna..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
-				    </div>
-				  </li>    	
-				  
-		      </ul>
-		     </div>
+      <ul class="nav nav-tabs" id="placeTab">
+			  <li class="active"><a href="#review" data-toggle="tab" state="0">리뷰</a></li>
+			  <li><a href="#profile" data-toggle="tab" state="0"> 지도</a></li>
+			  <li><a href="#messages" data-toggle="tab" state="0">스탬프</a></li>
+			  <li><a href="#events" data-toggle="tab" state="0">이벤트</a></li>
+			</ul>
+			 
+			<div class="tab-content">
+			  <div class="tab-pane active" id="review">
+			  
+			  
+			  			<ul class="nav nav-pills nav-justified">
+						  <li class="active"><a id="btnFilter" href="#">필터1</a></li>
+						  <li><a href="#">Profile</a></li>
+						  <li><a href="#">Messages</a></li>
+						</ul>
+						     <div id="isotope">
+						      <ul class="thumbnails" >
+						      	<c:forEach var="media" items="${placeMediaList}">
+					             <li class="span3 userMedias">
+								     <div class="thumbnail">
+								    <a class="fancybox" href="${applicationScope.ImageHost}${media.mUrl}" data-fancybox-group="gallery" title="Etiam quis mi eu elit temp">
+									    <figure class="thumbnail-figure">
+							            <img  style="width: 260px; height: 180px;" src="${applicationScope.ImageHost}${media.mUrl}">
+							            
+						            
+						            
+						            <figcaption class="thumbnail-title">
+						             
+						              <p>
+						                <span>오늘. 홍길동</span>
+						              </p>
+						            </figcaption>
+						            </figure>
+								    </a>  
+								      <p>Thumbnail caption..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
+								    </div>
+								  </li>    	
+				               			
+								</c:forEach>
+								
+						      	 <li class="span3 userMedias rental " >
+						      	    <div class="thumbnail review-text">
+								    <p  class="text">안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+								    </p>
+								    <div class="caption-text">
+						              <p>
+						                <span>Managing director</span>
+						              </p>
+						            </div>
+						            </div>
+								  </li> 
+								  
+								   <li class="span3 userMedias rental review-text" style="border:0px solid blue;">
+								   		<div class="thumbnail review-text">
+									    <p  class="text">dfxfxfxdfxdf요
+									    </p>
+									    <div class="caption-text">
+							              <p>
+							                <span>Managing director</span>
+							              </p>
+							            </div>
+							            </div>
+								  </li> 
+								  
+								   <li class="span3 userMedias renta review-text" style="border:0px solid red;">
+								    <div class="thumbnail review-text">
+									    <p  class="text">하하하하하하하하하하하하하하하하하하하하
+									    </p>
+									    <div class="caption-text">
+							              <p>
+							                <span>Managing director</span>
+							              </p>
+							            </div>
+							            </div>
+								  </li> 
+								  
+								  
+								   <li class="span3 userMedias">
+								     <div class="thumbnail">
+									    <a href="#">
+									    <div class="thumbnail-figure">
+							            <img style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg">
+							            
+							            <div class="thumbnail-title">
+							              
+							              <p>
+							                <span>Managing director</span>
+							              </p>
+							            </div>
+							            </div>
+									    </a>  
+									      <h3>Thumbnail label</h3>
+									      <p>Thumbnail 안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
+									    </div>
+								  </li>    	
+								  <li class="span3 userMedias rental review-text" style="border:0px solid blue;">
+								   		<div class="thumbnail review-text">
+									    <p  class="text">xxxxxxxxxxxxxxxxxxxxxxxxxxx
+									    </p>
+									    <div class="caption-text">
+							              <p>
+							                <span>Managing director</span>
+							              </p>
+							            </div>
+							            </div>
+								  </li> 
+								  
+								  <li class="span3 userMedias">
+								     <div class="thumbnail">
+								    <a href="#">
+								    <figure class="thumbnail-figure">
+						            <img style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg">
+						            
+						            <figcaption class="thumbnail-title">
+						              <h3>
+						                <span>Betty Doe</span>
+						              </h3>
+						              <p>
+						                <span>Managing director</span>
+						              </p>
+						            </figcaption>
+						            </figure>
+								    </a>  
+								      <h3>Thuail label</h3>
+								      <p>Thumbna..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
+								    </div>
+								  </li>    	
+								  
+						      </ul>
+						     </div>
+			  </div><!-- review end -->
+			  <div class="tab-pane" id="profile">.pppp..</div>
+			  <div class="tab-pane" id="messages">.mmmm..</div>
+			  
+			  <div class="tab-pane" id="events">
+			  	
+			  	<div class="accordion" id="accordionEvents">
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="accordionEvents" href="#collapseOne">
+                    	     
+                       		무료 이벤트 진행중입니다 2013-01-01 ~ 2013-02-03
+                    </a>
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse ">
+                    <div class="accordion-inner">
+                     	<div class="span8">
+						      <div class="clearfix content-heading">
+						          <img class="pull-left"  style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg"/>
+						          <div style="margin-left:280px;">
+						           <h3>Experience &nbsp </h3> 
+						          <p>Donec id elit non mi porta gravida at eget metus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+						          </div>
+						          
+						      </div>
+						      
+						</div>
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="accordionEvents" href="#collapseThree">
+                  				    무료 이벤트 진행중입니다 2013-01-01 ~ 2013-02-03
+                    </a>
+                  </div>
+                  <div id="collapseThree" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                      3333333333333333333333333333333333333333333333333333333
+                    </div>
+                  </div>
+                </div>
+              </div>
+			  	
+			  	<c:forEach var="event" items="${placeEventList}">
+			  	 	${event.title }
+			  	</c:forEach>
+			  	<c:forEach var="review" items="${placeReviewList}">
+			  		${review.title }
+			  	</c:forEach>
+			  	<c:forEach var="comment" items="${placeComments}">
+			  		${comment.comment }
+			  	</c:forEach>
+			  </div>
+			</div>
+			
+			
+			
+     
      </div>
-     <div class="row-fluid" style="border: 1px solid #ff5821;">
+    <!--  <div class="row">
+     <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                      Collapsible Group Item #1
+                    </a>
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                      Collapsible Group Item #2
+                    </a>
+                  </div>
+                  <div id="collapseTwo" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                      Collapsible Group Item #3
+                    </a>
+                  </div>
+                  <div id="collapseThree" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+              </div>
+     </div> -->
+     <%-- <div class="row-fluid" style="border: 1px solid #ff5821;">
      	<div class="span8">
-     	
      	 <ul class="thumbnails">
 		      	<c:forEach var="media" items="${placeMediaList}">
 	             <li class="span3 userMedias">
@@ -344,10 +471,10 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 	    sss
 	    </div>
                     
-     </div>
+     </div>  --%>
      <div class="row-fluid">
      	<div class="media">
-              <a class="pull-left" href="#">
+              <a class="fancybox pull-left" href="#">
                 <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABM0lEQVR4Xu2YQQ4CIQxFZ+7GsTkTV9C4IKlYoATQRt6sJhls6ee3L3KnlB7Xwc+NADiAFmAGHDwDL4YgFIACUAAKQIGDFQCDYBAMgkEweDAE+DMEBsEgGASDYBAMTigQY3z7dQjhI1peo32rpd4Vt8w3hcGyMK1QWYhVgF1xNbGXCqAlWCHAqrhfF6Bm494J91rG0h7Wrl7iAJlM2nxWgNG41qLluiUC5KLlydXec/LWKbYc0os7KsLPBHhttGb1vxKgPJHSLfm71jotZ9XiunGA3Mjo0OutL9vIitflFJA21k6ytlFLgZZJ36OFxQ1TM8CSwPsaBOBChAsRLkS4EPE+qXfuDwpAASgABaDAzinrPTYUgAJQAApAAe+Teuf+oAAUgAJQAArsnLLeY0MBKHA4BZ4dA7WQLRJORAAAAABJRU5ErkJggg==">
               </a>
               <div class="media-body">
@@ -356,7 +483,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
               </div>
         </div>     	
      	<div class="media">
-              <a class="pull-left" href="#">
+              <a class="fancybox pull-left" href="#">
                 <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABM0lEQVR4Xu2YQQ4CIQxFZ+7GsTkTV9C4IKlYoATQRt6sJhls6ee3L3KnlB7Xwc+NADiAFmAGHDwDL4YgFIACUAAKQIGDFQCDYBAMgkEweDAE+DMEBsEgGASDYBAMTigQY3z7dQjhI1peo32rpd4Vt8w3hcGyMK1QWYhVgF1xNbGXCqAlWCHAqrhfF6Bm494J91rG0h7Wrl7iAJlM2nxWgNG41qLluiUC5KLlydXec/LWKbYc0os7KsLPBHhttGb1vxKgPJHSLfm71jotZ9XiunGA3Mjo0OutL9vIitflFJA21k6ytlFLgZZJ36OFxQ1TM8CSwPsaBOBChAsRLkS4EPE+qXfuDwpAASgABaDAzinrPTYUgAJQAApAAe+Teuf+oAAUgAJQAArsnLLeY0MBKHA4BZ4dA7WQLRJORAAAAABJRU5ErkJggg==">
               </a>
               <div class="media-body">
@@ -365,22 +492,19 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
               </div>
         </div>     	
      </div>
+     
+     
      <div class="row-fluid">
-     		<div id="displayName" style="border:1px solid red;">
-			  kimdonghonn
-			</div>
 			<form id="placeComment" >
-				<ul style="border:1px solid blue">
-					<li style="border:1px solid blue">
-						<img id="imageUrl" style="width:70px;height:70px" src=""/>
-					</li>
-					<li>
-						<input type="hidden" name="fid" value="${place.fid}" />
-						<textarea name="comment" style="width:500px;height:70px"></textarea>
-						<button id="btnComment"  style="height:70px;float:right;"  class="blueButton">남기기</button>
-					</li>
-					
-				</ul>						
+             
+              <div class=" controls controls-row" style="">
+                <img id="imageUrl" class="span1 img-rounded" style="width:70px;height:61px" src="<sec:authentication property='principal.user.profileImageUrl' />"/>
+                <input type="hidden" name="fid" value="${place.fid}" />
+				<textarea name="comment" class="span10" rows="2"  style="margin-left: 25px;"></textarea>
+			  <button id="btnComment" class="span1 btn " style="height:61px; float:right;"  class="blueButton">남기기</button>	
+				
+              </div>
+				
 			</form>
      </div>
 </div>
@@ -594,10 +718,123 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 	 <!-- camera slider -->
 	 <script type="text/javascript" src="${context}/resources/web/js/camera.min.js"></script>
 	 <script type="text/javascript" src="${context}/resources/web/js/jquery.easing.1.3.js" ></script>
-	 <script type="text/javascript" src="${context}/resources/web/js/jquery.isotope.min.js" ></script>
+	 <script type="text/javascript" src="${context}/resources/web/js/jquery.isotope.min.js" ></script>	 
 	 <!-- camera slider -->
+	 <script type="text/javascript" src="${context}/resources/web/js/fancybox/jquery.fancybox.pack.js" /></script>
+	
 	 <script type="text/javascript">
 		$(document).ready(function() {
+			
+			
+			
+			$('.fancybox').fancybox({
+				openEffect  : 'elastic',
+				closeEffect : 'elastic'
+			});
+			
+			//add review
+			$('#btnComment').live('click',function(e) {
+				e.preventDefault();
+								$.ajax({
+									url : "/place/addComment",
+									type : "POST",
+									data : $(
+											'#placeComment')
+											.serialize(),
+									success : function(response) {
+										if(util.status(response)){
+											console.log("success");
+										}else{
+											console.log("s:"+ response.result);
+										}
+										
+									
+									},
+									error : function(jqXHR,textStatus,errorThrown) {
+										console.log(textStatus
+												+ jqXHR
+												+ errorThrown);
+									}
+								});
+					});
+			
+			//탭
+			/* $('#placeTab a').click(function (e) {
+			  e.preventDefault();
+			  $(this).tab('show');
+			}); */
+			
+			 $('a[data-toggle="tab"]').on('shown', function (e) {
+					util.log("tab id:" + $(this).prop('hash'));
+					
+					if($(this).prop('hash') == "#events"){
+						//이벤트 콜
+						$.ajax({
+							url : "/place/events/" + '${place.fid}',
+							type : "GET",							
+							success : function(response) {
+								
+									util.log("이벤트 정보들 ");
+									util.log(response);
+									var html = "";
+									$.each(response, function(i){
+										console.log(this.title);
+										console.log(this.eid);
+										html +=	'<div class="accordion-group">' +
+		                  		        '<div class="accordion-heading">' +
+		                    			'<a class="accordion-toggle" data-toggle="collapse" data-parent="accordionEvents" href="#event_'+this.eid+'">' +
+			                       		this.title + 
+		                    		    '</a>' +
+		                  			    '</div>'+
+					                    '<div id="event_'+this.eid+'" class="accordion-body collapse ">'+
+					                    ' <div class="accordion-inner">'+
+					                    ' 	<div class="span8">'+
+										'	      <div class="clearfix content-heading">'+
+										'	          <img class="pull-left"  style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg"/>'+
+										'	          <div style="margin-left:280px;">'+
+										'	           <h3>Experience &nbsp </h3> '+
+										'	          <p>'+this.content+'</p>'+
+										'	          </div>'+
+										'	      </div>'+
+										'	</div>'+
+					                    '</div>'+
+					                    ' </div>'+
+					                    ' </div>';
+					                    
+									});
+								 
+									
+				                $('#accordionEvents').append(html);
+							
+							},
+							error : function(jqXHR,textStatus,errorThrown) {
+								console.log(textStatus
+										+ jqXHR
+										+ errorThrown);
+							},
+							complete : function(){
+								//alert();
+								$(".collapse").collapse();
+							}
+						});
+		
+						
+                
+						//$(".collapse").collapse();
+					}
+			        /* var myState = $(this).attr('state'),
+			            state = $('.expandcollapse').attr('state');
+
+			        if(myState != state) {
+			          toggleTab($(this).prop('hash'));
+			          $(this).attr('state',state);
+			        }
+ */
+			    }); // te
+
+			    
+				
+			//$(".collapse").collapse();
 			   //camera
 	        jQuery('#camera_wrap_1').camera({
 	        	fx: 'random', time: 2000, loader: 'none', playPause: false,

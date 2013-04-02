@@ -13,6 +13,7 @@ import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
 import net.itsplace.domain.PlaceComment.AddPlaceComment;
+import net.itsplace.domain.PlaceEvent;
 import net.itsplace.module.event.PlaceEventService;
 import net.itsplace.module.menu.PlaceMenuService;
 import net.itsplace.repository.PlacePredicates;
@@ -112,6 +113,24 @@ public class PlaceController {
 		json.setSuccess();
 		return json;
 	}
+	
+	/**
+	 * 가맹점 이벤트 정보들   <br />
+	 * 
+	 * @author 김동훈
+	 * @version 1.0, 2012. 5. 18.
+	 * @param fid
+	 * @param model
+	 * @return view.jsp
+	 * @throws 
+	 * @see 
+	 */
+	@RequestMapping(value = "/place/events/{fid}", method = RequestMethod.GET)
+	public @ResponseBody List<PlaceEvent> getPlaceEvent( @PathVariable Integer fid) {
+		
+		
+		return placeEventService.getPlaceEventList(fid);
+	}
 	/**
 	 * 가맹점 상세보기  <br />
 	 * 
@@ -130,11 +149,19 @@ public class PlaceController {
 		//Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
 	//	param.put("fid", fid);
 		
-		
-		model.addAttribute("placeEventList", placeEventService.getPlaceEventList(fid));
 		model.addAttribute("placeMediaList",mediaService.findByPlace(fid));
+		model.addAttribute("placeEventList", placeEventService.getPlaceEventList(fid));
+		
+		
+		model.addAttribute("placeComments", placeCommentService.findPlaceCommentList(fid));
+		model.addAttribute("placeReviewList",placeReviewService.getPlaceReviewAll(fid));	
+		
+		
+		
+		
+		
 		model.addAttribute("placeMenuList", placeMenuService.findByPlace(fid));
-		model.addAttribute("placeReviewList",placeReviewService.getPlaceReviewAll(fid));
+	
 //		model.addAttribute("placeStampList",placeService.getPlaceStampListByPlace(fid));
 		
 	//	List<PlaceComment> placeCommentList = placeService.getPlaceCommentList(param);
@@ -183,10 +210,12 @@ public class PlaceController {
 		Map<String, Object> map  = new HashMap();
 		
 		map.put("place", placeService.getPlace(fid));
-	
+		
+		//카메라슬라이더 // 가맹점 이미지
+		map.put("placeMediaList",mediaService.findByPlace(fid,));
 		
 		map.put("placeEventList", placeEventService.getPlaceEventList(fid));
-		map.put("placeMediaList",mediaService.findByPlace(fid));
+		
 		map.put("placeMenuList", placeMenuService.findByPlace(fid));
 		map.put("placeReviewList",placeReviewService.getPlaceReviewAll(fid));
 
@@ -225,22 +254,23 @@ public class PlaceController {
 	 * @see 
 	 */
 	 @RequestMapping(value = "/place/addComment", method = RequestMethod.POST)
-	 public @ResponseBody JsonResponse addComment(@Validated({AddPlaceComment.class}) PlaceComment placeComment, BindingResult result, Model model){
-		 logger.info("comment:"+placeComment.getComment());
+	 public @ResponseBody JsonResponse addComment(@RequestParam(required=true) Integer fid, @RequestParam(required=true) String comment){
+		 Place place = placeService.getPlace(fid);
+		 
 		 JsonResponse json = new JsonResponse();
-		 if (result.hasErrors()) {
-				logger.info(result.getObjectName() +": "+ result.getFieldError().getDefaultMessage() +"------------발생");
-				json.setResult(result.getFieldError().getDefaultMessage());
-				json.setFail();
+		 if(place == null || comment.isEmpty()){
+			 json.setFail();
 		 }else{
-			 placeCommentService.savePlaceComment(placeComment);			
-			 json.setResult("");
+			 PlaceComment placeComment = new PlaceComment();
+			 placeComment.setComment(comment);
+			 placeComment.setPlace(place);
 			 json.setStatus("SUCCESS");
-			 
-			 //twitter.directMessageOperations().sendDirectMessage(placeComment.getEmail(),placeComment.getComment());
 		 }
-	    	return json;
+
+	    return json;
 	 }
+	 
+	 
 	 /**
 		 * 가맹점 댓글 삭제   <br />
 		 * 

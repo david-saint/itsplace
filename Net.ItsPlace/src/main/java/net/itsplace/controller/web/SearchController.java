@@ -54,7 +54,6 @@ public class SearchController {
 		
 //		json.setResult(searchService.getPlaceListByTile(param));
 		json.setResult(palceService.findByAll(predicate));
-		json.setStatus("SUCCESS");
 		return json;
 	}
 	
@@ -100,7 +99,6 @@ public class SearchController {
 		JsonResponse json = new JsonResponse();
 		//json.setResult(searchService.getPlaceList(param));
 		//json.setTotalCount(pagingManaer.getFoundRows());
-		json.setStatus("SUCCESS");
 		return json;
 	}
 	/**
@@ -112,7 +110,6 @@ public class SearchController {
 	@RequestMapping(value = "/search/test", method = RequestMethod.POST)
 	public @ResponseBody JsonResponse  test(){
 		JsonResponse json = new JsonResponse();
-		json.setSuccess();
 		json.setResult("aaaa");
 			return json;
 	}
