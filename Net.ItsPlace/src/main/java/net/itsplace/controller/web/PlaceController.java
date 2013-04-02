@@ -86,7 +86,7 @@ public class PlaceController {
 	}
 	/**
 	 * 웹 가맹점 검색
-	 * @param locale
+	 * @param locale 
 	 * @param model
 	 * @return
 	 */
