@@ -233,11 +233,12 @@ width: 60%;
 border:1px solid red;
 	
 } */
- .modal{
+/*  .modal{
 margin-bottom: 20px !important;
 bottom: 0  !important;
-max-height: 500px;
-}/*
+
+} */
+/*
 .modal.fade.in {
 	top: 20px !important;
 }

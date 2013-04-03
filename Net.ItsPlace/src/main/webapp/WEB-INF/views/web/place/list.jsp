@@ -47,7 +47,7 @@ socket.on("SetRoomList", function (data) {
 $.fn.modal.defaults.maxHeight = function(){
     //modal-body 높이 지정
     //return $(window).height() - 205;
-    return "95%";
+   // return "95%";
 }
 $(document).ready(function() {
 	 

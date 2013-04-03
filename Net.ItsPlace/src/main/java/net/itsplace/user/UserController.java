@@ -84,7 +84,8 @@ public class UserController {
 			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
 			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
 			UserProfile providerUser =	connection.fetchUserProfile();
-			System.out.println("사인업:email:"+providerUser.getEmail()+" name:"+providerUser.getName()+ "username:"+providerUser.getUsername()+connection.getProfileUrl());
+
+//			System.out.println("사인업:email:"+providerUser.getEmail()+" name:"+providerUser.getName()+ "username:"+providerUser.getUsername()+connection.getProfileUrl());
 			String userEmail = "";
 			if(signupEmail.getEmail()!=null){
 				System.out.println("email:" +signupEmail.getEmail());
@@ -124,7 +125,7 @@ public class UserController {
 			
 			user.setEmail(userEmail);
 			user.setName(providerUser.getName());
-			user.setProfileImageUrl(connection.getProfileUrl());
+			user.setProfileImageUrl(connection.getImageUrl());
 			user.setRole("ROLE_USER");
 			user.setPassword(Math.random()+"itsplace");
 			

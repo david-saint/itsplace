@@ -58,9 +58,12 @@ public interface BaseService {
 	@Override
 	public List<Bascd> getBascdList(String grpCd) {
 		//return adminBaseDao.getBascdList(grpCd);
+		if(grpCd.isEmpty()){
+			return baseRepositoryRepo.findAll();
+		}
 		return baseRepositoryRepo.findByGrpcd(grpCd);
 	}
-
+ 
 
 
 	@Override
