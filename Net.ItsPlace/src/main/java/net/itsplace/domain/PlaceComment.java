@@ -48,6 +48,7 @@ public class PlaceComment {
 		@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 		private Date saveDate;
 		private Boolean isDelete;
+		private String filePath;
 	//	private String prettyDate;
 		//private String profileImageUrl;
 		//private String commentCount; // 코멘트갯수 
@@ -88,6 +89,12 @@ public class PlaceComment {
 			this.isDelete = isDelete;
 		}
 		
+		public String getFilePath() {
+			return filePath;
+		}
+		public void setFilePath(String filePath) {
+			this.filePath = filePath;
+		}
 		public String toString(){
 			return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE);
 		}

@@ -7,12 +7,17 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 
 import net.itsplace.domain.JpaPaging;
 import net.itsplace.domain.JsonResponse;
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
+import net.itsplace.domain.PlaceReview;
+import net.itsplace.domain.QPlaceComment;
+import net.itsplace.domain.QPlaceReview;
 import net.itsplace.domain.PlaceComment.AddPlaceComment;
+import net.itsplace.domain.dto.PlaceUserMedia;
 import net.itsplace.domain.PlaceEvent;
 import net.itsplace.module.event.PlaceEventService;
 import net.itsplace.module.menu.PlaceMenuService;
@@ -21,6 +26,7 @@ import net.itsplace.service.MediaService;
 import net.itsplace.service.PlaceCommentService;
 import net.itsplace.service.PlaceReviewService;
 import net.itsplace.service.PlaceService;
+import net.itsplace.service.PlaceUserMediaService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
 
 
 import com.mysema.query.types.Predicate;
@@ -57,9 +64,15 @@ public class PlaceController {
 	@Autowired
 	MediaService mediaService;
 	
+	
+	
+	@Autowired
+	WebApplicationContext webApplicationContext;
+	
 	@Autowired
 	PlaceMenuService placeMenuService;
-	
+	@Autowired
+	PlaceUserMediaService placeUserMediaService;
 		
 	
 	@Inject
@@ -145,21 +158,15 @@ public class PlaceController {
 
 	@RequestMapping(value = "/place/view/{fid}", method = RequestMethod.GET)
 	public String view( @PathVariable Integer fid, Model model) {
-		model.addAttribute("place", placeService.getPlace(fid));
+		Place place = placeService.getPlace(fid);
+		model.addAttribute("place", place);
 		//Map<String, Object> param  = pagingManaer.createMysqlLimit(1, 10);
 	//	param.put("fid", fid);
 		
-		model.addAttribute("placeMedias",mediaService.findByPlace(fid));
+		model.addAttribute("placeUserMedias", placeUserMediaService.findByPlace(place));
 		model.addAttribute("placeEventList", placeEventService.getPlaceEventList(fid));
-		
-		
 		model.addAttribute("placeComments", placeCommentService.findPlaceCommentList(fid));
 		model.addAttribute("placeReviewList",placeReviewService.getPlaceReviewAll(fid));	
-		
-		
-		
-		
-		
 		model.addAttribute("placeMenuList", placeMenuService.findByPlace(fid));
 	
 //		model.addAttribute("placeStampList",placeService.getPlaceStampListByPlace(fid));
@@ -192,6 +199,22 @@ public class PlaceController {
 		}
 		return "web/place/view";
 	}
+	@RequestMapping(value = "/place/viewajax/{fid}", method = RequestMethod.GET)
+	public String viewTest( @PathVariable Integer fid, Model model) {
+		
+		String imageHost2 = (String) webApplicationContext.getServletContext().getAttribute("ImageHost");
+		
+		logger.info("imageHost2:"+imageHost2);
+		
+		/*Place place = placeService.getPlace(fid);
+		model.addAttribute("place", place);
+		model.addAttribute("placeUserMedias", placeUserMediaService.findByPlace(place));
+		model.addAttribute("placeEventList", placeEventService.getPlaceEventList(fid));
+		model.addAttribute("placeComments", placeCommentService.findPlaceCommentList(fid));
+		model.addAttribute("placeReviewList",placeReviewService.getPlaceReviewAll(fid));	
+		model.addAttribute("placeMenuList", placeMenuService.findByPlace(fid));*/
+		return "web/place/viewajax";
+	}
 	/**
 	 * 가맹점 상세보기  <br />
 	 * 
@@ -208,11 +231,15 @@ public class PlaceController {
 	public @ResponseBody Map place( @PathVariable Integer fid, Model model) {
 		
 		Map<String, Object> map  = new HashMap();
+		Place place = placeService.getPlace(fid);
+		map.put("place", place);
 		
-		//map.put("place", placeService.getPlace(fid));
+		//카메라슬라이더  가맹점 이미지
+		map.put("placeMedias",mediaService.findByPlace(place));
 		
-		//카메라슬라이더 // 가맹점 이미지
-		map.put("placeMedias",mediaService.findByPlace(fid));
+		map.put("placeUserMedias", placeUserMediaService.findByPlace(place));
+		
+    	
 		
 		//map.put("placeEventList", placeEventService.getPlaceEventList(fid));
 		
@@ -264,7 +291,8 @@ public class PlaceController {
 			 PlaceComment placeComment = new PlaceComment();
 			 placeComment.setComment(comment);
 			 placeComment.setPlace(place);
-			 json.setStatus("SUCCESS");
+			 placeCommentService.savePlaceComment(placeComment);
+			 json.setSuccess();
 		 }
 
 	    return json;

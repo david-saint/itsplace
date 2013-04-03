@@ -126,9 +126,9 @@
 	.modal, 
 	.modal.container,
 	.modal.modal-overflow 	{
-		top: 1%;
-		right: 1%;
-		left: 1%;
+		top: 5%;
+		right: 5%;
+		left: 5%;
 		bottom: auto;
 		width: auto !important;
 		height: auto !important;
@@ -147,9 +147,10 @@
 	.modal-overflow .modal-body {
 		position: static;
 		margin: 0;
-		height: auto !important;
-		max-height: none !important;
-		overflow: visible !important;
+		overflow-y:none; 
+		/* height: auto !important;
+		max-height: none !important; 
+		overflow: visible !important;*/
 	}
 	
 	.modal-footer,
@@ -167,7 +168,7 @@
 
 /*
 Animate.css - http://daneden.me/animate
-Licensed under the ☺ license (http://licence.visualidiot.com/)
+Licensed under the ��license (http://licence.visualidiot.com/)
 
 Copyright (c) 2012 Dan Eden*/
 

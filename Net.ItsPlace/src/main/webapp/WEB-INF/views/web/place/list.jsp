@@ -1,10 +1,19 @@
 <%@ page  pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/common/taglib.jsp" %>
 <c:set var="title" value="도서목록"/>
+<!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/isotope.css" />" />
+		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/fancybox/jquery.fancybox.css?v=2.1.4" />" media="screen" />
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/view.css" />" media="screen" />
+
 <script type="text/javascript">
+var IMAGEHOST = '${applicationScope.ImageHost}';
 /* var socket = io.connect('http://localhost:8070');
 socket.on('connect', function () {
     console.log("connected socket");
@@ -36,8 +45,9 @@ socket.on("SetRoomList", function (data) {
   	 }
 }); */
 $.fn.modal.defaults.maxHeight = function(){
-    // subtract the height of the modal header and footer
-    return $(window).height() - 205; 
+    //modal-body 높이 지정
+    //return $(window).height() - 205;
+    return "95%";
 }
 $(document).ready(function() {
 	 
@@ -125,20 +135,90 @@ function mouseout() {
 <body>
 
  <div  id="jqmWindow"   class=" modal hide fade " data-width="1260">
-	<div class="modal-header">
+	<!-- <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Modal header</h3>
-  </div>
+    <h3 id="myModalLabel">Modal headerddd</h3>
+  </div> -->
   <div class="modal-body" >
-    <div id="modal-test">
-		
-		<!-- <iframe id="placeView" ></iframe> -->
-	</div>
-  </div>
-  <div class="modal-footer">
+				   
+											
+				<div id="view" class="container-fluid" >
+				      <div class="row-fluid" > 
+				        <div class="span8">
+				          <h3 id="placeName" class="dynamicContent"></h3>
+				        </div>
+				        <div class="span4">
+				          	네이게이션메뉴
+				        </div>
+				     </div>
+				     <!-- 가맹점사진  medialist -->
+				     <div class="row-fluid">
+				     	<div class="span8">
+				     		 <!-- #camera_wrap_1 -->
+				         	 <div class="camera_wrap camera_azure_skin dynamicContent" id="camera_wrap_1">
+				             </div>
+				        </div>
+				        <div class="span4 sidebar">
+				        <h5 class="short_headline"><span>공유하기</span></h5>
+				        	<ul>
+								<li>좋아요 조회수 공유버튼
+								</li>
+								<li>리뷰횟수</li>
+							</ul>
+				        <h5 class="short_headline"><span>상세정보</span></h5>
+							<ul id="placeDetail" class="dynamicContent">
+								
+							</ul>
+				        </div>
+				     </div>
+				    <!-- 사용자 미디어 -->
+				   <div class="row-fluid" style="border: 0px solid #ff5821;background-color: #fff;">
+					<ul class="nav nav-tabs" id="placeTab">
+						<li class="active"><a href="#review" data-toggle="tab" state="0">리뷰</a></li>
+						<li><a href="#profile" data-toggle="tab" state="0"> 지도</a></li>
+						<li><a href="#messages" data-toggle="tab" state="0">스탬프</a></li>
+						<li><a href="#events" data-toggle="tab" state="0">이벤트</a></li>
+					</ul>
+				
+							<div class="tab-content">
+								<div class="tab-pane active " id="review">
+									<ul class="nav nav-pills nav-justified">
+										<li class="active"><a id="btnFilter" href="#">필터1</a></li>
+										<li><a href="#">Profile</a></li>
+										<li><a href="#">Messages</a></li>
+									</ul>
+									
+								</div>
+								<!-- review end -->
+								<div class="tab-pane" id="profile">.pppp..</div>
+								<div class="tab-pane" id="messages">.mmmm..</div>
+								<div class="tab-pane" id="events">
+									<div class="accordion" id="accordionEvents"></div>
+								</div>
+							</div>
+						</div>
+				     
+				     
+				     <div class="row-fluid">
+							<form id="placeComment" >
+				             
+				              <div class=" controls controls-row" style="">
+				                <img id="imageUrl" class="span1 img-rounded" style="width:70px;height:61px" src="<sec:authentication property='principal.user.profileImageUrl' />"/>
+				                <input type="hidden" name="fid" value="${place.fid}" />
+								<textarea name="comment" class="span10" rows="2"  style="margin-left: 25px;"></textarea>
+							  <button id="btnComment" class="span1 btn " style="height:61px; float:right;"  class="blueButton">남기기</button>	
+								
+				              </div>
+								
+							</form>
+				     </div>
+</div>
+	
+  </div><!-- modal body -->
+  <!-- <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     <button class="btn btn-primary">Save changes</button>
-  </div>
+  </div> -->
 		
 	
 </div>
@@ -236,6 +316,17 @@ function mouseout() {
 <input id="currentRoom" type="hidden"  value="waitRoom"/> 
 
 
-<script type="text/javascript" src="${context}/resources/web/js/camera.min.js"></script>	
+<!-- camera slider -->
+	 <script type="text/javascript" src="${context}/resources/web/js/camera.min.js"></script>
+	 <script type="text/javascript" src="${context}/resources/web/js/jquery.easing.1.3.js" ></script>
+	 <script type="text/javascript" src="${context}/resources/web/js/jquery.isotope.min.js" ></script>	 
+	 <!-- camera slider -->
+	 <script type="text/javascript" src="${context}/resources/web/js/fancybox/jquery.fancybox.pack.js" /></script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			
+		});
+</script>		
+		}
 </body>
 </html>

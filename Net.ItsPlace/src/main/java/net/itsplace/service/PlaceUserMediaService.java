@@ -1,47 +1,55 @@
-package net.itsplace.repository;
-
-import static org.junit.Assert.*;
+package net.itsplace.service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 
 import net.itsplace.domain.Place;
 import net.itsplace.domain.PlaceComment;
-import net.itsplace.domain.PlaceMedia;
 import net.itsplace.domain.PlaceReview;
 import net.itsplace.domain.QPlaceComment;
-import net.itsplace.domain.QPlaceMedia;
 import net.itsplace.domain.QPlaceReview;
 import net.itsplace.domain.dto.PlaceUserMedia;
-import net.itsplace.init.TestApplicationContext;
+import net.itsplace.repository.PlaceCommentRepository;
+import net.itsplace.repository.PlaceRepository;
+import net.itsplace.repository.PlaceReviewRepository;
 
-import org.apache.velocity.runtime.directive.Foreach;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Comparator;
+
+import javax.servlet.ServletContext;
 
 import com.mysema.query.types.Predicate;
 
-public class PlaceCommentRepositoryTest extends TestApplicationContext {
-	  
-	private static final Logger logger  = LoggerFactory.getLogger(PlaceCommentRepositoryTest.class); 
+public interface PlaceUserMediaService {
+	
+	public List<PlaceUserMedia> findByPlace(Place place);
+}
+
+@Service("PlaceUserMediaService")
+class PlaceUserMediaServiceImpl implements PlaceUserMediaService {
+	private static final Logger logger = LoggerFactory.getLogger(PlaceUserMediaService.class);
+	
 
 	@Autowired
-	PlaceCommentRepository commentRepo;
+	WebApplicationContext webApplicationContext;
 	
+	@Autowired
+	PlaceCommentRepository commentRepo;
 	@Autowired
 	PlaceReviewRepository reviewRepo;
 	
-	@Test
-	public void testFindByPlace() {
-		Place place = new Place();
-		place.setFid(46);
-		
-		
+	@Override
+	public List<PlaceUserMedia> findByPlace(Place place) {
 		List<PlaceUserMedia> userMedias = new ArrayList();
+		String imageHost = (String) webApplicationContext.getServletContext().getAttribute("ImageHost");
+		logger.info("imagehost:"+imageHost);
 		QPlaceComment placeComment = QPlaceComment.placeComment;
 		Predicate predicate = placeComment.isDelete.eq(false).and(placeComment.place.eq(place));
     	Iterable<PlaceComment> list = commentRepo.findAll(predicate);
@@ -53,7 +61,7 @@ public class PlaceCommentRepositoryTest extends TestApplicationContext {
 			placeUserMedia.setTitle("");
 			placeUserMedia.setMtype("comment");
 			placeUserMedia.setContent(c.getComment());
-			placeUserMedia.setUrl("");
+			placeUserMedia.setUrl( c.getFilePath());
 			placeUserMedia.setCreateDate(c.getSaveDate());
 			userMedias.add(placeUserMedia);
 		}
@@ -74,23 +82,15 @@ public class PlaceCommentRepositoryTest extends TestApplicationContext {
 			placeUserMedia.setCreateDate(r.getSaveDate());
 			userMedias.add(placeUserMedia);
 		}
-		
-    	//userMedias
     	Comparator compate = new Comparator<PlaceUserMedia>() {
 
 			@Override
 			public int compare(PlaceUserMedia o1, PlaceUserMedia o2) {
-				if(o1.getCreateDate().compareTo(o2.getCreateDate()) == 0){
-					
-					return 0;
-				}else{
-					return 1;
-				}
-				
-				
+				//o1.getCreateDate()
+				return 0;
 			}
 		};
+    	//Collections.sort(userMedias, )
+		return userMedias;
 	}
-	
-
 }

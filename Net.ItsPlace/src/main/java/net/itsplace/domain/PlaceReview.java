@@ -1,5 +1,7 @@
 package net.itsplace.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +29,7 @@ public class PlaceReview {
 	private String imageHost;
 	private String filePath;
 	private Boolean isDelete;
+	private Date saveDate;
 	public int getRid() {
 		return rid;
 	}
@@ -74,6 +77,14 @@ public class PlaceReview {
 	}
 	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+	
+	
+	public Date getSaveDate() {
+		return saveDate;
+	}
+	public void setSaveDate(Date saveDate) {
+		this.saveDate = saveDate;
 	}
 	public String toString(){
 		return ToStringBuilder.reflectionToString(this,ToStringStyle.MULTI_LINE_STYLE);
