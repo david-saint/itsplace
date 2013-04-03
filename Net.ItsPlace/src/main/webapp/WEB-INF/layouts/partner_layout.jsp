@@ -171,7 +171,7 @@
 			<div id="shadowhead"></div>
                  <div id="left_menu">
                     <ul id="main_menu" class="main_menu">
-		                <li class="limenu0 select"><a href="<c:url value="/partner" />"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
+		                <li class="limenu0 select"><a href="<c:url value="/partner" />"><span class="ico gray shadow home" ></span><b>partnaer Dashboard</b></a></li>
 		                <li class="limenu1" ><a href="<c:url value="/partner/stamp/list" />" ><span class="ico gray shadow window"></span><b>스탬프관리 </b></a>
 		                </li>
 		                <li class="limenu" ><a href="<c:url value="/partner/user/list" />"><span class="ico gray  dimensions" ></span><b>직원관리</b></a>
