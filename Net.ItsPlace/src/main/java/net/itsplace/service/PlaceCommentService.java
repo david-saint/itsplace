@@ -72,6 +72,7 @@ class PlaceCommentServiceImpl  implements PlaceCommentService {
 	@Override
 	public void savePlaceComment(PlaceComment placeComment) {
 		placeComment.setSaveDate(new Date());
+		placeComment.setIsDelete(false);
 		placeComment.setUser(UserInfo.getUser());
 			
 		repo.save(placeComment);

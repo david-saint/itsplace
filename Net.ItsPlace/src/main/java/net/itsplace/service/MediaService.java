@@ -33,7 +33,7 @@ public interface MediaService {
 	/* 가맹점 대표 이미지 삭제  */
 	public void deleteMediaProfile(PlaceMedia media);
 	
-	public Iterable<PlaceMedia> findByPlace(int fid);
+	public Iterable<PlaceMedia> findByPlace(Place place);
 }
 
 @Service("MediaService")
@@ -144,9 +144,8 @@ class MediaSeviceImpl implements MediaService{
 
 
 	@Override
-	public Iterable<PlaceMedia> findByPlace(int fid) {
+	public Iterable<PlaceMedia> findByPlace(Place place) {
 		QPlaceMedia placeMedia = QPlaceMedia.placeMedia;
-		Place place = placeService.getPlace(fid);
 		Predicate predicate = placeMedia.size.eq("L").and(placeMedia.isDelete.eq(false)).and(placeMedia.place.eq(place));
         return repo.findAll(predicate);
 		//return repo.findByPlace(placeService.getPlace(fid));

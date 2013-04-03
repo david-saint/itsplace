@@ -26,6 +26,7 @@ public class InitApplication implements ApplicationContextInitializer<Configurab
 			imageHost = "http://itsplace.sungwon-it.com/img";
 			
 		}
+		
 		ctx.getServletContext().setAttribute("ImageHost", imageHost);
 		logger.info("적용 이미지호스트 URL:"+imageHost);
 		

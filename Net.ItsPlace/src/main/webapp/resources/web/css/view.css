@@ -1,0 +1,117 @@
+#placeTab a {
+	text-decoration: none;
+}
+
+.accordion-heading  a {
+	text-decoration: none;
+}
+
+.accordion-group {
+	border: 0px solid #e5e5e5 !important;
+}
+
+.short_headline {
+	border-bottom: 1px solid #d8dfe5;
+	margin: 0 0 1em 0;
+	text-transform: lowercase;
+	padding-bottom: 9px;
+	line-height: normal;
+}
+
+.short_headline span {
+	border-bottom: 5px solid #d8dfe5;
+	padding-bottom: 10px;
+	color: #758694;
+}
+
+.sidebar {
+	background-color: #fff;
+	height: 385px;
+	background-image:
+		url(http://bombdiggitydesign.com/crisp/Crisp-cool/assets/images/rule.png);
+	/* background-position: 54.5% 0; */
+	background-repeat: repeat-y;
+	padding: 10px;
+	text-shadow: 0px 1px 0px #fff;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, .15), 0px 2px 1px
+		rgba(0, 0, 0, .10), 0px 3px 1px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, .15), 0px 2px 1px
+		rgba(0, 0, 0, .10), 0px 3px 1px rgba(0, 0, 0, .05);
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, .15), 0px 2px 1px
+		rgba(0, 0, 0, .10), 0px 3px 1px rgba(0, 0, 0, .05);
+}
+
+.userMedias {
+	margin-left: 5px !important;
+}
+
+.thumbnail img:hover {
+	opacity: .2;
+}
+
+.thumbnail-figure {
+	margin: 0 0 24px;
+	position: relative;
+	background: #333333;
+}
+
+.thumbnail-title {
+	position: absolute;
+	top: 80%;
+	margin-top: -30px;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+.thumbnail-title span {
+	display: inline-block;
+	font-size: 10px;
+	background: white;
+	background: rgba(255, 255, 255, 0.8);
+	color: black;
+	padding: 5px 10px;
+	/* text-shadow: 1px 1px 1px white; */
+	margin-top: 1px;
+}
+
+.review-text>.text {
+	padding-bottom: 45px;
+}
+
+.caption-text {
+	position: absolute;
+	top: 95%;
+	margin-top: -30px;
+	margin-left: -4px;
+	-webkit-transition: all 0.7s;
+	-moz-transition: all 0.7s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+.caption-text span {
+	display: inline-block;
+	background: white;
+	background: rgba(88, 78, 78, 0.8);
+	color: rgb(248, 248, 248);
+	padding: 5px 10px;
+	/* text-shadow: 1px 1px 1px white; */
+	margin-top: 1px;
+}
+
+.thumbnail-figure img {
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+body {
+	background:
+		url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
+}

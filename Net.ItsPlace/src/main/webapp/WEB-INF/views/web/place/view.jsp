@@ -11,113 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/camera.css" />" />
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/isotope.css" />" />
 		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=3cc715fbd2c405578092bdae6c2a3a6867790d9f" charset="utf-8"></script>
-		
 		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/js/fancybox/jquery.fancybox.css?v=2.1.4" />" media="screen" />
-			
-		<style>
-		#placeTab a{
-			text-decoration: none;
-		}
-		.accordion-heading  a {
-			text-decoration: none;
-		}
-		.accordion-group {
-			border: 0px solid #e5e5e5 !important;
-		}
-		.short_headline {
-			border-bottom: 1px solid #d8dfe5;
-			margin: 0 0 1em 0;
-			text-transform: lowercase;
-			padding-bottom: 9px;
-			line-height: normal;
-			}
-		.short_headline span {
-			border-bottom: 5px solid #d8dfe5;
-			padding-bottom: 10px;
-			color: #758694;
-			}
-			.sidebar{
-			background-color: #fff;
-			height: 385px;
-				background-image: url(http://bombdiggitydesign.com/crisp/Crisp-cool/assets/images/rule.png);
-				/* background-position: 54.5% 0; */
-				background-repeat: repeat-y;
-				padding:10px;
-							text-shadow: 0px 1px 0px #fff;
-				-webkit-border-radius: 4px;
-				-moz-border-radius: 4px;
-				border-radius: 4px;
-				-webkit-box-shadow: 0px 1px 1px rgba(0,0,0,.15), 0px 2px 1px rgba(0,0,0,.10), 0px 3px 1px rgba(0,0,0,.05);
-				-moz-box-shadow: 0px 1px 1px rgba(0,0,0,.15), 0px 2px 1px rgba(0,0,0,.10), 0px 3px 1px rgba(0,0,0,.05);
-				box-shadow: 0px 1px 1px rgba(0,0,0,.15), 0px 2px 1px rgba(0,0,0,.10), 0px 3px 1px rgba(0,0,0,.05);
-			}
-			
-			.userMedias{
-				margin-left:5px !important;
-			}
-			.thumbnail img:hover {
-				opacity: .2;
-			}
-					.thumbnail-figure {
-						margin: 0 0 24px;
-						position: relative;
-						background: #333333;
-					}
-		.thumbnail-title {
-			position: absolute;
-			top: 80%;
-			margin-top: -30px;
-			-webkit-transition: all 0.2s;
-			-moz-transition: all 0.2s;
-			-o-transition: all 0.2s;
-			transition: all 0.2s;
-		}
-		.thumbnail-title span {
-			display: inline-block;
-			font-size:10px;
-			background: white;
-			background: rgba(255, 255, 255, 0.8);
-			color: black;
-			padding: 5px 10px;
-			/* text-shadow: 1px 1px 1px white; */
-			margin-top: 1px;
-		}
-
-			.review-text > .text{
-				padding-bottom:45px;	
-			}
-		.caption-text{
-			position: absolute;
-			top: 95%;
-			margin-top: -30px;
-			margin-left:-4px;
-			-webkit-transition: all 0.7s;
-			-moz-transition: all 0.7s;
-			-o-transition: all 0.2s;
-			transition: all 0.2s;
-		}
-		.caption-text span {
-			display: inline-block;
-			background: white;
-			background: rgba(88, 78, 78, 0.8);
-			color: rgb(248, 248, 248);
-			padding: 5px 10px;
-			/* text-shadow: 1px 1px 1px white; */
-			margin-top: 1px;
-		}
-		
-.thumbnail-figure img {
--webkit-transition: all 0.2s;
--moz-transition: all 0.2s;
--o-transition: all 0.2s;
-transition: all 0.2s;
-}
-
-body{
-background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
-}
-
-		</style>		
+		<link rel="stylesheet" type="text/css" href="<c:url value="/resources/web/css/view.css" />" media="screen" />	
 </head>
 <body>
 
@@ -137,7 +32,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
      		
          	<%--  <img src="${applicationScope.ImageHost}${place.fileName}" height="300" /> --%>
          	 <div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-               <%-- 
+               
                 <div data-thumb="${context}/resources/web/js/slides/thumbs/bridge.jpg" data-src="${context}/resources/web/js/slides/bridge.jpg">
                     <div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">The text of your html element</div>
                 </div>
@@ -161,7 +56,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
                     <div class="camera_caption moveFromTop">
                         Different color skins and layouts available, <em>fullscreen ready too</em>
                     </div>
-                </div> --%>
+                </div> 
               </div><!-- #camera_wrap_1 -->  
               
         </div>
@@ -196,140 +91,138 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
      	
      </div>
      <!-- 사용자 미디어 -->
-     <div class="row-fluid" style="border: 0px solid #ff5821;background-color: #fff;">
-      <ul class="nav nav-tabs" id="placeTab">
-			  <li class="active"><a href="#review" data-toggle="tab" state="0">리뷰</a></li>
-			  <li><a href="#profile" data-toggle="tab" state="0"> 지도</a></li>
-			  <li><a href="#messages" data-toggle="tab" state="0">스탬프</a></li>
-			  <li><a href="#events" data-toggle="tab" state="0">이벤트</a></li>
-			</ul>
-			 
-			<div class="tab-content">
-			  <div class="tab-pane active" id="review">
-			  
-			  
-			  			<ul class="nav nav-pills nav-justified">
-						  <li class="active"><a id="btnFilter" href="#">필터1</a></li>
-						  <li><a href="#">Profile</a></li>
-						  <li><a href="#">Messages</a></li>
-						</ul>
-						     <div id="isotope">
-						      <ul class="thumbnails" >
-						      	<c:forEach var="media" items="${placeMedias}">
-					             <li class="span3 userMedias">
-								     <div class="thumbnail">
-								    <a class="fancybox" href="${applicationScope.ImageHost}${media.mUrl}" data-fancybox-group="gallery" title="Etiam quis mi eu elit temp">
-									    <figure class="thumbnail-figure">
-							            <img  style="width: 260px; height: 180px;" src="${applicationScope.ImageHost}${media.mUrl}">
-							            
-						            
-						            
-						            <figcaption class="thumbnail-title">
-						             
-						              <p>
-						                <span>오늘. 홍길동</span>
-						              </p>
-						            </figcaption>
-						            </figure>
-								    </a>  
-								      <p>Thumbnail caption..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
-								    </div>
-								  </li>    	
-				               			
-								</c:forEach>
-								
-						      	 <li class="span3 userMedias rental " >
-						      	    <div class="thumbnail review-text">
-								    <p  class="text">안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
-								    </p>
-								    <div class="caption-text">
-						              <p>
-						                <span>Managing director</span>
-						              </p>
-						            </div>
-						            </div>
-								  </li> 
-								  
-								   <li class="span3 userMedias rental review-text" style="border:0px solid blue;">
-								   		<div class="thumbnail review-text">
-									    <p  class="text">dfxfxfxdfxdf요
-									    </p>
-									    <div class="caption-text">
-							              <p>
-							                <span>Managing director</span>
-							              </p>
-							            </div>
-							            </div>
-								  </li> 
-								  
-								   <li class="span3 userMedias renta review-text" style="border:0px solid red;">
-								    <div class="thumbnail review-text">
-									    <p  class="text">하하하하하하하하하하하하하하하하하하하하
-									    </p>
-									    <div class="caption-text">
-							              <p>
-							                <span>Managing director</span>
-							              </p>
-							            </div>
-							            </div>
-								  </li> 
-								  
-								  
-								   <li class="span3 userMedias">
-								     <div class="thumbnail">
-									    <a href="#">
-									    <div class="thumbnail-figure">
-							            <img style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg">
-							            
-							            <div class="thumbnail-title">
-							              
-							              <p>
-							                <span>Managing director</span>
-							              </p>
-							            </div>
-							            </div>
-									    </a>  
-									      <h3>Thumbnail label</h3>
-									      <p>Thumbnail 안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
-									    </div>
-								  </li>    	
-								  <li class="span3 userMedias rental review-text" style="border:0px solid blue;">
-								   		<div class="thumbnail review-text">
-									    <p  class="text">xxxxxxxxxxxxxxxxxxxxxxxxxxx
-									    </p>
-									    <div class="caption-text">
-							              <p>
-							                <span>Managing director</span>
-							              </p>
-							            </div>
-							            </div>
-								  </li> 
-								  
-								  <li class="span3 userMedias">
-								     <div class="thumbnail">
-								    <a href="#">
-								    <figure class="thumbnail-figure">
-						            <img style="width: 260px; height: 180px;" src="${context}/resources/web/js/slides/thumbs/tree.jpg">
-						            
-						            <figcaption class="thumbnail-title">
-						              <h3>
-						                <span>Betty Doe</span>
-						              </h3>
-						              <p>
-						                <span>Managing director</span>
-						              </p>
-						            </figcaption>
-						            </figure>
-								    </a>  
-								      <h3>Thuail label</h3>
-								      <p>Thumbna..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
-								    </div>
-								  </li>    	
-								  
-						      </ul>
-						     </div>
-			  </div><!-- review end -->
-			  <div class="tab-pane" id="profile">.pppp..</div>
+   <div class="row-fluid" style="border: 0px solid #ff5821;background-color: #fff;">
+	<ul class="nav nav-tabs" id="placeTab">
+		<li class="active"><a href="#review" data-toggle="tab"
+			state="0">리뷰</a></li>
+		<li><a href="#profile" data-toggle="tab" state="0"> 지도</a></li>
+		<li><a href="#messages" data-toggle="tab" state="0">스탬프</a></li>
+		<li><a href="#events" data-toggle="tab" state="0">이벤트</a></li>
+	</ul>
+
+<div class="tab-content">
+			<div class="tab-pane active" id="review">
+				<ul class="nav nav-pills nav-justified">
+					<li class="active"><a id="btnFilter" href="#">필터1</a></li>
+					<li><a href="#">Profile</a></li>
+					<li><a href="#">Messages</a></li>
+				</ul>
+				<div id="isotope">
+					<ul class="thumbnails">
+						<c:forEach var="media" items="${placeUserMedias}">
+								<li class="span3 userMedias">
+									<div class="thumbnail">
+										<a class="fancybox"
+											href="${applicationScope.ImageHost}${media.url}"
+											data-fancybox-group="gallery"
+											title="Etiam quis mi eu elit temp">
+											<figure class="thumbnail-figure">
+												<img style="width: 260px; height: 180px;"
+													src="${applicationScope.ImageHost}${media.url}">
+												<figcaption class="thumbnail-title">
+
+													<p>
+														<span>${media.createDate }</span>
+													</p>
+												</figcaption>
+											</figure>
+										</a>
+										<p>${media.content }</p>
+									</div>
+								</li>
+							</c:forEach>
+							<li class="span3 userMedias rental ">
+								<div class="thumbnail review-text">
+									<p class="text">안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
+									</p>
+									<div class="caption-text">
+										<p>
+											<span>Managing director</span>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="span3 userMedias rental review-text"
+								style="border: 0px solid blue;">
+								<div class="thumbnail review-text">
+									<p class="text">dfxfxfxdfxdf요</p>
+									<div class="caption-text">
+										<p>
+											<span>Managing director</span>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="span3 userMedias renta review-text"
+								style="border: 0px solid red;">
+								<div class="thumbnail review-text">
+									<p class="text">하하하하하하하하하하하하하하하하하하하하</p>
+									<div class="caption-text">
+										<p>
+											<span>Managing director</span>
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="span3 userMedias">
+								<div class="thumbnail">
+									<a href="#">
+										<div class="thumbnail-figure">
+											<img style="width: 260px; height: 180px;"
+												src="${context}/resources/web/js/slides/thumbs/tree.jpg">
+				
+											<div class="thumbnail-title">
+				
+												<p>
+													<span>Managing director</span>
+												</p>
+											</div>
+										</div>
+									</a>
+									<h3>Thumbnail label</h3>
+									<p>Thumbnail
+										안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
+								</div>
+							</li>
+							<li class="span3 userMedias rental review-text"
+								style="border: 0px solid blue;">
+								<div class="thumbnail review-text">
+									<p class="text">xxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+									<div class="caption-text">
+										<p>
+											<span>Managing director</span>
+										</p>
+									</div>
+								</div>
+							</li>
+
+							<li class="span3 userMedias">
+								<div class="thumbnail">
+									<a href="#">
+										<figure class="thumbnail-figure">
+											<img style="width: 260px; height: 180px;"
+												src="${context}/resources/web/js/slides/thumbs/tree.jpg">
+				
+											<figcaption class="thumbnail-title">
+												<h3>
+													<span>Betty Doe</span>
+												</h3>
+												<p>
+													<span>Managing director</span>
+												</p>
+											</figcaption>
+										</figure>
+									</a>
+									<h3>Thuail label</h3>
+									<p>Thumbna..ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ.</p>
+								</div>
+							</li>
+
+					</ul>
+				</div>
+			</div>
+<!-- review end -->
+<div class="tab-pane" id="profile">.pppp..</div>
 			  <div class="tab-pane" id="messages">.mmmm..</div>
 			  
 			  <div class="tab-pane" id="events">
@@ -473,7 +366,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 	    </div>
                     
      </div>  --%>
-     <div class="row-fluid">
+     <!-- <div class="row-fluid">
      	<div class="media">
               <a class="fancybox pull-left" href="#">
                 <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABM0lEQVR4Xu2YQQ4CIQxFZ+7GsTkTV9C4IKlYoATQRt6sJhls6ee3L3KnlB7Xwc+NADiAFmAGHDwDL4YgFIACUAAKQIGDFQCDYBAMgkEweDAE+DMEBsEgGASDYBAMTigQY3z7dQjhI1peo32rpd4Vt8w3hcGyMK1QWYhVgF1xNbGXCqAlWCHAqrhfF6Bm494J91rG0h7Wrl7iAJlM2nxWgNG41qLluiUC5KLlydXec/LWKbYc0os7KsLPBHhttGb1vxKgPJHSLfm71jotZ9XiunGA3Mjo0OutL9vIitflFJA21k6ytlFLgZZJ36OFxQ1TM8CSwPsaBOBChAsRLkS4EPE+qXfuDwpAASgABaDAzinrPTYUgAJQAApAAe+Teuf+oAAUgAJQAArsnLLeY0MBKHA4BZ4dA7WQLRJORAAAAABJRU5ErkJggg==">
@@ -492,7 +385,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
               </div>
         </div>     	
-     </div>
+     </div> -->
      
      
      <div class="row-fluid">
@@ -725,37 +618,7 @@ background: url("http://wbpreview.com/previews/WB0C44S9M/img/bg-wrapper.jpg")
 	
 	 <script type="text/javascript">
 		$(document).ready(function() {
-			//view ajax
-			$.ajax({
-				url : "/place/46",
-				type : "GET",				
-				success : function(response) {
-					util.log(response);
-					util.log(response.placeMedias);
-					var placeMedias = "";
-					$.each(response.placeMedias, function(i){
-						util.log('${applicationScope.ImageHost}' +this.mUrl);
-						placeMedias +='<div data-thumb="" data-src="${applicationScope.ImageHost}'+this.mUrl+'">'+
-				                      '<div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">'+this.mTitle+'</div>'+
-		   		                      '</div>';
-					});
-					$('#camera_wrap_1').append(placeMedias);
-					 jQuery('#camera_wrap_1').camera({
-				        	fx: 'random', time: 2000, loader: 'none', playPause: false,
-				            pagination: true,
-				            thumbnails: false,
-				            hover: false,
-				            opacityOnGrid: true
-				          
-				         });
-				
-				},
-				error : function(jqXHR,textStatus,errorThrown) {
-					console.log(textStatus
-							+ jqXHR
-							+ errorThrown);
-				}
-			});
+			
 			
 			
 			$('.fancybox').fancybox({

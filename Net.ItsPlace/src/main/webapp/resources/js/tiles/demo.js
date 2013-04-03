@@ -419,7 +419,7 @@ var debounce = function(func, wait, immediate) {
 		$('.place-view').live('click',function(e) {
 			// $('#placeView').attr('src','/place/view/'+$(this).parent().attr('id'));
 			// $('#`Window').jqmShow();
-			 
+			$('#isotope').remove();
 			makeView($(this).parent().attr('id'));
 			
 			 $('#jqmWindow').modal({
@@ -445,26 +445,113 @@ var debounce = function(func, wait, immediate) {
 
  }
  
-function makeView(fid){console.log("makeview");
-	$('.modal-body').empty();
-	 $.ajax({
-	        type: 'GET'
-	        , url: "/place/"+fid
-	        , success: function(data) {
-	        	console.log(data.place.fname);
-	        	/*console.log("count:"+data.result.length);
-	        	for(i=0;i<data.result.length;i++){
-	        		console.log( data.result[i].fname);
-	        	}*/
-	        	
-	        }
-	 		, error: function(data, status, err) {
-	 			console.log(data);
-	 		}
-	 		, complete: function() {
-	 			
-	 		}
-	 });
+function makeView(fid){
+	console.log("makeview");
+	$('.dynamicContent').empty();
+	$.ajax({
+		url : "/place/"+fid,
+		type : "GET",				
+		success : function(response) {
+			util.log(response);
+			util.log(response.place.fullAddress);
+			/* place Detail*/
+			$('#placeName').text(response.place.fname);
+			var placeDetail = "";
+			placeDetail += response.place.phone1 !=""? '<li><span class="detail">'+response.place.phone1+'</span></li>' : "" + 
+						   response.place.fullAddress !=""? '<li><span class="detail">'+response.place.fullAddress+'</span></li>' : "" +
+						   response.place.openDay !=""? '<li><span class="detail">'+response.place.openDay+'</span></li>' : "" +
+						   response.place.parkInfo !=""? '<li><span class="detail">'+response.place.parkInfo+'</span></li>' : "" +
+						   response.place.payInfo !=""? '<li><span class="detail">'+response.place.payInfo+'</span></li>' : "" ;
+			
+			$('#placeDetail').append(placeDetail);															     
+			
+			
+			//response.place
+			/* camera slider */
+			var placeMedias = "";
+			$.each(response.placeMedias, function(i){
+				//util.log('${applicationScope.ImageHost}' +this.mUrl);
+				placeMedias +='<div data-thumb="" data-src="'+IMAGEHOST+this.mUrl+'">'+
+		                      '<div class="camera_caption fadeFromLeft" style="position:absolute;top:100px">'+this.mTitle+'</div>'+
+   		                      '</div>';
+			});
+			$('#camera_wrap_1').append(placeMedias);
+			jQuery('#camera_wrap_1').camera({
+		        	fx: 'random', time: 2000, loader: 'none', playPause: false,
+		            pagination: true,
+		            thumbnails: false,
+		            hover: false,
+		            opacityOnGrid: true
+		          
+		    });
+			/* UserMedia Review */
+			var placeUserMedias = "";
+			placeUserMedias +='<div id="isotope"><ul id="userMedias" class="thumbnails ">';
+			$.each(response.placeUserMedias, function(i){
+				util.log("userMedia:"+IMAGEHOST+this.url);
+				
+				if(this.url==null || this.url==""){
+					placeUserMedias +=  '<li class="span3 userMedias rental ">' +
+										'<div class="thumbnail review-text">' +
+										'	<p class="text">'+this.content+ '</p>' +
+										'	<div class="caption-text">' +
+										'		<p>' +
+										'			<span>'+ this.createDate+'</span>' +
+										'		</p>' +
+										'	</div>' +
+										'</div>' +
+										'</li>	' ;
+				}else{
+					placeUserMedias +=  '<li class="span3 userMedias">' +
+					'<div class="thumbnail">'+
+					'<a class="fancybox" href="'+IMAGEHOST+this.url+'" data-fancybox-group="gallery" title="">' +
+					'<figure class="thumbnail-figure">'+
+					'<img style="width: 260px; height: 180px;" src="'+IMAGEHOST+this.url+'">'+
+					'<figcaption class="thumbnail-title">'+
+					'<p><span>'+this.createDate+'</span></p>'+
+					'</figcaption>'+
+					'</figure>'+
+					'</a>'+
+					'<p>'+this.content+'</p>'+
+					'</div>'+
+					'</li>';
+					
+				}
+			});
+			placeUserMedias += '</ul></div>';
+			
+			//$('#isotope').isotope('destory');
+			
+			$('#review').after(placeUserMedias);
+			//$('#userMedias').empty();
+			
+			
+			
+			//$('#userMedias').append(placeUserMedias);
+			$('#isotope').isotope({
+
+					//filter: "*",
+					itemSelector:'.userMedias',
+	   	 			//layoutMode:'fitRows',
+					animationOptions: {
+						duration: 750,
+						easing: 'linear',
+						queue: false,
+					},
+					masonry: { columnWidth: 1  }
+			});
+			//$('#isotope').height('auto');
+			$('.fancybox').fancybox({
+				openEffect  : 'elastic',
+				closeEffect : 'elastic'
+			});
+		},
+		error : function(jqXHR,textStatus,errorThrown) {
+			console.log(textStatus
+					+ jqXHR
+					+ errorThrown);
+		}
+	});
 } 
 function makePlace(rows, tileId){
 	 var html = new StringBuffer();
